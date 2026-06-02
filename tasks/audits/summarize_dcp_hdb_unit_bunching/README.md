@@ -9,6 +9,7 @@ This audit checks whether proposed new-building unit counts bunch below the 485-
 - Timing: `date_filed`, because the descriptive target is filing/proposal behavior.
 - Size: `classa_prop`, because the descriptive target is proposed Class A units.
 - Headline pre/post figure: average annual 2010-2023 distribution versus 2025 distribution.
+- Figure outputs: PDF only.
 - Transition marker: April 20, 2024, the statutory adoption date for RPTL 485-x.
 
 ## Interpretation

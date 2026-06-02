@@ -202,6 +202,31 @@ prepost_exact_plot <- ggplot(headline_counts, aes(x = proposed_units, y = buildi
   ) +
   audit_theme(base_size = 11)
 
+histogram_df <- analysis_df %>%
+  filter(filed_year <= 2023 | filed_year == 2025) %>%
+  filter(proposed_units >= 50, proposed_units <= 150) %>%
+  mutate(
+    headline_period = factor(
+      ifelse(filed_year <= 2023, "Pre: 2010-2023 average year", "Post: 2025"),
+      levels = c("Pre: 2010-2023 average year", "Post: 2025")
+    ),
+    observation_weight = ifelse(filed_year <= 2023, 1 / 14, 1)
+  )
+
+prepost_histogram_plot <- ggplot(histogram_df, aes(x = proposed_units, weight = observation_weight)) +
+  geom_histogram(binwidth = 5, boundary = 50, color = "white", fill = "#b8b8b8") +
+  geom_vline(xintercept = 99, color = "#b2182b", linewidth = 0.6) +
+  geom_vline(xintercept = 100, color = "#2166ac", linewidth = 0.6, linetype = "dashed") +
+  facet_wrap(~ headline_period, ncol = 1, scales = "free_y") +
+  scale_x_continuous(breaks = seq(50, 150, 10)) +
+  labs(
+    title = "Pre/post histogram of proposed units in DCP HDB new-building filings",
+    subtitle = "Five-unit bins; pre-period is annualized. Red line marks 99 and dashed blue line marks 100.",
+    x = "Proposed Class A units",
+    y = "Buildings per year"
+  ) +
+  audit_theme(base_size = 11)
+
 bin_widths <- c(1, 2, 5, 10)
 
 bin_counts <- lapply(bin_widths, function(bin_width) {
@@ -279,10 +304,8 @@ write_csv_if_changed(year_summary, "../output/dcp_hdb_unit_bunching_year_summary
 write_csv_if_changed(period_summary, "../output/dcp_hdb_unit_bunching_period_summary.csv")
 
 ggsave("../output/dcp_hdb_unit_bunching_pre_post_exact.pdf", prepost_exact_plot, width = 8, height = 8)
-ggsave("../output/dcp_hdb_unit_bunching_pre_post_exact.png", prepost_exact_plot, width = 8, height = 8, dpi = 200)
+ggsave("../output/dcp_hdb_unit_bunching_pre_post_histogram.pdf", prepost_histogram_plot, width = 8, height = 8)
 ggsave("../output/dcp_hdb_unit_bunching_bin_sensitivity.pdf", bin_sensitivity_plot, width = 10, height = 9)
-ggsave("../output/dcp_hdb_unit_bunching_bin_sensitivity.png", bin_sensitivity_plot, width = 10, height = 9, dpi = 200)
 ggsave("../output/dcp_hdb_unit_bunching_year_start.pdf", year_start_plot, width = 9, height = 5)
-ggsave("../output/dcp_hdb_unit_bunching_year_start.png", year_start_plot, width = 9, height = 5, dpi = 200)
 
 cat("Wrote DCP HDB unit bunching audit outputs to ../output\n")
