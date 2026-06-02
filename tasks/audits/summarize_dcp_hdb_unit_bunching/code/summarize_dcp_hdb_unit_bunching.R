@@ -188,10 +188,9 @@ headline_counts <- analysis_df %>%
   mutate(buildings_per_year = building_count / headline_years)
 
 prepost_exact_plot <- ggplot(headline_counts, aes(x = proposed_units, y = buildings_per_year)) +
-  geom_col(aes(fill = proposed_units == 99), width = 0.9, show.legend = FALSE) +
+  geom_col(fill = "#b8b8b8", width = 0.9) +
   geom_vline(xintercept = 100, color = "#2166ac", linewidth = 0.6, linetype = "dashed") +
   facet_wrap(~ headline_period, ncol = 1, scales = "free_y") +
-  scale_fill_manual(values = c("FALSE" = "#b8b8b8", "TRUE" = "#4d4d4d")) +
   scale_x_continuous(breaks = seq(50, 150, 10)) +
   labs(
     title = "DCP Housing Database new-building filings show a 99-unit spike in 2025",
@@ -252,14 +251,13 @@ bin_counts <- lapply(bin_widths, function(bin_width) {
   ))
 
 bin_sensitivity_plot <- ggplot(bin_counts, aes(x = bin_mid, y = buildings_per_year)) +
-  geom_col(aes(fill = includes_99), width = 0.9, show.legend = FALSE) +
+  geom_col(fill = "#b8b8b8", width = 0.9) +
   geom_vline(xintercept = 100, color = "#2166ac", linewidth = 0.5, linetype = "dashed") +
   facet_grid(bin_width_label ~ headline_period, scales = "free_y") +
-  scale_fill_manual(values = c("FALSE" = "#b8b8b8", "TRUE" = "#4d4d4d")) +
   scale_x_continuous(breaks = seq(50, 150, 25)) +
   labs(
     title = "Bunching remains visible under multiple unit-bin widths",
-    subtitle = "Highlighted bins contain 99 proposed units; dashed line marks the 100-unit threshold.",
+    subtitle = "Dashed line marks the 100-unit threshold.",
     x = "Proposed Class A units",
     y = "Buildings per year"
   ) +
