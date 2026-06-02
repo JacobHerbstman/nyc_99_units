@@ -1,0 +1,49 @@
+# System and editor files
+.DS_Store
+.Rhistory
+__pycache__/
+node_modules/
+.claude/
+
+# Logs
+*.log
+slurmlogs/
+tasks/*/slurmlogs/
+tasks/audits/*/slurmlogs/
+
+# Raw and task-generated data
+data_raw/
+tasks/*/input/
+tasks/*/output/
+tasks/*/temp/
+tasks/audits/*/input/
+tasks/audits/*/output/
+tasks/audits/*/temp/
+
+# Secrets
+.Renviron
+
+# Archive and deprecated task areas
+tasks/_deprecated/
+tasks/archive/
+
+# Paper build artifacts
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fff
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.pdf
+paper/*.synctex.gz
+paper/*.ttt
+
+# Scratch
+tmp/
+LOCAL_PROJECT_MEMO.md
+
+# Auto-generated graphics
+Rplots.pdf
+**/code/Rplots.pdf

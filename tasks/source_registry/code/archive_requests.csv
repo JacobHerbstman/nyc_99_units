@@ -1,0 +1,2 @@
+request_id,custodian,portal_or_contact,records_requested,date_range,submitted_date,status,returned_filename,notes
+hpd_485x_registrations_001,NYC HPD,HPD Records Access / FOIL,"Project-level 485-x registration notices and application records with BBL, address, owner, applicant, commencement date, filing date, residential units, option, and benefit status.",2024-present,,not_submitted,,Track whether HPD publishes a public extract before submitting.
