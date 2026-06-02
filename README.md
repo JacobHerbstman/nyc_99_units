@@ -55,4 +55,15 @@ The treatment object should not be observed post-policy unit count. The initial 
 - `tasks/estimate_land_price_incidence`
 - `tasks/estimate_developer_avoidance`
 
-Only `setup_environment` and `source_registry` are active in the bootstrap. The remaining tasks should be created as the corresponding data and estimators become concrete.
+## Active Tasks
+
+- `tasks/setup_environment`
+- `tasks/source_registry`
+- `tasks/fetch_dcp_housing_database`
+- `tasks/load_dcp_housing_database_raw`
+- `tasks/stage_dcp_housing_database`
+- `tasks/audits/summarize_dcp_hdb_unit_bunching`
+
+The first active audit checks the proposed-unit distribution for DCP Housing Database new-building filings from 2010 through 2025. It uses `date_filed` and `classa_prop` as the main descriptive definition, compares annualized 2010-2023 counts to 2025, and keeps 2024 as a transition year around the April 20, 2024 statutory adoption date.
+
+The remaining planned tasks should be created as the corresponding data and estimators become concrete.
