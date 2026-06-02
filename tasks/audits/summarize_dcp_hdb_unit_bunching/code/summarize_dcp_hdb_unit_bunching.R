@@ -189,10 +189,9 @@ headline_counts <- analysis_df %>%
 
 prepost_exact_plot <- ggplot(headline_counts, aes(x = proposed_units, y = buildings_per_year)) +
   geom_col(aes(fill = proposed_units == 99), width = 0.9, show.legend = FALSE) +
-  geom_vline(xintercept = 99, color = "#b2182b", linewidth = 0.6) +
   geom_vline(xintercept = 100, color = "#2166ac", linewidth = 0.6, linetype = "dashed") +
   facet_wrap(~ headline_period, ncol = 1, scales = "free_y") +
-  scale_fill_manual(values = c("FALSE" = "#b8b8b8", "TRUE" = "#b2182b")) +
+  scale_fill_manual(values = c("FALSE" = "#b8b8b8", "TRUE" = "#4d4d4d")) +
   scale_x_continuous(breaks = seq(50, 150, 10)) +
   labs(
     title = "DCP Housing Database new-building filings show a 99-unit spike in 2025",
@@ -215,13 +214,12 @@ histogram_df <- analysis_df %>%
 
 prepost_histogram_plot <- ggplot(histogram_df, aes(x = proposed_units, weight = observation_weight)) +
   geom_histogram(binwidth = 5, boundary = 50, color = "white", fill = "#b8b8b8") +
-  geom_vline(xintercept = 99, color = "#b2182b", linewidth = 0.6) +
   geom_vline(xintercept = 100, color = "#2166ac", linewidth = 0.6, linetype = "dashed") +
   facet_wrap(~ headline_period, ncol = 1, scales = "free_y") +
   scale_x_continuous(breaks = seq(50, 150, 10)) +
   labs(
     title = "Pre/post histogram of proposed units in DCP HDB new-building filings",
-    subtitle = "Five-unit bins; pre-period is annualized. Red line marks 99 and dashed blue line marks 100.",
+    subtitle = "Five-unit bins; pre-period is annualized. Dashed blue line marks the 100-unit threshold.",
     x = "Proposed Class A units",
     y = "Buildings per year"
   ) +
@@ -257,7 +255,7 @@ bin_sensitivity_plot <- ggplot(bin_counts, aes(x = bin_mid, y = buildings_per_ye
   geom_col(aes(fill = includes_99), width = 0.9, show.legend = FALSE) +
   geom_vline(xintercept = 100, color = "#2166ac", linewidth = 0.5, linetype = "dashed") +
   facet_grid(bin_width_label ~ headline_period, scales = "free_y") +
-  scale_fill_manual(values = c("FALSE" = "#b8b8b8", "TRUE" = "#b2182b")) +
+  scale_fill_manual(values = c("FALSE" = "#b8b8b8", "TRUE" = "#4d4d4d")) +
   scale_x_continuous(breaks = seq(50, 150, 25)) +
   labs(
     title = "Bunching remains visible under multiple unit-bin widths",
@@ -284,7 +282,7 @@ year_start_plot <- ggplot(year_plot_df, aes(x = filed_year, y = count, color = s
   geom_point(size = 1.8) +
   geom_vline(xintercept = 2024 + 110 / 366, color = "#555555", linetype = "dashed", linewidth = 0.5) +
   scale_color_manual(values = c(
-    "Exact 99-unit filings" = "#b2182b",
+    "Exact 99-unit filings" = "#4d4d4d",
     "Mean exact count among 90-98 and 100-109" = "#2166ac"
   )) +
   scale_x_continuous(breaks = seq(2010, 2025, 1)) +
