@@ -11,6 +11,7 @@ suppressPackageStartupMessages({
 source("../../../_lib/source_pipeline_utils.R")
 
 deadline_421a <- as.Date("2022-06-15")
+candidate_min_classa_prop <- 70L
 
 panel <- read_parquet("../input/hdb_mappluto_training_panel.parquet") |>
   as.data.frame() |>
@@ -524,6 +525,84 @@ holdout_deciles <- holdout_test_eval |>
   ) |>
   arrange(pred_p100_decile)
 
+candidate70_train_eval <- holdout_train_eval |>
+  filter(classa_prop >= candidate_min_classa_prop)
+
+candidate70_test_eval <- holdout_test_eval |>
+  filter(classa_prop >= candidate_min_classa_prop)
+
+if (nrow(candidate70_train_eval) == 0 || nrow(candidate70_test_eval) == 0) {
+  stop("Candidate-size holdout training and test samples must both be non-empty.")
+}
+
+if (sum(candidate70_train_eval$y100_num) == 0 || sum(candidate70_train_eval$y100_num == 0) == 0) {
+  stop("Candidate-size training sample must contain both y100 and non-y100 rows.")
+}
+
+if (sum(candidate70_test_eval$y100_num) == 0 || sum(candidate70_test_eval$y100_num == 0) == 0) {
+  stop("Candidate-size test sample must contain both y100 and non-y100 rows.")
+}
+
+candidate70_fit_summary <- bind_rows(
+  binary_holdout_metrics("train_2019_2020", candidate70_train_eval),
+  binary_holdout_metrics("test_2021_2022h1", candidate70_test_eval),
+  continuous_holdout_metrics(
+    "train_2019_2020",
+    candidate70_train_eval,
+    "ols_log_units",
+    "log_classa_prop",
+    candidate70_train_eval$log_units,
+    candidate70_train_eval$pred_log_units,
+    mean(candidate70_train_eval$log_units)
+  ),
+  continuous_holdout_metrics(
+    "test_2021_2022h1",
+    candidate70_test_eval,
+    "ols_log_units",
+    "log_classa_prop",
+    candidate70_test_eval$log_units,
+    candidate70_test_eval$pred_log_units,
+    mean(candidate70_train_eval$log_units)
+  ),
+  continuous_holdout_metrics(
+    "train_2019_2020",
+    candidate70_train_eval,
+    "ols_units",
+    "classa_prop",
+    candidate70_train_eval$classa_prop,
+    candidate70_train_eval$pred_units,
+    mean(candidate70_train_eval$classa_prop)
+  ),
+  continuous_holdout_metrics(
+    "test_2021_2022h1",
+    candidate70_test_eval,
+    "ols_units",
+    "classa_prop",
+    candidate70_test_eval$classa_prop,
+    candidate70_test_eval$pred_units,
+    mean(candidate70_train_eval$classa_prop)
+  )
+) |>
+  mutate(candidate_min_classa_prop = candidate_min_classa_prop, .before = split)
+
+candidate70_deciles <- candidate70_test_eval |>
+  mutate(pred_p100_decile = ntile(pred_p100, 10L)) |>
+  group_by(pred_p100_decile) |>
+  summarise(
+    candidate_min_classa_prop = candidate_min_classa_prop,
+    split = "test_2021_2022h1",
+    rows = n(),
+    y100_rows = sum(y100_num),
+    y100_share = mean(y100_num),
+    mean_pred_p100 = mean(pred_p100),
+    min_pred_p100 = min(pred_p100),
+    max_pred_p100 = max(pred_p100),
+    capture_share = sum(y100_num) / sum(candidate70_test_eval$y100_num),
+    mean_classa_prop = mean(classa_prop),
+    .groups = "drop"
+  ) |>
+  arrange(pred_p100_decile)
+
 write_csv_if_changed(logit_coefficients, "../output/basic_logit_coefficients.csv")
 write_csv_if_changed(log_units_coefficients, "../output/basic_log_units_coefficients.csv")
 write_csv_if_changed(units_coefficients, "../output/basic_units_coefficients.csv")
@@ -532,4 +611,6 @@ write_csv_if_changed(sample_by_year, "../output/basic_regression_sample_by_year.
 write_csv_if_changed(feature_summary, "../output/basic_regression_feature_summary.csv")
 write_csv_if_changed(holdout_fit_summary, "../output/basic_holdout_fit_summary.csv")
 write_csv_if_changed(holdout_deciles, "../output/basic_holdout_deciles.csv")
+write_csv_if_changed(candidate70_fit_summary, "../output/basic_holdout_candidate70_fit_summary.csv")
+write_csv_if_changed(candidate70_deciles, "../output/basic_holdout_candidate70_deciles.csv")
 cat("Wrote basic HDB-MapPLUTO regression audit outputs to ../output\n")
