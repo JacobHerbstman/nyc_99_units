@@ -144,7 +144,9 @@ exclusion_reason_by_y100 <- panel |>
 vintage_use <- panel |>
   count(
     filing_year,
+    pluto_source_id_latest_pre_filing,
     pluto_version_latest_pre_filing,
+    pluto_source_id_used,
     pluto_version_used,
     pluto_timing_status,
     primary_sample,
@@ -289,6 +291,18 @@ summarise_window <- function(window_name, window_rows) {
 
 model_windows <- bind_rows(
   summarise_window(
+    "expanded_backfill_train_2010_to_2022_06_15",
+    panel |> filter(date_filed >= as.Date("2010-01-01"), date_filed <= deadline_421a)
+  ),
+  summarise_window(
+    "primary_leakage_safe_train_2010_to_2022_06_15",
+    panel |> filter(primary_leakage_safe_sample, date_filed >= as.Date("2010-01-01"), date_filed <= deadline_421a)
+  ),
+  summarise_window(
+    "primary_leakage_safe_legacy_2010_to_2015",
+    panel |> filter(primary_leakage_safe_sample, date_filed >= as.Date("2010-01-01"), date_filed <= as.Date("2015-12-31"))
+  ),
+  summarise_window(
     "expanded_backfill_train_2016_to_2022_06_15",
     panel |> filter(date_filed >= as.Date("2016-01-01"), date_filed <= deadline_421a)
   ),
@@ -430,17 +444,21 @@ latest_feature_rows <- list()
 latest_versions <- panel |>
   filter(
     primary_sample,
+    !is.na(pluto_source_id_latest_pre_filing),
     !is.na(pluto_version_latest_pre_filing),
+    !is.na(pluto_source_id_used),
     !is.na(pluto_version_used),
-    pluto_version_latest_pre_filing != pluto_version_used
+    pluto_source_id_latest_pre_filing != pluto_source_id_used |
+      pluto_version_latest_pre_filing != pluto_version_used
   ) |>
-  distinct(pluto_version_latest_pre_filing) |>
-  arrange(pluto_version_latest_pre_filing)
+  distinct(pluto_source_id_latest_pre_filing, pluto_version_latest_pre_filing) |>
+  arrange(pluto_source_id_latest_pre_filing, pluto_version_latest_pre_filing)
 
 for (i in seq_len(nrow(latest_versions))) {
+  latest_source_id <- latest_versions$pluto_source_id_latest_pre_filing[i]
   latest_version <- latest_versions$pluto_version_latest_pre_filing[i]
   latest_path <- mappluto_lot_files |>
-    filter(source_id == "dcp_mappluto_archive", vintage == latest_version) |>
+    filter(source_id == latest_source_id, vintage == latest_version) |>
     pull(parquet_path)
 
   if (length(latest_path) != 1) {
@@ -454,7 +472,11 @@ for (i in seq_len(nrow(latest_versions))) {
   }
 
   needed_bbl <- panel |>
-    filter(primary_sample, pluto_version_latest_pre_filing == latest_version) |>
+    filter(
+      primary_sample,
+      pluto_source_id_latest_pre_filing == latest_source_id,
+      pluto_version_latest_pre_filing == latest_version
+    ) |>
     distinct(bbl)
 
   latest_lots <- read_parquet(parquet_path) |>
@@ -468,9 +490,14 @@ for (i in seq_len(nrow(latest_versions))) {
     rename_with(~ paste0("latest_", .x), all_of(latest_lag_features))
 
   latest_feature_rows[[i]] <- panel |>
-    filter(primary_sample, pluto_version_latest_pre_filing == latest_version) |>
+    filter(
+      primary_sample,
+      pluto_source_id_latest_pre_filing == latest_source_id,
+      pluto_version_latest_pre_filing == latest_version
+    ) |>
     select(
-      job_number, bbl, pluto_version_used, pluto_version_latest_pre_filing,
+      job_number, bbl, pluto_source_id_used, pluto_version_used,
+      pluto_source_id_latest_pre_filing, pluto_version_latest_pre_filing,
       all_of(latest_lag_features)
     ) |>
     left_join(latest_lots, by = "bbl", relationship = "many-to-one")
@@ -535,26 +562,36 @@ latest_2023_candidates <- panel |>
     valid_bbl,
     primary_sample,
     exclusion_reason,
+    pluto_source_id_used,
     pluto_version_used,
+    pluto_source_id_latest_pre_filing,
     pluto_version_latest_pre_filing
   )
 
 latest_2023_match_rows <- list()
 latest_2023_versions <- latest_2023_candidates |>
-  filter(!is.na(pluto_version_latest_pre_filing)) |>
-  distinct(pluto_version_latest_pre_filing) |>
-  arrange(pluto_version_latest_pre_filing)
+  filter(!is.na(pluto_source_id_latest_pre_filing), !is.na(pluto_version_latest_pre_filing)) |>
+  distinct(pluto_source_id_latest_pre_filing, pluto_version_latest_pre_filing) |>
+  arrange(pluto_source_id_latest_pre_filing, pluto_version_latest_pre_filing)
 
 for (i in seq_len(nrow(latest_2023_versions))) {
+  latest_source_id <- latest_2023_versions$pluto_source_id_latest_pre_filing[i]
   latest_version <- latest_2023_versions$pluto_version_latest_pre_filing[i]
   latest_path <- mappluto_lot_files |>
-    filter(source_id == "dcp_mappluto_archive", vintage == latest_version) |>
+    filter(source_id == latest_source_id, vintage == latest_version) |>
     pull(parquet_path)
 
   needed_bbl <- latest_2023_candidates |>
-    filter(pluto_version_latest_pre_filing == latest_version, valid_bbl) |>
+    filter(
+      pluto_source_id_latest_pre_filing == latest_source_id,
+      pluto_version_latest_pre_filing == latest_version,
+      valid_bbl
+    ) |>
     distinct(bbl) |>
-    mutate(pluto_version_latest_pre_filing = latest_version)
+    mutate(
+      pluto_source_id_latest_pre_filing = latest_source_id,
+      pluto_version_latest_pre_filing = latest_version
+    )
 
   if (length(latest_path) != 1) {
     latest_2023_match_rows[[i]] <- needed_bbl |>
@@ -590,10 +627,17 @@ for (i in seq_len(nrow(latest_2023_versions))) {
       latest_match_status = if_else(n() == 1L, "matched_unique", "duplicate_mappluto_bbl"),
       .groups = "drop"
     ) |>
-    mutate(pluto_version_latest_pre_filing = latest_version)
+    mutate(
+      pluto_source_id_latest_pre_filing = latest_source_id,
+      pluto_version_latest_pre_filing = latest_version
+    )
 
   latest_2023_match_rows[[i]] <- needed_bbl |>
-    left_join(latest_status, by = c("pluto_version_latest_pre_filing", "bbl"), relationship = "many-to-one") |>
+    left_join(
+      latest_status,
+      by = c("pluto_source_id_latest_pre_filing", "pluto_version_latest_pre_filing", "bbl"),
+      relationship = "many-to-one"
+    ) |>
     mutate(
       latest_match_status = if_else(is.na(latest_match_status), "no_mappluto_match", latest_match_status)
     )
@@ -601,6 +645,7 @@ for (i in seq_len(nrow(latest_2023_versions))) {
 
 latest_2023_matches <- if (length(latest_2023_match_rows) == 0) {
   tibble(
+    pluto_source_id_latest_pre_filing = character(),
     pluto_version_latest_pre_filing = character(),
     bbl = character(),
     latest_match_status = character(),
@@ -612,7 +657,11 @@ latest_2023_matches <- if (length(latest_2023_match_rows) == 0) {
 }
 
 latest_2023_panel <- latest_2023_candidates |>
-  left_join(latest_2023_matches, by = c("pluto_version_latest_pre_filing", "bbl"), relationship = "many-to-one") |>
+  left_join(
+    latest_2023_matches,
+    by = c("pluto_source_id_latest_pre_filing", "pluto_version_latest_pre_filing", "bbl"),
+    relationship = "many-to-one"
+  ) |>
   mutate(
     latest_match_status = case_when(
       is.na(pluto_version_latest_pre_filing) ~ NA_character_,

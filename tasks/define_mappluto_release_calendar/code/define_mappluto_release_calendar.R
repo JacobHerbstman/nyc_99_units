@@ -69,16 +69,18 @@ if (any(diff(usable_calendar$safe_available_date) < 0)) {
 
 staged_training_vintages <- mappluto_lot_files |>
   filter(
-    source_id == "dcp_mappluto_archive",
-    str_detect(as.character(vintage), "^(18|19|20|21|22|23)v"),
+    (source_id == "dcp_pluto_archive" & str_detect(as.character(vintage), "^(09|10|11|12|13|14|15|16|17)v|^18v1$")) |
+      (source_id == "dcp_mappluto_archive" & str_detect(as.character(vintage), "^(18|19|20|21|22|23)v")),
     if ("raw_status" %in% names(mappluto_lot_files)) raw_status == "loaded" else TRUE
   ) |>
-  distinct(vintage = as.character(vintage))
+  distinct(source_id = as.character(source_id), vintage = as.character(vintage))
 
-missing_from_calendar <- setdiff(staged_training_vintages$vintage, calendar$vintage)
+calendar_keys <- paste(calendar$source_id, calendar$vintage, sep = "::")
+staged_keys <- paste(staged_training_vintages$source_id, staged_training_vintages$vintage, sep = "::")
+missing_from_calendar <- setdiff(staged_keys, calendar_keys)
 
 if (length(missing_from_calendar) > 0) {
-  stop("Staged MapPLUTO training vintages missing from calendar: ", paste(missing_from_calendar, collapse = ", "))
+  stop("Staged PLUTO/MapPLUTO training vintages missing from calendar: ", paste(missing_from_calendar, collapse = ", "))
 }
 
 calendar <- calendar |>

@@ -13,10 +13,10 @@ source("../../_lib/source_pipeline_utils.R")
 
 mappluto_files <- read_csv("../input/mappluto_files.csv", show_col_types = FALSE, na = c("", "NA"))
 
-extract_mappluto_release_from_path <- function(path) {
+extract_pluto_release_from_path <- function(path) {
   release <- str_match(
     tolower(basename(path)),
-    "nyc_mappluto_([0-9]{2}v[0-9]+(?:_[0-9]+)?)(?:_arc)?_shp[.]zip$"
+    "^nyc_(?:mappluto|pluto)_([0-9]{2}v[0-9]+(?:_[0-9]+)?|[0-9]{2}[a-z])(?:_arc)?(?:_shp|_csv)?[.]zip$"
   )[, 2]
 
   str_replace_all(release, "_", ".")
@@ -45,6 +45,19 @@ zip_has_valid_listing <- function(path) {
   identical(status, 0L) && length(listing) > 0
 }
 
+delimited_pluto_columns <- c(
+  "Borough", "BoroCode", "Block", "Lot", "BBL", "Address", "CD", "ZipCode",
+  "CT2010", "Tract2010", "CT2000", "CB2010", "CB2000", "SchoolDist", "Council",
+  "ZoneDist1", "ZoneDist2", "ZoneDist3", "ZoneDist4", "Overlay1", "Overlay2",
+  "SPDist1", "SPDist2", "SPDist3", "LtdHeight", "SplitZone", "ZoneMap", "ZMCode",
+  "LotArea", "UnitsRes", "UnitsTotal", "ComArea", "YearBuilt", "YearAlter1",
+  "YearAlter2", "BldgArea", "ResArea", "OfficeArea", "RetailArea", "GarageArea",
+  "StrgeArea", "FactryArea", "OtherArea", "AreaSource", "NumBldgs", "NumFloors",
+  "LotFront", "LotDepth", "BldgFront", "BldgDepth", "APPDate", "AssessLand",
+  "AssessTot", "ExemptTot", "HistDist", "Landmark", "BuiltFAR", "ResidFAR",
+  "CommFAR", "FacilFAR", "FIRM07_FLAG", "PFIRM15_FLAG", "LandUse", "BldgClass"
+)
+
 extract_mappluto_table <- function(raw_path) {
   read_path <- raw_path
   read_mode <- if (str_detect(tolower(raw_path), "\\.gpkg$")) "gpkg" else "dbf"
@@ -54,10 +67,19 @@ extract_mappluto_table <- function(raw_path) {
     temp_dir <- tempfile(pattern = "mappluto_")
     dir.create(temp_dir, recursive = TRUE, showWarnings = FALSE)
     zip_listing <- suppressWarnings(system2("unzip", c("-Z1", raw_path), stdout = TRUE, stderr = FALSE))
+    table_entries <- zip_listing[str_detect(tolower(zip_listing), "\\.(csv|txt)$")]
+    table_entries <- table_entries[!str_detect(tolower(basename(table_entries)), "change|dictionary|readme|layout|lay|dates")]
     dbf_entry <- zip_listing[str_detect(tolower(zip_listing), "\\.dbf$")][1]
     gpkg_entry <- zip_listing[str_detect(tolower(zip_listing), "\\.gpkg$")][1]
 
-    if (!is.na(dbf_entry) && nzchar(dbf_entry)) {
+    if (length(table_entries) > 0) {
+      unzip_status <- suppressWarnings(system2("unzip", c("-oj", raw_path, table_entries, "-d", temp_dir), stdout = FALSE, stderr = FALSE))
+      if (!identical(unzip_status, 0L)) {
+        stop("System unzip failed for PLUTO table files in ", raw_path)
+      }
+      read_path <- file.path(temp_dir, basename(table_entries))
+      read_mode <- "delimited"
+    } else if (!is.na(dbf_entry) && nzchar(dbf_entry)) {
       unzip_status <- suppressWarnings(system2("unzip", c("-oj", raw_path, dbf_entry, "-d", temp_dir), stdout = FALSE, stderr = FALSE))
       if (!identical(unzip_status, 0L)) {
         stop("System unzip failed for DBF in ", raw_path)
@@ -72,10 +94,12 @@ extract_mappluto_table <- function(raw_path) {
       read_path <- file.path(temp_dir, basename(gpkg_entry))
       read_mode <- "gpkg"
     } else {
-      stop("No .dbf or .gpkg found in ", raw_path)
+      stop("No .csv, .txt, .dbf, or .gpkg found in ", raw_path)
     }
   } else if (str_detect(tolower(raw_path), "\\.dbf$")) {
     read_mode <- "dbf"
+  } else if (str_detect(tolower(raw_path), "\\.(csv|txt)$")) {
+    read_mode <- "delimited"
   } else if (!str_detect(tolower(raw_path), "\\.gpkg$")) {
     dbf_candidates <- list.files(dirname(raw_path), pattern = "\\.dbf$", recursive = FALSE, full.names = TRUE)
     if (length(dbf_candidates) > 0) {
@@ -89,6 +113,16 @@ extract_mappluto_table <- function(raw_path) {
   pluto <- if (read_mode == "dbf") {
     read.dbf(read_path, as.is = TRUE) |>
       as_tibble()
+  } else if (read_mode == "delimited") {
+    bind_rows(lapply(read_path, function(path) {
+      read_csv(
+        path,
+        col_select = any_of(delimited_pluto_columns),
+        show_col_types = FALSE,
+        col_types = cols(.default = col_character()),
+        lazy = FALSE
+      )
+    }))
   } else {
     st_read(read_path, quiet = TRUE, stringsAsFactors = FALSE) |>
       st_drop_geometry() |>
@@ -166,12 +200,16 @@ extract_mappluto_table <- function(raw_path) {
 }
 
 available_rows <- mappluto_files |>
-  filter(file_role == "mappluto_shapefile_zip", file.exists(raw_path)) |>
+  filter(
+    (source_id == "dcp_mappluto_archive" & file_role == "mappluto_shapefile_zip") |
+      (source_id == "dcp_pluto_archive" & file_role == "pluto_csv_zip"),
+    file.exists(raw_path)
+  ) |>
   mutate(
     raw_path = as.character(raw_path),
     vintage = as.character(vintage),
     fetch_status = as.character(status),
-    raw_file_release = extract_mappluto_release_from_path(raw_path),
+    raw_file_release = extract_pluto_release_from_path(raw_path),
     raw_zip_valid = vapply(raw_path, zip_has_valid_listing, logical(1)),
     status = case_when(
       !fetch_status %in% c("downloaded", "already_present", "redownloaded_after_validation_failure") ~ "upstream_fetch_not_valid",

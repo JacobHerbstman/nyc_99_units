@@ -12,11 +12,13 @@ source("../../_lib/source_pipeline_utils.R")
 
 source_catalog <- read_csv("../input/source_catalog.csv", show_col_types = FALSE, na = c("", "NA"))
 pluto_row <- source_catalog |> filter(source_id == "dcp_pluto_current")
+pluto_archive_row <- source_catalog |> filter(source_id == "dcp_pluto_archive")
 mappluto_current_row <- source_catalog |> filter(source_id == "dcp_mappluto_current")
 mappluto_archive_row <- source_catalog |> filter(source_id == "dcp_mappluto_archive")
 
-if (nrow(pluto_row) != 1 || nrow(mappluto_current_row) != 1 || nrow(mappluto_archive_row) != 1) {
-  stop("Source catalog must contain dcp_pluto_current, dcp_mappluto_current, and dcp_mappluto_archive.")
+if (nrow(pluto_row) != 1 || nrow(pluto_archive_row) != 1 ||
+    nrow(mappluto_current_row) != 1 || nrow(mappluto_archive_row) != 1) {
+  stop("Source catalog must contain current and archived PLUTO/MapPLUTO sources.")
 }
 
 pull_date <- resolve_raw_pull_date(list(
@@ -41,6 +43,10 @@ asset_is_valid <- function(path) {
 
   if (str_detect(tolower(path), "\\.zip$")) {
     return(zip_is_valid(path))
+  }
+
+  if (str_detect(tolower(path), "\\.json$")) {
+    return(!inherits(try(jsonlite::fromJSON(path, simplifyVector = FALSE), silent = TRUE), "try-error"))
   }
 
   isTRUE(file.info(path)$size > 0)
@@ -77,10 +83,23 @@ normalize_release_label <- function(x) {
   str_to_lower(str_replace_all(as.character(x), "_", "."))
 }
 
+url_file_name <- function(url) {
+  basename(str_remove(as.character(url), "\\?.*$"))
+}
+
 parse_mappluto_archive_release <- function(url) {
   raw_release <- str_match(
-    basename(url),
+    url_file_name(url),
     "^nyc_mappluto_([0-9]{2}v[0-9]+(?:_[0-9]+)?)_arc_shp\\.zip$"
+  )[, 2]
+
+  ifelse(is.na(raw_release), NA_character_, str_replace_all(raw_release, "_", "."))
+}
+
+parse_pluto_archive_release <- function(url) {
+  raw_release <- str_match(
+    url_file_name(url),
+    "^nyc_pluto_([0-9]{2}v[0-9]+(?:_[0-9]+)?|[0-9]{2}[A-Za-z])\\.zip$"
   )[, 2]
 
   ifelse(is.na(raw_release), NA_character_, str_replace_all(raw_release, "_", "."))
@@ -131,6 +150,12 @@ if (length(archive_rows) == 0) {
   stop("Could not find archived MapPLUTO shapefile releases in the DCP archive JSON.")
 }
 
+pluto_archive_rows <- archive_json[vapply(archive_json, function(x) identical(x$dataset, "PLUTO™"), logical(1))]
+
+if (length(pluto_archive_rows) == 0) {
+  stop("Could not find archived PLUTO releases in the DCP archive JSON.")
+}
+
 archive_release_rows <- bind_rows(lapply(archive_rows, function(row) {
   bind_rows(lapply(row$releases, function(release_row) {
     tibble(
@@ -144,10 +169,33 @@ archive_release_rows <- bind_rows(lapply(archive_rows, function(row) {
     file_release = parse_mappluto_archive_release(official_url),
     release_label_url_match = release_label_matches_file(release_label, file_release),
     release = if_else(release_label_url_match, release_label, file_release)
-  )
+  ) |>
+  filter(str_detect(release, "^(18|19|20|21|22|23)v"))
 
 if (nrow(archive_release_rows) == 0) {
   stop("The DCP archive JSON returned zero archived MapPLUTO shapefile releases.")
+}
+
+pluto_archive_release_rows <- bind_rows(lapply(pluto_archive_rows, function(row) {
+  bind_rows(lapply(row$releases, function(release_row) {
+    tibble(
+      archive_year = as.character(row$year),
+      release_label = as.character(release_row$text),
+      official_url = as.character(release_row$link)
+    )
+  }))
+})) |>
+  mutate(
+    file_release = parse_pluto_archive_release(official_url),
+    release_label_url_match = release_label_matches_file(release_label, file_release),
+    release = if_else(release_label_url_match, release_label, file_release)
+  ) |>
+  filter(
+    str_detect(release, "^(09|10|11|12|13|14|15|16|17)v") | release == "18v1"
+  )
+
+if (nrow(pluto_archive_release_rows) == 0) {
+  stop("The DCP archive JSON returned zero legacy PLUTO releases for training.")
 }
 
 inventory_rows <- list()
@@ -186,13 +234,24 @@ inventory_rows[[inventory_counter]] <- tibble(
   official_url = mappluto_archive_row$official_url[1]
 )
 
+inventory_counter <- inventory_counter + 1L
+inventory_rows[[inventory_counter]] <- tibble(
+  source_id = "dcp_pluto_archive",
+  vintage = pull_date,
+  pull_date = pull_date,
+  file_role = "archive_json",
+  raw_path = archive_json_path,
+  status = archive_json_status,
+  official_url = pluto_archive_row$official_url[1]
+)
+
 current_asset_rows <- tribble(
   ~source_id, ~vintage, ~file_role, ~official_url, ~raw_path,
-  "dcp_pluto_current", current_release, "pluto_csv_zip", pluto_zip_url, file.path("..", "..", "..", "data_raw", "dcp_pluto_current", current_release, basename(pluto_zip_url)),
-  "dcp_pluto_current", current_release, "pluto_data_dictionary_pdf", pluto_dictionary_url, file.path("..", "..", "..", "data_raw", "dcp_pluto_current", current_release, basename(pluto_dictionary_url)),
-  "dcp_pluto_current", current_release, "pluto_readme_pdf", pluto_readme_url, file.path("..", "..", "..", "data_raw", "dcp_pluto_current", current_release, basename(pluto_readme_url)),
-  "dcp_mappluto_current", current_release, "mappluto_shapefile_zip", mappluto_zip_url, file.path("..", "..", "..", "data_raw", "dcp_mappluto_current", current_release, basename(mappluto_zip_url)),
-  "dcp_mappluto_current", current_release, "mappluto_metadata_pdf", mappluto_metadata_url, file.path("..", "..", "..", "data_raw", "dcp_mappluto_current", current_release, basename(mappluto_metadata_url))
+  "dcp_pluto_current", current_release, "pluto_csv_zip", pluto_zip_url, file.path("..", "..", "..", "data_raw", "dcp_pluto_current", current_release, url_file_name(pluto_zip_url)),
+  "dcp_pluto_current", current_release, "pluto_data_dictionary_pdf", pluto_dictionary_url, file.path("..", "..", "..", "data_raw", "dcp_pluto_current", current_release, url_file_name(pluto_dictionary_url)),
+  "dcp_pluto_current", current_release, "pluto_readme_pdf", pluto_readme_url, file.path("..", "..", "..", "data_raw", "dcp_pluto_current", current_release, url_file_name(pluto_readme_url)),
+  "dcp_mappluto_current", current_release, "mappluto_shapefile_zip", mappluto_zip_url, file.path("..", "..", "..", "data_raw", "dcp_mappluto_current", current_release, url_file_name(mappluto_zip_url)),
+  "dcp_mappluto_current", current_release, "mappluto_metadata_pdf", mappluto_metadata_url, file.path("..", "..", "..", "data_raw", "dcp_mappluto_current", current_release, url_file_name(mappluto_metadata_url))
 )
 
 for (i in seq_len(nrow(current_asset_rows))) {
@@ -208,6 +267,44 @@ for (i in seq_len(nrow(current_asset_rows))) {
     raw_path = asset_row$raw_path,
     status = asset_status,
     official_url = asset_row$official_url
+  )
+}
+
+for (i in seq_len(nrow(pluto_archive_release_rows))) {
+  archive_release <- pluto_archive_release_rows[i, ]
+
+  if (!isTRUE(archive_release$release_label_url_match)) {
+    inventory_counter <- inventory_counter + 1L
+    inventory_rows[[inventory_counter]] <- tibble(
+      source_id = "dcp_pluto_archive",
+      vintage = archive_release$release_label,
+      pull_date = pull_date,
+      file_role = "pluto_archive_release_mismatch",
+      raw_path = NA_character_,
+      status = "release_label_url_mismatch",
+      official_url = archive_release$official_url,
+      archive_release_label = archive_release$release_label,
+      archive_file_release = archive_release$file_release
+    )
+    next
+  }
+
+  archive_raw_path <- file.path(
+    "..", "..", "..", "data_raw", "dcp_pluto_archive", archive_release$release, url_file_name(archive_release$official_url)
+  )
+  archive_status <- download_mappluto_asset(archive_release$official_url, archive_raw_path)
+
+  inventory_counter <- inventory_counter + 1L
+  inventory_rows[[inventory_counter]] <- tibble(
+    source_id = "dcp_pluto_archive",
+    vintage = archive_release$release,
+    pull_date = pull_date,
+    file_role = "pluto_csv_zip",
+    raw_path = archive_raw_path,
+    status = archive_status,
+    official_url = archive_release$official_url,
+    archive_release_label = archive_release$release_label,
+    archive_file_release = archive_release$file_release
   )
 }
 
@@ -231,7 +328,7 @@ for (i in seq_len(nrow(archive_release_rows))) {
   }
 
   archive_raw_path <- file.path(
-    "..", "..", "..", "data_raw", "dcp_mappluto_archive", archive_release$release, basename(archive_release$official_url)
+    "..", "..", "..", "data_raw", "dcp_mappluto_archive", archive_release$release, url_file_name(archive_release$official_url)
   )
   archive_status <- download_mappluto_asset(archive_release$official_url, archive_raw_path)
 

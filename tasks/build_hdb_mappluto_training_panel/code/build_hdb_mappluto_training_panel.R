@@ -10,7 +10,7 @@ suppressPackageStartupMessages({
 
 source("../../_lib/source_pipeline_utils.R")
 
-start_date <- as.Date("2016-01-01")
+start_date <- as.Date("2010-01-01")
 end_date <- as.Date("2023-12-31")
 
 feature_columns <- c(
@@ -43,7 +43,7 @@ if (length(missing_mappluto_columns) > 0) {
   stop("MapPLUTO lot manifest is missing columns: ", paste(missing_mappluto_columns, collapse = ", "))
 }
 
-missing_calendar_columns <- setdiff(c("vintage", "release_order", "safe_available_date", "usable_for_training"), names(release_calendar))
+missing_calendar_columns <- setdiff(c("source_id", "vintage", "release_order", "safe_available_date", "usable_for_training"), names(release_calendar))
 
 if (length(missing_calendar_columns) > 0) {
   stop("MapPLUTO release calendar is missing columns: ", paste(missing_calendar_columns, collapse = ", "))
@@ -51,6 +51,7 @@ if (length(missing_calendar_columns) > 0) {
 
 release_calendar <- release_calendar |>
   mutate(
+    source_id = as.character(source_id),
     vintage = as.character(vintage),
     release_order = suppressWarnings(as.integer(release_order)),
     safe_available_date = as.Date(safe_available_date),
@@ -63,8 +64,9 @@ if (nrow(release_calendar) == 0) {
   stop("Release calendar has no usable MapPLUTO releases.")
 }
 
-if (anyDuplicated(release_calendar$vintage) > 0 || anyDuplicated(release_calendar$release_order) > 0) {
-  stop("Release calendar must be unique by vintage and release_order.")
+if (anyDuplicated(paste(release_calendar$source_id, release_calendar$vintage, sep = "::")) > 0 ||
+    anyDuplicated(release_calendar$release_order) > 0) {
+  stop("Release calendar must be unique by source/vintage and release_order.")
 }
 
 earliest_release <- release_calendar[1, ]
@@ -97,9 +99,11 @@ candidate_panel <- hdb |>
   )
 
 latest_pre_filing <- rep(NA_character_, nrow(candidate_panel))
+latest_pre_filing_source <- rep(NA_character_, nrow(candidate_panel))
 latest_pre_filing_order <- rep(NA_integer_, nrow(candidate_panel))
 latest_pre_filing_date <- rep(as.Date(NA), nrow(candidate_panel))
 lagged_version <- rep(NA_character_, nrow(candidate_panel))
+lagged_source <- rep(NA_character_, nrow(candidate_panel))
 lagged_order <- rep(NA_integer_, nrow(candidate_panel))
 lagged_date <- rep(as.Date(NA), nrow(candidate_panel))
 pluto_timing_status <- rep(NA_character_, nrow(candidate_panel))
@@ -111,6 +115,7 @@ for (i in seq_len(nrow(candidate_panel))) {
     arrange(release_order)
 
   if (nrow(available_release_rows) == 0) {
+    lagged_source[i] <- earliest_release$source_id
     lagged_version[i] <- earliest_release$vintage
     lagged_order[i] <- earliest_release$release_order
     lagged_date[i] <- earliest_release$safe_available_date
@@ -119,6 +124,7 @@ for (i in seq_len(nrow(candidate_panel))) {
   }
 
   latest_release <- available_release_rows[nrow(available_release_rows), ]
+  latest_pre_filing_source[i] <- latest_release$source_id
   latest_pre_filing[i] <- latest_release$vintage
   latest_pre_filing_order[i] <- latest_release$release_order
   latest_pre_filing_date[i] <- latest_release$safe_available_date
@@ -128,6 +134,7 @@ for (i in seq_len(nrow(candidate_panel))) {
     arrange(release_order)
 
   if (nrow(lagged_release_rows) == 0) {
+    lagged_source[i] <- latest_release$source_id
     lagged_version[i] <- latest_release$vintage
     lagged_order[i] <- latest_release$release_order
     lagged_date[i] <- latest_release$safe_available_date
@@ -136,6 +143,7 @@ for (i in seq_len(nrow(candidate_panel))) {
   }
 
   lagged_release <- lagged_release_rows[nrow(lagged_release_rows), ]
+  lagged_source[i] <- lagged_release$source_id
   lagged_version[i] <- lagged_release$vintage
   lagged_order[i] <- lagged_release$release_order
   lagged_date[i] <- lagged_release$safe_available_date
@@ -145,9 +153,11 @@ for (i in seq_len(nrow(candidate_panel))) {
 
 candidate_panel <- candidate_panel |>
   mutate(
+    pluto_source_id_latest_pre_filing = latest_pre_filing_source,
     pluto_version_latest_pre_filing = latest_pre_filing,
     pluto_release_order_latest_pre_filing = latest_pre_filing_order,
     pluto_safe_available_date_latest_pre_filing = latest_pre_filing_date,
+    pluto_source_id_used = lagged_source,
     pluto_version_used = lagged_version,
     pluto_release_order_used = lagged_order,
     pluto_safe_available_date_used = lagged_date,
@@ -168,12 +178,11 @@ mappluto_lot_files <- mappluto_lot_files |>
   )
 
 mappluto_index <- release_calendar |>
-  select(vintage, release_order) |>
+  select(source_id, vintage, release_order) |>
   left_join(
     mappluto_lot_files |>
-      filter(source_id == "dcp_mappluto_archive") |>
-      select(vintage, parquet_path, raw_status),
-    by = "vintage",
+      select(source_id, vintage, parquet_path, raw_status),
+    by = c("source_id", "vintage"),
     relationship = "one-to-one"
   )
 
@@ -181,16 +190,18 @@ candidate_panel <- candidate_panel |>
   left_join(
     mappluto_index |>
       transmute(
+        pluto_source_id_used = source_id,
         pluto_version_used = vintage,
         selected_pluto_parquet_path = parquet_path,
         selected_pluto_raw_status = raw_status
       ),
-    by = "pluto_version_used",
+    by = c("pluto_source_id_used", "pluto_version_used"),
     relationship = "many-to-one"
   )
 
 empty_features <- tibble(
   bbl = character(),
+  pluto_source_id_used = character(),
   pluto_version_used = character(),
   pluto_match_status = character(),
   pluto_borough = character(),
@@ -241,16 +252,20 @@ empty_features <- tibble(
 
 matched_feature_rows <- list()
 selected_vintages <- candidate_panel |>
-  filter(!is.na(pluto_version_used), !is.na(selected_pluto_parquet_path)) |>
-  distinct(pluto_version_used, selected_pluto_parquet_path) |>
-  arrange(pluto_version_used)
+  filter(!is.na(pluto_source_id_used), !is.na(pluto_version_used), !is.na(selected_pluto_parquet_path)) |>
+  distinct(pluto_source_id_used, pluto_version_used, selected_pluto_parquet_path) |>
+  arrange(pluto_source_id_used, pluto_version_used)
 
 for (i in seq_len(nrow(selected_vintages))) {
   version_row <- selected_vintages[i, ]
   parquet_path <- file.path("..", "..", "stage_mappluto_lots", "output", basename(version_row$selected_pluto_parquet_path))
 
   needed_bbl <- candidate_panel |>
-    filter(pluto_version_used == version_row$pluto_version_used, valid_bbl) |>
+    filter(
+      pluto_source_id_used == version_row$pluto_source_id_used,
+      pluto_version_used == version_row$pluto_version_used,
+      valid_bbl
+    ) |>
     distinct(bbl)
 
   if (!file.exists(parquet_path) || nrow(needed_bbl) == 0) {
@@ -373,7 +388,10 @@ for (i in seq_len(nrow(selected_vintages))) {
     )
 
   matched_feature_rows[[i]] <- bind_rows(unique_lots, duplicate_rows) |>
-    mutate(pluto_version_used = version_row$pluto_version_used)
+    mutate(
+      pluto_source_id_used = version_row$pluto_source_id_used,
+      pluto_version_used = version_row$pluto_version_used
+    )
 }
 
 matched_features <- if (length(matched_feature_rows) == 0) {
@@ -386,7 +404,7 @@ matched_features <- if (length(matched_feature_rows) == 0) {
 candidate_panel <- candidate_panel |>
   left_join(
     matched_features,
-    by = c("bbl", "pluto_version_used"),
+    by = c("bbl", "pluto_source_id_used", "pluto_version_used"),
     relationship = "many-to-one"
   ) |>
   mutate(
@@ -425,8 +443,9 @@ candidate_panel <- candidate_panel |>
     job_number, date_filed, filing_year, bbl, bin, address, house_number, street_name,
     hdb_borough_code, hdb_borough_name, hdb_community_district, hdb_council_district,
     classa_prop, classa_prop_integer, y100,
-    pluto_version_latest_pre_filing, pluto_release_order_latest_pre_filing,
-    pluto_safe_available_date_latest_pre_filing, pluto_version_used,
+    pluto_source_id_latest_pre_filing, pluto_version_latest_pre_filing,
+    pluto_release_order_latest_pre_filing, pluto_safe_available_date_latest_pre_filing,
+    pluto_source_id_used, pluto_version_used,
     pluto_release_order_used, pluto_safe_available_date_used,
     pluto_timing_status, true_lagged_pluto_available, backfill_used,
     post_filing_pluto, pluto_days_relative_to_filing,
