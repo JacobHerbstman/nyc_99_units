@@ -72,6 +72,7 @@ The treatment object should not be observed post-policy unit count. The initial 
 - `tasks/audits/summarize_dcp_hdb_unit_bunching`
 - `tasks/audits/summarize_mappluto_lot_staging`
 - `tasks/audits/summarize_hdb_mappluto_training_panel`
+- `tasks/audits/fit_basic_hdb_mappluto_regression`
 
 The first active audit checks the proposed-unit distribution for DCP Housing Database new-building filings from 2010 through 2025. It uses `date_filed` and `classa_prop` as the main descriptive definition, compares annualized 2010-2023 counts to 2025, and keeps 2024 as a transition year around the April 20, 2024 statutory adoption date.
 
