@@ -41,9 +41,9 @@ The treatment object should not be observed post-policy unit count. The initial 
 - `tasks/fetch_dcp_housing_database`
 - `tasks/load_dcp_housing_database_raw`
 - `tasks/stage_dcp_housing_database`
-- `tasks/fetch_pluto`
-- `tasks/load_pluto_raw`
-- `tasks/stage_pluto_lots`
+- `tasks/fetch_mappluto_archive`
+- `tasks/load_mappluto_raw`
+- `tasks/stage_mappluto_lots`
 - `tasks/fetch_dob_open_data`
 - `tasks/load_dob_open_data_raw`
 - `tasks/stage_dob_jobs`
@@ -62,8 +62,14 @@ The treatment object should not be observed post-policy unit count. The initial 
 - `tasks/fetch_dcp_housing_database`
 - `tasks/load_dcp_housing_database_raw`
 - `tasks/stage_dcp_housing_database`
+- `tasks/fetch_mappluto_archive`
+- `tasks/load_mappluto_raw`
+- `tasks/stage_mappluto_lots`
 - `tasks/audits/summarize_dcp_hdb_unit_bunching`
+- `tasks/audits/summarize_mappluto_lot_staging`
 
 The first active audit checks the proposed-unit distribution for DCP Housing Database new-building filings from 2010 through 2025. It uses `date_filed` and `classa_prop` as the main descriptive definition, compares annualized 2010-2023 counts to 2025, and keeps 2024 as a transition year around the April 20, 2024 statutory adoption date.
+
+The MapPLUTO vintage strategy is documented in `docs/mappluto_prediction_design.md`. The main modeling design should use as-of pre-filing MapPLUTO features for HDB training labels and a frozen pre-adoption MapPLUTO lot universe for land-value exposure.
 
 The remaining planned tasks should be created as the corresponding data and estimators become concrete.
