@@ -1,0 +1,20 @@
+SHELL := bash
+include ../../shell_functions.make
+
+all: ../output/hdb_mappluto_training_panel.parquet
+
+../output/hdb_mappluto_training_panel.parquet: build_hdb_mappluto_training_panel.R ../input/dcp_housing_database_project_level_25q4.parquet ../input/mappluto_lot_files.csv ../input/mappluto_release_calendar.csv | ../output
+	$(R) $<
+
+../input/dcp_housing_database_project_level_25q4.parquet: ../../stage_dcp_housing_database/output/dcp_housing_database_project_level_25q4.parquet | ../input
+	@test "$$(readlink "$@")" = "../../stage_dcp_housing_database/output/dcp_housing_database_project_level_25q4.parquet" || ln -sf "../../stage_dcp_housing_database/output/dcp_housing_database_project_level_25q4.parquet" "$@"
+
+../input/mappluto_lot_files.csv: ../../stage_mappluto_lots/output/mappluto_lot_files.csv | ../input
+	@test "$$(readlink "$@")" = "../../stage_mappluto_lots/output/mappluto_lot_files.csv" || ln -sf "../../stage_mappluto_lots/output/mappluto_lot_files.csv" "$@"
+
+../input/mappluto_release_calendar.csv: ../../define_mappluto_release_calendar/output/mappluto_release_calendar.csv | ../input
+	@test "$$(readlink "$@")" = "../../define_mappluto_release_calendar/output/mappluto_release_calendar.csv" || ln -sf "../../define_mappluto_release_calendar/output/mappluto_release_calendar.csv" "$@"
+
+link-inputs: ../input/dcp_housing_database_project_level_25q4.parquet ../input/mappluto_lot_files.csv ../input/mappluto_release_calendar.csv
+
+include ../../generic.make

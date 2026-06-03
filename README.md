@@ -44,6 +44,8 @@ The treatment object should not be observed post-policy unit count. The initial 
 - `tasks/fetch_mappluto_archive`
 - `tasks/load_mappluto_raw`
 - `tasks/stage_mappluto_lots`
+- `tasks/define_mappluto_release_calendar`
+- `tasks/build_hdb_mappluto_training_panel`
 - `tasks/fetch_dob_open_data`
 - `tasks/load_dob_open_data_raw`
 - `tasks/stage_dob_jobs`
@@ -65,8 +67,11 @@ The treatment object should not be observed post-policy unit count. The initial 
 - `tasks/fetch_mappluto_archive`
 - `tasks/load_mappluto_raw`
 - `tasks/stage_mappluto_lots`
+- `tasks/define_mappluto_release_calendar`
+- `tasks/build_hdb_mappluto_training_panel`
 - `tasks/audits/summarize_dcp_hdb_unit_bunching`
 - `tasks/audits/summarize_mappluto_lot_staging`
+- `tasks/audits/summarize_hdb_mappluto_training_panel`
 
 The first active audit checks the proposed-unit distribution for DCP Housing Database new-building filings from 2010 through 2025. It uses `date_filed` and `classa_prop` as the main descriptive definition, compares annualized 2010-2023 counts to 2025, and keeps 2024 as a transition year around the April 20, 2024 statutory adoption date.
 
