@@ -165,6 +165,7 @@ model_formula <- y100_num ~ z_log_lotarea + z_residfar + z_builtfar +
 
 logit_model <- glm(model_formula, data = model_data, family = binomial())
 log_units_model <- lm(update(model_formula, log_units ~ .), data = model_data)
+units_model <- lm(update(model_formula, classa_prop ~ .), data = model_data)
 
 format_coefficients <- function(model_object, model_name) {
   coef_table <- as.data.frame(coef(summary(model_object)))
@@ -200,6 +201,13 @@ log_units_coefficients <- format_coefficients(log_units_model, "ols_log_units") 
     approximate_percent_change_high = 100 * (exp(estimate + 1.96 * std_error) - 1)
   )
 
+units_coefficients <- format_coefficients(units_model, "ols_units") |>
+  mutate(
+    units_change = estimate,
+    units_change_low = estimate - 1.96 * std_error,
+    units_change_high = estimate + 1.96 * std_error
+  )
+
 rank_auc <- function(y_values, score_values) {
   positive_count <- sum(y_values == 1)
   negative_count <- sum(y_values == 0)
@@ -214,6 +222,7 @@ rank_auc <- function(y_values, score_values) {
 
 logit_predictions <- predict(logit_model, type = "response")
 ols_predictions <- predict(log_units_model)
+units_predictions <- predict(units_model)
 null_logit_model <- glm(y100_num ~ 1, data = model_data, family = binomial())
 top_decile_cutoff <- quantile(logit_predictions, 0.90, names = FALSE)
 top_decile_rows <- logit_predictions >= top_decile_cutoff
@@ -282,6 +291,38 @@ fit_summary <- bind_rows(
     outcome_mean = mean(model_data$log_units),
     metric = "rmse",
     value = sqrt(mean((model_data$log_units - ols_predictions)^2))
+  ),
+  tibble(
+    model = "ols_units",
+    rows = nrow(model_data),
+    outcome = "classa_prop",
+    outcome_mean = mean(model_data$classa_prop),
+    metric = "r_squared",
+    value = summary(units_model)$r.squared
+  ),
+  tibble(
+    model = "ols_units",
+    rows = nrow(model_data),
+    outcome = "classa_prop",
+    outcome_mean = mean(model_data$classa_prop),
+    metric = "adjusted_r_squared",
+    value = summary(units_model)$adj.r.squared
+  ),
+  tibble(
+    model = "ols_units",
+    rows = nrow(model_data),
+    outcome = "classa_prop",
+    outcome_mean = mean(model_data$classa_prop),
+    metric = "rmse",
+    value = sqrt(mean((model_data$classa_prop - units_predictions)^2))
+  ),
+  tibble(
+    model = "ols_units",
+    rows = nrow(model_data),
+    outcome = "classa_prop",
+    outcome_mean = mean(model_data$classa_prop),
+    metric = "mean_absolute_error",
+    value = mean(abs(model_data$classa_prop - units_predictions))
   )
 )
 
@@ -299,6 +340,7 @@ sample_by_year <- model_data |>
 
 write_csv_if_changed(logit_coefficients, "../output/basic_logit_coefficients.csv")
 write_csv_if_changed(log_units_coefficients, "../output/basic_log_units_coefficients.csv")
+write_csv_if_changed(units_coefficients, "../output/basic_units_coefficients.csv")
 write_csv_if_changed(fit_summary, "../output/basic_regression_fit_summary.csv")
 write_csv_if_changed(sample_by_year, "../output/basic_regression_sample_by_year.csv")
 write_csv_if_changed(feature_summary, "../output/basic_regression_feature_summary.csv")
