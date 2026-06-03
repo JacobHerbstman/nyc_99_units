@@ -67,6 +67,8 @@ if (anyDuplicated(release_calendar$vintage) > 0 || anyDuplicated(release_calenda
   stop("Release calendar must be unique by vintage and release_order.")
 }
 
+earliest_release <- release_calendar[1, ]
+
 candidate_panel <- hdb |>
   filter(job_type == "New Building", date_filed >= start_date, date_filed <= end_date) |>
   mutate(
@@ -100,6 +102,8 @@ latest_pre_filing_date <- rep(as.Date(NA), nrow(candidate_panel))
 lagged_version <- rep(NA_character_, nrow(candidate_panel))
 lagged_order <- rep(NA_integer_, nrow(candidate_panel))
 lagged_date <- rep(as.Date(NA), nrow(candidate_panel))
+pluto_timing_status <- rep(NA_character_, nrow(candidate_panel))
+true_lagged_pluto_available <- rep(FALSE, nrow(candidate_panel))
 
 for (i in seq_len(nrow(candidate_panel))) {
   available_release_rows <- release_calendar |>
@@ -107,6 +111,10 @@ for (i in seq_len(nrow(candidate_panel))) {
     arrange(release_order)
 
   if (nrow(available_release_rows) == 0) {
+    lagged_version[i] <- earliest_release$vintage
+    lagged_order[i] <- earliest_release$release_order
+    lagged_date[i] <- earliest_release$safe_available_date
+    pluto_timing_status[i] <- "post_filing_backfill"
     next
   }
 
@@ -120,6 +128,10 @@ for (i in seq_len(nrow(candidate_panel))) {
     arrange(release_order)
 
   if (nrow(lagged_release_rows) == 0) {
+    lagged_version[i] <- latest_release$vintage
+    lagged_order[i] <- latest_release$release_order
+    lagged_date[i] <- latest_release$safe_available_date
+    pluto_timing_status[i] <- "latest_pre_filing_no_lag"
     next
   }
 
@@ -127,6 +139,8 @@ for (i in seq_len(nrow(candidate_panel))) {
   lagged_version[i] <- lagged_release$vintage
   lagged_order[i] <- lagged_release$release_order
   lagged_date[i] <- lagged_release$safe_available_date
+  pluto_timing_status[i] <- "strict_lag_pre_filing"
+  true_lagged_pluto_available[i] <- TRUE
 }
 
 candidate_panel <- candidate_panel |>
@@ -137,6 +151,11 @@ candidate_panel <- candidate_panel |>
     pluto_version_used = lagged_version,
     pluto_release_order_used = lagged_order,
     pluto_safe_available_date_used = lagged_date,
+    pluto_timing_status = pluto_timing_status,
+    true_lagged_pluto_available = true_lagged_pluto_available,
+    backfill_used = pluto_timing_status %in% c("post_filing_backfill", "latest_pre_filing_no_lag"),
+    post_filing_pluto = !is.na(pluto_safe_available_date_used) & pluto_safe_available_date_used >= date_filed,
+    pluto_days_relative_to_filing = as.integer(date_filed - pluto_safe_available_date_used),
     valid_bbl = str_detect(bbl, "^[1-5][0-9]{9}$")
   )
 
@@ -385,15 +404,16 @@ candidate_panel <- candidate_panel |>
     exclusion_reason = case_when(
       !valid_bbl ~ "invalid_bbl",
       !classa_prop_integer ~ "invalid_classa_prop",
-      is.na(pluto_version_latest_pre_filing) ~ "no_pre_filing_pluto_release",
-      is.na(pluto_version_used) ~ "no_lagged_pluto_available",
+      is.na(pluto_version_used) ~ "no_pluto_release_assigned",
       is.na(selected_pluto_parquet_path) ~ "selected_pluto_file_missing",
       pluto_match_status == "duplicate_mappluto_bbl" ~ "duplicate_mappluto_bbl",
       pluto_match_status == "no_mappluto_match" ~ "no_mappluto_match",
       is.na(lotarea) | lotarea <= 0 ~ "nonpositive_lotarea",
       TRUE ~ "included_primary_sample"
     ),
-    primary_sample = exclusion_reason == "included_primary_sample"
+    primary_sample = exclusion_reason == "included_primary_sample",
+    primary_leakage_safe_sample = primary_sample & true_lagged_pluto_available,
+    expanded_backfill_sample = primary_sample
   )
 
 for (feature_name in numeric_feature_columns) {
@@ -408,8 +428,10 @@ candidate_panel <- candidate_panel |>
     pluto_version_latest_pre_filing, pluto_release_order_latest_pre_filing,
     pluto_safe_available_date_latest_pre_filing, pluto_version_used,
     pluto_release_order_used, pluto_safe_available_date_used,
+    pluto_timing_status, true_lagged_pluto_available, backfill_used,
+    post_filing_pluto, pluto_days_relative_to_filing,
     selected_pluto_parquet_path, selected_pluto_raw_status, pluto_match_status,
-    valid_bbl, primary_sample, exclusion_reason,
+    valid_bbl, primary_sample, primary_leakage_safe_sample, expanded_backfill_sample, exclusion_reason,
     all_of(feature_columns),
     allowed_res_area, residual_res_area,
     is_vacant_landuse, is_vacant_bldgclass, is_vacant_lot,

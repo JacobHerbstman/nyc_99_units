@@ -10,7 +10,9 @@ Do not use a single 2010 MapPLUTO vintage as the main prediction specification. 
 
 For each pre-policy DCP HDB New Building project, link the project to the latest MapPLUTO/PLUTO release whose source vintage is safely before the HDB `date_filed`. If the exact source cutoff is ambiguous, lag the vintage rather than risk using fields updated after the project entered DOB processing.
 
-The mature `nyc_court_case` MapPLUTO archive pipeline currently gives clean official DCP archived MapPLUTO releases beginning in 2018. That means the first leakage-safe version of the main model should train on HDB labels whose filing dates can be matched to a strictly pre-filing MapPLUTO vintage, likely 2018-2023 labels for now. Do not attach 2010-2017 HDB labels to later MapPLUTO releases in the main training sample.
+The mature `nyc_court_case` MapPLUTO archive pipeline currently gives clean official DCP archived MapPLUTO releases beginning in 2018. That means the leakage-safe version of the main model should train on HDB labels whose filing dates can be matched to a strictly pre-filing one-release-lagged MapPLUTO vintage. In the current panel this starts in 2019.
+
+For power and sensitivity checks, the panel may attach the earliest documented archived release, `18v1.1`, to earlier 2016-2018 HDB filings. These rows must be labeled as backfilled rather than leakage-safe. They should carry timing fields such as `pluto_timing_status`, `post_filing_pluto`, and `pluto_days_relative_to_filing`, and should not be silently pooled into the main model. Do not attach 2010-2015 HDB labels to later MapPLUTO releases in the main training sample.
 
 A single early vintage, such as 2010 PLUTO if we can source it, can be useful as a sensitivity or for a narrower historical risk-set exercise. It should not be the main specification for predicting all later projects because it freezes parcels long before many relevant rezonings, lot changes, demolitions, and redevelopment opportunities occur.
 
@@ -19,7 +21,7 @@ The training label is from HDB:
 - `classa_prop`
 - `I(classa_prop >= 100)`
 
-The predictors are strictly pre-filing MapPLUTO/PLUTO fields. Do not use HDB proposed floors, net units, certificate-of-occupancy units, permit dates, completion dates, job status, or any PLUTO fields from after filing.
+The main predictors are strictly pre-filing MapPLUTO/PLUTO fields. Backfilled predictors are allowed only for explicitly named sensitivity models. Do not use HDB proposed floors, net units, certificate-of-occupancy units, permit dates, completion dates, job status, or unlabeled PLUTO fields from after filing.
 
 ## Exposure Universe
 

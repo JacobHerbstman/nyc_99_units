@@ -70,13 +70,26 @@ counts_by_year <- panel |>
     candidate_rows = n(),
     candidate_valid_classa_rows = sum(classa_prop_integer, na.rm = TRUE),
     primary_rows = sum(primary_sample, na.rm = TRUE),
+    primary_leakage_safe_rows = sum(primary_leakage_safe_sample, na.rm = TRUE),
+    post_filing_backfill_primary_rows = sum(primary_sample & pluto_timing_status == "post_filing_backfill", na.rm = TRUE),
+    latest_pre_filing_no_lag_primary_rows = sum(primary_sample & pluto_timing_status == "latest_pre_filing_no_lag", na.rm = TRUE),
     y100_rows = sum(y100 %in% TRUE, na.rm = TRUE),
     candidate_y100_rows = sum(y100 %in% TRUE, na.rm = TRUE),
     primary_y100_rows = sum(primary_sample & y100 %in% TRUE, na.rm = TRUE),
+    primary_leakage_safe_y100_rows = sum(primary_leakage_safe_sample & y100 %in% TRUE, na.rm = TRUE),
+    post_filing_backfill_primary_y100_rows = sum(
+      primary_sample & pluto_timing_status == "post_filing_backfill" & y100 %in% TRUE,
+      na.rm = TRUE
+    ),
+    latest_pre_filing_no_lag_primary_y100_rows = sum(
+      primary_sample & pluto_timing_status == "latest_pre_filing_no_lag" & y100 %in% TRUE,
+      na.rm = TRUE
+    ),
     excluded_rows = sum(!primary_sample, na.rm = TRUE),
     excluded_y100_rows = sum(!primary_sample & y100 %in% TRUE, na.rm = TRUE),
     invalid_bbl_rows = sum(exclusion_reason == "invalid_bbl", na.rm = TRUE),
     no_lagged_pluto_rows = sum(exclusion_reason == "no_lagged_pluto_available", na.rm = TRUE),
+    no_pluto_release_assigned_rows = sum(exclusion_reason == "no_pluto_release_assigned", na.rm = TRUE),
     no_mappluto_match_rows = sum(exclusion_reason == "no_mappluto_match", na.rm = TRUE),
     .groups = "drop"
   ) |>
@@ -88,6 +101,11 @@ counts_by_year <- panel |>
       NA_real_
     ),
     primary_y100_share = if_else(primary_rows > 0, primary_y100_rows / primary_rows, NA_real_),
+    primary_leakage_safe_y100_share = if_else(
+      primary_leakage_safe_rows > 0,
+      primary_leakage_safe_y100_rows / primary_leakage_safe_rows,
+      NA_real_
+    ),
     excluded_y100_share = if_else(excluded_rows > 0, excluded_y100_rows / excluded_rows, NA_real_)
   )
 
@@ -102,6 +120,13 @@ candidate_primary_y100 <- counts_by_year |>
     primary_rows,
     primary_y100_rows,
     primary_y100_share,
+    primary_leakage_safe_rows,
+    primary_leakage_safe_y100_rows,
+    primary_leakage_safe_y100_share,
+    post_filing_backfill_primary_rows,
+    post_filing_backfill_primary_y100_rows,
+    latest_pre_filing_no_lag_primary_rows,
+    latest_pre_filing_no_lag_primary_y100_rows,
     excluded_rows,
     excluded_y100_rows,
     excluded_y100_share
@@ -121,11 +146,45 @@ vintage_use <- panel |>
     filing_year,
     pluto_version_latest_pre_filing,
     pluto_version_used,
+    pluto_timing_status,
     primary_sample,
+    primary_leakage_safe_sample,
     exclusion_reason,
     name = "rows"
   ) |>
-  arrange(filing_year, pluto_version_used, primary_sample, exclusion_reason)
+  arrange(filing_year, pluto_version_used, pluto_timing_status, primary_sample, exclusion_reason)
+
+release_design_by_year <- panel |>
+  mutate(y100_group = make_y100_group(y100)) |>
+  count(
+    filing_year,
+    pluto_timing_status,
+    post_filing_pluto,
+    primary_sample,
+    primary_leakage_safe_sample,
+    y100_group,
+    exclusion_reason,
+    name = "rows"
+  ) |>
+  arrange(filing_year, pluto_timing_status, primary_sample, y100_group, desc(rows), exclusion_reason)
+
+timing_distance_by_year <- panel |>
+  filter(!is.na(pluto_days_relative_to_filing)) |>
+  group_by(filing_year, pluto_timing_status) |>
+  summarise(
+    rows = n(),
+    primary_rows = sum(primary_sample, na.rm = TRUE),
+    primary_y100_rows = sum(primary_sample & y100 %in% TRUE, na.rm = TRUE),
+    post_filing_pluto_rows = sum(post_filing_pluto, na.rm = TRUE),
+    min_days_relative_to_filing = min(pluto_days_relative_to_filing, na.rm = TRUE),
+    p25_days_relative_to_filing = quantile(pluto_days_relative_to_filing, 0.25, na.rm = TRUE, names = FALSE),
+    median_days_relative_to_filing = median(pluto_days_relative_to_filing, na.rm = TRUE),
+    mean_days_relative_to_filing = mean(pluto_days_relative_to_filing, na.rm = TRUE),
+    p75_days_relative_to_filing = quantile(pluto_days_relative_to_filing, 0.75, na.rm = TRUE, names = FALSE),
+    max_days_relative_to_filing = max(pluto_days_relative_to_filing, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(filing_year, pluto_timing_status)
 
 hdb_only_unit_bins <- panel |>
   mutate(unit_bin = make_unit_bin(classa_prop, classa_prop_integer)) |>
@@ -194,6 +253,16 @@ filing_quarter_y100 <- panel |>
 summarise_window <- function(window_name, window_rows) {
   primary_rows <- sum(window_rows$primary_sample, na.rm = TRUE)
   primary_y100_rows <- sum(window_rows$primary_sample & window_rows$y100 %in% TRUE, na.rm = TRUE)
+  primary_leakage_safe_rows <- sum(window_rows$primary_leakage_safe_sample, na.rm = TRUE)
+  primary_leakage_safe_y100_rows <- sum(window_rows$primary_leakage_safe_sample & window_rows$y100 %in% TRUE, na.rm = TRUE)
+  post_filing_backfill_rows <- sum(
+    window_rows$primary_sample & window_rows$pluto_timing_status == "post_filing_backfill",
+    na.rm = TRUE
+  )
+  latest_pre_filing_no_lag_rows <- sum(
+    window_rows$primary_sample & window_rows$pluto_timing_status == "latest_pre_filing_no_lag",
+    na.rm = TRUE
+  )
 
   tibble(
     window = window_name,
@@ -204,6 +273,15 @@ summarise_window <- function(window_name, window_rows) {
     primary_rows = primary_rows,
     primary_y100_rows = primary_y100_rows,
     primary_y100_share = if_else(primary_rows > 0, primary_y100_rows / primary_rows, NA_real_),
+    primary_leakage_safe_rows = primary_leakage_safe_rows,
+    primary_leakage_safe_y100_rows = primary_leakage_safe_y100_rows,
+    primary_leakage_safe_y100_share = if_else(
+      primary_leakage_safe_rows > 0,
+      primary_leakage_safe_y100_rows / primary_leakage_safe_rows,
+      NA_real_
+    ),
+    post_filing_backfill_primary_rows = post_filing_backfill_rows,
+    latest_pre_filing_no_lag_primary_rows = latest_pre_filing_no_lag_rows,
     first_date_filed = safe_min_date(window_rows$date_filed),
     last_date_filed = safe_max_date(window_rows$date_filed)
   )
@@ -211,12 +289,12 @@ summarise_window <- function(window_name, window_rows) {
 
 model_windows <- bind_rows(
   summarise_window(
-    "intended_421a16_train_2016_to_2022_06_15",
+    "expanded_backfill_train_2016_to_2022_06_15",
     panel |> filter(date_filed >= as.Date("2016-01-01"), date_filed <= deadline_421a)
   ),
   summarise_window(
-    "feasible_lagged_mappluto_train_pre_deadline",
-    panel |> filter(primary_sample, date_filed >= as.Date("2016-01-01"), date_filed <= deadline_421a)
+    "primary_leakage_safe_train_pre_deadline",
+    panel |> filter(primary_leakage_safe_sample, date_filed >= as.Date("2016-01-01"), date_filed <= deadline_421a)
   ),
   summarise_window(
     "transition_post_deadline_2022",
@@ -284,14 +362,19 @@ comparison_rows <- list()
 comparison_counter <- 0L
 
 for (feature_name in comparison_features) {
-  for (period_name in c("pre_deadline_primary", "post_deadline_2022_primary", "holdout_2023")) {
+  for (period_name in c(
+    "pre_deadline_expanded_backfill",
+    "pre_deadline_primary_leakage_safe",
+    "post_deadline_2022_primary",
+    "holdout_2023"
+  )) {
     period_rows <- panel |>
       filter(
-        primary_sample,
         case_when(
-          period_name == "pre_deadline_primary" ~ date_filed <= deadline_421a,
-          period_name == "post_deadline_2022_primary" ~ date_filed > deadline_421a & filing_year == 2022,
-          TRUE ~ filing_year == 2023
+          period_name == "pre_deadline_expanded_backfill" ~ primary_sample & date_filed <= deadline_421a,
+          period_name == "pre_deadline_primary_leakage_safe" ~ primary_leakage_safe_sample & date_filed <= deadline_421a,
+          period_name == "post_deadline_2022_primary" ~ primary_sample & date_filed > deadline_421a & filing_year == 2022,
+          TRUE ~ primary_sample & filing_year == 2023
         )
       )
     values <- period_rows[[feature_name]]
@@ -308,25 +391,32 @@ for (feature_name in comparison_features) {
   }
 }
 
-comparison_counter <- comparison_counter + 1L
-comparison_rows[[comparison_counter]] <- panel |>
-  filter(primary_sample) |>
-  mutate(period = case_when(
-    date_filed <= deadline_421a ~ "pre_deadline_primary",
-    date_filed > deadline_421a & filing_year == 2022 ~ "post_deadline_2022_primary",
-    filing_year == 2023 ~ "holdout_2023",
-    TRUE ~ "other"
-  )) |>
-  group_by(period) |>
-  summarise(
+for (period_name in c(
+  "pre_deadline_expanded_backfill",
+  "pre_deadline_primary_leakage_safe",
+  "post_deadline_2022_primary",
+  "holdout_2023"
+)) {
+  period_rows <- panel |>
+    filter(
+      case_when(
+        period_name == "pre_deadline_expanded_backfill" ~ primary_sample & date_filed <= deadline_421a,
+        period_name == "pre_deadline_primary_leakage_safe" ~ primary_leakage_safe_sample & date_filed <= deadline_421a,
+        period_name == "post_deadline_2022_primary" ~ primary_sample & date_filed > deadline_421a & filing_year == 2022,
+        TRUE ~ primary_sample & filing_year == 2023
+      )
+    )
+
+  comparison_counter <- comparison_counter + 1L
+  comparison_rows[[comparison_counter]] <- tibble(
+    period = period_name,
     feature = "y100",
-    rows = n(),
-    nonmissing_rows = sum(!is.na(y100)),
-    mean_value = mean(y100, na.rm = TRUE),
-    median_value = median(as.numeric(y100), na.rm = TRUE),
-    .groups = "drop"
-  ) |>
-  select(period, feature, rows, nonmissing_rows, mean_value, median_value)
+    rows = nrow(period_rows),
+    nonmissing_rows = sum(!is.na(period_rows$y100)),
+    mean_value = mean(period_rows$y100, na.rm = TRUE),
+    median_value = median(as.numeric(period_rows$y100), na.rm = TRUE)
+  )
+}
 
 comparison_2023 <- bind_rows(comparison_rows) |>
   arrange(feature, period)
@@ -652,6 +742,8 @@ write_csv(candidate_primary_y100, "../output/hdb_mappluto_training_panel_candida
 write_csv(exclusion_reasons, "../output/hdb_mappluto_training_panel_exclusion_reasons.csv", na = "")
 write_csv(exclusion_reason_by_y100, "../output/hdb_mappluto_training_panel_exclusion_reason_by_y100.csv", na = "")
 write_csv(vintage_use, "../output/hdb_mappluto_training_panel_vintage_use.csv", na = "")
+write_csv(release_design_by_year, "../output/hdb_mappluto_training_panel_release_design_by_year.csv", na = "")
+write_csv(timing_distance_by_year, "../output/hdb_mappluto_training_panel_timing_distance_by_year.csv", na = "")
 write_csv(hdb_only_unit_bins, "../output/hdb_mappluto_training_panel_hdb_only_unit_bins.csv", na = "")
 write_csv(threshold_95_105, "../output/hdb_mappluto_training_panel_threshold_95_105.csv", na = "")
 write_csv(filing_quarter_y100, "../output/hdb_mappluto_training_panel_filing_quarter_y100.csv", na = "")

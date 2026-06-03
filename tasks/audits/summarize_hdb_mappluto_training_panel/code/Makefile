@@ -6,6 +6,8 @@ OUTPUTS := \
 	../output/hdb_mappluto_training_panel_exclusion_reasons.csv \
 	../output/hdb_mappluto_training_panel_exclusion_reason_by_y100.csv \
 	../output/hdb_mappluto_training_panel_vintage_use.csv \
+	../output/hdb_mappluto_training_panel_release_design_by_year.csv \
+	../output/hdb_mappluto_training_panel_timing_distance_by_year.csv \
 	../output/hdb_mappluto_training_panel_hdb_only_unit_bins.csv \
 	../output/hdb_mappluto_training_panel_threshold_95_105.csv \
 	../output/hdb_mappluto_training_panel_filing_quarter_y100.csv \
