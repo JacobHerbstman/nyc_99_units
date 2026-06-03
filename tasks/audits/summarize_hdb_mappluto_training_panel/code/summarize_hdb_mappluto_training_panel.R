@@ -15,6 +15,7 @@ panel <- read_parquet("../input/hdb_mappluto_training_panel.parquet") |>
   as_tibble()
 
 mappluto_lot_files <- read_csv("../input/mappluto_lot_files.csv", show_col_types = FALSE, na = c("", "NA"))
+deadline_421a <- as.Date("2022-06-15")
 
 missing_mappluto_columns <- setdiff(c("source_id", "vintage", "parquet_path"), names(mappluto_lot_files))
 
@@ -166,7 +167,7 @@ filing_quarter_y100 <- panel |>
     filing_quarter = make_filing_quarter(date_filed),
     after_421a_commencement_deadline = case_when(
       is.na(date_filed) ~ NA,
-      date_filed > as.Date("2022-06-15") ~ TRUE,
+      date_filed > deadline_421a ~ TRUE,
       TRUE ~ FALSE
     )
   ) |>
@@ -190,6 +191,43 @@ filing_quarter_y100 <- panel |>
   ) |>
   arrange(filing_quarter, after_421a_commencement_deadline)
 
+summarise_window <- function(window_name, window_rows) {
+  primary_rows <- sum(window_rows$primary_sample, na.rm = TRUE)
+  primary_y100_rows <- sum(window_rows$primary_sample & window_rows$y100 %in% TRUE, na.rm = TRUE)
+
+  tibble(
+    window = window_name,
+    candidate_rows = nrow(window_rows),
+    candidate_valid_classa_rows = sum(window_rows$classa_prop_integer, na.rm = TRUE),
+    candidate_y100_rows = sum(window_rows$y100 %in% TRUE, na.rm = TRUE),
+    candidate_y100_share = if_else(nrow(window_rows) > 0, mean(window_rows$y100 %in% TRUE, na.rm = TRUE), NA_real_),
+    primary_rows = primary_rows,
+    primary_y100_rows = primary_y100_rows,
+    primary_y100_share = if_else(primary_rows > 0, primary_y100_rows / primary_rows, NA_real_),
+    first_date_filed = safe_min_date(window_rows$date_filed),
+    last_date_filed = safe_max_date(window_rows$date_filed)
+  )
+}
+
+model_windows <- bind_rows(
+  summarise_window(
+    "intended_421a16_train_2016_to_2022_06_15",
+    panel |> filter(date_filed >= as.Date("2016-01-01"), date_filed <= deadline_421a)
+  ),
+  summarise_window(
+    "feasible_lagged_mappluto_train_pre_deadline",
+    panel |> filter(primary_sample, date_filed >= as.Date("2016-01-01"), date_filed <= deadline_421a)
+  ),
+  summarise_window(
+    "transition_post_deadline_2022",
+    panel |> filter(date_filed > deadline_421a, filing_year == 2022)
+  ),
+  summarise_window(
+    "post_421a_gap_2023",
+    panel |> filter(filing_year == 2023)
+  )
+)
+
 feature_names <- c(
   "lotarea", "bldgarea", "resarea", "comarea", "unitsres", "unitstotal",
   "numbldgs", "numfloors", "yearbuilt", "builtfar", "residfar", "commfar",
@@ -211,7 +249,10 @@ for (i in seq_along(feature_names)) {
     primary_rows = sum(panel$primary_sample, na.rm = TRUE),
     primary_missing_rows = sum(panel$primary_sample & is.na(feature_values), na.rm = TRUE),
     primary_missing_share = mean(is.na(feature_values[panel$primary_sample])),
-    primary_2018_2022_missing_share = mean(is.na(feature_values[panel$primary_sample & panel$filing_year <= 2022])),
+    primary_pre_deadline_missing_share = mean(is.na(feature_values[panel$primary_sample & panel$date_filed <= deadline_421a])),
+    primary_post_deadline_2022_missing_share = mean(is.na(feature_values[
+      panel$primary_sample & panel$date_filed > deadline_421a & panel$filing_year == 2022
+    ])),
     primary_2023_missing_share = mean(is.na(feature_values[panel$primary_sample & panel$filing_year == 2023]))
   )
 }
@@ -243,9 +284,16 @@ comparison_rows <- list()
 comparison_counter <- 0L
 
 for (feature_name in comparison_features) {
-  for (period_name in c("train_2018_2022", "holdout_2023")) {
+  for (period_name in c("pre_deadline_primary", "post_deadline_2022_primary", "holdout_2023")) {
     period_rows <- panel |>
-      filter(primary_sample, if (period_name == "train_2018_2022") filing_year <= 2022 else filing_year == 2023)
+      filter(
+        primary_sample,
+        case_when(
+          period_name == "pre_deadline_primary" ~ date_filed <= deadline_421a,
+          period_name == "post_deadline_2022_primary" ~ date_filed > deadline_421a & filing_year == 2022,
+          TRUE ~ filing_year == 2023
+        )
+      )
     values <- period_rows[[feature_name]]
 
     comparison_counter <- comparison_counter + 1L
@@ -263,7 +311,12 @@ for (feature_name in comparison_features) {
 comparison_counter <- comparison_counter + 1L
 comparison_rows[[comparison_counter]] <- panel |>
   filter(primary_sample) |>
-  mutate(period = if_else(filing_year <= 2022, "train_2018_2022", "holdout_2023")) |>
+  mutate(period = case_when(
+    date_filed <= deadline_421a ~ "pre_deadline_primary",
+    date_filed > deadline_421a & filing_year == 2022 ~ "post_deadline_2022_primary",
+    filing_year == 2023 ~ "holdout_2023",
+    TRUE ~ "other"
+  )) |>
   group_by(period) |>
   summarise(
     feature = "y100",
@@ -602,6 +655,7 @@ write_csv(vintage_use, "../output/hdb_mappluto_training_panel_vintage_use.csv", 
 write_csv(hdb_only_unit_bins, "../output/hdb_mappluto_training_panel_hdb_only_unit_bins.csv", na = "")
 write_csv(threshold_95_105, "../output/hdb_mappluto_training_panel_threshold_95_105.csv", na = "")
 write_csv(filing_quarter_y100, "../output/hdb_mappluto_training_panel_filing_quarter_y100.csv", na = "")
+write_csv(model_windows, "../output/hdb_mappluto_training_panel_model_windows.csv", na = "")
 write_csv(feature_missingness, "../output/hdb_mappluto_training_panel_feature_missingness.csv", na = "")
 write_csv(duplicate_bbl_jobs, "../output/hdb_mappluto_training_panel_duplicate_bbl_jobs.csv", na = "")
 write_csv(comparison_2023, "../output/hdb_mappluto_training_panel_2023_comparison.csv", na = "")

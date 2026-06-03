@@ -9,6 +9,7 @@ OUTPUTS := \
 	../output/hdb_mappluto_training_panel_hdb_only_unit_bins.csv \
 	../output/hdb_mappluto_training_panel_threshold_95_105.csv \
 	../output/hdb_mappluto_training_panel_filing_quarter_y100.csv \
+	../output/hdb_mappluto_training_panel_model_windows.csv \
 	../output/hdb_mappluto_training_panel_feature_missingness.csv \
 	../output/hdb_mappluto_training_panel_duplicate_bbl_jobs.csv \
 	../output/hdb_mappluto_training_panel_2023_comparison.csv \

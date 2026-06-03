@@ -10,7 +10,7 @@ suppressPackageStartupMessages({
 
 source("../../_lib/source_pipeline_utils.R")
 
-start_date <- as.Date("2018-01-01")
+start_date <- as.Date("2016-01-01")
 end_date <- as.Date("2023-12-31")
 
 feature_columns <- c(
