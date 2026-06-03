@@ -328,10 +328,208 @@ sample_by_year <- model_data |>
   ) |>
   arrange(filing_year)
 
+holdout_model_data <- model_data |>
+  mutate(
+    holdout_split = case_when(
+      filing_year %in% c(2019L, 2020L) ~ "train_2019_2020",
+      date_filed > as.Date("2020-12-31") & date_filed <= deadline_421a ~ "test_2021_2022h1",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  filter(!is.na(holdout_split))
+
+if (nrow(holdout_model_data) != nrow(model_data)) {
+  stop("Holdout split does not cover the full basic regression sample.")
+}
+
+for (feature_name in numeric_features) {
+  train_values <- holdout_model_data[[feature_name]][holdout_model_data$holdout_split == "train_2019_2020"]
+  feature_mean <- mean(train_values)
+  feature_sd <- sd(train_values)
+
+  if (is.na(feature_sd) || feature_sd == 0) {
+    stop("Training feature has zero or missing standard deviation: ", feature_name)
+  }
+
+  holdout_model_data[[paste0("z_", feature_name)]] <- (holdout_model_data[[feature_name]] - feature_mean) / feature_sd
+}
+
+holdout_train <- holdout_model_data |>
+  filter(holdout_split == "train_2019_2020")
+
+holdout_test <- holdout_model_data |>
+  filter(holdout_split == "test_2021_2022h1")
+
+if (nrow(holdout_train) == 0 || nrow(holdout_test) == 0) {
+  stop("Holdout training and test samples must both be non-empty.")
+}
+
+if (sum(holdout_train$y100_num) == 0 || sum(holdout_train$y100_num == 0) == 0) {
+  stop("Holdout training sample must contain both y100 and non-y100 rows.")
+}
+
+if (sum(holdout_test$y100_num) == 0 || sum(holdout_test$y100_num == 0) == 0) {
+  stop("Holdout test sample must contain both y100 and non-y100 rows.")
+}
+
+holdout_logit_model <- glm(model_formula, data = holdout_train, family = binomial())
+holdout_log_units_model <- lm(update(model_formula, log_units ~ .), data = holdout_train)
+holdout_units_model <- lm(update(model_formula, classa_prop ~ .), data = holdout_train)
+
+holdout_train_eval <- holdout_train |>
+  mutate(
+    pred_p100 = predict(holdout_logit_model, newdata = holdout_train, type = "response"),
+    pred_log_units = predict(holdout_log_units_model, newdata = holdout_train),
+    pred_units = predict(holdout_units_model, newdata = holdout_train)
+  )
+
+holdout_test_eval <- holdout_test |>
+  mutate(
+    pred_p100 = predict(holdout_logit_model, newdata = holdout_test, type = "response"),
+    pred_log_units = predict(holdout_log_units_model, newdata = holdout_test),
+    pred_units = predict(holdout_units_model, newdata = holdout_test)
+  )
+
+binary_holdout_metrics <- function(split_name, split_data) {
+  split_top_decile_cutoff <- quantile(split_data$pred_p100, 0.90, names = FALSE)
+  split_top_decile_rows <- split_data$pred_p100 >= split_top_decile_cutoff
+
+  bind_rows(
+    tibble(
+      split = split_name,
+      model = "logit_y100",
+      rows = nrow(split_data),
+      outcome = "y100",
+      outcome_mean = mean(split_data$y100_num),
+      metric = "auc",
+      value = rank_auc(split_data$y100_num, split_data$pred_p100)
+    ),
+    tibble(
+      split = split_name,
+      model = "logit_y100",
+      rows = nrow(split_data),
+      outcome = "y100",
+      outcome_mean = mean(split_data$y100_num),
+      metric = "brier_score",
+      value = mean((split_data$y100_num - split_data$pred_p100)^2)
+    ),
+    tibble(
+      split = split_name,
+      model = "logit_y100",
+      rows = nrow(split_data),
+      outcome = "y100",
+      outcome_mean = mean(split_data$y100_num),
+      metric = "top_decile_y100_share",
+      value = mean(split_data$y100_num[split_top_decile_rows])
+    ),
+    tibble(
+      split = split_name,
+      model = "logit_y100",
+      rows = nrow(split_data),
+      outcome = "y100",
+      outcome_mean = mean(split_data$y100_num),
+      metric = "top_decile_capture_share",
+      value = sum(split_data$y100_num[split_top_decile_rows]) / sum(split_data$y100_num)
+    )
+  )
+}
+
+continuous_holdout_metrics <- function(split_name, split_data, model_name, outcome_name, outcome_values, prediction_values, baseline_mean) {
+  bind_rows(
+    tibble(
+      split = split_name,
+      model = model_name,
+      rows = nrow(split_data),
+      outcome = outcome_name,
+      outcome_mean = mean(outcome_values),
+      metric = "rmse",
+      value = sqrt(mean((outcome_values - prediction_values)^2))
+    ),
+    tibble(
+      split = split_name,
+      model = model_name,
+      rows = nrow(split_data),
+      outcome = outcome_name,
+      outcome_mean = mean(outcome_values),
+      metric = "mean_absolute_error",
+      value = mean(abs(outcome_values - prediction_values))
+    ),
+    tibble(
+      split = split_name,
+      model = model_name,
+      rows = nrow(split_data),
+      outcome = outcome_name,
+      outcome_mean = mean(outcome_values),
+      metric = "r_squared_against_train_mean",
+      value = 1 - sum((outcome_values - prediction_values)^2) / sum((outcome_values - baseline_mean)^2)
+    )
+  )
+}
+
+holdout_fit_summary <- bind_rows(
+  binary_holdout_metrics("train_2019_2020", holdout_train_eval),
+  binary_holdout_metrics("test_2021_2022h1", holdout_test_eval),
+  continuous_holdout_metrics(
+    "train_2019_2020",
+    holdout_train_eval,
+    "ols_log_units",
+    "log_classa_prop",
+    holdout_train_eval$log_units,
+    holdout_train_eval$pred_log_units,
+    mean(holdout_train_eval$log_units)
+  ),
+  continuous_holdout_metrics(
+    "test_2021_2022h1",
+    holdout_test_eval,
+    "ols_log_units",
+    "log_classa_prop",
+    holdout_test_eval$log_units,
+    holdout_test_eval$pred_log_units,
+    mean(holdout_train_eval$log_units)
+  ),
+  continuous_holdout_metrics(
+    "train_2019_2020",
+    holdout_train_eval,
+    "ols_units",
+    "classa_prop",
+    holdout_train_eval$classa_prop,
+    holdout_train_eval$pred_units,
+    mean(holdout_train_eval$classa_prop)
+  ),
+  continuous_holdout_metrics(
+    "test_2021_2022h1",
+    holdout_test_eval,
+    "ols_units",
+    "classa_prop",
+    holdout_test_eval$classa_prop,
+    holdout_test_eval$pred_units,
+    mean(holdout_train_eval$classa_prop)
+  )
+)
+
+holdout_deciles <- holdout_test_eval |>
+  mutate(pred_p100_decile = ntile(pred_p100, 10L)) |>
+  group_by(pred_p100_decile) |>
+  summarise(
+    split = "test_2021_2022h1",
+    rows = n(),
+    y100_rows = sum(y100_num),
+    y100_share = mean(y100_num),
+    mean_pred_p100 = mean(pred_p100),
+    min_pred_p100 = min(pred_p100),
+    max_pred_p100 = max(pred_p100),
+    capture_share = sum(y100_num) / sum(holdout_test_eval$y100_num),
+    mean_classa_prop = mean(classa_prop),
+    .groups = "drop"
+  ) |>
+  arrange(pred_p100_decile)
+
 write_csv_if_changed(logit_coefficients, "../output/basic_logit_coefficients.csv")
 write_csv_if_changed(log_units_coefficients, "../output/basic_log_units_coefficients.csv")
 write_csv_if_changed(units_coefficients, "../output/basic_units_coefficients.csv")
 write_csv_if_changed(fit_summary, "../output/basic_regression_fit_summary.csv")
 write_csv_if_changed(sample_by_year, "../output/basic_regression_sample_by_year.csv")
 write_csv_if_changed(feature_summary, "../output/basic_regression_feature_summary.csv")
+write_csv_if_changed(holdout_fit_summary, "../output/basic_holdout_fit_summary.csv")
+write_csv_if_changed(holdout_deciles, "../output/basic_holdout_deciles.csv")
 cat("Wrote basic HDB-MapPLUTO regression audit outputs to ../output\n")
