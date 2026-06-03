@@ -33,12 +33,32 @@ model_data <- panel |>
     y100_num = as.integer(y100),
     log_units = log(classa_prop),
     log_lotarea = log(lotarea),
-    zone_family_raw = str_sub(zonedist1, 1L, 1L),
-    zone_family = if_else(zone_family_raw %in% c("R", "C", "M"), zone_family_raw, "Other"),
-    zone_family = relevel(factor(zone_family), ref = "R"),
-    borough = relevel(factor(hdb_borough_name), ref = "Brooklyn"),
-    vacant_lot = as.integer(is_vacant_lot %in% TRUE),
-    has_existing_res_units = as.integer(!is.na(unitsres) & unitsres > 0)
+    zonedist1_clean = toupper(zonedist1),
+    zone_base = str_extract(zonedist1_clean, "^[RCM][0-9]+"),
+    zone_detail = case_when(
+      str_detect(zonedist1_clean, "/") ~ "MX_slash",
+      zone_base %in% c("R1", "R2", "R3", "R4", "R5") ~ "R1_R5",
+      zone_base == "R6" ~ "R6",
+      zone_base == "R7" ~ "R7",
+      zone_base %in% c("R8", "R9", "R10") ~ "R8_R10",
+      str_detect(zonedist1_clean, "^C") ~ "C",
+      str_detect(zonedist1_clean, "^M") ~ "M_non_slash",
+      TRUE ~ "Other"
+    ),
+    zone_detail = relevel(factor(zone_detail), ref = "R6"),
+    landuse_code = str_pad(as.character(landuse), 2L, pad = "0"),
+    prior_site_use = case_when(
+      !is.na(unitsres) & unitsres > 0 ~ "existing_residential_units",
+      landuse_code == "11" ~ "vacant_land",
+      landuse_code == "10" ~ "parking",
+      landuse_code %in% c("05", "06") ~ "commercial_industrial",
+      landuse_code == "04" ~ "mixed_res_commercial",
+      landuse_code %in% c("07", "08") ~ "public_transport_utility",
+      is.na(landuse_code) ~ "missing_landuse",
+      TRUE ~ "other_no_res_units"
+    ),
+    prior_site_use = relevel(factor(prior_site_use), ref = "existing_residential_units"),
+    borough = relevel(factor(hdb_borough_name), ref = "Brooklyn")
   )
 
 if (nrow(model_data) == 0) {
@@ -79,51 +99,6 @@ for (feature_name in numeric_features) {
   model_data[[paste0("z_", feature_name)]] <- (model_data[[feature_name]] - feature_mean) / feature_sd
 }
 
-feature_summary_binary <- bind_rows(
-  model_data |>
-    count(vacant_lot, name = "rows") |>
-    left_join(
-      model_data |>
-        group_by(vacant_lot) |>
-        summarise(y100_rows = sum(y100_num), y100_share = mean(y100_num), .groups = "drop"),
-      by = "vacant_lot",
-      relationship = "one-to-one"
-    ) |>
-    transmute(
-      feature = "vacant_lot",
-      level = as.character(vacant_lot),
-      rows,
-      y100_rows,
-      y100_share,
-      mean_value = NA_real_,
-      sd_value = NA_real_,
-      min_value = NA_real_,
-      median_value = NA_real_,
-      max_value = NA_real_
-    ),
-  model_data |>
-    count(has_existing_res_units, name = "rows") |>
-    left_join(
-      model_data |>
-        group_by(has_existing_res_units) |>
-        summarise(y100_rows = sum(y100_num), y100_share = mean(y100_num), .groups = "drop"),
-      by = "has_existing_res_units",
-      relationship = "one-to-one"
-    ) |>
-    transmute(
-      feature = "has_existing_res_units",
-      level = as.character(has_existing_res_units),
-      rows,
-      y100_rows,
-      y100_share,
-      mean_value = NA_real_,
-      sd_value = NA_real_,
-      min_value = NA_real_,
-      median_value = NA_real_,
-      max_value = NA_real_
-    )
-)
-
 feature_summary_categorical <- bind_rows(
   model_data |>
     group_by(borough) |>
@@ -141,11 +116,26 @@ feature_summary_categorical <- bind_rows(
       max_value = NA_real_
     ),
   model_data |>
-    group_by(zone_family) |>
+    group_by(zone_detail) |>
     summarise(rows = n(), y100_rows = sum(y100_num), y100_share = mean(y100_num), .groups = "drop") |>
     transmute(
-      feature = "zone_family",
-      level = as.character(zone_family),
+      feature = "zone_detail",
+      level = as.character(zone_detail),
+      rows,
+      y100_rows,
+      y100_share,
+      mean_value = NA_real_,
+      sd_value = NA_real_,
+      min_value = NA_real_,
+      median_value = NA_real_,
+      max_value = NA_real_
+    ),
+  model_data |>
+    group_by(prior_site_use) |>
+    summarise(rows = n(), y100_rows = sum(y100_num), y100_share = mean(y100_num), .groups = "drop") |>
+    transmute(
+      feature = "prior_site_use",
+      level = as.character(prior_site_use),
       rows,
       y100_rows,
       y100_share,
@@ -157,11 +147,11 @@ feature_summary_categorical <- bind_rows(
     )
 )
 
-feature_summary <- bind_rows(feature_summary_numeric, feature_summary_binary, feature_summary_categorical) |>
+feature_summary <- bind_rows(feature_summary_numeric, feature_summary_categorical) |>
   arrange(feature, level)
 
 model_formula <- y100_num ~ z_log_lotarea + z_residfar + z_builtfar +
-  vacant_lot + has_existing_res_units + borough + zone_family
+  borough + zone_detail + prior_site_use
 
 logit_model <- glm(model_formula, data = model_data, family = binomial())
 log_units_model <- lm(update(model_formula, log_units ~ .), data = model_data)
