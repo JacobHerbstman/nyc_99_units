@@ -78,7 +78,9 @@ for (i in seq_len(nrow(available_rows))) {
       borough = standardize_borough_code(borough),
       block = normalize_integer_field(block),
       lot = normalize_integer_field(lot),
-      bbl = coalesce_character(normalize_text_field(bbl), build_bbl(borough, block, lot)),
+      bbl_raw = normalize_text_field(bbl),
+      bbl_built = build_bbl(borough, block, lot),
+      bbl = if_else(!is.na(bbl_raw) & str_detect(bbl_raw, "^[1-5][0-9]{9}$"), bbl_raw, bbl_built),
       address = normalize_text_field(address),
       cd = normalize_integer_field(cd),
       zipcode = normalize_text_field(zipcode),
@@ -135,7 +137,8 @@ for (i in seq_len(nrow(available_rows))) {
       pfirm15_flag = normalize_text_field(pfirm15_flag),
       landuse = normalize_text_field(landuse),
       bldgclass = normalize_text_field(bldgclass)
-    )
+    ) |>
+    select(-bbl_raw, -bbl_built)
 
   write_parquet_if_changed(lot_table, out_parquet_local)
   out_parquet_info <- file.info(out_parquet_local)

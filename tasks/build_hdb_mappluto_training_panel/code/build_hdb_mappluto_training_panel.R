@@ -169,6 +169,23 @@ candidate_panel <- candidate_panel |>
     valid_bbl = str_detect(bbl, "^[1-5][0-9]{9}$")
   )
 
+lag_invariant_failures <- candidate_panel |>
+  filter(true_lagged_pluto_available) |>
+  filter(
+    is.na(pluto_release_order_used) |
+      is.na(pluto_release_order_latest_pre_filing) |
+      is.na(pluto_safe_available_date_used) |
+      is.na(pluto_safe_available_date_latest_pre_filing) |
+      pluto_timing_status != "strict_lag_pre_filing" |
+      pluto_release_order_used != pluto_release_order_latest_pre_filing - 1L |
+      pluto_safe_available_date_used >= pluto_safe_available_date_latest_pre_filing |
+      pluto_safe_available_date_latest_pre_filing >= date_filed
+  )
+
+if (nrow(lag_invariant_failures) > 0) {
+  stop("One-release-lag assignment invariant failed for ", nrow(lag_invariant_failures), " rows.")
+}
+
 mappluto_lot_files <- mappluto_lot_files |>
   mutate(
     source_id = as.character(source_id),
@@ -186,6 +203,8 @@ mappluto_index <- release_calendar |>
     relationship = "one-to-one"
   )
 
+candidate_rows_before_pluto_index <- nrow(candidate_panel)
+
 candidate_panel <- candidate_panel |>
   left_join(
     mappluto_index |>
@@ -198,6 +217,10 @@ candidate_panel <- candidate_panel |>
     by = c("pluto_source_id_used", "pluto_version_used"),
     relationship = "many-to-one"
   )
+
+if (nrow(candidate_panel) != candidate_rows_before_pluto_index) {
+  stop("Joining selected PLUTO file metadata changed candidate row count.")
+}
 
 empty_features <- tibble(
   bbl = character(),
@@ -401,6 +424,16 @@ matched_features <- if (length(matched_feature_rows) == 0) {
   bind_rows(matched_feature_rows)
 }
 
+matched_feature_duplicate_keys <- matched_features |>
+  count(bbl, pluto_source_id_used, pluto_version_used, name = "matched_feature_rows") |>
+  filter(matched_feature_rows > 1)
+
+if (nrow(matched_feature_duplicate_keys) > 0) {
+  stop("Matched PLUTO features are not unique by BBL/source/vintage.")
+}
+
+candidate_rows_before_feature_join <- nrow(candidate_panel)
+
 candidate_panel <- candidate_panel |>
   left_join(
     matched_features,
@@ -433,6 +466,10 @@ candidate_panel <- candidate_panel |>
     primary_leakage_safe_sample = primary_sample & true_lagged_pluto_available,
     expanded_backfill_sample = primary_sample
   )
+
+if (nrow(candidate_panel) != candidate_rows_before_feature_join) {
+  stop("Joining matched PLUTO features changed candidate row count.")
+}
 
 for (feature_name in numeric_feature_columns) {
   candidate_panel[[paste0("missing_", feature_name)]] <- is.na(candidate_panel[[feature_name]])

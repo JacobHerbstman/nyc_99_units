@@ -43,8 +43,8 @@ if (any(is.na(calendar$source_id)) || any(is.na(calendar$vintage))) {
   stop("Release calendar has missing source_id or vintage.")
 }
 
-if (anyDuplicated(calendar$vintage) > 0) {
-  stop("Release calendar vintage values must be unique.")
+if (anyDuplicated(paste(calendar$source_id, calendar$vintage, sep = "::")) > 0) {
+  stop("Release calendar source_id/vintage pairs must be unique.")
 }
 
 if (any(is.na(calendar$release_order)) || anyDuplicated(calendar$release_order) > 0) {
@@ -69,7 +69,7 @@ if (any(diff(usable_calendar$safe_available_date) < 0)) {
 
 staged_training_vintages <- mappluto_lot_files |>
   filter(
-    (source_id == "dcp_pluto_archive" & str_detect(as.character(vintage), "^(09|10|11|12|13|14|15|16|17)v|^18v1$")) |
+    (source_id == "dcp_pluto_archive" & str_detect(as.character(vintage), "^((09|10|11|12|13|14|15|16|17)v|18v1)$")) |
       (source_id == "dcp_mappluto_archive" & str_detect(as.character(vintage), "^(18|19|20|21|22|23)v")),
     if ("raw_status" %in% names(mappluto_lot_files)) raw_status == "loaded" else TRUE
   ) |>

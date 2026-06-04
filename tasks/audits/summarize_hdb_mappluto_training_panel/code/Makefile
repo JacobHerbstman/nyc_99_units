@@ -12,6 +12,7 @@ OUTPUTS := \
 	../output/hdb_mappluto_training_panel_threshold_95_105.csv \
 	../output/hdb_mappluto_training_panel_filing_quarter_y100.csv \
 	../output/hdb_mappluto_training_panel_model_windows.csv \
+	../output/hdb_mappluto_training_panel_legacy_date_shift_sensitivity.csv \
 	../output/hdb_mappluto_training_panel_feature_missingness.csv \
 	../output/hdb_mappluto_training_panel_duplicate_bbl_jobs.csv \
 	../output/hdb_mappluto_training_panel_2023_comparison.csv \
@@ -23,7 +24,7 @@ OUTPUTS := \
 
 all: $(OUTPUTS)
 
-../output/hdb_mappluto_training_panel_counts_by_year.csv: summarize_hdb_mappluto_training_panel.R ../input/hdb_mappluto_training_panel.parquet ../input/mappluto_lot_files.csv | ../output
+../output/hdb_mappluto_training_panel_counts_by_year.csv: summarize_hdb_mappluto_training_panel.R ../input/hdb_mappluto_training_panel.parquet ../input/mappluto_lot_files.csv ../input/mappluto_release_calendar.csv | ../output
 	$(R) $<
 
 $(filter-out ../output/hdb_mappluto_training_panel_counts_by_year.csv,$(OUTPUTS)): ../output/hdb_mappluto_training_panel_counts_by_year.csv
@@ -35,6 +36,9 @@ $(filter-out ../output/hdb_mappluto_training_panel_counts_by_year.csv,$(OUTPUTS)
 ../input/mappluto_lot_files.csv: ../../../stage_mappluto_lots/output/mappluto_lot_files.csv | ../input
 	@test "$$(readlink "$@")" = "../../../stage_mappluto_lots/output/mappluto_lot_files.csv" || ln -sf "../../../stage_mappluto_lots/output/mappluto_lot_files.csv" "$@"
 
-link-inputs: ../input/hdb_mappluto_training_panel.parquet ../input/mappluto_lot_files.csv
+../input/mappluto_release_calendar.csv: ../../../define_mappluto_release_calendar/output/mappluto_release_calendar.csv | ../input
+	@test "$$(readlink "$@")" = "../../../define_mappluto_release_calendar/output/mappluto_release_calendar.csv" || ln -sf "../../../define_mappluto_release_calendar/output/mappluto_release_calendar.csv" "$@"
+
+link-inputs: ../input/hdb_mappluto_training_panel.parquet ../input/mappluto_lot_files.csv ../input/mappluto_release_calendar.csv
 
 include ../../generic.make

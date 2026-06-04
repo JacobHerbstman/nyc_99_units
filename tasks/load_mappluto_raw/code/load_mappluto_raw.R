@@ -69,6 +69,9 @@ extract_mappluto_table <- function(raw_path) {
     zip_listing <- suppressWarnings(system2("unzip", c("-Z1", raw_path), stdout = TRUE, stderr = FALSE))
     table_entries <- zip_listing[str_detect(tolower(zip_listing), "\\.(csv|txt)$")]
     table_entries <- table_entries[!str_detect(tolower(basename(table_entries)), "change|dictionary|readme|layout|lay|dates")]
+    if (anyDuplicated(basename(table_entries)) > 0) {
+      stop("PLUTO zip contains duplicate selected table basenames; unzip -oj would overwrite files in ", raw_path)
+    }
     dbf_entry <- zip_listing[str_detect(tolower(zip_listing), "\\.dbf$")][1]
     gpkg_entry <- zip_listing[str_detect(tolower(zip_listing), "\\.gpkg$")][1]
 
@@ -130,6 +133,15 @@ extract_mappluto_table <- function(raw_path) {
   }
 
   names(pluto) <- normalize_names(names(pluto))
+
+  has_bbl <- "bbl" %in% names(pluto)
+  has_borough_block_lot <- all(c("borough", "block", "lot") %in% names(pluto)) ||
+    all(c("boro_code", "block", "lot") %in% names(pluto)) ||
+    all(c("borocode", "block", "lot") %in% names(pluto))
+
+  if (!has_bbl && !has_borough_block_lot) {
+    stop("PLUTO table lacks BBL and borough/block/lot identifier columns in ", raw_path)
+  }
 
   lot_table <- tibble(
     bbl = pick_first_existing(pluto, c("bbl")),

@@ -15,12 +15,18 @@ panel <- read_parquet("../input/hdb_mappluto_training_panel.parquet") |>
   as_tibble()
 
 mappluto_lot_files <- read_csv("../input/mappluto_lot_files.csv", show_col_types = FALSE, na = c("", "NA"))
+release_calendar <- read_csv("../input/mappluto_release_calendar.csv", show_col_types = FALSE, na = c("", "NA"))
 deadline_421a <- as.Date("2022-06-15")
 
 missing_mappluto_columns <- setdiff(c("source_id", "vintage", "parquet_path"), names(mappluto_lot_files))
+missing_calendar_columns <- setdiff(c("source_id", "vintage", "release_order", "safe_available_date", "usable_for_training"), names(release_calendar))
 
 if (length(missing_mappluto_columns) > 0) {
   stop("MapPLUTO lot manifest is missing columns: ", paste(missing_mappluto_columns, collapse = ", "))
+}
+
+if (length(missing_calendar_columns) > 0) {
+  stop("MapPLUTO release calendar is missing columns: ", paste(missing_calendar_columns, collapse = ", "))
 }
 
 mappluto_lot_files <- mappluto_lot_files |>
@@ -29,6 +35,17 @@ mappluto_lot_files <- mappluto_lot_files |>
     vintage = as.character(vintage),
     parquet_path = as.character(parquet_path)
   )
+
+release_calendar <- release_calendar |>
+  mutate(
+    source_id = as.character(source_id),
+    vintage = as.character(vintage),
+    release_order = suppressWarnings(as.integer(release_order)),
+    safe_available_date = as.Date(safe_available_date),
+    usable_for_training = str_to_upper(as.character(usable_for_training)) == "TRUE"
+  ) |>
+  filter(usable_for_training) |>
+  arrange(release_order)
 
 make_filing_quarter <- function(date_values) {
   quarter_number <- ((as.integer(format(date_values, "%m")) - 1L) %/% 3L) + 1L
@@ -319,6 +336,100 @@ model_windows <- bind_rows(
     panel |> filter(filing_year == 2023)
   )
 )
+
+legacy_date_shift_rows <- list()
+legacy_date_shift_base <- panel |>
+  filter(date_filed >= as.Date("2010-01-01"), date_filed <= deadline_421a)
+
+for (shift_days in c(0L, 30L, 60L, 90L)) {
+  shifted_calendar <- release_calendar |>
+    mutate(
+      safe_available_date_shifted = if_else(
+        source_id == "dcp_pluto_archive",
+        safe_available_date + shift_days,
+        safe_available_date
+      )
+    ) |>
+    arrange(release_order)
+
+  earliest_shifted_release <- shifted_calendar[1, ]
+  shifted_latest_source <- rep(NA_character_, nrow(legacy_date_shift_base))
+  shifted_latest_vintage <- rep(NA_character_, nrow(legacy_date_shift_base))
+  shifted_used_source <- rep(NA_character_, nrow(legacy_date_shift_base))
+  shifted_used_vintage <- rep(NA_character_, nrow(legacy_date_shift_base))
+  shifted_true_lagged <- rep(FALSE, nrow(legacy_date_shift_base))
+  shifted_timing_status <- rep(NA_character_, nrow(legacy_date_shift_base))
+
+  for (i in seq_len(nrow(legacy_date_shift_base))) {
+    available_release_rows <- shifted_calendar |>
+      filter(safe_available_date_shifted < legacy_date_shift_base$date_filed[i]) |>
+      arrange(release_order)
+
+    if (nrow(available_release_rows) == 0) {
+      shifted_used_source[i] <- earliest_shifted_release$source_id
+      shifted_used_vintage[i] <- earliest_shifted_release$vintage
+      shifted_timing_status[i] <- "post_filing_backfill"
+      next
+    }
+
+    latest_release <- available_release_rows[nrow(available_release_rows), ]
+    shifted_latest_source[i] <- latest_release$source_id
+    shifted_latest_vintage[i] <- latest_release$vintage
+
+    lagged_release_rows <- shifted_calendar |>
+      filter(release_order < latest_release$release_order) |>
+      arrange(release_order)
+
+    if (nrow(lagged_release_rows) == 0) {
+      shifted_used_source[i] <- latest_release$source_id
+      shifted_used_vintage[i] <- latest_release$vintage
+      shifted_timing_status[i] <- "latest_pre_filing_no_lag"
+      next
+    }
+
+    lagged_release <- lagged_release_rows[nrow(lagged_release_rows), ]
+    shifted_used_source[i] <- lagged_release$source_id
+    shifted_used_vintage[i] <- lagged_release$vintage
+    shifted_timing_status[i] <- "strict_lag_pre_filing"
+    shifted_true_lagged[i] <- TRUE
+  }
+
+  current_latest_key <- paste(
+    legacy_date_shift_base$pluto_source_id_latest_pre_filing,
+    legacy_date_shift_base$pluto_version_latest_pre_filing,
+    sep = "::"
+  )
+  shifted_latest_key <- paste(shifted_latest_source, shifted_latest_vintage, sep = "::")
+  current_used_key <- paste(
+    legacy_date_shift_base$pluto_source_id_used,
+    legacy_date_shift_base$pluto_version_used,
+    sep = "::"
+  )
+  shifted_used_key <- paste(shifted_used_source, shifted_used_vintage, sep = "::")
+  shifted_primary_leakage_safe <- legacy_date_shift_base$primary_sample & shifted_true_lagged
+
+  legacy_date_shift_rows[[length(legacy_date_shift_rows) + 1L]] <- tibble(
+    legacy_safe_date_shift_days = shift_days,
+    candidate_rows = nrow(legacy_date_shift_base),
+    primary_rows = sum(legacy_date_shift_base$primary_sample, na.rm = TRUE),
+    current_primary_leakage_safe_rows = sum(legacy_date_shift_base$primary_leakage_safe_sample, na.rm = TRUE),
+    shifted_primary_leakage_safe_rows = sum(shifted_primary_leakage_safe, na.rm = TRUE),
+    changed_latest_assignment_rows = sum(current_latest_key != shifted_latest_key, na.rm = TRUE),
+    changed_used_assignment_rows = sum(current_used_key != shifted_used_key, na.rm = TRUE),
+    changed_timing_status_rows = sum(legacy_date_shift_base$pluto_timing_status != shifted_timing_status, na.rm = TRUE),
+    changed_primary_leakage_safe_status_rows = sum(
+      legacy_date_shift_base$primary_leakage_safe_sample != shifted_primary_leakage_safe,
+      na.rm = TRUE
+    ),
+    shifted_primary_leakage_safe_y100_rows = sum(shifted_primary_leakage_safe & legacy_date_shift_base$y100 %in% TRUE, na.rm = TRUE),
+    shifted_primary_leakage_safe_70plus_rows = sum(
+      shifted_primary_leakage_safe & legacy_date_shift_base$classa_prop >= 70,
+      na.rm = TRUE
+    )
+  )
+}
+
+legacy_date_shift_sensitivity <- bind_rows(legacy_date_shift_rows)
 
 feature_names <- c(
   "lotarea", "bldgarea", "resarea", "comarea", "unitsres", "unitstotal",
@@ -797,6 +908,7 @@ write_csv(hdb_only_unit_bins, "../output/hdb_mappluto_training_panel_hdb_only_un
 write_csv(threshold_95_105, "../output/hdb_mappluto_training_panel_threshold_95_105.csv", na = "")
 write_csv(filing_quarter_y100, "../output/hdb_mappluto_training_panel_filing_quarter_y100.csv", na = "")
 write_csv(model_windows, "../output/hdb_mappluto_training_panel_model_windows.csv", na = "")
+write_csv(legacy_date_shift_sensitivity, "../output/hdb_mappluto_training_panel_legacy_date_shift_sensitivity.csv", na = "")
 write_csv(feature_missingness, "../output/hdb_mappluto_training_panel_feature_missingness.csv", na = "")
 write_csv(duplicate_bbl_jobs, "../output/hdb_mappluto_training_panel_duplicate_bbl_jobs.csv", na = "")
 write_csv(comparison_2023, "../output/hdb_mappluto_training_panel_2023_comparison.csv", na = "")
