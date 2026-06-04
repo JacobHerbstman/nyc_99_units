@@ -13,15 +13,15 @@ source("../../../_lib/source_pipeline_utils.R")
 deadline_421a <- as.Date("2022-06-15")
 candidate_min_classa_prop <- 70L
 conditioned_candidate_min_classa_props <- c(50L, 60L, 70L)
+period_holdout_candidate_min_classa_prop <- 50L
 
 panel <- read_parquet("../input/hdb_mappluto_training_panel.parquet") |>
   as.data.frame() |>
   as_tibble()
 
-model_data <- panel |>
+model_data_all_dates <- panel |>
   filter(
     primary_leakage_safe_sample,
-    date_filed <= deadline_421a,
     classa_prop_integer,
     !is.na(y100),
     !is.na(lotarea),
@@ -62,6 +62,9 @@ model_data <- panel |>
     prior_site_use = relevel(factor(prior_site_use), ref = "existing_residential_units"),
     borough = relevel(factor(hdb_borough_name), ref = "Brooklyn")
   )
+
+model_data <- model_data_all_dates |>
+  filter(date_filed <= deadline_421a)
 
 if (nrow(model_data) == 0) {
   stop("Basic regression sample is empty.")
@@ -850,6 +853,66 @@ conditioned_holdout_fit_summary <- bind_rows(lapply(conditioned_holdout_rows, fu
 conditioned_holdout_deciles <- bind_rows(lapply(conditioned_holdout_rows, function(output) output$deciles)) |>
   arrange(candidate_min_classa_prop, training_window, pred_p100_decile)
 
+pre_2018_period_holdout_model_data <- model_data |>
+  mutate(
+    holdout_split = case_when(
+      date_filed < as.Date("2018-01-01") ~ "train_pre_2018",
+      date_filed >= as.Date("2018-01-01") & date_filed <= as.Date("2020-12-31") ~ "test_2018_2020",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  filter(!is.na(holdout_split))
+
+pre_2021_period_holdout_model_data <- model_data |>
+  mutate(
+    holdout_split = case_when(
+      date_filed >= as.Date("2013-01-01") & date_filed <= as.Date("2020-12-31") ~ "train_2013_2020",
+      date_filed > as.Date("2020-12-31") & date_filed <= deadline_421a ~ "test_2021_2022h1",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  filter(!is.na(holdout_split))
+
+post_deadline_period_holdout_model_data <- model_data_all_dates |>
+  mutate(
+    holdout_split = case_when(
+      date_filed >= as.Date("2013-01-01") & date_filed <= as.Date("2020-12-31") ~ "train_2013_2020",
+      date_filed > deadline_421a ~ "post_2022_06_15_regime_shift",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  filter(!is.na(holdout_split))
+
+period_holdout_rows <- list(
+  fit_conditioned_holdout_window(
+    pre_2018_period_holdout_model_data,
+    "train_pre_2018",
+    "test_2018_2020",
+    "pre_2018_to_2018_2020",
+    period_holdout_candidate_min_classa_prop
+  ),
+  fit_conditioned_holdout_window(
+    pre_2021_period_holdout_model_data,
+    "train_2013_2020",
+    "test_2021_2022h1",
+    "pre_2021_to_2021_2022h1",
+    period_holdout_candidate_min_classa_prop
+  ),
+  fit_conditioned_holdout_window(
+    post_deadline_period_holdout_model_data,
+    "train_2013_2020",
+    "post_2022_06_15_regime_shift",
+    "pre_2021_to_post_2022_06_15",
+    period_holdout_candidate_min_classa_prop
+  )
+)
+
+period_holdout_fit_summary <- bind_rows(lapply(period_holdout_rows, function(output) output$fit_summary)) |>
+  arrange(training_window, split, model, metric)
+
+period_holdout_deciles <- bind_rows(lapply(period_holdout_rows, function(output) output$deciles)) |>
+  arrange(training_window, pred_p100_decile)
+
 write_csv_if_changed(logit_coefficients, "../output/basic_logit_coefficients.csv")
 write_csv_if_changed(log_units_coefficients, "../output/basic_log_units_coefficients.csv")
 write_csv_if_changed(units_coefficients, "../output/basic_units_coefficients.csv")
@@ -866,4 +929,6 @@ write_csv_if_changed(expanded_holdout_outputs$candidate70_fit_summary, "../outpu
 write_csv_if_changed(expanded_holdout_outputs$candidate70_deciles, "../output/basic_expanded_holdout_candidate70_deciles.csv")
 write_csv_if_changed(conditioned_holdout_fit_summary, "../output/basic_conditioned_holdout_fit_summary.csv")
 write_csv_if_changed(conditioned_holdout_deciles, "../output/basic_conditioned_holdout_deciles.csv")
+write_csv_if_changed(period_holdout_fit_summary, "../output/basic_period_holdout_fit_summary.csv")
+write_csv_if_changed(period_holdout_deciles, "../output/basic_period_holdout_deciles.csv")
 cat("Wrote basic HDB-MapPLUTO regression audit outputs to ../output\n")

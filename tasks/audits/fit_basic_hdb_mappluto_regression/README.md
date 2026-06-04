@@ -14,3 +14,5 @@ The narrow holdout audit trains on 2019-2020 rows and evaluates on 2021 through 
 The candidate-size holdout audits keep the same trained models and evaluate them only among projects with at least 70 proposed Class A units. This checks whether the score discriminates within the near-threshold project range rather than relying on easy small-building contrasts.
 
 The conditioned holdout audits instead train and evaluate within candidate-size samples. They estimate separate diagnostics for 50+, 60+, and 70+ proposed Class A unit thresholds under both the narrow and expanded training windows.
+
+The period holdout audit focuses on the 50+ proposed-unit candidate range. It trains pre-2018 rows and tests on 2018-2020, then trains 2013-2020 rows and tests on 2021 through 2022-06-15. A third diagnostic trains on the same 2013-2020 rows and evaluates post-2022-06-15 rows as regime-shift evidence, not as an ordinary validation holdout.
