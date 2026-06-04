@@ -217,6 +217,76 @@ hdb_only_unit_bins <- panel |>
   ) |>
   arrange(filing_year, unit_bin)
 
+size_threshold_panel <- panel |>
+  filter(classa_prop_integer) |>
+  mutate(
+    filing_quarter = make_filing_quarter(date_filed),
+    policy_period = case_when(
+      is.na(date_filed) ~ "missing_date",
+      date_filed < as.Date("2018-01-01") ~ "pre_2018",
+      date_filed <= deadline_421a ~ "2018_to_2022_06_15",
+      TRUE ~ "post_2022_06_15"
+    ),
+    model_eligible_sample = primary_leakage_safe_sample &
+      !is.na(lotarea) &
+      lotarea > 0 &
+      !is.na(residfar) &
+      !is.na(builtfar) &
+      !is.na(hdb_borough_name) &
+      !is.na(zonedist1)
+  )
+
+summarise_size_thresholds <- function(data, time_scale, time_value, sample_name, sample_flag) {
+  sample_rows <- data |>
+    filter(sample_flag)
+
+  tibble(
+    time_scale = time_scale,
+    time_value = time_value,
+    sample = sample_name,
+    rows = nrow(sample_rows),
+    classa_50plus_rows = sum(sample_rows$classa_prop >= 50, na.rm = TRUE),
+    classa_100plus_rows = sum(sample_rows$classa_prop >= 100, na.rm = TRUE),
+    classa_50plus_share = if_else(nrow(sample_rows) > 0, classa_50plus_rows / nrow(sample_rows), NA_real_),
+    classa_100plus_share = if_else(nrow(sample_rows) > 0, classa_100plus_rows / nrow(sample_rows), NA_real_),
+    classa_100plus_share_among_50plus = if_else(classa_50plus_rows > 0, classa_100plus_rows / classa_50plus_rows, NA_real_),
+    mean_classa_prop = if_else(nrow(sample_rows) > 0, mean(sample_rows$classa_prop, na.rm = TRUE), NA_real_),
+    median_classa_prop = if_else(nrow(sample_rows) > 0, median(sample_rows$classa_prop, na.rm = TRUE), NA_real_)
+  )
+}
+
+size_threshold_rows <- list()
+size_threshold_counter <- 0L
+
+for (sample_name in c("candidate_valid_classa", "primary_leakage_safe", "model_eligible")) {
+  for (time_scale in c("policy_period", "filing_year", "filing_quarter")) {
+    time_values <- sort(unique(size_threshold_panel[[time_scale]]))
+
+    for (time_value in time_values) {
+      period_rows <- size_threshold_panel |>
+        filter(.data[[time_scale]] == time_value)
+
+      sample_flag <- case_when(
+        sample_name == "candidate_valid_classa" ~ rep(TRUE, nrow(period_rows)),
+        sample_name == "primary_leakage_safe" ~ period_rows$primary_leakage_safe_sample,
+        TRUE ~ period_rows$model_eligible_sample
+      )
+
+      size_threshold_counter <- size_threshold_counter + 1L
+      size_threshold_rows[[size_threshold_counter]] <- summarise_size_thresholds(
+        period_rows,
+        time_scale,
+        as.character(time_value),
+        sample_name,
+        sample_flag
+      )
+    }
+  }
+}
+
+size_threshold_shares <- bind_rows(size_threshold_rows) |>
+  arrange(sample, time_scale, time_value)
+
 threshold_values <- 95:105
 threshold_years <- sort(unique(panel$filing_year))
 threshold_grid <- tibble(
@@ -905,6 +975,7 @@ write_csv(vintage_use, "../output/hdb_mappluto_training_panel_vintage_use.csv", 
 write_csv(release_design_by_year, "../output/hdb_mappluto_training_panel_release_design_by_year.csv", na = "")
 write_csv(timing_distance_by_year, "../output/hdb_mappluto_training_panel_timing_distance_by_year.csv", na = "")
 write_csv(hdb_only_unit_bins, "../output/hdb_mappluto_training_panel_hdb_only_unit_bins.csv", na = "")
+write_csv(size_threshold_shares, "../output/hdb_mappluto_training_panel_size_threshold_shares.csv", na = "")
 write_csv(threshold_95_105, "../output/hdb_mappluto_training_panel_threshold_95_105.csv", na = "")
 write_csv(filing_quarter_y100, "../output/hdb_mappluto_training_panel_filing_quarter_y100.csv", na = "")
 write_csv(model_windows, "../output/hdb_mappluto_training_panel_model_windows.csv", na = "")
