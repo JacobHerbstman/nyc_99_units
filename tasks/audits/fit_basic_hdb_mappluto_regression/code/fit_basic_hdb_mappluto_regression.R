@@ -12,6 +12,7 @@ source("../../../_lib/source_pipeline_utils.R")
 
 deadline_421a <- as.Date("2022-06-15")
 candidate_min_classa_prop <- 70L
+conditioned_candidate_min_classa_props <- c(50L, 60L, 70L)
 
 panel <- read_parquet("../input/hdb_mappluto_training_panel.parquet") |>
   as.data.frame() |>
@@ -631,6 +632,224 @@ expanded_holdout_outputs <- fit_holdout_window(
   "test_2021_2022h1"
 )
 
+fit_conditioned_holdout_window <- function(holdout_model_data, train_split, test_split, training_window, candidate_min_classa) {
+  conditioned_data <- holdout_model_data |>
+    filter(classa_prop >= candidate_min_classa)
+
+  holdout_train <- conditioned_data |>
+    filter(holdout_split == train_split)
+
+  holdout_test <- conditioned_data |>
+    filter(holdout_split == test_split)
+
+  raw_train_rows <- nrow(holdout_train)
+  raw_test_rows <- nrow(holdout_test)
+
+  if (nrow(holdout_train) == 0 || nrow(holdout_test) == 0) {
+    stop("Conditioned holdout samples must both be non-empty for ", training_window, " at ", candidate_min_classa, "+.")
+  }
+
+  categorical_features <- c("borough", "zone_detail", "prior_site_use")
+  supported_test_rows <- rep(TRUE, nrow(holdout_test))
+
+  for (feature_name in categorical_features) {
+    train_levels <- sort(unique(as.character(holdout_train[[feature_name]])))
+    supported_test_rows <- supported_test_rows & as.character(holdout_test[[feature_name]]) %in% train_levels
+  }
+
+  unsupported_test_category_rows <- sum(!supported_test_rows)
+  holdout_test <- holdout_test[supported_test_rows, ]
+
+  if (nrow(holdout_test) == 0) {
+    stop("Conditioned test sample has no rows with supported training categories for ", training_window, " at ", candidate_min_classa, "+.")
+  }
+
+  for (feature_name in categorical_features) {
+    train_levels <- sort(unique(as.character(holdout_train[[feature_name]])))
+
+    holdout_train[[feature_name]] <- factor(as.character(holdout_train[[feature_name]]), levels = train_levels)
+    holdout_test[[feature_name]] <- factor(as.character(holdout_test[[feature_name]]), levels = train_levels)
+
+    if (feature_name == "borough" && "Brooklyn" %in% train_levels) {
+      holdout_train[[feature_name]] <- relevel(holdout_train[[feature_name]], ref = "Brooklyn")
+      holdout_test[[feature_name]] <- relevel(holdout_test[[feature_name]], ref = "Brooklyn")
+    }
+
+    if (feature_name == "zone_detail" && "R6" %in% train_levels) {
+      holdout_train[[feature_name]] <- relevel(holdout_train[[feature_name]], ref = "R6")
+      holdout_test[[feature_name]] <- relevel(holdout_test[[feature_name]], ref = "R6")
+    }
+
+    if (feature_name == "prior_site_use" && "existing_residential_units" %in% train_levels) {
+      holdout_train[[feature_name]] <- relevel(holdout_train[[feature_name]], ref = "existing_residential_units")
+      holdout_test[[feature_name]] <- relevel(holdout_test[[feature_name]], ref = "existing_residential_units")
+    }
+
+    if (length(unique(as.character(holdout_train[[feature_name]]))) < 2L) {
+      stop("Conditioned training sample has fewer than two observed levels for ", feature_name, " at ", candidate_min_classa, "+.")
+    }
+  }
+
+  if (sum(holdout_train$y100_num) == 0 || sum(holdout_train$y100_num == 0) == 0) {
+    stop("Conditioned training sample must contain both y100 and non-y100 rows for ", training_window, " at ", candidate_min_classa, "+.")
+  }
+
+  if (sum(holdout_test$y100_num) == 0 || sum(holdout_test$y100_num == 0) == 0) {
+    stop("Conditioned test sample must contain both y100 and non-y100 rows for ", training_window, " at ", candidate_min_classa, "+.")
+  }
+
+  for (feature_name in numeric_features) {
+    train_values <- holdout_train[[feature_name]]
+    feature_mean <- mean(train_values)
+    feature_sd <- sd(train_values)
+
+    if (is.na(feature_sd) || feature_sd == 0) {
+      stop("Conditioned training feature has zero or missing standard deviation: ", feature_name)
+    }
+
+    holdout_train[[paste0("z_", feature_name)]] <- (holdout_train[[feature_name]] - feature_mean) / feature_sd
+    holdout_test[[paste0("z_", feature_name)]] <- (holdout_test[[feature_name]] - feature_mean) / feature_sd
+  }
+
+  conditioned_logit_model <- glm(model_formula, data = holdout_train, family = binomial())
+  conditioned_log_units_model <- lm(update(model_formula, log_units ~ .), data = holdout_train)
+  conditioned_units_model <- lm(update(model_formula, classa_prop ~ .), data = holdout_train)
+
+  holdout_train_eval <- holdout_train |>
+    mutate(
+      pred_p100 = predict(conditioned_logit_model, newdata = holdout_train, type = "response"),
+      pred_log_units = predict(conditioned_log_units_model, newdata = holdout_train),
+      pred_units = predict(conditioned_units_model, newdata = holdout_train)
+    )
+
+  holdout_test_eval <- holdout_test |>
+    mutate(
+      pred_p100 = predict(conditioned_logit_model, newdata = holdout_test, type = "response"),
+      pred_log_units = predict(conditioned_log_units_model, newdata = holdout_test),
+      pred_units = predict(conditioned_units_model, newdata = holdout_test)
+    )
+
+  fit_summary <- bind_rows(
+    tibble(
+      split = train_split,
+      model = "sample_support",
+      rows = nrow(holdout_train),
+      outcome = "classa_prop",
+      outcome_mean = mean(holdout_train$classa_prop),
+      metric = "raw_rows",
+      value = raw_train_rows
+    ),
+    tibble(
+      split = test_split,
+      model = "sample_support",
+      rows = nrow(holdout_test),
+      outcome = "classa_prop",
+      outcome_mean = mean(holdout_test$classa_prop),
+      metric = "raw_rows",
+      value = raw_test_rows
+    ),
+    tibble(
+      split = test_split,
+      model = "sample_support",
+      rows = nrow(holdout_test),
+      outcome = "classa_prop",
+      outcome_mean = mean(holdout_test$classa_prop),
+      metric = "unsupported_test_category_rows",
+      value = unsupported_test_category_rows
+    ),
+    binary_holdout_metrics(train_split, holdout_train_eval),
+    binary_holdout_metrics(test_split, holdout_test_eval),
+    continuous_holdout_metrics(
+      train_split,
+      holdout_train_eval,
+      "ols_log_units",
+      "log_classa_prop",
+      holdout_train_eval$log_units,
+      holdout_train_eval$pred_log_units,
+      mean(holdout_train_eval$log_units)
+    ),
+    continuous_holdout_metrics(
+      test_split,
+      holdout_test_eval,
+      "ols_log_units",
+      "log_classa_prop",
+      holdout_test_eval$log_units,
+      holdout_test_eval$pred_log_units,
+      mean(holdout_train_eval$log_units)
+    ),
+    continuous_holdout_metrics(
+      train_split,
+      holdout_train_eval,
+      "ols_units",
+      "classa_prop",
+      holdout_train_eval$classa_prop,
+      holdout_train_eval$pred_units,
+      mean(holdout_train_eval$classa_prop)
+    ),
+    continuous_holdout_metrics(
+      test_split,
+      holdout_test_eval,
+      "ols_units",
+      "classa_prop",
+      holdout_test_eval$classa_prop,
+      holdout_test_eval$pred_units,
+      mean(holdout_train_eval$classa_prop)
+    )
+  ) |>
+    mutate(
+      training_window = training_window,
+      candidate_min_classa_prop = candidate_min_classa,
+      .before = split
+    )
+
+  deciles <- holdout_test_eval |>
+    mutate(pred_p100_decile = ntile(pred_p100, 10L)) |>
+    group_by(pred_p100_decile) |>
+    summarise(
+      training_window = training_window,
+      candidate_min_classa_prop = candidate_min_classa,
+      split = test_split,
+      rows = n(),
+      y100_rows = sum(y100_num),
+      y100_share = mean(y100_num),
+      mean_pred_p100 = mean(pred_p100),
+      min_pred_p100 = min(pred_p100),
+      max_pred_p100 = max(pred_p100),
+      capture_share = sum(y100_num) / sum(holdout_test_eval$y100_num),
+      mean_classa_prop = mean(classa_prop),
+      .groups = "drop"
+    ) |>
+    arrange(training_window, candidate_min_classa_prop, pred_p100_decile)
+
+  list(fit_summary = fit_summary, deciles = deciles)
+}
+
+conditioned_holdout_rows <- list()
+
+for (candidate_min_classa in conditioned_candidate_min_classa_props) {
+  conditioned_holdout_rows[[length(conditioned_holdout_rows) + 1L]] <- fit_conditioned_holdout_window(
+    narrow_holdout_model_data,
+    "train_2019_2020",
+    "test_2021_2022h1",
+    "narrow_train_2019_2020",
+    candidate_min_classa
+  )
+
+  conditioned_holdout_rows[[length(conditioned_holdout_rows) + 1L]] <- fit_conditioned_holdout_window(
+    expanded_holdout_model_data,
+    "train_2010_2020",
+    "test_2021_2022h1",
+    "expanded_train_2010_2020",
+    candidate_min_classa
+  )
+}
+
+conditioned_holdout_fit_summary <- bind_rows(lapply(conditioned_holdout_rows, function(output) output$fit_summary)) |>
+  arrange(candidate_min_classa_prop, training_window, split, model, metric)
+
+conditioned_holdout_deciles <- bind_rows(lapply(conditioned_holdout_rows, function(output) output$deciles)) |>
+  arrange(candidate_min_classa_prop, training_window, pred_p100_decile)
+
 write_csv_if_changed(logit_coefficients, "../output/basic_logit_coefficients.csv")
 write_csv_if_changed(log_units_coefficients, "../output/basic_log_units_coefficients.csv")
 write_csv_if_changed(units_coefficients, "../output/basic_units_coefficients.csv")
@@ -645,4 +864,6 @@ write_csv_if_changed(expanded_holdout_outputs$fit_summary, "../output/basic_expa
 write_csv_if_changed(expanded_holdout_outputs$deciles, "../output/basic_expanded_holdout_deciles.csv")
 write_csv_if_changed(expanded_holdout_outputs$candidate70_fit_summary, "../output/basic_expanded_holdout_candidate70_fit_summary.csv")
 write_csv_if_changed(expanded_holdout_outputs$candidate70_deciles, "../output/basic_expanded_holdout_candidate70_deciles.csv")
+write_csv_if_changed(conditioned_holdout_fit_summary, "../output/basic_conditioned_holdout_fit_summary.csv")
+write_csv_if_changed(conditioned_holdout_deciles, "../output/basic_conditioned_holdout_deciles.csv")
 cat("Wrote basic HDB-MapPLUTO regression audit outputs to ../output\n")
