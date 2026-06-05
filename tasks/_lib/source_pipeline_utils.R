@@ -82,6 +82,17 @@ build_bbl <- function(borough, block, lot) {
   out
 }
 
+normalize_bbl_field <- function(x) {
+  out <- str_squish(as.character(x))
+  out[out %in% c("", "NA", "N/A", "NULL")] <- NA_character_
+
+  numeric_value <- suppressWarnings(as.numeric(out))
+  numeric_bbl <- !is.na(numeric_value) & numeric_value >= 1000000000 & numeric_value < 6000000000
+  out[numeric_bbl] <- sprintf("%.0f", numeric_value[numeric_bbl])
+  out[!str_detect(out, "^[1-5][0-9]{9}$")] <- NA_character_
+  out
+}
+
 combine_address <- function(house_number, street_name) {
   house_number <- str_squish(ifelse(is.na(house_number), "", as.character(house_number)))
   street_name <- str_squish(ifelse(is.na(street_name), "", as.character(street_name)))
