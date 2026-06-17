@@ -5,12 +5,14 @@ all: ../output/opportunity_lot_counts.csv \
 	../output/opportunity_capacity_thresholds.csv \
 	../output/opportunity_sales_linkage_summary.csv \
 	../output/opportunity_sales_price_distribution.csv \
+	../output/opportunity_acris_site_sale_linkage_summary.csv \
+	../output/opportunity_acris_site_sale_price_distribution.csv \
 	../output/opportunity_exact_match_bias_by_capacity_quartile.csv
 
 ../output/opportunity_lot_counts.csv: summarize_opportunity_site_sales_panel.R ../input/mappluto_opportunity_lots_frozen.parquet ../input/opportunity_sales_exact_bbl.parquet ../input/opportunity_lot_quarter_panel.parquet ../input/dof_annualized_sales.parquet | ../output
 	$(R) $<
 
-../output/opportunity_capacity_thresholds.csv ../output/opportunity_sales_linkage_summary.csv ../output/opportunity_sales_price_distribution.csv ../output/opportunity_exact_match_bias_by_capacity_quartile.csv: ../output/opportunity_lot_counts.csv
+../output/opportunity_capacity_thresholds.csv ../output/opportunity_sales_linkage_summary.csv ../output/opportunity_sales_price_distribution.csv ../output/opportunity_acris_site_sale_linkage_summary.csv ../output/opportunity_acris_site_sale_price_distribution.csv ../output/opportunity_exact_match_bias_by_capacity_quartile.csv: ../output/opportunity_lot_counts.csv
 	@test -s "$@"
 
 ../input/mappluto_opportunity_lots_frozen.parquet: ../../../build_frozen_opportunity_lots/output/mappluto_opportunity_lots_frozen.parquet | ../input

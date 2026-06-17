@@ -108,6 +108,56 @@ sales_linkage_summary <- lot_quarter_panel |>
 
 write_csv_if_changed(sales_linkage_summary, "../output/opportunity_sales_linkage_summary.csv")
 
+acris_site_sale_linkage_summary <- lot_quarter_panel |>
+  group_by(quarter_policy_period, borough, capacity_exposure_quartile_citywide) |>
+  summarise(
+    lot_quarters = n(),
+    lots = n_distinct(bbl),
+    acris_site_lot_quarters = sum(sold_acris_site_q),
+    acris_primary_private_sale_lot_quarters = sum(primary_private_sale_acris_q),
+    acris_primary_price_usable_lot_quarters = sum(primary_price_usable_sale_acris_q),
+    acris_primary_price_complete_lot_quarters = sum(primary_price_complete_sale_acris_q),
+    acris_strict_price_complete_lot_quarters = sum(strict_price_complete_sale_acris_q),
+    acris_broad_price_usable_lot_quarters = sum(broad_price_usable_sale_acris_q),
+    acris_site_sale_event_count = sum(acris_site_sale_event_count_q),
+    acris_primary_private_sale_event_count = sum(acris_primary_private_sale_event_count_q),
+    acris_primary_price_complete_event_count = sum(acris_primary_price_complete_event_count_q),
+    acris_primary_alloc_price_allowed_res_area_sum = sum(acris_primary_alloc_price_allowed_res_area_sum_q, na.rm = TRUE),
+    acris_incomplete_allocation_lot_quarters = sum(acris_any_incomplete_allocation_denominator_q),
+    acris_low_opportunity_share_lot_quarters = sum(acris_any_low_opportunity_share_q),
+    acris_low_price_lot_quarters = sum(acris_any_low_price_q),
+    acris_weak_related_party_lot_quarters = sum(acris_any_weak_related_party_q),
+    acris_trust_estate_party_lot_quarters = sum(acris_any_trust_estate_party_q),
+    acris_mixed_rights_lot_quarters = sum(acris_any_mixed_rights_q),
+    acris_primary_price_complete_lot_quarter_share = mean(primary_price_complete_sale_acris_q),
+    .groups = "drop"
+  )
+
+write_csv_if_changed(acris_site_sale_linkage_summary, "../output/opportunity_acris_site_sale_linkage_summary.csv")
+
+acris_price_distribution <- lot_quarter_panel |>
+  filter(primary_price_complete_sale_acris_q, allowed_policy_res_sqft > 0) |>
+  mutate(
+    acris_primary_price_per_allowed_policy_res_sqft = acris_primary_alloc_price_allowed_res_area_sum_q / allowed_policy_res_sqft
+  ) |>
+  group_by(quarter_policy_period, borough, capacity_exposure_quartile_citywide) |>
+  summarise(
+    lot_quarters = n(),
+    lots = n_distinct(bbl),
+    median_acris_alloc_price_allowed_res_area = median(acris_primary_alloc_price_allowed_res_area_sum_q, na.rm = TRUE),
+    p10_acris_price_per_allowed_policy_res_sqft = quantile(acris_primary_price_per_allowed_policy_res_sqft, 0.10, na.rm = TRUE, names = FALSE),
+    median_acris_price_per_allowed_policy_res_sqft = median(acris_primary_price_per_allowed_policy_res_sqft, na.rm = TRUE),
+    p90_acris_price_per_allowed_policy_res_sqft = quantile(acris_primary_price_per_allowed_policy_res_sqft, 0.90, na.rm = TRUE, names = FALSE),
+    incomplete_allocation_lot_quarters = sum(acris_any_incomplete_allocation_denominator_q),
+    low_opportunity_share_lot_quarters = sum(acris_any_low_opportunity_share_q),
+    low_price_lot_quarters = sum(acris_any_low_price_q),
+    weak_related_party_lot_quarters = sum(acris_any_weak_related_party_q),
+    trust_estate_party_lot_quarters = sum(acris_any_trust_estate_party_q),
+    .groups = "drop"
+  )
+
+write_csv_if_changed(acris_price_distribution, "../output/opportunity_acris_site_sale_price_distribution.csv")
+
 price_distribution <- opportunity_sales |>
   filter(primary_opp50_850, positive_sale_price, !nominal_sale_price) |>
   group_by(policy_period, borough, capacity_exposure_quartile_citywide) |>

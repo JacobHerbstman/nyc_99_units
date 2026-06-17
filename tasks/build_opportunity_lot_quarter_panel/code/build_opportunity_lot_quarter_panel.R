@@ -9,6 +9,24 @@ suppressPackageStartupMessages({
 
 source("../../_lib/source_pipeline_utils.R")
 
+collapse_unique <- function(x) {
+  values <- sort(unique(as.character(x[!is.na(x) & x != ""])))
+  if (length(values) == 0L) {
+    return(NA_character_)
+  }
+
+  paste(values, collapse = ";")
+}
+
+first_flagged_value <- function(x, flag) {
+  values <- x[flag & !is.na(x)]
+  if (length(values) == 0L) {
+    return(NA_real_)
+  }
+
+  values[1L]
+}
+
 deadline_421a <- as.Date("2022-06-15")
 transition_start <- as.Date("2022-06-16")
 adoption_485x <- as.Date("2024-04-20")
@@ -49,6 +67,20 @@ opportunity_sales <- read_parquet("../input/opportunity_sales_exact_bbl.parquet"
     positive_non_nominal_sale = positive_sale_price & !nominal_sale_price
   )
 
+acris_site_sales <- read_parquet("../input/acris_private_market_site_sale_bbl_incidence.parquet") |>
+  as.data.frame() |>
+  as_tibble() |>
+  mutate(
+    opportunity_bbl = normalize_bbl_field(opportunity_bbl),
+    event_date_primary = as.Date(event_date_primary),
+    event_quarter_start = as.Date(event_quarter_start)
+  ) |>
+  filter(primary_opp50_850)
+
+if (anyDuplicated(paste(acris_site_sales$event_id, acris_site_sales$opportunity_bbl, sep = "::")) > 0L) {
+  stop("ACRIS private-market site-sale incidence is not unique by event_id/opportunity_bbl.")
+}
+
 quarter_rows <- tibble(
   quarter_start = seq(as.Date("2010-01-01"), as.Date("2025-10-01"), by = "3 months")
 ) |>
@@ -85,11 +117,48 @@ sales_by_quarter <- opportunity_sales |>
   ) |>
   mutate(sale_price_nominal_max_q = if_else(is.infinite(sale_price_nominal_max_q), NA_real_, sale_price_nominal_max_q))
 
+acris_site_sales_by_quarter <- acris_site_sales |>
+  arrange(opportunity_bbl, event_quarter_start, event_date_primary, event_id) |>
+  group_by(opportunity_bbl, event_quarter_start) |>
+  summarise(
+    acris_site_sale_event_count_q = n_distinct(event_id),
+    acris_primary_private_sale_event_count_q = n_distinct(event_id[event_primary_private_sale]),
+    acris_primary_price_usable_event_count_q = n_distinct(event_id[primary_price_alloc_usable]),
+    acris_primary_price_complete_event_count_q = n_distinct(event_id[primary_price_alloc_complete]),
+    acris_strict_price_complete_event_count_q = n_distinct(event_id[strict_price_alloc_complete]),
+    acris_broad_price_usable_event_count_q = n_distinct(event_id[broad_price_alloc_usable]),
+    acris_primary_alloc_price_allowed_res_area_sum_q = sum(event_price_alloc_allowed_res_area[primary_price_alloc_complete], na.rm = TRUE),
+    acris_primary_alloc_price_lotarea_sum_q = sum(event_price_alloc_lotarea[primary_price_alloc_complete], na.rm = TRUE),
+    acris_primary_alloc_price_equal_sum_q = sum(event_price_alloc_equal[primary_price_alloc_complete], na.rm = TRUE),
+    acris_primary_alloc_price_allowed_res_area_max_q = if (any(primary_price_alloc_complete)) max(event_price_alloc_allowed_res_area[primary_price_alloc_complete], na.rm = TRUE) else NA_real_,
+    acris_primary_alloc_price_allowed_res_area_first_q = first_flagged_value(event_price_alloc_allowed_res_area, primary_price_alloc_complete),
+    acris_primary_event_ids_q = collapse_unique(event_id[event_primary_private_sale]),
+    acris_primary_price_complete_event_ids_q = collapse_unique(event_id[primary_price_alloc_complete]),
+    acris_price_resolution_statuses_q = collapse_unique(price_resolution_status[primary_price_alloc_usable]),
+    acris_incidence_warning_codes_q = collapse_unique(incidence_warning_codes[event_primary_private_sale]),
+    acris_any_incomplete_allocation_denominator_q = any(event_primary_private_sale & !primary_price_alloc_complete),
+    acris_any_low_opportunity_share_q = any(event_primary_private_sale & event_low_opportunity_share_flag),
+    acris_any_low_price_q = any(event_primary_private_sale & event_low_price_flag),
+    acris_any_weak_related_party_q = any(event_primary_private_sale & related_party_weak_flag),
+    acris_any_trust_estate_party_q = any(event_primary_private_sale & trust_estate_party_flag),
+    acris_any_mixed_rights_q = any(event_primary_private_sale & mixed_rights_flag),
+    .groups = "drop"
+  )
+
+if (anyDuplicated(paste(acris_site_sales_by_quarter$opportunity_bbl, acris_site_sales_by_quarter$event_quarter_start, sep = "::")) > 0L) {
+  stop("ACRIS site sales by BBL-quarter are not unique.")
+}
+
 lot_quarter_panel <- merge(opportunity_lots, quarter_rows, by = NULL) |>
   as_tibble() |>
   left_join(
     sales_by_quarter,
     by = c("bbl" = "sale_bbl", "quarter_start" = "sale_quarter_start"),
+    relationship = "one-to-one"
+  ) |>
+  left_join(
+    acris_site_sales_by_quarter,
+    by = c("bbl" = "opportunity_bbl", "quarter_start" = "event_quarter_start"),
     relationship = "one-to-one"
   ) |>
   mutate(
@@ -102,7 +171,28 @@ lot_quarter_panel <- merge(opportunity_lots, quarter_rows, by = NULL) |>
     sold_exact_q = sale_count_exact_q > 0,
     positive_sale_exact_q = positive_sale_count_exact_q > 0,
     positive_non_nominal_sale_exact_q = positive_non_nominal_sale_count_exact_q > 0,
-    primary_price_outcome_feasible_sale_q = primary_price_outcome_feasible_sale_count_q > 0
+    primary_price_outcome_feasible_sale_q = primary_price_outcome_feasible_sale_count_q > 0,
+    acris_site_sale_event_count_q = coalesce(acris_site_sale_event_count_q, 0L),
+    acris_primary_private_sale_event_count_q = coalesce(acris_primary_private_sale_event_count_q, 0L),
+    acris_primary_price_usable_event_count_q = coalesce(acris_primary_price_usable_event_count_q, 0L),
+    acris_primary_price_complete_event_count_q = coalesce(acris_primary_price_complete_event_count_q, 0L),
+    acris_strict_price_complete_event_count_q = coalesce(acris_strict_price_complete_event_count_q, 0L),
+    acris_broad_price_usable_event_count_q = coalesce(acris_broad_price_usable_event_count_q, 0L),
+    acris_primary_alloc_price_allowed_res_area_sum_q = coalesce(acris_primary_alloc_price_allowed_res_area_sum_q, 0),
+    acris_primary_alloc_price_lotarea_sum_q = coalesce(acris_primary_alloc_price_lotarea_sum_q, 0),
+    acris_primary_alloc_price_equal_sum_q = coalesce(acris_primary_alloc_price_equal_sum_q, 0),
+    sold_acris_site_q = acris_site_sale_event_count_q > 0,
+    primary_private_sale_acris_q = acris_primary_private_sale_event_count_q > 0,
+    primary_price_usable_sale_acris_q = acris_primary_price_usable_event_count_q > 0,
+    primary_price_complete_sale_acris_q = acris_primary_price_complete_event_count_q > 0,
+    strict_price_complete_sale_acris_q = acris_strict_price_complete_event_count_q > 0,
+    broad_price_usable_sale_acris_q = acris_broad_price_usable_event_count_q > 0,
+    acris_any_incomplete_allocation_denominator_q = coalesce(acris_any_incomplete_allocation_denominator_q, FALSE),
+    acris_any_low_opportunity_share_q = coalesce(acris_any_low_opportunity_share_q, FALSE),
+    acris_any_low_price_q = coalesce(acris_any_low_price_q, FALSE),
+    acris_any_weak_related_party_q = coalesce(acris_any_weak_related_party_q, FALSE),
+    acris_any_trust_estate_party_q = coalesce(acris_any_trust_estate_party_q, FALSE),
+    acris_any_mixed_rights_q = coalesce(acris_any_mixed_rights_q, FALSE)
   ) |>
   arrange(bbl, quarter_start)
 
