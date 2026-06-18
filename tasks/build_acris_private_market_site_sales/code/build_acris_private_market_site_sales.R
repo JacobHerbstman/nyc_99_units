@@ -167,13 +167,15 @@ event_classification <- events |>
       housing_public_or_regulated_party_flag | public_party_flag | hdfc_party_flag ~ "public_hdfc_housing_regulated",
       nonprofit_religious_party_flag ~ "nonprofit_religious_institutional",
       related_party_strong_flag ~ "strong_related_party",
+      event_low_price_flag ~ "low_price",
       TRUE ~ NA_character_
     ),
     event_primary_private_candidate = resolved_priced_event & is.na(event_primary_exclusion_reason),
     event_broad_priced_transfer_candidate = resolved_priced_event &
       !unit_churn_flag &
       !rights_only_flag &
-      !(housing_public_or_regulated_party_flag | public_party_flag | hdfc_party_flag),
+      !(housing_public_or_regulated_party_flag | public_party_flag | hdfc_party_flag) &
+      !event_low_price_flag,
     event_strict_private_candidate = event_primary_private_candidate &
       !related_party_weak_flag &
       !trust_estate_party_flag &
