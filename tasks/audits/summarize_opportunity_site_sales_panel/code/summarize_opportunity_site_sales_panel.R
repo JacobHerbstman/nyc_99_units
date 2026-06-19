@@ -27,9 +27,92 @@ lot_quarter_panel <- read_parquet("../input/opportunity_lot_quarter_panel.parque
   as.data.frame() |>
   as_tibble()
 
+acris_site_incidence <- read_parquet("../input/acris_private_market_site_sale_bbl_incidence.parquet") |>
+  as.data.frame() |>
+  as_tibble() |>
+  mutate(
+    opportunity_bbl = normalize_bbl_field(opportunity_bbl),
+    event_quarter_start = as.Date(event_quarter_start)
+  ) |>
+  filter(primary_opp50_850)
+
 dof_sales <- read_parquet("../input/dof_annualized_sales.parquet") |>
   as.data.frame() |>
   as_tibble()
+
+primary_lots <- opportunity_lots |>
+  filter(primary_opp50_850)
+
+panel_key_duplicates <- lot_quarter_panel |>
+  count(bbl, quarter_start, name = "rows") |>
+  filter(rows > 1L)
+
+expected_panel_rows <- n_distinct(primary_lots$bbl) * n_distinct(lot_quarter_panel$quarter_start)
+
+panel_source_reconciliation <- tibble(
+  metric = c(
+    "primary_private_incidence_count",
+    "strict_private_incidence_count",
+    "broad_priced_transfer_incidence_count",
+    "primary_complete_price_incidence_count",
+    "strict_complete_price_incidence_count"
+  ),
+  source_count = c(
+    sum(acris_site_incidence$event_primary_private_sale),
+    sum(acris_site_incidence$event_strict_private_sale),
+    sum(acris_site_incidence$event_broad_priced_transfer),
+    sum(acris_site_incidence$primary_price_alloc_complete),
+    sum(acris_site_incidence$strict_price_alloc_complete)
+  ),
+  panel_count = c(
+    sum(lot_quarter_panel$acris_primary_private_sale_event_count_q),
+    sum(lot_quarter_panel$acris_strict_private_sale_event_count_q),
+    sum(lot_quarter_panel$acris_broad_priced_transfer_event_count_q),
+    sum(lot_quarter_panel$acris_primary_price_complete_event_count_q),
+    sum(lot_quarter_panel$acris_strict_price_complete_event_count_q)
+  )
+)
+
+panel_hard_checks <- tibble(
+  check_name = c(
+    "unique_bbl_quarter",
+    "row_count_equals_primary_lots_times_quarters",
+    "all_rows_are_primary_opportunity_lots",
+    "source_incidence_counts_match_panel",
+    "strict_sale_is_subset_of_primary_sale",
+    "primary_complete_price_implies_primary_sale",
+    "strict_complete_price_implies_strict_sale",
+    "broad_price_usable_implies_broad_sale",
+    "primary_price_per_allowed_sqft_positive_when_present",
+    "strict_price_per_allowed_sqft_positive_when_present",
+    "low_price_never_in_primary"
+  ),
+  failed_rows = c(
+    nrow(panel_key_duplicates),
+    as.integer(nrow(lot_quarter_panel) != expected_panel_rows),
+    lot_quarter_panel |> filter(!primary_opp50_850) |> nrow(),
+    panel_source_reconciliation |> filter(source_count != panel_count) |> nrow(),
+    lot_quarter_panel |> filter(strict_private_sale_acris_q & !primary_private_sale_acris_q) |> nrow(),
+    lot_quarter_panel |> filter(primary_price_complete_sale_acris_q & !primary_private_sale_acris_q) |> nrow(),
+    lot_quarter_panel |> filter(strict_price_complete_sale_acris_q & !strict_private_sale_acris_q) |> nrow(),
+    lot_quarter_panel |> filter(broad_price_usable_sale_acris_q & !broad_priced_transfer_acris_q) |> nrow(),
+    lot_quarter_panel |> filter(!is.na(acris_primary_price_per_allowed_policy_res_sqft_q) & acris_primary_price_per_allowed_policy_res_sqft_q <= 0) |> nrow(),
+    lot_quarter_panel |> filter(!is.na(acris_strict_price_per_allowed_policy_res_sqft_q) & acris_strict_price_per_allowed_policy_res_sqft_q <= 0) |> nrow(),
+    lot_quarter_panel |> filter(primary_private_sale_acris_q & acris_any_low_price_q) |> nrow()
+  )
+) |>
+  mutate(
+    passed = failed_rows == 0L,
+    audit_note = case_when(
+      check_name == "source_incidence_counts_match_panel" ~ paste(
+        paste(panel_source_reconciliation$metric, panel_source_reconciliation$source_count, panel_source_reconciliation$panel_count, sep = "="),
+        collapse = "; "
+      ),
+      TRUE ~ NA_character_
+    )
+  )
+
+write_csv_if_changed(panel_hard_checks, "../output/opportunity_panel_hard_checks.csv")
 
 lot_counts_citywide <- opportunity_lots |>
   summarise(
@@ -115,14 +198,20 @@ acris_site_sale_linkage_summary <- lot_quarter_panel |>
     lots = n_distinct(bbl),
     acris_site_lot_quarters = sum(sold_acris_site_q),
     acris_primary_private_sale_lot_quarters = sum(primary_private_sale_acris_q),
+    acris_strict_private_sale_lot_quarters = sum(strict_private_sale_acris_q),
+    acris_broad_priced_transfer_lot_quarters = sum(broad_priced_transfer_acris_q),
     acris_primary_price_usable_lot_quarters = sum(primary_price_usable_sale_acris_q),
     acris_primary_price_complete_lot_quarters = sum(primary_price_complete_sale_acris_q),
     acris_strict_price_complete_lot_quarters = sum(strict_price_complete_sale_acris_q),
     acris_broad_price_usable_lot_quarters = sum(broad_price_usable_sale_acris_q),
     acris_site_sale_event_count = sum(acris_site_sale_event_count_q),
     acris_primary_private_sale_event_count = sum(acris_primary_private_sale_event_count_q),
+    acris_strict_private_sale_event_count = sum(acris_strict_private_sale_event_count_q),
+    acris_broad_priced_transfer_event_count = sum(acris_broad_priced_transfer_event_count_q),
     acris_primary_price_complete_event_count = sum(acris_primary_price_complete_event_count_q),
+    acris_strict_price_complete_event_count = sum(acris_strict_price_complete_event_count_q),
     acris_primary_alloc_price_allowed_res_area_sum = sum(acris_primary_alloc_price_allowed_res_area_sum_q, na.rm = TRUE),
+    acris_strict_alloc_price_allowed_res_area_sum = sum(acris_strict_alloc_price_allowed_res_area_sum_q, na.rm = TRUE),
     acris_incomplete_allocation_lot_quarters = sum(acris_any_incomplete_allocation_denominator_q),
     acris_low_opportunity_share_lot_quarters = sum(acris_any_low_opportunity_share_q),
     acris_low_price_lot_quarters = sum(acris_any_low_price_q),
