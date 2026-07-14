@@ -14,4 +14,4 @@ Candidate thresholds are 50+, 60+, and 70+. Validation windows are:
 
 Models include ordinary logit, ridge/elastic-net logit, weight-decay multinomial size-bin prediction, and penalized log-unit prediction. Glmnet models tune only inside the training period using filing-year folds. The multinomial diagnostic uses collapsed bins: 50-69, 70-99, 100-149, and 150+.
 
-Outputs are CSV diagnostics only: fit summaries, reliability/capture bins, rank correlations, top-bin overlap, candidate sample summaries, size-bin counts, and feature missingness.
+Outputs are CSV diagnostics only: fit summaries, reliability/capture bins, row-level audit scores, rank correlations, top-bin overlap, candidate sample summaries, size-bin counts, and feature missingness.

@@ -2,6 +2,7 @@ SHELL := bash
 
 all: ../output/candidate_prediction_fit_summary.csv \
 	../output/candidate_prediction_deciles.csv \
+	../output/candidate_prediction_scores.csv \
 	../output/candidate_prediction_rank_correlations.csv \
 	../output/candidate_prediction_top_bin_overlap.csv \
 	../output/candidate_prediction_sample_summary.csv \
@@ -16,7 +17,7 @@ all: ../output/candidate_prediction_fit_summary.csv \
 ../output/candidate_prediction_fit_summary.csv: fit_candidate_prediction_models.R ../input/hdb_mappluto_training_panel.parquet | ../output
 	$(R) $<
 
-../output/candidate_prediction_deciles.csv ../output/candidate_prediction_rank_correlations.csv ../output/candidate_prediction_top_bin_overlap.csv ../output/candidate_prediction_sample_summary.csv ../output/candidate_prediction_size_bin_counts.csv ../output/candidate_prediction_feature_missingness.csv: ../output/candidate_prediction_fit_summary.csv
+../output/candidate_prediction_deciles.csv ../output/candidate_prediction_scores.csv ../output/candidate_prediction_rank_correlations.csv ../output/candidate_prediction_top_bin_overlap.csv ../output/candidate_prediction_sample_summary.csv ../output/candidate_prediction_size_bin_counts.csv ../output/candidate_prediction_feature_missingness.csv: ../output/candidate_prediction_fit_summary.csv
 	@test -s "$@"
 
 ../output/ridge_logit_enriched_main_coefficients.csv: summarize_ridge_logit_enriched_main.R ../input/hdb_mappluto_training_panel.parquet | ../output
