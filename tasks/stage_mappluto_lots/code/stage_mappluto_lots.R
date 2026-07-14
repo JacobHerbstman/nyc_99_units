@@ -130,6 +130,7 @@ for (i in seq_len(nrow(available_rows))) {
       histdist = normalize_text_field(histdist),
       landmark = normalize_text_field(landmark),
       builtfar = normalize_numeric_field(builtfar),
+      maxallwfar = normalize_numeric_field(maxallwfar),
       residfar = normalize_numeric_field(residfar),
       commfar = normalize_numeric_field(commfar),
       facilfar = normalize_numeric_field(facilfar),

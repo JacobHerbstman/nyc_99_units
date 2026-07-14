@@ -1,4 +1,6 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/build_hdb_mappluto_training_panel/code")
+# start_date <- as.Date("2010-01-01")
+# end_date <- as.Date("2025-12-31")
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -10,8 +12,18 @@ suppressPackageStartupMessages({
 
 source("../../_lib/source_pipeline_utils.R")
 
-start_date <- as.Date("2010-01-01")
-end_date <- as.Date("2023-12-31")
+args <- commandArgs(trailingOnly = TRUE)
+
+if (length(args) != 2L) {
+  stop("Expected two arguments: panel start date and panel end date.")
+}
+
+start_date <- as.Date(args[1])
+end_date <- as.Date(args[2])
+
+if (is.na(start_date) || is.na(end_date) || end_date < start_date) {
+  stop("Panel start and end dates are not valid.")
+}
 
 feature_columns <- c(
   "pluto_borough", "pluto_block", "pluto_lot", "pluto_address", "pluto_cd", "zipcode",
@@ -19,15 +31,16 @@ feature_columns <- c(
   "zonedist1", "zonedist2", "zonedist3", "zonedist4", "overlay1", "overlay2",
   "spdist1", "spdist2", "spdist3", "ltdheight", "splitzone", "zonemap", "zmcode",
   "landuse", "bldgclass", "histdist", "landmark", "firm07_flag", "pfirm15_flag",
-  "lotarea", "bldgarea", "resarea", "comarea", "unitsres", "unitstotal",
-  "numbldgs", "numfloors", "yearbuilt", "builtfar", "residfar", "commfar",
-  "facilfar", "assessland", "assesstot"
+  "lotarea", "lotfront", "lotdepth", "bldgarea", "resarea", "comarea", "unitsres",
+  "unitstotal", "numbldgs", "numfloors", "yearbuilt", "builtfar", "maxallwfar",
+  "residfar", "commfar", "facilfar", "assessland", "assesstot"
 )
 
 numeric_feature_columns <- c(
-  "lotarea", "bldgarea", "resarea", "comarea", "unitsres", "unitstotal",
-  "numbldgs", "numfloors", "yearbuilt", "builtfar", "residfar", "commfar",
-  "facilfar", "assessland", "assesstot", "allowed_res_area", "residual_res_area"
+  "lotarea", "lotfront", "lotdepth", "bldgarea", "resarea", "comarea", "unitsres",
+  "unitstotal", "numbldgs", "numfloors", "yearbuilt", "builtfar", "maxallwfar",
+  "residfar", "commfar", "facilfar", "assessland", "assesstot",
+  "allowed_res_area", "residual_res_area"
 )
 
 parse_bbl_borough <- function(x) {
@@ -136,6 +149,7 @@ candidate_panel <- hdb |>
   ) |>
   transmute(
     job_number,
+    job_status,
     date_filed,
     filing_year,
     bbl,
@@ -143,6 +157,7 @@ candidate_panel <- hdb |>
     address,
     house_number,
     street_name,
+    ownership,
     hdb_borough_code = borough_code,
     hdb_borough_name = borough_name,
     hdb_community_district = community_district,
@@ -387,6 +402,8 @@ empty_features <- tibble(
   firm07_flag = character(),
   pfirm15_flag = character(),
   lotarea = numeric(),
+  lotfront = numeric(),
+  lotdepth = numeric(),
   bldgarea = numeric(),
   resarea = numeric(),
   comarea = numeric(),
@@ -396,6 +413,7 @@ empty_features <- tibble(
   numfloors = numeric(),
   yearbuilt = integer(),
   builtfar = numeric(),
+  maxallwfar = numeric(),
   residfar = numeric(),
   commfar = numeric(),
   facilfar = numeric(),
@@ -473,6 +491,8 @@ for (i in seq_len(nrow(selected_vintages))) {
       firm07_flag,
       pfirm15_flag,
       lotarea,
+      lotfront,
+      lotdepth,
       bldgarea,
       resarea,
       comarea,
@@ -482,6 +502,7 @@ for (i in seq_len(nrow(selected_vintages))) {
       numfloors,
       yearbuilt,
       builtfar,
+      maxallwfar,
       residfar,
       commfar,
       facilfar,
@@ -523,6 +544,8 @@ for (i in seq_len(nrow(selected_vintages))) {
       firm07_flag = NA_character_,
       pfirm15_flag = NA_character_,
       lotarea = NA_real_,
+      lotfront = NA_real_,
+      lotdepth = NA_real_,
       bldgarea = NA_real_,
       resarea = NA_real_,
       comarea = NA_real_,
@@ -532,6 +555,7 @@ for (i in seq_len(nrow(selected_vintages))) {
       numfloors = NA_real_,
       yearbuilt = NA_integer_,
       builtfar = NA_real_,
+      maxallwfar = NA_real_,
       residfar = NA_real_,
       commfar = NA_real_,
       facilfar = NA_real_,
@@ -738,8 +762,8 @@ for (feature_name in numeric_feature_columns) {
 
 candidate_panel <- candidate_panel |>
   select(
-    hdb_panel_row_id, job_number, date_filed, filing_year, bbl, hdb_bbl_borough, hdb_bbl_block, hdb_bbl_lot,
-    bin, address, house_number, street_name,
+    hdb_panel_row_id, job_number, job_status, date_filed, filing_year, bbl, hdb_bbl_borough, hdb_bbl_block, hdb_bbl_lot,
+    bin, address, house_number, street_name, ownership,
     hdb_borough_code, hdb_borough_name, hdb_community_district, hdb_council_district,
     classa_prop, classa_prop_integer, y100,
     pluto_source_id_latest_pre_filing, pluto_version_latest_pre_filing,

@@ -54,8 +54,9 @@ delimited_pluto_columns <- c(
   "YearAlter2", "BldgArea", "ResArea", "OfficeArea", "RetailArea", "GarageArea",
   "StrgeArea", "FactryArea", "OtherArea", "AreaSource", "NumBldgs", "NumFloors",
   "LotFront", "LotDepth", "BldgFront", "BldgDepth", "APPDate", "AssessLand",
-  "AssessTot", "ExemptTot", "HistDist", "Landmark", "BuiltFAR", "ResidFAR",
-  "CommFAR", "FacilFAR", "FIRM07_FLAG", "PFIRM15_FLAG", "LandUse", "BldgClass"
+  "AssessTot", "ExemptTot", "HistDist", "Landmark", "BuiltFAR", "MaxAllwFAR",
+  "ResidFAR", "CommFAR", "FacilFAR", "FIRM07_FLAG", "PFIRM15_FLAG", "LandUse",
+  "BldgClass"
 )
 
 extract_mappluto_table <- function(raw_path) {
@@ -66,6 +67,7 @@ extract_mappluto_table <- function(raw_path) {
   if (str_detect(raw_path, "\\.zip$")) {
     temp_dir <- tempfile(pattern = "mappluto_")
     dir.create(temp_dir, recursive = TRUE, showWarnings = FALSE)
+    on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
     zip_listing <- suppressWarnings(system2("unzip", c("-Z1", raw_path), stdout = TRUE, stderr = FALSE))
     table_entries <- zip_listing[str_detect(tolower(zip_listing), "\\.(csv|txt)$")]
     table_entries <- table_entries[!str_detect(tolower(basename(table_entries)), "change|dictionary|readme|layout|lay|dates")]
@@ -118,13 +120,23 @@ extract_mappluto_table <- function(raw_path) {
       as_tibble()
   } else if (read_mode == "delimited") {
     bind_rows(lapply(read_path, function(path) {
-      read_csv(
+      available_columns <- names(data.table::fread(
         path,
-        col_select = any_of(delimited_pluto_columns),
-        show_col_types = FALSE,
-        col_types = cols(.default = col_character()),
-        lazy = FALSE
+        nrows = 0L,
+        showProgress = FALSE
+      ))
+      selected_columns <- intersect(
+        delimited_pluto_columns,
+        available_columns
       )
+      data.table::fread(
+        path,
+        select = selected_columns,
+        colClasses = "character",
+        fill = TRUE,
+        showProgress = FALSE
+      ) |>
+        as_tibble()
     }))
   } else {
     st_read(read_path, quiet = TRUE, stringsAsFactors = FALSE) |>
@@ -197,6 +209,7 @@ extract_mappluto_table <- function(raw_path) {
     histdist = pick_first_existing(pluto, c("histdist")),
     landmark = pick_first_existing(pluto, c("landmark")),
     builtfar = pick_first_existing(pluto, c("builtfar")),
+    maxallwfar = pick_first_existing(pluto, c("maxallwfar")),
     residfar = pick_first_existing(pluto, c("residfar")),
     commfar = pick_first_existing(pluto, c("commfar")),
     facilfar = pick_first_existing(pluto, c("facilfar")),
