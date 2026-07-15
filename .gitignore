@@ -39,6 +39,12 @@ paper/*.out
 paper/*.pdf
 paper/*.synctex.gz
 paper/*.ttt
+framework_writeup.aux
+framework_writeup.fdb_latexmk
+framework_writeup.fls
+framework_writeup.out
+framework_writeup.pdf
+framework_writeup.docling.md
 
 # Scratch
 tmp/

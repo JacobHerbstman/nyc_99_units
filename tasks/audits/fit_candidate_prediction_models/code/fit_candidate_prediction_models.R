@@ -890,6 +890,7 @@ feature_missingness <- bind_rows(feature_missingness_rows) |>
 
 write_csv_if_changed(fit_summary, "../output/candidate_prediction_fit_summary.csv")
 write_csv_if_changed(deciles, "../output/candidate_prediction_deciles.csv")
+write_csv_if_changed(predictions, "../output/candidate_prediction_scores.csv")
 write_csv_if_changed(rank_correlations, "../output/candidate_prediction_rank_correlations.csv")
 write_csv_if_changed(top_bin_overlap, "../output/candidate_prediction_top_bin_overlap.csv")
 write_csv_if_changed(sample_summary, "../output/candidate_prediction_sample_summary.csv")

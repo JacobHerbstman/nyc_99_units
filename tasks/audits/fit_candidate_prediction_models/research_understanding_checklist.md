@@ -59,6 +59,22 @@
 - [ ] Should project-level multi-BBL features be added before freezing the production score?
 - [ ] Should a Class B audit be added to document whether excluding transient/non-Class-A units ever changes near-99 project classification?
 
+## Next Planned Stage: Local No-Notch Unit Distribution
+- [ ] The existing binary score ranks 100+ exposure but is not a draw from
+  (F_0(n^0\mid X)); a separate distributional audit is required.
+- [ ] The initial outcome is preferred building-level Class A units. Parent
+  opportunity totals require a symmetric pre/post grouping rule and remain a
+  separate layer.
+- [ ] The baseline should estimate a full conditional distribution of positive
+  units using a simple log-unit model, not convert a binary probability into a
+  unit count.
+- [ ] Validation must evaluate CDF calibration and held-out histograms around
+  99, not only AUC or mean prediction error.
+- [ ] The 2010--2023 pool spans different market and tax-policy regimes; the
+  primary estimate and recent/long-window sensitivities must be reported
+  separately.
+- [ ] Mastery status: implementation_not_started; quizzes_skipped_by_user.
+
 ## Quiz Log
 | Date | Stage | Question Type | Result | Follow-up Needed |
 |---|---|---|---|---|

@@ -56,6 +56,7 @@ for (i in seq_len(nrow(raw_index))) {
     house_number = as.character(raw_df$addressnum),
     street_name = as.character(raw_df$addressst),
     address = combine_address(raw_df$addressnum, raw_df$addressst),
+    ownership = as.character(raw_df$ownership),
     community_district = standardize_community_district(raw_df$boro, raw_df$commntydst),
     council_district = standardize_council_district(raw_df$councildst),
     date_filed = parse_mixed_date(raw_df$datefiled),

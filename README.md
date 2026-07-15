@@ -1,81 +1,66 @@
-# NYC 99 Units Project
+# NYC 99 Units
 
-This repository is the reproducible project scaffold for studying who pays for New York City's 485-x housing tax incentive, with attention to the 100-unit notch.
+This repository studies developer responses to the 100-unit threshold in New
+York City's 485-x housing tax incentive. The current empirical goal is narrow:
+measure bunching and splitting, reconstruct the parent development opportunity,
+and estimate the no-notch distribution of proposed units. Developer costs and
+broader welfare require additional cost data and are later stages.
 
-## Research Question
+## Workflow
 
-The paper asks whether the costs created by the 485-x threshold are capitalized into land prices or show up as developer avoidance. The key behavioral margins are bunching at 99 units, delays, larger units, and adjacent or related 99-unit filings that may split a larger feasible development.
+- Run each task from its `code/` folder with `make`.
+- Treat task Makefiles as the dependency graph.
+- Keep fixed input and output paths inside scripts.
+- Expose only genuine analytical choices as Make variables.
+- Put diagnostics, model comparisons, placebos, and manual review under
+  `tasks/audits/`.
+- Do not edit generated outputs directly.
 
-The treatment object should not be observed post-policy unit count. The initial design is to build an ex ante notch-exposure measure from pre-485-x parcels and projects: use similar pre-2024 developments to simulate feasible unit counts for a parcel, then estimate whether parcels likely to fall just above 100 units experience lower land prices or avoidance after the policy.
+## Current production graph
 
-## Principles
+The main bunching evidence is produced by:
 
-- Keep active tasks small, linear, and file-target driven.
-- Run tasks from `tasks/<task>/code/`.
-- Keep fixed task-local paths inside scripts, not Make arguments.
-- Use Makefile scalar variables only for real analytical choices.
-- Keep diagnostics, manual-review files, source integrity checks, and exploratory plots under `tasks/audits/`.
-- Keep raw public and manual data under `data_raw/<source_id>/<vintage_or_pull_date>/`.
-- Track all manual drops, agency requests, and non-scripted sources in `tasks/source_registry/code/`.
+```text
+stage_dcp_housing_database
+  -> summarize_hdb_unit_bunching
+```
 
-## Start Here
+The preferred enhanced-parent model is produced by:
 
-1. Run `make` in `tasks/setup_environment/code/` to install/check R packages and record versions.
-2. Run `make` in `tasks/source_registry/code/` to validate source metadata.
-3. Review `tasks/source_registry/code/source_catalog.csv`, `manual_manifest.csv`, and `archive_requests.csv`.
-4. Add production source tasks only when they produce a real canonical handoff file.
-5. Put all QC, coverage, source comparison, and exploratory outputs in `tasks/audits/<audit_name>/`.
+```text
+HDB + historical MapPLUTO + DOB NOW
+  -> build_hdb_mappluto_training_panel
+  -> construct_historical_parent_links
+  -> construct_historical_parent_adjacency
+  -> build_parent_model_panel
+  -> estimate_parent_no_notch_model
 
-## Initial Data Plan
+DOB NOW + MapPLUTO APPBBL history
+  -> construct_post_policy_parent_crosswalk
+  -> build_parent_model_panel
+```
 
-- `DCP Housing Database`: project-level DOB-approved housing jobs since 2010, with units, permit dates, and completion status.
-- `PLUTO` / `MapPLUTO`: parcel characteristics, zoning, lot area, built area, geography, and geometry for capacity prediction and adjacency.
-- `DOB Open Data`: BIS and DOB NOW job filings as filing-side checks and applicant/owner/architect linkage inputs.
-- `ACRIS`: real property master, legals, parties, and references for land transactions, ownership changes, and acquisition histories.
-- `HPD 485-x materials`: program rules, registration forms, and any public or agency-provided project-level registration records.
+The preferred estimator uses one observation and one i.i.d. scale shock per
+enhanced parent. It is estimated on 2019–2023 parents and scored on 2025
+parents. The corresponding filing-level models, longer training periods,
+alternative parent definitions, placebos, and validation windows remain in
+audit tasks.
 
-## Planned Task Order
+## Main outputs
 
-- `tasks/setup_environment`
-- `tasks/source_registry`
-- `tasks/fetch_dcp_housing_database`
-- `tasks/load_dcp_housing_database_raw`
-- `tasks/stage_dcp_housing_database`
-- `tasks/fetch_mappluto_archive`
-- `tasks/load_mappluto_raw`
-- `tasks/stage_mappluto_lots`
-- `tasks/define_mappluto_release_calendar`
-- `tasks/build_hdb_mappluto_training_panel`
-- `tasks/fetch_dob_open_data`
-- `tasks/load_dob_open_data_raw`
-- `tasks/stage_dob_jobs`
-- `tasks/fetch_acris`
-- `tasks/load_acris_raw`
-- `tasks/stage_acris_transactions`
-- `tasks/build_parcel_project_panel`
-- `tasks/build_notch_exposure`
-- `tasks/estimate_land_price_incidence`
-- `tasks/estimate_developer_avoidance`
+- `tasks/summarize_hdb_unit_bunching/output/`: application and provisional
+  parent bunching figures and exact counts.
+- `tasks/estimate_parent_no_notch_model/output/`: fitted coefficients, 2025
+  parent scores, observed and no-notch distributions, mass-balance moments,
+  implied frontiers, and the primary counterfactual figure.
 
-## Active Tasks
+## Deferred branches
 
-- `tasks/setup_environment`
-- `tasks/source_registry`
-- `tasks/fetch_dcp_housing_database`
-- `tasks/load_dcp_housing_database_raw`
-- `tasks/stage_dcp_housing_database`
-- `tasks/fetch_mappluto_archive`
-- `tasks/load_mappluto_raw`
-- `tasks/stage_mappluto_lots`
-- `tasks/define_mappluto_release_calendar`
-- `tasks/build_hdb_mappluto_training_panel`
-- `tasks/audits/summarize_dcp_hdb_unit_bunching`
-- `tasks/audits/summarize_mappluto_lot_staging`
-- `tasks/audits/summarize_hdb_mappluto_training_panel`
-- `tasks/audits/fit_basic_hdb_mappluto_regression`
+The ACRIS and DOF tasks form a separate land-sales branch. They are retained
+because they produce canonical source and event files, but they are not inputs
+to the current developer-response results. They should not be added to the
+paper build until the project returns to land-price incidence.
 
-The first active audit checks the proposed-unit distribution for DCP Housing Database new-building filings from 2010 through 2025. It uses `date_filed` and `classa_prop` as the main descriptive definition, compares annualized 2010-2023 counts to 2025, and keeps 2024 as a transition year around the April 20, 2024 statutory adoption date.
-
-The MapPLUTO vintage strategy is documented in `docs/mappluto_prediction_design.md`. The main modeling design should use as-of pre-filing MapPLUTO features for HDB training labels and a frozen pre-adoption MapPLUTO lot universe for land-value exposure.
-
-The remaining planned tasks should be created as the corresponding data and estimators become concrete.
+Raw public and manual data belong under `data_raw/<source>/<vintage>/` and are
+never modified. Source metadata and requests are tracked in
+`tasks/source_registry/code/`.
