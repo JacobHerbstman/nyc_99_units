@@ -20,6 +20,7 @@ all: ../output/enhanced_parent_2025_counterfactual.csv \
 
 ../output/enhanced_parent_2025_counterfactual.csv: estimate_parent_no_notch_model.R \
 	../../_lib/source_pipeline_utils.R \
+	../../_lib/parent_no_notch_model.R \
 	../input/historical_enhanced_parent_model_panel.parquet \
 	../input/post_policy_enhanced_parent_model_panel.parquet | ../output
 	$(R) $< hdb_priority $(MIN_UNITS) $(MIN_CATEGORY_ROWS) $(COUNTERFACTUAL_MAX_UNITS) $(PLOT_MIN_UNITS) $(PLOT_MAX_UNITS)
@@ -32,6 +33,7 @@ all: ../output/enhanced_parent_2025_counterfactual.csv \
 
 ../output/enhanced_parent_dob_i1_complete_case_2025_counterfactual.csv: estimate_parent_no_notch_model.R \
 	../../_lib/source_pipeline_utils.R \
+	../../_lib/parent_no_notch_model.R \
 	../input/historical_enhanced_parent_model_panel.parquet \
 	../input/post_policy_enhanced_parent_model_panel.parquet | ../output
 	$(R) $< dob_i1_complete_case $(MIN_UNITS) $(MIN_CATEGORY_ROWS) $(COUNTERFACTUAL_MAX_UNITS) $(PLOT_MIN_UNITS) $(PLOT_MAX_UNITS)
