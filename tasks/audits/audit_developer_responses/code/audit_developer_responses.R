@@ -13,7 +13,6 @@ suppressPackageStartupMessages({
   library(dplyr)
   library(ggplot2)
   library(readr)
-  library(scales)
   library(stringr)
   library(tibble)
 })
@@ -327,8 +326,7 @@ design_sample <- dob_applications |>
     gross_construction_square_feet_per_unit > 0
   ) |>
   mutate(
-    period = factor(period, levels = c(design_pre_label, post_label)),
-    exact_99 = if_else(dob_units == 99L, "99 units", "Other unit count")
+    period = factor(period, levels = c(design_pre_label, post_label))
   )
 
 design_summary <- design_sample |>
@@ -486,164 +484,6 @@ ggsave(
   site_multiple_figure,
   width = 8,
   height = 7
-)
-
-area_plot_data <- design_sample |>
-  transmute(
-    period,
-    dob_units,
-    exact_99,
-    measure = "Total construction floor area",
-    area = total_construction_floor_area
-  ) |>
-  mutate(
-    measure = factor(
-      measure,
-      levels = c("Total construction floor area", "Proposed residential floor area")
-    )
-  )
-
-missing_residential_annotations <- tibble(
-  period = factor(c(design_pre_label, post_label), levels = c(design_pre_label, post_label)),
-  measure = factor(
-    rep("Proposed residential floor area", 2),
-    levels = c("Total construction floor area", "Proposed residential floor area")
-  ),
-  dob_units = (min_units + design_max_units) / 2,
-  area = median(design_sample$total_construction_floor_area),
-  label = "Not reported in\nDOB NOW Open Data"
-)
-
-area_figure <- ggplot(
-  area_plot_data,
-  aes(x = dob_units, y = area, color = exact_99)
-) +
-  geom_vline(xintercept = 99, color = "#D55E00", linewidth = 0.45) +
-  geom_vline(xintercept = 100, color = "#D55E00", linewidth = 0.45, linetype = "dashed") +
-  geom_point(alpha = 0.65, size = 1.5) +
-  geom_text(
-    data = missing_residential_annotations,
-    aes(x = dob_units, y = area, label = label),
-    inherit.aes = FALSE,
-    color = "#4D4D4D",
-    fontface = "bold",
-    lineheight = 1.1
-  ) +
-  facet_grid(measure ~ period) +
-  scale_color_manual(values = c("Other unit count" = "#8C8C8C", "99 units" = "#D55E00")) +
-  scale_y_log10(labels = label_number(big.mark = ",")) +
-  coord_cartesian(ylim = c(20000, 500000)) +
-  labs(
-    title = "Proposed project area versus dwelling units",
-    subtitle = "DOB reports total construction floor area, but not proposed residential floor area.",
-    x = "Proposed dwelling units",
-    y = "Square feet (log scale)",
-    color = NULL,
-    caption = "Initial DOB NOW New Building filings. Visible window: 20,000-500,000 square feet;\nall values remain in the audit data. The missing panel is an audit finding, not zero area."
-  )
-
-ggsave(
-  "../output/developer_response_provisional_site_construction_area_vs_units.pdf",
-  area_figure,
-  width = 10,
-  height = 7
-)
-
-period_medians <- design_sample |>
-  group_by(period) |>
-  summarise(
-    median_gross_construction_square_feet_per_unit = median(gross_construction_square_feet_per_unit),
-    .groups = "drop"
-  )
-
-square_feet_figure <- ggplot(
-  design_sample,
-  aes(x = dob_units, y = gross_construction_square_feet_per_unit, color = exact_99)
-) +
-  geom_vline(xintercept = 99, color = "#D55E00", linewidth = 0.45) +
-  geom_vline(xintercept = 100, color = "#D55E00", linewidth = 0.45, linetype = "dashed") +
-  geom_hline(
-    data = period_medians,
-    aes(yintercept = median_gross_construction_square_feet_per_unit),
-    color = "#0072B2",
-    linewidth = 0.55
-  ) +
-  geom_point(alpha = 0.65, size = 1.5) +
-  facet_wrap(~period) +
-  scale_color_manual(values = c("Other unit count" = "#8C8C8C", "99 units" = "#D55E00")) +
-  scale_y_log10(labels = label_number(big.mark = ",")) +
-  coord_cartesian(ylim = c(300, 3000)) +
-  labs(
-    title = "Total construction square feet per dwelling unit",
-    subtitle = "The blue line is the period median. Exact 99-unit filings are highlighted.",
-    x = "Proposed dwelling units",
-    y = "Total construction square feet per unit (log scale)",
-    color = NULL,
-    caption = "Visible window: 300-3,000 square feet per unit; all values remain in the audit data.\nThe ratio includes common, mechanical, parking, and nonresidential space. It is not apartment size."
-  )
-
-ggsave(
-  "../output/developer_response_provisional_site_construction_square_feet_per_unit.pdf",
-  square_feet_figure,
-  width = 10,
-  height = 5.5
-)
-
-building_application_plot_data <- dob_sites |>
-  mutate(
-    period = case_when(
-      filing_year >= design_pre_start_year & filing_year <= pre_end_year ~ design_pre_label,
-      filing_year == post_year ~ post_label,
-      TRUE ~ NA_character_
-    )
-  ) |>
-  filter(
-    !is.na(period),
-    site_units >= min_units,
-    site_units <= site_plot_max_units
-  ) |>
-  count(period, application_count, building_count, name = "provisional_sites") |>
-  mutate(period = factor(period, levels = c(design_pre_label, post_label)))
-
-building_application_annotation <- tibble(
-  period = factor(design_pre_label, levels = c(design_pre_label, post_label)),
-  application_count = 3.4,
-  building_count = 4.6,
-  label = "One pre-period proxy has\n52 applications and 52 BINs"
-)
-
-building_application_figure <- ggplot(
-  building_application_plot_data,
-  aes(x = application_count, y = building_count, size = provisional_sites)
-) +
-  geom_point(color = "#0072B2", alpha = 0.75) +
-  geom_text(
-    data = building_application_annotation,
-    aes(x = application_count, y = building_count, label = label),
-    inherit.aes = FALSE,
-    color = "#4D4D4D",
-    size = 3.4,
-    lineheight = 1.05
-  ) +
-  facet_wrap(~period) +
-  scale_x_continuous(breaks = 1:5) +
-  scale_y_continuous(breaks = 1:5) +
-  scale_size_area(max_size = 13, breaks = pretty_breaks()) +
-  coord_cartesian(xlim = c(0.75, 5.25), ylim = c(0.75, 5.25)) +
-  labs(
-    title = "Buildings and initial applications within provisional tax-lot sites",
-    subtitle = paste0("DOB BBL-year proxies with ", min_units, "-", site_plot_max_units, " total units; point size is the number of proxy sites."),
-    x = "Distinct initial New Building applications",
-    y = "Distinct BINs (building proxy)",
-    size = "Proxy sites",
-    caption = "Visible window: 1-5 applications and BINs; the 52-by-52 pre-period proxy is retained in the site panel.\nMultiple filings or BINs do not by themselves establish a legal split under 485-x."
-  )
-
-ggsave(
-  "../output/developer_response_provisional_site_building_application_counts.pdf",
-  building_application_figure,
-  width = 9,
-  height = 5.5
 )
 
 write_parquet_if_changed(

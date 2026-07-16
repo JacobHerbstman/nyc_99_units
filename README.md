@@ -23,6 +23,9 @@ The main bunching evidence is produced by:
 ```text
 stage_dcp_housing_database
   -> summarize_hdb_unit_bunching
+
+stage_dob_now_new_building_filings
+  -> summarize_developer_responses
 ```
 
 The preferred enhanced-parent model is produced by:
@@ -50,6 +53,8 @@ audit tasks.
 
 - `tasks/summarize_hdb_unit_bunching/output/`: application and provisional
   parent bunching figures and exact counts.
+- `tasks/summarize_developer_responses/output/`: construction-area,
+  square-feet-per-unit, and provisional-site configuration figures.
 - `tasks/estimate_parent_no_notch_model/output/`: fitted coefficients, 2025
   parent scores, observed and no-notch distributions, mass-balance moments,
   implied frontiers, and the primary counterfactual figure.
