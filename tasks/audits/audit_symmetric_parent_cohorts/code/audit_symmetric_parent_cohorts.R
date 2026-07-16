@@ -165,7 +165,7 @@ hdb_post_jobs <- read_parquet(
     lotarea > 0,
     filing_year == post_cohort_year
   ) |>
-  mutate(units = as.integer(round(classa_prop)))
+  mutate(hdb_units = as.integer(round(classa_prop)))
 
 if (
   nrow(historical_rows) == 0L ||
@@ -537,19 +537,36 @@ historical_member_rows <- historical_rows |>
     date_filed,
     filing_year,
     units,
+    hdb_priority_units = units,
+    dob_i1_units = units,
+    unit_source = "hdb",
     filing_bbl,
     geometry_available =
       pluto_source_id_used == "dcp_mappluto_archive"
   )
 
 post_member_rows <- post_rows |>
+  left_join(
+    hdb_post_jobs |>
+      select(root_job_id = job_number, hdb_units),
+    by = "root_job_id",
+    relationship = "one-to-one"
+  ) |>
+  mutate(
+    dob_i1_units = units,
+    hdb_priority_units = coalesce(hdb_units, dob_i1_units),
+    unit_source = if_else(!is.na(hdb_units), "hdb", "dob_i1")
+  ) |>
   transmute(
     sample = "post_policy",
     root_job_id,
     job_number,
     date_filed = filing_date,
     filing_year,
-    units,
+    units = hdb_priority_units,
+    hdb_priority_units,
+    dob_i1_units,
+    unit_source,
     filing_bbl,
     geometry_available = filing_bbl %in% post_lots$bbl
   )
@@ -576,8 +593,10 @@ membership <- bind_rows(historical_membership, post_membership) |>
     parent_last_filing_date = max(date_filed),
     parent_span_days = as.integer(parent_last_filing_date - cohort_date),
     parent_observed_filings = n(),
-    parent_observed_units = sum(units),
-    parent_exact_99_filings = sum(units == 99L),
+    parent_observed_units = sum(hdb_priority_units),
+    parent_observed_units_dob_i1 = sum(dob_i1_units),
+    parent_exact_99_filings = sum(hdb_priority_units == 99L),
+    parent_exact_99_filings_dob_i1 = sum(dob_i1_units == 99L),
     member_order = row_number()
   ) |>
   ungroup() |>
@@ -636,7 +655,10 @@ cohort_inventory <- membership |>
     parent_span_days = first(parent_span_days),
     parent_observed_filings = first(parent_observed_filings),
     parent_observed_units = first(parent_observed_units),
+    parent_observed_units_dob_i1 = first(parent_observed_units_dob_i1),
     parent_exact_99_filings = first(parent_exact_99_filings),
+    parent_exact_99_filings_dob_i1 =
+      first(parent_exact_99_filings_dob_i1),
     distinct_filing_bbls = n_distinct(filing_bbl[!is.na(filing_bbl)]),
     cross_calendar_year = n_distinct(filing_year) > 1L,
     all_geometry_available = all(geometry_available),
@@ -648,7 +670,9 @@ cohort_inventory <- membership |>
     analysis_status = first(analysis_status),
     component_root_jobs = paste(root_job_id, collapse = ";"),
     component_jobs = paste(job_number, collapse = ";"),
-    component_units = paste(units, collapse = ";"),
+    component_units = paste(hdb_priority_units, collapse = ";"),
+    component_units_dob_i1 = paste(dob_i1_units, collapse = ";"),
+    component_unit_sources = paste(unit_source, collapse = ";"),
     .groups = "drop"
   ) |>
   arrange(sample, cohort_date, parent_anchor_job)
@@ -682,17 +706,30 @@ post_job_link_evidence <- bind_rows(
     .groups = "drop"
   )
 
-exact_99_paths <- membership |>
-  filter(
-    sample == "post_policy",
-    filing_year == post_cohort_year,
-    units == 99L
-  ) |>
+exact_99_path_rows <- bind_rows(
+  membership |>
+    filter(
+      sample == "post_policy",
+      filing_year == post_cohort_year,
+      hdb_priority_units == 99L
+    ) |>
+    mutate(unit_definition = "hdb_priority"),
+  membership |>
+    filter(
+      sample == "post_policy",
+      filing_year == post_cohort_year,
+      dob_i1_units == 99L
+    ) |>
+    mutate(unit_definition = "dob_i1")
+) |>
   transmute(
+    unit_definition,
     exact_99_root_job_id = root_job_id,
     exact_99_job_number = job_number,
     exact_99_filing_date = date_filed,
     exact_99_filing_bbl = filing_bbl,
+    exact_99_hdb_priority_units = hdb_priority_units,
+    exact_99_dob_i1_units = dob_i1_units,
     exact_99_geometry_available = geometry_available,
     parent_id
   ) |>
@@ -712,7 +749,7 @@ exact_99_paths <- membership |>
     hdb_post_jobs |>
       transmute(
         exact_99_root_job_id = job_number,
-        hdb_classa_units = units
+        hdb_classa_units = hdb_units
       ),
     by = "exact_99_root_job_id",
     relationship = "many-to-one"
@@ -721,12 +758,20 @@ exact_99_paths <- membership |>
     parent_companion_filings = parent_observed_filings - 1L,
     parent_is_singleton = parent_observed_filings == 1L,
     parent_observed_units_equal_198 = parent_observed_units == 198L,
+    parent_observed_units_dob_i1_equal_198 =
+      parent_observed_units_dob_i1 == 198L,
     hdb_model_match = !is.na(hdb_classa_units),
     hdb_dob_units_match = hdb_classa_units == 99L,
     directly_linked_jobs = coalesce(directly_linked_jobs, "none"),
     direct_link_reasons = coalesce(direct_link_reasons, "none")
   ) |>
-  arrange(exact_99_filing_date, exact_99_job_number)
+  arrange(unit_definition, exact_99_filing_date, exact_99_job_number)
+
+exact_99_paths <- exact_99_path_rows |>
+  filter(unit_definition == "hdb_priority")
+
+exact_99_paths_dob_i1 <- exact_99_path_rows |>
+  filter(unit_definition == "dob_i1")
 
 cohort_summary <- bind_rows(
   cohort_inventory |>
@@ -735,7 +780,9 @@ cohort_summary <- bind_rows(
       parent_count = n(),
       observed_filings = sum(parent_observed_filings),
       observed_units = sum(parent_observed_units),
+      observed_units_dob_i1 = sum(parent_observed_units_dob_i1),
       exact_99_filings = sum(parent_exact_99_filings),
+      exact_99_filings_dob_i1 = sum(parent_exact_99_filings_dob_i1),
       .groups = "drop"
     ),
   cohort_inventory |>
@@ -746,7 +793,9 @@ cohort_summary <- bind_rows(
       parent_count = n(),
       observed_filings = sum(parent_observed_filings),
       observed_units = sum(parent_observed_units),
-      exact_99_filings = sum(parent_exact_99_filings)
+      observed_units_dob_i1 = sum(parent_observed_units_dob_i1),
+      exact_99_filings = sum(parent_exact_99_filings),
+      exact_99_filings_dob_i1 = sum(parent_exact_99_filings_dob_i1)
     )
 ) |>
   arrange(sample, cohort_group)
@@ -762,7 +811,7 @@ hdb_dob_filing_id_matches <- intersect(
 )
 hdb_dob_root_matches <- inner_join(
   hdb_post_jobs |>
-    transmute(root_job_id = job_number, hdb_units = units),
+    transmute(root_job_id = job_number, hdb_units),
   post_rows |>
     filter(filing_year == post_cohort_year) |>
     transmute(root_job_id, dob_units = units),
@@ -788,7 +837,8 @@ cohort_qc <- tibble(
     "hdb_dob_root_job_matches",
     "hdb_dob_unit_disagreements",
     "hdb_dob_exact_99_classification_disagreements",
-    "observed_2025_exact_99_filings",
+    "observed_2025_exact_99_filings_hdb_priority",
+    "observed_2025_exact_99_filings_dob_i1",
     "observed_2025_exact_99_filings_with_geometry",
     "observed_2025_exact_99_filings_with_hdb_model_match",
     "exact_99_filings_in_prior_2024_parent",
@@ -824,6 +874,7 @@ cohort_qc <- tibble(
         (hdb_dob_root_matches$dob_units == 99L)
     ),
     nrow(exact_99_paths),
+    nrow(exact_99_paths_dob_i1),
     sum(exact_99_paths$exact_99_geometry_available),
     sum(exact_99_paths$hdb_model_match),
     sum(exact_99_paths$analysis_status == "prior_2024_cohort"),
@@ -847,7 +898,12 @@ if (
     anyDuplicated(cohort_inventory[c("sample", "parent_id")]) ||
     any(cohort_inventory$parent_span_days > max_filing_days) ||
     nrow(exact_99_paths) != sum(
-      post_rows$filing_year == post_cohort_year & post_rows$units == 99L
+      post_member_rows$filing_year == post_cohort_year &
+        post_member_rows$hdb_priority_units == 99L
+    ) ||
+    nrow(exact_99_paths_dob_i1) != sum(
+      post_member_rows$filing_year == post_cohort_year &
+        post_member_rows$dob_i1_units == 99L
     ) ||
     any(is.na(exact_99_paths$analysis_status)) ||
     any(cohort_inventory$analysis_status == "unclassified")
@@ -870,6 +926,10 @@ write_csv_if_changed(
 write_csv_if_changed(
   exact_99_paths,
   "../output/symmetric_parent_2025_exact_99_paths.csv"
+)
+write_csv_if_changed(
+  exact_99_paths_dob_i1,
+  "../output/symmetric_parent_2025_exact_99_paths_dob_i1.csv"
 )
 write_csv_if_changed(
   link_summary,

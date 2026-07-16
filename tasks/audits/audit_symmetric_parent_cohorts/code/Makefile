@@ -12,6 +12,7 @@ all: ../output/symmetric_parent_membership.parquet \
 	../output/symmetric_parent_links.parquet \
 	../output/symmetric_parent_cohort_inventory.csv \
 	../output/symmetric_parent_2025_exact_99_paths.csv \
+	../output/symmetric_parent_2025_exact_99_paths_dob_i1.csv \
 	../output/symmetric_parent_link_summary.csv \
 	../output/symmetric_parent_cohort_summary.csv \
 	../output/symmetric_parent_cohort_qc.csv
@@ -31,6 +32,7 @@ all: ../output/symmetric_parent_membership.parquet \
 ../output/symmetric_parent_links.parquet \
 ../output/symmetric_parent_cohort_inventory.csv \
 ../output/symmetric_parent_2025_exact_99_paths.csv \
+../output/symmetric_parent_2025_exact_99_paths_dob_i1.csv \
 ../output/symmetric_parent_link_summary.csv \
 ../output/symmetric_parent_cohort_summary.csv \
 ../output/symmetric_parent_cohort_qc.csv: ../output/symmetric_parent_membership.parquet

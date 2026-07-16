@@ -28,10 +28,17 @@ descriptive all-2025 result uses all companions observed by the data snapshot.
 Parents first filed in 2024 are not relabeled as 2025 parents merely because
 they contain a 2025 filing.
 
-The audit records the identifier handoff needed for later model integration.
-The HDB root job has zero overlap with the DOB NOW filing identifier ending in
-`-I1`, which is the field used by the current production join. It matches 619
-of 626 eligible 2025 HDB rows when joined to the DOB NOW root job instead. The
-audit also reports disagreements between HDB Class A units and DOB proposed
-dwelling units; it does not silently replace either measure or re-estimate the
-model.
+The production handoff now joins the HDB root job to the DOB NOW root job. Of
+626 eligible 2025 HDB rows, 624 match the unfiltered DOB initial-filing file;
+619 remain in the filtered parent crosswalk. The five filtered omissions have
+fewer than six DOB proposed units, and the two unmatched HDB roots are retained
+without an imputed DOB value.
+
+HDB Class A units are the primary post-period measure. The audit carries DOB
+initial-filing units separately and produces a parallel exact-99 path file, so
+the three exact-99 classification disagreements and all other unit differences
+remain visible. For DOB-only post filings outside the HDB estimation universe,
+the HDB-priority descriptive audit uses the observed DOB value rather than
+dropping the filing. The no-notch model's DOB sensitivity is stricter: it uses
+only parents with a DOB value for every component and applies the same six-unit
+floor. Neither result imputes an unobserved companion or unit count.
