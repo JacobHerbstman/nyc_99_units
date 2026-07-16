@@ -126,8 +126,20 @@ aggregate_model_rows <- function(rows, membership) {
       filing_year = min(filing_year),
       last_filing_year = max(filing_year),
       units = sum(units),
+      units_hdb_priority = sum(units),
+      units_dob_i1 = if (all(!is.na(dob_i1_units))) {
+        sum(dob_i1_units)
+      } else {
+        NA_integer_
+      },
+      dob_i1_complete = all(!is.na(dob_i1_units)),
       component_filings = n(),
       exact_99_component_filings = sum(units == 99L),
+      dob_i1_component_filings = sum(!is.na(dob_i1_units)),
+      dob_i1_exact_99_component_filings = sum(
+        dob_i1_units == 99L,
+        na.rm = TRUE
+      ),
       nonmissing_bin_rows = sum(!is.na(bin_clean)),
       distinct_bins = n_distinct(bin_clean[!is.na(bin_clean)]),
       duplicate_bin_rows = pmax(nonmissing_bin_rows - distinct_bins, 0L),
@@ -189,8 +201,11 @@ aggregate_model_rows <- function(rows, membership) {
     select(
       sample, definition, observation_id, parent_id,
       date_filed, date_last_filed, filing_year, last_filing_year,
-      units, log_units, component_filings, feature_lots,
-      exact_99_component_filings, nonmissing_bin_rows, distinct_bins,
+      units, units_hdb_priority, units_dob_i1, dob_i1_complete,
+      log_units, component_filings, feature_lots,
+      exact_99_component_filings, dob_i1_component_filings,
+      dob_i1_exact_99_component_filings,
+      nonmissing_bin_rows, distinct_bins,
       duplicate_bin_rows, model_eligible, component_jobs,
       lotarea, log_lotarea, residfar, builtfar,
       borough, zone_detail, prior_site_use, feature_pluto_versions
@@ -211,6 +226,12 @@ historical_pairs <- read_parquet(
 
 historical_adjacency <- read_parquet(
   "../input/historical_polygon_adjacency_pairs.parquet"
+) |>
+  as.data.frame() |>
+  as_tibble()
+
+dob_initial <- read_parquet(
+  "../input/dob_now_new_building_initial_filings.parquet"
 ) |>
   as.data.frame() |>
   as_tibble()
@@ -238,6 +259,8 @@ if (
     anyDuplicated(
       historical_adjacency[c("job_number_1", "job_number_2")]
     ) ||
+    anyDuplicated(dob_initial$job_number) ||
+    anyDuplicated(post_link_fields$root_job_id) ||
     anyDuplicated(post_link_fields$job_number) ||
     anyDuplicated(mappluto_files[c("source_id", "vintage")])
 ) {
@@ -292,15 +315,26 @@ model_filing_rows <- filing_panel |>
   arrange(date_filed, job_number)
 
 historical_rows <- model_filing_rows |>
-  filter(filing_year >= pre_start_year, filing_year <= pre_end_year)
+  filter(filing_year >= pre_start_year, filing_year <= pre_end_year) |>
+  mutate(dob_i1_units = units)
 
 post_rows <- model_filing_rows |>
   filter(filing_year == post_year) |>
   left_join(
+    dob_initial |>
+      transmute(
+        hdb_root_job_id = str_squish(job_number),
+        dob_i1_filing_id = str_squish(job_filing_number),
+        dob_i1_units = as.integer(round(proposed_dwelling_units))
+      ),
+    by = c("job_number" = "hdb_root_job_id"),
+    relationship = "one-to-one"
+  ) |>
+  left_join(
     post_link_fields |>
       transmute(
-        job_number,
-        root_job_id,
+        hdb_root_job_id = root_job_id,
+        parent_crosswalk_filing_id = job_number,
         dob_filing_bbl = normalize_bbl_field(filing_bbl),
         historical_appbbl = normalize_bbl_field(historical_appbbl),
         lot_history_group_bbl = normalize_bbl_field(lot_history_group_bbl),
@@ -308,9 +342,25 @@ post_rows <- model_filing_rows |>
         description_referenced_job_id,
         description_project_code
       ),
-    by = "job_number",
+    by = c("job_number" = "hdb_root_job_id"),
     relationship = "one-to-one"
-  )
+  ) |>
+  mutate(root_job_id = job_number)
+
+if (
+  any(
+    !is.na(post_rows$parent_crosswalk_filing_id) &
+      is.na(post_rows$dob_i1_filing_id)
+  ) ||
+    any(
+      !is.na(post_rows$parent_crosswalk_filing_id) &
+        post_rows$parent_crosswalk_filing_id != post_rows$dob_i1_filing_id,
+      na.rm = TRUE
+  ) ||
+    sum(!is.na(post_rows$parent_crosswalk_filing_id)) == 0L
+) {
+  stop("Post-policy HDB-to-DOB root handoff failed QC.")
+}
 
 if (
   nrow(historical_rows) == 0L ||
@@ -482,9 +532,11 @@ post_links <- tibble(
       !is.na(owner_match_key_1) & owner_match_key_1 == owner_match_key_2,
     explicit_job_reference =
       (!is.na(description_reference_1) &
-        description_reference_1 %in% c(job_number_2, root_job_id_2)) |
+        (description_reference_1 == job_number_2 |
+          description_reference_1 == root_job_id_2)) |
       (!is.na(description_reference_2) &
-        description_reference_2 %in% c(job_number_1, root_job_id_1)),
+        (description_reference_2 == job_number_1 |
+          description_reference_2 == root_job_id_1)),
     same_project_code =
       !is.na(project_code_1) & project_code_1 == project_code_2
   ) |>
@@ -536,7 +588,8 @@ if (
     anyDuplicated(historical_panel$observation_id) ||
     anyDuplicated(post_panel$observation_id) ||
     sum(historical_panel$component_filings) != nrow(historical_rows) ||
-    sum(post_panel$component_filings) != nrow(post_rows)
+    sum(post_panel$component_filings) != nrow(post_rows) ||
+    (nrow(post_rows) > 1L && nrow(post_panel) == 1L)
 ) {
   stop("Enhanced-parent model panels failed final construction QC.")
 }
