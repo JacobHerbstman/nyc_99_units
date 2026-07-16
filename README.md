@@ -45,9 +45,11 @@ DOB NOW + MapPLUTO APPBBL history
 
 The preferred estimator uses one observation and one i.i.d. scale shock per
 enhanced parent. It is estimated on 2019–2023 parents and scored on 2025
-parents. The corresponding filing-level models, longer training periods,
-alternative parent definitions, placebos, and validation windows remain in
-audit tasks.
+parents. HDB Class A units are the primary post-period outcome. A parallel
+complete-case sensitivity uses DOB initial-filing units for every component,
+without imputing missing values. The corresponding filing-level models, longer
+training periods, alternative parent definitions, placebos, and validation
+windows remain in audit tasks.
 
 ## Main outputs
 
