@@ -1,0 +1,64 @@
+SHELL := bash
+include ../../../shell_functions.make
+
+HISTORICAL_START_YEAR := 2019
+HISTORICAL_END_YEAR := 2023
+POST_COHORT_YEAR := 2025
+MAX_FILING_DAYS := 365
+CORROBORATION_DAYS := 30
+POST_GEOMETRY_VINTAGE := 23v3.1
+
+all: ../output/symmetric_parent_membership.parquet \
+	../output/symmetric_parent_links.parquet \
+	../output/symmetric_parent_cohort_inventory.csv \
+	../output/symmetric_parent_2025_exact_99_paths.csv \
+	../output/symmetric_parent_link_summary.csv \
+	../output/symmetric_parent_cohort_summary.csv \
+	../output/symmetric_parent_cohort_qc.csv
+
+../output/symmetric_parent_membership.parquet: audit_symmetric_parent_cohorts.R \
+	../../../_lib/source_pipeline_utils.R \
+	../input/historical_parent_filing_link_fields.parquet \
+	../input/historical_parent_candidate_pairs.parquet \
+	../input/historical_polygon_adjacency_pairs.parquet \
+	../input/post_policy_filing_link_fields.parquet \
+	../input/hdb_mappluto_training_panel.parquet \
+	../input/mappluto_files.csv | ../output
+	$(R) $< $(HISTORICAL_START_YEAR) $(HISTORICAL_END_YEAR) \
+		$(POST_COHORT_YEAR) $(MAX_FILING_DAYS) $(CORROBORATION_DAYS) \
+		$(POST_GEOMETRY_VINTAGE)
+
+../output/symmetric_parent_links.parquet \
+../output/symmetric_parent_cohort_inventory.csv \
+../output/symmetric_parent_2025_exact_99_paths.csv \
+../output/symmetric_parent_link_summary.csv \
+../output/symmetric_parent_cohort_summary.csv \
+../output/symmetric_parent_cohort_qc.csv: ../output/symmetric_parent_membership.parquet
+	@test -s "$@"
+
+../input/historical_parent_filing_link_fields.parquet: ../../../construct_historical_parent_links/output/historical_parent_filing_link_fields.parquet | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
+../input/historical_parent_candidate_pairs.parquet: ../../../construct_historical_parent_links/output/historical_parent_candidate_pairs.parquet | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
+../input/historical_polygon_adjacency_pairs.parquet: ../../../construct_historical_parent_adjacency/output/historical_polygon_adjacency_pairs.parquet | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
+../input/post_policy_filing_link_fields.parquet: ../../../construct_post_policy_parent_crosswalk/output/post_policy_filing_link_fields.parquet | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
+../input/hdb_mappluto_training_panel.parquet: ../../../build_hdb_mappluto_training_panel/output/hdb_mappluto_training_panel.parquet | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
+../input/mappluto_files.csv: ../../../fetch_mappluto_archive/output/mappluto_files.csv | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
+link-inputs: ../input/historical_parent_filing_link_fields.parquet \
+	../input/historical_parent_candidate_pairs.parquet \
+	../input/historical_polygon_adjacency_pairs.parquet \
+	../input/post_policy_filing_link_fields.parquet \
+	../input/hdb_mappluto_training_panel.parquet \
+	../input/mappluto_files.csv
+
+include ../../generic.make
