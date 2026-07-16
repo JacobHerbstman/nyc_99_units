@@ -338,6 +338,7 @@ post_rows <- model_filing_rows |>
         dob_filing_bbl = normalize_bbl_field(filing_bbl),
         historical_appbbl = normalize_bbl_field(historical_appbbl),
         lot_history_group_bbl = normalize_bbl_field(lot_history_group_bbl),
+        appbbl_change_after_filing,
         owner_match_key = normalize_match_key(owner_match_key),
         description_referenced_job_id,
         description_project_code
@@ -502,6 +503,10 @@ post_links <- tibble(
     post_rows$lot_history_group_bbl[post_left_rows],
   lot_history_group_bbl_2 =
     post_rows$lot_history_group_bbl[post_right_rows],
+  appbbl_change_after_filing_1 =
+    post_rows$appbbl_change_after_filing[post_left_rows],
+  appbbl_change_after_filing_2 =
+    post_rows$appbbl_change_after_filing[post_right_rows],
   owner_match_key_1 = post_rows$owner_match_key[post_left_rows],
   owner_match_key_2 = post_rows$owner_match_key[post_right_rows],
   description_reference_1 =
@@ -524,10 +529,12 @@ post_links <- tibble(
     ),
     same_filing_bbl =
       !is.na(filing_bbl_1) & filing_bbl_1 == filing_bbl_2,
-    same_lot_history_group =
+    strict_lot_history_link =
       !is.na(lot_history_group_bbl_1) &
       lot_history_group_bbl_1 == lot_history_group_bbl_2 &
-      (!is.na(historical_appbbl_1) | !is.na(historical_appbbl_2)),
+      (!is.na(historical_appbbl_1) | !is.na(historical_appbbl_2)) &
+      !coalesce(appbbl_change_after_filing_1, FALSE) &
+      !coalesce(appbbl_change_after_filing_2, FALSE),
     same_owner =
       !is.na(owner_match_key_1) & owner_match_key_1 == owner_match_key_2,
     explicit_job_reference =
@@ -549,7 +556,7 @@ post_links <- tibble(
     exact_polygon_touch = coalesce(exact_polygon_touch, FALSE),
     conservative_link =
       same_filing_bbl |
-      same_lot_history_group |
+      strict_lot_history_link |
       explicit_job_reference |
       same_project_code,
     corroborated_exact_adjacency =
