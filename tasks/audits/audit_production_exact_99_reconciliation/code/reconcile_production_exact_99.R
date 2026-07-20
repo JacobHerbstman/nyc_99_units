@@ -1,5 +1,6 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/audits/audit_production_exact_99_reconciliation/code")
 # threshold_units <- 100L
+# post_year <- 2025L
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -13,24 +14,22 @@ source("../../../_lib/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 1L) {
-  stop("Expected one argument: the policy threshold in units.")
+if (length(args) != 2L) {
+  stop("Expected two arguments: the policy threshold and post year.")
 }
 
 threshold_units <- as.integer(args[1])
+post_year <- as.integer(args[2])
 
-if (is.na(threshold_units) || threshold_units < 2L) {
-  stop("The policy threshold must be an integer of at least two units.")
+if (
+  is.na(threshold_units) || threshold_units < 2L ||
+    is.na(post_year)
+) {
+  stop("The policy threshold and post year are invalid.")
 }
 
-bunching_units <- threshold_units - 1L
+bunch_units <- threshold_units - 1L
 model_floor <- 6L
-
-hdb_panel <- read_parquet(
-  "../input/hdb_mappluto_training_panel.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
 
 post_panel <- read_parquet(
   "../input/post_policy_enhanced_parent_model_panel.parquet"
@@ -48,6 +47,18 @@ model_parameters <- read_csv(
   "../input/enhanced_parent_model_parameters.csv",
   show_col_types = FALSE
 )
+
+membership <- read_parquet(
+  "../input/symmetric_parent_membership.parquet"
+) |>
+  as.data.frame() |>
+  as_tibble()
+
+links <- read_parquet(
+  "../input/symmetric_parent_links.parquet"
+) |>
+  as.data.frame() |>
+  as_tibble()
 
 job_crosswalk <- read_parquet(
   "../input/developer_opportunity_job_crosswalk.parquet"
@@ -78,20 +89,17 @@ broad_links <- read_parquet(
   as.data.frame() |>
   as_tibble()
 
-symmetric_paths <- read_csv(
-  "../input/symmetric_parent_2025_exact_99_paths.csv",
-  show_col_types = FALSE
-)
-
 if (
-  anyDuplicated(hdb_panel$job_number) ||
-    anyDuplicated(post_panel$observation_id) ||
+  anyDuplicated(post_panel$observation_id) ||
     anyDuplicated(model_scores$observation_id) ||
+    anyDuplicated(membership[c("sample", "job_number")]) ||
+    anyDuplicated(links[c("sample", "job_number_1", "job_number_2")]) ||
     anyDuplicated(job_crosswalk$root_job_id) ||
     anyDuplicated(casebook$root_job_id) ||
-    anyDuplicated(broad_membership$root_job_id)
+    anyDuplicated(broad_membership$root_job_id) ||
+    anyDuplicated(broad_links[c("root_job_id_1", "root_job_id_2")])
 ) {
-  stop("An input expected to be unique by its parent or root-job key is duplicated.")
+  stop("An exact-99 reconciliation input failed identifier QC.")
 }
 
 shock_sigma <- model_parameters |>
@@ -102,19 +110,25 @@ if (length(shock_sigma) != 1L || !is.finite(shock_sigma) || shock_sigma <= 0) {
   stop("The production model does not contain one valid shock sigma.")
 }
 
-production_exact_99 <- post_panel |>
-  filter(model_eligible, units_hdb_priority == bunching_units) |>
+production_parents <- post_panel |>
+  filter(
+    model_eligible,
+    analysis_status == "completed_2025_cohort",
+    cohort_year == post_year,
+    units_hdb_priority == bunch_units
+  ) |>
   select(
     observation_id,
     production_parent_id = parent_id,
-    production_first_filing_date = date_filed,
-    production_last_filing_date = date_last_filed,
-    production_component_filings = component_filings,
-    production_component_jobs = component_jobs,
+    analysis_status,
+    cohort_date,
+    date_last_filed,
+    component_filings,
+    component_jobs,
     hdb_priority_units = units_hdb_priority,
-    production_dob_i1_units = units_dob_i1,
-    production_dob_i1_complete = dob_i1_complete,
-    production_feature_lots = feature_lots,
+    dob_i1_units = units_dob_i1,
+    feature_lots,
+    feature_methods,
     lotarea,
     residfar,
     builtfar,
@@ -134,253 +148,240 @@ production_exact_99 <- post_panel |>
       ),
     by = "observation_id",
     relationship = "one-to-one"
+  )
+
+parent_members <- membership |>
+  filter(sample == "post_policy") |>
+  semi_join(
+    production_parents |>
+      select(parent_id = production_parent_id),
+    by = "parent_id"
   ) |>
-  mutate(
-    production_anchor_root_job = str_remove(
-      production_parent_id,
-      "^post_policy__enhanced_parent__"
-    ),
-    production_parent_classification = case_when(
-      production_component_filings == 1L ~ "single_filing_parent",
-      production_component_filings > 1L ~ "multi_filing_parent",
-      TRUE ~ "unresolved"
-    )
-  )
-
-if (
-  nrow(production_exact_99) == 0L ||
-    any(is.na(production_exact_99$observed_units)) ||
-    any(production_exact_99$observed_units != bunching_units) ||
-    anyDuplicated(production_exact_99$production_anchor_root_job)
-) {
-  stop("The production exact-99 sample failed definition or key QC.")
-}
-
-anchor_job_fields <- job_crosswalk |>
-  transmute(
-    production_anchor_root_job = root_job_id,
-    dob_job_filing_number,
-    dob_bin,
-    filing_date,
-    filing_status,
-    current_status_date,
-    approved_date,
-    first_permit_date,
-    dob_initial_units = proposed_units,
-    dob_bbl,
-    historical_appbbl,
-    appbbl_date_min,
-    address,
-    owner_name,
-    applicant_name,
-    job_description,
-    total_construction_floor_area,
-    proposed_stories,
-    proposed_height,
-    crosswalk_eligible_site_status = eligible_site_status
-  )
-
-anchor_hdb_fields <- hdb_panel |>
-  transmute(
-    production_anchor_root_job = job_number,
-    hdb_filing_bbl = bbl,
-    hdb_pluto_feature_bbl = pluto_feature_bbl,
-    hdb_pluto_match_method = pluto_match_method,
-    hdb_pluto_feature_bbl_rows = pluto_feature_bbl_hdb_rows,
-    hdb_pluto_version = pluto_version_used,
-    hdb_primary_leakage_safe_sample = primary_leakage_safe_sample
-  )
-
-casebook_fields <- casebook |>
-  transmute(
-    production_anchor_root_job = root_job_id,
-    casebook_review_priority = case_review_priority,
-    casebook_candidate_parent_id = candidate_parent_opportunity_id,
-    casebook_parent_structure = candidate_parent_structure,
-    casebook_grouping_evidence_tier = grouping_evidence_tier,
-    casebook_common_parent_assessment = common_parent_assessment,
-    casebook_avoidance_assessment = avoidance_assessment,
-    casebook_investigation_status = investigation_status,
-    casebook_investigation_note = investigation_note,
-    external_evidence_status,
-    external_evidence_note,
-    external_source_url,
-    external_parent_source_url,
-    external_context_source_url,
-    legal_485x_site_status,
-    rental_485x_eligibility_status,
-    next_record_needed
-  )
-
-production_component_lists <- strsplit(
-  post_panel$component_jobs,
-  ";",
-  fixed = TRUE
-)
-
-production_membership <- tibble(
-  root_job_id = unlist(production_component_lists, use.names = FALSE),
-  member_production_parent_id = rep(
-    post_panel$parent_id,
-    lengths(production_component_lists)
-  )
-)
-
-if (anyDuplicated(production_membership$root_job_id)) {
-  stop("A root job belongs to more than one production parent.")
-}
-
-broad_parent_jobs <- broad_membership |>
   left_join(
     job_crosswalk |>
       select(
         root_job_id,
         dob_job_filing_number,
         filing_status,
+        current_status_date,
         approved_date,
         first_permit_date,
+        dob_initial_units = proposed_units,
+        dob_bbl,
+        historical_appbbl,
+        address,
+        owner_name,
+        applicant_name,
+        job_description,
         total_construction_floor_area,
-        proposed_stories
+        proposed_stories,
+        proposed_height,
+        crosswalk_eligible_site_status = eligible_site_status
       ),
     by = "root_job_id",
     relationship = "many-to-one"
   ) |>
   left_join(
-    hdb_panel |>
+    casebook |>
       transmute(
-        root_job_id = job_number,
-        hdb_pluto_feature_bbl = pluto_feature_bbl
+        root_job_id,
+        casebook_match = TRUE,
+        external_evidence_status,
+        external_evidence_note,
+        external_source_url,
+        legal_485x_site_status,
+        rental_485x_eligibility_status,
+        next_record_needed
       ),
     by = "root_job_id",
     relationship = "many-to-one"
   ) |>
-  left_join(
-    production_membership,
-    by = "root_job_id",
-    relationship = "many-to-one"
-  ) |>
-  arrange(provisional_parent_opportunity_id, filing_date, root_job_id) |>
-  group_by(provisional_parent_opportunity_id) |>
+  arrange(parent_id, date_filed, job_number)
+
+parent_member_summary <- parent_members |>
+  group_by(parent_id) |>
   summarise(
-    broad_parent_classification = first(parent_structure),
-    broad_component_filings = n(),
-    broad_component_jobs = paste(root_job_id, collapse = ";"),
-    broad_component_filing_numbers = paste(
-      dob_job_filing_number,
+    component_root_jobs = paste(root_job_id, collapse = ";"),
+    component_filing_ids = paste(job_number, collapse = ";"),
+    component_units_hdb_priority = paste(hdb_priority_units, collapse = ";"),
+    component_units_dob_i1 = paste(dob_i1_units, collapse = ";"),
+    component_unit_sources = paste(unit_source, collapse = ";"),
+    component_filing_bbls = paste(filing_bbl, collapse = ";"),
+    component_filing_dates = paste(date_filed, collapse = ";"),
+    component_approval_dates = paste(
+      coalesce(as.character(approved_date), "missing"),
       collapse = ";"
     ),
-    broad_component_units = paste(proposed_units, collapse = ";"),
-    broad_component_filing_years = paste(filing_year, collapse = ";"),
-    broad_parent_dob_units = sum(proposed_units),
-    broad_exact_99_dob_filings = sum(proposed_units == bunching_units),
-    broad_distinct_bbls = n_distinct(dob_bbl, na.rm = TRUE),
-    broad_distinct_hdb_feature_bbls = n_distinct(
-      hdb_pluto_feature_bbl,
-      na.rm = TRUE
-    ),
-    broad_component_hdb_feature_bbls = paste(
-      paste0(
-        root_job_id,
-        "=",
-        if_else(
-          is.na(hdb_pluto_feature_bbl),
-          "not_in_hdb_panel",
-          hdb_pluto_feature_bbl
-        )
-      ),
+    component_first_permit_dates = paste(
+      coalesce(as.character(first_permit_date), "missing"),
       collapse = ";"
     ),
-    broad_components_in_production_panel = sum(
-      !is.na(member_production_parent_id)
-    ),
-    broad_distinct_production_parents = n_distinct(
-      member_production_parent_id,
-      na.rm = TRUE
-    ),
-    broad_component_production_parent_map = paste(
-      paste0(
-        root_job_id,
-        "=",
-        if_else(
-          is.na(member_production_parent_id),
-          "not_in_production_panel",
-          member_production_parent_id
-        )
-      ),
+    component_statuses = paste(
+      coalesce(filing_status, "missing"),
       collapse = ";"
     ),
-    broad_first_filing_date = min(filing_date),
-    broad_last_filing_date = max(filing_date),
-    broad_component_filing_dates = paste(
-      paste0(root_job_id, "=", filing_date),
+    component_addresses = paste(
+      coalesce(address, "missing"),
+      collapse = " | "
+    ),
+    component_owners = paste(
+      coalesce(owner_name, "missing"),
+      collapse = " | "
+    ),
+    component_applicants = paste(
+      coalesce(applicant_name, "missing"),
+      collapse = " | "
+    ),
+    component_descriptions = paste(
+      coalesce(job_description, "missing"),
+      collapse = " | "
+    ),
+    component_stories = paste(
+      coalesce(as.character(proposed_stories), "missing"),
       collapse = ";"
     ),
-    broad_component_approval_dates = paste(
-      paste0(
-        root_job_id,
-        "=",
-        if_else(is.na(approved_date), "missing", as.character(approved_date))
-      ),
-      collapse = ";"
-    ),
-    broad_component_first_permit_dates = paste(
-      paste0(
-        root_job_id,
-        "=",
-        if_else(
-          is.na(first_permit_date),
-          "missing",
-          as.character(first_permit_date)
-        )
-      ),
-      collapse = ";"
-    ),
-    broad_component_statuses = paste(
-      paste0(
-        root_job_id,
-        "=",
-        if_else(is.na(filing_status), "missing", filing_status)
-      ),
-      collapse = ";"
-    ),
-    broad_total_construction_floor_area = if (
+    total_construction_floor_area = if (
       all(is.na(total_construction_floor_area))
     ) {
       NA_real_
     } else {
       sum(total_construction_floor_area, na.rm = TRUE)
     },
-    broad_component_stories = paste(
-      paste0(
-        root_job_id,
-        "=",
-        if_else(is.na(proposed_stories), "missing", as.character(proposed_stories))
-      ),
+    hdb_dob_component_unit_disagreements = sum(
+      hdb_priority_units != dob_i1_units
+    ),
+    any_casebook_match = any(coalesce(casebook_match, FALSE)),
+    external_evidence_status = paste(
+      sort(unique(external_evidence_status[!is.na(external_evidence_status)])),
       collapse = ";"
     ),
+    external_evidence_note = paste(
+      sort(unique(external_evidence_note[!is.na(external_evidence_note)])),
+      collapse = " | "
+    ),
+    external_source_url = paste(
+      sort(unique(external_source_url[!is.na(external_source_url)])),
+      collapse = ";"
+    ),
+    legal_485x_site_status = paste(
+      sort(unique(legal_485x_site_status[!is.na(legal_485x_site_status)])),
+      collapse = ";"
+    ),
+    rental_485x_eligibility_status = paste(
+      sort(unique(
+        rental_485x_eligibility_status[
+          !is.na(rental_485x_eligibility_status)
+        ]
+      )),
+      collapse = ";"
+    ),
+    next_record_needed = paste(
+      sort(unique(next_record_needed[!is.na(next_record_needed)])),
+      collapse = " | "
+    ),
     .groups = "drop"
-  ) |>
-  mutate(
-    broad_gross_sf_per_dob_unit =
-      broad_total_construction_floor_area / broad_parent_dob_units,
-    broad_production_alignment = case_when(
-      broad_component_filings == 1L ~ "same_singleton",
-      broad_components_in_production_panel < broad_component_filings ~
-        "some_broad_components_not_in_production_panel",
-      broad_distinct_production_parents > 1L ~
-        "broad_components_split_across_production_parents",
-      broad_distinct_production_parents == 1L ~
-        "broad_components_already_share_production_parent",
-      TRUE ~ "unresolved_production_alignment"
-    )
   )
 
-broad_link_edges <- broad_links |>
+parent_for_job <- membership |>
+  filter(sample == "post_policy") |>
+  select(job_number, parent_id)
+
+parent_link_summary <- links |>
+  filter(sample == "post_policy") |>
+  left_join(
+    parent_for_job |>
+      rename(job_number_1 = job_number, parent_id_1 = parent_id),
+    by = "job_number_1",
+    relationship = "many-to-one"
+  ) |>
+  left_join(
+    parent_for_job |>
+      rename(job_number_2 = job_number, parent_id_2 = parent_id),
+    by = "job_number_2",
+    relationship = "many-to-one"
+  ) |>
+  filter(parent_id_1 == parent_id_2) |>
+  semi_join(
+    production_parents |>
+      select(parent_id_1 = production_parent_id),
+    by = "parent_id_1"
+  ) |>
+  mutate(
+    link_detail = paste0(
+      job_number_1,
+      "--",
+      job_number_2,
+      " [days=",
+      filing_days_apart,
+      ", reasons=",
+      link_reason,
+      "]"
+    )
+  ) |>
+  group_by(parent_id = parent_id_1) |>
+  summarise(
+    accepted_link_count = n(),
+    accepted_link_details = paste(link_detail, collapse = " | "),
+    .groups = "drop"
+  )
+
+target_roots <- parent_members |>
+  distinct(production_parent_id = parent_id, root_job_id)
+
+broad_parent_summary <- target_roots |>
+  left_join(
+    broad_membership |>
+      select(
+        root_job_id,
+        broad_parent_id = provisional_parent_opportunity_id,
+        broad_parent_classification = parent_structure,
+        broad_component_root_jobs = root_job_ids,
+        broad_component_units = all_dob_proposed_units,
+        broad_first_filing_date = first_filing_date,
+        broad_last_filing_date = last_filing_date
+      ),
+    by = "root_job_id",
+    relationship = "many-to-one"
+  ) |>
+  group_by(production_parent_id) |>
+  summarise(
+    broad_parent_ids = paste(
+      sort(unique(broad_parent_id[!is.na(broad_parent_id)])),
+      collapse = ";"
+    ),
+    broad_parent_classifications = paste(
+      sort(unique(
+        broad_parent_classification[!is.na(broad_parent_classification)]
+      )),
+      collapse = ";"
+    ),
+    broad_component_root_jobs = paste(
+      sort(unique(
+        broad_component_root_jobs[!is.na(broad_component_root_jobs)]
+      )),
+      collapse = " | "
+    ),
+    broad_component_units = paste(
+      sort(unique(broad_component_units[!is.na(broad_component_units)])),
+      collapse = " | "
+    ),
+    broad_first_filing_date = min(
+      broad_first_filing_date,
+      na.rm = TRUE
+    ),
+    broad_last_filing_date = max(
+      broad_last_filing_date,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  )
+
+broad_link_summary <- broad_links |>
   left_join(
     broad_membership |>
       select(
         root_job_id_1 = root_job_id,
-        provisional_parent_opportunity_id_1 = provisional_parent_opportunity_id
+        broad_parent_id_1 = provisional_parent_opportunity_id
       ),
     by = "root_job_id_1",
     relationship = "many-to-one"
@@ -389,111 +390,103 @@ broad_link_edges <- broad_links |>
     broad_membership |>
       select(
         root_job_id_2 = root_job_id,
-        provisional_parent_opportunity_id_2 = provisional_parent_opportunity_id
+        broad_parent_id_2 = provisional_parent_opportunity_id
       ),
     by = "root_job_id_2",
     relationship = "many-to-one"
-  )
-
-if (any(
-  broad_link_edges$provisional_parent_opportunity_id_1 !=
-    broad_link_edges$provisional_parent_opportunity_id_2
-)) {
-  stop("A broad parent link joins jobs assigned to different broad parents.")
-}
-
-broad_link_edges <- broad_link_edges |>
-  rowwise() |>
+  ) |>
   mutate(
-    link_reason = paste(
-      c(
-        "same_filing_bbl",
-        "same_lot_history_group",
-        "same_owner_within_100m",
-        "dob_description_cross_reference",
-        "same_dob_project_code"
-      )[c_across(c(
-        same_filing_bbl,
-        same_lot_history_group,
-        same_owner_nearby,
-        description_cross_reference,
-        same_description_project_code
-      ))],
-      collapse = ";"
+    broad_link_reason = str_remove(
+      paste0(
+        if_else(same_filing_bbl, "same_filing_bbl;", ""),
+        if_else(same_lot_history_group, "same_lot_history_group;", ""),
+        if_else(same_owner_nearby, "same_owner_nearby;", ""),
+        if_else(
+          description_cross_reference,
+          "description_cross_reference;",
+          ""
+        ),
+        if_else(
+          same_description_project_code,
+          "same_description_project_code;",
+          ""
+        )
+      ),
+      ";$"
     ),
-    edge_detail = paste0(
+    broad_link_detail = paste0(
       root_job_id_1,
       "--",
       root_job_id_2,
       " [days=",
       filing_days_apart,
       ", distance_m=",
-      if_else(is.na(distance_meters), "missing", format(round(distance_meters, 1), trim = TRUE)),
+      if_else(
+        is.na(distance_meters),
+        "missing",
+        as.character(round(distance_meters, 1))
+      ),
       ", reasons=",
-      link_reason,
+      broad_link_reason,
       "]"
     )
   ) |>
-  ungroup() |>
-  group_by(
-    provisional_parent_opportunity_id = provisional_parent_opportunity_id_1
-  ) |>
+  group_by(broad_parent_id = broad_parent_id_1) |>
   summarise(
-    broad_parent_link_edges = paste(edge_detail, collapse = " | "),
-    broad_parent_link_edge_count = n(),
-    broad_has_same_filing_bbl_link = any(same_filing_bbl),
-    broad_has_same_lot_history_link = any(same_lot_history_group),
-    broad_has_same_owner_nearby_link = any(same_owner_nearby),
-    broad_has_description_cross_reference = any(description_cross_reference),
-    broad_has_same_project_code = any(same_description_project_code),
+    broad_accepted_link_count = n(),
+    broad_accepted_link_details = paste(
+      broad_link_detail,
+      collapse = " | "
+    ),
+    all_links_within_broad_parent = all(
+      broad_parent_id_1 == broad_parent_id_2
+    ),
     .groups = "drop"
   )
 
-broad_parent_summary <- broad_parent_jobs |>
+if (any(!broad_link_summary$all_links_within_broad_parent)) {
+  stop("A broad accepted link crosses broad parent assignments.")
+}
+
+broad_link_summary_for_production <- target_roots |>
   left_join(
-    broad_link_edges,
-    by = "provisional_parent_opportunity_id",
-    relationship = "one-to-one"
+    broad_membership |>
+      select(
+        root_job_id,
+        broad_parent_id = provisional_parent_opportunity_id
+      ),
+    by = "root_job_id",
+    relationship = "many-to-one"
   ) |>
-  mutate(
-    broad_parent_link_edge_count = coalesce(broad_parent_link_edge_count, 0L),
-    broad_parent_link_edges = coalesce(broad_parent_link_edges, "none"),
-    broad_has_same_filing_bbl_link = coalesce(
-      broad_has_same_filing_bbl_link,
-      FALSE
+  distinct(production_parent_id, broad_parent_id) |>
+  left_join(
+    broad_link_summary |>
+      select(
+        broad_parent_id,
+        broad_accepted_link_count,
+        broad_accepted_link_details
+      ),
+    by = "broad_parent_id",
+    relationship = "many-to-one"
+  ) |>
+  group_by(production_parent_id) |>
+  summarise(
+    broad_accepted_link_count = sum(
+      broad_accepted_link_count,
+      na.rm = TRUE
     ),
-    broad_has_same_lot_history_link = coalesce(
-      broad_has_same_lot_history_link,
-      FALSE
+    broad_accepted_link_details = paste(
+      broad_accepted_link_details[!is.na(broad_accepted_link_details)],
+      collapse = " | "
     ),
-    broad_has_same_owner_nearby_link = coalesce(
-      broad_has_same_owner_nearby_link,
-      FALSE
-    ),
-    broad_has_description_cross_reference = coalesce(
-      broad_has_description_cross_reference,
-      FALSE
-    ),
-    broad_has_same_project_code = coalesce(
-      broad_has_same_project_code,
-      FALSE
-    ),
-    broad_rule_evidence_tier = case_when(
-      broad_parent_link_edge_count == 0L ~ "no_accepted_broad_link",
-      broad_has_same_filing_bbl_link |
-        broad_has_same_lot_history_link |
-        broad_has_description_cross_reference |
-        broad_has_same_project_code ~ "broad_direct_field_or_reference",
-      broad_has_same_owner_nearby_link ~ "same_owner_proximity_only",
-      TRUE ~ "unresolved_broad_link"
-    )
+    .groups = "drop"
   )
 
-candidate_pair_endpoints <- bind_rows(
+candidate_link_summary <- bind_rows(
   candidate_pairs |>
     transmute(
-      production_anchor_root_job = root_job_id_1,
-      linked_job = root_job_id_2,
+      root_job_id = root_job_id_1,
+      linked_root_job_id = root_job_id_2,
       filing_days_apart,
       distance_meters,
       strong_parent_link,
@@ -502,8 +495,8 @@ candidate_pair_endpoints <- bind_rows(
     ),
   candidate_pairs |>
     transmute(
-      production_anchor_root_job = root_job_id_2,
-      linked_job = root_job_id_1,
+      root_job_id = root_job_id_2,
+      linked_root_job_id = root_job_id_1,
       filing_days_apart,
       distance_meters,
       strong_parent_link,
@@ -511,142 +504,133 @@ candidate_pair_endpoints <- bind_rows(
       review_priority
     )
 ) |>
-  semi_join(
-    production_exact_99 |>
-      select(production_anchor_root_job),
-    by = "production_anchor_root_job"
+  inner_join(
+    target_roots,
+    by = "root_job_id",
+    relationship = "many-to-one"
   ) |>
-  distinct() |>
-  arrange(production_anchor_root_job, desc(strong_parent_link), linked_job) |>
   mutate(
-    candidate_pair_detail = paste0(
-      linked_job,
+    candidate_pair_id = paste(
+      pmin(root_job_id, linked_root_job_id),
+      pmax(root_job_id, linked_root_job_id),
+      sep = "--"
+    )
+  ) |>
+  distinct(
+    production_parent_id,
+    candidate_pair_id,
+    .keep_all = TRUE
+  ) |>
+  mutate(
+    candidate_link_detail = paste0(
+      root_job_id,
+      "--",
+      linked_root_job_id,
       " [days=",
       filing_days_apart,
       ", distance_m=",
-      if_else(is.na(distance_meters), "missing", format(round(distance_meters, 1), trim = TRUE)),
-      ", accepted_by_casebook_rule=",
+      if_else(
+        is.na(distance_meters),
+        "missing",
+        as.character(round(distance_meters, 1))
+      ),
+      ", accepted_by_broad_rule=",
       strong_parent_link,
-      ", reasons=",
+      ", reason=",
       candidate_reason,
       ", priority=",
       review_priority,
       "]"
     )
   ) |>
-  group_by(production_anchor_root_job) |>
+  group_by(production_parent_id) |>
   summarise(
-    all_candidate_pair_details = paste(candidate_pair_detail, collapse = " | "),
-    accepted_candidate_pairs = sum(strong_parent_link),
-    review_only_candidate_pairs = sum(!strong_parent_link),
+    proposed_candidate_link_count = n(),
+    proposed_candidate_link_details = paste(
+      candidate_link_detail,
+      collapse = " | "
+    ),
+    review_only_candidate_link_count = sum(
+      !coalesce(strong_parent_link, FALSE)
+    ),
     .groups = "drop"
   )
 
-broad_anchor_membership <- broad_membership |>
-  transmute(
-    production_anchor_root_job = root_job_id,
-    broad_parent_id = provisional_parent_opportunity_id
-  )
-
-symmetric_path_fields <- symmetric_paths |>
-  filter(unit_definition == "hdb_priority") |>
-  semi_join(
-    production_exact_99 |>
-      select(production_anchor_root_job),
-    by = c("exact_99_root_job_id" = "production_anchor_root_job")
-  ) |>
-  transmute(
-    production_anchor_root_job = exact_99_root_job_id,
-    symmetric_365_parent_id = parent_id,
-    symmetric_365_parent_component_jobs = component_root_jobs,
-    symmetric_365_parent_observed_filings = parent_observed_filings,
-    symmetric_365_parent_observed_units = parent_observed_units,
-    symmetric_365_direct_linked_jobs = directly_linked_jobs,
-    symmetric_365_direct_link_reasons = direct_link_reasons,
-    symmetric_365_cohort_date = cohort_date,
-    symmetric_365_parent_last_filing_date = parent_last_filing_date,
-    symmetric_365_source_end_date = source_end_date,
-    symmetric_365_full_window_observed = full_window_observed,
-    symmetric_365_analysis_status = analysis_status
-  )
-
-if (anyDuplicated(symmetric_path_fields$production_anchor_root_job)) {
-  stop("The symmetric cohort audit is not unique for the production exact-99 roots.")
-}
-
-reconciliation <- production_exact_99 |>
+reconciliation <- production_parents |>
   left_join(
-    anchor_job_fields,
-    by = "production_anchor_root_job",
+    parent_member_summary,
+    by = c("production_parent_id" = "parent_id"),
     relationship = "one-to-one"
   ) |>
   left_join(
-    anchor_hdb_fields,
-    by = "production_anchor_root_job",
-    relationship = "one-to-one"
-  ) |>
-  left_join(
-    casebook_fields,
-    by = "production_anchor_root_job",
-    relationship = "one-to-one"
-  ) |>
-  left_join(
-    broad_anchor_membership,
-    by = "production_anchor_root_job",
+    parent_link_summary,
+    by = c("production_parent_id" = "parent_id"),
     relationship = "one-to-one"
   ) |>
   left_join(
     broad_parent_summary,
-    by = c(
-      "broad_parent_id" = "provisional_parent_opportunity_id"
-    ),
-    relationship = "many-to-one"
-  ) |>
-  left_join(
-    candidate_pair_endpoints,
-    by = "production_anchor_root_job",
+    by = "production_parent_id",
     relationship = "one-to-one"
   ) |>
   left_join(
-    symmetric_path_fields,
-    by = "production_anchor_root_job",
+    broad_link_summary_for_production,
+    by = "production_parent_id",
+    relationship = "one-to-one"
+  ) |>
+  left_join(
+    candidate_link_summary,
+    by = "production_parent_id",
     relationship = "one-to-one"
   ) |>
   mutate(
-    hdb_dob_initial_units_agree = hdb_priority_units == dob_initial_units,
-    hdb_dob_filing_bbl_agree = hdb_filing_bbl == dob_bbl,
-    anchor_forward_365_window_complete =
-      filing_date + 365 <= symmetric_365_source_end_date,
-    anchor_gross_sf_per_hdb_unit =
+    parent_structure = if_else(
+      component_filings == 1L,
+      "single_filing_parent",
+      "multi_filing_parent"
+    ),
+    accepted_link_count = coalesce(accepted_link_count, 0L),
+    accepted_link_details = coalesce(accepted_link_details, "none"),
+    broad_accepted_link_count = coalesce(
+      broad_accepted_link_count,
+      0L
+    ),
+    broad_accepted_link_details = if_else(
+      broad_accepted_link_details == "" |
+        is.na(broad_accepted_link_details),
+      "none",
+      broad_accepted_link_details
+    ),
+    proposed_candidate_link_count = coalesce(
+      proposed_candidate_link_count,
+      0L
+    ),
+    proposed_candidate_link_details = coalesce(
+      proposed_candidate_link_details,
+      "none"
+    ),
+    review_only_candidate_link_count = coalesce(
+      review_only_candidate_link_count,
+      0L
+    ),
+    gross_sf_per_hdb_unit =
       total_construction_floor_area / hdb_priority_units,
-    anchor_gross_sf_per_dob_unit =
-      total_construction_floor_area / dob_initial_units,
-    all_candidate_pair_details = coalesce(all_candidate_pair_details, "none"),
-    accepted_candidate_pairs = coalesce(accepted_candidate_pairs, 0L),
-    review_only_candidate_pairs = coalesce(review_only_candidate_pairs, 0L),
-    legal_485x_site_status = coalesce(
-      legal_485x_site_status,
-      crosswalk_eligible_site_status,
-      "not_legally_validated"
-    ),
-    rental_485x_eligibility_status = coalesce(
+    hdb_dob_parent_units_agree = hdb_priority_units == dob_i1_units,
+    legal_485x_site_status = na_if(legal_485x_site_status, ""),
+    rental_485x_eligibility_status = na_if(
       rental_485x_eligibility_status,
-      "not_validated"
+      ""
     ),
-    next_record_needed = case_when(
-      !is.na(next_record_needed) ~ next_record_needed,
-      !hdb_dob_initial_units_agree ~ paste(
-        "Resolve HDB/DOB initial-unit disagreement;",
-        "DOB amendment history; HPD registration/docket"
-      ),
-      TRUE ~ "HPD registration/docket; DOB zoning-lot plans"
+    next_record_needed = if_else(
+      next_record_needed == "" | is.na(next_record_needed),
+      "HPD 485-x docket; DOB zoning-lot plans; commencement record",
+      next_record_needed
     )
   )
 
-floor_z <- (
-  log(model_floor - 0.5) - reconciliation$predicted_log_units
-) / shock_sigma
-floor_cdf <- pnorm(floor_z)
+floor_cdf <- pnorm(
+  (log(model_floor - 0.5) - reconciliation$predicted_log_units) /
+    shock_sigma
+)
 conditioning_probability <- 1 - floor_cdf
 
 reconciliation <- reconciliation |>
@@ -674,330 +658,57 @@ reconciliation <- reconciliation |>
           floor_cdf + 0.90 * conditioning_probability
         )
       ) + 0.5)
-    ),
-    model_probability_n0_6_98 = (
-      pnorm((log(98.5) - predicted_log_units) / shock_sigma) - floor_cdf
-    ) / conditioning_probability,
-    model_probability_n0_99 = probability_exact_99,
-    model_probability_n0_100_119 = (
-      pnorm((log(119.5) - predicted_log_units) / shock_sigma) -
-        pnorm((log(99.5) - predicted_log_units) / shock_sigma)
-    ) / conditioning_probability,
-    model_probability_n0_120_149 = (
-      pnorm((log(149.5) - predicted_log_units) / shock_sigma) -
-        pnorm((log(119.5) - predicted_log_units) / shock_sigma)
-    ) / conditioning_probability,
-    model_probability_n0_150_plus = pnorm(
-      (log(149.5) - predicted_log_units) / shock_sigma,
-      lower.tail = FALSE
-    ) / conditioning_probability,
-    model_probability_bin_sum =
-      model_probability_n0_6_98 +
-      model_probability_n0_99 +
-      model_probability_n0_100_119 +
-      model_probability_n0_120_149 +
-      model_probability_n0_150_plus,
-    casebook_match_status = if_else(
-      is.na(casebook_review_priority),
-      "not_in_dob_exact_99_casebook",
-      "matched_dob_exact_99_casebook"
-    ),
-    parent_definition_comparison = case_when(
-      production_component_filings > 1L ~ "linked_in_production_definition",
-      broad_component_filings > 1L &
-        symmetric_365_parent_observed_filings > 1L ~
-        "linked_by_broad_and_symmetric_365_definitions",
-      broad_component_filings > 1L &
-        symmetric_365_parent_observed_filings == 1L ~
-        "linked_only_by_broad_sensitivity",
-      broad_component_filings == 1L &
-        symmetric_365_parent_observed_filings > 1L ~
-        "linked_only_by_symmetric_365_definition",
-      broad_component_filings == 1L &
-        symmetric_365_parent_observed_filings == 1L ~
-        "unlinked_by_both_audit_definitions",
-      TRUE ~ "unresolved_definition_comparison"
-    ),
-    production_parent_reconciliation = case_when(
-      production_component_filings > 1L ~
-        "production_parent_already_multi_filing",
-      symmetric_365_parent_observed_filings > 1L &
-        broad_components_in_production_panel == broad_component_filings ~
-        "symmetric_direct_parent_but_components_split_in_production",
-      symmetric_365_parent_observed_filings > 1L &
-        broad_components_in_production_panel < broad_component_filings ~
-        "symmetric_direct_parent_has_components_outside_production",
-      broad_component_filings > 1L ~
-        "candidate_parent_only_under_broad_sensitivity",
-      TRUE ~ "consistent_singleton_across_definitions"
-    ),
-    review_priority = case_when(
-      broad_parent_classification == "repeated_99_parent" ~
-        "1_broad_repeated_99_parent",
-      broad_parent_classification == "one_99_with_other_jobs" ~
-        "2_broad_parent_with_other_jobs",
-      broad_parent_classification == "multiple_jobs_without_99" ~
-        "3_hdb_dob_source_disagreement_parent",
-      !symmetric_365_full_window_observed ~
-        "4_unlinked_incomplete_365_window",
-      review_only_candidate_pairs > 0L ~
-        "5_unlinked_review_only_candidate",
-      TRUE ~ "6_unlinked_complete_365_window"
     )
   ) |>
-  select(
-    review_priority,
-    production_parent_id,
-    production_anchor_root_job,
-    production_component_jobs,
-    production_component_filings,
-    production_parent_classification,
-    broad_parent_id,
-    broad_parent_classification,
-    broad_component_jobs,
-    broad_component_filing_numbers,
-    broad_component_filings,
-    broad_component_units,
-    broad_component_filing_years,
-    broad_parent_dob_units,
-    broad_exact_99_dob_filings,
-    broad_distinct_bbls,
-    broad_distinct_hdb_feature_bbls,
-    broad_component_hdb_feature_bbls,
-    broad_components_in_production_panel,
-    broad_distinct_production_parents,
-    broad_component_production_parent_map,
-    broad_production_alignment,
-    broad_parent_link_edge_count,
-    broad_rule_evidence_tier,
-    broad_has_same_filing_bbl_link,
-    broad_has_same_lot_history_link,
-    broad_has_same_owner_nearby_link,
-    broad_has_description_cross_reference,
-    broad_has_same_project_code,
-    broad_parent_link_edges,
-    all_candidate_pair_details,
-    accepted_candidate_pairs,
-    review_only_candidate_pairs,
-    symmetric_365_parent_id,
-    symmetric_365_parent_component_jobs,
-    symmetric_365_parent_observed_filings,
-    symmetric_365_parent_observed_units,
-    symmetric_365_direct_linked_jobs,
-    symmetric_365_direct_link_reasons,
-    symmetric_365_cohort_date,
-    symmetric_365_parent_last_filing_date,
-    symmetric_365_source_end_date,
-    symmetric_365_full_window_observed,
-    symmetric_365_analysis_status,
-    anchor_forward_365_window_complete,
-    parent_definition_comparison,
-    production_parent_reconciliation,
-    dob_job_filing_number,
-    dob_bin,
-    filing_date,
-    filing_status,
-    current_status_date,
-    approved_date,
-    first_permit_date,
-    broad_first_filing_date,
-    broad_last_filing_date,
-    broad_component_filing_dates,
-    broad_component_approval_dates,
-    broad_component_first_permit_dates,
-    broad_component_statuses,
-    hdb_priority_units,
-    dob_initial_units,
-    production_dob_i1_units,
-    production_dob_i1_complete,
-    hdb_dob_initial_units_agree,
-    dob_bbl,
-    hdb_filing_bbl,
-    hdb_dob_filing_bbl_agree,
-    hdb_pluto_feature_bbl,
-    hdb_pluto_match_method,
-    hdb_pluto_feature_bbl_rows,
-    hdb_pluto_version,
-    hdb_primary_leakage_safe_sample,
-    historical_appbbl,
-    appbbl_date_min,
-    address,
-    owner_name,
-    applicant_name,
-    total_construction_floor_area,
-    proposed_stories,
-    proposed_height,
-    anchor_gross_sf_per_hdb_unit,
-    anchor_gross_sf_per_dob_unit,
-    broad_total_construction_floor_area,
-    broad_component_stories,
-    broad_gross_sf_per_dob_unit,
-    production_feature_lots,
-    lotarea,
-    residfar,
-    builtfar,
-    borough,
-    zone_detail,
-    prior_site_use,
-    predicted_log_units,
-    model_no_notch_q10_units,
-    model_no_notch_median_units,
-    model_no_notch_q90_units,
-    probability_observed,
-    model_probability_n0_6_98,
-    model_probability_n0_99,
-    model_probability_n0_100_119,
-    model_probability_n0_120_149,
-    model_probability_n0_150_plus,
-    probability_at_least_100,
-    model_probability_bin_sum,
-    casebook_match_status,
-    casebook_review_priority,
-    casebook_candidate_parent_id,
-    casebook_parent_structure,
-    casebook_grouping_evidence_tier,
-    casebook_common_parent_assessment,
-    casebook_avoidance_assessment,
-    casebook_investigation_status,
-    casebook_investigation_note,
-    external_evidence_status,
-    external_evidence_note,
-    external_source_url,
-    external_parent_source_url,
-    external_context_source_url,
-    legal_485x_site_status,
-    rental_485x_eligibility_status,
-    next_record_needed,
-    job_description
-  ) |>
-  arrange(review_priority, filing_date, production_anchor_root_job)
+  arrange(desc(component_filings), cohort_date, production_parent_id)
 
-if (
-  nrow(reconciliation) != nrow(production_exact_99) ||
-    anyDuplicated(reconciliation$production_parent_id) ||
-    any(is.na(reconciliation$dob_initial_units)) ||
-    any(is.na(reconciliation$hdb_pluto_feature_bbl)) ||
-    any(is.na(reconciliation$broad_parent_id)) ||
-    any(is.na(reconciliation$symmetric_365_analysis_status)) ||
-    any(abs(reconciliation$model_probability_bin_sum - 1) > 1e-8)
-) {
-  stop("The final production exact-99 reconciliation failed row, join, or probability QC.")
-}
-
-casebook_unmatched <- reconciliation |>
-  filter(casebook_match_status == "not_in_dob_exact_99_casebook")
-
-if (
-  nrow(casebook_unmatched) > 0L &&
-    any(casebook_unmatched$hdb_dob_initial_units_agree)
-) {
-  stop("An HDB/DOB-agreeing exact-99 parent is unexpectedly absent from the DOB casebook.")
-}
-
-qc <- bind_rows(
-  tibble(
-    section = "sample",
-    metric = c(
-      "production_exact_99_parents",
-      "unique_production_parent_ids",
-      "single_filing_production_parents",
-      "matched_anchor_jobs",
-      "matched_dob_exact_99_casebook_rows",
-      "hdb_dob_initial_unit_agreements",
-      "hdb_dob_initial_unit_disagreements",
-      "hdb_dob_filing_bbl_agreements",
-      "hdb_dob_filing_bbl_disagreements"
-    ),
-    value = c(
-      nrow(reconciliation),
-      n_distinct(reconciliation$production_parent_id),
-      sum(reconciliation$production_parent_classification == "single_filing_parent"),
-      sum(!is.na(reconciliation$dob_initial_units)),
-      sum(reconciliation$casebook_match_status == "matched_dob_exact_99_casebook"),
-      sum(reconciliation$hdb_dob_initial_units_agree),
-      sum(!reconciliation$hdb_dob_initial_units_agree),
-      sum(reconciliation$hdb_dob_filing_bbl_agree),
-      sum(!reconciliation$hdb_dob_filing_bbl_agree)
-    )
+qc <- tibble(
+  check = c(
+    paste0("production_completed_", post_year, "_exact_99_parents"),
+    "matched_model_scores",
+    "single_filing_parents",
+    "multi_filing_parents",
+    "hdb_dob_parent_unit_disagreements",
+    "parents_with_casebook_match",
+    "parents_in_broad_multi_filing_classification",
+    "parents_with_review_only_candidate_links",
+    "parents_with_validated_legal_485x_site_status",
+    "imputed_companions"
   ),
-  reconciliation |>
-    count(broad_parent_classification, name = "value") |>
-    transmute(
-      section = "broad_parent_classification",
-      metric = broad_parent_classification,
-      value
+  value = c(
+    nrow(reconciliation),
+    sum(!is.na(reconciliation$predicted_log_units)),
+    sum(reconciliation$component_filings == 1L),
+    sum(reconciliation$component_filings > 1L),
+    sum(!reconciliation$hdb_dob_parent_units_agree),
+    sum(reconciliation$any_casebook_match),
+    sum(str_detect(reconciliation$broad_component_root_jobs, ";")),
+    sum(reconciliation$review_only_candidate_link_count > 0L),
+    sum(
+      !is.na(reconciliation$legal_485x_site_status) &
+        !(reconciliation$legal_485x_site_status %in% c(
+          "not_validated",
+          "not_legally_validated",
+          "unvalidated"
+        ))
     ),
-  reconciliation |>
-    count(symmetric_365_analysis_status, name = "value") |>
-    transmute(
-      section = "cohort_observability",
-      metric = symmetric_365_analysis_status,
-      value
-    ),
-  reconciliation |>
-    count(parent_definition_comparison, name = "value") |>
-    transmute(
-      section = "parent_definition_comparison",
-      metric = parent_definition_comparison,
-      value
-    ),
-  reconciliation |>
-    count(production_parent_reconciliation, name = "value") |>
-    transmute(
-      section = "production_parent_reconciliation",
-      metric = production_parent_reconciliation,
-      value
-    ),
-  tibble(
-    section = "coverage",
-    metric = c(
-      "complete_symmetric_365_windows",
-      "incomplete_symmetric_365_windows",
-      "complete_anchor_forward_365_windows",
-      "incomplete_anchor_forward_365_windows",
-      "parents_with_broad_link_edges",
-      "parents_with_review_only_candidate_pairs",
-      "unlinked_parents_with_review_only_candidate_pairs",
-      "distinct_broad_multi_parent_groups",
-      "distinct_symmetric_multi_parent_groups",
-      "anchor_jobs_approved",
-      "anchor_jobs_with_first_permit",
-      "missing_gross_floor_area",
-      "missing_proposed_stories",
-      "legally_validated_485x_sites",
-      "probability_bins_sum_to_one"
-    ),
-    value = c(
-      sum(reconciliation$symmetric_365_full_window_observed),
-      sum(!reconciliation$symmetric_365_full_window_observed),
-      sum(reconciliation$anchor_forward_365_window_complete),
-      sum(!reconciliation$anchor_forward_365_window_complete),
-      sum(reconciliation$broad_parent_link_edge_count > 0L),
-      sum(reconciliation$review_only_candidate_pairs > 0L),
-      sum(
-        reconciliation$broad_component_filings == 1L &
-          reconciliation$review_only_candidate_pairs > 0L
-      ),
-      n_distinct(
-        reconciliation$broad_parent_id[
-          reconciliation$broad_component_filings > 1L
-        ]
-      ),
-      n_distinct(
-        reconciliation$symmetric_365_parent_id[
-          reconciliation$symmetric_365_parent_observed_filings > 1L
-        ]
-      ),
-      sum(!is.na(reconciliation$approved_date)),
-      sum(!is.na(reconciliation$first_permit_date)),
-      sum(is.na(reconciliation$total_construction_floor_area)),
-      sum(is.na(reconciliation$proposed_stories)),
-      sum(reconciliation$legal_485x_site_status != "not_validated" &
-        reconciliation$legal_485x_site_status != "not_legally_validated"),
-      sum(abs(reconciliation$model_probability_bin_sum - 1) <= 1e-8)
-    )
+    0L
   )
 )
+
+if (
+  nrow(reconciliation) == 0L ||
+    nrow(reconciliation) != sum(model_scores$observed_units == bunch_units) ||
+    anyDuplicated(reconciliation$production_parent_id) ||
+    any(reconciliation$observed_units != bunch_units) ||
+    any(is.na(reconciliation$predicted_log_units)) ||
+    any(reconciliation$broad_parent_ids == "") ||
+    sum(reconciliation$component_filings) != nrow(parent_members) ||
+    any(reconciliation$accepted_link_count <
+      reconciliation$component_filings - 1L)
+) {
+  stop("Production exact-99 reconciliation outputs failed final QC.")
+}
 
 write_csv_if_changed(
   reconciliation,
@@ -1007,3 +718,5 @@ write_csv_if_changed(
   qc,
   "../output/production_exact_99_reconciliation_qc.csv"
 )
+
+cat("Wrote completed-cohort exact-99 reconciliation to ../output\n")
