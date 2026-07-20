@@ -51,13 +51,13 @@ model_formula <- log_units ~ log_lotarea + residfar + builtfar +
   prior_site_use
 
 historical_panel <- read_parquet(
-  "../output/historical_symmetric_parent_model_panel.parquet"
+  "../input/historical_enhanced_parent_model_panel.parquet"
 ) |>
   as.data.frame() |>
   as_tibble()
 
 post_panel <- read_parquet(
-  "../output/post_policy_symmetric_parent_model_panel.parquet"
+  "../input/post_policy_enhanced_parent_model_panel.parquet"
 ) |>
   as.data.frame() |>
   as_tibble()
@@ -82,7 +82,7 @@ training_rows <- historical_panel |>
     model_eligible,
     analysis_status == "historical_fully_observed",
     cohort_year >= 2019L,
-    cohort_year <= 2023L
+    cohort_year <= 2022L
   ) |>
   mutate(
     units = units_hdb_priority,
@@ -219,7 +219,7 @@ for (specification_row in seq_len(nrow(specifications))) {
     linkage_universe_start_year = 2018L,
     linkage_universe_end_year = 2023L,
     requested_training_cohort_start_year = 2019L,
-    requested_training_cohort_end_year = 2023L,
+    requested_training_cohort_end_year = 2022L,
     training_cohort_start_year = min(training_rows$cohort_year),
     training_cohort_end_year = max(training_rows$cohort_year),
     training_parents = nrow(training_rows),
@@ -279,7 +279,7 @@ distributions <- bind_rows(distribution_rows)
 comparison <- bind_rows(
   production_counterfactual |>
     transmute(
-      specification = "calendar-year production parents",
+      specification = "production completed 2025 cohorts",
       training_parents,
       scoreable_2025_parents,
       observed_exact_99,

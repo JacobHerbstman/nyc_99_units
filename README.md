@@ -28,28 +28,30 @@ stage_dob_now_new_building_filings
   -> summarize_developer_responses
 ```
 
-The preferred enhanced-parent model is produced by:
+The preferred symmetric-parent model is produced by:
 
 ```text
 HDB + historical MapPLUTO + DOB NOW
   -> build_hdb_mappluto_training_panel
   -> construct_historical_parent_links
   -> construct_historical_parent_adjacency
+  -> construct_parent_cohorts
   -> build_parent_model_panel
   -> estimate_parent_no_notch_model
+  -> prepare_developer_cost_calibration
 
 DOB NOW + MapPLUTO APPBBL history
   -> construct_post_policy_parent_crosswalk
-  -> build_parent_model_panel
+  -> construct_parent_cohorts
 ```
 
 The preferred estimator uses one observation and one i.i.d. scale shock per
-enhanced parent. It is estimated on 2019–2023 parents and scored on 2025
-parents. HDB Class A units are the primary post-period outcome. A parallel
-complete-case sensitivity uses DOB initial-filing units for every component,
-without imputing missing values. The corresponding filing-level models, longer
-training periods, alternative parent definitions, placebos, and validation
-windows remain in audit tasks.
+symmetric 365-day parent. It is estimated on fully observed 2019--2022
+first-filing cohorts and scored on completed 2025 cohorts whose full companion
+window is observed. HDB Class A units are the primary post-period outcome, with
+DOB initial-filing units as a sensitivity. No companion, feature, or unit count
+is imputed. Filing-level models, right-censored all-cohort descriptions,
+placebos, inference, and alternative parent definitions remain in audit tasks.
 
 ## Main outputs
 
@@ -60,6 +62,9 @@ windows remain in audit tasks.
 - `tasks/estimate_parent_no_notch_model/output/`: fitted coefficients, 2025
   parent scores, observed and no-notch distributions, mass-balance moments,
   implied frontiers, and the primary counterfactual figure.
+- `tasks/prepare_developer_cost_calibration/output/`: the preferred exact-99
+  behavioral target and affected counterfactual parent-size weights. These are
+  inputs to future cost calibration, not dollar cost or welfare estimates.
 
 ## Deferred branches
 

@@ -1,9 +1,10 @@
 # Symmetric parent-cohort audit
 
-This audit assigns an economic parent to its first observed filing and links
-companion filings made within 365 days, including companions in another
-calendar year. It does not re-estimate the no-notch model and never imputes an
-unobserved companion.
+This audit summarizes and checks the production parent membership. Upstream,
+an economic parent is assigned to its first observed filing and may include
+linked companion filings made within 365 days, including another calendar
+year. This task does not reconstruct parents, estimate the no-notch model, or
+impute an unobserved companion.
 
 The historical parent anchors are the 2019--2023 leakage-safe HDB sample used
 by the parent model. The linkage universe begins in 2018 so the 365-day
@@ -29,7 +30,7 @@ descriptive all-2025 result uses all companions observed by the data snapshot.
 Parents first filed in 2024 are not relabeled as 2025 parents merely because
 they contain a 2025 filing.
 
-The production handoff now joins the HDB root job to the DOB NOW root job. Of
+The production construction joins the HDB root job to the DOB NOW root job. Of
 626 eligible 2025 HDB rows, 624 match the unfiltered DOB initial-filing file;
 619 remain in the filtered parent crosswalk. The five filtered omissions have
 fewer than six DOB proposed units, and the two unmatched HDB roots are retained
@@ -37,9 +38,7 @@ without an imputed DOB value.
 
 HDB Class A units are the primary post-period measure. The audit carries DOB
 initial-filing units separately and produces a parallel exact-99 path file, so
-the three exact-99 classification disagreements and all other unit differences
-remain visible. For DOB-only post filings outside the HDB estimation universe,
-the HDB-priority descriptive audit uses the observed DOB value rather than
-dropping the filing. The no-notch model's DOB sensitivity is stricter: it uses
-only parents with a DOB value for every component and applies the same six-unit
-floor. Neither result imputes an unobserved companion or unit count.
+classification disagreements remain visible. For DOB-only post filings outside
+the HDB estimation universe, the HDB-priority descriptive measure uses the
+observed DOB value rather than dropping the filing. Neither measure imputes an
+unobserved companion or unit count.

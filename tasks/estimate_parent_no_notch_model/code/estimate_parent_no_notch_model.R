@@ -72,36 +72,47 @@ if (
     anyDuplicated(historical_panel$observation_id) ||
     anyDuplicated(post_panel$observation_id)
 ) {
-  stop("Enhanced-parent model inputs failed key QC.")
+  stop("Symmetric parent-model inputs failed key QC.")
 }
 
 training_rows <- historical_panel |>
-  filter(model_eligible, filing_year >= 2019L, date_last_filed <= as.Date("2023-12-31"))
+  filter(
+    model_eligible,
+    analysis_status == "historical_fully_observed",
+    cohort_year >= 2019L,
+    cohort_year <= 2022L
+  ) |>
+  mutate(
+    units = units_hdb_priority,
+    log_units = log(units)
+  )
 
-model_eligible_post_parents <- sum(post_panel$model_eligible)
+completed_2025_rows <- post_panel |>
+  filter(
+    analysis_status == "completed_2025_cohort",
+    cohort_year == 2025L
+  )
+
+observed_completed_2025_parents <- nrow(completed_2025_rows)
 
 if (unit_spec == "hdb_priority") {
-  score_rows <- post_panel |>
+  score_rows <- completed_2025_rows |>
     filter(model_eligible) |>
     mutate(
       units = units_hdb_priority,
       log_units = log(units)
     )
-  model_name <- "enhanced_parent_2019_2023"
+  model_name <- "symmetric_parent_2019_2022_completed_2025"
   unit_label <- "HDB units (primary)"
 } else {
-  score_rows <- post_panel |>
-    filter(
-      model_eligible,
-      dob_i1_complete,
-      units_dob_i1 >= min_units
-    ) |>
+  score_rows <- completed_2025_rows |>
+    filter(model_eligible, units_dob_i1 >= min_units) |>
     mutate(
       units = units_dob_i1,
       log_units = log(units)
     )
-  model_name <- "enhanced_parent_2019_2023_dob_i1_complete_case"
-  unit_label <- "DOB initial-filing units (complete-case sensitivity)"
+  model_name <- "symmetric_parent_2019_2022_completed_2025_dob_i1"
+  unit_label <- "DOB initial-filing units (sensitivity)"
 }
 
 fitted_model <- fit_rounded_mle(
@@ -187,10 +198,11 @@ counterfactual <- tibble(
   model = model_name,
   unit_definition = unit_spec,
   training_parents = nrow(training_rows),
-  model_eligible_2025_parents = model_eligible_post_parents,
+  observed_completed_2025_parents,
+  model_eligible_2025_parents = sum(completed_2025_rows$model_eligible),
   scoreable_2025_parents = nrow(scores),
   excluded_2025_parents_unit_definition =
-    model_eligible_post_parents - nrow(scores),
+    observed_completed_2025_parents - nrow(scores),
   component_filings = sum(scores$component_filings),
   observed_exact_99,
   expected_no_notch_exact_99 = expected_exact_99,
@@ -226,7 +238,7 @@ parameters <- tibble(
   model = model_name,
   unit_definition = unit_spec,
   training_start_year = 2019L,
-  training_end_year = 2023L,
+  training_end_year = 2022L,
   training_parents = nrow(training_rows),
   training_year_mean = fitted_model$training_year_mean,
   term = c(names(fitted_model$coefficients), "shock_sigma"),
@@ -241,7 +253,7 @@ if (
     any(scores$probability_at_least_100 > 1 + 1e-10) ||
     !is.finite(counterfactual$conservation_gap)
 ) {
-  stop("Enhanced-parent model outputs failed final QC.")
+  stop("Symmetric parent-model outputs failed final QC.")
 }
 
 counterfactual_plot <- distribution |>
@@ -264,17 +276,17 @@ counterfactual_plot <- distribution |>
   ) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.08))) +
   labs(
-    title = "Enhanced-parent filings bunch below the 100-unit threshold",
+    title = "Parent opportunities bunch below the 100-unit threshold",
     subtitle = paste0(
-      "Observed 2025 parent counts and the no-notch distribution estimated ",
-      "from 2019-2023; ", unit_label
+      "Completed 2025 cohorts and the no-notch distribution estimated ",
+      "from fully observed 2019-2022 cohorts; ", unit_label
     ),
-    x = "Proposed dwelling units per enhanced parent",
+    x = "Proposed dwelling units per parent opportunity",
     y = "Parent opportunities",
     caption = paste0(
       "Gray bars are observed counts. The blue line is the fitted no-notch ",
-      "distribution. Parent links combine conservative historical signals ",
-      "with corroborated exact parcel adjacency."
+      "distribution. Parent cohorts use the same 365-day first-filing rule ",
+      "before and after the policy."
     )
   ) +
   theme_minimal(base_size = 11) +
@@ -335,4 +347,4 @@ if (unit_spec == "hdb_priority") {
   )
 }
 
-cat("Wrote enhanced-parent no-notch results for ", unit_spec, " to ../output\n")
+cat("Wrote symmetric parent-model results for ", unit_spec, " to ../output\n")
