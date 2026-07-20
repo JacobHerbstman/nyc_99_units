@@ -1,7 +1,7 @@
 SHELL := bash
 include ../../shell_functions.make
 
-START_YEAR := 2019
+START_YEAR := 2018
 END_YEAR := 2023
 MAX_FILING_DAYS := 365
 CORROBORATION_DAYS := 30

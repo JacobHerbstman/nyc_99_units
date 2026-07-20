@@ -1,7 +1,8 @@
 SHELL := bash
 include ../../../shell_functions.make
 
-HISTORICAL_START_YEAR := 2019
+HISTORICAL_LINK_START_YEAR := 2018
+HISTORICAL_COHORT_START_YEAR := 2019
 HISTORICAL_END_YEAR := 2023
 POST_COHORT_YEAR := 2025
 MAX_FILING_DAYS := 365
@@ -25,7 +26,8 @@ all: ../output/symmetric_parent_membership.parquet \
 	../input/post_policy_filing_link_fields.parquet \
 	../input/hdb_mappluto_training_panel.parquet \
 	../input/mappluto_files.csv | ../output
-	$(R) $< $(HISTORICAL_START_YEAR) $(HISTORICAL_END_YEAR) \
+	$(R) $< $(HISTORICAL_LINK_START_YEAR) \
+		$(HISTORICAL_COHORT_START_YEAR) $(HISTORICAL_END_YEAR) \
 		$(POST_COHORT_YEAR) $(MAX_FILING_DAYS) $(CORROBORATION_DAYS) \
 		$(POST_GEOMETRY_VINTAGE)
 

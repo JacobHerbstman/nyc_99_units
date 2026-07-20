@@ -1,5 +1,6 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/audits/audit_symmetric_parent_cohorts/code")
-# historical_start_year <- 2019L
+# historical_link_start_year <- 2018L
+# historical_cohort_start_year <- 2019L
 # historical_end_year <- 2023L
 # post_cohort_year <- 2025L
 # max_filing_days <- 365L
@@ -19,26 +20,30 @@ source("../../../_lib/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 6L) {
+if (length(args) != 7L) {
   stop(
-    "Expected six arguments: historical start and end years, post cohort ",
-    "year, maximum filing days, corroboration days, and post geometry vintage."
+    "Expected seven arguments: historical link start, cohort start and end ",
+    "years, post cohort year, maximum filing days, corroboration days, and ",
+    "post geometry vintage."
   )
 }
 
-historical_start_year <- as.integer(args[1])
-historical_end_year <- as.integer(args[2])
-post_cohort_year <- as.integer(args[3])
-max_filing_days <- as.integer(args[4])
-corroboration_days <- as.integer(args[5])
-post_geometry_vintage <- args[6]
+historical_link_start_year <- as.integer(args[1])
+historical_cohort_start_year <- as.integer(args[2])
+historical_end_year <- as.integer(args[3])
+post_cohort_year <- as.integer(args[4])
+max_filing_days <- as.integer(args[5])
+corroboration_days <- as.integer(args[6])
+post_geometry_vintage <- args[7]
 
 if (
   any(is.na(c(
-    historical_start_year, historical_end_year, post_cohort_year,
+    historical_link_start_year, historical_cohort_start_year,
+    historical_end_year, post_cohort_year,
     max_filing_days, corroboration_days
   ))) ||
-    historical_start_year > historical_end_year ||
+    historical_link_start_year > historical_cohort_start_year ||
+    historical_cohort_start_year > historical_end_year ||
     post_cohort_year <= historical_end_year ||
     max_filing_days < 1L ||
     corroboration_days < 0L ||
@@ -106,7 +111,7 @@ historical_rows <- read_parquet(
   as.data.frame() |>
   as_tibble() |>
   filter(
-    filing_year >= historical_start_year,
+    filing_year >= historical_link_start_year,
     filing_year <= historical_end_year
   ) |>
   arrange(date_filed, job_number)
@@ -614,6 +619,9 @@ membership <- bind_rows(historical_membership, post_membership) |>
   ungroup() |>
   mutate(
     analysis_status = case_when(
+      sample == "historical" &
+        cohort_year < historical_cohort_start_year ~
+        "historical_linkage_padding",
       sample == "historical" & full_window_observed ~
         "historical_fully_observed",
       sample == "historical" &

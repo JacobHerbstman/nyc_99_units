@@ -5,8 +5,9 @@ companion filings made within 365 days, including companions in another
 calendar year. It does not re-estimate the no-notch model and never imputes an
 unobserved companion.
 
-The historical filing universe is the 2019--2023 leakage-safe HDB sample used
-by the parent model. Historical links use the existing pre-filing lot,
+The historical parent anchors are the 2019--2023 leakage-safe HDB sample used
+by the parent model. The linkage universe begins in 2018 so the 365-day
+lookback for 2019 anchors is observed. Historical links use the existing pre-filing lot,
 same-BBL, explicit-reference, project-code, and corroborated exact-adjacency
 evidence. The post filing universe is DOB NOW New Building filings observed
 from 2024 through the current data snapshot. Post links use the analogous

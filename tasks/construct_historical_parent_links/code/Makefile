@@ -1,7 +1,7 @@
 SHELL := bash
 include ../../shell_functions.make
 
-START_YEAR := 2019
+START_YEAR := 2018
 END_YEAR := 2023
 MIN_UNITS := 6
 NEARBY_METERS := 100
