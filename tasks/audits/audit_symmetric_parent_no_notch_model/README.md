@@ -43,16 +43,20 @@ not resolve the mass-balance problem.
 
 The audit artificially censors the 252 completed 2025 parents at several
 horizons and compares each provisional total with the final 365-day total. At
-day zero, 15 parents appear to total exactly 99 units; five later acquire a
-linked companion and cease to be exact-99 parents. Two remain misclassified at
-day 30, one at days 60 and 90, and none at day 100 or later. The historical
-2019--2022 validation sample has no exact-99 classification disagreement at
-any tested horizon.
+each horizon it uses only filings and links already observable by that date and
+reconstructs the connected component containing the parent anchor. At day
+zero, 15 parents appear to total exactly 99 units; five later acquire a linked
+companion and cease to be exact-99 parents. Two remain misclassified at day 30,
+one at days 60 and 90, and none at day 100 or later. The historical 2019--2022
+validation sample has no exact-99 classification disagreement at any tested
+horizon.
 
 Exact-99 classification is therefore stable by 180 days in the completed
 validation cohorts. Parent size is not fully settled: five of the 252 completed
 2025 parents acquire 272 units after day 180. The 180-day result is informative
 for the exact-99 bunching moment, but it remains a provisional-cohort result
-until the full 365-day window is observed.
+until the full 365-day window is observed. No day-180 parent in either
+validation sample contains an already observed filing that requires a later
+bridge filing to connect it to the anchor.
 
 Run `make` from `code/`.

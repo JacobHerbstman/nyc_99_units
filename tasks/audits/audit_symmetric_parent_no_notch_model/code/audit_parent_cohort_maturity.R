@@ -55,9 +55,16 @@ membership <- read_parquet(
   as.data.frame() |>
   as_tibble()
 
+links <- read_parquet(
+  "../input/symmetric_parent_links.parquet"
+) |>
+  as.data.frame() |>
+  as_tibble()
+
 if (
   nrow(membership) == 0L ||
     anyDuplicated(membership[c("sample", "job_number")]) ||
+    anyDuplicated(links[c("sample", "job_number_1", "job_number_2")]) ||
     any(membership$parent_span_days > 365L)
 ) {
   stop("The symmetric parent membership failed identifier or span QC.")
@@ -91,8 +98,47 @@ validation_members <- membership |>
 
 validation_parents <- validation_members |>
   distinct(
-    sample_group, parent_id,
+    sample_group, parent_id, parent_anchor_job,
     final_units = parent_observed_units
+  )
+
+job_parent_lookup <- membership |>
+  select(sample, job_number, parent_id)
+
+validation_links <- links |>
+  left_join(
+    job_parent_lookup |>
+      rename(
+        job_number_1 = job_number,
+        parent_id_1 = parent_id
+      ),
+    by = c("sample", "job_number_1"),
+    relationship = "many-to-one"
+  ) |>
+  left_join(
+    job_parent_lookup |>
+      rename(
+        job_number_2 = job_number,
+        parent_id_2 = parent_id
+      ),
+    by = c("sample", "job_number_2"),
+    relationship = "many-to-one"
+  )
+
+if (
+  any(is.na(validation_links$parent_id_1)) ||
+    any(is.na(validation_links$parent_id_2)) ||
+    any(validation_links$parent_id_1 != validation_links$parent_id_2)
+) {
+  stop("A parent link does not connect members of the same final parent.")
+}
+
+validation_links <- validation_links |>
+  filter(parent_id_1 %in% validation_parents$parent_id) |>
+  transmute(
+    parent_id = parent_id_1,
+    job_number_1,
+    job_number_2
   )
 
 classification_rows <- vector("list", length(maturity_horizons))
@@ -100,13 +146,57 @@ classification_rows <- vector("list", length(maturity_horizons))
 for (horizon_row in seq_along(maturity_horizons)) {
   horizon_days <- maturity_horizons[horizon_row]
 
-  provisional_parent_units <- validation_members |>
-    filter(days_since_anchor <= horizon_days) |>
-    group_by(sample_group, parent_id) |>
-    summarise(
-      provisional_units = sum(hdb_priority_units),
-      .groups = "drop"
+  provisional_rows <- vector("list", nrow(validation_parents))
+
+  for (parent_row in seq_len(nrow(validation_parents))) {
+    parent <- validation_parents[parent_row, ]
+    known_members <- validation_members |>
+      filter(
+        parent_id == parent$parent_id,
+        days_since_anchor <= horizon_days
+      )
+    known_jobs <- known_members$job_number
+    known_links <- validation_links |>
+      filter(
+        parent_id == parent$parent_id,
+        job_number_1 %in% known_jobs,
+        job_number_2 %in% known_jobs
+      )
+    connected_jobs <- parent$parent_anchor_job
+
+    repeat {
+      connected_links <- known_links |>
+        filter(
+          job_number_1 %in% connected_jobs |
+            job_number_2 %in% connected_jobs
+        )
+      expanded_jobs <- unique(c(
+        connected_jobs,
+        connected_links$job_number_1,
+        connected_links$job_number_2
+      ))
+
+      if (length(expanded_jobs) == length(connected_jobs)) {
+        break
+      }
+
+      connected_jobs <- expanded_jobs
+    }
+
+    provisional_rows[[parent_row]] <- tibble(
+      sample_group = parent$sample_group,
+      parent_id = parent$parent_id,
+      provisional_units = sum(
+        known_members$hdb_priority_units[
+          known_members$job_number %in% connected_jobs
+        ]
+      ),
+      disconnected_known_filings =
+        nrow(known_members) - length(connected_jobs)
     )
+  }
+
+  provisional_parent_units <- bind_rows(provisional_rows)
 
   classification_rows[[horizon_row]] <- validation_parents |>
     left_join(
@@ -137,6 +227,10 @@ for (horizon_row in seq_along(maturity_horizons)) {
         provisional_units != final_units
       ),
       units_added_after_horizon = sum(final_units - provisional_units),
+      parents_with_disconnected_known_filings = sum(
+        disconnected_known_filings > 0L
+      ),
+      disconnected_known_filings = sum(disconnected_known_filings),
       .groups = "drop"
     )
 }
@@ -172,6 +266,8 @@ qc <- tibble(
     "completed_validation_exact_99_disagreements_at_maturity",
     "completed_validation_parent_totals_changing_after_maturity",
     "completed_validation_units_added_after_maturity",
+    "completed_validation_parents_with_disconnected_filings_at_maturity",
+    "completed_validation_disconnected_filings_at_maturity",
     "imputed_companions"
   ),
   value = c(
@@ -193,6 +289,8 @@ qc <- tibble(
     maturity_validation$exact_99_classification_disagreements,
     maturity_validation$parents_total_changes_after_horizon,
     maturity_validation$units_added_after_horizon,
+    maturity_validation$parents_with_disconnected_known_filings,
+    maturity_validation$disconnected_known_filings,
     0L
   )
 )
@@ -210,7 +308,10 @@ if (
     any(classification$units_added_after_horizon < 0L) ||
     any(
       classification$horizon_days == 365L &
-        classification$exact_99_classification_disagreements != 0L
+        (
+          classification$exact_99_classification_disagreements != 0L |
+            classification$disconnected_known_filings != 0L
+        )
     ) ||
     sum(post_parents$mature_cohort) == 0L
 ) {

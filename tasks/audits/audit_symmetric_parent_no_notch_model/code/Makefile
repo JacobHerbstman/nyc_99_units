@@ -42,7 +42,8 @@ all: ../output/symmetric_parent_model_counterfactuals.csv \
 
 ../output/parent_cohort_maturity_classification.csv: audit_parent_cohort_maturity.R \
 	../../../_lib/source_pipeline_utils.R \
-	../input/symmetric_parent_membership.parquet | ../output
+	../input/symmetric_parent_membership.parquet \
+	../input/symmetric_parent_links.parquet | ../output
 	$(R) $< $(TRAINING_START_YEAR) $(TRAINING_END_YEAR) $(POST_YEAR) \
 		$(MATURITY_DAYS) $(MATURITY_HORIZONS)
 
@@ -61,9 +62,13 @@ all: ../output/symmetric_parent_model_counterfactuals.csv \
 ../input/symmetric_parent_membership.parquet: ../../../construct_parent_cohorts/output/symmetric_parent_membership.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
+../input/symmetric_parent_links.parquet: ../../../construct_parent_cohorts/output/symmetric_parent_links.parquet | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
 link-inputs: ../input/historical_enhanced_parent_model_panel.parquet \
 	../input/post_policy_enhanced_parent_model_panel.parquet \
 	../input/enhanced_parent_2025_counterfactual.csv \
-	../input/symmetric_parent_membership.parquet
+	../input/symmetric_parent_membership.parquet \
+	../input/symmetric_parent_links.parquet
 
 include ../../generic.make
