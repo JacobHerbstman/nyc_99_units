@@ -4,6 +4,10 @@
 # counterfactual_max_units <- 400L
 # plot_min_units <- 50L
 # plot_max_units <- 220L
+# training_start_year <- 2019L
+# training_end_year <- 2022L
+# post_year <- 2025L
+# maturity_days <- 180L
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -18,10 +22,11 @@ source("../../../_lib/parent_no_notch_model.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 5L) {
+if (length(args) != 9L) {
   stop(
-    "Expected five arguments: minimum units, minimum category rows, ",
-    "counterfactual maximum units, and plot limits."
+    "Expected nine arguments: minimum units, minimum category rows, ",
+    "counterfactual maximum units, plot limits, training years, post year, ",
+    "and maturity days."
   )
 }
 
@@ -30,18 +35,27 @@ minimum_category_rows <- as.integer(args[2])
 counterfactual_max_units <- as.integer(args[3])
 plot_min_units <- as.integer(args[4])
 plot_max_units <- as.integer(args[5])
+training_start_year <- as.integer(args[6])
+training_end_year <- as.integer(args[7])
+post_year <- as.integer(args[8])
+maturity_days <- as.integer(args[9])
 
 if (
   any(is.na(c(
     min_units, minimum_category_rows, counterfactual_max_units,
-    plot_min_units, plot_max_units
+    plot_min_units, plot_max_units, training_start_year,
+    training_end_year, post_year, maturity_days
   ))) ||
     min_units < 1L ||
     minimum_category_rows < 2L ||
     counterfactual_max_units < 120L ||
     plot_min_units < min_units ||
     plot_min_units >= plot_max_units ||
-    plot_max_units > counterfactual_max_units
+    plot_max_units > counterfactual_max_units ||
+    training_start_year > training_end_year ||
+    post_year <= training_end_year ||
+    maturity_days < 1L ||
+    maturity_days >= 365L
 ) {
   stop("Symmetric-parent model arguments are not internally consistent.")
 }
@@ -62,6 +76,12 @@ post_panel <- read_parquet(
   as.data.frame() |>
   as_tibble()
 
+membership <- read_parquet(
+  "../input/symmetric_parent_membership.parquet"
+) |>
+  as.data.frame() |>
+  as_tibble()
+
 production_counterfactual <- read_csv(
   "../input/enhanced_parent_2025_counterfactual.csv",
   show_col_types = FALSE
@@ -72,17 +92,43 @@ if (
     nrow(post_panel) == 0L ||
     anyDuplicated(historical_panel$observation_id) ||
     anyDuplicated(post_panel$observation_id) ||
+    anyDuplicated(membership[c("sample", "job_number")]) ||
     nrow(production_counterfactual) != 1L
 ) {
   stop("A symmetric-parent model input failed key QC.")
+}
+
+post_followup <- membership |>
+  filter(sample == "post_policy", cohort_year == post_year) |>
+  distinct(parent_id, cohort_date, source_end_date) |>
+  mutate(
+    observed_followup_days = as.integer(source_end_date - cohort_date)
+  )
+
+if (anyDuplicated(post_followup$parent_id)) {
+  stop("Post-policy follow-up is not unique by parent.")
+}
+
+post_panel <- post_panel |>
+  left_join(
+    post_followup |>
+      select(parent_id, observed_followup_days),
+    by = "parent_id",
+    relationship = "one-to-one"
+  )
+
+if (any(is.na(
+  post_panel$observed_followup_days[post_panel$cohort_year == post_year]
+))) {
+  stop("A post-policy parent is missing its observed follow-up window.")
 }
 
 training_rows <- historical_panel |>
   filter(
     model_eligible,
     analysis_status == "historical_fully_observed",
-    cohort_year >= 2019L,
-    cohort_year <= 2022L
+    cohort_year >= training_start_year,
+    cohort_year <= training_end_year
   ) |>
   mutate(
     units = units_hdb_priority,
@@ -91,10 +137,10 @@ training_rows <- historical_panel |>
 
 specifications <- tribble(
   ~cohort_sample, ~unit_definition,
-  "completed_2025", "hdb_priority",
-  "descriptive_all_2025", "hdb_priority",
-  "completed_2025", "dob_i1",
-  "descriptive_all_2025", "dob_i1"
+  "completed", "hdb_priority",
+  "mature", "hdb_priority",
+  "completed", "dob_i1",
+  "mature", "dob_i1"
 )
 
 counterfactual_rows <- list()
@@ -106,12 +152,17 @@ for (specification_row in seq_len(nrow(specifications))) {
   cohort_sample <- specifications$cohort_sample[specification_row]
   unit_definition <- specifications$unit_definition[specification_row]
 
-  if (cohort_sample == "completed_2025") {
+  if (cohort_sample == "completed") {
     cohort_rows <- post_panel |>
-      filter(analysis_status == "completed_2025_cohort")
+      filter(
+        analysis_status == paste0("completed_", post_year, "_cohort")
+      )
   } else {
     cohort_rows <- post_panel |>
-      filter(cohort_year == 2025L)
+      filter(
+        cohort_year == post_year,
+        observed_followup_days >= maturity_days
+      )
   }
 
   if (unit_definition == "hdb_priority") {
@@ -213,13 +264,18 @@ for (specification_row in seq_len(nrow(specifications))) {
   missing_100_plus <- expected_100_plus - observed_100_plus
 
   counterfactual_rows[[specification_row]] <- tibble(
-    model = "symmetric_365_day_parent_full_window",
+    model = "symmetric_365_day_parent",
     cohort_sample,
     unit_definition,
+    minimum_observed_followup_days = if_else(
+      cohort_sample == "completed",
+      365L,
+      maturity_days
+    ),
     linkage_universe_start_year = 2018L,
     linkage_universe_end_year = 2023L,
-    requested_training_cohort_start_year = 2019L,
-    requested_training_cohort_end_year = 2022L,
+    requested_training_cohort_start_year = training_start_year,
+    requested_training_cohort_end_year = training_end_year,
     training_cohort_start_year = min(training_rows$cohort_year),
     training_cohort_end_year = max(training_rows$cohort_year),
     training_parents = nrow(training_rows),
@@ -258,7 +314,7 @@ for (specification_row in seq_len(nrow(specifications))) {
   )
 
   parameter_rows[[specification_row]] <- tibble(
-    model = "symmetric_365_day_parent_full_window",
+    model = "symmetric_365_day_parent",
     cohort_sample,
     unit_definition,
     training_parents = nrow(training_rows),
@@ -279,7 +335,7 @@ distributions <- bind_rows(distribution_rows)
 comparison <- bind_rows(
   production_counterfactual |>
     transmute(
-      specification = "production completed 2025 cohorts",
+      specification = paste0("production completed ", post_year, " cohorts"),
       training_parents,
       scoreable_2025_parents,
       observed_exact_99,
@@ -297,8 +353,11 @@ comparison <- bind_rows(
     transmute(
       specification = recode(
         cohort_sample,
-        completed_2025 = "symmetric completed 2025 cohorts",
-        descriptive_all_2025 = "symmetric all observed 2025 cohorts"
+        completed = paste0("symmetric completed ", post_year, " cohorts"),
+        mature = paste0(
+          "symmetric ", maturity_days, "-day mature ", post_year,
+          " cohorts"
+        )
       ),
       training_parents,
       scoreable_2025_parents = scoreable_cohort_parents,
@@ -323,14 +382,16 @@ plot_data <- distributions |>
   mutate(
     cohort_label = recode(
       cohort_sample,
-      completed_2025 = "Completed 2025 cohorts",
-      descriptive_all_2025 = "All observed 2025 cohorts"
+      completed = paste0("Completed ", post_year, " cohorts"),
+      mature = paste0(
+        maturity_days, "-day mature ", post_year, " cohorts"
+      )
     ),
     cohort_label = factor(
       cohort_label,
       levels = c(
-        "Completed 2025 cohorts",
-        "All observed 2025 cohorts"
+        paste0("Completed ", post_year, " cohorts"),
+        paste0(maturity_days, "-day mature ", post_year, " cohorts")
       )
     )
   )
@@ -353,13 +414,16 @@ counterfactual_plot <- ggplot(plot_data, aes(x = units)) +
     title = "Symmetric parent cohorts still show excess mass at 99 units",
     subtitle = paste0(
       "Bars: observed parent totals. Gray line: fitted no-notch distribution.\n",
-      "The all-cohort panel includes right-censored late-2025 parents."
+      "The mature-cohort panel admits parents after ", maturity_days,
+      " observed days while retaining the 365-day link rule."
     ),
     x = "Observed dwelling units per parent opportunity",
     y = "Parents",
     caption = paste0(
       "Model training uses fully observed historical 365-day parent cohorts. ",
-      "No unobserved companion is imputed."
+      "No unobserved companion is imputed.\n",
+      "Mature-cohort totals remain ",
+      "provisional until day 365."
     )
   ) +
   theme_minimal(base_size = 11) +
