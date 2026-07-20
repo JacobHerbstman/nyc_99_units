@@ -1,9 +1,9 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/audits/audit_parent_model_inference_placebos/code")
 # training_start_year <- 2019L
-# training_end_year <- 2023L
+# training_end_year <- 2022L
 # pseudo_start_year <- 2020L
-# pseudo_end_year <- 2023L
-# training_endpoints_text <- "2022,2023"
+# pseudo_end_year <- 2022L
+# training_endpoints_text <- "2020,2021,2022"
 # min_units <- 6L
 # minimum_category_rows <- 30L
 # threshold_min <- 80L
@@ -81,19 +81,23 @@ model_formula <- log_units ~ log_lotarea + residfar + builtfar +
   prior_site_use
 
 historical_panel <- read_parquet(
-  "../input/historical_enhanced_parent_model_panel.parquet"
+  "../input/historical_symmetric_parent_model_panel.parquet"
 ) |>
   as.data.frame() |>
   as_tibble()
 
 post_panel <- read_parquet(
-  "../input/post_policy_enhanced_parent_model_panel.parquet"
+  "../input/post_policy_symmetric_parent_model_panel.parquet"
 ) |>
   as.data.frame() |>
   as_tibble()
 
 post_rows <- post_panel |>
-  filter(model_eligible) |>
+  filter(
+    model_eligible,
+    analysis_status == "completed_2025_cohort",
+    cohort_year == post_year
+  ) |>
   mutate(
     units = units_hdb_priority,
     log_units = log(units)
@@ -102,8 +106,9 @@ post_rows <- post_panel |>
 historical_rows <- historical_panel |>
   filter(
     model_eligible,
-    filing_year >= training_start_year,
-    date_last_filed <= as.Date(paste0(training_end_year, "-12-31"))
+    analysis_status == "historical_fully_observed",
+    cohort_year >= training_start_year,
+    cohort_year <= training_end_year
   )
 
 if (
@@ -111,7 +116,7 @@ if (
     nrow(post_rows) == 0L ||
     anyDuplicated(historical_rows$observation_id) ||
     anyDuplicated(post_rows$observation_id) ||
-    !identical(sort(unique(historical_rows$filing_year)),
+    !identical(sort(unique(historical_rows$cohort_year)),
       training_start_year:training_end_year)
 ) {
   stop("Parent-model placebo samples failed key QC.")
@@ -158,14 +163,15 @@ for (pseudo_year in pseudo_start_year:pseudo_end_year) {
   pseudo_training_rows <- historical_panel |>
     filter(
       model_eligible,
-      filing_year >= training_start_year,
-      date_last_filed <= as.Date(paste0(pseudo_year - 1L, "-12-31"))
+      analysis_status == "historical_fully_observed",
+      cohort_year >= training_start_year,
+      cohort_year < pseudo_year
     )
   pseudo_score_rows <- historical_panel |>
     filter(
       model_eligible,
-      filing_year == pseudo_year,
-      last_filing_year == pseudo_year
+      analysis_status == "historical_fully_observed",
+      cohort_year == pseudo_year
     )
   pseudo_fit <- fit_rounded_mle(
     pseudo_training_rows,
@@ -205,9 +211,7 @@ leave_one_year_out_rows <- list()
 
 for (omitted_year in training_start_year:training_end_year) {
   leave_out_training_rows <- historical_rows |>
-    filter(!(
-      filing_year <= omitted_year & last_filing_year >= omitted_year
-    ))
+    filter(cohort_year != omitted_year)
   leave_out_fit <- fit_rounded_mle(
     leave_out_training_rows,
     post_rows,
@@ -246,8 +250,9 @@ for (training_endpoint in training_endpoint_years) {
   endpoint_training_rows <- historical_panel |>
     filter(
       model_eligible,
-      filing_year >= training_start_year,
-      date_last_filed <= as.Date(paste0(training_endpoint, "-12-31"))
+      analysis_status == "historical_fully_observed",
+      cohort_year >= training_start_year,
+      cohort_year <= training_endpoint
     )
   endpoint_fit <- fit_rounded_mle(
     endpoint_training_rows,
@@ -317,8 +322,8 @@ placebo_plot <- threshold_placebos |>
   labs(
     title = "The parent-level excess is concentrated at the policy threshold",
     subtitle = paste0(
-      "Preferred 2019-", training_end_year,
-      " model scored on fixed ", post_year, " HDB-primary parents"
+      "Fully observed 2019-", training_end_year,
+      " parents scored on completed ", post_year, " cohorts"
     ),
     x = "Candidate threshold",
     y = "Mass relative to no-notch prediction",

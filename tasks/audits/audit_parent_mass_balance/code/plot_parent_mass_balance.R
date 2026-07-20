@@ -180,7 +180,7 @@ annual_local_plot <- annual_parent_local_mass |>
       post_year,
       " has more 50-99 parents and fewer nearby 100-plus parents"
     ),
-    subtitle = "Observed enhanced-parent counts by first filing year",
+    subtitle = "Observed symmetric-parent counts by first filing year",
     x = "First filing year",
     y = "Parents",
     fill = "Parent units"

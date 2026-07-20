@@ -1,6 +1,6 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/audits/audit_parent_model_inference_placebos/code")
 # training_start_year <- 2019L
-# training_end_year <- 2023L
+# training_end_year <- 2022L
 # post_year <- 2025L
 # min_units <- 6L
 # minimum_category_rows <- 30L
@@ -89,13 +89,13 @@ standardize_moments <- function(moment_row) {
 }
 
 historical_panel <- read_parquet(
-  "../input/historical_enhanced_parent_model_panel.parquet"
+  "../input/historical_symmetric_parent_model_panel.parquet"
 ) |>
   as.data.frame() |>
   as_tibble()
 
 post_panel <- read_parquet(
-  "../input/post_policy_enhanced_parent_model_panel.parquet"
+  "../input/post_policy_symmetric_parent_model_panel.parquet"
 ) |>
   as.data.frame() |>
   as_tibble()
@@ -103,12 +103,17 @@ post_panel <- read_parquet(
 training_rows <- historical_panel |>
   filter(
     model_eligible,
-    filing_year >= training_start_year,
-    date_last_filed <= as.Date(paste0(training_end_year, "-12-31"))
+    analysis_status == "historical_fully_observed",
+    cohort_year >= training_start_year,
+    cohort_year <= training_end_year
   )
 
 post_rows <- post_panel |>
-  filter(model_eligible) |>
+  filter(
+    model_eligible,
+    analysis_status == "completed_2025_cohort",
+    cohort_year == post_year
+  ) |>
   mutate(
     units = units_hdb_priority,
     log_units = log(units)

@@ -80,7 +80,9 @@ bootstrap_plot <- bootstrap_summary |>
     title = "Parent-level bootstrap uncertainty",
     subtitle = paste0(
       unique(bootstrap_summary$bootstrap_reps_requested),
-      " nonparametric parent resamples; bars show 2.5-97.5 percentile intervals"
+      " parent resamples requested; ",
+      unique(bootstrap_summary$successful_reps),
+      " successful; bars show 2.5-97.5 percentile intervals"
     ),
     x = NULL,
     y = NULL,

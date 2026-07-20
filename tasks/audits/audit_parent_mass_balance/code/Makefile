@@ -2,7 +2,7 @@ SHELL := bash
 include ../../../shell_functions.make
 
 TRAINING_START_YEAR := 2019
-TRAINING_END_YEAR := 2023
+TRAINING_END_YEAR := 2022
 POST_YEAR := 2025
 MIN_UNITS := 6
 MIN_CATEGORY_ROWS := 30

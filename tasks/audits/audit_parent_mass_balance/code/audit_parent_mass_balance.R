@@ -1,6 +1,6 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/audits/audit_parent_mass_balance/code")
 # training_start_year <- 2019L
-# training_end_year <- 2023L
+# training_end_year <- 2022L
 # post_year <- 2025L
 # min_units <- 6L
 # minimum_category_rows <- 30L
@@ -15,6 +15,7 @@ suppressPackageStartupMessages({
   library(arrow)
   library(dplyr)
   library(readr)
+  library(stringr)
   library(tibble)
   library(tidyr)
 })
@@ -120,12 +121,17 @@ pseudo_policy_years <- read_csv(
 historical_rows <- historical_panel |>
   filter(
     model_eligible,
-    filing_year >= training_start_year,
-    date_last_filed <= as.Date(paste0(training_end_year, "-12-31"))
+    analysis_status == "historical_fully_observed",
+    cohort_year >= training_start_year,
+    cohort_year <= training_end_year
   )
 
 post_rows <- post_panel |>
-  filter(model_eligible) |>
+  filter(
+    model_eligible,
+    analysis_status == "completed_2025_cohort",
+    cohort_year == post_year
+  ) |>
   mutate(
     units = units_hdb_priority,
     log_units = log(units)
@@ -389,6 +395,9 @@ preferred_exact_99_broad_links <- post_rows |>
   select(
     observation_id,
     root_job_id = component_jobs
+  ) |>
+  mutate(
+    root_job_id = str_remove(root_job_id, "-I1$")
   ) |>
   left_join(
     universal_parent_membership |>

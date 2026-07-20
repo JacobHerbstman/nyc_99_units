@@ -1,71 +1,74 @@
-# Preferred parent-model inference and placebo audit
+# Parent-model inference and placebo audit
 
-This audit applies inference and falsification checks to the production
-enhanced-parent model. It uses the same rounded, six-unit-truncated likelihood,
-covariates, 2019--2023 historical parent panel, and HDB-primary 2025 parent
-outcome as the preferred estimator.
+This audit tests the preferred symmetric 365-day parent model. The likelihood
+uses rounded proposed units, a six-unit lower truncation, and the production
+covariates. Training uses fully observed 2019--2022 first-filing cohorts. The
+post sample is fixed to scoreable 2025 cohorts whose full 365-day companion
+window is observable. No parent, companion, feature, or unit count is imputed.
 
 The deterministic checks are:
 
-1. expanding-window pseudo-policy years from 2020 through 2023, with each year
-   scored only by earlier historical parents;
-2. candidate thresholds from 80 through 120 in the fixed 2025 parent sample;
-3. 2025 estimates after omitting every historical calendar year in turn; and
-4. 2019--2022 versus 2019--2023 training endpoints.
+1. expanding-window pseudo-policy cohorts from 2020 through 2022, each scored
+   using only earlier fully observed cohorts;
+2. candidate thresholds from 80 through 120 in the completed 2025 sample;
+3. estimates after omitting each historical first-filing cohort in turn; and
+4. training endpoints from 2020 through 2022.
 
-A parent spanning a pseudo-policy boundary is not split across training and
-test samples. Leave-one-year-out estimates remove any parent whose filing span
-touches the omitted calendar year.
-
-The main nonparametric bootstrap resamples and refits the 2019--2023 historical
-parents while holding the observed 2025 parent population fixed. This measures
-historical estimation uncertainty conditional on the realized 2025 cohort. A
-parallel two-sample bootstrap also resamples 2025 parents, adding uncertainty
-from viewing that cohort as a sample from a broader post-policy population.
-Neither bootstrap imputes parents, companions, or unit counts.
-
-The bootstrap reports percentile intervals for expected and excess exact-99
-mass, expected and missing 100-plus mass, the conservation gap, the affected
-mean counterfactual size, and the implied frontier. It retains both the
-exact-99 and missing-100-plus mappings because the two empirical masses do not
-currently balance.
-
-Run `make` from `code/`. The Makefile exposes all sample years, threshold
-bounds, bootstrap repetitions, seed, and interval probabilities.
+The main bootstrap resamples and refits historical parents while holding the
+observed completed-2025 population fixed. It measures estimation uncertainty
+conditional on that realized cohort. A two-sample bootstrap also resamples the
+2025 parents, adding uncertainty from treating them as a sample from a broader
+post-policy population. The Makefile exposes the years, thresholds, bootstrap
+repetitions, seed, and percentile interval.
 
 ## Findings
 
-The preferred 2019--2023 model predicts 0.83 exact-99 parents in 2025, compared
-with 27 observed. The estimated excess is therefore 26.17 parents. At and above
-100 units, the model predicts 81.68 parents and observes 69, leaving 12.68
-missing parents. Because excess exact-99 mass is larger than missing 100-plus
-mass, the conservation gap is 13.49 parents. The exact-99 mapping implies an
-affected-project mean counterfactual size of 118.97 units and a frontier of
-143.00 units. The alternative missing-mass mapping gives 107.93 and 117.18
-units, respectively.
+The production point estimate observes 10 exact-99 parents and predicts 0.38,
+an excess of 9.62. It observes 24 parents at or above 100 and predicts 31.37,
+leaving 7.37 missing. The resulting conservation gap is 2.25 parents. Mapping
+the cleaner exact-99 excess into the no-notch distribution gives an affected
+mean of 114.93 units and a frontier of 133.51.
 
-The pre-policy pseudo-years do not reproduce the 2025 exact-99 excess. Their
-estimated excesses range from -0.55 to 3.71 parents. Candidate thresholds from
-80 through 120 also single out 100: excluding the actual threshold, the largest
-exact-mass excess is 3.94 parents at 87 units. The missing-above-threshold moment
-is less well calibrated in the pseudo-years, especially in 2021, when observed
-100-plus mass exceeds its prediction by 21.2 parents. The exact-mass placebo is
-therefore the cleaner falsification result.
+Threshold 100 is sharply distinguished from its placebos. Across thresholds
+80--120, its 9.62-parent excess is the largest; the next-largest excess is 1.71
+at threshold 114. Pseudo-policy exact-mass excesses range from -0.55 to 2.09.
+The missing-above-threshold moment is less well calibrated, especially in the
+2021 pseudo-year, so exact bunching remains the preferred behavioral moment.
 
-Leaving out one historical calendar year at a time gives affected-project mean
-counterfactual sizes from 117.9 to 119.7 units and frontiers from 140.3 to 144.9
-units. The missing-100-plus estimate is more sensitive, ranging from 9.9 to
-18.7 parents. Ending training in 2022 instead of 2023 produces the same pattern:
-the exact-99 mapping changes little, while missing mass rises from 12.7 to 18.7.
+Leaving out one historical cohort at a time changes the exact-mass affected
+mean only from 114.16 to 115.34 and the frontier from 131.67 to 134.56. Training
+through 2021 or 2022 also gives nearly identical exact-mass mappings. Training
+only through 2020 is too thin: its frontier rises to 166.51. This is evidence
+for requiring at least three complete training cohorts, not for using the
+shortest endpoint as a preferred specification.
 
-All 499 historical bootstrap refits succeeded. Conditional on the observed
-2025 parent cohort, the 95 percent percentile interval is 116.46--122.47 units
-for the exact-99 affected mean and 136.81--152.11 for its frontier. The
-corresponding interval for missing 100-plus mass is 0.45--25.42 parents, and the
-conservation gap interval is 0.65--25.82. In the two-sample bootstrap, which also
-resamples 2025 parents, uncertainty is substantially wider: the exact-99 mean
-interval is 110.55--131.30, the frontier interval is 123.02--176.27, and the
-conservation-gap interval includes zero at -5.60--31.20 parents. Thus the
-roughly 119-unit mean is stable to historical-model estimation, but
-population-level inference must acknowledge the small realized post-policy
-cohort.
+Of 499 requested historical bootstrap refits, 498 succeed. Conditional on the
+observed 2025 parents, the 95 percent percentile interval is 9.57--9.68 for the
+exact-99 excess, 112.47--118.79 for its affected mean, and 127.52--143.31 for
+its frontier. The conservation-gap interval, -4.94--8.95, contains zero.
+
+The two-sample bootstrap is the more relevant warning for cost calibration.
+Its exact-99 excess remains positive, with a 95 percent interval of 3.64--16.63,
+but the affected mean interval widens to 104.90--133.66 and the frontier to
+110.65--185.22. Missing 100-plus mass and the conservation gap both include
+zero. The evidence therefore supports promoting the no-notch model and using
+exact-99 excess as the bunching moment, while carrying post-cohort uncertainty
+into any developer-cost estimate.
+
+## Research understanding checklist
+
+- [x] The estimation and scoring samples use the same first-filing 365-day
+  parent rule.
+- [x] Exact-99 excess is separated from missing 100-plus mass.
+- [x] Threshold and pseudo-policy placebos isolate the policy cutoff.
+- [x] Leave-one-cohort-out and endpoint checks distinguish stability from a
+  too-short training window.
+- [x] Conditional and two-sample bootstrap intervals answer different
+  uncertainty questions.
+- [ ] Dollar cost calibration still requires an explicit behavioral mapping
+  and external cost inputs.
+
+Researcher restatement: `skipped_by_user`
+Mastery check: `skipped_by_user`
+
+Run `make` from `code/` to reproduce all results.
