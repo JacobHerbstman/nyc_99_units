@@ -3,6 +3,7 @@ include ../../../shell_functions.make
 
 THRESHOLD_UNITS := 100
 POST_YEAR := 2025
+MATURITY_DAYS := 180
 
 all: ../output/production_exact_99_reconciliation.csv \
 	../output/production_exact_99_reconciliation_qc.csv
@@ -19,7 +20,7 @@ all: ../output/production_exact_99_reconciliation.csv \
 	../input/developer_opportunity_candidate_pairs.csv \
 	../input/provisional_parent_universal_membership.parquet \
 	../input/provisional_parent_universal_links.parquet | ../output
-	$(R) $< $(THRESHOLD_UNITS) $(POST_YEAR)
+	$(R) $< $(THRESHOLD_UNITS) $(POST_YEAR) $(MATURITY_DAYS)
 
 ../output/production_exact_99_reconciliation_qc.csv: ../output/production_exact_99_reconciliation.csv
 	@test -s "$@"

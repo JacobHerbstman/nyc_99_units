@@ -1,6 +1,7 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/audits/audit_production_exact_99_reconciliation/code")
 # threshold_units <- 100L
 # post_year <- 2025L
+# maturity_days <- 180L
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -14,16 +15,18 @@ source("../../../_lib/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 2L) {
-  stop("Expected two arguments: the policy threshold and post year.")
+if (length(args) != 3L) {
+  stop("Expected the policy threshold, post year, and maturity days.")
 }
 
 threshold_units <- as.integer(args[1])
 post_year <- as.integer(args[2])
+maturity_days <- as.integer(args[3])
 
 if (
   is.na(threshold_units) || threshold_units < 2L ||
-    is.na(post_year)
+    is.na(post_year) ||
+    is.na(maturity_days) || maturity_days < 1L || maturity_days >= 365L
 ) {
   stop("The policy threshold and post year are invalid.")
 }
@@ -110,11 +113,33 @@ if (length(shock_sigma) != 1L || !is.finite(shock_sigma) || shock_sigma <= 0) {
   stop("The production model does not contain one valid shock sigma.")
 }
 
+post_followup <- membership |>
+  filter(sample == "post_policy", cohort_year == post_year) |>
+  distinct(
+    parent_id, cohort_date, source_end_date,
+    left_window_observed
+  ) |>
+  mutate(observed_followup_days = as.integer(source_end_date - cohort_date))
+
+if (
+  anyDuplicated(post_followup$parent_id) ||
+    any(is.na(post_followup$observed_followup_days))
+) {
+  stop("Post-policy follow-up is not unique and complete by parent.")
+}
+
 production_parents <- post_panel |>
+  left_join(
+    post_followup |>
+      select(parent_id, observed_followup_days, left_window_observed),
+    by = "parent_id",
+    relationship = "one-to-one"
+  ) |>
   filter(
     model_eligible,
-    analysis_status == "completed_2025_cohort",
     cohort_year == post_year,
+    left_window_observed,
+    observed_followup_days >= maturity_days,
     units_hdb_priority == bunch_units
   ) |>
   select(
@@ -123,6 +148,8 @@ production_parents <- post_panel |>
     analysis_status,
     cohort_date,
     date_last_filed,
+    observed_followup_days,
+    left_window_observed,
     component_filings,
     component_jobs,
     hdb_priority_units = units_hdb_priority,
@@ -664,7 +691,7 @@ reconciliation <- reconciliation |>
 
 qc <- tibble(
   check = c(
-    paste0("production_completed_", post_year, "_exact_99_parents"),
+    paste0("production_mature_", maturity_days, "_exact_99_parents"),
     "matched_model_scores",
     "single_filing_parents",
     "multi_filing_parents",
@@ -719,4 +746,4 @@ write_csv_if_changed(
   "../output/production_exact_99_reconciliation_qc.csv"
 )
 
-cat("Wrote completed-cohort exact-99 reconciliation to ../output\n")
+cat("Wrote mature-cohort exact-99 reconciliation to ../output\n")

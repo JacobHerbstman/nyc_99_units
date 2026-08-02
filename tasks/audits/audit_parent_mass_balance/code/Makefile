@@ -12,6 +12,7 @@ LOCAL_LOWER_UNITS := 50
 LOCAL_UPPER_UNITS := 150
 SUPPORT_LOWER := 0.01
 SUPPORT_UPPER := 0.99
+MATURITY_DAYS := 180
 
 all: ../output/parent_threshold_mass_balance.csv \
 	../output/parent_mass_balance_by_unit_bin.csv \
@@ -34,12 +35,14 @@ all: ../output/parent_threshold_mass_balance.csv \
 	../input/enhanced_parent_2025_scores.parquet \
 	../input/enhanced_parent_2025_distribution.csv \
 	../input/enhanced_parent_2025_counterfactual.csv \
+	../input/symmetric_parent_membership.parquet \
 	../input/provisional_parent_universal_membership.parquet \
 	../input/parent_model_pseudo_policy_years.csv | ../output
 	$(R) $< $(TRAINING_START_YEAR) $(TRAINING_END_YEAR) $(POST_YEAR) \
 		$(MIN_UNITS) $(MIN_CATEGORY_ROWS) $(THRESHOLD_UNITS) \
 		$(UNIT_BIN_UPPER_BOUNDS) $(LOCAL_LOWER_UNITS) \
-		$(LOCAL_UPPER_UNITS) $(SUPPORT_LOWER) $(SUPPORT_UPPER)
+		$(LOCAL_UPPER_UNITS) $(SUPPORT_LOWER) $(SUPPORT_UPPER) \
+		$(MATURITY_DAYS)
 
 ../output/parent_mass_balance_by_unit_bin.csv \
 ../output/annual_parent_counts_by_unit_bin.csv \
@@ -79,6 +82,9 @@ all: ../output/parent_threshold_mass_balance.csv \
 ../input/enhanced_parent_2025_counterfactual.csv: ../../../estimate_parent_no_notch_model/output/enhanced_parent_2025_counterfactual.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
+../input/symmetric_parent_membership.parquet: ../../../construct_parent_cohorts/output/symmetric_parent_membership.parquet | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
 ../input/provisional_parent_universal_membership.parquet: ../../audit_provisional_parent_no_notch/output/provisional_parent_universal_membership.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
@@ -90,6 +96,7 @@ link-inputs: ../input/historical_enhanced_parent_model_panel.parquet \
 	../input/enhanced_parent_2025_scores.parquet \
 	../input/enhanced_parent_2025_distribution.csv \
 	../input/enhanced_parent_2025_counterfactual.csv \
+	../input/symmetric_parent_membership.parquet \
 	../input/provisional_parent_universal_membership.parquet \
 	../input/parent_model_pseudo_policy_years.csv
 

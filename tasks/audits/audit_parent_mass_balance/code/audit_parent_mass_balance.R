@@ -10,6 +10,7 @@
 # local_upper_units <- 150L
 # support_lower <- 0.01
 # support_upper <- 0.99
+# maturity_days <- 180L
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -25,10 +26,10 @@ source("../../../_lib/parent_no_notch_model.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 11L) {
+if (length(args) != 12L) {
   stop(
     "Expected training and post years, model floors, policy threshold, unit ",
-    "bin bounds, local range, and support quantiles."
+    "bin bounds, local range, support quantiles, and maturity days."
   )
 }
 
@@ -43,6 +44,7 @@ local_lower_units <- as.integer(args[8])
 local_upper_units <- as.integer(args[9])
 support_lower <- as.numeric(args[10])
 support_upper <- as.numeric(args[11])
+maturity_days <- as.integer(args[12])
 unit_bin_upper_bounds <- as.integer(strsplit(
   unit_bin_upper_bounds_text,
   ",",
@@ -53,7 +55,8 @@ if (
   any(is.na(c(
     training_start_year, training_end_year, post_year, min_units,
     minimum_category_rows, threshold_units, unit_bin_upper_bounds,
-    local_lower_units, local_upper_units, support_lower, support_upper
+    local_lower_units, local_upper_units, support_lower, support_upper,
+    maturity_days
   ))) ||
     training_start_year >= training_end_year ||
     post_year <= training_end_year ||
@@ -68,7 +71,9 @@ if (
     local_upper_units < threshold_units ||
     support_lower <= 0 ||
     support_upper >= 1 ||
-    support_lower >= support_upper
+    support_lower >= support_upper ||
+    maturity_days < 1L ||
+    maturity_days >= 365L
 ) {
   stop("Parent mass-balance audit arguments are not internally consistent.")
 }
@@ -85,6 +90,12 @@ historical_panel <- read_parquet(
 
 post_panel <- read_parquet(
   "../input/post_policy_enhanced_parent_model_panel.parquet"
+) |>
+  as.data.frame() |>
+  as_tibble()
+
+membership <- read_parquet(
+  "../input/symmetric_parent_membership.parquet"
 ) |>
   as.data.frame() |>
   as_tibble()
@@ -126,11 +137,26 @@ historical_rows <- historical_panel |>
     cohort_year <= training_end_year
   )
 
+post_followup <- membership |>
+  filter(sample == "post_policy", cohort_year == post_year) |>
+  distinct(
+    parent_id, cohort_date, source_end_date,
+    left_window_observed
+  ) |>
+  mutate(observed_followup_days = as.integer(source_end_date - cohort_date))
+
 post_rows <- post_panel |>
+  left_join(
+    post_followup |>
+      select(parent_id, observed_followup_days, left_window_observed),
+    by = "parent_id",
+    relationship = "one-to-one"
+  ) |>
   filter(
     model_eligible,
-    analysis_status == "completed_2025_cohort",
-    cohort_year == post_year
+    cohort_year == post_year,
+    left_window_observed,
+    observed_followup_days >= maturity_days
   ) |>
   mutate(
     units = units_hdb_priority,
@@ -143,12 +169,14 @@ if (
     nrow(counterfactual) != 1L ||
     anyDuplicated(historical_rows$observation_id) ||
     anyDuplicated(post_rows$observation_id) ||
+    anyDuplicated(post_followup$parent_id) ||
     anyDuplicated(post_scores$observation_id) ||
     anyDuplicated(universal_parent_membership$root_job_id) ||
     nrow(post_scores) != nrow(post_rows) ||
     !setequal(post_scores$observation_id, post_rows$observation_id) ||
     counterfactual$training_parents != nrow(historical_rows) ||
     counterfactual$scoreable_2025_parents != nrow(post_rows) ||
+    counterfactual$minimum_observed_followup_days != maturity_days ||
     !identical(
       sort(unique(historical_rows$filing_year)),
       training_start_year:training_end_year
