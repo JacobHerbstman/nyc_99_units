@@ -26,32 +26,55 @@ if (
   stop("The bunch point must be one unit below the policy threshold.")
 }
 
-counterfactual <- read_csv(
-  "../input/enhanced_parent_2025_counterfactual.csv",
-  show_col_types = FALSE
+counterfactual <- bind_rows(
+  read_csv(
+    "../input/enhanced_parent_2025_counterfactual.csv",
+    show_col_types = FALSE
+  ) |>
+    mutate(preferred_specification = TRUE),
+  read_csv(
+    "../input/enhanced_parent_completed_365_2025_counterfactual.csv",
+    show_col_types = FALSE
+  ) |>
+    mutate(preferred_specification = FALSE)
 )
 
-distribution <- read_csv(
-  "../input/enhanced_parent_2025_distribution.csv",
-  show_col_types = FALSE
+distribution <- bind_rows(
+  read_csv(
+    "../input/enhanced_parent_2025_distribution.csv",
+    show_col_types = FALSE
+  ),
+  read_csv(
+    "../input/enhanced_parent_completed_365_2025_distribution.csv",
+    show_col_types = FALSE
+  )
 )
 
 if (
-  nrow(counterfactual) != 1L ||
-    counterfactual$unit_definition != "hdb_priority" ||
-    anyDuplicated(distribution$units) ||
+  nrow(counterfactual) != 2L ||
+    any(counterfactual$unit_definition != "hdb_priority") ||
+    sum(counterfactual$preferred_specification) != 1L ||
+    anyDuplicated(distribution[c("model", "units")]) ||
+    !setequal(distribution$model, counterfactual$model) ||
     any(distribution$expected_count < 0)
 ) {
   stop("Developer cost-calibration inputs failed key QC.")
 }
 
-target_mass <- counterfactual$excess_exact_99
-
 affected_weights <- distribution |>
   filter(units >= threshold_units) |>
-  arrange(units) |>
+  left_join(
+    counterfactual |>
+      select(
+        model, preferred_specification,
+        target_mass = excess_exact_99
+      ),
+    by = "model",
+    relationship = "many-to-one"
+  ) |>
+  arrange(model, units) |>
+  group_by(model) |>
   mutate(
-    model = counterfactual$model,
     mass_before = lag(cumsum(expected_count), default = 0),
     affected_parent_mass = pmax(
       pmin(expected_count, target_mass - mass_before),
@@ -63,43 +86,84 @@ affected_weights <- distribution |>
       affected_parent_mass * units_above_bunch_point
   ) |>
   filter(affected_parent_mass > 0) |>
+  ungroup() |>
   select(
-    model, unit_definition, units_n0 = units,
+    model, cohort_sample, preferred_specification,
+    unit_definition, target_mass, units_n0 = units,
     no_notch_expected_parent_mass = expected_count,
     affected_parent_mass, affected_parent_weight,
     units_above_bunch_point, weighted_units_above_bunch_point
   )
 
-mean_n0 <- weighted.mean(
-  affected_weights$units_n0,
-  affected_weights$affected_parent_mass
-)
+affected_summary <- affected_weights |>
+  group_by(model) |>
+  summarise(
+    affected_mean_n0 = weighted.mean(
+      units_n0,
+      affected_parent_mass
+    ),
+    sample_equivalent_units_above_bunch_point = sum(
+      weighted_units_above_bunch_point
+    ),
+    .groups = "drop"
+  )
 
 calibration_targets <- counterfactual |>
   transmute(
-    model,
+    model, cohort_sample, preferred_specification,
+    minimum_observed_followup_days,
     unit_definition,
     bunch_units,
     threshold_units,
     training_parents,
-    observed_completed_2025_parents,
-    scoreable_completed_2025_parents = scoreable_2025_parents,
+    observed_2025_parents,
+    scoreable_2025_parents,
     observed_exact_bunch_parents = observed_exact_99,
     expected_no_notch_exact_bunch_parents =
       expected_no_notch_exact_99,
     excess_exact_bunch_parent_mass = excess_exact_99,
-    affected_mean_n0 = mean_n0,
-    affected_frontier_n0 = frontier_from_exact_99,
-    mean_units_above_bunch_point = mean_n0 - bunch_units,
-    sample_equivalent_units_above_bunch_point = sum(
-      affected_weights$weighted_units_above_bunch_point
-    )
+    affected_frontier_n0 = frontier_from_exact_99
+  ) |>
+  left_join(
+    affected_summary,
+    by = "model",
+    relationship = "one-to-one"
+  ) |>
+  mutate(mean_units_above_bunch_point = affected_mean_n0 - bunch_units) |>
+  arrange(desc(preferred_specification))
+
+mean_n0_check <- calibration_targets |>
+  select(model, affected_mean_n0) |>
+  left_join(
+    counterfactual |>
+      select(model, model_affected_mean_n0 = mean_n0_from_exact_99),
+    by = "model",
+    relationship = "one-to-one"
   )
 
 if (
-  abs(sum(affected_weights$affected_parent_mass) - target_mass) > 1e-8 ||
-    abs(sum(affected_weights$affected_parent_weight) - 1) > 1e-8 ||
-    abs(mean_n0 - counterfactual$mean_n0_from_exact_99) > 1e-8 ||
+  any(abs(
+    affected_weights |>
+      group_by(model) |>
+      summarise(
+        error = sum(affected_parent_mass) - first(target_mass),
+        .groups = "drop"
+      ) |>
+      pull(error)
+  ) > 1e-8) ||
+    any(abs(
+      affected_weights |>
+        group_by(model) |>
+        summarise(
+          error = sum(affected_parent_weight) - 1,
+          .groups = "drop"
+        ) |>
+        pull(error)
+    ) > 1e-8) ||
+    any(abs(
+      mean_n0_check$affected_mean_n0 -
+        mean_n0_check$model_affected_mean_n0
+    ) > 1e-8) ||
     any(!is.finite(unlist(
       calibration_targets |>
         select(where(is.numeric))

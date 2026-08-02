@@ -46,12 +46,13 @@ DOB NOW + MapPLUTO APPBBL history
 ```
 
 The preferred estimator uses one observation and one i.i.d. scale shock per
-symmetric 365-day parent. It is estimated on fully observed 2019--2022
-first-filing cohorts and scored on completed 2025 cohorts whose full companion
-window is observed. HDB Class A units are the primary post-period outcome, with
-DOB initial-filing units as a sensitivity. No companion, feature, or unit count
-is imputed. Filing-level models, right-censored all-cohort descriptions,
-placebos, inference, and alternative parent definitions remain in audit tasks.
+symmetric parent. It is estimated on fully observed 2019--2022 first-filing
+cohorts. A 2025 cohort enters the main scoring sample after 180 observed days
+if its full pre-filing linkage window is available; observed companions can
+still join through day 365. The completed-365-day cohort and DOB initial-filing
+units are sensitivities. No companion, feature, or unit count is imputed.
+Filing-level models, placebos, inference, and alternative parent definitions
+remain in audit tasks.
 
 ## Main outputs
 
@@ -61,10 +62,12 @@ placebos, inference, and alternative parent definitions remain in audit tasks.
   square-feet-per-unit, and provisional-site configuration figures.
 - `tasks/estimate_parent_no_notch_model/output/`: fitted coefficients, 2025
   parent scores, observed and no-notch distributions, mass-balance moments,
-  implied frontiers, and the primary counterfactual figure.
-- `tasks/prepare_developer_cost_calibration/output/`: the preferred exact-99
-  behavioral target and affected counterfactual parent-size weights. These are
-  inputs to future cost calibration, not dollar cost or welfare estimates.
+  implied frontiers, and counterfactual figures for the preferred 180-day and
+  completed-365-day specifications.
+- `tasks/prepare_developer_cost_calibration/output/`: the preferred and
+  completed-cohort exact-99 behavioral targets and affected counterfactual
+  parent-size weights. These are inputs to future cost calibration, not dollar
+  cost or welfare estimates.
 
 ## Deferred branches
 

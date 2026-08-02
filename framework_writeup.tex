@@ -31,7 +31,7 @@
 \title{\textbf{Developer Responses to the 485-x 100-Unit Threshold}\\
 \large A Minimal Static Model and Empirical Roadmap}
 \author{Working framework}
-\date{July 14, 2026}
+\date{August 2, 2026}
 
 \begin{document}
 \maketitle
@@ -736,11 +736,13 @@ using a local, policy-relevant preperiod, explicit calendar-time controls, and
 one weight per parent. The current enhanced parent joins filings using
 conservative pre-filing links and corroborated exact tax-lot adjacency. Exact
 MapPLUTO polygons are available consistently only from 2019 onward, so the
-production model uses 2019--2023 and does not impute earlier adjacency. The
+production model trains on fully observed 2019--2022 parent cohorts and does
+not impute earlier adjacency. The 2023 anchors are boundary-exposed because a
+complete 365-day linkage window would reach into the policy period. The
 legal eligible-site crosswalk remains unfinished; ``enhanced parent'' is an
 economic-opportunity proxy, not an HPD determination.
 
-For each post-policy parent, retain the full posterior or simulation
+For each post-policy parent, retain the full conditional predictive
 distribution of $n_i^0$. Do not deterministically label a 99 as a buncher
 because a point prediction exceeds 99. Total construction area may be modeled
 jointly or conditionally; gross square feet per unit is derived, not a third
@@ -790,45 +792,47 @@ maximizes the rounded, lower-truncated probability
 \end{equation}
 
 Forward validation compares filing models, conservative-parent models, and the
-enhanced-parent model on the same enhanced-parent outcomes in 2021--2023. The
-2019--2023 enhanced-parent model has the best average rounded log score, local
-CDF fit, and 100-plus share calibration. The gain is modest and not uniform:
-the long-history filing model performs better in the short 2021 window, while
-the recent parent models improve substantially in 2022 and 2023. This evidence
-supports the simpler parent model as the working specification, not as an
-unchallenged final model. Filing-level models, the 2010--2023 history, the
-11-unit floor, richer covariates, placebo years, and bootstrap uncertainty
-remain prespecified audits.
+enhanced-parent model on common parent outcomes. The recent parent model has
+the best average rounded log score, local CDF fit, and upper-tail calibration.
+Its advantage is modest, so filing-level models, the 2010--2023 history, the
+11-unit floor, and richer covariates remain useful audits.
 
-The working estimates use 2,040 eligible parents from 2019--2023 and score 583
-parents in 2025, containing 609 component filings. Figure
+The preferred post-policy sample admits a 2025 cohort after 180 observed days,
+provided its full pre-filing linkage window is observable. Parent construction
+continues to add observed companions through day 365; no missing companion is
+imputed. This rule scores 564 parents containing 625 component filings. Figure
 \ref{fig:parent-counterfactual} compares their observed distribution with the
-fitted no-notch distribution. There are 35 observed exact-99 parents but only
-0.87 expected without the notch, an excess of 34.1. The model predicts 84.7
-parents at or above 100 but observes 61, a missing mass of 23.7. Thus the two
-mass-balance moments disagree by 10.4 parents. That gap is substantively
-important: the model is a disciplined counterfactual benchmark, but it is not
-yet a cost estimate.
+fitted no-notch distribution. There are 22 observed exact-99 parents but only
+0.86 expected without the notch, an excess of 21.14. The model predicts 84.09
+parents at or above 100 but observes 80, a missing mass of 4.09. The remaining
+17.05 parents are balanced by missing mass below 99, concentrated at small
+project sizes. Exact bunching therefore cannot be read as a one-for-one flow
+from above 100 without an additional behavioral assumption.
 
-Calibrating the exact-99 excess alone implies that affected no-notch projects
-extend to roughly 160 units and average 125 units. Calibrating the missing
-100-plus mass instead implies a frontier near 136 and an average near 116.
-These are different summaries of the same misspecified mass balance, not a
-range that should be averaged. The economically useful conclusion is narrower:
-after reconstructing parent opportunities, the typical affected
-counterfactual appears much closer to 120 units than to 170, even though the
-upper tail includes parents whose total observed configuration is 198 units or
-more.
+Calibrating the cleaner exact-99 excess to the fitted no-notch distribution
+implies a frontier of 130.8 units and an affected mean of 113.9 units. The
+completed-365-day sensitivity observes ten exact-99 parents and implies a
+frontier of 133.5 and a mean of 114.9. Thus the implied counterfactual size is
+stable even though the amount of bunching grows when mature, right-censored
+cohorts enter the sample. Threshold placebos and pseudo-policy years do not
+reproduce the exact-99 spike, while leave-one-year-out estimates preserve it.
+A parent bootstrap places the 95 percent interval for the preferred affected
+mean at 111.9--116.9 when the observed post cohort is held fixed and
+107.4--122.7 when post parents are also resampled. These results discipline the
+no-notch size distribution; they do not yet identify a dollar cost.
 
 \begin{figure}[p]
 \centering
 \includegraphics[width=\textwidth]{tasks/estimate_parent_no_notch_model/output/enhanced_parent_2025_counterfactual.pdf}
-\caption{Observed 2025 enhanced-parent unit counts and the fitted no-notch
-distribution from the 2019--2023 parent model. The gray bars are observed
+\caption{Observed mature-2025 enhanced-parent unit counts and the fitted
+no-notch distribution from fully observed 2019--2022 parent cohorts. The gray
+bars are observed
 counts; the blue line sums each parent's predicted probability at each unit
-count. The sharp excess at 99 is not mechanically created by treating two
-99-unit filings as two independent opportunities. Parent links are still
-provisional until the legal eligible-site crosswalk is validated.}
+count. A cohort enters after 180 observed days, while parent construction keeps
+searching for observed companions through day 365. The sharp excess at 99 is
+not mechanically created by treating two 99-unit filings as two independent
+opportunities. Parent links remain provisional until the legal eligible-site
+crosswalk is validated.}
 \label{fig:parent-counterfactual}
 \end{figure}
 
@@ -974,17 +978,20 @@ tax revenue, and general-equilibrium responses are absent.
 \section{Concrete order of work}
 
 \begin{enumerate}
-  \item \textbf{Complete the 52-case audit.} Obtain HPD docket/application,
-  zoning-lot, commencement-date, tenure, beneficial-owner, and completion
-  evidence, beginning with repeated-99 and high-priority mixed cases.
+  \item \textbf{Legally validate the response cases.} Begin with the 22
+  exact-99 parents in the preferred 180-day sample, especially the three
+  absorbed by the broad link graph and the four with review-only companion
+  candidates. Obtain HPD docket/application, zoning-lot, commencement-date,
+  tenure, beneficial-owner, and completion evidence. Preserve the full 52-job
+  casebook for split-configuration evidence.
   \item \textbf{Freeze the outcome crosswalk.} Produce building-, legal-site-,
   and parent-level datasets with evidence codes and symmetric pre/post rules.
   \item \textbf{Estimate a local no-notch distribution.} Use the validated
   opportunity as the observation and estimate
   \eqref{eq:rounded-truncated-units}. Use the expanding six-plus sample as the
   benchmark, retain the rolling five-year 11-plus model as the required sample
-  robustness, and preserve posterior uncertainty in $n_i^0$. Revalidate both
-  after the crosswalk is fixed and across pseudo-policy dates.
+  robustness, and preserve conditional predictive uncertainty in $n_i^0$.
+  Revalidate both after the crosswalk is fixed and across pseudo-policy dates.
   \item \textbf{Build the wage module.} Report the compliance gap and full
   employer-cost increment separately for 99, 100, 120, and 149 units and for
   relevant trade, time, and location profiles.
@@ -1017,6 +1024,14 @@ crosswalk, followed by a credible wage and net-benefit ledger. Once those
 objects exist, the simple model can translate project-level response patterns
 into redesign costs, split costs, and sample-conditional developer losses
 without prematurely claiming renter or social welfare effects.
+
+The no-notch size distribution is in good enough shape to serve as the current
+behavioral benchmark. The preferred 180-day cohort yields 21.14 excess
+exact-99 parents, an affected mean of 113.9 units, and a frontier of 130.8;
+placebos and bootstrap inference support the exact-99 moment. The 17.05-parent
+conservation gap prevents a stronger claim that every excess 99 came from
+above 100. Dollar cost calibration therefore requires the external wage,
+split-cost, and project records described above.
 
 \small
 \begin{thebibliography}{9}

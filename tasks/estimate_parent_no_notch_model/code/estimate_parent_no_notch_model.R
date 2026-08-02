@@ -1,5 +1,8 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/estimate_parent_no_notch_model/code")
 # unit_spec <- "hdb_priority"
+# cohort_sample <- "mature"
+# post_year <- 2025L
+# minimum_followup_days <- 180L
 # min_units <- 6L
 # minimum_category_rows <- 30L
 # counterfactual_max_units <- 400L
@@ -18,26 +21,34 @@ source("../../_lib/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 6L) {
+if (length(args) != 9L) {
   stop(
-    "Expected six arguments: unit specification, minimum units, minimum ",
-    "category rows, counterfactual maximum units, and plot limits."
+    "Expected unit and cohort specifications, post year, minimum follow-up, ",
+    "unit and category floors, counterfactual maximum units, and plot limits."
   )
 }
 
 unit_spec <- args[1]
-min_units <- as.integer(args[2])
-minimum_category_rows <- as.integer(args[3])
-counterfactual_max_units <- as.integer(args[4])
-plot_min_units <- as.integer(args[5])
-plot_max_units <- as.integer(args[6])
+cohort_sample <- args[2]
+post_year <- as.integer(args[3])
+minimum_followup_days <- as.integer(args[4])
+min_units <- as.integer(args[5])
+minimum_category_rows <- as.integer(args[6])
+counterfactual_max_units <- as.integer(args[7])
+plot_min_units <- as.integer(args[8])
+plot_max_units <- as.integer(args[9])
 
 if (
   !(unit_spec %in% c("hdb_priority", "dob_i1_complete_case")) ||
+  !(cohort_sample %in% c("mature", "completed_365")) ||
+  (unit_spec == "dob_i1_complete_case" && cohort_sample != "mature") ||
   any(is.na(c(
-    min_units, minimum_category_rows, counterfactual_max_units,
+    post_year, minimum_followup_days, min_units, minimum_category_rows,
+    counterfactual_max_units,
     plot_min_units, plot_max_units
   ))) ||
+    minimum_followup_days < 1L ||
+    minimum_followup_days >= 365L ||
     min_units < 1L ||
     minimum_category_rows < 2L ||
     counterfactual_max_units < 120L ||
@@ -66,11 +77,18 @@ post_panel <- read_parquet(
   as.data.frame() |>
   as_tibble()
 
+membership <- read_parquet(
+  "../input/symmetric_parent_membership.parquet"
+) |>
+  as.data.frame() |>
+  as_tibble()
+
 if (
   nrow(historical_panel) == 0L ||
     nrow(post_panel) == 0L ||
     anyDuplicated(historical_panel$observation_id) ||
-    anyDuplicated(post_panel$observation_id)
+    anyDuplicated(post_panel$observation_id) ||
+    anyDuplicated(membership[c("sample", "job_number")])
 ) {
   stop("Symmetric parent-model inputs failed key QC.")
 }
@@ -87,31 +105,86 @@ training_rows <- historical_panel |>
     log_units = log(units)
   )
 
-completed_2025_rows <- post_panel |>
-  filter(
-    analysis_status == "completed_2025_cohort",
-    cohort_year == 2025L
+post_followup <- membership |>
+  filter(sample == "post_policy", cohort_year == post_year) |>
+  distinct(
+    parent_id, cohort_date, source_end_date,
+    left_window_observed
+  ) |>
+  mutate(
+    observed_followup_days = as.integer(source_end_date - cohort_date)
   )
 
-observed_completed_2025_parents <- nrow(completed_2025_rows)
+if (
+  anyDuplicated(post_followup$parent_id) ||
+    any(is.na(post_followup$observed_followup_days))
+) {
+  stop("Post-policy follow-up is not unique and complete by parent.")
+}
+
+post_rows <- post_panel |>
+  left_join(
+    post_followup |>
+      select(parent_id, observed_followup_days, left_window_observed),
+    by = "parent_id",
+    relationship = "one-to-one"
+  ) |>
+  filter(cohort_year == post_year)
+
+if (cohort_sample == "mature") {
+  post_rows <- post_rows |>
+    filter(
+      left_window_observed,
+      observed_followup_days >= minimum_followup_days
+    )
+  cohort_label <- paste0(
+    post_year, " cohorts observed for at least ",
+    minimum_followup_days, " days"
+  )
+  model_sample_name <- paste0("mature_", minimum_followup_days)
+  reported_followup_days <- minimum_followup_days
+  cohort_caption <- paste0(
+    "A post-policy cohort enters after ", minimum_followup_days,
+    " observed days; parent links continue through day 365."
+  )
+} else {
+  post_rows <- post_rows |>
+    filter(analysis_status == paste0("completed_", post_year, "_cohort"))
+  cohort_label <- paste0(
+    post_year, " cohorts with a complete 365-day forward window"
+  )
+  model_sample_name <- "completed_365"
+  reported_followup_days <- 365L
+  cohort_caption <- paste0(
+    "Post-policy cohorts have complete 365-day forward windows; historical ",
+    "and post parents use the same link rule."
+  )
+}
+
+observed_post_parents <- nrow(post_rows)
 
 if (unit_spec == "hdb_priority") {
-  score_rows <- completed_2025_rows |>
+  score_rows <- post_rows |>
     filter(model_eligible) |>
     mutate(
       units = units_hdb_priority,
       log_units = log(units)
     )
-  model_name <- "symmetric_parent_2019_2022_completed_2025"
+  model_name <- paste0(
+    "symmetric_parent_2019_2022_", model_sample_name, "_", post_year
+  )
   unit_label <- "HDB units (primary)"
 } else {
-  score_rows <- completed_2025_rows |>
+  score_rows <- post_rows |>
     filter(model_eligible, units_dob_i1 >= min_units) |>
     mutate(
       units = units_dob_i1,
       log_units = log(units)
     )
-  model_name <- "symmetric_parent_2019_2022_completed_2025_dob_i1"
+  model_name <- paste0(
+    "symmetric_parent_2019_2022_", model_sample_name, "_", post_year,
+    "_dob_i1"
+  )
   unit_label <- "DOB initial-filing units (sensitivity)"
 }
 
@@ -126,6 +199,8 @@ fitted_model <- fit_rounded_mle(
 scores <- score_rows |>
   mutate(
     unit_definition = unit_spec,
+    cohort_sample = model_sample_name,
+    minimum_observed_followup_days = reported_followup_days,
     predicted_log_units = fitted_model$test_mu,
     probability_observed = exp(rounded_conditional_log_probability(
       units,
@@ -153,7 +228,8 @@ scores <- score_rows |>
     )
   ) |>
   select(
-    observation_id, unit_definition, observed_units = units,
+    observation_id, unit_definition, cohort_sample,
+    minimum_observed_followup_days, observed_units = units,
     component_filings,
     predicted_log_units, probability_observed,
     probability_exact_99, probability_at_least_100
@@ -177,7 +253,10 @@ observed_counts <- tabulate(
 )
 
 distribution <- tibble(
+  model = model_name,
   unit_definition = unit_spec,
+  cohort_sample = model_sample_name,
+  minimum_observed_followup_days = reported_followup_days,
   units = min_units:counterfactual_max_units,
   expected_count = expected_counts[
     (min_units:counterfactual_max_units) + 1L
@@ -197,12 +276,15 @@ missing_100_plus <- expected_100_plus - observed_100_plus
 counterfactual <- tibble(
   model = model_name,
   unit_definition = unit_spec,
+  cohort_sample = model_sample_name,
+  minimum_observed_followup_days = reported_followup_days,
+  requires_complete_left_window = TRUE,
   training_parents = nrow(training_rows),
-  observed_completed_2025_parents,
-  model_eligible_2025_parents = sum(completed_2025_rows$model_eligible),
+  observed_2025_parents = observed_post_parents,
+  model_eligible_2025_parents = sum(post_rows$model_eligible),
   scoreable_2025_parents = nrow(scores),
-  excluded_2025_parents_unit_definition =
-    observed_completed_2025_parents - nrow(scores),
+  excluded_unscoreable_2025_parents =
+    observed_post_parents - nrow(scores),
   component_filings = sum(scores$component_filings),
   observed_exact_99,
   expected_no_notch_exact_99 = expected_exact_99,
@@ -278,15 +360,14 @@ counterfactual_plot <- distribution |>
   labs(
     title = "Parent opportunities bunch below the 100-unit threshold",
     subtitle = paste0(
-      "Completed 2025 cohorts and the no-notch distribution estimated ",
-      "from fully observed 2019-2022 cohorts; ", unit_label
+      cohort_label, " and the no-notch distribution estimated from fully ",
+      "observed 2019-2022 cohorts; ", unit_label
     ),
     x = "Proposed dwelling units per parent opportunity",
     y = "Parent opportunities",
     caption = paste0(
       "Gray bars are observed counts. The blue line is the fitted no-notch ",
-      "distribution. Parent cohorts use the same 365-day first-filing rule ",
-      "before and after the policy."
+      "distribution. ", cohort_caption
     )
   ) +
   theme_minimal(base_size = 11) +
@@ -297,7 +378,7 @@ counterfactual_plot <- distribution |>
     plot.title.position = "plot"
   )
 
-if (unit_spec == "hdb_priority") {
+if (unit_spec == "hdb_priority" && cohort_sample == "mature") {
   write_csv_if_changed(
     counterfactual,
     "../output/enhanced_parent_2025_counterfactual.csv"
@@ -316,6 +397,26 @@ if (unit_spec == "hdb_priority") {
   )
   ggsave(
     "../output/enhanced_parent_2025_counterfactual.pdf",
+    counterfactual_plot,
+    width = 10,
+    height = 6.5,
+    bg = "white"
+  )
+} else if (unit_spec == "hdb_priority") {
+  write_csv_if_changed(
+    counterfactual,
+    "../output/enhanced_parent_completed_365_2025_counterfactual.csv"
+  )
+  write_parquet_if_changed(
+    scores,
+    "../output/enhanced_parent_completed_365_2025_scores.parquet"
+  )
+  write_csv_if_changed(
+    distribution,
+    "../output/enhanced_parent_completed_365_2025_distribution.csv"
+  )
+  ggsave(
+    "../output/enhanced_parent_completed_365_2025_counterfactual.pdf",
     counterfactual_plot,
     width = 10,
     height = 6.5,
@@ -347,4 +448,7 @@ if (unit_spec == "hdb_priority") {
   )
 }
 
-cat("Wrote symmetric parent-model results for ", unit_spec, " to ../output\n")
+cat(
+  "Wrote symmetric parent-model results for ",
+  unit_spec, " and ", model_sample_name, " to ../output\n"
+)
