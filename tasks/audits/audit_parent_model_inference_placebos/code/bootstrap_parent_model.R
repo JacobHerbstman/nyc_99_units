@@ -10,6 +10,7 @@
 # bootstrap_seed <- 9901L
 # interval_lower <- 0.025
 # interval_upper <- 0.975
+# maturity_days <- 180L
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -26,10 +27,11 @@ source("parent_model_audit_functions.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 11L) {
+if (length(args) != 12L) {
   stop(
     "Expected training years, post year, unit and category floors, threshold, ",
-    "distribution maximum, bootstrap repetitions and seed, and interval bounds."
+    "distribution maximum, bootstrap repetitions and seed, interval bounds, ",
+    "and maturity days."
   )
 }
 
@@ -44,12 +46,14 @@ bootstrap_reps <- as.integer(args[8])
 bootstrap_seed <- as.integer(args[9])
 interval_lower <- as.numeric(args[10])
 interval_upper <- as.numeric(args[11])
+maturity_days <- as.integer(args[12])
 
 if (
   any(is.na(c(
     training_start_year, training_end_year, post_year, min_units,
     minimum_category_rows, threshold_units, counterfactual_max_units,
-    bootstrap_reps, bootstrap_seed, interval_lower, interval_upper
+    bootstrap_reps, bootstrap_seed, interval_lower, interval_upper,
+    maturity_days
   ))) ||
     training_start_year >= training_end_year ||
     post_year <= training_end_year ||
@@ -60,7 +64,9 @@ if (
     bootstrap_reps < 20L ||
     interval_lower <= 0 ||
     interval_upper >= 1 ||
-    interval_lower >= interval_upper
+    interval_lower >= interval_upper ||
+    maturity_days < 1L ||
+    maturity_days >= 365L
 ) {
   stop("Parent-model bootstrap arguments are not internally consistent.")
 }
@@ -100,6 +106,12 @@ post_panel <- read_parquet(
   as.data.frame() |>
   as_tibble()
 
+membership <- read_parquet(
+  "../input/symmetric_parent_membership.parquet"
+) |>
+  as.data.frame() |>
+  as_tibble()
+
 training_rows <- historical_panel |>
   filter(
     model_eligible,
@@ -108,16 +120,12 @@ training_rows <- historical_panel |>
     cohort_year <= training_end_year
   )
 
-post_rows <- post_panel |>
-  filter(
-    model_eligible,
-    analysis_status == "completed_2025_cohort",
-    cohort_year == post_year
-  ) |>
-  mutate(
-    units = units_hdb_priority,
-    log_units = log(units)
-  )
+post_rows <- select_mature_post_rows(
+  post_panel,
+  membership,
+  post_year,
+  maturity_days
+)
 
 if (
   nrow(training_rows) == 0L ||
@@ -212,7 +220,8 @@ for (bootstrap_rep in seq_len(bootstrap_reps)) {
       standardize_moments() |>
       mutate(
         bootstrap_rep,
-        bootstrap_type = "fixed_2025_parent_population",
+        bootstrap_type = "fixed_post_parent_population",
+        minimum_observed_followup_days = maturity_days,
         .before = 1L
       )
 
@@ -234,7 +243,8 @@ for (bootstrap_rep in seq_len(bootstrap_reps)) {
       standardize_moments() |>
       mutate(
         bootstrap_rep,
-        bootstrap_type = "two_sample_historical_and_2025",
+        bootstrap_type = "two_sample_historical_and_post",
+        minimum_observed_followup_days = maturity_days,
         .before = 1L
       )
 
@@ -261,8 +271,6 @@ metric_order <- c(
   "conservation_gap",
   "mean_n0_from_exact_99",
   "frontier_from_exact_99",
-  "mean_n0_from_missing_100_plus",
-  "frontier_from_missing_100_plus",
   "shock_sigma"
 )
 
@@ -275,13 +283,21 @@ point_estimates_long <- point_estimates |>
   )
 
 bootstrap_summary <- bootstrap_draws |>
-  select(bootstrap_type, bootstrap_rep, all_of(metric_order)) |>
+  select(
+    bootstrap_type, bootstrap_rep,
+    minimum_observed_followup_days,
+    all_of(metric_order)
+  ) |>
   pivot_longer(
     all_of(metric_order),
     names_to = "metric",
     values_to = "value"
   ) |>
-  group_by(bootstrap_type, metric) |>
+  group_by(
+    bootstrap_type,
+    minimum_observed_followup_days,
+    metric
+  ) |>
   summarise(
     bootstrap_reps_requested = bootstrap_reps,
     successful_reps = n_distinct(bootstrap_rep),
@@ -318,6 +334,7 @@ bootstrap_qc <- tibble(
   check = c(
     "bootstrap_reps_requested",
     "bootstrap_seed",
+    "minimum_observed_followup_days",
     "historical_parent_rows",
     "fixed_post_parent_rows",
     "successful_historical_refits",
@@ -330,6 +347,7 @@ bootstrap_qc <- tibble(
   value = as.character(c(
     bootstrap_reps,
     bootstrap_seed,
+    maturity_days,
     nrow(training_rows),
     nrow(post_rows),
     successful_reps,

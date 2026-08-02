@@ -100,7 +100,10 @@ if (
 
 post_followup <- membership |>
   filter(sample == "post_policy", cohort_year == post_year) |>
-  distinct(parent_id, cohort_date, source_end_date) |>
+  distinct(
+    parent_id, cohort_date, source_end_date,
+    left_window_observed
+  ) |>
   mutate(
     observed_followup_days = as.integer(source_end_date - cohort_date)
   )
@@ -112,7 +115,7 @@ if (anyDuplicated(post_followup$parent_id)) {
 post_panel <- post_panel |>
   left_join(
     post_followup |>
-      select(parent_id, observed_followup_days),
+      select(parent_id, observed_followup_days, left_window_observed),
     by = "parent_id",
     relationship = "one-to-one"
   )
@@ -161,6 +164,7 @@ for (specification_row in seq_len(nrow(specifications))) {
     cohort_rows <- post_panel |>
       filter(
         cohort_year == post_year,
+        left_window_observed,
         observed_followup_days >= maturity_days
       )
   }
@@ -335,7 +339,10 @@ distributions <- bind_rows(distribution_rows)
 comparison <- bind_rows(
   production_counterfactual |>
     transmute(
-      specification = paste0("production completed ", post_year, " cohorts"),
+      specification = paste0(
+        "production ", minimum_observed_followup_days,
+        "-day mature ", post_year, " cohorts"
+      ),
       training_parents,
       scoreable_2025_parents,
       observed_exact_99,

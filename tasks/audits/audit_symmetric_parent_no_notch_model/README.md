@@ -1,13 +1,14 @@
 # Symmetric parent no-notch model audit
 
 This audit extends the production symmetric-parent model across cohort and unit
-definitions. It verifies the completed-2025 HDB result and compares it with
-2025 cohorts observed for at least 180 days and with DOB initial-filing units.
+definitions. It verifies the preferred 180-day HDB result and compares it with
+completed-365-day cohorts and with DOB initial-filing units.
 It does not alter production parents or delete linked exact-99 observations.
 
-The main comparison uses historical parents whose full 365-day window is
-observed and 2025 parents whose full forward window is complete in the July 8,
-2026 DOB snapshot. The historical linkage universe runs from 2018 through
+The comparison uses historical parents whose full 365-day window is observed
+and two 2025 scoring samples in the July 8, 2026 DOB snapshot: cohorts observed
+for at least 180 days and cohorts with a complete forward year. The historical
+linkage universe runs from 2018 through
 2023: 2018 supplies the lookback for 2019 anchors, and the fully observed
 training cohorts are 2019 through 2022. The 2023 cohorts remain boundary
 exposed rather than borrowing potentially policy-exposed 2024 companions.
@@ -31,12 +32,14 @@ for missing upper-tail mass of 7.37. The conservation gap is therefore 2.25
 parents. The exact-99 mass implies a frontier of 133.5 units and mean affected
 counterfactual size of 114.9 units.
 
-The 180-day sample retains 567 scoreable parents. All 586 currently observed
-2025 parent cohorts meet this rule because the youngest has 189 days of
-follow-up. It observes 22 exact-99 parents versus 0.87 under the fitted
-no-notch distribution, for excess mass of 21.13 parents. The exact-99 mass
-implies a frontier of 130.5 units and mean affected counterfactual size of
-113.8 units. Its conservation gap is 17.22 parents, so the larger sample does
+The 180-day sample retains 564 scoreable parents. All 586 currently observed
+2025 parent cohorts have at least 180 days of forward follow-up, but three
+early-January anchors lack the full pre-filing linkage window and are excluded;
+583 remain before model eligibility is imposed. The sample observes 22 exact-99
+parents versus 0.86 under the fitted no-notch distribution, for excess mass of
+21.14 parents. The exact-99 mass implies a frontier of 130.8 units and mean
+affected counterfactual size of 113.9 units. Its conservation gap is 17.05
+parents, so the larger sample does
 not resolve the mass-balance problem.
 
 ## Maturity validation

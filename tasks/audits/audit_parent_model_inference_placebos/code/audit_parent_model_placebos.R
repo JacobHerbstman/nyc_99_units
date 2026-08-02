@@ -10,6 +10,7 @@
 # threshold_max <- 120L
 # counterfactual_max_units <- 400L
 # post_year <- 2025L
+# maturity_days <- 180L
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -26,10 +27,11 @@ source("parent_model_audit_functions.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 11L) {
+if (length(args) != 12L) {
   stop(
     "Expected training years, pseudo years, training endpoints, unit and ",
-    "category floors, threshold bounds, distribution maximum, and post year."
+    "category floors, threshold bounds, distribution maximum, post year, ",
+    "and maturity days."
   )
 }
 
@@ -44,6 +46,7 @@ threshold_min <- as.integer(args[8])
 threshold_max <- as.integer(args[9])
 counterfactual_max_units <- as.integer(args[10])
 post_year <- as.integer(args[11])
+maturity_days <- as.integer(args[12])
 training_endpoint_years <- as.integer(str_split(
   training_endpoints_text,
   ",",
@@ -55,7 +58,7 @@ if (
     training_start_year, training_end_year,
     pseudo_start_year, pseudo_end_year, training_endpoint_years,
     min_units, minimum_category_rows, threshold_min, threshold_max,
-    counterfactual_max_units, post_year
+    counterfactual_max_units, post_year, maturity_days
   ))) ||
     training_start_year >= training_end_year ||
     pseudo_start_year <= training_start_year ||
@@ -71,7 +74,9 @@ if (
     threshold_max < 100L ||
     threshold_min >= threshold_max ||
     counterfactual_max_units <= threshold_max ||
-    post_year <= training_end_year
+    post_year <= training_end_year ||
+    maturity_days < 1L ||
+    maturity_days >= 365L
 ) {
   stop("Parent-model placebo arguments are not internally consistent.")
 }
@@ -92,16 +97,18 @@ post_panel <- read_parquet(
   as.data.frame() |>
   as_tibble()
 
-post_rows <- post_panel |>
-  filter(
-    model_eligible,
-    analysis_status == "completed_2025_cohort",
-    cohort_year == post_year
-  ) |>
-  mutate(
-    units = units_hdb_priority,
-    log_units = log(units)
-  )
+membership <- read_parquet(
+  "../input/symmetric_parent_membership.parquet"
+) |>
+  as.data.frame() |>
+  as_tibble()
+
+post_rows <- select_mature_post_rows(
+  post_panel,
+  membership,
+  post_year,
+  maturity_days
+)
 
 historical_rows <- historical_panel |>
   filter(
@@ -151,6 +158,8 @@ threshold_placebos <- bind_rows(lapply(
 )) |>
   mutate(
     sample = paste0("post_", post_year),
+    minimum_observed_followup_days = maturity_days,
+    requires_complete_left_window = TRUE,
     training_start_year,
     training_end_year,
     actual_policy_threshold = threshold_units == 100L,
@@ -200,6 +209,7 @@ for (pseudo_year in pseudo_start_year:pseudo_end_year) {
       training_start_year,
       training_end_year = pseudo_year - 1L,
       training_parents = nrow(pseudo_training_rows),
+      preferred_post_minimum_followup_days = maturity_days,
       .before = 1L
     )
 }
@@ -237,6 +247,7 @@ for (omitted_year in training_start_year:training_end_year) {
     mutate(
       omitted_year,
       training_parents = nrow(leave_out_training_rows),
+      minimum_observed_followup_days = maturity_days,
       .before = 1L
     )
 }
@@ -280,6 +291,7 @@ for (training_endpoint in training_endpoint_years) {
       training_start_year,
       training_end_year = training_endpoint,
       training_parents = nrow(endpoint_training_rows),
+      minimum_observed_followup_days = maturity_days,
       .before = 1L
     )
 }
@@ -296,7 +308,8 @@ if (
     any(!is.finite(threshold_placebos$conservation_gap)) ||
     any(!is.finite(pseudo_years$conservation_gap)) ||
     any(!is.finite(leave_one_year_out$conservation_gap)) ||
-    any(!is.finite(training_endpoints$conservation_gap))
+    any(!is.finite(training_endpoints$conservation_gap)) ||
+    min(post_rows$observed_followup_days) < maturity_days
 ) {
   stop("Parent-model placebo outputs failed final QC.")
 }
@@ -323,7 +336,8 @@ placebo_plot <- threshold_placebos |>
     title = "The parent-level excess is concentrated at the policy threshold",
     subtitle = paste0(
       "Fully observed 2019-", training_end_year,
-      " parents scored on completed ", post_year, " cohorts"
+      " parents scored on ", maturity_days, "-day mature ", post_year,
+      " cohorts with complete left linkage padding"
     ),
     x = "Candidate threshold",
     y = "Mass relative to no-notch prediction",

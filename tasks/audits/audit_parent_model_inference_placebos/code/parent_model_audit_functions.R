@@ -17,6 +17,57 @@ expected_unit_distribution <- function(
   )
 }
 
+select_mature_post_rows <- function(
+    post_panel, membership, post_year, maturity_days) {
+  post_followup <- membership |>
+    filter(sample == "post_policy", cohort_year == post_year) |>
+    distinct(
+      parent_id, cohort_date, source_end_date,
+      left_window_observed
+    ) |>
+    mutate(
+      observed_followup_days = as.integer(source_end_date - cohort_date)
+    )
+
+  if (
+    anyDuplicated(post_followup$parent_id) ||
+      any(is.na(post_followup$observed_followup_days))
+  ) {
+    stop("Post-policy follow-up is not unique and complete by parent.")
+  }
+
+  mature_rows <- post_panel |>
+    left_join(
+      post_followup |>
+        select(
+          parent_id, observed_followup_days,
+          left_window_observed
+        ),
+      by = "parent_id",
+      relationship = "one-to-one"
+    ) |>
+    filter(
+      model_eligible,
+      cohort_year == post_year,
+      left_window_observed,
+      observed_followup_days >= maturity_days
+    ) |>
+    mutate(
+      units = units_hdb_priority,
+      log_units = log(units)
+    )
+
+  if (
+    nrow(mature_rows) == 0L ||
+      anyDuplicated(mature_rows$observation_id) ||
+      any(is.na(mature_rows$observed_followup_days))
+  ) {
+    stop("The mature post-policy parent sample failed key QC.")
+  }
+
+  mature_rows
+}
+
 no_notch_moments <- function(
     observed_units, predicted_log_units, sigma, expected_distribution,
     min_units, threshold_units) {

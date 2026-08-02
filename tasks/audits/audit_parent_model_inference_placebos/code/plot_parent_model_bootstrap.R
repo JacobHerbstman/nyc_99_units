@@ -12,8 +12,6 @@ bootstrap_summary <- read_csv(
 )
 
 metric_order <- c(
-  "frontier_from_missing_100_plus",
-  "mean_n0_from_missing_100_plus",
   "frontier_from_exact_99",
   "mean_n0_from_exact_99",
   "conservation_gap",
@@ -29,15 +27,14 @@ metric_labels <- c(
   missing_100_plus = "Missing 100+ mass",
   conservation_gap = "Conservation gap",
   mean_n0_from_exact_99 = "Affected mean N0: exact-99",
-  frontier_from_exact_99 = "Frontier: exact-99",
-  mean_n0_from_missing_100_plus = "Affected mean N0: missing 100+",
-  frontier_from_missing_100_plus = "Frontier: missing 100+"
+  frontier_from_exact_99 = "Frontier: exact-99"
 )
 
 if (
   nrow(bootstrap_summary) == 0L ||
     anyDuplicated(bootstrap_summary[c("bootstrap_type", "metric")]) ||
-    !all(metric_order %in% bootstrap_summary$metric)
+    !all(metric_order %in% bootstrap_summary$metric) ||
+    n_distinct(bootstrap_summary$minimum_observed_followup_days) != 1L
 ) {
   stop("Parent-model bootstrap summary failed plotting QC.")
 }
@@ -51,8 +48,10 @@ bootstrap_plot <- bootstrap_summary |>
     ),
     bootstrap_label = recode(
       bootstrap_type,
-      fixed_2025_parent_population = "Historical parents resampled; 2025 fixed",
-      two_sample_historical_and_2025 = "Historical and 2025 parents resampled"
+      fixed_post_parent_population =
+        "Historical parents resampled; mature post cohort fixed",
+      two_sample_historical_and_post =
+        "Historical and mature post parents resampled"
     )
   ) |>
   ggplot(aes(y = metric_label, color = bootstrap_label)) +
@@ -87,7 +86,12 @@ bootstrap_plot <- bootstrap_summary |>
     x = NULL,
     y = NULL,
     color = NULL,
-    caption = "Black crosses are the preferred-sample point estimates."
+    caption = paste0(
+      "Black crosses are the preferred ",
+      unique(bootstrap_summary$minimum_observed_followup_days),
+      "-day sample point estimates. ",
+      "Parents retain the 365-day link rule."
+    )
   ) +
   theme_minimal(base_size = 10) +
   theme(
