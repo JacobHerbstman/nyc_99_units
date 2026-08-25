@@ -5,6 +5,9 @@
 - [ ] Research question: identify DOB buildings, candidate legal sites, and candidate parent development opportunities around the 99-unit bunching point and 100-unit policy threshold.
 - [ ] Why this matters: incorrect grouping can turn unrelated buildings into false splits or divide one project into false independent observations.
 - [ ] What changed: a new audit records pairwise evidence and provisional parent groups without making legal-site claims.
+- [ ] Current teaching goal: understand how the no-notch distribution, HPD
+  records, and developer pro formas perform distinct roles in a developer-cost
+  model.
 
 ## Stage 1: Problem And Motivation
 
@@ -15,11 +18,20 @@
 ## Stage 2: Data Provenance And Raw Inputs
 
 - [ ] DOB NOW initial New Building filings are the primary job/building source.
+- [ ] A DOB root job is the folder for one construction job; the initial filing
+  has an `-I1` suffix and later work-type or amendment filings remain attached
+  to that root job.
+- [ ] For New Buildings, the operative DOB building identifier is the BIN:
+  DOB instructs applicants to use separate NB filings and separate BINs for
+  separate buildings, while a single filing also reports one filing-time BBL.
+- [ ] A BBL identifies a tax lot, not necessarily a building, zoning lot,
+  economic development opportunity, or 485-x Eligible Site.
 - [ ] Current MapPLUTO APPBBL records are supporting lot-history evidence.
 - [ ] The main output has one row per DOB root job.
 - [ ] The exact-99 casebook has one row per 2025 initial 99-unit root job and
   retains later amendments separately from the initial filing.
-- [ ] Mastery status: skipped_by_user.
+- [ ] Mastery status: restated; building-versus-lot distinction corrected on
+  2026-08-18 and awaiting researcher restatement.
 
 ## Stage 3: Cleaning And Construction Logic
 
@@ -35,14 +47,49 @@
 - [ ] Public corroboration is stored as a source-linked manual input and cannot
   mechanically validate an eligible site.
 - [ ] Eligible-site status remains `not_legally_validated` until official evidence exists.
-- [ ] Mastery status: skipped_by_user.
+- [ ] The preferred HPD extract has one row per 485-x docket/Eligible Site and
+  a child table listing each constituent building's BIN, DOB permit, current
+  and former tax lots, address, and commencement/completion dates.
+- [ ] HPD BIN and DOB permit fields provide prospective direct identifiers;
+  BBL, address, and dates are validation fields rather than the primary join
+  when those direct identifiers are present.
+- [ ] Spatial and time matching remains necessary only for registrations that
+  omit, mistype, or predate final BIN/permit identifiers, and such matches must
+  retain a reason code and unresolved status.
+- [ ] Mastery status: restated; direct-versus-probabilistic linkage distinction
+  explained on 2026-08-18 and awaiting researcher restatement.
 
 ## Stage 5: Analysis, Tables, And Plots
 
 - [ ] This task produces an audit crosswalk and review queue, not a structural estimate.
 - [ ] Candidate groups are anchored by at least one 99-unit job.
 - [ ] The decomposition denominator is 52 distinct 2025 DOB jobs and 52 distinct initial DOB BINs proposing exactly 99 units.
-- [ ] Mastery status: skipped_by_user.
+- [ ] The preferred no-notch model is a conditional distribution of parent
+  units, not yet a structural profit-maximization model denominated in dollars.
+- [ ] HPD classifies observed policy configurations but does not reveal the
+  no-notch unit choice.
+- [ ] A pro forma compares dollar profits across choices but cannot establish
+  how frequently developers made each choice without the DOB/HPD evidence.
+- [ ] Rebuild the connection among the developer's latent no-notch choice, the
+  estimated historical conditional distribution, and the post-policy bin
+  accounting one step at a time.
+- [ ] For each post-policy parent, the empirical model combines its estimated
+  conditional log-unit location `X beta` with the common historical residual
+  standard deviation `sigma`; integer probabilities are normal probability
+  mass between the adjacent half-unit rounding bounds, conditional on at least
+  six units.
+- [ ] The i.i.d. normal specification is a parametric counterfactual-density
+  assumption, not a consequence of bunching theory and not the same shock as
+  the structural profit-choice error in Einav, Finkelstein, and Mahoney (2018).
+- [ ] The conclusion that exact-99 excess is not conserved by missing
+  100--149 mass is presently conditional on the preferred lognormal density;
+  it should not be called definitive until alternative parent-level density
+  models reproduce it.
+- [ ] Mastery status: researcher restated the three roles on 2026-08-20;
+  researcher now recognizes that the exact-99 excess is not purely conserved
+  by missing 100--149 mass and correctly identified the output as a
+  distribution; probability construction understood, while the justification
+  for and robustness to i.i.d. normal heterogeneity are now under review.
 
 ## Stage 6: Interpretation And Research Claims
 
@@ -50,13 +97,32 @@
 - [ ] HPD applications or zoning-lot documents are still required for legal validation.
 - [ ] Filing, amendment, permit, and completion are distinct stages; an initial
   or amended unit count is not automatically the final built outcome.
-- [ ] Mastery status: skipped_by_user.
+- [ ] In the preferred 564-parent scoreable sample, the exact accounting is
+  17.05 fewer parents below 99 than predicted, 21.14 excess parents at 99, and
+  4.09 fewer parents at or above 100 than predicted.
+- [ ] The exact-99 spike is a robust descriptive bunching moment, but the large
+  conservation gap means the full excess cannot yet be interpreted as projects
+  relocated from above 100 under a fixed-population, pure-notch model.
+- [ ] The exact-99 frontier and mean affected no-notch units require the extra
+  assumption that the full exact-99 excess came from contiguous mass above 100;
+  the observed mass balance does not presently validate that assumption.
+- [ ] The 100-unit discontinuity bundles the construction-wage rule with a
+  change from Option B's 20% affordable share to Option A's 25% share, so the
+  bunching response cannot automatically be attributed to wages alone.
+- [ ] In Zones A and B, the 150-unit threshold bundles a longer benefit with
+  deeper affordability and a higher construction-wage requirement; its net
+  incentive is ambiguous and requires a zone-specific audit.
+- [ ] Mastery status: researcher correctly identified the below-99 accounting
+  deficit on 2026-08-20; causal interpretation and the 150-unit bundle remain
+  under review.
 
 ## Open Questions
 
 - [ ] Which historical MapPLUTO vintage best represents each filing date?
 - [ ] Which DOB plan documents can establish zoning-lot membership?
 - [ ] What HPD fields can validate one eligible site or separate eligible sites?
+- [ ] Does the parent-level counterfactual mass balance survive heteroskedastic,
+  heavy-tailed, empirical-residual, and local difference-in-bunching models?
 
 ## Findings From Initial Candidate Review
 
