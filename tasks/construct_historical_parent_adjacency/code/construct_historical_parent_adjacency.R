@@ -1,5 +1,5 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/construct_historical_parent_adjacency/code")
-# start_year <- 2019L
+# start_year <- 2010L
 # end_year <- 2023L
 # max_filing_days <- 365L
 # corroboration_days <- 30L
@@ -62,14 +62,15 @@ mappluto_files <- read_csv(
     source_id == "dcp_mappluto_archive",
     file_role == "mappluto_shapefile_zip"
   ) |>
-  select(source_id, vintage, raw_path)
+  select(vintage, raw_path)
 
 if (
   nrow(filings) == 0L ||
     any(is.na(filings$filing_bbl)) ||
+    any(is.na(filings$prefiling_feature_bbl)) ||
     anyDuplicated(filings$job_number) ||
     anyDuplicated(existing_pairs[c("job_number_1", "job_number_2")]) ||
-    anyDuplicated(mappluto_files[c("source_id", "vintage")])
+    anyDuplicated(mappluto_files["vintage"])
 ) {
   stop("Historical adjacency inputs failed identifier QC.")
 }
@@ -105,6 +106,8 @@ candidate_pairs <- tibble(
   units_2 = filings$units[right_rows],
   filing_bbl_1 = filings$filing_bbl[left_rows],
   filing_bbl_2 = filings$filing_bbl[right_rows],
+  geometry_bbl_1 = filings$prefiling_feature_bbl[left_rows],
+  geometry_bbl_2 = filings$prefiling_feature_bbl[right_rows],
   common_source_id = filings$pluto_source_id_used[left_rows],
   common_vintage = filings$pluto_version_used[left_rows],
   common_snapshot_available_date =
@@ -114,24 +117,34 @@ candidate_pairs <- tibble(
   )
 ) |>
   mutate(
-    bbl_low = pmin(filing_bbl_1, filing_bbl_2),
-    bbl_high = pmax(filing_bbl_1, filing_bbl_2)
+    bbl_low = pmin(geometry_bbl_1, geometry_bbl_2),
+    bbl_high = pmax(geometry_bbl_1, geometry_bbl_2)
   ) |>
   left_join(
     mappluto_files,
-    by = c("common_source_id" = "source_id", "common_vintage" = "vintage"),
+    by = c("common_vintage" = "vintage"),
     relationship = "many-to-one"
   ) |>
-  filter(filing_bbl_1 != filing_bbl_2, !is.na(raw_path))
+  filter(geometry_bbl_1 != geometry_bbl_2, !is.na(raw_path))
 
 if (anyDuplicated(candidate_pairs[c("job_number_1", "job_number_2")])) {
   stop("Historical adjacency candidate pairs are not unique by job pair.")
 }
 
 release_edges <- list()
+release_coverage <- list()
 
-exact_releases <- candidate_pairs |>
-  distinct(common_source_id, common_vintage, raw_path)
+exact_releases <- filings |>
+  distinct(
+    common_source_id = pluto_source_id_used,
+    common_vintage = pluto_version_used
+  ) |>
+  left_join(
+    mappluto_files,
+    by = c("common_vintage" = "vintage"),
+    relationship = "many-to-one"
+  ) |>
+  filter(!is.na(raw_path))
 
 for (release_row in seq_len(nrow(exact_releases))) {
   source_id_value <- exact_releases$common_source_id[release_row]
@@ -144,42 +157,103 @@ for (release_row in seq_len(nrow(exact_releases))) {
       common_vintage == vintage_value
     )
 
-  needed_bbls <- sort(unique(c(
-    release_pairs$filing_bbl_1,
-    release_pairs$filing_bbl_2
-  )))
+  release_filings <- filings |>
+    filter(
+      pluto_source_id_used == source_id_value,
+      pluto_version_used == vintage_value
+    )
 
-  archive_listing <- system2(
+  needed_bbls <- sort(unique(release_filings$prefiling_feature_bbl))
+
+  outer_archive_listing <- system2(
     "unzip",
     c("-Z1", raw_path_value),
     stdout = TRUE,
     stderr = FALSE
   )
-  shapefile_entry <- archive_listing[
-    str_to_lower(basename(archive_listing)) == "mappluto.shp"
-  ][1]
 
-  if (is.na(shapefile_entry) || !nzchar(shapefile_entry)) {
-    stop("MapPLUTO archive has no MapPLUTO.shp: ", raw_path_value)
+  inner_zip_entries <- outer_archive_listing[
+    str_detect(str_to_lower(outer_archive_listing), "\\.zip$")
+  ]
+
+  if (length(inner_zip_entries) > 0L) {
+    release_temp_dir <- tempfile(paste0("mappluto_", vintage_value, "_"))
+    dir.create(release_temp_dir)
+    utils::unzip(
+      raw_path_value,
+      files = inner_zip_entries,
+      exdir = release_temp_dir
+    )
+    geometry_zip_paths <- file.path(release_temp_dir, inner_zip_entries)
+  } else {
+    geometry_zip_paths <- raw_path_value
   }
 
   message(
-    "Reading ", length(needed_bbls), " filing BBLs from ",
+    "Reading ", length(needed_bbls), " pre-filing feature BBLs from ",
     source_id_value, " ", vintage_value, "."
   )
 
-  release_lots <- st_read(
-    paste0("/vsizip/", raw_path_value, "/", shapefile_entry),
-    query = paste0(
-      "SELECT BBL FROM MapPLUTO WHERE BBL IN (",
-      paste(needed_bbls, collapse = ","),
-      ")"
-    ),
-    quiet = TRUE,
-    stringsAsFactors = FALSE
-  ) |>
-    mutate(bbl = normalize_bbl_field(BBL)) |>
-    select(bbl)
+  release_lot_parts <- list()
+  release_lot_counter <- 0L
+
+  for (geometry_zip_path in geometry_zip_paths) {
+    geometry_archive_listing <- system2(
+      "unzip",
+      c("-Z1", geometry_zip_path),
+      stdout = TRUE,
+      stderr = FALSE
+    )
+    shapefile_entries <- geometry_archive_listing[
+      str_detect(
+        str_to_lower(basename(geometry_archive_listing)),
+        "^(mappluto|[a-z]{2}mappluto)\\.shp$"
+      )
+    ]
+
+    if (length(shapefile_entries) == 0L) {
+      stop("MapPLUTO archive has no parcel shapefile: ", geometry_zip_path)
+    }
+
+    for (shapefile_entry in shapefile_entries) {
+      layer_name <- tools::file_path_sans_ext(basename(shapefile_entry))
+      borough_prefix <- str_to_upper(str_sub(layer_name, 1L, 2L))
+      borough_digit <- recode(
+        borough_prefix,
+        MN = "1", BX = "2", BK = "3", QN = "4", SI = "5",
+        .default = NA_character_
+      )
+      shapefile_bbls <- if (is.na(borough_digit)) {
+        needed_bbls
+      } else {
+        needed_bbls[str_sub(needed_bbls, 1L, 1L) == borough_digit]
+      }
+
+      if (length(shapefile_bbls) == 0L) {
+        next
+      }
+
+      release_lot_counter <- release_lot_counter + 1L
+      release_lot_parts[[release_lot_counter]] <- st_read(
+        paste0("/vsizip/", geometry_zip_path, "/", shapefile_entry),
+        query = paste0(
+          "SELECT BBL FROM ", layer_name, " WHERE BBL IN (",
+          paste(shapefile_bbls, collapse = ","),
+          ")"
+        ),
+        quiet = TRUE,
+        stringsAsFactors = FALSE
+      ) |>
+        mutate(bbl = normalize_bbl_field(BBL)) |>
+        select(bbl)
+    }
+  }
+
+  release_lots <- do.call(rbind, release_lot_parts)
+
+  if (is.null(release_lots)) {
+    stop("MapPLUTO archive returned no filing-lot geometries: ", raw_path_value)
+  }
 
   if (
     anyDuplicated(st_drop_geometry(release_lots)$bbl) ||
@@ -190,6 +264,16 @@ for (release_row in seq_len(nrow(exact_releases))) {
       source_id_value, " ", vintage_value, "."
     )
   }
+
+  release_coverage[[release_row]] <- release_filings |>
+    transmute(
+      job_number,
+      filing_bbl,
+      geometry_bbl = prefiling_feature_bbl,
+      pluto_source_id_used,
+      pluto_version_used,
+      geometry_available = geometry_bbl %in% release_lots$bbl
+    )
 
   touch_index <- st_touches(release_lots)
   touch_rows <- rep(seq_len(nrow(release_lots)), lengths(touch_index))
@@ -217,16 +301,38 @@ for (release_row in seq_len(nrow(exact_releases))) {
     select(
       job_number_1, job_number_2, date_filed_1, date_filed_2,
       filing_year_1, filing_year_2, units_1, units_2,
-      filing_bbl_1, filing_bbl_2,
+      filing_bbl_1, filing_bbl_2, geometry_bbl_1, geometry_bbl_2,
       common_source_id, common_vintage, common_snapshot_available_date,
       filing_days_apart
     )
 }
 
 adjacency_pairs <- bind_rows(release_edges)
+geometry_coverage <- bind_rows(
+  release_coverage,
+  filings |>
+    filter(!pluto_version_used %in% mappluto_files$vintage) |>
+    transmute(
+      job_number,
+      filing_bbl,
+      geometry_bbl = prefiling_feature_bbl,
+      pluto_source_id_used,
+      pluto_version_used,
+      geometry_available = FALSE
+    )
+) |>
+  arrange(match(job_number, filings$job_number))
 
 if (nrow(adjacency_pairs) == 0L) {
   stop("No exact historical polygon adjacencies were found.")
+}
+
+if (
+  nrow(geometry_coverage) != nrow(filings) ||
+    anyDuplicated(geometry_coverage$job_number) ||
+    !setequal(geometry_coverage$job_number, filings$job_number)
+) {
+  stop("Historical geometry coverage is not one row per filing.")
 }
 
 adjacency_pairs <- adjacency_pairs |>
@@ -269,5 +375,9 @@ write_parquet_if_changed(
   adjacency_pairs,
   "../output/historical_polygon_adjacency_pairs.parquet"
 )
+write_parquet_if_changed(
+  geometry_coverage,
+  "../output/historical_polygon_geometry_coverage.parquet"
+)
 
-cat("Wrote historical exact polygon adjacency pairs to ../output\n")
+cat("Wrote historical polygon adjacency and geometry coverage to ../output\n")

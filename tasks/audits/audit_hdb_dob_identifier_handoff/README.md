@@ -1,7 +1,7 @@
 # HDB-DOB identifier handoff audit
 
-This audit separates identifier matching from the parent model's six-unit
-analysis restriction. It compares the 2025 HDB model sample with the
+This audit separates identifier matching from the parent sample's six-unit
+analysis restriction. It compares the 2025 HDB sample with the
 unfiltered staged DOB NOW initial New Building filings, then checks which
 exact root-job matches survive into the filtered post-policy parent
 crosswalk.

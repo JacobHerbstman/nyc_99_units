@@ -88,10 +88,15 @@ url_file_name <- function(url) {
 }
 
 parse_mappluto_archive_release <- function(url) {
-  raw_release <- str_match(
+  current_style_release <- str_match(
     url_file_name(url),
     "^nyc_mappluto_([0-9]{2}v[0-9]+(?:_[0-9]+)?)_arc_shp\\.zip$"
   )[, 2]
+  legacy_style_release <- str_match(
+    url_file_name(url),
+    "^mappluto_([0-9]{2}v[0-9]+(?:_[0-9]+)?)\\.zip$"
+  )[, 2]
+  raw_release <- coalesce(current_style_release, legacy_style_release)
 
   ifelse(is.na(raw_release), NA_character_, str_replace_all(raw_release, "_", "."))
 }
@@ -144,7 +149,11 @@ if (any(is.na(c(pluto_zip_url, pluto_dictionary_url, pluto_readme_url, mappluto_
   stop("Could not parse one or more required current-release DCP asset URLs from the Planning content API response.")
 }
 
-archive_rows <- archive_json[vapply(archive_json, function(x) identical(x$dataset, "MapPLUTO™ - Shapefile"), logical(1))]
+archive_rows <- archive_json[vapply(
+  archive_json,
+  function(x) x$dataset %in% c("MapPLUTO™ - Shapefile", "MapPLUTO™"),
+  logical(1)
+)]
 
 if (length(archive_rows) == 0) {
   stop("Could not find archived MapPLUTO shapefile releases in the DCP archive JSON.")
@@ -170,7 +179,7 @@ archive_release_rows <- bind_rows(lapply(archive_rows, function(row) {
     release_label_url_match = release_label_matches_file(release_label, file_release),
     release = if_else(release_label_url_match, release_label, file_release)
   ) |>
-  filter(str_detect(release, "^(18|19|20|21|22|23)v"))
+  filter(str_detect(release, "^(09|10|11|12|13|14|15|16|17|18|19|20|21|22|23)v"))
 
 if (nrow(archive_release_rows) == 0) {
   stop("The DCP archive JSON returned zero archived MapPLUTO shapefile releases.")

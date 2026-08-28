@@ -3,12 +3,12 @@
 This audit summarizes and checks the production parent membership. Upstream,
 an economic parent is assigned to its first observed filing and may include
 linked companion filings made within 365 days, including another calendar
-year. This task does not reconstruct parents, estimate the no-notch model, or
+year. This task does not reconstruct parents or estimate a counterfactual; it
 impute an unobserved companion.
 
-The historical parent anchors are the 2019--2023 leakage-safe HDB sample used
-by the parent model. The linkage universe begins in 2018 so the 365-day
-lookback for 2019 anchors is observed. Historical links use the existing pre-filing lot,
+The historical parent anchors are the 2011--2023 leakage-safe HDB sample. The
+linkage universe begins in 2010 so the 365-day lookback for 2011 anchors is
+observed. Historical links use the existing pre-filing lot,
 same-BBL, explicit-reference, project-code, and corroborated exact-adjacency
 evidence. The post filing universe is DOB NOW New Building filings observed
 from 2024 through the current data snapshot. Post links use the analogous

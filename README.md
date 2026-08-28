@@ -1,81 +1,84 @@
 # NYC 99 Units
 
 This repository studies developer responses to the 100-unit threshold in New
-York City's 485-x housing tax incentive. The current empirical goal is narrow:
-measure bunching and splitting, reconstruct the parent development opportunity,
-and estimate the no-notch distribution of proposed units. Developer costs and
-broader welfare require additional cost data and are later stages.
+York City's 485-x housing tax incentive. The current empirical work measures
+the distribution of proposed project sizes in a plausible rental-opportunity
+sample and tests whether linked economic parents are split across multiple
+filings or buildings. The unit of observation is the linked parent proposal,
+not an individual filing.
 
-## Workflow
+The current analysis is descriptive and design-based. It does not treat an
+individual parcel-size prediction, a structural cost estimate, a land-price
+event study, or the condo-tenure panel as a headline result.
 
-- Run each task from its `code/` folder with `make`.
-- Treat task Makefiles as the dependency graph.
-- Keep fixed input and output paths inside scripts.
-- Expose only genuine analytical choices as Make variables.
-- Put diagnostics, model comparisons, placebos, and manual review under
-  `tasks/audits/`.
-- Do not edit generated outputs directly.
+## Current workflow
 
-## Current production graph
+Run `make` from a task's `code/` folder. Task Makefiles are the dependency
+graph; generated inputs are symlinks to named upstream outputs.
 
-The main bunching evidence is produced by:
+The current empirical path is:
 
 ```text
-stage_dcp_housing_database
-  -> summarize_hdb_unit_bunching
+DCP Housing Database + DOB NOW + historical MapPLUTO
+  -> construct historical and post-policy filing link fields
+  -> construct linked parent cohorts
+  -> build the 6-plus-unit exposure universe
+  -> classify plausible 485-x A/B rental opportunities
+  -> analyze exact parent-size distributions
+  -> analyze scale, shape, and multi-filing composition
 
-stage_dob_now_new_building_filings
-  -> summarize_developer_responses
+HPD 485-x registrations + DOB NOW
+  -> link registrations to DOB jobs
+  -> verify observed multi-filing configurations
+
+linked parent cohorts + predetermined MapPLUTO characteristics
+  -> build parent site characteristics
+  -> reweight the historical distribution to the post-period site mix
 ```
 
-The preferred symmetric-parent model is produced by:
+The main empirical compilation is
+`tasks/analyze_485x_scale_shape_splitting/output/pdf/scale_shape_splitting_figure_guide.pdf`.
+The underlying count and normalized-density figures are produced by
+`tasks/analyze_parent_unit_distribution/`.
 
-```text
-HDB + historical MapPLUTO + DOB NOW
-  -> build_hdb_mappluto_training_panel
-  -> construct_historical_parent_links
-  -> construct_historical_parent_adjacency
-  -> construct_parent_cohorts
-  -> build_parent_model_panel
-  -> estimate_parent_no_notch_model
-  -> prepare_developer_cost_calibration
+## Production tasks
 
-DOB NOW + MapPLUTO APPBBL history
-  -> construct_post_policy_parent_crosswalk
-  -> construct_parent_cohorts
-```
+Top-level tasks are limited to source acquisition/staging, canonical linkage
+and parent datasets, predetermined site characteristics, and the two current
+analysis tasks. In particular:
 
-The preferred estimator uses one observation and one i.i.d. scale shock per
-symmetric parent. It is estimated on fully observed 2019--2022 first-filing
-cohorts. A 2025 cohort enters the main scoring sample after 180 observed days
-if its full pre-filing linkage window is available; observed companions can
-still join through day 365. The completed-365-day cohort and DOB initial-filing
-units are sensitivities. No companion, feature, or unit count is imputed.
-Filing-level models, placebos, inference, and alternative parent definitions
-remain in audit tasks.
+- `construct_parent_cohorts` defines historical and post-policy economic
+  parents and preserves reviewed linkage decisions.
+- `build_parent_485x_exposure_universe` assembles the parent-level information
+  used for the rental-opportunity screen.
+- `link_hpd_485x_registrations` produces the canonical HPD-to-DOB link without
+  depending on a unit-count prediction model.
+- `build_parent_site_characteristics` aggregates predetermined parcel traits
+  used for composition adjustment; it does not predict project unit counts.
+- `analyze_parent_unit_distribution` produces the raw, annualized, and
+  normalized parent-size distributions.
+- `analyze_485x_scale_shape_splitting` produces the current scale, shape,
+  reweighting, and multi-filing results.
 
-## Main outputs
+## Audits
 
-- `tasks/summarize_hdb_unit_bunching/output/`: application and provisional
-  parent bunching figures and exact counts.
-- `tasks/summarize_developer_responses/output/`: construction-area,
-  square-feet-per-unit, and provisional-site configuration figures.
-- `tasks/estimate_parent_no_notch_model/output/`: fitted coefficients, 2025
-  parent scores, observed and no-notch distributions, mass-balance moments,
-  implied frontiers, and counterfactual figures for the preferred 180-day and
-  completed-365-day specifications.
-- `tasks/prepare_developer_cost_calibration/output/`: the preferred and
-  completed-cohort exact-99 behavioral targets and affected counterfactual
-  parent-size weights. These are inputs to future cost calibration, not dollar
-  cost or welfare estimates.
+`tasks/audits/` contains validation, manual review, sensitivity analysis, and
+the deliberately non-headline condo branch. The exposure classification stays
+there because it combines source-based rules with an explicit manual-review
+ledger. The condo panel and Attorney General search also stay there because
+recent cohorts are right-censored and the evidence is not yet strong enough
+for the main empirical design.
 
-## Deferred branches
+Earlier parcel-prediction, structural no-notch, cost-calibration, land-price,
+and ACRIS/DOF exploration was removed from the active tree during the August
+2026 cleanup. It remains recoverable from Git history at commit `1374dda`.
 
-The ACRIS and DOF tasks form a separate land-sales branch. They are retained
-because they produce canonical source and event files, but they are not inputs
-to the current developer-response results. They should not be added to the
-paper build until the project returns to land-price incidence.
+## Builds
 
-Raw public and manual data belong under `data_raw/<source>/<vintage>/` and are
-never modified. Source metadata and requests are tracked in
-`tasks/source_registry/code/`.
+- `make` builds the current framework PDF and empirical figure guide.
+- `make paper` compiles the draft paper separately. The draft is not the
+  dependency root for the current empirical outputs yet.
+- `make source-registry` validates source metadata.
+
+Raw and manually acquired data live under `data_raw/<source>/<vintage>/` and
+must not be edited. Do not edit generated task outputs directly.

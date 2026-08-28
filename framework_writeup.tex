@@ -1,1053 +1,523 @@
 \documentclass[11pt]{article}
 
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,mathtools}
-\usepackage{booktabs,tabularx,array}
-\usepackage{graphicx}
-\usepackage[dvipsnames]{xcolor}
-\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{newtxtext,newtxmath}
 \usepackage{microtype}
-\usepackage{caption}
-\usepackage{float}
-\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{booktabs,array,tabularx}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Developer Responses to New York City's 100-Unit Threshold: A Notch-and-Kink Model},pdfauthor={Jacob Herbstman}}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
 
-\hypersetup{
-  colorlinks=true,
-  linkcolor=MidnightBlue,
-  citecolor=MidnightBlue,
-  urlcolor=MidnightBlue
-}
+\setstretch{1.06}
+\setlength{\parindent}{1.25em}
+\setlength{\parskip}{0.15em}
+\setlist[itemize]{leftmargin=1.4em,itemsep=0.15em,topsep=0.25em}
+\setlist[enumerate]{leftmargin=1.6em,itemsep=0.15em,topsep=0.25em}
 
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0.65em}
-\setlist[itemize]{leftmargin=1.45em,itemsep=0.25em,topsep=0.25em}
-\setlist[enumerate]{leftmargin=1.6em,itemsep=0.3em,topsep=0.25em}
-\captionsetup{font=small,labelfont=bf}
+\newtheorem{proposition}{Proposition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{remark}{Remark}
 
+\newcommand{\ind}{\mathbf{1}}
 \newcommand{\E}{\mathbb{E}}
-\newcommand{\Prob}{\mathbb{P}}
-\newcommand{\pos}[1]{\left[#1\right]_{+}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\dd}{\,\mathrm{d}}
 
-\title{\textbf{Developer Responses to the 485-x 100-Unit Threshold}\\
-\large A Minimal Static Model and Empirical Roadmap}
-\author{Working framework}
-\date{August 2, 2026}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Developer Responses to NYC's 100-Unit Threshold}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\title{\vspace{-1.25cm}\textbf{Developer Responses to New York City's 100-Unit Threshold}\\[0.35em]
+\large A Notch-and-Kink Model}
+\author{Jacob Herbstman}
+\date{August 2026}
 
 \begin{document}
 \maketitle
+\vspace{-1.2em}
 
-\begin{center}
-\fcolorbox{black!35}{black!3}{
-\begin{minipage}{0.92\textwidth}
-\textbf{Scope.}
-This note studies developer behavior only. The maintained model is static and
-uses i.i.d. Type-I extreme-value choice shocks. The first estimates are point
-estimates under explicit parametric assumptions. Delay, exit, dynamics, renter
-welfare, general equilibrium, and full social welfare remain outside the first
-paper stage. The model is conditional on an opportunity reaching the observed
-filing sample, so its profit and unit counterfactuals are sample-conditional.
-\end{minipage}}
-\end{center}
+\begin{abstract}
+This note develops a parsimonious model of residential developer behavior around New York City's 100-unit threshold under the 485-x tax incentive. Crossing the threshold may create both a discontinuous project-level burden---a notch---and a persistent increase in marginal project cost---a kink. The model predicts a mass point at 99 units, a missing source interval in the no-policy unit-count distribution, and horizontal compression of projects that remain above the threshold. A reweighted historical distribution identifies the no-policy size of the marginal bunching project from excess mass at 99; the surviving upper tail identifies, or bounds, the compression parameter. Given a curvature parameter, these behavioral objects map into a marginal-cost wedge, a normalized level notch, and the total policy burden faced by the marginal developer. The model also yields transparent implications for housing units, total floor area, and average unit size.
+\end{abstract}
 
-\section{The question and the minimum model}
+\section{Motivation}
 
-The evidence to explain is a sharp increase in 99-unit New Building filings
-after 485-x. The first economic question is narrow:
+New York City's 485-x program changes the regulatory treatment of rental projects at 100 units. Relative to projects below 100 units, large rental projects face different affordability requirements and construction compensation rules; projects at 150 units in designated areas face an additional regime change \citep{nys_485x,nyc_hpd_485x}. The sharp empirical motivation is a large increase in projects proposed at exactly 99 units after the policy took effect.
 
-\begin{quote}
-How costly must crossing the 100-unit threshold be for a developer to remove
-units, redesign a project, or organize a larger development as multiple
-sub-100-unit eligible sites?
-\end{quote}
+The model combines two ideas. First, size-dependent regulations can create a discontinuity in total project value or cost, generating bunching below a threshold and missing mass above it \citep{klevenwaseem2013,bestkleven2018,kopczukmunroe2015}. Second, the high-regime cost schedule may remain persistently steeper, compressing the surviving upper tail rather than allowing it to return point-by-point to its no-policy distribution \citep{gourioroys2014,garicano2016}. The setup follows the isoelastic cost structure used by \citet{brueckner2024}, but the policy combines a notch and a kink rather than a pure kink.
 
-Each developer begins with a preferred project in a counterfactual world in
-which the provisions that change at 100 units are smoothly continued from
-below the threshold. If the preferred project reaches 100 units, the developer
-may:
+\section{Developer problem}
 
-\begin{enumerate}
-  \item \textbf{Bunch}: choose the best feasible unit count below 100;
-  \item \textbf{Cross}: choose the best feasible unit count at or above 100
-  and incur the signed net threshold wedge; or
-  \item \textbf{Split}: choose a legally and physically feasible configuration
-  with multiple sub-100 eligible sites, possibly including unequal or hybrid
-  building sizes.
-\end{enumerate}
+\subsection{No-policy benchmark}
 
-This setup links observed responses to three dollar-valued objects: the loss
-from changing scale, the net cost or benefit of crossing, and the incremental
-cost of a split configuration. It does not assume that 99 is physically or
-legally feasible on every site.
-
-\section{Institutional details that determine measurement}
-
-\subsection{The legal threshold is not the DOB building}
-
-Real Property Tax Law Section 485-x defines an \emph{eligible site} as either
-a tax lot containing an eligible multiple dwelling or a zoning lot containing
-two or more eligible multiple dwellings that are part of a single application.
-A large rental project is an eligible site with at least 100 residential
-units.\footnote{See
-\href{https://www.nysenate.gov/legislation/laws/RPT/485-X}{New York Real
-Property Tax Law Section 485-x}, especially subdivisions 1(s) and 1(bb).}
-Three distinct units must therefore be reconstructed:
-
-\begin{enumerate}
-  \item the DOB root job and physical building;
-  \item the legal 485-x eligible site at filing and commencement; and
-  \item the parent economic development opportunity over which scale and
-  configuration were chosen.
-\end{enumerate}
-
-Multiple DOB filings on one tax lot are not automatically multiple eligible
-sites. Multiple buildings on a zoning lot can also be aggregated when they are
-part of one 485-x application. Conversely, distinct tax lots and applications
-may permit separate eligible sites, but neither a current BBL nor a filing
-count proves that result. HPD's Option A/B application asks about the eligible
-site, buildings, lots, units, commencement, and wage compliance, making the
-HPD docket and application central validation records.\footnote{See HPD's
-\href{https://www.nyc.gov/assets/hpd/downloads/pdfs/services/485-x-Application.pdf}
-{485-x Options A and B application}.}
-
-The structural observation should ultimately be one parent opportunity, with
-one weight per opportunity. Legal-site and building records are nested
-outcomes, not independent observations.
-
-\subsection{Filing, amendment, treatment, and completion are different dates}
-
-DOB's initial filing records the project proposed at filing. A post-approval
-amendment can change that proposal, and neither record is necessarily the final
-built outcome. Permit and completion dates are separate again. Policy exposure
-depends on the statutory commencement rules, not simply the filing year.
-
-The empirical data must therefore preserve, rather than overwrite:
-
-\begin{itemize}
-  \item the initial filing and each observed amendment;
-  \item the unit count at each stage;
-  \item filing, approval, permit, commencement, and completion dates;
-  \item rental tenure and actual or intended 485-x participation; and
-  \item tax-lot and zoning-lot structure as of the relevant dates.
-\end{itemize}
-
-DOB NOW provides the recent filing and amendment history, while HDB extends the
-unit-count history. BIS and older DOB records will be needed for a consistent
-long preperiod. No source should silently replace another when their BBLs,
-BINs, dates, or units disagree.
-
-\subsection{The wage object is a project-specific employer-cost increment}
-
-The 100-unit requirement is not a generic union/nonunion wage differential.
-For each trade $r$, time period $t$, and hour type $o$, let
-$\bar c^{\mathrm{comp}}_{rto}$ be required creditable compensation and
-$c^0_{irto}$ be the creditable compensation that project $i$ would
-otherwise pay. A mechanical compliance-gap calculation is
-
+A developer chooses the number of residential units, $n$. Unit counts are discrete in the data; calculus is used to characterize choices within each regime. Let $v>0$ denote a project-specific marginal profitability shifter, net of ordinary linear per-unit costs. Smooth no-policy profit is
 \begin{equation}
-\Delta C_i^{\mathrm{comp}}(n)
-=
-\sum_{r,t,o} H_{irto}(n)
-\pos{\bar c^{\mathrm{comp}}_{rto}-c^0_{irto}}.
-\label{eq:compliance-gap}
-\end{equation}
-
-This is not yet the full employer-cost increment. Creditability rules matter:
-qualifying supplements can satisfy part of the requirement, while payroll
-taxes and several statutory employer charges do not.\footnote{See the New York
-City Comptroller's
-\href{https://comptroller.nyc.gov/services/for-the-public/workers-rights/485-x/}
-{485-x regulations and frequently asked questions}. The guidance also makes
-clear that rates can depend on classification and the applicable schedule.}
-The structural wage cost is therefore
-
-\begin{equation}
-W_i(n)
-=
-\min_{p\in\mathcal P_i(n)} C_i^{\mathrm{employer,rule}}(n,p)
--C_i^{\mathrm{employer},0}(n),
-\label{eq:wage-cost}
-\end{equation}
-
-where $\mathcal P_i(n)$ is the set of lawful compensation packages that satisfy
-the wage-and-supplement rule. Equation \eqref{eq:compliance-gap} is a
-transparent first calculation; equation \eqref{eq:wage-cost} is the preferred
-economic object. Both require covered hours, trade mix, timing, overtime or
-shift exposure, counterfactual pay and benefits, and induced employer charges.
-
-\subsection{Crossing creates a signed net wedge}
-
-Let the signed present-value wedge at $n\geq100$ be
-
-\begin{equation}
-T_i(n)
-=W_i(n)+A_i(n)+F_i(n)+K_i(n)-B_i(n),
-\label{eq:cost-ledger}
-\end{equation}
-
-where $A_i$ is the incremental affordability cost, $F_i$ the incremental
-filing fee, $K_i$ incremental administration and compliance, and $B_i$ the
-incremental property-tax benefit. Each term is relative to the no-notch
-benchmark and measured as a project-specific net present value. Obligations
-common to the below- and above-threshold project do not belong in $T_i(n)$.
-
-The word \emph{signed} matters. A more generous tax benefit may make
-$T_i(n)<0$ for some projects. The threshold identifies the combined net
-wedge. Behavioral bunching alone cannot isolate the construction-wage effect;
-doing so requires separately measuring the ledger components. Projects at 150
-or more units in the relevant zones must use the applicable additional wage
-schedule rather than extrapolating the 100-unit rule.
-
-\section{What the current audit establishes}
-
-\subsection{The four descriptive objects}
-
-The first audit plots:
-
-\begin{enumerate}
-  \item unit histograms for individual filings and provisional sites;
-  \item total construction floor area against units;
-  \item gross construction square feet per unit; and
-  \item building and application counts per provisional site.
-\end{enumerate}
-
-The application and parent-opportunity distributions must remain separate.
-Mass at 198 or 396 in a parent total is evidence about configuration choice; it
-is not a 198- or 396-unit legal site unless the eligible-site crosswalk says so.
-
-\subsection{Record-level audit of all 52 exact-99 filings}
-
-The current DOB initial-file extract contains 52 distinct 2025 root jobs and
-52 distinct initial BINs proposing exactly 99 units, spread across 43 filing
-BBLs. A reproducible casebook retains one row per job and links each job to its
-candidate parent, observed amendments, HDB record, physical fields, external
-evidence, and next required record.
-
-The present decomposition is:
-
-\begin{itemize}
-  \item 26 filings belong to ten candidate parents containing multiple
-  99-unit buildings;
-  \item seven have one 99-unit building plus non-99 companion buildings; and
-  \item 19 are currently unlinked one-building filings.
-\end{itemize}
-
-Thus 33 of 52 exact-99 buildings are in a candidate multi-building parent under
-the stated audit rule. The 52 buildings collapse to 36 candidate parent
-opportunities: 19 unlinked singletons, seven mixed groups, and ten repeated-99
-groups. Because the data currently end during 2026, only 19 anchors have a
-complete 365-day forward companion window; 11 of those 19 are multi-building.
-The full-sample 63.5 percent is therefore descriptive, not a population split
-rate.
-
-The repeated-99 parent totals are six groups at 198, one at 286, one at 367,
-one at 396, and one at 591 units. These are candidate \emph{parent} totals.
-Several groups also include non-99 buildings, so a model containing only equal
-99+99 splits would miss observed hybrid configurations.
-
-The records provide several checks on interpretation:
-
-\begin{itemize}
-  \item none of the 52 exact-99 filings is currently withdrawn;
-  \item 29 have an observed post-approval amendment, all 29 continue to report
-  99 units, and none shows an observed amendment-stage unit change;
-  \item all 52 match HDB on units, while six disagree on BBL and 11 disagree on
-  BIN across source snapshots;
-  \item DOB descriptions contain explicit companion-job references in some
-  groups and a shared project code across the six-building Queens group; and
-  \item public reporting describes the Atlantic Avenue/Havens Place pair as
-  one development with two 99-unit buildings, while earlier reporting shows a
-  unified 261-unit proposal on the site that now contains the four Empire-area
-  99-unit filings. These facts corroborate a common economic opportunity, not
-  separate legal eligible sites.\footnote{See
-  \href{https://commercialobserver.com/2025/07/developer-apartment-buildings-bed-stuy/}
-  {Commercial Observer on 2433 Atlantic Avenue and 28 Havens Place} and
-  \href{https://www.brownstoner.com/development/crown-heights-rezoning-73-empire-boulevard-city-planning-vote/}
-  {Brownstoner on the earlier 73--99 Empire Boulevard proposal}.}
-\end{itemize}
-
-These findings overturn a loose characterization of 99-unit filings as mostly
-small isolated buildings. Median gross construction area is approximately
-81,126 square feet among currently unlinked 99s, 77,560 among repeated-99
-cases, and 72,138 among 99s with other companions; the median is 12 stories in
-all three groups. The data also do not establish that 99-unit buildings have
-larger apartments. Gross construction area includes common, mechanical,
-parking, and nonresidential space.
-
-A targeted commercial real estate source review of all ten repeated-99 parents
-adds a useful evidence ranking. Atlantic Avenue/Havens Place has direct
-reporting of 485-x wage avoidance. The 165th Street and Empire Boulevard groups
-have very strong circumstantial evidence: the former is publicly described as
-a 591-unit zoning-lot development with a 99-unit component, while the latter
-moved from a publicly described unified 261-unit plan to four 99-unit filings.
-Three other parents have strong circumstantial evidence because DOB explicitly
-calls the paired buildings one zoning lot; four remain suggestive based on
-common filing, owner, architect, timing, and parcel evidence.\footnote{For the
-Jamaica group, see New York YIMBY's
-\href{https://newyorkyimby.com/2025/07/permits-filed-for-89-53-165th-street-in-jamaica-queens.html}
-{report on 89-53 165th Street and the 591-unit zoning lot}. This ranking concerns
-the economic configuration, not validated HPD eligible-site treatment.}
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\textwidth]{tasks/summarize_hdb_unit_bunching/output/hdb_unit_bunching_histogram.pdf}
-\caption{Application-level and provisional site-level unit distributions,
-shown separately for 2010--2023 and 2025. The provisional site sums New
-Building filings on the same HDB BBL in the same year. It is a reproducible
-descriptive proxy, not a legally validated 485-x eligible site or economic
-parent.}
-\label{fig:site-histogram}
-\end{figure}
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\textwidth]{tasks/summarize_developer_responses/output/developer_response_provisional_site_construction_area_vs_units.pdf}
-\caption{Proposed total construction floor area against units. Residential
-floor area is not available in the current filing extract.}
-\label{fig:area}
-\end{figure}
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\textwidth]{tasks/summarize_developer_responses/output/developer_response_provisional_site_construction_square_feet_per_unit.pdf}
-\caption{Gross construction square feet per dwelling unit. This is a redesign
-diagnostic, not apartment size.}
-\label{fig:sqft}
-\end{figure}
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\textwidth]{tasks/summarize_developer_responses/output/developer_response_provisional_site_building_application_counts.pdf}
-\caption{Buildings and applications within provisional sites. Legal split
-status requires HPD, zoning-lot, and as-of tax-lot validation.}
-\label{fig:counts}
-\end{figure}
-
-\clearpage
-\section{The minimal static model}
-
-\subsection{The no-notch value envelope and feasible unit set}
-
-Let $d$ contain the full design: units, floor area, unit mix, amenities,
-building count, and other physical and financial choices. Let
-$\mathcal D_i(n)$ be project $i$'s feasible designs with $n$ units. Define
-
-\begin{equation}
-\widetilde\Pi_i^0(n)
-=
-\max_{d\in\mathcal D_i(n)}\Pi_i^0(d),
-\qquad n\in\mathcal N_i,
-\label{eq:value-envelope}
-\end{equation}
-
-where $\mathcal N_i$ is a project-specific discrete feasible-unit set.
-The counterfactual removes only provisions that change at 100, smoothly
-continuing the below-threshold rules. It does not remove all 485-x obligations.
-Let $n_i^0\in\arg\max_{n\in\mathcal N_i}\widetilde\Pi_i^0(n)$.
-
-For transparent local algebra, use
-
-\begin{equation}
-\widetilde\Pi_i^0(n)
-=
-\overline\Pi_i-\frac{\gamma_i}{2}(n-n_i^0)^2,
-\qquad \gamma_i>0.
-\label{eq:quadratic-profit}
-\end{equation}
-
-The common-$\gamma$ model is the first benchmark, not a claim that redesign costs are
-identical. Observable heterogeneity or a parsimonious random coefficient can
-be added if the data reject it. The quadratic is local around 100; it is not a
-complete model of opportunities with parent totals near 200--600 or of the
-separate 150-unit schedule.
-
-The value envelope makes unit-count choice tractable, but it does not by itself
-generate floor area, unit size, or amenities. Those outcomes are held-out
-validation moments unless we add a structural design module. Let
-$d_i^{0*}(n)$ denote the optimizing design if we later model that mapping.
-
-\subsection{Bunching}
-
-The best feasible subthreshold count and its deterministic loss are
-
-\begin{align}
-n_i^B
-&\in\arg\min_{n\in\mathcal N_i,\ n\leq99}
-\frac{\gamma_i}{2}(n-n_i^0)^2,
-\label{eq:bunch-choice}\\
-L_i^B
-&=
-\frac{\gamma_i}{2}(n_i^B-n_i^0)^2.
-\label{eq:bunch-loss}
-\end{align}
-
-If 99 is feasible and $n_i^0\geq100$, then $n_i^B=99$. Otherwise the model
-uses the closest feasible subthreshold count; it does not manufacture a
-99-unit option.
-
-\subsection{Crossing}
-
-The developer solves
-
-\begin{align}
-n_i^C
-&\in\arg\min_{n\in\mathcal N_i,\ n\geq100}
-\left\{
-\frac{\gamma_i}{2}(n-n_i^0)^2+T_i(n)
-\right\},
-\label{eq:cross-choice}\\
-L_i^C
-&=
-\frac{\gamma_i}{2}(n_i^C-n_i^0)^2+T_i(n_i^C).
-\label{eq:cross-loss}
-\end{align}
-
-For algebra only, relax integer feasibility and approximate the local wedge as
-
-\begin{equation}
-T_i(n)=\alpha_i+\tau_i(n-100),
-\qquad \alpha_i=T_i(100).
-\label{eq:affine-cost}
-\end{equation}
-
-Then
-
-\begin{equation}
-n_i^C=\max\left\{100,n_i^0-\frac{\tau_i}{\gamma_i}\right\}.
-\label{eq:cross-size}
-\end{equation}
-
-If the solution is interior,
-
-\begin{equation}
-L_i^C
-=
-\alpha_i+\tau_i(n_i^0-100)-\frac{\tau_i^2}{2\gamma_i}.
-\label{eq:cross-loss-interior}
-\end{equation}
-
-If the lower bound binds,
-
-\begin{equation}
-L_i^C
-=
-\frac{\gamma_i}{2}(n_i^0-100)^2+\alpha_i.
-\label{eq:cross-loss-boundary}
-\end{equation}
-
-This centering makes the comparative statics clear. The fixed component
-$\alpha_i$ changes whether the project crosses but does not change the
-interior crossing size. The slope $\tau_i$ changes both crossing probability
-and conditional crossing size.
-
-\subsection{Splitting as a configuration choice}
-
-Let $\mathcal Q_i$ be the set of legally and physically feasible split
-configurations. A configuration $q$ contains $m(q)\geq2$ eligible sites
-with site-level counts $\mathbf n_q=(n_{q1},\ldots,n_{qm})$, each below 100,
-and may contain other buildings or shared infrastructure. Let
-$K_{iq}^{S}$ include the incremental present-value cost of subdivision,
-financing, applications, duplicated cores and systems, coordination, and lost
-usable area. Its loss is
-
-\begin{equation}
-L_{iq}^{S}
-=
-\frac{\gamma_i}{2}
-\left(\sum_{\ell=1}^{m(q)}n_{q\ell}-n_i^0\right)^2
-+K_{iq}^{S},
-\qquad q\in\mathcal Q_i,
-\label{eq:split-configuration-loss}
-\end{equation}
-
-and
-
-\begin{equation}
-L_i^S=\min_{q\in\mathcal Q_i}L_{iq}^{S}.
-\label{eq:split-loss}
-\end{equation}
-
-This formulation includes 99+99, unequal splits, and hybrid parents. For a
-first benchmark, one can set $K_{iq}^{S}=(m(q)-1)K^S$, but that restriction
-should be tested rather than built into the definition. If no valid
-configuration is feasible, $S$ is absent. A candidate repeated-99 cluster is
-not coded as $S$ until the legal-site crosswalk validates it.
-
-\subsection{i.i.d. choice shocks}
-
-Let $\mathcal R_i\subseteq\{B,C,S\}$ be the feasible response set. Response
-$r$ yields
-
-\begin{equation}
-V_{ir}=\overline\Pi_i-L_i^r+\sigma\varepsilon_{ir},
+\pi_0(n;v)=vn-C_0(n),
 \qquad
-\varepsilon_{ir}\overset{\mathrm{i.i.d.}}{\sim}
-\text{Type-I extreme value}.
-\label{eq:random-value}
+C_0(n)=\frac{\alpha}{1+\lambda}n^{1+\lambda},
+\label{eq:baseline_profit}
 \end{equation}
-
-The shocks represent genuine response-specific profit heterogeneity observed
-by the developer but not the econometrician. They should not be described as a
-license for measurement error or model misspecification. Choice probabilities
-are
-
+where $\alpha>0$ and $\lambda>0$. Marginal cost is $C_0'(n)=\alpha n^\lambda$, so the unique no-policy optimum is
 \begin{equation}
-P_i(r)=
-\frac{\exp(-L_i^r/\sigma)}
-{\sum_{j\in\mathcal R_i}\exp(-L_i^j/\sigma)}.
-\label{eq:logit-probability}
+ n_0(v)=\left(\frac{v}{\alpha}\right)^{1/\lambda}.
+\label{eq:n0}
 \end{equation}
+The parameter $1/\lambda$ is the elasticity of desired unit count with respect to $v$.
 
-The common value $\overline\Pi_i$ cancels because the model conditions on an
-observed opportunity. The i.i.d. assumption imposes IIA. It remains the simple
-baseline requested here; a nested-logit specification grouping bunching and
-splitting is a later robustness check, not part of the core estimator.
+\subsection{Policy cost schedule}
 
-The index $i$ must refer to one economic development opportunity, not every DOB
-filing attached to it. At the filing level, residuals remain strongly correlated
-within the same feature lot, and provisional site aggregation lowers held-out
-prediction error. Treating those component filings as separate developers with
-i.i.d. shocks would turn filing architecture and duplicate records into economic
-heterogeneity. The legal-site and parent crosswalk therefore comes before the
-i.i.d. assumption: the simple model keeps independent shocks across validated
-opportunities, not across their component applications.
+Let $N=100$ be the first unit count in the high regime and $b=N-1=99$ the largest avoiding choice. For $n\geq N$, define the incremental net policy burden
+\begin{equation}
+D(n)=K+\frac{\beta}{1+\lambda}\left(n^{1+\lambda}-N^{1+\lambda}\right),
+\qquad K\geq0,\quad \beta\geq0.
+\label{eq:policy_burden}
+\end{equation}
+Total profit is
+\begin{equation}
+\pi(n;v)=\pi_0(n;v)-\ind\{n\geq N\}D(n).
+\label{eq:full_profit}
+\end{equation}
+The parameter $K=D(N)$ is the net level discontinuity at entry. It can collect threshold-triggered wage, affordability, compliance, and tax-benefit effects. The parameter $\beta$ raises marginal cost above the threshold because
+\begin{equation}
+C_H'(n)=(\alpha+\beta)n^\lambda,
+\qquad n>N.
+\end{equation}
+Thus $\beta=0$ gives a pure notch, $K=0$ gives the pure-kink structure in \citet{brueckner2024}, and $K,\beta>0$ gives a notch plus a kink.
 
-\section{Algebra and comparative statics}
+\subsection{Choice conditional on entering}
 
-\subsection{Individual odds, not aggregate inversion}
+Conditional on entering the high regime, the developer solves the constrained problem $\max_{n\geq N}\pi_H(n;v)$. The unconstrained high-regime first-order condition is
+\begin{equation}
+ v=(\alpha+\beta)n^\lambda.
+\end{equation}
+Define the compression factor
+\begin{equation}
+\theta\equiv\left(\frac{\alpha+\beta}{\alpha}\right)^{1/\lambda}\geq1.
+\label{eq:theta}
+\end{equation}
+Combining the low- and high-regime first-order conditions gives the unconstrained high-regime optimum $n_0(v)/\theta$. Respecting the lower boundary of the high regime, the best feasible high-regime choice is therefore
+\begin{equation}
+ n_H(v)=\max\left\{N,\frac{n_0(v)}{\theta}\right\}.
+\label{eq:compression}
+\end{equation}
+Thus $\theta=1$ under a pure notch, while $\theta>1$ horizontally compresses projects that still enter. Equation \eqref{eq:compression} only characterizes the best choice conditional on entry; a developer whose best high-regime option is $N$ may still prefer $b=99$ once the level discontinuity $K$ is taken into account.
 
-At a given project state,
+\subsection{Entry and the marginal developer}
 
+For a developer with $n_0(v)>b$, the best avoiding choice is $b$. Let
+\begin{equation}
+ V_L(v)=vb-C_0(b),
+ \qquad
+ V_H(v)=\max_{n\geq N}\pi_H(n;v),
+\end{equation}
+and define the gain from entry as $\Delta(v)=V_H(v)-V_L(v)$. The envelope theorem gives the monotone-sorting result directly. Since $V_H(v)=\pi_H(n_H(v);v)$,
 \begin{align}
-\log\frac{P_i(B)}{P_i(C)}&=\frac{L_i^C-L_i^B}{\sigma},\\
-\log\frac{P_i(S)}{P_i(C)}&=\frac{L_i^C-L_i^S}{\sigma},\\
-\log\frac{P_i(S)}{P_i(B)}&=\frac{L_i^B-L_i^S}{\sigma}.
-\label{eq:pairwise-odds}
+ V_H'(v)
+ &=\frac{\partial\pi_H}{\partial v}
+ +\frac{\partial\pi_H}{\partial n}n_H'(v)
+ =n_H(v),
+ \label{eq:envelope_main}
 \end{align}
-
-These are individual-project relationships. With heterogeneous costs, feasible
-sets, and latent $n_i^0$, the log of an aggregate share ratio is not the
-average loss difference divided by $\sigma$. Estimation must integrate the
-project-level probabilities before comparing them with aggregate frequencies.
-
-For any response $k$,
-
-\begin{align}
-\frac{\partial P_i(k)}{\partial L_i^k}
-&=-\frac{P_i(k)[1-P_i(k)]}{\sigma}<0,\\
-\frac{\partial P_i(r)}{\partial L_i^k}
-&=\frac{P_i(r)P_i(k)}{\sigma}>0,
-\qquad r\neq k.
-\label{eq:probability-derivatives}
-\end{align}
-
-\subsection{Threshold level and slope}
-
-Because $\partial L_i^C/\partial\alpha_i=1$,
-
+where the second term vanishes by the first-order condition at an interior optimum and because $n_H(v)=N$ is locally constant when the boundary binds. Since $V_L'(v)=b$,
 \begin{equation}
-\frac{\partial}{\partial\alpha_i}
-\log\frac{P_i(B)}{P_i(C)}
-=
-\frac{\partial}{\partial\alpha_i}
-\log\frac{P_i(S)}{P_i(C)}
-=\frac{1}{\sigma}.
-\label{eq:alpha-cs}
+\boxed{\Delta'(v)=n_H(v)-b>0.}
+\label{eq:monotone_entry}
 \end{equation}
-
-The envelope theorem gives
-
+There is therefore a unique marginal type $v^\dagger$ satisfying $\Delta(v^\dagger)=0$. Define
 \begin{equation}
-\frac{\partial L_i^C}{\partial\tau_i}=n_i^C-100.
-\label{eq:tau-loss}
+ q\equiv n_0(v^\dagger),
+ \qquad
+ h\equiv n_H(v^\dagger)
+ =\max\left\{N,\frac{q}{\theta}\right\}.
+\label{eq:q_h}
 \end{equation}
-
-Thus a steeper schedule increases bunching and splitting relative to crossing
-when the chosen crossing project exceeds 100. For an interior crosser,
-
+The resulting decision rule is
 \begin{equation}
-\frac{\partial n_i^C}{\partial\tau_i}=-\frac{1}{\gamma_i}.
-\label{eq:tau-size}
+ n^*(v)=
+ \begin{cases}
+ n_0(v), & n_0(v)\leq b,\\[3pt]
+ b, & b<n_0(v)<q,\\[3pt]
+ \max\left\{N,n_0(v)/\theta\right\}, & n_0(v)\geq q.
+ \end{cases}
+\label{eq:decision_rule}
 \end{equation}
+The model therefore permits a boundary choice at $N$. If $q<\theta N$, a positive interval of developers enters but chooses exactly $N$. If instead $q\geq\theta N$, the boundary is weakly dominated by $b=99$ for every type whose conditional high-regime optimum is $N$; under strict inequality, the first crosser is interior and the surviving upper tail begins at $q/\theta>N$. The current data contain no mass at exactly 100 and little mass immediately above it, so the main analysis emphasizes this strict interior-crossing branch, while retaining boundary entry as a technically feasible model outcome. Figure \ref{fig:mapping} illustrates the interior-crossing branch.
 
-The fixed wedge shifts crossing probability; the slope also shrinks the
-conditional size of crossing projects.
-
-\subsection{Design rigidity and split cost}
-
-Let $d_i^B=n_i^0-n_i^B$ and $d_i^C=n_i^0-n_i^C$. Then
-
-\begin{equation}
-\frac{\partial}{\partial\gamma_i}
-\log\frac{P_i(B)}{P_i(C)}
-=
-\frac{(d_i^C)^2-(d_i^B)^2}{2\sigma}.
-\label{eq:gamma-odds}
-\end{equation}
-
-When crossing preserves more of the preferred scale, a larger curvature makes
-bunching less attractive. Increasing $K_{iq}^{S}$ raises the loss of that
-configuration one for one; expanding $\mathcal Q_i$ weakly lowers $L_i^S$.
-
-\subsection{Deterministic frontiers and their domains}
-
-The shocks remove a literal marginal buncher, but zero-shock frontiers are
-useful summaries. Suppose 99 is feasible, $n_i^0\geq100$, and crossing costs
-a constant $T_i$ while preserving $n_i^0$. Bunching and crossing tie at
-
-\begin{equation}
-n_i^0=99+\sqrt{\frac{2T_i}{\gamma_i}}.
-\label{eq:simple-frontier}
-\end{equation}
-
-For an exposed project this requires $T_i\geq\gamma_i/2$; if $T_i<0$,
-crossing strictly dominates bunching in this simple comparison.
-
-Under the affine schedule and an interior crossing solution, define
-$d_i=n_i^0-99$. The bunch--cross frontier is
-
-\begin{equation}
-d_i
-=
-\frac{\tau_i}{\gamma_i}
-+\sqrt{\frac{2(\alpha_i-\tau_i)}{\gamma_i}}.
-\label{eq:affine-frontier}
-\end{equation}
-
-This expression requires $\alpha_i-\tau_i\geq0$ and must also satisfy the
-interior condition $n_i^0-\tau_i/\gamma_i>100$. If the crossing lower bound
-binds, the frontier is
-
-\begin{equation}
-d_i=\frac{1}{2}+\frac{\alpha_i}{\gamma_i},
-\label{eq:boundary-frontier}
-\end{equation}
-
-subject to the boundary condition and $d_i\geq1$. These restrictions prevent
-the closed-form expressions from being applied outside their economic domain.
-
-\section{Parameters and empirical counterparts}
-
-\begin{table}[H]
+\begin{figure}[t]
 \centering
-\small
-\begin{tabularx}{\textwidth}{
-  >{\raggedright\arraybackslash}p{0.16\textwidth}
-  >{\raggedright\arraybackslash}p{0.25\textwidth}
-  X}
-\toprule
-\textbf{Object} & \textbf{Economic meaning} & \textbf{Empirical counterpart} \\
-\midrule
-$F_0(n^0,A^0\mid X)$
-& No-notch units and total project area
-& Local pre-policy cohorts with comparable as-of zoning capacity, lot area,
-location, tenure, and building form. Model $n^0$ and $A^0$; derive gross
-square feet per unit as $A^0/n^0$. \\
-\addlinespace
-$\mathcal N_i$
-& Feasible unit counts
-& As-of zoning envelope, lot geometry, building code, floorplate, parking or
-other constraints, and observed design alternatives. \\
-\addlinespace
-$W_i(n)$
-& Incremental employer cost of construction compensation
-& Covered hours by trade, time, and hour type; counterfactual wages and
-creditable benefits; statutory schedules; induced noncreditable charges. \\
-\addlinespace
-$\alpha_i,\tau_i$
-& Level and local slope of the signed net threshold wedge
-& Project-specific NPV ledger for wages, affordability, filing fees,
-compliance, and incremental tax benefits. \\
-\addlinespace
-$\gamma_i$
-& Dollar loss from moving away from preferred units
-& Variation in response and crossing size with predicted distance from 99 and
-measured costs. Common $\gamma$ is the benchmark. \\
-\addlinespace
-$K_{iq}^{S},\mathcal Q_i$
-& Configuration-specific split costs and feasibility
-& Parent opportunity, as-of tax and zoning lots, HPD dockets, beneficial
-ownership, financing, and duplicated physical systems. \\
-\addlinespace
-$\sigma$
-& Residual response-specific profit heterogeneity
-& Smoothness of project-level response probabilities after measured losses and
-feasible sets are included. \\
-\bottomrule
-\end{tabularx}
-\caption{Theory objects and the evidence that disciplines them.}
-\label{tab:parameter-map}
-\end{table}
+\begin{tikzpicture}[x=1.05cm,y=0.78cm,>=stealth]
+  % axes
+  \draw[->] (0,0) -- (8.2,0) node[right] {$x$: no-policy units};
+  \draw[->] (0,0) -- (0,6.2) node[above] {$n^*(x)$};
+  % 45 degree lower branch
+  \draw[thick] (0.45,0.45) -- (2.15,2.15);
+  % bunching branch
+  \draw[thick] (2.85,2.15) -- (5.30,2.15);
+  % upper compressed branch
+  \draw[thick] (5.30,3.55) -- (7.65,5.12);
+  % dashed guides
+  \draw[dashed] (2.15,0) -- (2.15,2.15);
+  \draw[dashed] (2.85,0) -- (2.85,2.15);
+  \draw[dashed] (5.30,0) -- (5.30,3.55);
+  \draw[dashed] (0,2.15) -- (5.30,2.15);
+  \draw[dashed] (0,3.55) -- (5.30,3.55);
+  % labels
+  \node[below] at (2.15,0) {$b$};
+  \node[below] at (2.85,0) {$N$};
+  \node[below] at (5.30,0) {$q$};
+  \node[left] at (0,2.15) {$b$};
+  \node[left] at (0,3.55) {$q/\theta$};
+  \node[align=center] at (4.05,1.45) {move to\\99};
+  \node[align=center,rotate=33] at (6.70,4.72) {slope $1/\theta$};
+  \node[align=center] at (6.15,2.65) {gap};
+\end{tikzpicture}
+\caption{Schematic policy mapping in the interior-crossing branch $q>\theta N$. Projects with no-policy size between $N$ and $q$ move to $b=99$; projects above $q$ remain in the high regime but are compressed by $1/\theta$. The general model also permits a boundary choice at $N$.}
+\label{fig:mapping}
+\end{figure}
 
-The coefficient on dollar profit is normalized to one. At least one important
-component of $T_i(n)$, beginning with the wage module, must be measured in
-dollars outside the choice model. This anchors $\gamma_i$, split costs, and
-$\sigma$ in dollars. Without that anchor, choices identify only ratios. An
-unrestricted multiplier on measured wage costs cannot be separately identified
-from $\sigma$ using the same variation.
+\section{Distributional implications and identification}
 
-\section{Estimation and simulation roadmap}
+Let $H_0(j)$ denote the expected number of projects choosing exactly $j$ units without the policy, and let $h_0(x)$ denote a continuous interpolation of this distribution. The model generates two distinct moments.
 
-\subsection{Chunk 1: finish the outcome crosswalk}
+\subsection{Bunching identifies the no-policy source frontier}
 
-The 52-row casebook is the starting point, not the final outcome data. For each
-exact-99 building and each companion, establish:
-
-\begin{enumerate}
-  \item initial, amendment, permit, and completion-stage units;
-  \item rental tenure and intended or realized 485-x participation;
-  \item tax lots and zoning lot at filing and commencement;
-  \item HPD registration, docket, application, and eligible-site units; and
-  \item beneficial owner, financing, and parent development opportunity.
-\end{enumerate}
-
-The first records requests should prioritize the 26 repeated-99 cases, the two
-99-unit anchors in high-priority different-owner pairs, and the seven mixed
-parents. The 19 unlinked cases remain ``currently unlinked,'' not proven
-standalone projects; ten are right-censored by the companion window.
-
-Outcome coding occurs only after validation:
-
-\begin{itemize}
-  \item $B$: a sub-100 legal site with posterior mass on $n_i^0\geq100$;
-  \item $C$: a legal site that crosses 100; and
-  \item $S$: one parent opportunity realized as multiple legally distinct
-  sub-100 eligible sites.
-\end{itemize}
-
-Classification sensitivity should be reported by evidence tier. This is a
-diagnostic, not a partial-identification exercise.
-
-\subsection{Chunk 2: estimate the local no-notch distribution}
-
-The counterfactual object is the total number of units the parent development
-opportunity would have chosen without the 100-unit notch. If one 198-unit
-opportunity becomes two 99-unit buildings, the observed filing counts are 99
-and 99 but the relevant counterfactual scale is 198. Estimating the model on
-individual filings would therefore answer the wrong question.
-
-For each parent, estimate
-
+Excess mass at 99 is
 \begin{equation}
-F_0(n_i^0\mid X_i,t_i;\eta)
-\label{eq:baseline-distribution}
+ B\equiv H_{\mathrm{obs}}(b)-H_0(b).
 \end{equation}
+Under \eqref{eq:decision_rule}, these projects come from no-policy choices between $N$ and $q$. The exact integer and continuous equations are
+\begin{equation}
+ B=\sum_{j=N}^{q-1}H_0(j)
+ \qquad\text{and}\qquad
+ B=\int_N^q h_0(x)\dd x.
+\label{eq:bunching_mass}
+\end{equation}
+Given a counterfactual $H_0$, the spike identifies $q$ by accumulating mass from 100 upward. If the frontier cuts through an integer bin, the empirical implementation allocates that terminal bin fractionally. Importantly, $\theta$ does not enter \eqref{eq:bunching_mass}: the spike identifies which no-policy projects leave the high regime, not how the surviving projects are compressed.
 
-using a local, policy-relevant preperiod, explicit calendar-time controls, and
-one weight per parent. The current enhanced parent joins filings using
-conservative pre-filing links and corroborated exact tax-lot adjacency. Exact
-MapPLUTO polygons are available consistently only from 2019 onward, so the
-production model trains on fully observed 2019--2022 parent cohorts and does
-not impute earlier adjacency. The 2023 anchors are boundary-exposed because a
-complete 365-day linkage window would reach into the policy period. The
-legal eligible-site crosswalk remains unfinished; ``enhanced parent'' is an
-economic-opportunity proxy, not an HPD determination.
+\subsection{The upper tail identifies the compression factor}
 
-For each post-policy parent, retain the full conditional predictive
-distribution of $n_i^0$. Do not deterministically label a 99 as a buncher
-because a point prediction exceeds 99. Total construction area may be modeled
-jointly or conditionally; gross square feet per unit is derived, not a third
-independent outcome.
+The model permits two high-regime components. If $q<\theta N$, developers with no-policy sizes between $q$ and $\theta N$ choose the boundary $N$, generating an atom
+\begin{equation}
+ B_N=\int_q^{\theta N}h_0(x)\dd x.
+\label{eq:boundary_atom}
+\end{equation}
+This atom is zero when $q\geq\theta N$. For the continuous part of the upper tail, observed size is $n=x/\theta$, where $x$ is no-policy size. Conservation of mass implies
+\begin{equation}
+ h_1(n)=\theta h_0(\theta n),
+ \qquad n>\max\left\{N,\frac{q}{\theta}\right\}.
+\label{eq:tail_density}
+\end{equation}
+Regardless of whether the boundary branch is active, observed projects between $N$ and any $m\geq h$ originate from no-policy projects between $q$ and $\theta m$:
+\begin{equation}
+ H_{\mathrm{obs}}([N,m])=\int_q^{\theta m}h_0(x)\dd x.
+\label{eq:cumulative_theta}
+\end{equation}
+Setting $m=q$ yields a particularly transparent identifying moment:
+\begin{equation}
+ H_{\mathrm{obs}}([N,q])=\int_q^{\theta q}h_0(x)\dd x.
+\label{eq:theta_moment}
+\end{equation}
+Thus $q$ is identified by the mass moved to 99, while $\theta$ is identified, in principle, by the mass and shape of the surviving upper tail, including any boundary atom. In sparse samples, \eqref{eq:theta_moment} can be used for a point estimate and the full distributional restrictions \eqref{eq:boundary_atom}--\eqref{eq:tail_density} for minimum-distance or likelihood estimation. A sensitivity analysis over $\theta$ remains useful.
 
-The production benchmark is a linear log-unit model with one static scale
-shock per parent:
+The condition
+\begin{equation}
+ q>\theta N
+ \quad\Longleftrightarrow\quad
+ \theta<\frac{q}{N}
+\label{eq:theta_bound}
+\end{equation}
+characterizes the interior-crossing branch; it is not imposed by the model. If instead $q<\theta N$, the model predicts positive mass at exactly $N$. The absence of observed 100-unit projects therefore provides direct evidence about which branch is empirically relevant.
 
+\subsection{Why the missing-mass curve need not recover}
+
+Define the cumulative deficit through $m$ as
+\begin{equation}
+ \mathcal{D}(m)=\int_N^m\left[h_0(n)-h_1(n)\right]\dd n.
+\end{equation}
+For $m\geq q$, equations \eqref{eq:bunching_mass} and \eqref{eq:tail_density} imply
+\begin{equation}
+ \boxed{\mathcal{D}(m)=B-\int_m^{\theta m}h_0(x)\dd x.}
+\label{eq:deficit_identity}
+\end{equation}
+The second term is no-policy mass from above $m$ compressed into the observed range below $m$. Under a pure notch, $\theta=1$ and the term is zero, so the deficit reaches $B$. With a kink, $\theta>1$ and pointwise recovery is not expected.
+
+\section{Mapping behavior into policy costs}
+
+The model distinguishes three related cost objects.
+
+\subsection{Marginal-cost wedge}
+
+From \eqref{eq:theta},
+\begin{equation}
+ \boxed{\frac{\beta}{\alpha}=\theta^\lambda-1.}
+\label{eq:beta_wedge}
+\end{equation}
+This is the proportional increase in marginal cost at a fixed project size above the threshold.
+
+\subsection{Level notch}
+
+The marginal developer is indifferent between the avoiding choice $b$ and the optimal high-regime choice $h=\max\{N,q/\theta\}$. Hence
 \begin{equation}
 \begin{aligned}
-\log n_i^0={}&
-\beta_0+
-\beta_1\log(\text{lot area}_i)+
-\beta_2\text{ResidFAR}_i+
-\beta_3\text{BuiltFAR}_i \\
-&+\beta_4(t_i-\bar t)+Z_i'\gamma+u_i,
-\qquad
-u_i\overset{\mathrm{i.i.d.}}{\sim}\mathcal N(0,\tau^2).
+K
+={}&v^\dagger(h-b)-\left[C_0(h)-C_0(b)\right]\\
+&-\frac{\beta}{1+\lambda}\left(h^{1+\lambda}-N^{1+\lambda}\right).
 \end{aligned}
-\label{eq:no-notch-log-units}
+\label{eq:K_main}
 \end{equation}
-
-Here $Z_i$ contains borough, zoning group, and prior site use, while
-$\beta_4(t_i-\bar t)$ is a linear filing-year control. Lot area is summed across unique pre-filing
-lots; FAR measures are lot-area weighted. Missing residential FAR has its own
-indicator. The parameter $\tau$ measures residual dispersion in preferred
-no-notch scale. It is not the dollar-valued response shock $\sigma$ in the
-bunch-cross-split model.
-
-Because the estimation sample begins at six units, ordinary least squares on
-the selected sample does not recover the maintained distribution. For an
-integer unit count $n$ and estimation floor $c=6$, the benchmark instead
-maximizes the rounded, lower-truncated probability
-
+The first term is the gross value of expanding beyond 99, the second is ordinary incremental cost, and the third is the accumulated kink cost above 100. Use
 \begin{equation}
-\Pr(n_i^0=n\mid n_i^0\geq c,X_i)
-=
-\frac{
-\Phi\!\left(\frac{\log(n+0.5)-X_i'\beta}{\tau}\right)
--
-\Phi\!\left(\frac{\log(n-0.5)-X_i'\beta}{\tau}\right)
-}{
-1-
-\Phi\!\left(\frac{\log(c-0.5)-X_i'\beta}{\tau}\right)
-}.
-\label{eq:rounded-truncated-units}
+ v^\dagger=\alpha q^\lambda,
+ \qquad
+ \frac{\beta}{\alpha}=\theta^\lambda-1,
 \end{equation}
-
-Forward validation compares filing models, conservative-parent models, and the
-enhanced-parent model on common parent outcomes. The recent parent model has
-the best average rounded log score, local CDF fit, and upper-tail calibration.
-Its advantage is modest, so filing-level models, the 2010--2023 history, the
-11-unit floor, and richer covariates remain useful audits.
-
-The preferred post-policy sample admits a 2025 cohort after 180 observed days,
-provided its full pre-filing linkage window is observable. Parent construction
-continues to add observed companions through day 365; no missing companion is
-imputed. This rule scores 564 parents containing 625 component filings. Figure
-\ref{fig:parent-counterfactual} compares their observed distribution with the
-fitted no-notch distribution. There are 22 observed exact-99 parents but only
-0.86 expected without the notch, an excess of 21.14. The model predicts 84.09
-parents at or above 100 but observes 80, a missing mass of 4.09. The remaining
-17.05 parents are balanced by missing mass below 99, concentrated at small
-project sizes. Exact bunching therefore cannot be read as a one-for-one flow
-from above 100 without an additional behavioral assumption.
-
-Calibrating the cleaner exact-99 excess to the fitted no-notch distribution
-implies a frontier of 130.8 units and an affected mean of 113.9 units. The
-completed-365-day sensitivity observes ten exact-99 parents and implies a
-frontier of 133.5 and a mean of 114.9. Thus the implied counterfactual size is
-stable even though the amount of bunching grows when mature, right-censored
-cohorts enter the sample. Threshold placebos and pseudo-policy years do not
-reproduce the exact-99 spike, while leave-one-year-out estimates preserve it.
-A parent bootstrap places the 95 percent interval for the preferred affected
-mean at 111.9--116.9 when the observed post cohort is held fixed and
-107.4--122.7 when post parents are also resampled. These results discipline the
-no-notch size distribution; they do not yet identify a dollar cost.
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\textwidth]{tasks/estimate_parent_no_notch_model/output/enhanced_parent_2025_counterfactual.pdf}
-\caption{Observed mature-2025 enhanced-parent unit counts and the fitted
-no-notch distribution from fully observed 2019--2022 parent cohorts. The gray
-bars are observed
-counts; the blue line sums each parent's predicted probability at each unit
-count. A cohort enters after 180 observed days, while parent construction keeps
-searching for observed companions through day 365. The sharp excess at 99 is
-not mechanically created by treating two 99-unit filings as two independent
-opportunities. Parent links remain provisional until the legal eligible-site
-crosswalk is validated.}
-\label{fig:parent-counterfactual}
-\end{figure}
-
-\subsection{Chunk 3: build the threshold ledger}
-
-Construct $W_i(n)$ from hours and counterfactual compensation, then add each
-remaining term of \eqref{eq:cost-ledger}. Every ledger row needs:
-
-\begin{itemize}
-  \item a dollar NPV and explicit sign;
-  \item source, vintage, and policy rule;
-  \item scaling with units, area, trade mix, time, and location;
-  \item whether it changes at 100 or is common on both sides; and
-  \item missingness or imputation flags.
-\end{itemize}
-
-The wage-only counterfactual is meaningful only after the other threshold
-changes are held fixed. The observed response identifies the net wedge, not the
-wage component by itself.
-
-\subsection{Chunk 4: estimate project-level response parameters}
-
-With closed-form logit probabilities, there is no reason to simulate Gumbel
-shocks. Integrate only over the latent no-notch state:
-
+and define the dimensionless ratios
 \begin{equation}
-\Pr(y_i=r\mid X_i)
-=
-\int P_i(r\mid n^0,X_i;\theta)
-\,dF_0(n^0\mid X_i;\widehat\eta).
-\label{eq:integrated-probability}
+ x\equiv\frac{q}{b},
+ \qquad
+ r\equiv\frac{N}{b},
+ \qquad
+ y\equiv\frac{h}{b}=\max\left\{r,\frac{x}{\theta}\right\},
+ \qquad
+ \kappa\equiv\frac{K}{C_0(b)}.
 \end{equation}
-
-A simulated maximum-likelihood baseline is
-
+Dividing \eqref{eq:K_main} by $C_0(b)=\alpha b^{1+\lambda}/(1+\lambda)$ removes the unidentified cost scale $\alpha$ and yields the general normalized notch:
 \begin{equation}
-\widehat\theta
-=
-\arg\max_{\theta}
-\sum_i
-\log\left[
-\frac{1}{D}\sum_{d=1}^{D}
-P_i(y_i\mid n_{id}^0,X_i;\theta)
-\right],
-\quad
-n_{id}^0\sim F_0(\cdot\mid X_i;\widehat\eta).
-\label{eq:simulated-likelihood}
+\boxed{
+\kappa
+=(1+\lambda)x^\lambda(y-1)
+-\left(y^{1+\lambda}-1\right)
+-(\theta^\lambda-1)\left(y^{1+\lambda}-r^{1+\lambda}\right).}
+\label{eq:kappa_general}
 \end{equation}
-
-The first parameter vector can be
-$\theta=(\gamma,K^S,\sigma)$, with measured project-specific ledger terms
-entering directly. A parsimonious $K_{iq}^{S}=Z_{iq}'\beta_S$ and observed
-heterogeneity in $\gamma_i$ come only after the validated sample supports
-them. Bootstrap at the parent-opportunity level and re-estimate $F_0$ within
-each bootstrap draw.
-
-The core estimation outcomes are response category, site-level units, parent
-configuration, and crossing size. Use exact one-unit bins near 99. Estimate
-with policy-timing and placebo thresholds visible, rather than smoothing away
-the notch.
-
-\subsection{Chunk 5: identification and model checks}
-
-Before interpreting costs, report:
-
-\begin{itemize}
-  \item likelihood or objective profiles for $\gamma,K^S,\sigma$;
-  \item Hessian or Jacobian conditioning and parameter correlations;
-  \item Monte Carlo recovery in samples with the actual sample size and
-  covariate distribution;
-  \item sensitivity to parent and legal-site classifications;
-  \item pseudo-thresholds such as 89, 109, and 119 units;
-  \item pseudo-policy dates and alternative local preperiods; and
-  \item an IIA check, with nested logit only as a robustness extension.
-\end{itemize}
-
-The point-estimation baseline remains fully parametric. These exercises reveal
-weak identification or misspecification without turning the first paper into a
-partial-identification analysis.
-
-\subsection{Chunk 6: held-out validation}
-
-The model must match outcomes it actually generates: exact unit histograms,
-bunch/cross/split shares, crossing sizes, parent totals, and configuration
-counts. It should also face held-out physical diagnostics such as total area,
-gross area per unit, stories, and building counts. A failure on those outcomes
-is informative, but the baseline cannot be said to predict them until a design
-mapping $d_i^{0*}(n)$ is estimated.
-
-Large candidate parent totals cannot validate the local quadratic alone. They
-test the split-configuration menu, parent measurement, and any wider-scale
-profit module. Projects crossing 150 must be evaluated with the correct
-schedule.
-
-\section{Developer-profit and unit counterfactuals}
-
-The first counterfactual removes only the measured 100-unit construction-
-compensation increment:
-
+In the interior-crossing branch, $y=x/\theta$, and \eqref{eq:kappa_general} simplifies to
 \begin{equation}
-T_i^{\mathrm{no\ wage}}(n)
-=T_i^{\mathrm{policy}}(n)-W_i(n).
-\label{eq:wage-counterfactual}
+ \boxed{
+ \kappa
+ =1+\frac{\lambda}{\theta}x^{1+\lambda}
+ -(1+\lambda)x^\lambda
+ +(\theta^\lambda-1)r^{1+\lambda}.}
+\label{eq:kappa}
 \end{equation}
-
-Recompute integrated response probabilities, crossing sizes, configurations,
-and expected units for the observed opportunity sample. This yields the
-sample-conditional change in bunching, crossing, splitting, units, and private
-developer value.
-
-For Type-I extreme-value shocks, expected maximum value equals
-
+If the marginal crosser instead chooses the boundary, $y=r$ and
 \begin{equation}
-\overline\Pi_i
-+\sigma\log\left[
-\sum_{r\in\mathcal R_i}\exp(-L_i^r/\sigma)
-\right]
-+\sigma\gamma_E,
-\label{eq:inclusive-value}
+ \kappa
+ =(1+\lambda)x^\lambda(r-1)-\left(r^{1+\lambda}-1\right).
+\label{eq:kappa_boundary}
 \end{equation}
-
-where $\gamma_E$ is Euler's constant under the standard shock normalization.
-Both $\overline\Pi_i$ and $\sigma\gamma_E$ cancel in a within-project policy
-difference. The developer-value gain from removing the wage component is
-
+The pure-notch special case $\theta=1$ is
 \begin{equation}
-\Delta\Pi_i^{\mathrm{no\ wage}}
-=
-\sigma
-\left\{
-\log\sum_r\exp(-L_{ir}^{\mathrm{no\ wage}}/\sigma)
--
-\log\sum_r\exp(-L_{ir}^{\mathrm{policy}}/\sigma)
-\right\}.
-\label{eq:developer-gain}
+ \kappa_{\mathrm{notch}}
+ =1+\lambda x^{1+\lambda}-(1+\lambda)x^\lambda.
+\label{eq:pure_notch_kappa}
 \end{equation}
+For fixed $(q,\lambda)$, $\kappa$ falls with $\theta$ within the interior-crossing branch: a stronger marginal-cost effect requires a smaller level jump to generate the same bunching frontier.
 
-Summing this expression across the modeled filing opportunities measures the
-private burden on that observed margin. It is not a citywide developer-profit
-effect and not social welfare: projects that never filed, workers, renters,
-tax revenue, and general-equilibrium responses are absent.
+\subsection{Total burden faced by the marginal crosser}
 
-\section{Concrete order of work}
+The total policy burden at $h$ is
+\begin{equation}
+D(h)=K+\frac{\beta}{1+\lambda}\left(h^{1+\lambda}-N^{1+\lambda}\right).
+\end{equation}
+Normalized by $C_0(b)$, it can be written generally as
+\begin{equation}
+ \boxed{
+ \delta\equiv\frac{D(h)}{C_0(b)}
+ =(1+\lambda)x^\lambda(y-1)-\left(y^{1+\lambda}-1\right),}
+\label{eq:delta}
+\end{equation}
+where $y=\max\{r,x/\theta\}$. Equivalently,
+\begin{equation}
+ \delta=\kappa+(\theta^\lambda-1)\left(y^{1+\lambda}-r^{1+\lambda}\right).
+\end{equation}
+The three objects answer different questions:
+\begin{center}
+\begin{tabularx}{0.96\textwidth}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth} >{\centering\arraybackslash}p{0.25\textwidth} X@{}}
+\toprule
+Object & Formula & Interpretation \\
+\midrule
+Marginal-cost wedge & $\beta/\alpha=\theta^\lambda-1$ & Percentage increase in marginal cost in the high regime. \\
+Level notch & $\kappa=K/C_0(b)$ & Net discontinuity triggered at 100, relative to modeled smooth cost at 99. \\
+Total marginal-project burden & $\delta=D(h)/C_0(b)$ & Total direct policy burden paid by the marginal crosser at its optimal high-regime size. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+The denominator $C_0(b)$ is the explicitly modeled convex cost component. Converting these objects into a share of all-in project cost, or into dollars, requires additional cost information.
 
+\section{Empirical implementation}
+
+The baseline counterfactual need not assign a latent no-policy unit count to each post-policy lot. Let historical parent projects retain their observed untreated unit counts $N_j^0$ and receive calibration weights $w_j$ chosen using predetermined site characteristics. The transported no-policy distribution is
+\begin{equation}
+ \widehat H_0(n)=\sum_{j\in\mathrm{pre}}w_j\ind\{N_j^0=n\}.
+\label{eq:transport}
+\end{equation}
+This preserves historical exact-count heaping and estimates an aggregate distribution for a population with the post-policy site composition.
+
+A natural estimation sequence is:
 \begin{enumerate}
-  \item \textbf{Legally validate the response cases.} Begin with the 22
-  exact-99 parents in the preferred 180-day sample, especially the three
-  absorbed by the broad link graph and the four with review-only companion
-  candidates. Obtain HPD docket/application, zoning-lot, commencement-date,
-  tenure, beneficial-owner, and completion evidence. Preserve the full 52-job
-  casebook for split-configuration evidence.
-  \item \textbf{Freeze the outcome crosswalk.} Produce building-, legal-site-,
-  and parent-level datasets with evidence codes and symmetric pre/post rules.
-  \item \textbf{Estimate a local no-notch distribution.} Use the validated
-  opportunity as the observation and estimate
-  \eqref{eq:rounded-truncated-units}. Use the expanding six-plus sample as the
-  benchmark, retain the rolling five-year 11-plus model as the required sample
-  robustness, and preserve conditional predictive uncertainty in $n_i^0$.
-  Revalidate both after the crosswalk is fixed and across pseudo-policy dates.
-  \item \textbf{Build the wage module.} Report the compliance gap and full
-  employer-cost increment separately for 99, 100, 120, and 149 units and for
-  relevant trade, time, and location profiles.
-  \item \textbf{Build the complete signed ledger.} Add affordability, fees,
-  compliance, and incremental tax benefits as project-specific NPVs.
-  \item \textbf{Estimate the simple response model.} Start with common
-  $\gamma,K^S,\sigma$, exact feasible sets where observable, analytic logit
-  probabilities, and simulated integration over $n_i^0$.
-  \item \textbf{Diagnose before interpreting.} Use profiles, Monte Carlo
-  recovery, timing/placebo tests, and classification sensitivity.
-  \item \textbf{Run the wage-removal counterfactual.} Report restored units and
-  sample-conditional developer value. Broader welfare follows later.
+\item Estimate natural mass at 99 and excess bunching $\widehat B$.
+\item Solve \eqref{eq:bunching_mass} for the no-policy frontier $\widehat q$.
+\item Estimate $\theta$ from \eqref{eq:theta_moment} or the full transformed distribution \eqref{eq:boundary_atom}--\eqref{eq:tail_density}. The general estimator should allow the boundary branch, while a sensitivity grid can emphasize values below $\widehat q/N$ when the data contain no mass at 100.
+\item For each $(\theta,\lambda)$, report $\beta/\alpha$, $\kappa$, and $\delta$ using \eqref{eq:beta_wedge}, \eqref{eq:kappa_general}, and \eqref{eq:delta}.
 \end{enumerate}
+The 150-unit threshold creates a separate policy regime. Empirical moments used to estimate the 100-unit model should therefore remain below 150 or explicitly model the second threshold. When $\widehat q$ is near 122, values $\theta<1.22$ place the marginal crosser above 100 and keep the identifying interval $[q,\theta q]$ below 150. Values at or above this boundary predict an atom at 100 and are directly testable against the observed histogram.
 
-\section{Bottom line}
+The parameter $\lambda$ governs curvature in unit-count space. It should not be imported mechanically from a floor-space production function if developers can respond by changing apartment size rather than total floor area. The preferred approach is to report cost mappings over a plausible range of $\lambda$ until project cost or pro forma data provide additional discipline.
 
-The simplest defensible framework remains a static discrete-choice model of
-bunching, crossing, and legally valid splitting. The revisions make that model
-more literal: unit sets are discrete and project-specific; the crossing wedge
-is signed and centered at 100; fixed and marginal costs have different
-comparative statics; split outcomes are configurations; and latent preferred
-scale is integrated rather than deterministically assigned.
+\section{Quantity and design implications}
 
-The record audit also changes the empirical picture. Half of the 52 exact-99
-buildings belong to repeated-99 candidate parents, and another seven have
-non-99 companions. Those buildings are not generally smaller than the
-currently unlinked 99s. But candidate parent evidence is not legal proof of a
-successful 485-x split. The immediate bottleneck is the HPD and zoning-lot
-crosswalk, followed by a credible wage and net-benefit ledger. Once those
-objects exist, the simple model can translate project-level response patterns
-into redesign costs, split costs, and sample-conditional developer losses
-without prematurely claiming renter or social welfare effects.
+The model separates unit losses among bunchers from changes among crossers. Aggregate units suppressed among bunchers are
+\begin{equation}
+ \Delta U_B=\int_N^q(x-b)h_0(x)\dd x,
+\end{equation}
+while losses among crossers are, in the general model,
+\begin{equation}
+ \Delta U_H=\int_q^\infty\left[x-\max\left\{N,\frac{x}{\theta}\right\}\right]h_0(x)\dd x.
+\end{equation}
+In the interior-crossing branch this simplifies to $\int_q^\infty x(1-1/\theta)h_0(x)\dd x$. The buncher term is identified from the local counterfactual below $q$; the crosser term requires the broader upper tail and, in this application, an extension through the 150-unit regime.
 
-The no-notch size distribution is in good enough shape to serve as the current
-behavioral benchmark. The preferred 180-day cohort yields 21.14 excess
-exact-99 parents, an affected mean of 113.9 units, and a frontier of 130.8;
-placebos and bootstrap inference support the exact-99 moment. The 17.05-parent
-conservation gap prevents a stronger claim that every excess 99 came from
-above 100. Dollar cost calibration therefore requires the external wage,
-split-cost, and project records described above.
+Let total residential floor area satisfy the reduced-form relationship $Q^*(n,z)=A(z)n^\eta$. Average floor area per unit is $s=Q/n$. A project that bunches from no-policy size $x$ to $b$ satisfies
+\begin{equation}
+ \frac{Q_1}{Q_0}=\left(\frac{b}{x}\right)^\eta,
+ \qquad
+ \frac{s_1}{s_0}=\left(\frac{x}{b}\right)^{1-\eta}.
+\label{eq:floor_area_buncher}
+\end{equation}
+For a crosser with observed size $n_H(x)=\max\{N,x/\theta\}$,
+\begin{equation}
+ \frac{Q_1}{Q_0}=\left(\frac{n_H(x)}{x}\right)^\eta,
+ \qquad
+ \frac{s_1}{s_0}=\left(\frac{x}{n_H(x)}\right)^{1-\eta}.
+\label{eq:floor_area_crosser}
+\end{equation}
+In the interior branch these ratios simplify to $\theta^{-\eta}$ and $\theta^{1-\eta}$.
+If $\eta<1$, unit counts fall more than floor area, so average apartments become larger. This provides auxiliary predictions for floor area, FAR, square feet per unit, and bedroom mix.
 
-\small
-\begin{thebibliography}{9}
+\section{Discussion}
 
-\bibitem{efm2018}
-Einav, Liran, Amy Finkelstein, and Neale Mahoney. 2018.
-``Provider Incentives and Healthcare Costs: Evidence from Long-Term Care
-Hospitals.'' \emph{Econometrica} 86(6): 2161--2219.
+The baseline is intentionally parsimonious. It assumes a common $(K,\beta)$, a fixed set of development opportunities, and monotone sorting into bunching and crossing. Boundary entry at 100 is technically permitted and generates a testable atom; the current distribution strongly favors the interior-crossing branch but this is an empirical implication rather than a primitive restriction. The main extensions are heterogeneous policy burdens, project delay or cancellation, participation outside 485-x, alternative avoidance points such as 95 units, and an explicit model of the 150-unit threshold. These extensions should be introduced only when the baseline distributional restrictions fail in ways that are both economically and statistically meaningful.
 
-\bibitem{rpt485x}
-New York State Senate.
-\href{https://www.nysenate.gov/legislation/laws/RPT/485-X}
-{Real Property Tax Law Section 485-x: Affordable Neighborhoods for New Yorkers
-Tax Incentive}.
+\appendix
+\section{Derivations}
+
+\subsection{Monotone entry}
+
+For types with $n_0(v)>b$, the low-regime value is $V_L(v)=vb-C_0(b)$, so $V_L'(v)=b$. Optimized high-regime value is $V_H(v)=\pi_H(n_H(v);v)$. The multivariable chain rule gives
+\begin{equation}
+ V_H'(v)=\frac{\partial\pi_H}{\partial v}
+ +\frac{\partial\pi_H}{\partial n}n_H'(v).
+\end{equation}
+At an interior optimum, the second term is zero by the first-order condition. When the boundary binds, $n_H(v)=N$ is locally constant, so $n_H'(v)=0$. In either case, $\partial\pi_H/\partial v=n_H(v)$ and $V_H'(v)=n_H(v)$ almost everywhere. Hence
+\begin{equation}
+\Delta'(v)=V_H'(v)-V_L'(v)=n_H(v)-b>0.
+\end{equation}
+
+\subsection{Upper-tail density and cumulative deficit}
+
+For interior crossers, $n=x/\theta$, or $x=\theta n$. A small observed interval $\dd n$ corresponds to no-policy width $\dd x=\theta\dd n$. Conservation of mass gives
+\begin{equation}
+ h_1(n)\dd n=h_0(\theta n)\theta\dd n,
+\end{equation}
+which yields the continuous-tail restriction \eqref{eq:tail_density}. If $q<\theta N$, the no-policy interval $[q,\theta N]$ maps to the boundary $N$, producing \eqref{eq:boundary_atom}.
+
+For any $m\geq q$, the total observed high-regime mass through $m$ is $\int_q^{\theta m}h_0(x)\dd x$, including any boundary atom. Hence
+\begin{align}
+\mathcal{D}(m)
+&=\int_N^m h_0(n)\dd n-\int_q^{\theta m}h_0(x)\dd x\\
+&=\int_N^q h_0(x)\dd x-\int_m^{\theta m}h_0(x)\dd x,
+\end{align}
+which is \eqref{eq:deficit_identity}.
+
+\subsection{Normalized level-notch formula}
+
+The marginal developer's indifference condition is \eqref{eq:K_main}. Use
+\begin{equation}
+ v^\dagger=\alpha q^\lambda,
+ \qquad
+ h=yb,
+ \qquad
+ y=\max\left\{r,\frac{x}{\theta}\right\},
+ \qquad
+ \frac{\beta}{\alpha}=\theta^\lambda-1.
+\end{equation}
+Divide by $C_0(b)=\alpha b^{1+\lambda}/(1+\lambda)$. The three normalized terms are
+\begin{align}
+\frac{v^\dagger(h-b)}{C_0(b)}
+&=(1+\lambda)x^\lambda(y-1),\\
+\frac{C_0(h)-C_0(b)}{C_0(b)}
+&=y^{1+\lambda}-1,\\
+\frac{\beta(h^{1+\lambda}-N^{1+\lambda})/(1+\lambda)}{C_0(b)}
+&=(\theta^\lambda-1)\left(y^{1+\lambda}-r^{1+\lambda}\right).
+\end{align}
+Subtracting the latter two terms from the first yields \eqref{eq:kappa_general}. In the interior branch $y=x/\theta$, and collecting powers of $x$ and $\theta$ yields \eqref{eq:kappa}.
+
+\subsection{Special cases}
+
+Under a pure notch, $\beta=0$ and $\theta=1$, producing \eqref{eq:pure_notch_kappa}. If $\lambda=1$, then
+\begin{equation}
+\kappa_{\mathrm{notch}}=\left(\frac{q-b}{b}\right)^2.
+\end{equation}
+
+If the high regime proportionally raises the entire smooth cost function by $\tau$, then $C_H(n)=(1+\tau)C_0(n)$. This is nested by setting
+\begin{equation}
+\beta=\tau\alpha,
+\qquad
+K=\tau C_0(N).
+\end{equation}
+The policy burden then satisfies $D(n)=\tau C_0(n)$ for all $n\geq N$.
+
+\begin{thebibliography}{99}
+
+\bibitem[Best and Kleven(2018)]{bestkleven2018}
+Best, Michael Carlos, and Henrik Jacobsen Kleven. 2018.
+``Housing Market Responses to Transaction Taxes: Evidence from Notches and Stimulus in the UK.''
+\emph{Review of Economic Studies} 85(1): 157--193.
+
+\bibitem[Brueckner et al.(2024)]{brueckner2024}
+Brueckner, Jan K., David Leather, and Miguel Zerecero. 2024.
+``Bunching in Real-Estate Markets: Regulated Building Heights in New York City.''
+\emph{Journal of Urban Economics} 143: 103683.
+
+\bibitem[Garicano et al.(2016)]{garicano2016}
+Garicano, Luis, Claire Lelarge, and John Van Reenen. 2016.
+``Firm Size Distortions and the Productivity Distribution: Evidence from France.''
+\emph{American Economic Review} 106(11): 3439--3479.
+
+\bibitem[Gourio and Roys(2014)]{gourioroys2014}
+Gourio, Fran\c{c}ois, and Nicolas Roys. 2014.
+``Size-Dependent Regulations, Firm Size Distribution, and Reallocation.''
+\emph{Quantitative Economics} 5(2): 377--416.
+
+\bibitem[Kleven and Waseem(2013)]{klevenwaseem2013}
+Kleven, Henrik J., and Mazhar Waseem. 2013.
+``Using Notches to Uncover Optimization Frictions and Structural Elasticities: Theory and Evidence from Pakistan.''
+\emph{Quarterly Journal of Economics} 128(2): 669--723.
+
+\bibitem[Kopczuk and Munroe(2015)]{kopczukmunroe2015}
+Kopczuk, Wojciech, and David Munroe. 2015.
+``Mansion Tax: The Effect of Transfer Taxes on the Residential Real Estate Market.''
+\emph{American Economic Journal: Economic Policy} 7(2): 214--257.
+
+\bibitem[New York City HPD(2026)]{nyc_hpd_485x}
+New York City Department of Housing Preservation and Development. 2026.
+``485-x: Affordable Neighborhoods for New Yorkers.''
+\url{https://www.nyc.gov/site/hpd/services-and-information/tax-incentives-485-x.page}.
+Accessed August 2026.
+
+\bibitem[New York State Legislature(2024)]{nys_485x}
+New York State Legislature. 2024.
+``S. 8306-C / A. 8806-C, Part R: Affordable Neighborhoods for New Yorkers Tax Incentive.''
+\url{https://legislation.nysenate.gov/pdf/bills/2023/s8306c}.
 
 \end{thebibliography}
-\normalsize
 
 \end{document}

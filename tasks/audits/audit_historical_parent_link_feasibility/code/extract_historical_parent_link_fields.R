@@ -189,7 +189,7 @@ read_pluto_link_fields <- function(raw_path, needed_bbls) {
   )
 }
 
-panel <- read_parquet("../input/hdb_mappluto_training_panel.parquet") |>
+panel <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
   as.data.frame() |>
   as_tibble() |>
   filter(

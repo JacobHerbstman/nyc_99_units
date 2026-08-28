@@ -11,7 +11,7 @@ all: ../output/hdb_dob_identifier_handoff.csv \
 
 ../output/hdb_dob_identifier_handoff.csv: audit_hdb_dob_identifier_handoff.R \
 	../../../_lib/source_pipeline_utils.R \
-	../input/hdb_mappluto_training_panel.parquet \
+	../input/hdb_mappluto_site_panel.parquet \
 	../input/dob_now_new_building_initial_filings.parquet \
 	../input/post_policy_filing_link_fields.parquet | ../output
 	$(R) $< $(POST_YEAR) $(MIN_UNITS)
@@ -21,7 +21,7 @@ all: ../output/hdb_dob_identifier_handoff.csv \
 ../output/hdb_dob_identifier_summary.csv: ../output/hdb_dob_identifier_handoff.csv
 	@test -s "$@"
 
-../input/hdb_mappluto_training_panel.parquet: ../../../build_hdb_mappluto_training_panel/output/hdb_mappluto_training_panel.parquet | ../input
+../input/hdb_mappluto_site_panel.parquet: ../../../build_hdb_mappluto_site_panel/output/hdb_mappluto_site_panel.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
 ../input/dob_now_new_building_initial_filings.parquet: ../../../stage_dob_now_new_building_filings/output/dob_now_new_building_initial_filings.parquet | ../input
@@ -30,7 +30,7 @@ all: ../output/hdb_dob_identifier_handoff.csv \
 ../input/post_policy_filing_link_fields.parquet: ../../../construct_post_policy_parent_crosswalk/output/post_policy_filing_link_fields.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-link-inputs: ../input/hdb_mappluto_training_panel.parquet \
+link-inputs: ../input/hdb_mappluto_site_panel.parquet \
 	../input/dob_now_new_building_initial_filings.parquet \
 	../input/post_policy_filing_link_fields.parquet
 

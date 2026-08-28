@@ -1,5 +1,5 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/construct_historical_parent_links/code")
-# start_year <- 2019L
+# start_year <- 2010L
 # end_year <- 2023L
 # min_units <- 6L
 
@@ -176,7 +176,7 @@ read_pluto_link_fields <- function(raw_path, needed_bbls) {
   selected_fields
 }
 
-panel <- read_parquet("../input/hdb_mappluto_training_panel.parquet") |>
+panel <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
   as.data.frame() |>
   as_tibble() |>
   filter(

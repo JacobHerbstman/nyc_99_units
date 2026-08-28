@@ -1,7 +1,7 @@
 SHELL := bash
 include ../../shell_functions.make
 
-START_YEAR := 2024
+START_YEAR := 2022
 END_YEAR := 2026
 MIN_UNITS := 6
 MAX_UNITS := 1000
