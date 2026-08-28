@@ -130,7 +130,7 @@ read_raw_condo_keys <- function(raw_path) {
   out
 }
 
-raw_panel <- read_parquet("../input/hdb_mappluto_training_panel.parquet") |>
+raw_panel <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
   as.data.frame() |>
   as_tibble()
 

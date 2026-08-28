@@ -26,7 +26,7 @@ if (is.na(post_year) || is.na(min_units) || min_units < 1L) {
 }
 
 hdb <- read_parquet(
-  "../input/hdb_mappluto_training_panel.parquet"
+  "../input/hdb_mappluto_site_panel.parquet"
 ) |>
   as.data.frame() |>
   as_tibble() |>

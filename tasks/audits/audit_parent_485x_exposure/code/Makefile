@@ -23,13 +23,13 @@ all: ../output/parent_485x_exposure.csv \
 ../input/parent_485x_exposure_universe.csv: ../../../build_parent_485x_exposure_universe/output/parent_485x_exposure_universe.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/nys_ag_offering_plan_search_audit.csv: ../../../fetch_nys_ag_offering_plan_matches/output/nys_ag_offering_plan_search_audit.csv | ../input
+../input/nys_ag_offering_plan_search_audit.csv: ../../fetch_nys_ag_offering_plan_matches/output/nys_ag_offering_plan_search_audit.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/nys_ag_offering_plan_matches.csv: ../../../fetch_nys_ag_offering_plan_matches/output/nys_ag_offering_plan_matches.csv | ../input
+../input/nys_ag_offering_plan_matches.csv: ../../fetch_nys_ag_offering_plan_matches/output/nys_ag_offering_plan_matches.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/hpd_485x_registration_dob_links.csv: ../../audit_hpd_485x_registration_linkage/output/hpd_485x_registration_dob_links.csv | ../input
+../input/hpd_485x_registration_dob_links.csv: ../../../link_hpd_485x_registrations/output/hpd_485x_registration_dob_links.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
 link-inputs: ../input/parent_485x_exposure_universe.csv \

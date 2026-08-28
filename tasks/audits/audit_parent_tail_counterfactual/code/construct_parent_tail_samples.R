@@ -47,13 +47,13 @@ if (
 }
 
 historical_panel <- read_parquet(
-  "../input/historical_enhanced_parent_model_panel.parquet"
+  "../input/historical_parent_site_characteristics.parquet"
 ) |>
   as.data.frame() |>
   as_tibble()
 
 post_panel <- read_parquet(
-  "../input/post_policy_enhanced_parent_model_panel.parquet"
+  "../input/post_policy_parent_site_characteristics.parquet"
 ) |>
   as.data.frame() |>
   as_tibble()
@@ -80,7 +80,7 @@ historical_preferred <- historical_panel |>
     analysis_status == "historical_fully_observed",
     cohort_year >= historical_start_year,
     cohort_year <= historical_end_year,
-    model_eligible,
+    composition_eligible,
     units_hdb_priority >= min_units
   )
 
@@ -119,7 +119,7 @@ post_mature <- post_panel |>
 
 post_preferred <- post_mature |>
   filter(
-    model_eligible,
+    composition_eligible,
     units_hdb_priority >= min_units
   )
 

@@ -52,7 +52,7 @@ parents <- read_parquet("../input/parent_opportunity_panel.parquet") |>
   filter(
     included_ab,
     parent_total_units >= minimum_units,
-    model_eligible
+    composition_eligible
   )
 
 historical <- parents |> filter(sample == "historical")

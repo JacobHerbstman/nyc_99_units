@@ -43,7 +43,7 @@ analysis_parents <- parents |>
   filter(
     included_ab,
     parent_total_units >= minimum_units,
-    model_eligible
+    composition_eligible
   ) |>
   mutate(three_or_more_components = n_components >= 3L)
 
@@ -113,13 +113,13 @@ calibration_summary <- tibble(
     parents$sample == "historical" &
       parents$included_ab &
       parents$parent_total_units >= minimum_units &
-      !parents$model_eligible
+      !parents$composition_eligible
   ),
   excluded_post_incomplete_features = sum(
     parents$sample == "post_policy" &
       parents$included_ab &
       parents$parent_total_units >= minimum_units &
-      !parents$model_eligible
+      !parents$composition_eligible
   ),
   calibration_method = "Positive exponential calibration (survey raking)",
   calibration_moments = paste(

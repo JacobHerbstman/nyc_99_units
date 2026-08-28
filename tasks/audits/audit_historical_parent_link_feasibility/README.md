@@ -1,20 +1,19 @@
 # Historical parent-link feasibility audit
 
-This audit asks whether the 2010--2023 no-policy training period can support a
+This audit asks whether the 2010--2023 historical period can support a
 parent-development-opportunity definition richer than same-BBL aggregation. It
-does not construct the final parent crosswalk and does not change the no-notch
-model.
+does not construct the final parent crosswalk.
 
 The audit distinguishes evidence observable by the filing date from evidence
 that appears only in later lot records. That distinction is necessary because
-the existing training panel sometimes recovers a pre-filing feature lot through
+the site panel sometimes recovers a pre-filing feature lot through
 the current APPBBL crosswalk. A link dated after the filing can help reconstruct
 what ultimately happened, but it is not a leakage-safe predictor of the
 developer's original opportunity.
 
 The historical inputs are the DCP Housing Database, the DOB NOW initial-filing
 extract, the leakage-safe MapPLUTO release assignment already used by the
-training panel, and the corresponding frozen PLUTO or MapPLUTO archive. Raw
+site panel, and the corresponding frozen PLUTO or MapPLUTO archive. Raw
 PLUTO fields are read only for the filing lots required by each selected
 release.
 
@@ -33,7 +32,7 @@ The audit evaluates four signals:
 ## Findings
 
 The richer historical construction is feasible, but only a narrow subset of
-the links is clean enough to use automatically in no-policy model training.
+the links is clean enough to use automatically in historical parent construction.
 The preferred 2010--2023 sample contains 5,917 filings.
 
 - Adjacent lots are only partially recoverable. Archived MapPLUTO provides
@@ -55,10 +54,10 @@ The preferred 2010--2023 sample contains 5,917 filings.
 - Mergers and subdivisions are observable, provided timing is enforced.
   APPBBL and APPDate exist in all 40 selected historical releases. The archived
   releases identify 78 pair links sharing a documented lot-history group.
-  However, the current training-panel crosswalk recovers the historical lot for
+  However, the current site-panel crosswalk recovers the historical lot for
   2,161 filings, including 1,203 cases in which the linking APPDate is after the
   filing date. Those later links can describe realized project outcomes, but
-  cannot be predictors in a leakage-safe no-policy model.
+  cannot support a leakage-safe historical link.
 - Explicit job references are high-specificity but low-recall. The descriptions
   identify 12 linked pairs covering 24 jobs, and the referenced job numbers
   correspond to jobs in the training data. No repeated MPP project codes were
@@ -79,21 +78,18 @@ sensitivity bound, not a preferred parent definition: identical tax-lot names
 do not establish common economic control, and connected components can amplify
 one mistaken pair link into a larger parent.
 
-## Implication for the no-notch model
+## Implication for parent construction
 
-The historical parent-level model can be estimated, but its baseline should use
-only the conservative automatic links. Owner and coordinate links should remain
-review flags. Exact polygon adjacency can be added as a second, separately
-audited high-confidence signal for the 2019--2023 portion of the sample. The
+The historical parent construction should use only the conservative automatic
+links. Owner and coordinate links should remain review flags. Exact polygon
+adjacency is a separately audited high-confidence signal for the 2019--2023
+portion of the sample. The
 pre-2019 years should retain same-BBL and documented lot-history links unless a
 separate historical parcel-geometry source is found.
 
 This result also answers the question of whether parent aggregation is simply
 absent in the pre-period: it is not absent, but it is uncommon under evidence
-that is both available by filing and sufficiently specific. A parent-trained
-model is therefore possible as a robustness exercise, while the relatively
-small number of multi-filing historical parents limits how much it can improve
-predictive fit by itself.
+that is both available by filing and sufficiently specific.
 
 ## Outputs
 

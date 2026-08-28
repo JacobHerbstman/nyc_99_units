@@ -3,7 +3,7 @@
 This audit tests whether archived MapPLUTO polygons can add a leakage-safe
 adjacent-lot signal to the historical parent-opportunity construction. It is
 separate from the parent-link feasibility audit and does not change the
-no-notch model.
+production parent construction directly.
 
 For every pair of 2019--2023 filings no more than 365 days apart, the audit uses
 the MapPLUTO release assigned to the earlier filing. That release was already
@@ -57,7 +57,7 @@ filings in 69 parents. Adding every exact adjacency raises it to 174 filings in
 77 parents. In the full 2010--2023 training sample, the corresponding shares of
 filings in multi-filing groups are 3.2 percent, 4.2 percent, and 4.5 percent.
 
-The preferred parent-model extension is therefore conservative links plus
+The preferred parent-link extension is therefore conservative links plus
 corroborated exact adjacency. All exact adjacency is informative, but adjacency
 alone does not establish common economic control and should remain a
 sensitivity definition.

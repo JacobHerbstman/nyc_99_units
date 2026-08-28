@@ -137,7 +137,7 @@ mappluto_files <- mappluto_inventory |>
   select(raw_path)
 
 hdb_post_jobs <- read_parquet(
-  "../input/hdb_mappluto_training_panel.parquet"
+  "../input/hdb_mappluto_site_panel.parquet"
 ) |>
   as.data.frame() |>
   as_tibble() |>

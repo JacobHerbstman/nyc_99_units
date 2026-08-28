@@ -22,7 +22,7 @@ all: ../output/symmetric_parent_membership.parquet \
 	../input/historical_polygon_adjacency_pairs.parquet \
 	../input/historical_polygon_geometry_coverage.parquet \
 	../input/post_policy_filing_link_fields.parquet \
-	../input/hdb_mappluto_training_panel.parquet \
+	../input/hdb_mappluto_site_panel.parquet \
 	../input/mappluto_files.csv | ../output
 	$(R) $< $(HISTORICAL_LINK_START_YEAR) \
 		$(HISTORICAL_COHORT_START_YEAR) $(HISTORICAL_END_YEAR) \
@@ -48,7 +48,7 @@ all: ../output/symmetric_parent_membership.parquet \
 ../input/post_policy_filing_link_fields.parquet: ../../construct_post_policy_parent_crosswalk/output/post_policy_filing_link_fields.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/hdb_mappluto_training_panel.parquet: ../../build_hdb_mappluto_training_panel/output/hdb_mappluto_training_panel.parquet | ../input
+../input/hdb_mappluto_site_panel.parquet: ../../build_hdb_mappluto_site_panel/output/hdb_mappluto_site_panel.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
 ../input/mappluto_files.csv: ../../fetch_mappluto_archive/output/mappluto_files.csv | ../input
@@ -59,7 +59,7 @@ link-inputs: ../input/historical_parent_filing_link_fields.parquet \
 	../input/historical_polygon_adjacency_pairs.parquet \
 	../input/historical_polygon_geometry_coverage.parquet \
 	../input/post_policy_filing_link_fields.parquet \
-	../input/hdb_mappluto_training_panel.parquet \
+	../input/hdb_mappluto_site_panel.parquet \
 	../input/mappluto_files.csv
 
 include ../../generic.make

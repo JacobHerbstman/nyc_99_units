@@ -52,7 +52,7 @@ the descriptive 2025 parent-file exact-99 count from 52 to 55.
 ## Measurement recommendation
 
 Use HDB `ClassAProp` as the primary unit outcome for HDB-matched projects. It
-matches the outcome used to train the historical model, preserves DCP's Class
+matches the historical unit-count concept, preserves DCP's Class
 A corrections, and keeps the post outcome on the same source concept as the
 pre-period outcome. Keep DOB I1 units as a named sensitivity.
 
@@ -64,7 +64,7 @@ For post-policy parent totals, report two versions:
 2. all-DOB sensitivity: DOB I1 units for every component.
 
 This is a provisional measurement resolution, not a claim that HDB is
-error-free. The production parent model should be changed only after the two
+error-free. The production parent outcome should be changed only after the two
 versions are compared explicitly.
 
 The field definitions come from the HDB data dictionary stored with the 25Q4

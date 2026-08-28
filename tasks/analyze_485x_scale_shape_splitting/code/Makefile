@@ -50,8 +50,8 @@ all: ../output/parent_opportunity_panel.parquet \
 	../input/parent_485x_exposure.csv \
 	../input/parent_485x_exposure_universe.csv \
 	../input/hpd_485x_registration_dob_links.csv \
-	../input/historical_enhanced_parent_model_panel.parquet \
-	../input/post_policy_enhanced_parent_model_panel.parquet | ../output
+	../input/historical_parent_site_characteristics.parquet \
+	../input/post_policy_parent_site_characteristics.parquet | ../output
 	$(R) $< $(PRE_START_DATE) $(PRE_END_DATE) $(POST_START_DATE) \
 		$(POST_END_DATE) $(MINIMUM_UNITS) $(NEAR_99_MINIMUM)
 
@@ -189,10 +189,10 @@ all: ../output/parent_opportunity_panel.parquet \
 ../input/constituent_filing_panel.parquet: ../output/constituent_filing_panel.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/parent_unit_distribution_annualized_50_300.csv: ../../audits/audit_parent_unit_distribution/output/parent_unit_distribution_annualized_50_300.csv | ../input
+../input/parent_unit_distribution_annualized_50_300.csv: ../../analyze_parent_unit_distribution/output/parent_unit_distribution_annualized_50_300.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/parent_unit_distribution_normalized_density_50_300_ab.csv: ../../audits/audit_parent_unit_distribution/output/parent_unit_distribution_normalized_density_50_300_ab.csv | ../input
+../input/parent_unit_distribution_normalized_density_50_300_ab.csv: ../../analyze_parent_unit_distribution/output/parent_unit_distribution_normalized_density_50_300_ab.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
 ../input/symmetric_parent_membership.parquet: ../../construct_parent_cohorts/output/symmetric_parent_membership.parquet | ../input
@@ -204,21 +204,21 @@ all: ../output/parent_opportunity_panel.parquet \
 ../input/parent_485x_exposure_universe.csv: ../../build_parent_485x_exposure_universe/output/parent_485x_exposure_universe.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/hpd_485x_registration_dob_links.csv: ../../audits/audit_hpd_485x_registration_linkage/output/hpd_485x_registration_dob_links.csv | ../input
+../input/hpd_485x_registration_dob_links.csv: ../../link_hpd_485x_registrations/output/hpd_485x_registration_dob_links.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/historical_enhanced_parent_model_panel.parquet: ../../build_parent_model_panel/output/historical_enhanced_parent_model_panel.parquet | ../input
+../input/historical_parent_site_characteristics.parquet: ../../build_parent_site_characteristics/output/historical_parent_site_characteristics.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/post_policy_enhanced_parent_model_panel.parquet: ../../build_parent_model_panel/output/post_policy_enhanced_parent_model_panel.parquet | ../input
+../input/post_policy_parent_site_characteristics.parquet: ../../build_parent_site_characteristics/output/post_policy_parent_site_characteristics.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
 link-inputs: ../input/symmetric_parent_membership.parquet \
 	../input/parent_485x_exposure.csv \
 	../input/parent_485x_exposure_universe.csv \
 	../input/hpd_485x_registration_dob_links.csv \
-	../input/historical_enhanced_parent_model_panel.parquet \
-	../input/post_policy_enhanced_parent_model_panel.parquet \
+	../input/historical_parent_site_characteristics.parquet \
+	../input/post_policy_parent_site_characteristics.parquet \
 	../input/parent_opportunity_panel.parquet \
 	../input/constituent_filing_panel.parquet \
 	../input/parent_unit_distribution_annualized_50_300.csv \

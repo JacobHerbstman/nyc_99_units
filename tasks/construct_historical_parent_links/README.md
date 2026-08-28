@@ -1,8 +1,8 @@
 # Construct historical parent links
 
-This task builds leakage-safe filing-pair evidence for the 2019–2023
-enhanced-parent model. The source universe begins in 2018 so a 365-day
-lookback can determine whether a 2019 filing is a parent anchor. It extracts
+This task builds leakage-safe filing-pair evidence for historical parent
+construction. The source universe begins in 2010 so a 365-day lookback can
+determine whether a 2011 filing is a parent anchor. It extracts
 owner, lot-history, coordinate, and explicit
 project-reference fields from the historical MapPLUTO snapshot available at
 each filing date. It then identifies filing pairs within one year and records

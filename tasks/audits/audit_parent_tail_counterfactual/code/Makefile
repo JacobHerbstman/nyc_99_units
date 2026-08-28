@@ -34,8 +34,8 @@ all: ../output/analysis_samples_summary.csv \
 ../output/analysis_samples_summary.csv: construct_parent_tail_samples.R \
 	Makefile \
 	../../../_lib/source_pipeline_utils.R \
-	../input/historical_enhanced_parent_model_panel.parquet \
-	../input/post_policy_enhanced_parent_model_panel.parquet \
+	../input/historical_parent_site_characteristics.parquet \
+	../input/post_policy_parent_site_characteristics.parquet \
 	../input/symmetric_parent_membership.parquet | ../output
 	$(R) $< $(HISTORICAL_START_YEAR) $(HISTORICAL_END_YEAR) $(POST_YEAR) \
 		$(MIN_UNITS) $(TAIL_CUTOFF) $(MINIMUM_FOLLOWUP_DAYS)
@@ -77,8 +77,8 @@ all: ../output/analysis_samples_summary.csv \
 ../output/historical_window_comparison_c99.csv: compare_historical_windows.R \
 	Makefile \
 	../../../_lib/source_pipeline_utils.R \
-	../input/historical_enhanced_parent_model_panel.parquet \
-	../input/post_policy_enhanced_parent_model_panel.parquet \
+	../input/historical_parent_site_characteristics.parquet \
+	../input/post_policy_parent_site_characteristics.parquet \
 	../input/symmetric_parent_membership.parquet | ../output
 	$(R) $< $(HISTORICAL_START_YEARS) $(HISTORICAL_END_YEAR) \
 		$(POST_YEAR) $(TAIL_CUTOFF) $(MINIMUM_FOLLOWUP_DAYS)
@@ -87,17 +87,17 @@ all: ../output/analysis_samples_summary.csv \
 ../output/historical_window_parent_weights_c99.csv: ../output/historical_window_comparison_c99.csv
 	@test -s "$@"
 
-../input/historical_enhanced_parent_model_panel.parquet: ../../../build_parent_model_panel/output/historical_enhanced_parent_model_panel.parquet | ../input
+../input/historical_parent_site_characteristics.parquet: ../../../build_parent_site_characteristics/output/historical_parent_site_characteristics.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/post_policy_enhanced_parent_model_panel.parquet: ../../../build_parent_model_panel/output/post_policy_enhanced_parent_model_panel.parquet | ../input
+../input/post_policy_parent_site_characteristics.parquet: ../../../build_parent_site_characteristics/output/post_policy_parent_site_characteristics.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
 ../input/symmetric_parent_membership.parquet: ../../../construct_parent_cohorts/output/symmetric_parent_membership.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-link-inputs: ../input/historical_enhanced_parent_model_panel.parquet \
-	../input/post_policy_enhanced_parent_model_panel.parquet \
+link-inputs: ../input/historical_parent_site_characteristics.parquet \
+	../input/post_policy_parent_site_characteristics.parquet \
 	../input/symmetric_parent_membership.parquet
 
 include ../../generic.make

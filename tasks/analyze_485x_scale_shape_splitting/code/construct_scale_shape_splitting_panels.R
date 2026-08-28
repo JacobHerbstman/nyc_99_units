@@ -81,14 +81,14 @@ hpd_links <- read_csv(
 )
 
 historical_features <- read_parquet(
-  "../input/historical_enhanced_parent_model_panel.parquet"
+  "../input/historical_parent_site_characteristics.parquet"
 ) |>
   as.data.frame() |>
   as_tibble() |>
   mutate(sample = "historical")
 
 post_features <- read_parquet(
-  "../input/post_policy_enhanced_parent_model_panel.parquet"
+  "../input/post_policy_parent_site_characteristics.parquet"
 ) |>
   as.data.frame() |>
   as_tibble() |>
@@ -313,7 +313,7 @@ features <- bind_rows(historical_features, post_features) |>
     parent_id,
     feature_units = units_hdb_priority,
     feature_complete,
-    model_eligible,
+    composition_eligible,
     number_unique_lots = feature_lots,
     lot_area_sqft = lotarea,
     residential_far = residfar,
@@ -456,7 +456,7 @@ parent_panel <- parent_dates |>
     hotel_project,
     feature_units,
     feature_complete,
-    model_eligible,
+    composition_eligible,
     number_unique_lots,
     multi_lot_indicator,
     lot_area_sqft,
@@ -558,7 +558,9 @@ parent_panel_qc <- parent_panel |>
     ),
     missing_exposure_classification = sum(is.na(exposure_status)),
     missing_feature_rows = sum(is.na(feature_units)),
-    model_eligible_ab_parents = sum(included_ab & coalesce(model_eligible, FALSE)),
+    composition_eligible_ab_parents = sum(
+      included_ab & coalesce(composition_eligible, FALSE)
+    ),
     right_window_observed_parents = sum(right_window_observed),
     minimum_followup_days = min(observed_followup_days),
     median_followup_days = median(observed_followup_days),
