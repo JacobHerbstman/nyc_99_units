@@ -1,7 +1,8 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/construct_parent_cohorts/code")
-# historical_link_start_year <- 2018L
-# historical_cohort_start_year <- 2019L
+# historical_link_start_year <- 2010L
+# historical_cohort_start_year <- 2011L
 # historical_end_year <- 2023L
+# post_comparison_start_year <- 2023L
 # post_cohort_year <- 2025L
 # max_filing_days <- 365L
 # corroboration_days <- 30L
@@ -20,30 +21,32 @@ source("../../_lib/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 7L) {
+if (length(args) != 8L) {
   stop(
-    "Expected seven arguments: historical link start, cohort start and end ",
-    "years, post cohort year, maximum filing days, corroboration days, and ",
-    "post geometry vintage."
+    "Expected eight arguments: historical link start, cohort start and end ",
+    "years, post comparison start and cohort years, maximum filing days, ",
+    "corroboration days, and post geometry vintage."
   )
 }
 
 historical_link_start_year <- as.integer(args[1])
 historical_cohort_start_year <- as.integer(args[2])
 historical_end_year <- as.integer(args[3])
-post_cohort_year <- as.integer(args[4])
-max_filing_days <- as.integer(args[5])
-corroboration_days <- as.integer(args[6])
-post_geometry_vintage <- args[7]
+post_comparison_start_year <- as.integer(args[4])
+post_cohort_year <- as.integer(args[5])
+max_filing_days <- as.integer(args[6])
+corroboration_days <- as.integer(args[7])
+post_geometry_vintage <- args[8]
 
 if (
   any(is.na(c(
     historical_link_start_year, historical_cohort_start_year,
-    historical_end_year, post_cohort_year,
+    historical_end_year, post_comparison_start_year, post_cohort_year,
     max_filing_days, corroboration_days
   ))) ||
     historical_link_start_year > historical_cohort_start_year ||
     historical_cohort_start_year > historical_end_year ||
+    post_comparison_start_year > post_cohort_year ||
     post_cohort_year <= historical_end_year ||
     max_filing_days < 1L ||
     corroboration_days < 0L ||
@@ -100,6 +103,18 @@ historical_adjacency <- read_parquet(
   as.data.frame() |>
   as_tibble()
 
+historical_link_reviews <- read_csv(
+  "historical_parent_link_reviews.csv",
+  show_col_types = FALSE,
+  col_types = cols(.default = col_character())
+)
+
+historical_geometry_coverage <- read_parquet(
+  "../input/historical_polygon_geometry_coverage.parquet"
+) |>
+  as.data.frame() |>
+  as_tibble()
+
 post_rows <- read_parquet(
   "../input/post_policy_filing_link_fields.parquet"
 ) |>
@@ -107,11 +122,13 @@ post_rows <- read_parquet(
   as_tibble() |>
   arrange(filing_date, job_number)
 
-mappluto_files <- read_csv(
+mappluto_inventory <- read_csv(
   "../input/mappluto_files.csv",
   show_col_types = FALSE,
   col_types = cols(.default = col_character())
-) |>
+)
+
+mappluto_files <- mappluto_inventory |>
   filter(
     source_id == "dcp_mappluto_archive",
     file_role == "mappluto_shapefile_zip",
@@ -134,7 +151,8 @@ hdb_post_jobs <- read_parquet(
     classa_prop >= 6,
     !is.na(lotarea),
     lotarea > 0,
-    filing_year == post_cohort_year
+    filing_year >= post_comparison_start_year,
+    filing_year <= post_cohort_year
   ) |>
   mutate(hdb_units = as.integer(round(classa_prop)))
 
@@ -151,6 +169,17 @@ if (
     ) ||
     anyDuplicated(
       historical_adjacency[c("job_number_1", "job_number_2")]
+    ) ||
+    anyDuplicated(
+      historical_link_reviews[c("job_number_1", "job_number_2")]
+    ) ||
+    any(!historical_link_reviews$review_decision %in% c("accept", "reject")) ||
+    any(!historical_link_reviews$job_number_1 %in% historical_rows$job_number) ||
+    any(!historical_link_reviews$job_number_2 %in% historical_rows$job_number) ||
+    anyDuplicated(historical_geometry_coverage$job_number) ||
+    !setequal(
+      historical_geometry_coverage$job_number,
+      historical_rows$job_number
     )
 ) {
   stop("A symmetric parent-cohort input failed identifier QC.")
@@ -202,6 +231,11 @@ historical_pairs <- full_join(
   by = c("job_number_1", "job_number_2"),
   relationship = "one-to-one"
 ) |>
+  left_join(
+    historical_link_reviews,
+    by = c("job_number_1", "job_number_2"),
+    relationship = "one-to-one"
+  ) |>
   mutate(
     same_filing_bbl = coalesce(
       same_filing_bbl,
@@ -238,8 +272,12 @@ historical_pairs <- full_join(
       adjacency_high_confidence,
       FALSE
     ),
+    mechanical_link =
+      high_confidence_prefiling_signal | corroborated_exact_adjacency,
+    reviewed_accept = coalesce(review_decision == "accept", FALSE),
+    reviewed_reject = coalesce(review_decision == "reject", FALSE),
     enhanced_link =
-      high_confidence_prefiling_signal | corroborated_exact_adjacency
+      (mechanical_link & !reviewed_reject) | reviewed_accept
   ) |>
   mutate(
     later_lot_history_candidate_only =
@@ -251,7 +289,9 @@ historical_pairs <- full_join(
     later_lot_history_candidate, later_lot_history_candidate_only,
     explicit_job_reference,
     same_project_code, same_owner_support, exact_polygon_touch,
-    corroborated_exact_adjacency, enhanced_link
+    corroborated_exact_adjacency, mechanical_link,
+    reviewed_accept, reviewed_reject, review_basis, review_source,
+    enhanced_link
   )
 
 historical_links <- historical_pairs |>
@@ -450,7 +490,13 @@ post_pairs <- tibble(
 
 post_links <- post_pairs |>
   filter(enhanced_link) |>
-  mutate(sample = "post_policy") |>
+  mutate(
+    sample = "post_policy",
+    reviewed_accept = FALSE,
+    reviewed_reject = FALSE,
+    review_basis = NA_character_,
+    review_source = NA_character_
+  ) |>
   select(
     sample, job_number_1, job_number_2,
     date_filed_1, date_filed_2, filing_days_apart,
@@ -458,7 +504,9 @@ post_links <- post_pairs |>
     same_filing_bbl, strict_lot_history_link,
     later_lot_history_candidate, explicit_job_reference,
     same_project_code, same_owner_support, exact_polygon_touch,
-    corroborated_exact_adjacency, enhanced_link
+    corroborated_exact_adjacency,
+    reviewed_accept, reviewed_reject, review_basis, review_source,
+    enhanced_link
   )
 
 links <- bind_rows(
@@ -470,7 +518,9 @@ links <- bind_rows(
       same_filing_bbl, strict_lot_history_link,
       later_lot_history_candidate, explicit_job_reference,
       same_project_code, same_owner_support, exact_polygon_touch,
-      corroborated_exact_adjacency, enhanced_link
+      corroborated_exact_adjacency,
+      reviewed_accept, reviewed_reject, review_basis, review_source,
+      enhanced_link
     ),
   post_links
 ) |>
@@ -493,7 +543,8 @@ links <- bind_rows(
           corroborated_exact_adjacency,
           "corroborated_exact_adjacency;",
           ""
-        )
+        ),
+        if_else(reviewed_accept, "reviewed_accept;", "")
       ),
       ";$"
     )
@@ -511,9 +562,13 @@ historical_member_rows <- historical_rows |>
     hdb_priority_units = units,
     dob_i1_units = units,
     unit_source = "hdb",
-    filing_bbl,
-    geometry_available =
-      pluto_source_id_used == "dcp_mappluto_archive"
+    filing_bbl
+  ) |>
+  left_join(
+    historical_geometry_coverage |>
+      select(job_number, geometry_available),
+    by = "job_number",
+    relationship = "one-to-one"
   )
 
 post_member_rows <- post_rows |>
@@ -597,8 +652,17 @@ membership <- bind_rows(historical_membership, post_membership) |>
         "historical_left_boundary_exposed",
       sample == "historical" & !right_window_observed ~
         "historical_right_boundary_exposed",
+      sample == "post_policy" &
+        cohort_year < post_comparison_start_year ~
+        "post_linkage_padding",
+      sample == "post_policy" &
+        cohort_year < post_cohort_year & full_window_observed ~
+        "completed_pre_policy_comparison_cohort",
+      sample == "post_policy" &
+        cohort_year < post_cohort_year & !left_window_observed ~
+        "left_boundary_pre_policy_comparison_cohort",
       sample == "post_policy" & cohort_year < post_cohort_year ~
-        "prior_2024_cohort",
+        "right_censored_pre_policy_comparison_cohort",
       sample == "post_policy" &
         cohort_year == post_cohort_year &
         !left_window_observed & !right_window_observed ~
@@ -623,6 +687,7 @@ if (
     any(links$filing_days_apart > max_filing_days) ||
     anyDuplicated(membership[c("sample", "job_number")]) ||
     nrow(membership) != nrow(historical_rows) + nrow(post_rows) ||
+    any(is.na(membership$geometry_available)) ||
     any(membership$parent_span_days > max_filing_days) ||
     any(membership$analysis_status == "unclassified")
 ) {

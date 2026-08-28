@@ -24,6 +24,20 @@ collapse_category <- function(x, mixed_label) {
 add_site_categories <- function(rows) {
   rows |>
     mutate(
+      available_far_fields = rowSums(
+        !is.na(pick(residfar, commfar, facilfar, maxallwfar))
+      ),
+      broad_zoning_far = pmax(
+        coalesce(residfar, 0),
+        coalesce(commfar, 0),
+        coalesce(facilfar, 0),
+        coalesce(maxallwfar, 0)
+      ),
+      broad_zoning_far = if_else(
+        available_far_fields > 0,
+        broad_zoning_far,
+        NA_real_
+      ),
       zonedist1_clean = str_to_upper(str_squish(zonedist1)),
       zone_base = str_extract(zonedist1_clean, "^[RCM][0-9]+"),
       zone_detail = case_when(
@@ -90,6 +104,13 @@ aggregate_parent_rows <- function(member_rows) {
       lotarea = sum(lotarea),
       residfar_numerator = sum(lotarea * residfar, na.rm = TRUE),
       residfar_denominator = sum(if_else(!is.na(residfar), lotarea, 0)),
+      broad_zoning_far_numerator = sum(
+        lotarea * broad_zoning_far,
+        na.rm = TRUE
+      ),
+      broad_zoning_far_denominator = sum(
+        if_else(!is.na(broad_zoning_far), lotarea, 0)
+      ),
       builtfar_numerator = sum(lotarea * builtfar, na.rm = TRUE),
       builtfar_denominator = sum(if_else(!is.na(builtfar), lotarea, 0)),
       borough = collapse_category(borough, "Mixed"),
@@ -104,6 +125,11 @@ aggregate_parent_rows <- function(member_rows) {
       residfar = if_else(
         residfar_denominator > 0,
         residfar_numerator / residfar_denominator,
+        NA_real_
+      ),
+      broad_zoning_far = if_else(
+        broad_zoning_far_denominator > 0,
+        broad_zoning_far_numerator / broad_zoning_far_denominator,
         NA_real_
       ),
       builtfar = if_else(
@@ -139,7 +165,8 @@ aggregate_parent_rows <- function(member_rows) {
       exact_99_component_filings_dob_i1, component_jobs,
       nonmissing_bin_rows, distinct_bins, duplicate_bin_rows,
       feature_complete, feature_methods, feature_lots,
-      model_eligible, lotarea, log_lotarea, residfar, builtfar,
+      model_eligible, lotarea, log_lotarea,
+      residfar, broad_zoning_far, builtfar,
       borough, zone_detail, prior_site_use
     ) |>
     arrange(cohort_date, parent_id)
@@ -181,7 +208,7 @@ fixed_post_lots <- read_parquet(
   ) |>
   add_site_categories() |>
   select(
-    feature_bbl = bbl, lotarea, residfar, builtfar,
+    feature_bbl = bbl, lotarea, residfar, broad_zoning_far, builtfar,
     borough, zone_detail, prior_site_use
   )
 
@@ -199,7 +226,8 @@ historical_member_rows <- membership |>
   left_join(
     hdb_panel |>
       select(
-        job_number, feature_bbl, bin_clean, lotarea, residfar,
+        job_number, feature_bbl, bin_clean, lotarea,
+        residfar, broad_zoning_far,
         builtfar, borough, zone_detail, prior_site_use
       ),
     by = "job_number",

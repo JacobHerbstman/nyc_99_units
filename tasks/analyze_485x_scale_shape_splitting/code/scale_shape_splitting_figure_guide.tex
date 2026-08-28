@@ -1,0 +1,235 @@
+\documentclass[10pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[landscape,letterpaper,margin=0.52in]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+\definecolor{navy}{HTML}{24415D}
+\definecolor{blue}{HTML}{4C78A8}
+\definecolor{red}{HTML}{E45756}
+\definecolor{lightblue}{HTML}{EAF1F7}
+\definecolor{darkgray}{HTML}{4A4A4A}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=navy,
+  urlcolor=blue,
+  pdftitle={485-x Scale, Shape, and Project Splitting: Figure Guide}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize 485-x scale, shape, and project splitting}
+\rhead{\footnotesize Figure guide}
+\cfoot{\footnotesize \thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\fboxsep}{8pt}
+
+\input{../temp/scale_shape_splitting_figure_guide_values.tex}
+
+\newcommand{\FigurePage}[4]{
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{section}{#1}
+  {\color{navy}\Large\bfseries #1}\par\vspace{3pt}
+  \begin{center}
+    \includegraphics[width=0.98\textwidth,height=0.70\textheight,keepaspectratio]{\detokenize{#2}}
+  \end{center}
+  \vspace{-4pt}
+  \colorbox{lightblue}{
+    \begin{minipage}{0.965\textwidth}
+      \textbf{What it measures.} #3
+
+      \textbf{Interpretation.} #4
+    \end{minipage}
+  }
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\vspace*{0.55in}
+{\color{navy}\fontsize{28}{32}\selectfont\bfseries
+485-x Scale, Shape, and Project Splitting\par}
+\vspace{0.12in}
+{\fontsize{18}{22}\selectfont A quick guide to the empirical figures\par}
+\vspace{0.30in}
+{\large
+Historical comparison: 2019-2022\par
+Post-policy comparison: January 1, 2025-July 8, 2026 (\PostExposureYears{} years)\par
+Main sample: taxable A/B rental opportunities with at least 50 proposed units\par}
+
+\vfill
+\colorbox{lightblue}{
+  \begin{minipage}{0.93\textwidth}
+    \large
+    The guide separates three distinct facts: the overall rate of development,
+    the shape of the project-size distribution, and the number and size of
+    constituent filings/buildings within a linked economic parent. The figures
+    are descriptive unless they explicitly use the composition-adjusted
+    historical benchmark.
+  \end{minipage}
+}
+\vfill
+{\small Generated from the Make-managed analysis outputs.}
+
+\clearpage
+{\color{navy}\LARGE\bfseries Executive summary}\par\vspace{10pt}
+
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.23\textwidth} p{0.70\textwidth}}
+\toprule
+\textbf{Finding} & \textbf{Current evidence} \\
+\midrule
+Large market & The post period contains more annualized 50-plus-unit A/B opportunities at many sizes. Raw counts therefore mix a market-scale increase with changes in where projects locate in the size distribution. \\
+\addlinespace
+99-unit bunching & Relative to the composition-adjusted historical benchmark, the excess at exactly 99 is \ExcessNinetyNine{} percentage points (95 percent percentile interval: \ExcessNinetyNineLower{} to \ExcessNinetyNineUpper{}). \\
+\addlinespace
+Missing mass above 99 & The cumulative deficit from 100 through 149 is \DeficitOneHundredOneFortyNine{} percentage points (interval: \DeficitOneHundredOneFortyNineLower{} to \DeficitOneHundredOneFortyNineUpper{}). It is substantial but does not fully equal the 99-unit excess by 149. \\
+\addlinespace
+198-unit bunching & The excess at exactly 198 is \ExcessOneNinetyEight{} percentage points (interval: \ExcessOneNinetyEightLower{} to \ExcessOneNinetyEightUpper{}). Every one of the \ExactOneNinetyEightParents{} observed 198-unit parents is 99+99. \\
+\addlinespace
+Splitting evidence & Among those 198-unit parents, \VerifiedOneNinetyEight{} is verified as separate 485-x units, \SuggestiveOneNinetyEight{} are suggestive of separate components, and \UnresolvedOneNinetyEight{} remain unresolved. The vector alone is not proof of legal or tax separation. \\
+\addlinespace
+Composition adjustment & Positive exponential weights compare \CalibrationHistoricalParents{} historical parents with \CalibrationPostParents{} post parents using predetermined site traits. Effective historical sample size is \CalibrationESS{}; weights range from \MinimumCalibrationWeight{} to \MaximumCalibrationWeight{}. \\
+\addlinespace
+Stability & Using only 2021-2022 produces a 99-unit excess of \SensitivityTwentyOneExcess{} percentage points, close to the preferred estimate. \SuccessfulBootstraps{} of \RequestedBootstraps{} bootstrap recalibrations succeeded. \\
+\bottomrule
+\end{tabular}
+
+\vspace{10pt}
+\textbf{Central caution.} Normalized shares always sum to one. Full-support mass
+closure is therefore mechanical and should not be read as evidence that all
+projects at 99 came from a particular set of larger sizes. The local deficit
+calculations are informative; the global identity is not.
+
+\FigurePage
+  {1. Annualized parent totals: market scale and shape together}
+  {../output/pdf/annualized_parent_total_50_300.pdf}
+  {Each line is the number of linked A/B parent opportunities per year at an exact unit count. The post count is divided by the exact \PostExposureYears{}-year window.}
+  {Development activity is higher post-policy at many sizes, not just at 99 and 198. The sharp spikes at 99 and 198 are nevertheless exceptional relative to neighboring bins. This plot establishes the raw empirical facts but cannot separate a larger market from a changed size distribution.}
+
+\FigurePage
+  {2. Normalized 50-300 reproduction}
+  {../output/pdf/normalized_parent_total_50_300_reproduction.pdf}
+  {This exactly reproduces the earlier normalized comparison after conditioning on parent totals between 50 and 300.}
+  {The post distribution places far more relative mass at 99 and 198 and less across much of 100-149. Because the denominator excludes projects above 300, it forces all probability mass to balance within this restricted window. Use it for reproducibility, not as the preferred behavioral accounting.}
+
+\FigurePage
+  {3. Preferred normalized parent distribution}
+  {../output/pdf/normalized_parent_total_50_plus.pdf}
+  {The denominator is every A/B parent with at least 50 units. Exact bins are shown through 300, while all larger parents remain in a pooled 301-plus denominator category.}
+  {The 99 and 198 spikes survive when very large projects remain part of the opportunity set. The reduced 100-149 share is therefore not an artifact of normalizing only within 50-300. Normalization removes the overall market-scale difference; it does not prove that market conditions were unrelated to the policy.}
+
+\FigurePage
+  {4. Largest constituent distribution}
+  {../output/pdf/normalized_largest_constituent_50_300.pdf}
+  {Each economic parent contributes the size of its largest linked constituent filing/building.}
+  {The post spike moves strongly toward 99 when projects are represented by their largest constituent. A 198 parent composed of 99+99 contributes a largest constituent of 99, not 198. This is the first indication that some parent-level scale is being preserved through multiple subthreshold components.}
+
+\FigurePage
+  {5. Single-component parent distribution}
+  {../output/pdf/normalized_single_component_50_300.pdf}
+  {The sample is restricted to parents represented by exactly one constituent filing/building.}
+  {There is clear bunching at 99 but no corresponding 198 spike. This supports interpreting the 198 spike as a multi-component phenomenon. The comparison is descriptive because being single-component is itself a post-policy choice.}
+
+\FigurePage
+  {6. Second-ranked constituent distribution}
+  {../output/pdf/normalized_second_constituent_50_300.pdf}
+  {Among multi-component parents, this plots the size of the second-largest constituent.}
+  {The post concentration at 99 is direct evidence that 99 often appears more than once within the same linked parent. That pattern is difficult to explain as ordinary parent-total heaping alone. The sample is conditional on having multiple constituents.}
+
+\FigurePage
+  {7. All constituents with ordinary counting}
+  {../output/pdf/normalized_all_constituents_ordinary_50_300.pdf}
+  {Every constituent filing/building receives one observation, so a parent with several constituents contributes several times.}
+  {The 99 spike becomes especially prominent at the constituent level. This is useful for seeing the tax-running unit margin, but it mechanically gives more influence to highly partitioned parents and should not be treated as the main parent-opportunity distribution.}
+
+\FigurePage
+  {8. Parent-normalized constituent distribution}
+  {../output/pdf/normalized_all_constituents_parent_weighted_50_300.pdf}
+  {Each parent receives total weight one, divided equally across its constituents.}
+  {The 99 concentration remains after preventing multi-component parents from receiving extra total weight. This shows that the constituent result is not only a mechanical consequence of counting split parents multiple times.}
+
+\FigurePage
+  {9. Largest versus second-largest constituents}
+  {../output/pdf/largest_second_constituent_heatmap.pdf}
+  {Each point is an exact pair of largest and second-largest constituent sizes within a multi-component parent; size and color indicate the number of parents.}
+  {The post-period 99-by-99 cell is an isolated concentration that has no historical analogue. Other combinations exist, including nearby totals, but none produces a comparable exact 99+99 cluster. This is strong descriptive evidence of coordinated project composition.}
+
+\FigurePage
+  {10. Decomposition of exact 198-unit parents}
+  {../output/pdf/exact_198_constituent_decomposition.pdf}
+  {The bar reports the constituent vector and verification status of every exact 198-unit post parent.}
+  {All \ExactOneNinetyEightParents{} parents are exactly 99+99. The common vector establishes that linkage did not manufacture the 198 count. It does not, by itself, prove that each filing/building is a legally separate 485-x site; only \VerifiedOneNinetyEight{} is directly verified so far.}
+
+\FigurePage
+  {11. Parent response categories A-G}
+  {../output/pdf/parent_response_category_shares.pdf}
+  {Every A/B parent is assigned to one mutually exclusive configuration based on constituent counts and sizes.}
+  {Single projects at or above 100 lose substantial share, while single 99s, multi-component all-sub-100 parents, and exact 99-by-k configurations gain share. This shows that the response is not only downsizing a single building: project composition changes as well.}
+
+\FigurePage
+  {12. Raw number of constituents per parent}
+  {../output/pdf/constituent_count_distribution.pdf}
+  {This compares the unadjusted distribution of the number of linked constituents in each parent.}
+  {Multi-component parents are much more common post-policy. The raw comparison could partly reflect a different mix of sites or improved recent linkage, so it is paired below with a composition-adjusted version and should be read alongside the linkage audits.}
+
+\FigurePage
+  {13. Composition-adjusted constituent counts}
+  {../output/pdf/reweighted_constituent_count_distribution.pdf}
+  {Historical parents are reweighted to the post mix of predetermined lot size, FAR, multi-lot status, and borough before comparing the number of constituents.}
+  {The single-component share falls from \HistoricalSingleShare{} percent in the reweighted benchmark to \PostSingleShare{} percent post-policy. Thus, observable site composition does not explain the increase in multi-component parents. Remaining unobserved compositional change is still possible.}
+
+\FigurePage
+  {14. Composition-adjusted no-notch benchmark}
+  {../output/pdf/reweighted_parent_counterfactual_50_300.pdf}
+  {The blue line transports the exact 2019-2022 parent-size distribution to the post mix of predetermined site traits using positive exponential weights. The red line is observed post-policy.}
+  {Reweighting leaves a large 99-unit excess, a deficit over much of 100-149, and a 198-unit excess. These are shape differences after observable site composition is balanced. The benchmark is more credible than a raw normalized comparison, but it is not a full causal design if unobserved market composition changed.}
+
+\FigurePage
+  {15. Scale-only annualized count counterfactual}
+  {../output/pdf/scale_only_parent_counts_50_300.pdf}
+  {The blue line applies the post annual opportunity rate to the reweighted historical shape. It asks what counts would look like if the market expanded to post scale without changing the size distribution.}
+  {This decomposition allows the general construction surge to remain in the counterfactual. Deviations at 99, 100-149, and 198 therefore cannot be attributed merely to having more development overall, although they can still reflect unobserved composition or other simultaneous changes.}
+
+\FigurePage
+  {16. Observed minus counterfactual shares}
+  {../output/pdf/observed_minus_counterfactual_shares_50_300.pdf}
+  {Each bar is the observed post share minus the reweighted no-notch share at an exact unit count.}
+  {The 99 excess is \ExcessNinetyNine{} percentage points and the 198 excess is \ExcessOneNinetyEight{} points. Negative bars between 100 and 149 are the local missing-mass candidates. Positive and negative bars over the full support must sum to zero mechanically.}
+
+\FigurePage
+  {17. Observed minus scale-only annualized counts}
+  {../output/pdf/shape_effect_parent_counts_50_300.pdf}
+  {This is the same shape difference expressed as annualized project opportunities at the post market scale.}
+  {The plot translates probability shifts into economically intuitive project counts. The large positive 99 bar is the clearest response, followed by the 198 bar. These are counterfactual count differences, not estimates of housing units lost, because a 198 parent may preserve total scale through two 99-unit constituents.}
+
+\FigurePage
+  {18. Cumulative deficit above 99}
+  {../output/pdf/cumulative_99_deficit.pdf}
+  {The blue line cumulates counterfactual share minus observed post share from 100 through each upper endpoint. The red line is the excess exactly at 99.}
+  {The deficit reaches \DeficitOneHundredOneFortyNine{} percentage points by 149, compared with a \ExcessNinetyNine{}-point 99 excess. The gap does not close below 150. This means some offsetting mass lies elsewhere, including larger projects and the pooled tail, or the normalized counterfactual does not perfectly represent the no-policy distribution.}
+
+\FigurePage
+  {19. Year-specific historical shapes}
+  {../output/pdf/historical_year_normalized_parent_total.pdf}
+  {Each pre-policy year is normalized separately over all 50-plus A/B parent opportunities.}
+  {Exact one-unit histograms are noisy from year to year, but none displays the post-period 99 or 198 concentrations. The preferred 99 excess remains similar when the benchmark is restricted to 2021-2022, which reduces concern that 2019-2020 drive the result.}
+
+\FigurePage
+  {20. Forward pre-policy placebos}
+  {../output/pdf/historical_forward_placebos.pdf}
+  {The first panel reweights 2019-2020 parents to predict 2021; the second reweights 2019-2021 to predict 2022.}
+  {The exact-bin fits are noisy, as expected with sparse yearly data, so the method should not be sold as precisely predicting every unit count. Crucially, the placebos do not create false spikes comparable to the post 99 and 198 concentrations. The exercise supports using the method for local threshold contrasts while counseling against overinterpreting small bin-by-bin differences.}
+
+\end{document}
