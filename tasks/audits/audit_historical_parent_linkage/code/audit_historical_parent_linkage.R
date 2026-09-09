@@ -9,7 +9,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 membership <- read_parquet("../input/symmetric_parent_membership.parquet") |>
   as.data.frame() |>
@@ -346,27 +346,27 @@ if (
   stop("Historical parent-link audit outputs failed final QC.")
 }
 
-write_csv_if_changed(
+write_csv_atomic(
   linkage_by_cohort,
   "../output/linkage_by_cohort.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   link_signal_availability,
   "../output/link_signal_availability_by_filing_year.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   linkage_geometry_dependence,
   "../output/linkage_geometry_dependence_by_cohort.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   adjacency_only_review,
   "../output/adjacency_only_link_review.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   geometry_dependent_parent_review,
   "../output/geometry_dependent_parent_review.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   tail_relevant_review_validation,
   "../output/tail_relevant_parent_review_validation.csv"
 )

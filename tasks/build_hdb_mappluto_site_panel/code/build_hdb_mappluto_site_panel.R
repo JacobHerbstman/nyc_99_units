@@ -10,9 +10,10 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(start_date), as.character(end_date))
 
 if (length(args) != 2L) {
   stop("Expected two arguments: panel start date and panel end date.")
@@ -42,32 +43,6 @@ numeric_feature_columns <- c(
   "residfar", "commfar", "facilfar", "assessland", "assesstot",
   "allowed_res_area", "residual_res_area"
 )
-
-parse_bbl_borough <- function(x) {
-  substr(as.character(x), 1L, 1L)
-}
-
-parse_bbl_block <- function(x) {
-  suppressWarnings(as.integer(substr(as.character(x), 2L, 6L)))
-}
-
-parse_bbl_lot <- function(x) {
-  suppressWarnings(as.integer(substr(as.character(x), 7L, 10L)))
-}
-
-min_date_value <- function(x) {
-  if (all(is.na(x))) {
-    return(as.Date(NA))
-  }
-  min(x, na.rm = TRUE)
-}
-
-max_date_value <- function(x) {
-  if (all(is.na(x))) {
-    return(as.Date(NA))
-  }
-  max(x, na.rm = TRUE)
-}
 
 hdb <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet") |>
   as.data.frame() |>
@@ -124,9 +99,9 @@ mappluto_appbbl_crosswalk <- mappluto_appbbl_crosswalk |>
     appdate_min = as.Date(appdate_min),
     appdate_max = as.Date(appdate_max),
     same_boro_block = str_to_upper(as.character(same_boro_block)) == "TRUE",
-    appbbl_borough = parse_bbl_borough(appbbl),
-    appbbl_block = parse_bbl_block(appbbl),
-    appbbl_lot = parse_bbl_lot(appbbl)
+    appbbl_borough = substr(as.character(appbbl), 1L, 1L),
+    appbbl_block = suppressWarnings(as.integer(substr(as.character(appbbl), 2L, 6L))),
+    appbbl_lot = suppressWarnings(as.integer(substr(as.character(appbbl), 7L, 10L)))
   ) |>
   filter(!is.na(current_bbl), !is.na(appbbl), current_bbl != appbbl)
 
@@ -236,9 +211,9 @@ candidate_panel <- candidate_panel |>
     post_filing_pluto = !is.na(pluto_safe_available_date_used) & pluto_safe_available_date_used >= date_filed,
     pluto_days_relative_to_filing = as.integer(date_filed - pluto_safe_available_date_used),
     valid_bbl = str_detect(bbl, "^[1-5][0-9]{9}$"),
-    hdb_bbl_borough = parse_bbl_borough(bbl),
-    hdb_bbl_block = parse_bbl_block(bbl),
-    hdb_bbl_lot = parse_bbl_lot(bbl),
+    hdb_bbl_borough = substr(as.character(bbl), 1L, 1L),
+    hdb_bbl_block = suppressWarnings(as.integer(substr(as.character(bbl), 2L, 6L))),
+    hdb_bbl_lot = suppressWarnings(as.integer(substr(as.character(bbl), 7L, 10L))),
     hdb_panel_row_id = row_number()
   )
 
@@ -429,7 +404,7 @@ selected_vintages <- candidate_panel |>
 
 for (i in seq_len(nrow(selected_vintages))) {
   version_row <- selected_vintages[i, ]
-  parquet_path <- file.path("..", "..", "stage_mappluto_lots", "output", basename(version_row$selected_pluto_parquet_path))
+  parquet_path <- file.path("../input", basename(version_row$selected_pluto_parquet_path))
 
   needed_bbl <- needed_feature_bbl |>
     filter(
@@ -438,7 +413,7 @@ for (i in seq_len(nrow(selected_vintages))) {
     ) |>
     distinct(bbl = feature_bbl)
 
-  if (!file.exists(parquet_path) || nrow(needed_bbl) == 0) {
+  if (nrow(needed_bbl) == 0) {
     next
   }
 
@@ -663,8 +638,8 @@ appbbl_accepted_rows <- appbbl_candidate_status |>
     ),
     appbbl_evidence_rows = sum(evidence_rows),
     appbbl_condono_values = paste(sort(unique(as.character(condono_values[!is.na(condono_values) & condono_values != ""]))), collapse = ";"),
-    appbbl_appdate_min = min_date_value(appdate_min),
-    appbbl_appdate_max = max_date_value(appdate_max),
+    appbbl_appdate_min = if (all(is.na(appdate_min))) as.Date(NA) else min(appdate_min, na.rm = TRUE),
+    appbbl_appdate_max = if (all(is.na(appdate_max))) as.Date(NA) else max(appdate_max, na.rm = TRUE),
     .groups = "drop"
   )
 
@@ -789,5 +764,5 @@ candidate_panel <- candidate_panel |>
     starts_with("missing_")
   )
 
-write_parquet_if_changed(candidate_panel, "../output/hdb_mappluto_site_panel.parquet")
+write_parquet_atomic(candidate_panel, "../output/hdb_mappluto_site_panel.parquet")
 cat("Wrote HDB-MapPLUTO site panel to ../output/hdb_mappluto_site_panel.parquet\n")

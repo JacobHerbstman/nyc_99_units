@@ -7,7 +7,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 parents <- read_parquet("../input/parent_opportunity_panel.parquet") |>
   as.data.frame() |>
@@ -74,7 +74,7 @@ parent_190_205_audit <- parents |>
   ) |>
   arrange(period, parent_total_units, parent_id)
 
-write_csv_if_changed(parent_panel_qc, "../output/parent_panel_qc.csv")
-write_csv_if_changed(parent_190_205_audit, "../output/parent_190_205_audit.csv")
+write_csv_atomic(parent_panel_qc, "../output/parent_panel_qc.csv")
+write_csv_atomic(parent_190_205_audit, "../output/parent_190_205_audit.csv")
 
 cat("Wrote scale-shape panel audits to ../output\n")

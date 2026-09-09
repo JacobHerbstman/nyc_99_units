@@ -1,0 +1,9 @@
+Rows: 2
+Columns: 5
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 416287d399b00894e775fa7e7e665f42
+status | character | nonmissing | 2 | distinct | 2
+detail | character | nonmissing | 1 | distinct | 1
+replications | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 1/249.5/249.5/498
+requested_replications | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 499/499/499/499
+random_seed | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 48599/48599/48599/48599

@@ -8,7 +8,7 @@ suppressPackageStartupMessages({
   library(stringr)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 file_manifest <- read_csv(
   "../input/hpd_485x_registration_files.csv",
@@ -19,16 +19,16 @@ file_manifest <- read_csv(
 registration_file <- file_manifest |>
   filter(file_role == "building_registration_submissions")
 
-if (nrow(registration_file) != 1L || !file.exists(registration_file$raw_path)) {
+if (nrow(registration_file) != 1L || !file.exists("../input/hpd_485x_registrations.csv")) {
   stop("Expected one available HPD 485-x registration extract.")
 }
 
-if (compute_sha256(registration_file$raw_path) != registration_file$sha256) {
+if (compute_sha256("../input/hpd_485x_registrations.csv") != registration_file$sha256) {
   stop("HPD 485-x registration file does not match the fetch manifest checksum.")
 }
 
 registrations <- read_csv(
-  registration_file$raw_path,
+  "../input/hpd_485x_registrations.csv",
   show_col_types = FALSE,
   col_types = cols(.default = col_character()),
   na = c("", "NA")
@@ -97,7 +97,7 @@ if (any(!str_detect(staged_registrations$dob_bin, "^[1-5][0-9]{6}$"))) {
   stop("Staged HPD DOB BIN is missing or malformed.")
 }
 
-write_parquet_if_changed(
+write_parquet_atomic(
   staged_registrations,
   "../output/hpd_485x_registrations.parquet"
 )

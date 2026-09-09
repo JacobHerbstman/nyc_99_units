@@ -1,0 +1,20 @@
+# setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/load_dcp_housing_database_raw/code")
+# dataset <- "dcp_housing_database_project_level_raw_25q4"
+
+source("../../shared/code/write_data_report.R")
+
+args <- commandArgs(trailingOnly = TRUE)
+if (!interactive()) {
+  stopifnot(length(args) == 1L)
+  dataset <- args[1]
+}
+
+if (dataset == "dcp_housing_database_project_level_raw_25q4") {
+  data <- arrow::read_parquet("../output/dcp_housing_database_project_level_raw_25q4.parquet")
+  write_data_report(data, NULL, "../output/dcp_housing_database_project_level_raw_25q4.parquet", "../report/dcp_housing_database_project_level_raw_25q4.txt")
+} else if (dataset == "dcp_housing_database_raw_files") {
+  data <- readr::read_csv("../output/dcp_housing_database_raw_files.csv", show_col_types = FALSE, guess_max = Inf)
+  write_data_report(data, c("source_id", "vintage"), "../output/dcp_housing_database_raw_files.csv", "../report/dcp_housing_database_raw_files.txt")
+} else {
+  stop("Unknown dataset: ", dataset)
+}

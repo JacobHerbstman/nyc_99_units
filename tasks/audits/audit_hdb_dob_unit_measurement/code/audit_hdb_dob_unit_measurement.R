@@ -10,7 +10,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -325,23 +325,23 @@ summary <- bind_rows(
   category_counts
 )
 
-write_csv_if_changed(
+write_csv_atomic(
   disagreement_filings,
   "../output/hdb_dob_unit_disagreement_filings.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   exact_99_disagreements,
   "../output/hdb_dob_exact_99_disagreements.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   disagreements,
   "../output/hdb_dob_unit_disagreements.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   summary,
   "../output/hdb_dob_unit_measurement_summary.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   comparison,
   "../output/hdb_dob_unit_comparison.csv"
 )

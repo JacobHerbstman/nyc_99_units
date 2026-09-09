@@ -1,0 +1,12 @@
+Rows: 252
+Columns: 8
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 86f454439b05668c077ba0a765e575e3
+unit_bin_order | numeric | nonmissing | 252 | distinct | 252 min/median/mean/max 50/175.5/175.5/301
+Historical unweighted | numeric | nonmissing | 252 | distinct | 16 min/median/mean/max 0/0.001776199/0.003968254/0.1385435
+Historical reweighted to post sites | numeric | nonmissing | 252 | distinct | 173 min/median/mean/max 0/0.001773946/0.003968254/0.106921
+Post observed | numeric | nonmissing | 252 | distinct | 12 min/median/mean/max 0/0/0.003968254/0.1277955
+post_annualized_opportunity_rate | numeric | nonmissing | 252 | distinct | 1 min/median/mean/max 206.3597/206.3597/206.3597/206.3597
+scale_only_counterfactual_count | numeric | nonmissing | 252 | distinct | 173 min/median/mean/max 0/0.366071/0.8188875/22.06417
+observed_post_annualized_count | numeric | nonmissing | 252 | distinct | 12 min/median/mean/max 0/0/0.8188875/26.37184
+shape_effect_count | numeric | nonmissing | 252 | distinct | 176 min/median/mean/max -6.241067/0/4.687608e-16/22.43026

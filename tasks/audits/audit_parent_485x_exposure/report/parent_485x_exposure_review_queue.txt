@@ -1,0 +1,44 @@
+Rows: 491
+Columns: 38
+Key fields: sample, parent_id
+Saved-file MD5: 6645fb8ca79c395aaf734bc30d2fb6fd
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 491 | distinct | 2
+parent_id | character | nonmissing | 491 | distinct | 491
+cohort_date | Date | nonmissing | 491 | distinct | 396
+cohort_year | numeric | nonmissing | 491 | distinct | 16 min/median/mean/max 2011/2023/2020.845/2026
+parent_total_units | numeric | nonmissing | 491 | distinct | 207 min/median/mean/max 6/101/156.446/1132
+component_filings | numeric | nonmissing | 491 | distinct | 6 min/median/mean/max 1/1/1.173116/7
+ag_queryable_components | numeric | nonmissing | 491 | distinct | 6 min/median/mean/max 1/1/1.173116/7
+component_jobs | character | nonmissing | 491 | distinct | 491
+addresses | character | nonmissing | 491 | distinct | 491
+boroughs | character | nonmissing | 491 | distinct | 5
+ownership_types | character | nonmissing | 491 | distinct | 25
+owner_names | character | nonmissing | 487 | distinct | 274
+exposure_status | character | nonmissing | 491 | distinct | 4
+included_ab | logical | nonmissing | 491 | distinct | 2
+included_ab_plus_d | logical | nonmissing | 491 | distinct | 2
+confidence | character | nonmissing | 491 | distinct | 3
+classification_reason | character | nonmissing | 491 | distinct | 11
+evidence_source | character | nonmissing | 491 | distinct | 8
+source_url | character | nonmissing | 43 | distinct | 15
+review_date | Date | nonmissing | 491 | distinct | 1
+government_owner | logical | nonmissing | 491 | distinct | 2
+nycha_owner | logical | nonmissing | 491 | distinct | 2
+hotel_project | logical | nonmissing | 491 | distinct | 1
+ag_queries | numeric | nonmissing | 491 | distinct | 7 min/median/mean/max 0/1/1.171079/7
+ag_all_queries_succeeded | logical | nonmissing | 491 | distinct | 2
+ag_screen_complete | logical | nonmissing | 491 | distinct | 2
+ag_returned_plans | numeric | nonmissing | 491 | distinct | 6 min/median/mean/max 0/0/0.1649695/6
+ag_market_homeownership | logical | nonmissing | 491 | distinct | 2
+ag_offering_plan | logical | nonmissing | 491 | distinct | 2
+ag_accepted_offering_plan | logical | nonmissing | 491 | distinct | 2
+ag_cps1_market_test | logical | nonmissing | 491 | distinct | 2
+ag_financing_condominium | logical | nonmissing | 491 | distinct | 2
+ag_market_plan_ids | character | nonmissing | 11 | distinct | 11
+ag_financing_plan_ids | character | nonmissing | 31 | distinct | 31
+hpd_registered_components | numeric | nonmissing | 491 | distinct | 2 min/median/mean/max 0/0/0.05906314/1
+hpd_options | character | nonmissing | 29 | distinct | 2
+manual_notes | logical | nonmissing | 0 | distinct | 0
+review_priority | character | nonmissing | 491 | distinct | 5

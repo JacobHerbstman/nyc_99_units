@@ -1,0 +1,12 @@
+Rows: 41
+Columns: 8
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 8fdffa0ca1e5e285aea1e1198727fe97
+source_id | character | nonmissing | 41 | distinct | 2
+vintage | character | nonmissing | 41 | distinct | 41
+release_order | numeric | nonmissing | 41 | distinct | 41 min/median/mean/max 1/21/21/41
+safe_available_date | Date | nonmissing | 41 | distinct | 41
+usable_for_training | logical | nonmissing | 41 | distinct | 1
+evidence_url | character | nonmissing | 41 | distinct | 41
+date_basis | character | nonmissing | 41 | distinct | 2
+notes | character | nonmissing | 41 | distinct | 9

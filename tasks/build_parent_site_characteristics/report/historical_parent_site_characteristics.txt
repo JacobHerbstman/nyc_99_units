@@ -1,0 +1,38 @@
+Rows: 5633
+Columns: 32
+Key fields: parent_id
+Saved-file MD5: 52518cfaa1ff5d866112cdd60991d901
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 5633 | distinct | 1
+observation_id | character | nonmissing | 5633 | distinct | 5633
+parent_id | character | nonmissing | 5633 | distinct | 5633
+analysis_status | character | nonmissing | 5633 | distinct | 4
+cohort_date | Date | nonmissing | 5633 | distinct | 2517
+cohort_year | integer | nonmissing | 5633 | distinct | 14 min/median/mean/max 2010/2017/2016.955/2023
+date_last_filed | Date | nonmissing | 5633 | distinct | 2516
+filing_year | integer | nonmissing | 5633 | distinct | 14 min/median/mean/max 2010/2017/2016.955/2023
+units | integer | nonmissing | 5633 | distinct | 412 min/median/mean/max 6/19/56.75271/1754
+units_hdb_priority | integer | nonmissing | 5633 | distinct | 412 min/median/mean/max 6/19/56.75271/1754
+units_dob_i1 | integer | nonmissing | 5633 | distinct | 412 min/median/mean/max 6/19/56.75271/1754
+source_filings | integer | nonmissing | 5633 | distinct | 8 min/median/mean/max 1/1/1.050417/20
+component_filings | integer | nonmissing | 5633 | distinct | 8 min/median/mean/max 1/1/1.050417/20
+exact_99_component_filings | integer | nonmissing | 5633 | distinct | 2 min/median/mean/max 0/0/0.002662879/1
+exact_99_component_filings_dob_i1 | integer | nonmissing | 5633 | distinct | 2 min/median/mean/max 0/0/0.002662879/1
+source_jobs | character | nonmissing | 5633 | distinct | 5633
+component_jobs | character | nonmissing | 5633 | distinct | 5633
+nonmissing_bin_rows | integer | nonmissing | 5633 | distinct | 8 min/median/mean/max 1/1/1.050417/20
+distinct_bins | integer | nonmissing | 5633 | distinct | 7 min/median/mean/max 1/1/1.049175/20
+duplicate_bin_rows | integer | nonmissing | 5633 | distinct | 3 min/median/mean/max 0/0/0.001242677/2
+feature_complete | logical | nonmissing | 5633 | distinct | 1
+feature_methods | character | nonmissing | 5633 | distinct | 1
+feature_lots | integer | nonmissing | 5633 | distinct | 4 min/median/mean/max 1/1/1.028049/4
+composition_eligible | logical | nonmissing | 5633 | distinct | 2
+lotarea | numeric | nonmissing | 5633 | distinct | 2602 min/median/mean/max 250/4107/22591.04/2872210
+log_lotarea | numeric | nonmissing | 5633 | distinct | 2602 min/median/mean/max 5.521461/8.320448/8.592505/14.87059
+residfar | numeric | nonmissing | 4720 | distinct | 43 min/median/mean/max 0/2.43/3.31024/12
+broad_zoning_far | numeric | nonmissing | 5633 | distinct | 43 min/median/mean/max 0/4.8/4.274457/15
+builtfar | numeric | nonmissing | 5633 | distinct | 556 min/median/mean/max 0/0.5/0.726141/39.42
+borough | character | nonmissing | 5633 | distinct | 5
+zone_detail | character | nonmissing | 5633 | distinct | 9
+prior_site_use | character | nonmissing | 5633 | distinct | 9

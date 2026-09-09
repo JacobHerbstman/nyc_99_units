@@ -1,5 +1,4 @@
-SHELL := bash
-include ../../shell_functions.make
+include ../../shared/code/shell_functions.make
 
 PRE_START_DATE := 2019-01-01
 PRE_END_DATE := 2022-12-31
@@ -15,11 +14,15 @@ POOLED_TAIL_START := 301
 BOOTSTRAP_REPLICATIONS := 499
 RANDOM_SEED := 48599
 
+ifneq ($(filter command,$(origin PRE_START_DATE) $(origin PRE_END_DATE) $(origin POST_START_DATE) $(origin POST_END_DATE) $(origin MINIMUM_UNITS) $(origin NEAR_99_MINIMUM) $(origin EXACT_PLOT_MINIMUM) $(origin EXACT_PLOT_MAXIMUM) $(origin PREFERRED_MINIMUM) $(origin FILING_PLOT_MAXIMUM) $(origin POOLED_TAIL_START) $(origin BOOTSTRAP_REPLICATIONS) $(origin RANDOM_SEED)),)
+$(error These fixed-name outputs use the settings recorded in this Makefile; edit those settings here so Make tracks the change)
+endif
+
 all: ../output/parent_opportunity_panel.parquet \
 	../output/constituent_filing_panel.parquet \
 	../output/sample_exposure_summary.csv \
-	../output/calibration_summary.csv \
-	../output/bootstrap_intervals.csv \
+	../output/calibration_weights.csv ../output/calibration_summary.csv \
+	../output/bootstrap_draws.csv ../output/bootstrap_intervals.csv \
 	../output/pdf/annualized_parent_total_50_300.pdf \
 	../output/pdf/normalized_parent_total_50_300_reproduction.pdf \
 	../output/pdf/normalized_parent_total_50_plus.pdf \
@@ -47,26 +50,48 @@ all: ../output/parent_opportunity_panel.parquet \
 	../output/pdf/cumulative_99_deficit.pdf \
 	../output/pdf/reweighted_constituent_count_distribution.pdf \
 	../output/pdf/scale_shape_splitting_figure_guide.pdf \
-	../output/pdf/main_project_plots.pdf
+	../output/pdf/main_project_plots.pdf \
+	../report/bootstrap_draws.txt \
+	../report/bootstrap_intervals.txt \
+	../report/bootstrap_run_summary.txt \
+	../report/calibration_balance.txt \
+	../report/calibration_summary.txt \
+	../report/calibration_weights.txt \
+	../report/constituent_count_distribution.txt \
+	../report/constituent_filing_panel.txt \
+	../report/cumulative_99_diagnostics.txt \
+	../report/exact_198_vector_decomposition.txt \
+	../report/exact_threshold_shares.txt \
+	../report/local_excess_deficit_moments.txt \
+	../report/outcome_distribution_50_300.txt \
+	../report/parent_99xk_summary.txt \
+	../report/parent_opportunity_panel.txt \
+	../report/parent_response_categories.txt \
+	../report/parent_share_difference.txt \
+	../report/parent_total_exact_distribution_50_300.txt \
+	../report/preferred_parent_distribution_50_plus.txt \
+	../report/reweighted_constituent_count_distribution.txt \
+	../report/reweighted_counterfactual_distributions.txt \
+	../report/sample_exposure_summary.txt \
+	../report/scale_shape_count_decomposition.txt \
+	../report/scale_shape_decomposition.txt
 
-../output/parent_opportunity_panel.parquet: construct_scale_shape_splitting_panels.R \
-	../../_lib/source_pipeline_utils.R \
-	../input/symmetric_parent_membership.parquet \
-	../input/parent_485x_exposure.csv \
-	../input/parent_485x_exposure_universe.csv \
-	../input/hpd_485x_registration_dob_links.csv \
-	../input/historical_parent_site_characteristics.parquet \
-	../input/post_policy_parent_site_characteristics.parquet | ../output
+../output/parent_opportunity_panel.parquet: construct_scale_shape_splitting_panels.R Makefile \
+	../../shared/code/source_pipeline_utils.R ../input/symmetric_parent_membership.parquet \
+	../input/parent_485x_exposure.csv ../input/parent_485x_exposure_universe.csv \
+	../input/hpd_485x_registration_dob_links.csv ../input/historical_parent_site_characteristics.parquet \
+	../input/post_policy_parent_site_characteristics.parquet \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output
 	$(R) $< $(PRE_START_DATE) $(PRE_END_DATE) $(POST_START_DATE) \
 		$(POST_END_DATE) $(MINIMUM_UNITS) $(NEAR_99_MINIMUM)
 
 ../output/constituent_filing_panel.parquet: ../output/parent_opportunity_panel.parquet
-	@test -s "$@"
+	$(MAKE) -W construct_scale_shape_splitting_panels.R all
 
-../output/sample_exposure_summary.csv: summarize_scale_shape_splitting.R \
-	../../_lib/source_pipeline_utils.R \
-	../input/parent_opportunity_panel.parquet \
-	../input/constituent_filing_panel.parquet | ../output ../output/pdf
+../output/sample_exposure_summary.csv: summarize_scale_shape_splitting.R Makefile \
+	../../shared/code/source_pipeline_utils.R ../input/parent_opportunity_panel.parquet \
+	../input/constituent_filing_panel.parquet \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output ../output/pdf
 	$(R) $< $(EXACT_PLOT_MINIMUM) $(EXACT_PLOT_MAXIMUM) \
 		$(PREFERRED_MINIMUM) $(POOLED_TAIL_START)
 
@@ -92,86 +117,84 @@ all: ../output/parent_opportunity_panel.parquet \
 ../output/pdf/parent_response_category_shares.pdf \
 ../output/pdf/constituent_count_distribution.pdf \
 ../output/pdf/historical_year_normalized_parent_total.pdf: ../output/sample_exposure_summary.csv
-	@test -s "$@"
+	$(MAKE) -W summarize_scale_shape_splitting.R all
 
-../output/pdf/constituent_filing_distribution_50_150.pdf: plot_constituent_filing_distribution.R \
-	../../_lib/source_pipeline_utils.R \
-	../input/constituent_filing_panel.parquet | ../output/pdf
+../output/pdf/constituent_filing_distribution_50_150.pdf: plot_constituent_filing_distribution.R Makefile \
+	../../shared/code/source_pipeline_utils.R ../input/constituent_filing_panel.parquet \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output/pdf
 	$(R) $< $(PREFERRED_MINIMUM) $(FILING_PLOT_MAXIMUM) normalized line
 
 ../output/pdf/annualized_constituent_filing_distribution_50_300.pdf: plot_constituent_filing_distribution.R \
-	../../_lib/source_pipeline_utils.R \
-	../input/constituent_filing_panel.parquet | ../output/pdf
+	Makefile ../../shared/code/source_pipeline_utils.R ../input/constituent_filing_panel.parquet \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output/pdf
 	$(R) $< $(PREFERRED_MINIMUM) $(EXACT_PLOT_MAXIMUM) annualized line
 
 ../output/pdf/normalized_constituent_filing_distribution_50_300.pdf: plot_constituent_filing_distribution.R \
-	../../_lib/source_pipeline_utils.R \
-	../input/constituent_filing_panel.parquet | ../output/pdf
+	Makefile ../../shared/code/source_pipeline_utils.R ../input/constituent_filing_panel.parquet \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output/pdf
 	$(R) $< $(PREFERRED_MINIMUM) $(EXACT_PLOT_MAXIMUM) normalized line
 
-../output/pdf/normalized_constituent_filing_distribution_50_300_histogram.pdf: plot_constituent_filing_distribution.R \
-	../../_lib/source_pipeline_utils.R \
-	../input/constituent_filing_panel.parquet | ../output/pdf
+../output/pdf/normalized_constituent_filing_distribution_50_300_histogram.pdf: \
+	plot_constituent_filing_distribution.R Makefile ../../shared/code/source_pipeline_utils.R \
+	../input/constituent_filing_panel.parquet \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output/pdf
 	$(R) $< $(PREFERRED_MINIMUM) $(EXACT_PLOT_MAXIMUM) normalized histogram
 
-../output/pdf/constituent_filing_cdf.pdf: plot_constituent_filing_cdf.R \
-	../../_lib/source_pipeline_utils.R \
-	../input/constituent_filing_panel.parquet | ../output/pdf
+../output/pdf/constituent_filing_cdf.pdf: plot_constituent_filing_cdf.R Makefile \
+	../../shared/code/source_pipeline_utils.R ../input/constituent_filing_panel.parquet \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output/pdf
 	$(R) $< $(PREFERRED_MINIMUM) $(EXACT_PLOT_MAXIMUM)
 
-../output/pdf/constituent_filing_cdf_6_plus.pdf: plot_constituent_filing_cdf.R \
-	../../_lib/source_pipeline_utils.R \
-	../input/constituent_filing_panel.parquet | ../output/pdf
+../output/pdf/constituent_filing_cdf_6_plus.pdf: plot_constituent_filing_cdf.R Makefile \
+	../../shared/code/source_pipeline_utils.R ../input/constituent_filing_panel.parquet \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output/pdf
 	$(R) $< $(MINIMUM_UNITS) $(EXACT_PLOT_MAXIMUM)
 
-../output/pdf/parents_with_99_unit_constituents.pdf: plot_99_containing_parent_vectors.R \
-	../../_lib/source_pipeline_utils.R \
-	../input/parent_opportunity_panel.parquet | ../output/pdf
+../output/pdf/parents_with_99_unit_constituents.pdf: plot_99_containing_parent_vectors.R Makefile \
+	../../shared/code/source_pipeline_utils.R ../input/parent_opportunity_panel.parquet \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output/pdf
 	$(R) $<
 
-../output/calibration_summary.csv: estimate_shape_counterfactual.R \
-	../../_lib/scale_shape_helpers.R \
-	../../_lib/source_pipeline_utils.R \
-	../input/parent_opportunity_panel.parquet | ../output ../output/pdf
+../output/calibration_weights.csv: estimate_shape_counterfactual.R Makefile \
+	../../shared/code/scale_shape_helpers.R ../../shared/code/source_pipeline_utils.R \
+	../input/parent_opportunity_panel.parquet \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output ../output/pdf
 	$(R) $< $(PREFERRED_MINIMUM) $(EXACT_PLOT_MAXIMUM) $(POOLED_TAIL_START)
 
-../output/calibration_weights.csv \
-../output/calibration_balance.csv \
-../output/reweighted_counterfactual_distributions.csv \
-../output/scale_shape_count_decomposition.csv \
-../output/parent_share_difference.csv \
-../output/local_excess_deficit_moments.csv \
-../output/reweighted_constituent_count_distribution.csv \
-../output/cumulative_99_diagnostics.csv \
-../output/pdf/reweighted_parent_counterfactual_50_300.pdf \
-../output/pdf/scale_only_parent_counts_50_300.pdf \
-../output/pdf/shape_effect_parent_counts_50_300.pdf \
-../output/pdf/observed_minus_counterfactual_shares_50_300.pdf \
-../output/pdf/cumulative_99_deficit.pdf \
-../output/pdf/reweighted_constituent_count_distribution.pdf: ../output/calibration_summary.csv
-	@test -s "$@"
+../output/calibration_summary.csv \
+	../output/calibration_balance.csv \
+	../output/reweighted_counterfactual_distributions.csv \
+	../output/scale_shape_count_decomposition.csv \
+	../output/parent_share_difference.csv \
+	../output/local_excess_deficit_moments.csv \
+	../output/reweighted_constituent_count_distribution.csv \
+	../output/cumulative_99_diagnostics.csv \
+	../output/pdf/reweighted_parent_counterfactual_50_300.pdf \
+	../output/pdf/scale_only_parent_counts_50_300.pdf \
+	../output/pdf/shape_effect_parent_counts_50_300.pdf \
+	../output/pdf/observed_minus_counterfactual_shares_50_300.pdf \
+	../output/pdf/cumulative_99_deficit.pdf \
+	../output/pdf/reweighted_constituent_count_distribution.pdf: ../output/calibration_weights.csv
+	$(MAKE) -W estimate_shape_counterfactual.R all
 
-../output/bootstrap_intervals.csv: bootstrap_shape_counterfactual.R \
-	../../_lib/scale_shape_helpers.R \
-	../../_lib/source_pipeline_utils.R \
-	../input/parent_opportunity_panel.parquet | ../output
+../output/bootstrap_draws.csv: bootstrap_shape_counterfactual.R Makefile \
+	../../shared/code/scale_shape_helpers.R ../../shared/code/source_pipeline_utils.R \
+	../input/parent_opportunity_panel.parquet \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output
 	$(R) $< $(PREFERRED_MINIMUM) $(EXACT_PLOT_MAXIMUM) $(POOLED_TAIL_START) \
 		$(BOOTSTRAP_REPLICATIONS) $(RANDOM_SEED)
 
-../output/bootstrap_draws.csv \
-../output/bootstrap_run_summary.csv: ../output/bootstrap_intervals.csv
-	@test -s "$@"
+../output/bootstrap_intervals.csv \
+	../output/bootstrap_run_summary.csv: ../output/bootstrap_draws.csv
+	$(MAKE) -W bootstrap_shape_counterfactual.R all
 
-../temp/scale_shape_splitting_figure_guide_values.tex: build_figure_guide_values.R \
-	../../_lib/source_pipeline_utils.R \
-	../output/sample_exposure_summary.csv \
-	../output/local_excess_deficit_moments.csv \
-	../output/reweighted_counterfactual_distributions.csv \
-	../output/bootstrap_intervals.csv \
-	../output/exact_198_vector_decomposition.csv \
-	../output/calibration_summary.csv \
-	../output/reweighted_constituent_count_distribution.csv \
-	../output/bootstrap_run_summary.csv | ../temp
+../temp/scale_shape_splitting_figure_guide_values.tex: build_figure_guide_values.R Makefile \
+	../../shared/code/source_pipeline_utils.R ../output/sample_exposure_summary.csv \
+	../output/local_excess_deficit_moments.csv ../output/reweighted_counterfactual_distributions.csv \
+	../output/bootstrap_intervals.csv ../output/exact_198_vector_decomposition.csv \
+	../output/calibration_summary.csv ../output/reweighted_constituent_count_distribution.csv \
+	../output/bootstrap_run_summary.csv \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../temp
 	$(R) $<
 
 ../output/pdf/scale_shape_splitting_figure_guide.pdf: scale_shape_splitting_figure_guide.tex \
@@ -212,8 +235,103 @@ all: ../output/parent_opportunity_panel.parquet \
 	pdflatex -interaction=nonstopmode -halt-on-error -output-directory=../temp $<
 	cp ../temp/main_project_plots.pdf $@
 
-../output/pdf: | ../output
-	mkdir -p $@
+
+../report/bootstrap_draws.txt: report_data.R ../../shared/code/write_data_report.R ../output/bootstrap_draws.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< bootstrap_draws
+
+../report/bootstrap_intervals.txt: report_data.R ../../shared/code/write_data_report.R ../output/bootstrap_intervals.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< bootstrap_intervals
+
+../report/bootstrap_run_summary.txt: report_data.R ../../shared/code/write_data_report.R ../output/bootstrap_run_summary.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< bootstrap_run_summary
+
+../report/calibration_balance.txt: report_data.R ../../shared/code/write_data_report.R ../output/calibration_balance.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< calibration_balance
+
+../report/calibration_summary.txt: report_data.R ../../shared/code/write_data_report.R ../output/calibration_summary.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< calibration_summary
+
+../report/calibration_weights.txt: report_data.R ../../shared/code/write_data_report.R ../output/calibration_weights.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< calibration_weights
+
+../report/constituent_count_distribution.txt: report_data.R ../../shared/code/write_data_report.R ../output/constituent_count_distribution.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< constituent_count_distribution
+
+../report/constituent_filing_panel.txt: report_data.R ../../shared/code/write_data_report.R ../output/constituent_filing_panel.parquet Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< constituent_filing_panel
+
+../report/cumulative_99_diagnostics.txt: report_data.R ../../shared/code/write_data_report.R ../output/cumulative_99_diagnostics.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< cumulative_99_diagnostics
+
+../report/exact_198_vector_decomposition.txt: report_data.R ../../shared/code/write_data_report.R ../output/exact_198_vector_decomposition.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< exact_198_vector_decomposition
+
+../report/exact_threshold_shares.txt: report_data.R ../../shared/code/write_data_report.R ../output/exact_threshold_shares.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< exact_threshold_shares
+
+../report/local_excess_deficit_moments.txt: report_data.R ../../shared/code/write_data_report.R ../output/local_excess_deficit_moments.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< local_excess_deficit_moments
+
+../report/outcome_distribution_50_300.txt: report_data.R ../../shared/code/write_data_report.R ../output/outcome_distribution_50_300.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< outcome_distribution_50_300
+
+../report/parent_99xk_summary.txt: report_data.R ../../shared/code/write_data_report.R ../output/parent_99xk_summary.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< parent_99xk_summary
+
+../report/parent_opportunity_panel.txt: report_data.R ../../shared/code/write_data_report.R ../output/parent_opportunity_panel.parquet Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< parent_opportunity_panel
+
+../report/parent_response_categories.txt: report_data.R ../../shared/code/write_data_report.R ../output/parent_response_categories.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< parent_response_categories
+
+../report/parent_share_difference.txt: report_data.R ../../shared/code/write_data_report.R ../output/parent_share_difference.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< parent_share_difference
+
+../report/parent_total_exact_distribution_50_300.txt: report_data.R ../../shared/code/write_data_report.R ../output/parent_total_exact_distribution_50_300.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< parent_total_exact_distribution_50_300
+
+../report/preferred_parent_distribution_50_plus.txt: report_data.R ../../shared/code/write_data_report.R ../output/preferred_parent_distribution_50_plus.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< preferred_parent_distribution_50_plus
+
+../report/reweighted_constituent_count_distribution.txt: report_data.R ../../shared/code/write_data_report.R ../output/reweighted_constituent_count_distribution.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< reweighted_constituent_count_distribution
+
+../report/reweighted_counterfactual_distributions.txt: report_data.R ../../shared/code/write_data_report.R ../output/reweighted_counterfactual_distributions.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< reweighted_counterfactual_distributions
+
+../report/sample_exposure_summary.txt: report_data.R ../../shared/code/write_data_report.R ../output/sample_exposure_summary.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< sample_exposure_summary
+
+../report/scale_shape_count_decomposition.txt: report_data.R ../../shared/code/write_data_report.R ../output/scale_shape_count_decomposition.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< scale_shape_count_decomposition
+
+../report/scale_shape_decomposition.txt: report_data.R ../../shared/code/write_data_report.R ../output/scale_shape_decomposition.csv Makefile \
+	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
+	$(R) $< scale_shape_decomposition
+
 
 ../input/parent_opportunity_panel.parquet: ../output/parent_opportunity_panel.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
@@ -224,7 +342,7 @@ all: ../output/parent_opportunity_panel.parquet \
 ../input/symmetric_parent_membership.parquet: ../../construct_parent_cohorts/output/symmetric_parent_membership.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/parent_485x_exposure.csv: ../../audits/audit_parent_485x_exposure/output/parent_485x_exposure.csv | ../input
+../input/parent_485x_exposure.csv: ../../classify_parent_485x_exposure/output/parent_485x_exposure.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
 ../input/parent_485x_exposure_universe.csv: ../../build_parent_485x_exposure_universe/output/parent_485x_exposure_universe.csv | ../input
@@ -248,4 +366,40 @@ link-inputs: ../input/symmetric_parent_membership.parquet \
 	../input/parent_opportunity_panel.parquet \
 	../input/constituent_filing_panel.parquet
 
-include ../../generic.make
+../../construct_parent_cohorts/output/symmetric_parent_membership.parquet: check-construct_parent_cohorts ;
+
+.PHONY: check-construct_parent_cohorts
+
+check-construct_parent_cohorts:
+	$(MAKE) -C ../../construct_parent_cohorts/code all ../output/symmetric_parent_membership.parquet
+
+../../classify_parent_485x_exposure/output/parent_485x_exposure.csv: check-classify_parent_485x_exposure ;
+
+.PHONY: check-classify_parent_485x_exposure
+
+check-classify_parent_485x_exposure:
+	$(MAKE) -C ../../classify_parent_485x_exposure/code all ../output/parent_485x_exposure.csv
+
+../../build_parent_485x_exposure_universe/output/parent_485x_exposure_universe.csv: check-build_parent_485x_exposure_universe ;
+
+.PHONY: check-build_parent_485x_exposure_universe
+
+check-build_parent_485x_exposure_universe:
+	$(MAKE) -C ../../build_parent_485x_exposure_universe/code all ../output/parent_485x_exposure_universe.csv
+
+../../link_hpd_485x_registrations/output/hpd_485x_registration_dob_links.csv: check-link_hpd_485x_registrations ;
+
+.PHONY: check-link_hpd_485x_registrations
+
+check-link_hpd_485x_registrations:
+	$(MAKE) -C ../../link_hpd_485x_registrations/code all ../output/hpd_485x_registration_dob_links.csv
+
+../../build_parent_site_characteristics/output/historical_parent_site_characteristics.parquet \
+	../../build_parent_site_characteristics/output/post_policy_parent_site_characteristics.parquet: check-build_parent_site_characteristics ;
+
+.PHONY: check-build_parent_site_characteristics
+
+check-build_parent_site_characteristics:
+	$(MAKE) -C ../../build_parent_site_characteristics/code all ../output/historical_parent_site_characteristics.parquet ../output/post_policy_parent_site_characteristics.parquet
+
+include ../../shared/code/generic.make

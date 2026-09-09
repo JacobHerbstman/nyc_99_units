@@ -1,0 +1,10 @@
+Rows: 931
+Columns: 4
+Key fields: sample, parent_total_units, exposure_status
+Saved-file MD5: 78c1a5648a1831b76c341c7c705af344
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 931 | distinct | 2
+parent_total_units | numeric | nonmissing | 931 | distinct | 441 min/median/mean/max 6/133/202.0333/1754
+exposure_status | character | nonmissing | 931 | distinct | 4
+parents | numeric | nonmissing | 931 | distinct | 62 min/median/mean/max 1/1/7.219119/559

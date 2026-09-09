@@ -1,7 +1,9 @@
 Rows: 38399
 Columns: 10
-Unique nonmissing key: year, w_geocode
+Key fields: year, w_geocode
 Saved-file MD5: e8c93fae30742c40e66f69e067f017ee
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
 w_geocode | numeric | nonmissing | 38399 | distinct | 11373 min/median/mean/max 3.6005e+14/3.606102e+14/3.60616e+14/3.608503e+14
 total | numeric | nonmissing | 38399 | distinct | 492 min/median/mean/max 1/5/18.50757/1669
 SE01 | numeric | nonmissing | 38399 | distinct | 120 min/median/mean/max 0/1/2.30407/248

@@ -19,7 +19,7 @@ version. The build fails unless 100--104 are empty in all four layers and 105
 is occupied. A separate case file lists every current 105-unit parent.
 
 The exposure figures apply the parent-level categorical classification from
-`audit_parent_485x_exposure`. One panel keeps only plausible Option A/B rental
+`classify_parent_485x_exposure`. One panel keeps only plausible Option A/B rental
 opportunities. The second adds plausible outer-borough Option D homeownership
 opportunities. `not_exposed` and `unresolved` parents remain in the exposure
 data and review queue but are excluded from both plotted estimation samples.
@@ -50,3 +50,5 @@ density PDFs, these separate changes in total filing volume from changes in the
 distribution of proposed project sizes.
 
 Run `make` from `code/`.
+
+The cross-layer 100–104 gap check and 105-unit case listing are produced by `tasks/audits/audit_post_99_gap`, separately from these distributions.

@@ -1,0 +1,14 @@
+Rows: 789
+Columns: 8
+Key fields: statistic
+Saved-file MD5: b1372a9ea5e2911bf43c252b107ed7a8
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+statistic | character | nonmissing | 789 | distinct | 789
+point_estimate | numeric | nonmissing | 789 | distinct | 382 min/median/mean/max -0.03024364/0/0.2029669/127
+successful_replications | numeric | nonmissing | 789 | distinct | 2 min/median/mean/max 492/498/497.9848/498
+bootstrap_mean | numeric | nonmissing | 789 | distinct | 466 min/median/mean/max -0.03067467/0/0.2032819/127.5224
+percentile_lower | numeric | nonmissing | 789 | distinct | 247 min/median/mean/max -0.06982878/0/0.1693659/117
+percentile_upper | numeric | nonmissing | 789 | distinct | 284 min/median/mean/max -0.004112035/0.004146524/0.2419541/140
+basic_lower | numeric | nonmissing | 789 | distinct | 381 min/median/mean/max -0.2142857/-0.00135064/0.1639796/114
+basic_upper | numeric | nonmissing | 789 | distinct | 384 min/median/mean/max -0.001064119/0.003192407/0.2365678/137

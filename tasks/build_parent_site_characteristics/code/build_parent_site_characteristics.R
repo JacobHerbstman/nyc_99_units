@@ -8,7 +8,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 collapse_category <- function(x, mixed_label) {
   values <- sort(unique(x[!is.na(x) & x != ""]))
@@ -304,11 +304,11 @@ if (
   stop("Symmetric parent-model panels failed final QC.")
 }
 
-write_parquet_if_changed(
+write_parquet_atomic(
   historical_panel,
   "../output/historical_parent_site_characteristics.parquet"
 )
-write_parquet_if_changed(
+write_parquet_atomic(
   post_panel,
   "../output/post_policy_parent_site_characteristics.parquet"
 )

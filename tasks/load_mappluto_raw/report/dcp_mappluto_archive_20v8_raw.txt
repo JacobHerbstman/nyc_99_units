@@ -1,0 +1,70 @@
+Rows: 857211
+Columns: 64
+Key fields: bbl
+Saved-file MD5: 2abb5029a3f4238db40a5df29bd015db
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+source_id | character | nonmissing | 857211 | distinct | 1
+source_vintage | character | nonmissing | 857211 | distinct | 1
+source_raw_path | character | nonmissing | 857211 | distinct | 1
+bbl | character | nonmissing | 857211 | distinct | 857211
+borough | character | nonmissing | 857211 | distinct | 5
+block | character | nonmissing | 857211 | distinct | 13976
+lot | character | nonmissing | 857211 | distinct | 2421
+address | character | nonmissing | 856531 | distinct | 827638
+cd | character | nonmissing | 857211 | distinct | 72
+zipcode | character | nonmissing | 857211 | distinct | 214
+ct2010 | character | nonmissing | 857187 | distinct | 1335
+cb2010 | character | nonmissing | 857188 | distinct | 367
+schooldist | character | nonmissing | 856643 | distinct | 32
+council | character | nonmissing | 857211 | distinct | 52
+zonedist1 | character | nonmissing | 857196 | distinct | 164
+zonedist2 | character | nonmissing | 19856 | distinct | 147
+zonedist3 | character | nonmissing | 214 | distinct | 67
+zonedist4 | character | nonmissing | 13 | distinct | 11
+overlay1 | character | nonmissing | 74768 | distinct | 10
+overlay2 | character | nonmissing | 168 | distinct | 10
+spdist1 | character | nonmissing | 101789 | distinct | 81
+spdist2 | character | nonmissing | 77 | distinct | 21
+spdist3 | character | nonmissing | 0 | distinct | 0
+ltdheight | character | nonmissing | 3035 | distinct | 2
+splitzone | character | nonmissing | 857196 | distinct | 2
+zonemap | character | nonmissing | 857211 | distinct | 125
+zmcode | character | nonmissing | 15625 | distinct | 1
+lotarea | character | nonmissing | 857211 | distinct | 29773
+unitsres | character | nonmissing | 857211 | distinct | 742
+unitstotal | character | nonmissing | 857211 | distinct | 773
+comarea | character | nonmissing | 857211 | distinct | 20090
+yearbuilt | character | nonmissing | 857211 | distinct | 265
+yearalter1 | character | nonmissing | 857211 | distinct | 117
+yearalter2 | character | nonmissing | 857211 | distinct | 72
+bldgarea | character | nonmissing | 857211 | distinct | 37855
+resarea | character | nonmissing | 857211 | distinct | 28151
+officearea | character | nonmissing | 857211 | distinct | 8723
+retailarea | character | nonmissing | 857211 | distinct | 9279
+garagearea | character | nonmissing | 857211 | distinct | 3907
+strgearea | character | nonmissing | 857211 | distinct | 3595
+factryarea | character | nonmissing | 857211 | distinct | 2748
+otherarea | character | nonmissing | 857211 | distinct | 8168
+areasource | character | nonmissing | 856603 | distinct | 5
+numbldgs | character | nonmissing | 857211 | distinct | 139
+numfloors | character | nonmissing | 857211 | distinct | 180
+lotfront | character | nonmissing | 857211 | distinct | 15095
+lotdepth | character | nonmissing | 857211 | distinct | 16185
+bldgfront | character | nonmissing | 857211 | distinct | 5254
+bldgdepth | character | nonmissing | 857211 | distinct | 5299
+appdate | character | nonmissing | 93005 | distinct | 5408
+assessland | character | nonmissing | 857211 | distinct | 14773
+assesstot | character | nonmissing | 857211 | distinct | 33683
+exempttot | character | nonmissing | 857211 | distinct | 36734
+histdist | character | nonmissing | 30862 | distinct | 149
+landmark | character | nonmissing | 0 | distinct | 0
+builtfar | character | nonmissing | 857211 | distinct | 2238
+maxallwfar | character | nonmissing | 0 | distinct | 0
+residfar | character | nonmissing | 857211 | distinct | 20
+commfar | character | nonmissing | 857211 | distinct | 16
+facilfar | character | nonmissing | 857211 | distinct | 18
+firm07_flag | character | nonmissing | 0 | distinct | 0
+pfirm15_flag | character | nonmissing | 0 | distinct | 0
+landuse | character | nonmissing | 854308 | distinct | 11
+bldgclass | character | nonmissing | 856605 | distinct | 211

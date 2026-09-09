@@ -10,9 +10,10 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(nearby_meters), as.character(review_meters), as.character(max_filing_days))
 
 if (length(args) != 3L) {
   stop("Expected three arguments: nearby meters, review meters, and maximum filing days.")
@@ -259,7 +260,7 @@ if (
 }
 
 
-write_parquet_if_changed(
+write_parquet_atomic(
   candidate_pairs,
   "../output/historical_parent_candidate_pairs.parquet"
 )

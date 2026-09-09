@@ -3,7 +3,7 @@
 Downloads the NYC Department of City Planning borough boundaries (water excluded)
 from NYC Open Data, dataset `gthc-hcne`. The September 8, 2026 extract is preserved
 in the dated output; the API URL is mutable, so refreshing this vintage is a
-deliberate source change. The analysis validates the five borough geometries.
+deliberate source change. The recipe enforces the recorded checksum before publication. The analysis validates the five borough geometries.
 
 Source: https://data.cityofnewyork.us/City-Government/Borough-Boundaries/gthc-hcne
 

@@ -14,9 +14,10 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(pre_start_date_text), as.character(pre_end_date_text), as.character(post_start_date_text), as.character(post_end_date_text), as.character(minimum_units), as.character(near_99_minimum))
 
 if (length(args) != 6L) {
   stop(
@@ -545,11 +546,11 @@ if (
   stop("The constituent panel failed uniqueness or parent-weight QC.")
 }
 
-write_parquet_if_changed(
+write_parquet_atomic(
   parent_panel,
   "../output/parent_opportunity_panel.parquet"
 )
-write_parquet_if_changed(
+write_parquet_atomic(
   constituent_panel,
   "../output/constituent_filing_panel.parquet"
 )

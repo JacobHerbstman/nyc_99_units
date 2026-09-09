@@ -1,0 +1,9 @@
+Rows: 3498
+Columns: 5
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: dd5796ab3bad4e81ac84a350c65b8db6
+period | character | nonmissing | 3498 | distinct | 2
+unit_count | numeric | nonmissing | 3498 | distinct | 1749 min/median/mean/max 6/880/880/1754
+parent_count | numeric | nonmissing | 3498 | distinct | 61 min/median/mean/max 0/0/1.782447/671
+exposure_years | numeric | nonmissing | 3498 | distinct | 2 min/median/mean/max 1.516769/6.758385/6.758385/12
+parents_per_year | numeric | nonmissing | 3498 | distinct | 82 min/median/mean/max 0/0/0.2996904/55.91667

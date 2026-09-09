@@ -12,9 +12,10 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(start_year), as.character(end_year), as.character(min_units))
 
 if (length(args) != 3L) {
   stop("Expected three arguments: start year, end year, and minimum units.")
@@ -312,7 +313,7 @@ for (release_row in seq_len(nrow(required_releases))) {
   )
 
   release_extract <- read_pluto_link_fields(
-    required_releases$raw_path[release_row], needed_bbls
+    file.path("../input", basename(required_releases$raw_path[release_row])), needed_bbls
   )
 
   pluto_job_fields[[release_row]] <- release_jobs |>
@@ -367,7 +368,7 @@ if (anyDuplicated(filings$job_number)) {
   stop("Historical parent-link field extraction failed final QC.")
 }
 
-write_parquet_if_changed(
+write_parquet_atomic(
   filings,
   "../output/historical_parent_filing_link_fields.parquet"
 )

@@ -1,7 +1,9 @@
 Rows: 4664
 Columns: 22
-Unique nonmissing key: geography, geoid, table
+Key fields: geography, geoid, table
 Saved-file MD5: 5140ecdb0b2bd0038f5a5650e0f90738
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
 geography | character | nonmissing | 4664 | distinct | 2
 geoid | character | nonmissing | 4664 | distinct | 2332
 name | character | nonmissing | 4664 | distinct | 2332

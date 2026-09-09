@@ -1,0 +1,29 @@
+Rows: 429
+Columns: 25
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: e2ca33ef8ab4d59e0746048c8fb3480c
+job_number_1 | character | nonmissing | 429 | distinct | 205
+job_number_2 | character | nonmissing | 429 | distinct | 209
+date_filed_1 | Date | nonmissing | 429 | distinct | 165
+date_filed_2 | Date | nonmissing | 429 | distinct | 173
+filing_year_1 | integer | nonmissing | 429 | distinct | 14 min/median/mean/max 2010/2016/2016.287/2023
+filing_year_2 | integer | nonmissing | 429 | distinct | 14 min/median/mean/max 2010/2017/2016.611/2023
+units_1 | integer | nonmissing | 429 | distinct | 54 min/median/mean/max 6/8/26.95338/811
+units_2 | integer | nonmissing | 429 | distinct | 55 min/median/mean/max 6/8/27.2028/650
+filing_bbl_1 | character | nonmissing | 429 | distinct | 205
+filing_bbl_2 | character | nonmissing | 429 | distinct | 208
+geometry_bbl_1 | character | nonmissing | 429 | distinct | 181
+geometry_bbl_2 | character | nonmissing | 429 | distinct | 184
+common_source_id | character | nonmissing | 429 | distinct | 2
+common_vintage | character | nonmissing | 429 | distinct | 33
+common_snapshot_available_date | Date | nonmissing | 429 | distinct | 33
+filing_days_apart | integer | nonmissing | 429 | distinct | 61 min/median/mean/max 0/1/107.0466/348
+same_filing_bbl | logical | nonmissing | 429 | distinct | 1
+strict_prefiling_lot_link | logical | nonmissing | 429 | distinct | 1
+same_archived_lot_history_group | logical | nonmissing | 429 | distinct | 2
+explicit_job_reference | logical | nonmissing | 429 | distinct | 2
+high_confidence_prefiling_signal | logical | nonmissing | 429 | distinct | 2
+strict_prefiling_owner_nearby | logical | nonmissing | 429 | distinct | 2
+dob_owner_nearby | logical | nonmissing | 429 | distinct | 2
+exact_polygon_touch | logical | nonmissing | 429 | distinct | 1
+corroborated_exact_adjacency | logical | nonmissing | 429 | distinct | 2

@@ -1,4 +1,4 @@
-# Aldermanic Privilege Project Guidelines
+# NYC 99 Units Project Guidelines
 
 ## Code Quality Standard
 - Working code is not enough. In this repo, clarity, traceability, and simplicity are part of correctness.
@@ -21,7 +21,7 @@
   Do not pass fixed task-local input/output file paths as command-line arguments.
 - Tasks that use output from ``upstream`` tasks should use symlinking and makefiles to connect them together.
   It should be easy to trace the path out via makefiles from the `data_raw/` folder to final outputs.
-- This project follows the logbook/Dingel task workflow: task-local Makefiles declare concrete file targets and prerequisites, and shared `tasks/generic.make` handles recursive upstream checks.
+- This project follows the logbook/Dingel task workflow: task-local Makefiles declare concrete file targets and prerequisites, and explicit upstream checks use the common conventions in `tasks/shared/code/README.md`.
 - `make` in `paper/` is the end-to-end paper entry point. It should compile the paper and chase task-generated figures/tables upstream through Make only when those prerequisites are missing or stale.
 
   ## Project Structure
@@ -44,7 +44,6 @@
 ## Modeling Guardrails
 - Do NOT use `log1p`, inverse-hyperbolic-sine (arcsinh), or similar "zero-handling hacks" in place of log transforms.
 - If a logged outcome has zeros, handle them by dropping zero observations for the logged specification unless explicitly instructed otherwise.
-- For the alderman uncertainty index, keep the current control set unless explicitly asked to change it.
 
 ## Join Safety Standard
 - Never use many-to-many joins in active task code.
@@ -54,8 +53,8 @@
 
 ## Make Incrementality Rules
 - Do not maintain a broad manual phase runner as the canonical dependency graph. File-level prerequisites in task Makefiles and `paper/Makefile` are the source of truth.
-- Active task Makefiles should include `../../generic.make`, which provides the shared recursive upstream rule for `../../<task>/output/...` prerequisites.
-- Do not call recursive upstream builds ad hoc inside active task symlink/input recipes. Recursive upstream checks belong in `tasks/generic.make` or explicit paper-side task-output rules.
+- Active task Makefiles should include `../../shared/code/generic.make`, which owns standard task-directory creation. Group upstream checks by producing task, retain concrete file prerequisites, and use the verified GNU Make 3.81 timestamp rules documented in `tasks/shared/code/README.md`.
+- Do not call recursive upstream builds ad hoc inside active task symlink/input recipes. Recursive checks belong in explicit upstream-check rules, separate from input-link recipes.
 - Recursive upstream checks should preserve Make incrementality: they may invoke the upstream task Makefile, but upstream outputs should only rebuild when missing or stale relative to their own prerequisites.
 - `link-inputs` should only create symlinks and should not orchestrate upstream task execution.
 - Each symlink input should depend on the specific upstream output file path, not on broad/coarse gate files when avoidable.
@@ -101,7 +100,7 @@
 ## Script Path Style (R + Python)
 - Fixed task-local file paths belong directly in active scripts, not in Makefile arguments.
 - Avoid path alias variables for simple I/O handoff when direct use is clear.
-- Prefer direct call-site reads/writes (`read_csv("../input/foo.csv")`, `write_csv_if_changed(df, "../output/bar.csv")`, and R equivalents).
+- Prefer direct call-site reads/writes (`read_csv("../input/foo.csv")`, `write_csv_atomic(df, "../output/bar.csv")`, and R equivalents).
 - Keep path handling explicit and local to each read/write call unless reuse materially improves clarity.
 - For CLI scripts, use arguments only for real specification/configuration values, not fixed file paths.
 - For CLI scripts, keep positional `args[i]` or `cli_args[i]` as the canonical Make interface for those specification/configuration values, then introduce one short top-of-script unpacking block to named variables when that makes interactive execution clearer.
@@ -109,19 +108,13 @@
 - Do not use `normalizePath()` in active task scripts for standard Make-managed inputs/outputs; keep task paths relative and direct.
 - Do not use `dir.create()` in active task scripts for standard task `input/`, `output/`, or `temp/` directories; Make should own directory creation.
 
-## Spatial CRS Standard
-- For Chicago point data with raw longitude/latitude columns, create points in `4326` first.
-- Immediately transform those points to `3435` for all Chicago spatial work, including boundary checks, joins, distances, block assignment, ward assignment, and segment assignment.
-- Treat `3435` as the working/final Chicago geometry standard unless a task explicitly needs flat longitude/latitude columns for a non-spatial export.
-- If a task exports a flat CSV/parquet for downstream non-spatial use, it may convert geometry back to longitude/latitude after all spatial work in `3435` is complete.
-
 ## Linear Active Script Standard
 - For non-archived active tasks, prefer scripts that run top-to-bottom in a linear, readable sequence once the user is in the task `code/` folder.
 - Inline one-off cleaning, merge, transformation, modeling, and export steps instead of wrapping them in local helper functions.
 - Use functions in active scripts only when logic is clearly reused within that same script and duplication would materially hurt readability.
 - Do not leave the main active script as a thin wrapper around one large helper pipeline.
-- Put genuinely reusable cross-task helpers in `tasks/_lib`.
-- Allow a task-family helper file only when multiple active sibling scripts share substantial logic and moving it to `tasks/_lib` would be less clear.
+- Put genuinely reusable cross-task helpers in `tasks/shared/code`.
+- Allow a task-family helper file only when multiple active sibling scripts share substantial logic and moving it to `tasks/shared/code` would be less clear.
 - When refactoring for readability, preserve current methods and outputs unless fixing a confirmed bug.
 
 ## Root-Cause First (No Shortcuts)

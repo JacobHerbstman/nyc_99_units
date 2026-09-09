@@ -1,0 +1,70 @@
+Rows: 857211
+Columns: 64
+Key fields: bbl
+Saved-file MD5: 5e3435418d769ee8597108e5247aa711
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+source_id | character | nonmissing | 857211 | distinct | 1
+source_vintage | character | nonmissing | 857211 | distinct | 1
+source_raw_path | character | nonmissing | 857211 | distinct | 1
+bbl | character | nonmissing | 857211 | distinct | 857211
+borough | character | nonmissing | 857211 | distinct | 5
+block | integer | nonmissing | 857211 | distinct | 13976 min/median/mean/max 0/4821/5311.582/16350
+lot | integer | nonmissing | 857211 | distinct | 2421 min/median/mean/max 1/39/134.7712/9102
+address | character | nonmissing | 856531 | distinct | 827638
+cd | integer | nonmissing | 857211 | distinct | 72 min/median/mean/max 0/402/354.7282/595
+zipcode | character | nonmissing | 857211 | distinct | 214
+ct2010 | character | nonmissing | 857187 | distinct | 1335
+cb2010 | character | nonmissing | 857188 | distinct | 367
+schooldist | integer | nonmissing | 856643 | distinct | 32 min/median/mean/max 1/24/22.0592/32
+council | integer | nonmissing | 857211 | distinct | 52 min/median/mean/max 0/32/32.12097/51
+zonedist1 | character | nonmissing | 857196 | distinct | 164
+zonedist2 | character | nonmissing | 19856 | distinct | 147
+zonedist3 | character | nonmissing | 214 | distinct | 67
+zonedist4 | character | nonmissing | 13 | distinct | 11
+overlay1 | character | nonmissing | 74768 | distinct | 10
+overlay2 | character | nonmissing | 168 | distinct | 10
+spdist1 | character | nonmissing | 101789 | distinct | 81
+spdist2 | character | nonmissing | 77 | distinct | 21
+spdist3 | character | nonmissing | 0 | distinct | 0
+ltdheight | character | nonmissing | 3035 | distinct | 2
+splitzone | character | nonmissing | 857196 | distinct | 2
+zonemap | character | nonmissing | 857211 | distinct | 125
+zmcode | character | nonmissing | 15625 | distinct | 1
+lotarea | numeric | nonmissing | 857211 | distinct | 29773 min/median/mean/max 0/2521/8071.666/214383300
+unitsres | numeric | nonmissing | 857211 | distinct | 742 min/median/mean/max 0/2/4.201713/10914
+unitstotal | numeric | nonmissing | 857211 | distinct | 773 min/median/mean/max 0/2/4.631091/17369
+comarea | numeric | nonmissing | 857211 | distinct | 20090 min/median/mean/max 0/0/2066.73/2.4e+07
+yearbuilt | integer | nonmissing | 815873 | distinct | 219 min/median/mean/max 1800/1931/1940.901/2020
+yearalter1 | integer | nonmissing | 94376 | distinct | 114 min/median/mean/max 1900/2005/2001.291/2021
+yearalter2 | integer | nonmissing | 15021 | distinct | 71 min/median/mean/max 1930/2008/2007.381/2020
+bldgarea | numeric | nonmissing | 857211 | distinct | 37855 min/median/mean/max 0/2001/6486.369/2.4e+07
+resarea | numeric | nonmissing | 857211 | distinct | 28151 min/median/mean/max 0/1654/4019.038/13211400
+officearea | numeric | nonmissing | 857211 | distinct | 8723 min/median/mean/max 0/0/757.6522/3583167
+retailarea | numeric | nonmissing | 857211 | distinct | 9279 min/median/mean/max 0/0/320.3915/2192088
+garagearea | numeric | nonmissing | 857211 | distinct | 3907 min/median/mean/max 0/0/140.325/2677430
+strgearea | numeric | nonmissing | 857211 | distinct | 3595 min/median/mean/max 0/0/113.1926/1757298
+factryarea | numeric | nonmissing | 857211 | distinct | 2748 min/median/mean/max 0/0/118.3516/1324592
+otherarea | numeric | nonmissing | 857211 | distinct | 8168 min/median/mean/max 0/0/610.8356/2.4e+07
+areasource | character | nonmissing | 856603 | distinct | 5
+numbldgs | integer | nonmissing | 857211 | distinct | 139 min/median/mean/max 0/1/1.271602/1827
+numfloors | numeric | nonmissing | 857211 | distinct | 180 min/median/mean/max 0/2/2.337933/104
+lotfront | numeric | nonmissing | 857211 | distinct | 15095 min/median/mean/max 0/25/40.0174/9999
+lotdepth | numeric | nonmissing | 857211 | distinct | 16185 min/median/mean/max 0/100/103.987/9999
+bldgfront | numeric | nonmissing | 857211 | distinct | 5254 min/median/mean/max 0/20/25.85689/8050
+bldgdepth | numeric | nonmissing | 857211 | distinct | 5299 min/median/mean/max 0/43/46.33786/9388
+appdate | Date | nonmissing | 93005 | distinct | 5408
+assessland | numeric | nonmissing | 857211 | distinct | 14773 min/median/mean/max 0/14220/125607.3/3211276000
+assesstot | numeric | nonmissing | 857211 | distinct | 33683 min/median/mean/max 0/52260/541373/7240287000
+exempttot | numeric | nonmissing | 857211 | distinct | 36734 min/median/mean/max 0/0/182456.7/7240287000
+histdist | character | nonmissing | 30862 | distinct | 149
+landmark | character | nonmissing | 0 | distinct | 0
+builtfar | numeric | nonmissing | 857211 | distinct | 2238 min/median/mean/max 0/0.74/1.083402/403.79
+maxallwfar | numeric | nonmissing | 0 | distinct | 0
+residfar | numeric | nonmissing | 857211 | distinct | 20 min/median/mean/max 0/0.75/1.315711/10
+commfar | numeric | nonmissing | 857211 | distinct | 16 min/median/mean/max 0/0/0.2014399/15
+facilfar | numeric | nonmissing | 857211 | distinct | 18 min/median/mean/max 0/2/2.227045/15
+firm07_flag | character | nonmissing | 0 | distinct | 0
+pfirm15_flag | character | nonmissing | 0 | distinct | 0
+landuse | character | nonmissing | 854308 | distinct | 11
+bldgclass | character | nonmissing | 856605 | distinct | 211

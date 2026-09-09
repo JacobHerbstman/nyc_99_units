@@ -10,9 +10,10 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(plot_minimum), as.character(detail_maximum))
 
 if (length(args) != 2L) {
   stop("Expected the minimum and detail maximum for the filing-size CDF.")
@@ -207,7 +208,7 @@ figure <- ggplot(
 
 temp_path <- tempfile(fileext = ".pdf")
 ggsave(temp_path, figure, width = 11, height = 8.5, bg = "white")
-copy_if_changed(
+publish_file(
   temp_path,
   if (plot_minimum == 50L) {
     "../output/pdf/constituent_filing_cdf.pdf"

@@ -13,10 +13,11 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-source("../../_lib/source_pipeline_utils.R")
-source("../../_lib/scale_shape_helpers.R")
+source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/scale_shape_helpers.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(minimum_units), as.character(exact_plot_maximum), as.character(pooled_tail_start), as.character(bootstrap_replications), as.character(random_seed))
 
 if (length(args) != 5L) {
   stop(
@@ -355,15 +356,15 @@ bootstrap_run_summary <- bootstrap_status |>
     random_seed = random_seed
   )
 
-write_csv_if_changed(
+write_csv_atomic(
   bind_rows(point_statistics, bootstrap_draws),
   "../output/bootstrap_draws.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   bootstrap_intervals,
   "../output/bootstrap_intervals.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   bootstrap_run_summary,
   "../output/bootstrap_run_summary.csv"
 )

@@ -1,0 +1,10 @@
+Rows: 5
+Columns: 4
+Key fields: borocode
+Saved-file MD5: d893c946ad881d4787774d58e3da11cb
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+borocode | character | nonmissing | 5 | distinct | 5
+boroname | character | nonmissing | 5 | distinct | 5
+shape_area | character | nonmissing | 5 | distinct | 5
+shape_leng | character | nonmissing | 5 | distinct | 5

@@ -2,6 +2,7 @@
 # measure <- "filings"
 suppressPackageStartupMessages({library(arrow); library(dplyr); library(readr); library(tidyr); library(ggplot2)})
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(measure))
 stopifnot(length(args) == 1)
 measure <- args[1]
 stopifnot(measure %in% c("filings", "parents"))

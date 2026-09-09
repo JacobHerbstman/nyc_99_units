@@ -1,7 +1,9 @@
 Rows: 118
 Columns: 23
-Unique nonmissing key: boro_cd, table
+Key fields: boro_cd, table
 Saved-file MD5: 4f28f854b96bf4d3903ac9cbfc8b95fc
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
 boro_cd | numeric | nonmissing | 118 | distinct | 59 min/median/mean/max 101/306/280.3051/503
 borough | character | nonmissing | 118 | distinct | 5
 community_district | numeric | nonmissing | 118 | distinct | 18 min/median/mean/max 1/7/7.423729/18

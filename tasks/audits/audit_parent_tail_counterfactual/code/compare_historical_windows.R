@@ -14,7 +14,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -457,15 +457,15 @@ if (
   stop("Historical-window comparison outputs failed final QC.")
 }
 
-write_csv_if_changed(
+write_csv_atomic(
   window_comparison,
   "../output/historical_window_comparison_c99.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   window_cohort_composition,
   "../output/historical_window_cohort_composition_c99.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   window_parent_weights,
   "../output/historical_window_parent_weights_c99.csv"
 )

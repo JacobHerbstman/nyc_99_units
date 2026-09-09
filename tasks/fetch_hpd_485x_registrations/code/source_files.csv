@@ -1,0 +1,3 @@
+source_id,pull_date,file_role,row_count,source_updated_at,latest_form_submission_date,raw_path,sha256,status,source_url
+hpd_485x_registrations,20260820,building_registration_submissions,312,2026-04-03 18:48:34 UTC,2026-03-31T15:41:50.000,../../../data_raw/hpd_485x_registrations/20260820/hpd_485x_registrations.csv,9e7fa1d2aeb6774cf65d7bcff7f3aef8dee4e51cf99a0a9dd3f922225f70a45d,already_present,https://data.cityofnewyork.us/resource/rrtd-iyd7.csv?$order=no&$limit=50000
+hpd_485x_registrations,20260820,socrata_metadata,,2026-04-03 18:48:34 UTC,,../../../data_raw/hpd_485x_registrations/20260820/hpd_485x_registrations_metadata.json,4786a790a9f9e245646ea041d4fefac457e5bb0fc656a65abd9402ef5c4eb2e1,already_present,https://data.cityofnewyork.us/api/views/rrtd-iyd7

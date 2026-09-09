@@ -13,9 +13,10 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(start_year), as.character(end_year), as.character(max_filing_days), as.character(corroboration_days))
 
 if (length(args) != 4L) {
   stop(
@@ -149,7 +150,7 @@ exact_releases <- filings |>
 for (release_row in seq_len(nrow(exact_releases))) {
   source_id_value <- exact_releases$common_source_id[release_row]
   vintage_value <- exact_releases$common_vintage[release_row]
-  raw_path_value <- exact_releases$raw_path[release_row]
+  raw_path_value <- file.path("../input", basename(exact_releases$raw_path[release_row]))
 
   release_pairs <- candidate_pairs |>
     filter(
@@ -371,11 +372,11 @@ if (anyDuplicated(adjacency_pairs[c("job_number_1", "job_number_2")])) {
   stop("Historical adjacency output is not unique by job pair.")
 }
 
-write_parquet_if_changed(
+write_parquet_atomic(
   adjacency_pairs,
   "../output/historical_polygon_adjacency_pairs.parquet"
 )
-write_parquet_if_changed(
+write_parquet_atomic(
   geometry_coverage,
   "../output/historical_polygon_geometry_coverage.parquet"
 )

@@ -1,0 +1,36 @@
+Rows: 312
+Columns: 32
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 907ee851ef74e512bf2048f0d6f31f52
+source_id | character | nonmissing | 312 | distinct | 1
+source_pull_date | numeric | nonmissing | 312 | distinct | 1 min/median/mean/max 20260820/20260820/20260820/20260820
+response_number | integer | nonmissing | 312 | distinct | 312 min/median/mean/max 1/156.5/156.5/312
+form_submission_timestamp | POSIXct/POSIXt | nonmissing | 312 | distinct | 287
+reported_property_address | character | nonmissing | 312 | distinct | 301
+reported_borough_code | character | nonmissing | 312 | distinct | 4
+reported_borough_name | character | nonmissing | 312 | distinct | 4
+dob_bin | character | nonmissing | 312 | distinct | 297
+reported_dob_permit_sequence | character | nonmissing | 312 | distinct | 298
+dob_now_root_job_id | character | nonmissing | 290 | distinct | 277
+dob_bis_job_number | character | nonmissing | 21 | distinct | 19
+reported_block | integer | nonmissing | 312 | distinct | 256 min/median/mean/max 151/3149/3554.792/16188
+reported_lot | integer | nonmissing | 312 | distinct | 108 min/median/mean/max 1/32/49.03205/683
+reported_bbl | character | nonmissing | 312 | distinct | 299
+reported_units | integer | nonmissing | 312 | distinct | 80 min/median/mean/max 3/23.5/38.67308/792
+reported_restricted_units | integer | nonmissing | 312 | distinct | 27 min/median/mean/max 0/5/8.336538/267
+reported_commencement_date | Date | nonmissing | 312 | distinct | 242
+reported_anticipated_completion_date | Date | nonmissing | 312 | distinct | 147
+reported_affordability_option | character | nonmissing | 312 | distinct | 4
+presumed_community_board | integer | nonmissing | 312 | distinct | 43 min/median/mean/max 102/212/268.0641/414
+source_presumed_duplicate | character | nonmissing | 23 | distinct | 1
+source_duplicate_count | integer | nonmissing | 23 | distinct | 2 min/median/mean/max 2/2/2.347826/4
+presumed_building_units | integer | nonmissing | 312 | distinct | 80 min/median/mean/max 3/23.5/38.66667/792
+presumed_restricted_units | integer | nonmissing | 312 | distinct | 27 min/median/mean/max 0/5/8.362179/267
+presumed_bbl | character | nonmissing | 312 | distinct | 298
+postcode | character | nonmissing | 305 | distinct | 76
+latitude | numeric | nonmissing | 305 | distinct | 293 min/median/mean/max 40.57938/40.76697/40.76966/40.90087
+longitude | numeric | nonmissing | 305 | distinct | 291 min/median/mean/max -74.00293/-73.90408/-73.90492/-73.75817
+council_district | integer | nonmissing | 305 | distinct | 40 min/median/mean/max 1/18/23.62295/48
+census_tract_2020 | numeric | nonmissing | 305 | distinct | 199 min/median/mean/max 11/423/9663.118/120801
+nta_2020 | character | nonmissing | 305 | distinct | 90
+dob_identifier_type | character | nonmissing | 312 | distinct | 3

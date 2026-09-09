@@ -49,25 +49,16 @@ deferred while model estimation takes priority.
 Run `make` from a task's `code/` folder. Task Makefiles are the dependency
 graph; generated inputs are symlinks to named upstream outputs.
 
-The current empirical path is:
+The graph below is generated from the concrete input prerequisites in the task
+Makefiles. Arrows show task dependencies; redundant transitive links are omitted
+from the display. The Makefiles retain every concrete file prerequisite.
 
-```text
-DCP Housing Database + DOB NOW + historical MapPLUTO
-  -> construct historical and post-policy filing link fields
-  -> construct linked parent cohorts
-  -> build the 6-plus-unit exposure universe
-  -> classify plausible 485-x A/B rental opportunities
-  -> analyze exact parent-size distributions
-  -> analyze scale, shape, and multi-filing composition
+![Production task dependencies](task_graph.svg)
 
-HPD 485-x registrations + DOB NOW
-  -> link registrations to DOB jobs
-  -> verify observed multi-filing configurations
-
-linked parent cohorts + predetermined MapPLUTO characteristics
-  -> build parent site characteristics
-  -> reweight the historical distribution to the post-period site mix
-```
+Shared code and Make settings live in `tasks/shared/code/`. Upstream checks
+run before consumers compare timestamps. A missing companion output reruns its
+producer, including under GNU Make 3.81. Each producing task also builds a
+standard report from its saved datasets.
 
 The main empirical compilation is
 `tasks/analyze_485x_scale_shape_splitting/output/pdf/scale_shape_splitting_figure_guide.pdf`.
@@ -77,7 +68,7 @@ The underlying count and normalized-density figures are produced by
 ## Production tasks
 
 Top-level tasks are limited to source acquisition/staging, canonical linkage
-and parent datasets, predetermined site characteristics, and the two current
+and parent datasets, predetermined site characteristics, and the current
 analysis tasks. In particular:
 
 - `construct_parent_cohorts` defines historical and post-policy economic
@@ -95,12 +86,12 @@ analysis tasks. In particular:
 
 ## Audits
 
-`tasks/audits/` contains validation, manual review, sensitivity analysis, and
-the deliberately non-headline condo branch. The exposure classification stays
-there because it combines source-based rules with an explicit manual-review
-ledger. The condo panel and Attorney General search also stay there because
-recent cohorts are right-censored and the evidence is not yet strong enough
-for the main empirical design.
+`tasks/audits/` contains validation, case listings, sensitivity analysis, and
+exploratory wage and condo comparisons. The adopted exposure classification and
+its committed manual-review ledger live in `classify_parent_485x_exposure`.
+Its review queue remains in audits. `load_nys_ag_offering_plan_matches` supplies
+the recorded Attorney General evidence; the live search remains an audit tool
+for deliberate future refreshes.
 
 Earlier parcel-prediction, structural no-notch, cost-calibration, land-price,
 and ACRIS/DOF exploration was removed from the active tree during the August
@@ -114,5 +105,9 @@ and ACRIS/DOF exploration was removed from the active tree during the August
 - `make source-registry` validates source metadata.
 - `make -C logbook` compiles the research logbook.
 
-Raw and manually acquired data live under `data_raw/<source>/<vintage>/` and
-must not be edited. Do not edit generated task outputs directly.
+Acquisition tasks own received files in their `output/` directories. The
+recorded releases and checksums are explicit. Historical responses from mutable
+APIs require the dated original captures under `data_raw/<source>/<vintage>/`;
+they cannot be silently replaced with a current query. Source task READMEs
+explain that replication boundary. Raw bytes and generated results must not be
+edited directly.

@@ -1,7 +1,9 @@
 Rows: 125
 Columns: 12
-Unique nonmissing key: area_fips, year, industry_code
+Key fields: area_fips, year, industry_code
 Saved-file MD5: 6af24852175534b24423d0704ce6b2b5
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
 area_fips | character | nonmissing | 125 | distinct | 5
 year | numeric | nonmissing | 125 | distinct | 5 min/median/mean/max 2019/2021/2021/2023
 industry_code | character | nonmissing | 125 | distinct | 5

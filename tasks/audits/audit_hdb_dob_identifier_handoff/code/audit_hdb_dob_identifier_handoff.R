@@ -10,7 +10,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -267,19 +267,19 @@ summary <- tibble(
   )
 )
 
-write_csv_if_changed(
+write_csv_atomic(
   later_same_site_candidates,
   "../output/hdb_dob_identifier_later_same_site_candidates.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   review,
   "../output/hdb_dob_identifier_review.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   summary,
   "../output/hdb_dob_identifier_summary.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   handoff,
   "../output/hdb_dob_identifier_handoff.csv"
 )

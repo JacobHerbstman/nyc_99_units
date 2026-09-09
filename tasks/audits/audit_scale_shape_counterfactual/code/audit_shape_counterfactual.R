@@ -13,8 +13,8 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
-source("../../../_lib/scale_shape_helpers.R")
+source("../../../shared/code/source_pipeline_utils.R")
+source("../../../shared/code/scale_shape_helpers.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -325,17 +325,17 @@ placebo_figure <- placebo_distributions |>
   theme_minimal(base_size = 10.5) +
   theme(legend.position = "top", panel.grid.minor = element_blank())
 
-write_csv_if_changed(exploratory_q_theta, "../output/exploratory_q_theta.csv")
-write_csv_if_changed(placebo_distributions, "../output/placebo_distributions.csv")
-write_csv_if_changed(placebo_performance, "../output/placebo_performance.csv")
-write_csv_if_changed(leave_one_pre_year_out, "../output/leave_one_pre_year_out.csv")
-write_csv_if_changed(
+write_csv_atomic(exploratory_q_theta, "../output/exploratory_q_theta.csv")
+write_csv_atomic(placebo_distributions, "../output/placebo_distributions.csv")
+write_csv_atomic(placebo_performance, "../output/placebo_performance.csv")
+write_csv_atomic(leave_one_pre_year_out, "../output/leave_one_pre_year_out.csv")
+write_csv_atomic(
   temporal_window_sensitivity,
   "../output/temporal_window_sensitivity.csv"
 )
 
 temporary_pdf <- tempfile(fileext = ".pdf")
 ggsave(temporary_pdf, placebo_figure, width = 11, height = 8, bg = "white")
-copy_if_changed(temporary_pdf, "../output/historical_forward_placebos.pdf")
+publish_file(temporary_pdf, "../output/historical_forward_placebos.pdf")
 
 cat("Wrote counterfactual robustness audits to ../output\n")

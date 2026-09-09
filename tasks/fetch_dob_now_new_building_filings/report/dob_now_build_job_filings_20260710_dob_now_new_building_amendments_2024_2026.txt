@@ -1,0 +1,47 @@
+Rows: 28681
+Columns: 43
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 3b20cd75957f47425b3880d5b58d6159
+job_filing_number | character | nonmissing | 28681 | distinct | 28592
+filing_status | character | nonmissing | 28681 | distinct | 25
+house_no | character | nonmissing | 28681 | distinct | 3456
+street_name | character | nonmissing | 28681 | distinct | 2199
+borough | character | nonmissing | 28681 | distinct | 5
+block | numeric | nonmissing | 28681 | distinct | 3082 min/median/mean/max 1/3237/4211.371/99999
+lot | numeric | nonmissing | 28681 | distinct | 355 min/median/mean/max 1/32/190.3164/7509
+bin | numeric | nonmissing | 28681 | distinct | 5718 min/median/mean/max 1001402/3429864/3463187/5870041
+commmunity_board | numeric | nonmissing | 28673 | distinct | 65 min/median/mean/max 101/311/323.9459/503
+applicant_professional_title | character | nonmissing | 28681 | distinct | 5
+applicant_license | character | nonmissing | 28681 | distinct | 1371
+applicant_first_name | character | nonmissing | 28681 | distinct | 868
+applicants_middle_initial | character | nonmissing | 7670 | distinct | 33
+applicant_last_name | character | nonmissing | 28681 | distinct | 1274
+applicant_business_name | character | nonmissing | 28681 | distinct | 1320
+owner_s_business_name | character | nonmissing | 28514 | distinct | 2000
+owner_first_name | character | nonmissing | 28645 | distinct | 1935
+owner_last_name | character | nonmissing | 28647 | distinct | 2146
+owner_type | character | nonmissing | 28681 | distinct | 9
+initial_cost | numeric | nonmissing | 28681 | distinct | 912 min/median/mean/max 0/0/523297.4/6.54e+08
+total_construction_floor_area | numeric | nonmissing | 28681 | distinct | 4784 min/median/mean/max 0.1/14169.9/62767.71/3888880
+building_type | character | nonmissing | 28680 | distinct | 4
+existing_stories | logical | nonmissing | 0 | distinct | 0
+existing_height | logical | nonmissing | 0 | distinct | 0
+existing_dwelling_units | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0/0/0/0
+proposed_no_of_stories | numeric | nonmissing | 28668 | distinct | 60 min/median/mean/max 1/4/6.972234/1000
+proposed_height | numeric | nonmissing | 25453 | distinct | 298 min/median/mean/max 0/53/87.39795/25825
+proposed_dwelling_units | numeric | nonmissing | 28668 | distinct | 314 min/median/mean/max 0/6/45.11267/1458
+filing_date | POSIXct/POSIXt | nonmissing | 28681 | distinct | 877
+current_status_date | POSIXct/POSIXt | nonmissing | 28681 | distinct | 28570
+first_permit_date | POSIXct/POSIXt | nonmissing | 7772 | distinct | 828
+approved_date | POSIXct/POSIXt | nonmissing | 24425 | distinct | 24339
+signoff_date | POSIXct/POSIXt | nonmissing | 2687 | distinct | 544
+job_type | character | nonmissing | 28681 | distinct | 1
+latitude | numeric | nonmissing | 28360 | distinct | 5278 min/median/mean/max 40.49923/40.70596/40.71227/40.91119
+longitude | numeric | nonmissing | 28360 | distinct | 5242 min/median/mean/max -74.25373/-73.93006/-73.93554/-73.70189
+postcode | numeric | nonmissing | 28652 | distinct | 176 min/median/mean/max 10001/11207/10907.94/11697
+council_district | character | nonmissing | 28360 | distinct | 51
+census_tract | numeric | nonmissing | 28360 | distinct | 1037 min/median/mean/max 1/499/11080.38/157903
+bbl | character | nonmissing | 24352 | distinct | 4142
+nta | character | nonmissing | 28360 | distinct | 209
+job_description | character | nonmissing | 28681 | distinct | 17753
+filing_review_type | character | nonmissing | 28681 | distinct | 2

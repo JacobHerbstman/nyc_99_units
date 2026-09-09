@@ -18,7 +18,7 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -803,47 +803,47 @@ if (
   stop("The 150-threshold audit failed final QC.")
 }
 
-write_csv_if_changed(
+write_csv_atomic(
   period_summary,
   "../output/parent_150_period_summary.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   exact_distribution,
   "../output/parent_150_exact_distribution.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   component_exact_distribution,
   "../output/parent_150_component_exact_distribution.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   parent_component_comparison,
   "../output/parent_150_parent_component_comparison.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   post_composition,
   "../output/parent_150_post_composition.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   borough_comparison,
   "../output/parent_150_borough_comparison.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   ownership_comparison,
   "../output/parent_150_ownership_comparison.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   post_parent_cases,
   "../output/parent_150_post_parent_cases.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   hpd_registration_qc,
   "../output/parent_150_hpd_registration_qc.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   linkage_qc,
   "../output/parent_150_linkage_qc.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   yearly_linkage_diagnostic,
   "../output/parent_150_yearly_linkage_diagnostic.csv"
 )
@@ -911,7 +911,7 @@ ggsave(
   dpi = 180,
   bg = "white"
 )
-copy_if_changed(
+publish_file(
   temp_exact,
   "../output/parent_150_exact_distribution_annualized.png"
 )
@@ -976,7 +976,7 @@ ggsave(
   dpi = 180,
   bg = "white"
 )
-copy_if_changed(
+publish_file(
   temp_component,
   "../output/parent_150_component_exact_distribution_annualized.png"
 )
@@ -1025,7 +1025,7 @@ ggsave(
   dpi = 180,
   bg = "white"
 )
-copy_if_changed(
+publish_file(
   temp_borough,
   "../output/parent_150_borough_comparison_annualized.png"
 )
@@ -1092,7 +1092,7 @@ ggsave(
   dpi = 180,
   bg = "white"
 )
-copy_if_changed(
+publish_file(
   temp_yearly_linkage,
   "../output/parent_150_yearly_multi_filing_share.png"
 )

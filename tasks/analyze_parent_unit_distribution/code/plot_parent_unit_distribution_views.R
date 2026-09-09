@@ -16,9 +16,10 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(pre_start_year), as.character(pre_end_year), as.character(post_start_date_text), as.character(zoom_min_units), as.character(zoom_max_units), as.character(wide_max_units), as.character(full_bin_width))
 
 if (length(args) != 7L) {
   stop(
@@ -421,7 +422,7 @@ save_plot <- function(figure, out_path, height = 7) {
     dpi = 180,
     bg = "white"
   )
-  copy_if_changed(temp_path, out_path)
+  publish_file(temp_path, out_path)
 }
 
 save_pdf <- function(figure, out_path, height) {
@@ -433,7 +434,7 @@ save_pdf <- function(figure, out_path, height) {
     height = height,
     bg = "white"
   )
-  copy_if_changed(temp_path, out_path)
+  publish_file(temp_path, out_path)
 }
 
 make_full_histogram <- function(value_column, y_label, subtitle, out_path) {
@@ -711,96 +712,6 @@ make_wide_annualized <- function(sample_name, title, out_path, height) {
   save_pdf(figure, out_path, height)
 }
 
-make_normalized_density <- function(out_path) {
-  density_colors <- c("#4C78A8", "#9C755F", "#54A24B", "#E45756")
-  names(density_colors) <- density_period_levels
-  density_linetypes <- c("solid", "dotdash", "dashed", "solid")
-  names(density_linetypes) <- density_period_levels
-
-  highlighted_rows <- normalized_density |>
-    filter(
-      as.character(density_period) == density_period_levels[4],
-      unit_count %in% c(99L, 198L)
-    ) |>
-    mutate(label = paste0(unit_count, ": ", round(density_percent, 1), "%"))
-
-  figure <- ggplot(
-    normalized_density,
-    aes(
-      x = unit_count,
-      y = density_percent,
-      color = density_period,
-      linetype = density_period,
-      group = density_period
-    )
-  ) +
-    geom_vline(
-      xintercept = c(99, 150, 198),
-      color = "grey72",
-      linetype = "dashed",
-      linewidth = 0.4
-    ) +
-    geom_line(
-      aes(linewidth = density_period)
-    ) +
-    geom_point(
-      data = highlighted_rows,
-      size = 2.4,
-      show.legend = FALSE
-    ) +
-    geom_text(
-      data = highlighted_rows,
-      aes(label = label),
-      hjust = -0.08,
-      vjust = -0.35,
-      color = "grey15",
-      size = 3.5,
-      show.legend = FALSE
-    ) +
-    scale_color_manual(values = density_colors) +
-    scale_linetype_manual(values = density_linetypes) +
-    scale_linewidth_manual(
-      values = c(0.8, 0.55, 0.65, 1.0),
-      guide = "none"
-    ) +
-    scale_x_continuous(
-      breaks = c(50, 75, 99, 125, 150, 175, 198, 225, 250, 275, 300),
-      minor_breaks = seq(50, 300, by = 25),
-      limits = c(50, 300),
-      expand = expansion(mult = c(0, 0.025))
-    ) +
-    scale_y_continuous(
-      labels = function(x) paste0(x, "%"),
-      expand = expansion(mult = c(0, 0.08))
-    ) +
-    labs(
-      title = "Normalized distribution of A/B parent filings",
-      subtitle = paste0(
-        "Each line sums to 100% among A/B rental opportunities proposing ",
-        "50-300 units; exact one-unit bins."
-      ),
-      x = "Proposed units in linked parent filing",
-      y = "Share of 50-300-unit parent filings",
-      color = NULL,
-      linetype = NULL,
-      caption = paste0(
-        "Post-policy covers Jan. 1, 2025 through ", post_end_label,
-        ". Reference lines mark 99, 150, and 198 units."
-      )
-    ) +
-    theme_minimal(base_size = 11) +
-    theme(
-      legend.position = "top",
-      legend.text = element_text(size = 9.5),
-      panel.grid.minor.y = element_blank(),
-      panel.grid.minor.x = element_line(color = "grey92", linewidth = 0.25),
-      plot.caption = element_text(hjust = 0, color = "grey35"),
-      plot.title.position = "plot",
-      plot.margin = margin(10, 22, 10, 16)
-    )
-
-  save_pdf(figure, out_path, 6.3)
-}
 
 total_subtitle <- paste0(
   "Totals: ", period_levels[1], " (12 years) versus Jan. 1, 2025–",
@@ -813,23 +724,23 @@ annualized_subtitle <- paste0(
   " days)"
 )
 
-write_csv_if_changed(
+write_csv_atomic(
   full_distribution,
   "../output/parent_unit_distribution_full.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   full_histogram_bins,
   "../output/parent_unit_distribution_full_histogram_bins.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   exposure_distribution,
   "../output/parent_unit_distribution_exposure_50_150.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   wide_distribution,
   "../output/parent_unit_distribution_annualized_50_300.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   normalized_density,
   "../output/parent_unit_distribution_normalized_density_50_300_ab.csv"
 )
@@ -901,7 +812,93 @@ make_wide_annualized(
   "../output/pdf/parent_unit_distribution_annualized_50_300_ab.pdf",
   5.5
 )
-make_normalized_density(
-  "../output/pdf/parent_unit_distribution_normalized_density_50_300_ab.pdf"
-)
+density_colors <- c("#4C78A8", "#9C755F", "#54A24B", "#E45756")
+names(density_colors) <- density_period_levels
+density_linetypes <- c("solid", "dotdash", "dashed", "solid")
+names(density_linetypes) <- density_period_levels
+
+highlighted_rows <- normalized_density |>
+  filter(
+    as.character(density_period) == density_period_levels[4],
+    unit_count %in% c(99L, 198L)
+  ) |>
+  mutate(label = paste0(unit_count, ": ", round(density_percent, 1), "%"))
+
+figure <- ggplot(
+  normalized_density,
+  aes(
+    x = unit_count,
+    y = density_percent,
+    color = density_period,
+    linetype = density_period,
+    group = density_period
+  )
+) +
+  geom_vline(
+    xintercept = c(99, 150, 198),
+    color = "grey72",
+    linetype = "dashed",
+    linewidth = 0.4
+  ) +
+  geom_line(
+    aes(linewidth = density_period)
+  ) +
+  geom_point(
+    data = highlighted_rows,
+    size = 2.4,
+    show.legend = FALSE
+  ) +
+  geom_text(
+    data = highlighted_rows,
+    aes(label = label),
+    hjust = -0.08,
+    vjust = -0.35,
+    color = "grey15",
+    size = 3.5,
+    show.legend = FALSE
+  ) +
+  scale_color_manual(values = density_colors) +
+  scale_linetype_manual(values = density_linetypes) +
+  scale_linewidth_manual(
+    values = c(0.8, 0.55, 0.65, 1.0),
+    guide = "none"
+  ) +
+  scale_x_continuous(
+    breaks = c(50, 75, 99, 125, 150, 175, 198, 225, 250, 275, 300),
+    minor_breaks = seq(50, 300, by = 25),
+    limits = c(50, 300),
+    expand = expansion(mult = c(0, 0.025))
+  ) +
+  scale_y_continuous(
+    labels = function(x) paste0(x, "%"),
+    expand = expansion(mult = c(0, 0.08))
+  ) +
+  labs(
+    title = "Normalized distribution of A/B parent filings",
+    subtitle = paste0(
+      "Each line sums to 100% among A/B rental opportunities proposing ",
+      "50-300 units; exact one-unit bins."
+    ),
+    x = "Proposed units in linked parent filing",
+    y = "Share of 50-300-unit parent filings",
+    color = NULL,
+    linetype = NULL,
+    caption = paste0(
+      "Post-policy covers Jan. 1, 2025 through ", post_end_label,
+      ". Reference lines mark 99, 150, and 198 units."
+    )
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    legend.position = "top",
+    legend.text = element_text(size = 9.5),
+    panel.grid.minor.y = element_blank(),
+    panel.grid.minor.x = element_line(color = "grey92", linewidth = 0.25),
+    plot.caption = element_text(hjust = 0, color = "grey35"),
+    plot.title.position = "plot",
+    plot.margin = margin(10, 22, 10, 16)
+  )
+
+save_pdf(figure, "../output/pdf/parent_unit_distribution_normalized_density_50_300_ab.pdf", 6.3)
+
 cat("Wrote full-support, 50-150, and 50-300 distribution views to ../output\n")

@@ -1,0 +1,13 @@
+Rows: 8
+Columns: 7
+Key fields: balance_moment
+Saved-file MD5: bdfbef478cf7464b10abea2ab359cf4a
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+balance_moment | character | nonmissing | 8 | distinct | 8
+historical_unweighted_mean | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -4.233095e-16/0.02042629/0.09325044/0.3587922
+historical_weighted_mean | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -0.1720449/0.08752514/0.06310021/0.3035144
+post_mean | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -0.1720449/0.08752514/0.06310021/0.3035144
+historical_standard_deviation | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0.09390306/0.4377737/0.5632001/1
+standardized_difference_before | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -0.4171932/0.07083718/0.001735514/0.1720449
+standardized_difference_after | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -2.774155e-11/6.051729e-12/2.084154e-11/1.124053e-10

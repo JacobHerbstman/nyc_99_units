@@ -14,9 +14,10 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(pre_start_year), as.character(pre_end_year), as.character(post_start_date_text), as.character(min_units), as.character(max_units))
 
 if (length(args) != 5L) {
   stop(
@@ -44,18 +45,6 @@ if (
 
 membership <- read_parquet(
   "../input/symmetric_parent_membership.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
-
-initial_filings <- read_parquet(
-  "../input/dob_now_new_building_initial_filings.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
-
-filing_history <- read_parquet(
-  "../input/dob_now_new_building_filings.parquet"
 ) |>
   as.data.frame() |>
   as_tibble()
@@ -125,29 +114,6 @@ post_rows <- parent_rows |>
     cohort_date >= post_start_date,
     cohort_date <= post_end_date
   )
-
-all_post_rows <- parent_rows |>
-  filter(
-    sample == "post_policy",
-    cohort_date >= post_start_date,
-    cohort_date <= post_end_date
-  )
-
-post_initial_filings <- initial_filings |>
-  filter(
-    filing_date >= post_start_date,
-    filing_date <= post_end_date
-  )
-
-latest_post_filing_versions <- filing_history |>
-  filter(
-    filing_date <= post_end_date,
-    job_number %in% post_initial_filings$job_number
-  ) |>
-  group_by(job_number) |>
-  arrange(filing_date, job_filing_number, .by_group = TRUE) |>
-  slice_tail(n = 1L) |>
-  ungroup()
 
 period_levels <- c(
   paste0(pre_start_year, "–", pre_end_year),
@@ -358,118 +324,6 @@ sample_summary <- bind_rows(
   )
 )
 
-next_unit_audit <- tibble(unit_count = 99L:106L) |>
-  left_join(
-    post_rows |>
-      count(unit_count = total_units, name = "plotted_parent_count"),
-    by = "unit_count",
-    relationship = "one-to-one"
-  ) |>
-  left_join(
-    all_post_rows |>
-      count(
-        unit_count = total_units,
-        name = "all_parent_count_including_left_boundary"
-      ),
-    by = "unit_count",
-    relationship = "one-to-one"
-  ) |>
-  left_join(
-    post_initial_filings |>
-      count(
-        unit_count = as.integer(proposed_dwelling_units),
-        name = "initial_filing_count"
-      ),
-    by = "unit_count",
-    relationship = "one-to-one"
-  ) |>
-  left_join(
-    latest_post_filing_versions |>
-      count(
-        unit_count = as.integer(proposed_dwelling_units),
-        name = "latest_filing_version_count"
-      ),
-    by = "unit_count",
-    relationship = "one-to-one"
-  ) |>
-  mutate(
-    plotted_parent_count = coalesce(plotted_parent_count, 0L),
-    all_parent_count_including_left_boundary = coalesce(
-      all_parent_count_including_left_boundary,
-      0L
-    ),
-    initial_filing_count = coalesce(initial_filing_count, 0L),
-    latest_filing_version_count = coalesce(
-      latest_filing_version_count,
-      0L
-    ),
-    all_four_layers_empty =
-      plotted_parent_count == 0L &
-      all_parent_count_including_left_boundary == 0L &
-      initial_filing_count == 0L &
-      latest_filing_version_count == 0L
-  )
-
-post_105_parent_cases <- membership |>
-  filter(
-    sample == "post_policy",
-    left_window_observed,
-    cohort_date >= post_start_date,
-    cohort_date <= post_end_date,
-    parent_observed_units == 105L
-  ) |>
-  group_by(parent_id) |>
-  summarise(
-    cohort_date = first(cohort_date),
-    cohort_year = first(cohort_year),
-    parent_total_units = first(parent_observed_units),
-    component_filings = n(),
-    component_job = first(job_number),
-    component_jobs = paste(job_number, collapse = ";"),
-    component_units = paste(units, collapse = ";"),
-    component_dates = paste(date_filed, collapse = ";"),
-    .groups = "drop"
-  ) |>
-  left_join(
-    initial_filings |>
-      select(
-        component_job = job_filing_number,
-        filing_status,
-        address,
-        filing_bbl,
-        reported_bbl,
-        bbl_field_relation,
-        owner_business_name,
-        applicant_business_name,
-        job_description
-      ),
-    by = "component_job",
-    relationship = "one-to-one"
-  ) |>
-  left_join(
-    parent_exposure |>
-      select(
-        parent_id,
-        exposure_status,
-        included_ab,
-        included_ab_plus_d,
-        confidence,
-        classification_reason
-      ),
-    by = "parent_id",
-    relationship = "one-to-one"
-  ) |>
-  arrange(cohort_date, parent_id)
-
-unit_105_counts <- next_unit_audit |>
-  filter(unit_count == 105L) |>
-  select(
-    plotted_parent_count,
-    all_parent_count_including_left_boundary,
-    initial_filing_count,
-    latest_filing_version_count
-  ) |>
-  unlist(use.names = FALSE)
 
 if (
   nrow(distribution) != length(period_levels) *
@@ -477,7 +331,6 @@ if (
     anyDuplicated(distribution[c("period", "unit_count")]) ||
     any(distribution$parent_count < 0L) ||
     any(!is.finite(distribution$parents_per_year)) ||
-    anyDuplicated(initial_filings$job_number) ||
     any(is.na(analysis_exposure$exposure_status)) ||
     any(is.na(analysis_exposure$included_ab)) ||
     any(is.na(analysis_exposure$included_ab_plus_d)) ||
@@ -489,13 +342,6 @@ if (
     ]) ||
     any(exposure_distribution$parent_count < 0L) ||
     any(!is.finite(exposure_distribution$parents_per_year)) ||
-    nrow(post_initial_filings) == 0L ||
-    any(next_unit_audit$unit_count %in% 100L:104L &
-      !next_unit_audit$all_four_layers_empty) ||
-    any(unit_105_counts <= 0L) ||
-    nrow(post_105_parent_cases) != 3L ||
-    any(post_105_parent_cases$component_filings != 1L) ||
-    any(is.na(post_105_parent_cases$address)) ||
     sum(distribution$parent_count[distribution$period == period_levels[1]]) !=
       sample_summary$included_parents_80_120[1] ||
     sum(distribution$parent_count[distribution$period == period_levels[2]]) !=
@@ -558,7 +404,7 @@ make_distribution_plot <- function(value_column, y_label, subtitle, out_path) {
     dpi = 180,
     bg = "white"
   )
-  copy_if_changed(temp_path, out_path)
+  publish_file(temp_path, out_path)
 }
 
 make_exposure_distribution_plot <- function(
@@ -615,30 +461,22 @@ make_exposure_distribution_plot <- function(
     dpi = 180,
     bg = "white"
   )
-  copy_if_changed(temp_path, out_path)
+  publish_file(temp_path, out_path)
 }
 
-write_csv_if_changed(
+write_csv_atomic(
   distribution,
   "../output/parent_unit_distribution_80_120.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   sample_summary,
   "../output/parent_unit_distribution_sample_summary.csv"
 )
-write_csv_if_changed(
-  next_unit_audit,
-  "../output/post_99_next_observed_unit_audit.csv"
-)
-write_csv_if_changed(
-  post_105_parent_cases,
-  "../output/post_105_parent_cases.csv"
-)
-write_csv_if_changed(
+write_csv_atomic(
   exposure_distribution,
   "../output/parent_unit_distribution_exposure_80_120.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   exposure_sample_summary,
   "../output/parent_unit_distribution_exposure_sample_summary.csv"
 )

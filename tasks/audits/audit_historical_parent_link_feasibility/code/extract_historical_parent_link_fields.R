@@ -12,7 +12,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -435,15 +435,15 @@ if (
   stop("Historical parent-link field extraction failed final QC.")
 }
 
-write_parquet_if_changed(
+write_parquet_atomic(
   filings,
   "../output/historical_parent_filing_link_fields.parquet"
 )
-write_csv_if_changed(
+write_csv_atomic(
   source_inventory,
   "../output/historical_parent_source_inventory.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   filing_coverage_by_year,
   "../output/historical_parent_filing_coverage_by_year.csv"
 )

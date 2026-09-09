@@ -19,7 +19,7 @@ top-level production task.
 
 From `tasks/audits/<task>/code`, production outputs use paths like
 `../../../<task>/output/<file>`. Sibling audit outputs use
-`../../<task>/output/<file>`. Audit Makefiles include `../../generic.make`.
+`../../<task>/output/<file>`. Audit Makefiles include `../../../shared/code/generic.make`.
 
 The older parcel-prediction, structural no-notch, ACRIS/DOF, and land-price
 experiments were removed from the active tree. Git commit `1374dda` preserves

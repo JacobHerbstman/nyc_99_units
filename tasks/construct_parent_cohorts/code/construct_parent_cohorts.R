@@ -17,9 +17,10 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(historical_link_start_year), as.character(historical_cohort_start_year), as.character(historical_end_year), as.character(post_comparison_start_year), as.character(post_cohort_year), as.character(max_filing_days), as.character(corroboration_days), as.character(post_geometry_vintage))
 
 if (length(args) != 8L) {
   stop(
@@ -355,7 +356,7 @@ historical_links <- historical_pairs |>
 
 archive_listing <- system2(
   "unzip",
-  c("-Z1", mappluto_files$raw_path),
+  c("-Z1", file.path("../input", basename(mappluto_files$raw_path))),
   stdout = TRUE,
   stderr = FALSE
 )
@@ -371,7 +372,7 @@ if (is.na(shapefile_entry) || !nzchar(shapefile_entry)) {
 
 post_lots <- st_read(
   paste0(
-    "/vsizip/", mappluto_files$raw_path, "/", shapefile_entry
+    "/vsizip/", file.path("../input", basename(mappluto_files$raw_path)), "/", shapefile_entry
   ),
   query = paste0(
     "SELECT BBL FROM MapPLUTO WHERE BBL IN (",
@@ -852,11 +853,11 @@ if (
   stop("Symmetric parent-cohort outputs failed final QC.")
 }
 
-write_parquet_if_changed(
+write_parquet_atomic(
   membership,
   "../output/symmetric_parent_membership.parquet"
 )
-write_parquet_if_changed(
+write_parquet_atomic(
   links,
   "../output/symmetric_parent_links.parquet"
 )

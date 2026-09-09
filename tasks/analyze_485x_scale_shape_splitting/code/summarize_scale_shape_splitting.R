@@ -14,9 +14,10 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(exact_plot_minimum), as.character(exact_plot_maximum), as.character(preferred_minimum), as.character(pooled_tail_start))
 
 if (length(args) != 4L) {
   stop(
@@ -91,7 +92,7 @@ save_pdf <- function(figure, out_path, width = 11, height = 5.8) {
     height = height,
     bg = "white"
   )
-  copy_if_changed(temp_path, out_path)
+  publish_file(temp_path, out_path)
 }
 
 parents_ab <- parents |>
@@ -778,43 +779,43 @@ historical_year_figure <- historical_year_distribution |>
   theme_minimal(base_size = 11) +
   theme(legend.position = "top", panel.grid.minor = element_blank())
 
-write_csv_if_changed(
+write_csv_atomic(
   sample_exposure_summary,
   "../output/sample_exposure_summary.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   parent_total_exact_distribution,
   "../output/parent_total_exact_distribution_50_300.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   preferred_parent_distribution,
   "../output/preferred_parent_distribution_50_plus.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   outcome_distribution_50_300,
   "../output/outcome_distribution_50_300.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   scale_shape_decomposition,
   "../output/scale_shape_decomposition.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   exact_threshold_shares,
   "../output/exact_threshold_shares.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   exact_198_vector_decomposition,
   "../output/exact_198_vector_decomposition.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   parent_99xk_summary,
   "../output/parent_99xk_summary.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   parent_response_categories,
   "../output/parent_response_categories.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   constituent_count_distribution,
   "../output/constituent_count_distribution.csv"
 )

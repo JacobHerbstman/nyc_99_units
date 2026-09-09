@@ -1,7 +1,9 @@
 # Stage DOB NOW initial New Building filings
 
-This task reads the frozen DOB NOW raw extract and writes a typed, one-row-per-
-initial-filing parquet file. It normalizes job numbers, dates, BBLs, unit counts,
+This task reads the frozen DOB NOW extracts and writes a typed filing-history
+table plus a table containing one row per initial filing. Amendment identifiers
+can repeat in the source history; its observation is a source record, keyed by
+source pull date and the retained source row number. It normalizes job numbers, dates, BBLs, unit counts,
 and total construction floor area. The script fails if initial job numbers are
 not unique; broader coverage diagnostics live in
 `tasks/audits/audit_dob_now_new_building_filings/`.

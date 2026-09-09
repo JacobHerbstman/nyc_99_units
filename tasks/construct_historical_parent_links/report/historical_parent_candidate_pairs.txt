@@ -1,0 +1,59 @@
+Rows: 7752
+Columns: 55
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 55f1c4283083f6d834da2791dbc2d3e1
+job_number_1 | character | nonmissing | 7752 | distinct | 3140
+job_number_2 | character | nonmissing | 7752 | distinct | 3100
+filing_year_1 | integer | nonmissing | 7752 | distinct | 14 min/median/mean/max 2010/2016/2016.691/2023
+filing_year_2 | integer | nonmissing | 7752 | distinct | 14 min/median/mean/max 2010/2017/2017.11/2023
+date_filed_1 | Date | nonmissing | 7752 | distinct | 1738
+date_filed_2 | Date | nonmissing | 7752 | distinct | 1720
+units_1 | integer | nonmissing | 7752 | distinct | 304 min/median/mean/max 6/10/39.93382/1175
+units_2 | integer | nonmissing | 7752 | distinct | 303 min/median/mean/max 6/10/40.43821/1313
+filing_bbl_1 | character | nonmissing | 7752 | distinct | 3087
+filing_bbl_2 | character | nonmissing | 7752 | distinct | 3040
+prefiling_feature_bbl_1 | character | nonmissing | 7752 | distinct | 2888
+prefiling_feature_bbl_2 | character | nonmissing | 7752 | distinct | 2839
+archived_appbbl_1 | character | nonmissing | 1429 | distinct | 248
+archived_appbbl_2 | character | nonmissing | 1454 | distinct | 235
+archived_appdate_1 | Date | nonmissing | 1429 | distinct | 241
+archived_appdate_2 | Date | nonmissing | 1454 | distinct | 229
+appbbl_recovery_used_1 | logical | nonmissing | 7752 | distinct | 2
+appbbl_recovery_used_2 | logical | nonmissing | 7752 | distinct | 2
+appbbl_future_appdate_used_1 | logical | nonmissing | 7752 | distinct | 2
+appbbl_future_appdate_used_2 | logical | nonmissing | 7752 | distinct | 2
+pluto_owner_name_1 | character | nonmissing | 7704 | distinct | 2675
+pluto_owner_name_2 | character | nonmissing | 7699 | distinct | 2642
+pluto_owner_filing_count_1 | integer | nonmissing | 7704 | distinct | 14 min/median/mean/max 1/1/5.061786/81
+pluto_owner_filing_count_2 | integer | nonmissing | 7699 | distinct | 14 min/median/mean/max 1/1/5.358618/81
+dob_owner_name_1 | character | nonmissing | 970 | distinct | 289
+dob_owner_name_2 | character | nonmissing | 1119 | distinct | 313
+description_referenced_jobs_1 | character | nonmissing | 126 | distinct | 52
+description_referenced_jobs_2 | character | nonmissing | 142 | distinct | 58
+description_project_code_1 | character | nonmissing | 0 | distinct | 0
+description_project_code_2 | character | nonmissing | 3 | distinct | 1
+filing_days_apart | integer | nonmissing | 7752 | distinct | 366 min/median/mean/max 0/140/149.5332/365
+distance_meters | numeric | nonmissing | 7752 | distinct | 7662 min/median/mean/max 0/139.0706/134.8846/249.9771
+same_filing_bbl | logical | nonmissing | 7752 | distinct | 2
+same_prefiling_feature_bbl | logical | nonmissing | 7752 | distinct | 2
+feature_link_uses_current_appbbl_recovery | logical | nonmissing | 7752 | distinct | 2
+feature_link_uses_post_filing_appbbl | logical | nonmissing | 7752 | distinct | 2
+same_archived_lot_history_group | logical | nonmissing | 7752 | distinct | 2
+same_pluto_owner | logical | nonmissing | 7752 | distinct | 2
+same_dob_owner | logical | nonmissing | 7752 | distinct | 2
+explicit_job_reference | logical | nonmissing | 7752 | distinct | 2
+same_project_code | logical | nonmissing | 7752 | distinct | 1
+within_nearby_distance | logical | nonmissing | 7752 | distinct | 2
+within_review_distance | logical | nonmissing | 7752 | distinct | 1
+prefiling_owner_nearby | logical | nonmissing | 7752 | distinct | 2
+dob_owner_nearby | logical | nonmissing | 7752 | distinct | 2
+strict_prefiling_owner_nearby | logical | nonmissing | 7752 | distinct | 2
+current_crosswalk_prefiling_owner_candidate | logical | nonmissing | 7752 | distinct | 2
+post_filing_owner_candidate | logical | nonmissing | 7752 | distinct | 2
+strict_prefiling_lot_link | logical | nonmissing | 7752 | distinct | 2
+current_crosswalk_prefiling_dated_lot_link | logical | nonmissing | 7752 | distinct | 2
+post_filing_lot_history_link | logical | nonmissing | 7752 | distinct | 2
+high_confidence_prefiling_signal | logical | nonmissing | 7752 | distinct | 2
+owner_supported_candidate | logical | nonmissing | 7752 | distinct | 2
+prefiling_candidate_signal | logical | nonmissing | 7752 | distinct | 2
+proximity_only_review | logical | nonmissing | 7752 | distinct | 2

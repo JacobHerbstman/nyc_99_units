@@ -11,7 +11,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -446,23 +446,23 @@ if (
 
 
 
-write_parquet_if_changed(
+write_parquet_atomic(
   candidate_pairs,
   "../output/historical_parent_candidate_pairs.parquet"
 )
-write_csv_if_changed(
+write_csv_atomic(
   link_signal_summary,
   "../output/historical_parent_link_signal_summary.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   grouping_sensitivity,
   "../output/historical_parent_grouping_sensitivity.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   feasibility_summary,
   "../output/historical_parent_feasibility_summary.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   link_feasibility_qc,
   "../output/historical_parent_link_feasibility_qc.csv"
 )

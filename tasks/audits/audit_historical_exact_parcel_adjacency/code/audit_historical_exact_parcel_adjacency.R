@@ -15,7 +15,7 @@ suppressPackageStartupMessages({
   library(units)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -662,28 +662,28 @@ if (
   stop("Historical exact parcel adjacency outputs failed final QC.")
 }
 
-write_parquet_if_changed(
+write_parquet_atomic(
   adjacency_pairs,
   "../output/historical_polygon_adjacency_pairs.parquet"
 )
-write_csv_if_changed(
+write_csv_atomic(
   adjacency_pairs |>
     filter(exact_polygon_touch),
   "../output/historical_exact_adjacency_pairs.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   adjacency_characteristics,
   "../output/historical_polygon_adjacency_characteristics.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   release_summary,
   "../output/historical_polygon_adjacency_release_summary.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   grouping_sensitivity,
   "../output/historical_polygon_adjacency_grouping_sensitivity.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   adjacency_qc,
   "../output/historical_polygon_adjacency_qc.csv"
 )

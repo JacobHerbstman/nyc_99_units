@@ -1,0 +1,10 @@
+Rows: 252
+Columns: 4
+Key fields: unit_bin_order
+Saved-file MD5: f6d60c2cd1fcd9faf4da39fe8c6168b3
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+unit_bin_order | numeric | nonmissing | 252 | distinct | 252 min/median/mean/max 50/175.5/175.5/301
+counterfactual_share | numeric | nonmissing | 252 | distinct | 173 min/median/mean/max 0/0.001773946/0.003968254/0.106921
+observed_share | numeric | nonmissing | 252 | distinct | 12 min/median/mean/max 0/0/0.003968254/0.1277955
+observed_minus_counterfactual_share | numeric | nonmissing | 252 | distinct | 176 min/median/mean/max -0.03024364/0/2.202823e-18/0.108695

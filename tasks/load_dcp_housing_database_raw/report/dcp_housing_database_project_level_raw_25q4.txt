@@ -1,0 +1,70 @@
+Rows: 81708
+Columns: 66
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: b453e1c1c597359c66cf51ed2a8601bd
+source_id | character | nonmissing | 81708 | distinct | 1
+vintage | character | nonmissing | 81708 | distinct | 1
+source_raw_path | character | nonmissing | 81708 | distinct | 1
+job_number | character | nonmissing | 81708 | distinct | 81708
+job_type | character | nonmissing | 81708 | distinct | 3
+residflag | character | nonmissing | 81708 | distinct | 1
+nonresflag | character | nonmissing | 11545 | distinct | 1
+job_status | character | nonmissing | 81708 | distinct | 5
+compltyear | numeric | nonmissing | 66508 | distinct | 17 min/median/mean/max 2010/2017/2017.103/2026
+permityear | numeric | nonmissing | 73977 | distinct | 28 min/median/mean/max 1998/2016/2015.267/2026
+classainit | numeric | nonmissing | 81707 | distinct | 445 min/median/mean/max 0/1/6.069027/44695
+classaprop | numeric | nonmissing | 81708 | distinct | 589 min/median/mean/max 0/2/12.68753/44695
+classanet | numeric | nonmissing | 81707 | distinct | 582 min/median/mean/max -303/1/6.617732/1569
+hotelinit | numeric | nonmissing | 32936 | distinct | 136 min/median/mean/max 0/0/1.313821/2191
+hotelprop | numeric | nonmissing | 17294 | distinct | 316 min/median/mean/max 0/0/7.106453/2191
+otherbinit | numeric | nonmissing | 32944 | distinct | 115 min/median/mean/max 0/0/0.7951068/1395
+otherbprop | numeric | nonmissing | 17298 | distinct | 138 min/median/mean/max 0/0/1.379003/1395
+units_co | numeric | nonmissing | 55598 | distinct | 575 min/median/mean/max 0/2/15.27643/3491
+boro | numeric | nonmissing | 81708 | distinct | 5 min/median/mean/max 1/3/3.322172/5
+bin | numeric | nonmissing | 81708 | distinct | 71408 min/median/mean/max 1e+06/3427318/3516139/5870041
+bbl | numeric | nonmissing | 81708 | distinct | 68190 min/median/mean/max 1000010000/3076335000/3368551000/5080500000
+addressnum | character | nonmissing | 81708 | distinct | 15659
+addressst | character | nonmissing | 81708 | distinct | 5606
+occ_init | character | nonmissing | 69762 | distinct | 41
+occ_prop | character | nonmissing | 65318 | distinct | 40
+bldg_class | character | nonmissing | 81664 | distinct | 154
+job_desc | character | nonmissing | 51425 | distinct | 42578
+datefiled | Date | nonmissing | 81708 | distinct | 6816
+datepermit | Date | nonmissing | 73994 | distinct | 6296
+datelstupd | Date | nonmissing | 81708 | distinct | 4409
+datecomplt | Date | nonmissing | 66508 | distinct | 4094
+zoningdst1 | character | nonmissing | 64119 | distinct | 171
+zoningdst2 | character | nonmissing | 3451 | distinct | 140
+zoningdst3 | character | nonmissing | 131 | distinct | 46
+specldst1 | character | nonmissing | 10894 | distinct | 174
+specldst2 | character | nonmissing | 5295 | distinct | 88
+landmark | character | nonmissing | 4515 | distinct | 1
+floorsinit | numeric | nonmissing | 55089 | distinct | 70 min/median/mean/max 0/2/2.920855/3474
+floorsprop | numeric | nonmissing | 71393 | distinct | 81 min/median/mean/max 0/3/4.078509/3474
+enlargemnt | character | nonmissing | 8835 | distinct | 3
+ownership | character | nonmissing | 81588 | distinct | 27
+cenblock20 | numeric | nonmissing | 81708 | distinct | 20097 min/median/mean/max 3.6005e+14/3.606102e+14/3.60615e+14/3.608503e+14
+centract20 | numeric | nonmissing | 81708 | distinct | 2195 min/median/mean/max 3.6005e+10/36061020000/36061500000/36085030000
+bctcb2020 | numeric | nonmissing | 81708 | distinct | 20097 min/median/mean/max 10002010000/3.102e+10/33658450000/5.0323e+10
+bct2020 | numeric | nonmissing | 81708 | distinct | 2195 min/median/mean/max 1000201/3102000/3365845/5032300
+nta2020 | character | nonmissing | 81708 | distinct | 209
+ntaname20 | character | nonmissing | 81708 | distinct | 209
+cdta2020 | character | nonmissing | 81708 | distinct | 60
+cdtaname20 | character | nonmissing | 81708 | distinct | 60
+commntydst | numeric | nonmissing | 81708 | distinct | 61 min/median/mean/max 101/317/339.243/595
+councildst | character | nonmissing | 81708 | distinct | 51
+schsubdist | character | nonmissing | 81692 | distinct | 96
+schcommnty | character | nonmissing | 81708 | distinct | 32
+schelmntry | numeric | nonmissing | 81703 | distinct | 710 min/median/mean/max 1/320/367.9986/933
+schmiddle | numeric | nonmissing | 81701 | distinct | 240 min/median/mean/max 2/141/176.8811/421
+firecmpany | character | nonmissing | 81708 | distinct | 348
+firebattln | character | nonmissing | 81708 | distinct | 54
+firedivsn | character | nonmissing | 81708 | distinct | 14
+policepcnt | character | nonmissing | 81708 | distinct | 100
+pl_firm07 | numeric | nonmissing | 5916 | distinct | 1 min/median/mean/max 1/1/1/1
+pl_pfirm15 | numeric | nonmissing | 8220 | distinct | 1 min/median/mean/max 1/1/1/1
+latitude | numeric | nonmissing | 81708 | distinct | 72064 min/median/mean/max 40.4987/40.69307/40.69509/40.91458
+longitude | numeric | nonmissing | 81708 | distinct | 72094 min/median/mean/max -74.2552/-73.93769/-73.93511/-73.70101
+geomsource | character | nonmissing | 81708 | distinct | 6
+dcpedited | character | nonmissing | 9533 | distinct | 761
+version | character | nonmissing | 81708 | distinct | 1

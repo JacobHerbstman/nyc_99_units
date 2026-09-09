@@ -11,7 +11,7 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) != 2L) {
@@ -244,18 +244,18 @@ splitting_verification_summary <- parents_ab |>
   mutate(conditional_share = parent_count / sum(parent_count)) |>
   ungroup()
 
-write_csv_if_changed(
+write_csv_atomic(
   parent_total_reproduction_qc,
   "../output/parent_total_reproduction_qc.csv"
 )
-write_csv_if_changed(near_198_placebo_totals, "../output/near_198_placebo_totals.csv")
-write_csv_if_changed(support_sensitivity, "../output/support_sensitivity.csv")
-write_csv_if_changed(
+write_csv_atomic(near_198_placebo_totals, "../output/near_198_placebo_totals.csv")
+write_csv_atomic(support_sensitivity, "../output/support_sensitivity.csv")
+write_csv_atomic(
   historical_pairwise_stability,
   "../output/historical_pairwise_stability.csv"
 )
-write_csv_if_changed(historical_exact_shares, "../output/historical_exact_shares.csv")
-write_csv_if_changed(
+write_csv_atomic(historical_exact_shares, "../output/historical_exact_shares.csv")
+write_csv_atomic(
   splitting_verification_summary,
   "../output/splitting_verification_summary.csv"
 )

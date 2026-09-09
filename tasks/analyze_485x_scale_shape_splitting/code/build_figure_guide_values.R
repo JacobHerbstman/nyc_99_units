@@ -5,7 +5,7 @@ suppressPackageStartupMessages({
   library(readr)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 sample_summary <- read_csv(
   "../output/sample_exposure_summary.csv",
@@ -155,7 +155,7 @@ for (row in seq_len(nrow(table_shares))) {
 
 temporary_tex <- tempfile(fileext = ".tex")
 writeLines(latex_lines, temporary_tex)
-copy_if_changed(
+publish_file(
   temporary_tex,
   "../temp/scale_shape_splitting_figure_guide_values.tex"
 )

@@ -9,6 +9,7 @@ suppressPackageStartupMessages({
 })
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(threshold_units))
 
 if (length(args) != 1L) {
   stop("Expected argument: threshold_units.")

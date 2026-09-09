@@ -1,9 +1,13 @@
-# Reused by the ACS source and analysis tasks; report the data actually saved.
-write_data_report <- function(data, keys, source_file, report_file) {
-  stopifnot(!anyNA(data[keys]), !anyDuplicated(data[keys]))
+# Deterministic summaries of saved datasets, shared by producing tasks.
+write_data_report <- function(data, keys, source_file, report_file, require_unique = TRUE) {
+  if (length(keys) && require_unique) stopifnot(!anyNA(data[keys]), !anyDuplicated(data[keys]))
   lines <- c(paste("Rows:", nrow(data)), paste("Columns:", ncol(data)),
-             paste("Unique nonmissing key:", paste(keys, collapse = ", ")),
+             paste("Key fields:", if (length(keys)) paste(keys, collapse = ", ") else "aggregate table or source rows without a designated key"),
              paste("Saved-file MD5:", unname(tools::md5sum(source_file))))
+  if (length(keys)) {
+    lines <- c(lines, paste("Rows missing a key field:", sum(!complete.cases(data[keys]))),
+               paste("Repeated keys beyond the first row:", sum(duplicated(data[keys]))))
+  }
   for (column in names(data)) {
     x <- data[[column]]
     line <- paste(column, paste(class(x), collapse = "/"),

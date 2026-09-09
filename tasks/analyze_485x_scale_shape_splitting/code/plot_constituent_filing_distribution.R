@@ -12,9 +12,10 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(plot_minimum), as.character(plot_maximum), as.character(measure), as.character(plot_style))
 
 if (length(args) != 4L) {
   stop("Expected the minimum, maximum, measure, and style for the filing-size plot.")
@@ -208,7 +209,7 @@ ggsave(
   temp_path, figure, width = 11,
   height = ifelse(plot_style == "histogram", 8.5, 6.1), bg = "white"
 )
-copy_if_changed(
+publish_file(
   temp_path,
   output_path
 )

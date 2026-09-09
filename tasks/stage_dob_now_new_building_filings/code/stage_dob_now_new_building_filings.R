@@ -7,7 +7,7 @@ suppressPackageStartupMessages({
   library(stringr)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 file_manifest <- read_csv(
   "../input/dob_now_new_building_filing_files.csv",
@@ -21,12 +21,12 @@ if (
       file_manifest$file_role,
       c("initial_new_building_filings_2016_2026", "new_building_amendments_2024_2026")
     ) ||
-    any(!file.exists(file_manifest$raw_path))
+    any(!file.exists(file.path("../input", basename(file_manifest$raw_path))))
 ) {
   stop("Expected available initial-filing and amendment DOB NOW extracts.")
 }
 
-raw_filings <- bind_rows(lapply(file_manifest$raw_path, function(path) {
+raw_filings <- bind_rows(lapply(file.path("../input", basename(file_manifest$raw_path)), function(path) {
   read_csv(
     path,
     show_col_types = FALSE,
@@ -126,12 +126,12 @@ if (nrow(duplicate_initial_job_numbers) > 0L) {
   stop("DOB NOW initial job_number is not unique.")
 }
 
-write_parquet_if_changed(
+write_parquet_atomic(
   staged_filings,
   "../output/dob_now_new_building_filings.parquet"
 )
 
-write_parquet_if_changed(
+write_parquet_atomic(
   initial_filings,
   "../output/dob_now_new_building_initial_filings.parquet"
 )

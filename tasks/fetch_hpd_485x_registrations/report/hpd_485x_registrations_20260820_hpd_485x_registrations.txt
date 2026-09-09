@@ -1,0 +1,29 @@
+Rows: 312
+Columns: 25
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: c153729f74ff307c05a8cdbd9411d4ff
+no | numeric | nonmissing | 312 | distinct | 312 min/median/mean/max 1/156.5/156.5/312
+form_submission_date | POSIXct/POSIXt | nonmissing | 312 | distinct | 287
+reported_property_address | character | nonmissing | 312 | distinct | 301
+reported_property_borough | character | nonmissing | 312 | distinct | 4
+reported_dob_bin | numeric | nonmissing | 312 | distinct | 297 min/median/mean/max 1026951/2821558/2832291/4625763
+reported_dob_permit_sequence | character | nonmissing | 312 | distinct | 298
+reported_property_tax_block | numeric | nonmissing | 312 | distinct | 256 min/median/mean/max 151/3149/3554.792/16188
+reported_property_tax_lot | numeric | nonmissing | 312 | distinct | 108 min/median/mean/max 1/32/49.03205/683
+reported_units | numeric | nonmissing | 312 | distinct | 80 min/median/mean/max 3/23.5/38.67308/792
+reported_restricted_units | numeric | nonmissing | 312 | distinct | 27 min/median/mean/max 0/5/8.336538/267
+reported_commencement_date | POSIXct/POSIXt | nonmissing | 312 | distinct | 242
+reported_anticipated | POSIXct/POSIXt | nonmissing | 312 | distinct | 147
+reported_affordability_option | character | nonmissing | 312 | distinct | 4
+presumed_community_board | numeric | nonmissing | 312 | distinct | 43 min/median/mean/max 102/212/268.0641/414
+presumed_duplicate | character | nonmissing | 23 | distinct | 1
+duplicate_count | numeric | nonmissing | 23 | distinct | 2 min/median/mean/max 2/2/2.347826/4
+presumed_building_units | numeric | nonmissing | 312 | distinct | 80 min/median/mean/max 3/23.5/38.66667/792
+presumed_restricted_units | numeric | nonmissing | 312 | distinct | 27 min/median/mean/max 0/5/8.362179/267
+presumed_bbl | numeric | nonmissing | 312 | distinct | 298 min/median/mean/max 1002090000/2529550000/2654109000/4161880000
+postcode | numeric | nonmissing | 305 | distinct | 76 min/median/mean/max 10002/10473/10835.32/11694
+latitude | numeric | nonmissing | 305 | distinct | 293 min/median/mean/max 40.57938/40.76697/40.76966/40.90087
+longitude | numeric | nonmissing | 305 | distinct | 291 min/median/mean/max -74.00293/-73.90408/-73.90492/-73.75817
+council_district | numeric | nonmissing | 305 | distinct | 40 min/median/mean/max 1/18/23.62295/48
+ct2020 | numeric | nonmissing | 305 | distinct | 199 min/median/mean/max 11/423/9663.118/120801
+nta2020 | character | nonmissing | 305 | distinct | 90

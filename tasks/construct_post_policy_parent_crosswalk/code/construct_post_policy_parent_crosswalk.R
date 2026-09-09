@@ -12,9 +12,10 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(start_year), as.character(end_year), as.character(min_units), as.character(max_units))
 
 if (length(args) != 4L) {
   stop(
@@ -140,7 +141,7 @@ if (
   stop("Post-policy filing-link fields failed identifier QC.")
 }
 
-write_parquet_if_changed(
+write_parquet_atomic(
   filing_link_fields,
   "../output/post_policy_filing_link_fields.parquet"
 )

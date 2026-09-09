@@ -1,7 +1,9 @@
 Rows: 90110
 Columns: 53
-Unique nonmissing key: w_geocode
+Key fields: w_geocode
 Saved-file MD5: 0e992f6ebed55acf5bab82c02efafde2
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
 w_geocode | character | nonmissing | 90110 | distinct | 90110
 C000 | numeric | nonmissing | 90110 | distinct | 898 min/median/mean/max 1/5/26.85414/8685
 CA01 | numeric | nonmissing | 90110 | distinct | 429 min/median/mean/max 0/1/7.517756/1593

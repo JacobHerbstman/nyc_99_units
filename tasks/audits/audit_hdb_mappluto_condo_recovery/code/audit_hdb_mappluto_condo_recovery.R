@@ -9,7 +9,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 candidate_min_classa_props <- c(50L, 60L, 70L)
 
@@ -693,16 +693,16 @@ large_unresolved_no_match_examples <- condo_match_resolution |>
     future_appdate_used_for_linkage
   )
 
-write_csv_if_changed(condo_recovery_summary, "../output/condo_recovery_summary.csv")
-write_csv_if_changed(unmatched_hdb_condo_audit, "../output/unmatched_hdb_condo_audit.csv")
-write_csv_if_changed(condo_crosswalk_candidates, "../output/condo_crosswalk_candidates.csv")
-write_csv_if_changed(condo_match_resolution, "../output/condo_match_resolution.csv")
-write_csv_if_changed(accepted_condo_matches, "../output/accepted_condo_matches.csv")
-write_csv_if_changed(condo_recovered_sample_comparison, "../output/condo_recovered_sample_comparison.csv")
-write_csv_if_changed(condo_recovery_status_by_window, "../output/condo_recovery_status_by_window.csv")
-write_csv_if_changed(condo_recovery_status_by_year, "../output/condo_recovery_status_by_year.csv")
-write_csv_if_changed(condo_recovery_status_by_borough, "../output/condo_recovery_status_by_borough.csv")
-write_csv_if_changed(duplicate_feature_bbl_groups, "../output/duplicate_feature_bbl_groups.csv")
-write_csv_if_changed(large_unresolved_no_match_examples, "../output/large_unresolved_no_match_examples.csv")
+write_csv_atomic(condo_recovery_summary, "../output/condo_recovery_summary.csv")
+write_csv_atomic(unmatched_hdb_condo_audit, "../output/unmatched_hdb_condo_audit.csv")
+write_csv_atomic(condo_crosswalk_candidates, "../output/condo_crosswalk_candidates.csv")
+write_csv_atomic(condo_match_resolution, "../output/condo_match_resolution.csv")
+write_csv_atomic(accepted_condo_matches, "../output/accepted_condo_matches.csv")
+write_csv_atomic(condo_recovered_sample_comparison, "../output/condo_recovered_sample_comparison.csv")
+write_csv_atomic(condo_recovery_status_by_window, "../output/condo_recovery_status_by_window.csv")
+write_csv_atomic(condo_recovery_status_by_year, "../output/condo_recovery_status_by_year.csv")
+write_csv_atomic(condo_recovery_status_by_borough, "../output/condo_recovery_status_by_borough.csv")
+write_csv_atomic(duplicate_feature_bbl_groups, "../output/duplicate_feature_bbl_groups.csv")
+write_csv_atomic(large_unresolved_no_match_examples, "../output/large_unresolved_no_match_examples.csv")
 
 cat("Wrote HDB-MapPLUTO condo recovery audit outputs to ../output\n")

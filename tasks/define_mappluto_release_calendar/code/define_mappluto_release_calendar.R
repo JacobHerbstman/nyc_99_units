@@ -7,7 +7,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 calendar <- read_csv("mappluto_release_calendar_manual.csv", show_col_types = FALSE, na = c("", "NA")) |>
   mutate(
@@ -90,5 +90,5 @@ calendar <- calendar |>
     evidence_url, date_basis, notes
   )
 
-write_csv_if_changed(calendar, "../output/mappluto_release_calendar.csv")
+write_csv_atomic(calendar, "../output/mappluto_release_calendar.csv")
 cat("Wrote MapPLUTO release calendar to ../output/mappluto_release_calendar.csv\n")

@@ -1,0 +1,13 @@
+Rows: 4
+Columns: 7
+Key fields: source_id, vintage, file_role
+Saved-file MD5: 7695f986a4a3b3da23c0e2f36af86f57
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+source_id | character | nonmissing | 4 | distinct | 1
+vintage | character | nonmissing | 4 | distinct | 2
+pull_date | numeric | nonmissing | 4 | distinct | 1 min/median/mean/max 20260500/20260500/20260500/20260500
+file_role | character | nonmissing | 4 | distinct | 4
+raw_path | character | nonmissing | 4 | distinct | 4
+status | character | nonmissing | 4 | distinct | 2
+official_url | character | nonmissing | 4 | distinct | 4

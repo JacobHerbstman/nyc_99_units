@@ -8,7 +8,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -556,39 +556,39 @@ if (
   stop("Symmetric parent-cohort audit outputs failed final QC.")
 }
 
-write_csv_if_changed(
+write_csv_atomic(
   cohort_inventory,
   "../output/symmetric_parent_cohort_inventory.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   exact_99_paths,
   "../output/symmetric_parent_2025_exact_99_paths.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   exact_99_paths_dob_i1,
   "../output/symmetric_parent_2025_exact_99_paths_dob_i1.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   post_site_linkage_bbl_links,
   "../output/post_site_linkage_bbl_links.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   post_site_linkage_bbl_parent_review,
   "../output/post_site_linkage_bbl_parent_review.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   post_parent_reviews,
   "../output/post_parent_review_decisions.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   link_summary,
   "../output/symmetric_parent_link_summary.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   cohort_summary,
   "../output/symmetric_parent_cohort_summary.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   cohort_qc,
   "../output/symmetric_parent_cohort_qc.csv"
 )

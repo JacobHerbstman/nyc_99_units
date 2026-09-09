@@ -7,7 +7,7 @@ suppressPackageStartupMessages({
   library(scales)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 parents <- read_parquet(
   "../input/parent_opportunity_panel.parquet"
@@ -138,7 +138,7 @@ figure <- ggplot(
 
 temp_path <- tempfile(fileext = ".pdf")
 ggsave(temp_path, figure, width = 11, height = 7.2, bg = "white")
-copy_if_changed(
+publish_file(
   temp_path,
   "../output/pdf/parents_with_99_unit_constituents.pdf"
 )

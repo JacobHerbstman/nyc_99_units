@@ -1,0 +1,75 @@
+Rows: 2737
+Columns: 69
+Key fields: sample, parent_id
+Saved-file MD5: d65b0910bd5c433bcb95c925b2254c46
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 2737 | distinct | 2
+period | character | nonmissing | 2737 | distinct | 2
+exposure_years | numeric | nonmissing | 2737 | distinct | 2 min/median/mean/max 1.516769/4/3.167115/4
+parent_id | character | nonmissing | 2737 | distinct | 2737
+cohort_date | Date | nonmissing | 2737 | distinct | 1158
+cohort_year | integer | nonmissing | 2737 | distinct | 6 min/median/mean/max 2019/2022/2022.116/2026
+parent_last_filing_date | Date | nonmissing | 2737 | distinct | 1157
+source_end_date | Date | nonmissing | 2737 | distinct | 2
+observed_followup_days | integer | nonmissing | 2737 | distinct | 1116 min/median/mean/max 0/703/825.5049/1821
+left_window_observed | logical | nonmissing | 2737 | distinct | 1
+right_window_observed | logical | nonmissing | 2737 | distinct | 2
+full_window_observed | logical | nonmissing | 2737 | distinct | 2
+parent_total_units | integer | nonmissing | 2737 | distinct | 342 min/median/mean/max 6/28/70.38509/1754
+constituent_total_units | integer | nonmissing | 2737 | distinct | 342 min/median/mean/max 6/28/70.38509/1754
+n_components | integer | nonmissing | 2737 | distinct | 7 min/median/mean/max 1/1/1.068688/7
+max_component_units | integer | nonmissing | 2737 | distinct | 321 min/median/mean/max 6/27/64.73548/1313
+second_component_units | integer | nonmissing | 148 | distinct | 76 min/median/mean/max 6/60.5/81.31757/583
+third_component_units | integer | nonmissing | 25 | distinct | 19 min/median/mean/max 6/88/98.04/484
+min_component_units | integer | nonmissing | 2737 | distinct | 311 min/median/mean/max 6/27/62.38582/1313
+n_components_eq_99 | integer | nonmissing | 2737 | distinct | 7 min/median/mean/max 0/0/0.03653635/7
+n_components_ge_100 | integer | nonmissing | 2737 | distinct | 4 min/median/mean/max 0/0/0.1673365/3
+all_components_le_99 | logical | nonmissing | 2737 | distinct | 2
+any_component_ge_100 | logical | nonmissing | 2737 | distinct | 2
+single_component | logical | nonmissing | 2737 | distinct | 2
+multi_component | logical | nonmissing | 2737 | distinct | 2
+exact_99x2 | logical | nonmissing | 2737 | distinct | 2
+exact_99x3 | logical | nonmissing | 2737 | distinct | 2
+near_99x2 | logical | nonmissing | 2737 | distinct | 2
+sorted_component_vector | character | nonmissing | 2737 | distinct | 419
+component_job_numbers | character | nonmissing | 2737 | distinct | 2737
+component_bbls | character | nonmissing | 2737 | distinct | 2724
+component_addresses | character | nonmissing | 2737 | distinct | 2727
+component_filing_dates | character | nonmissing | 2737 | distinct | 1286
+n_unique_component_bbls | integer | nonmissing | 2737 | distinct | 5 min/median/mean/max 1/1/1.047497/7
+hpd_linked_components | integer | nonmissing | 2737 | distinct | 4 min/median/mean/max 0/0/0.05188162/3
+hpd_response_numbers | character | nonmissing | 2737 | distinct | 135
+hpd_registration_building_keys | character | nonmissing | 2737 | distinct | 135
+hpd_linked_options | character | nonmissing | 2737 | distinct | 6
+splitting_verification_status | character | nonmissing | 2737 | distinct | 4
+splitting_verification_reason | character | nonmissing | 2737 | distinct | 4
+response_category | character | nonmissing | 2737 | distinct | 7
+exposure_status | character | nonmissing | 2737 | distinct | 4
+included_ab | logical | nonmissing | 2737 | distinct | 2
+included_ab_plus_d | logical | nonmissing | 2737 | distinct | 2
+confidence | character | nonmissing | 2737 | distinct | 3
+classification_reason | character | nonmissing | 2737 | distinct | 13
+evidence_source | character | nonmissing | 2737 | distinct | 9
+source_url | character | nonmissing | 286 | distinct | 153
+government_owner | logical | nonmissing | 2737 | distinct | 2
+nycha_owner | logical | nonmissing | 2737 | distinct | 2
+hotel_project | logical | nonmissing | 2737 | distinct | 2
+feature_units | integer | nonmissing | 2737 | distinct | 342 min/median/mean/max 6/28/70.38509/1754
+feature_complete | logical | nonmissing | 2737 | distinct | 2
+composition_eligible | logical | nonmissing | 2737 | distinct | 2
+number_unique_lots | integer | nonmissing | 2714 | distinct | 4 min/median/mean/max 1/1/1.033161/4
+multi_lot_indicator | integer | nonmissing | 2714 | distinct | 2 min/median/mean/max 0/0/0.02947679/1
+lot_area_sqft | numeric | nonmissing | 2714 | distinct | 1536 min/median/mean/max 279/4396.5/33131.4/2747985
+log_lot_area | numeric | nonmissing | 2714 | distinct | 1536 min/median/mean/max 5.631212/8.388564/8.67283/14.82638
+residential_far | numeric | nonmissing | 2714 | distinct | 38 min/median/mean/max 0/3/3.337413/10
+broad_zoning_far | numeric | nonmissing | 2714 | distinct | 26 min/median/mean/max 0/4.8/4.483181/15
+built_far | numeric | nonmissing | 2714 | distinct | 397 min/median/mean/max 0/0.49/0.6804787/12.1
+residential_capacity_sqft | numeric | nonmissing | 2714 | distinct | 1770 min/median/mean/max 0/11893.88/40029.73/2761126
+built_floor_area_sqft | numeric | nonmissing | 2714 | distinct | 1533 min/median/mean/max 0/1923.275/10757.27/1489849
+redevelopment_slack_sqft | numeric | nonmissing | 2714 | distinct | 2153 min/median/mean/max 0/9295.71/30225.23/1671982
+zero_residential_capacity | integer | nonmissing | 2714 | distinct | 2 min/median/mean/max 0/0/0.04347826/1
+zero_redevelopment_slack | integer | nonmissing | 2714 | distinct | 2 min/median/mean/max 0/0/0.05784819/1
+borough | character | nonmissing | 2714 | distinct | 5
+zoning_category | character | nonmissing | 2714 | distinct | 9
+prior_site_use | character | nonmissing | 2714 | distinct | 9

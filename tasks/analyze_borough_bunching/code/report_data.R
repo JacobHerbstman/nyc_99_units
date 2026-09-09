@@ -2,6 +2,7 @@
 # dataset <- "geographic_filings"
 suppressPackageStartupMessages({library(arrow); library(readr); library(dplyr)})
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(dataset))
 stopifnot(length(args) == 1)
 dataset <- args[1]
 stopifnot(dataset %in% c("geographic_filings", "borough_summary"))

@@ -1,7 +1,9 @@
 Rows: 5
 Columns: 11
-Unique nonmissing key: state, county
+Key fields: state, county
 Saved-file MD5: d90a1c561a2f5c6ad7b9ba0da54f5536
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
 NAME | character | nonmissing | 5 | distinct | 5
 B24031_005E | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 45659/49614/54693/69103
 B24031_005M | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 986/1751/3609.4/8809

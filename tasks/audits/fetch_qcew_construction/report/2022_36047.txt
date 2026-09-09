@@ -1,7 +1,9 @@
 Rows: 1991
 Columns: 38
-Unique nonmissing key: area_fips, own_code, industry_code, agglvl_code, size_code, year, qtr
+Key fields: area_fips, own_code, industry_code, agglvl_code, size_code, year, qtr
 Saved-file MD5: f6b89b52dcfa95fb03ee00371bae7c62
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
 area_fips | numeric | nonmissing | 1991 | distinct | 1 min/median/mean/max 36047/36047/36047/36047
 own_code | numeric | nonmissing | 1991 | distinct | 5 min/median/mean/max 0/5/4.5555/5
 industry_code | character | nonmissing | 1991 | distinct | 1764

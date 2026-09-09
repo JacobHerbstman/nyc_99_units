@@ -14,10 +14,11 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-source("../../_lib/source_pipeline_utils.R")
-source("../../_lib/scale_shape_helpers.R")
+source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/scale_shape_helpers.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(minimum_units), as.character(exact_plot_maximum), as.character(pooled_tail_start))
 
 if (length(args) != 3L) {
   stop("Expected minimum units, exact-plot maximum, and pooled-tail start.")
@@ -291,7 +292,7 @@ scale_shape_count_decomposition <- counterfactual_distributions |>
 save_pdf <- function(figure, out_path, width = 11, height = 5.8) {
   temporary_pdf <- tempfile(fileext = ".pdf")
   ggsave(temporary_pdf, figure, width = width, height = height, bg = "white")
-  copy_if_changed(temporary_pdf, out_path)
+  publish_file(temporary_pdf, out_path)
 }
 
 plot_distribution <- counterfactual_distributions |>
@@ -456,30 +457,30 @@ reweighted_constituent_count_figure <- ggplot(
   theme_minimal(base_size = 11) +
   theme(legend.position = "top", panel.grid.minor = element_blank())
 
-write_csv_if_changed(calibration_weights, "../output/calibration_weights.csv")
-write_csv_if_changed(balance_diagnostics, "../output/calibration_balance.csv")
-write_csv_if_changed(calibration_summary, "../output/calibration_summary.csv")
-write_csv_if_changed(
+write_csv_atomic(calibration_weights, "../output/calibration_weights.csv")
+write_csv_atomic(balance_diagnostics, "../output/calibration_balance.csv")
+write_csv_atomic(calibration_summary, "../output/calibration_summary.csv")
+write_csv_atomic(
   counterfactual_distributions,
   "../output/reweighted_counterfactual_distributions.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   scale_shape_count_decomposition,
   "../output/scale_shape_count_decomposition.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   parent_share_difference,
   "../output/parent_share_difference.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   local_excess_deficit_moments,
   "../output/local_excess_deficit_moments.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   reweighted_constituent_count_distribution,
   "../output/reweighted_constituent_count_distribution.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   cumulative_99_diagnostics,
   "../output/cumulative_99_diagnostics.csv"
 )

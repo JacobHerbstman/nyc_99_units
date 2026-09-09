@@ -8,9 +8,10 @@ suppressPackageStartupMessages({
   library(readr)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(full_pre_years), as.character(recent_pre_years))
 if (length(args) != 2L) {
   stop("Expected full-period and recent-period historical exposure years.")
 }
@@ -66,7 +67,7 @@ post_exposure_years <- post_period$exposure_years
 save_pdf <- function(figure, out_path) {
   temporary_pdf <- tempfile(fileext = ".pdf")
   ggsave(temporary_pdf, figure, width = 11, height = 5.8, bg = "white")
-  copy_if_changed(temporary_pdf, out_path)
+  publish_file(temporary_pdf, out_path)
 }
 
 make_normalized_comparison <- function(pre_level, pre_label, out_path) {

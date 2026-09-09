@@ -12,9 +12,10 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
+if (interactive()) args <- c(as.character(pre_start_year), as.character(pre_end_year), as.character(post_start_date_text), as.character(min_units))
 
 if (length(args) != 4L) {
   stop(
@@ -162,7 +163,7 @@ if (
   stop("Final exposure universe failed row-level QC.")
 }
 
-write_csv_if_changed(
+write_csv_atomic(
   exposure_universe,
   "../output/parent_485x_exposure_universe.csv"
 )

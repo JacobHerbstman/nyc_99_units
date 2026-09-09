@@ -6,7 +6,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 staged_filings <- read_parquet(
   "../input/dob_now_new_building_filings.parquet"
@@ -148,17 +148,17 @@ bbl_disagreements <- staged_filings |>
     job_filing_number
   )
 
-write_csv_if_changed(
+write_csv_atomic(
   staging_qc,
   "../output/dob_now_new_building_initial_filings_qc.csv"
 )
 
-write_csv_if_changed(
+write_csv_atomic(
   bbl_field_summary,
   "../output/dob_now_bbl_field_summary.csv"
 )
 
-write_csv_if_changed(
+write_csv_atomic(
   bbl_disagreements,
   "../output/dob_now_bbl_field_disagreements.csv"
 )

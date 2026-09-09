@@ -8,19 +8,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
-
-parse_bbl_borough <- function(x) {
-  substr(as.character(x), 1L, 1L)
-}
-
-parse_bbl_block <- function(x) {
-  suppressWarnings(as.integer(substr(as.character(x), 2L, 6L)))
-}
-
-parse_bbl_lot <- function(x) {
-  suppressWarnings(as.integer(substr(as.character(x), 7L, 10L)))
-}
+source("../../shared/code/source_pipeline_utils.R")
 
 normalize_text_field <- function(x) {
   out <- trimws(as.character(x))
@@ -38,20 +26,6 @@ paste_unique <- function(x) {
     return(NA_character_)
   }
   paste(x, collapse = ";")
-}
-
-min_date_value <- function(x) {
-  if (all(is.na(x))) {
-    return(as.Date(NA))
-  }
-  min(x, na.rm = TRUE)
-}
-
-max_date_value <- function(x) {
-  if (all(is.na(x))) {
-    return(as.Date(NA))
-  }
-  max(x, na.rm = TRUE)
 }
 
 read_raw_appbbl_keys <- function(raw_path) {
@@ -138,7 +112,7 @@ if (nrow(mappluto_files) == 0) {
 appbbl_rows <- list()
 
 for (i in seq_len(nrow(mappluto_files))) {
-  raw_path <- file.path("..", "..", "fetch_mappluto_archive", "code", mappluto_files$raw_path[i])
+  raw_path <- file.path("../input", basename(mappluto_files$raw_path[i]))
 
   if (!file.exists(raw_path)) {
     stop("Missing raw PLUTO path: ", raw_path)
@@ -153,12 +127,12 @@ for (i in seq_len(nrow(mappluto_files))) {
       condono = normalize_integer_field(condono),
       appdate = parse_mixed_date(appdate),
       plutomapid = normalize_integer_field(plutomapid),
-      current_borough = parse_bbl_borough(current_bbl),
-      current_block = parse_bbl_block(current_bbl),
-      current_lot = parse_bbl_lot(current_bbl),
-      appbbl_borough = parse_bbl_borough(appbbl),
-      appbbl_block = parse_bbl_block(appbbl),
-      appbbl_lot = parse_bbl_lot(appbbl)
+      current_borough = substr(as.character(current_bbl), 1L, 1L),
+      current_block = suppressWarnings(as.integer(substr(as.character(current_bbl), 2L, 6L))),
+      current_lot = suppressWarnings(as.integer(substr(as.character(current_bbl), 7L, 10L))),
+      appbbl_borough = substr(as.character(appbbl), 1L, 1L),
+      appbbl_block = suppressWarnings(as.integer(substr(as.character(appbbl), 2L, 6L))),
+      appbbl_lot = suppressWarnings(as.integer(substr(as.character(appbbl), 7L, 10L)))
     )
 }
 
@@ -173,8 +147,8 @@ mappluto_appbbl_crosswalk <- bind_rows(appbbl_rows) |>
     evidence_rows = n(),
     condono_values = paste_unique(condono),
     plutomapid_values = paste_unique(plutomapid),
-    appdate_min = min_date_value(appdate),
-    appdate_max = max_date_value(appdate),
+    appdate_min = if (all(is.na(appdate))) as.Date(NA) else min(appdate, na.rm = TRUE),
+    appdate_max = if (all(is.na(appdate))) as.Date(NA) else max(appdate, na.rm = TRUE),
     current_borough = first(current_borough),
     current_block = first(current_block),
     current_lot = first(current_lot),
@@ -194,5 +168,5 @@ if (nrow(duplicate_crosswalk_keys) > 0) {
   stop("APPBBL crosswalk is not unique by source/vintage/current_bbl/appbbl.")
 }
 
-write_csv_if_changed(mappluto_appbbl_crosswalk, "../output/mappluto_appbbl_crosswalk.csv")
+write_csv_atomic(mappluto_appbbl_crosswalk, "../output/mappluto_appbbl_crosswalk.csv")
 cat("Wrote MapPLUTO APPBBL crosswalk to ../output/mappluto_appbbl_crosswalk.csv\n")

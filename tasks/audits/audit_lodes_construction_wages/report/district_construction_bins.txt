@@ -1,7 +1,9 @@
 Rows: 354
 Columns: 11
-Unique nonmissing key: year, boro_cd
+Key fields: year, boro_cd
 Saved-file MD5: dc5414cb6a4bbe44d4d1fc045b27995f
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
 boro_cd | numeric | nonmissing | 354 | distinct | 59 min/median/mean/max 101/306/280.3051/503
 year | numeric | nonmissing | 354 | distinct | 6 min/median/mean/max 0/2020.5/1684.167/2023
 total | numeric | nonmissing | 354 | distinct | 343 min/median/mean/max 92/1653/3994.367/90592
