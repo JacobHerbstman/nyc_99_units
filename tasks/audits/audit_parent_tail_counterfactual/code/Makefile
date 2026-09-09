@@ -32,7 +32,6 @@ all: ../output/analysis_samples_summary.csv \
 	../output/historical_window_parent_weights_c99.csv
 
 ../output/analysis_samples_summary.csv: construct_parent_tail_samples.R \
-	Makefile \
 	../../../_lib/source_pipeline_utils.R \
 	../input/historical_parent_site_characteristics.parquet \
 	../input/post_policy_parent_site_characteristics.parquet \
@@ -75,7 +74,6 @@ all: ../output/analysis_samples_summary.csv \
 	@test -s "$@"
 
 ../output/historical_window_comparison_c99.csv: compare_historical_windows.R \
-	Makefile \
 	../../../_lib/source_pipeline_utils.R \
 	../input/historical_parent_site_characteristics.parquet \
 	../input/post_policy_parent_site_characteristics.parquet \

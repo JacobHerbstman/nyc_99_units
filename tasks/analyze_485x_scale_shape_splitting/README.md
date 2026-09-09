@@ -9,9 +9,9 @@ This task separates three empirical facts that should not be conflated:
    several constituent filings/buildings, including exact 99 x 2 and 99 x 3
    configurations.
 
-The task does not replace or modify the existing counterfactual code. It
-reconstructs the same parent universe and first verifies that the earlier
-50-300 count and normalized-density series are reproduced exactly.
+The task reconstructs the same parent universe used by the distribution
+figures. Exact reproduction checks against those earlier series are maintained
+in `tasks/audits/audit_scale_shape_counterfactual`.
 
 ## Samples and timing
 
@@ -60,17 +60,18 @@ smoothed. Local excess and cumulative-deficit calculations are reported at 99
 and 198. Full-support normalized mass necessarily sums to one and is not
 interpreted as behavioral mass recovery.
 
-## Inference and diagnostics
+## Inference
 
-The task reports balance, effective sample size, historical-year stability,
-two forward pre-policy placebos, leave-one-pre-year-out estimates, and a
-parent-level nonparametric bootstrap. Calibration weights are re-estimated in
-every successful bootstrap replication. Failed positive-weight calibrations
-are recorded rather than replaced by another method.
+The task reports calibration balance, effective sample size, and a parent-level
+nonparametric bootstrap. Calibration weights are re-estimated in every
+successful bootstrap replication. Failed positive-weight calibrations are
+recorded rather than replaced by another method.
 
-The exploratory q and theta outputs are discrete descriptive moments. They are
-not estimates of structural adjustment costs, and the single-component results
-condition on a post-policy choice margin.
+Panel QC, the 190--205 parent listing, support and historical-window checks,
+forward pre-policy placebos, leave-one-pre-year-out estimates, and exploratory
+q and theta moments are maintained separately in
+`tasks/audits/audit_scale_shape_counterfactual`. They are not dependencies of
+the production task or its figure guide.
 
 Run the complete task from `code/` with:
 
@@ -81,3 +82,8 @@ make
 The reader-facing compilation of all figures and their interpretations is
 written to `output/pdf/scale_shape_splitting_figure_guide.pdf`. Its headline
 values are generated from the current result tables before LaTeX compilation.
+
+`output/pdf/main_project_plots.pdf` is the nine-page figures-only meeting packet:
+annualized and normalized filing sizes, separate pre/post one-unit histograms
+with common axes, 50+ and 6+ filing-size CDFs, normalized parent totals, the
+composition-adjusted benchmark, and two views of repeated-99 configurations.

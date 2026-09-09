@@ -11,6 +11,39 @@ The current analysis is descriptive and design-based. It does not treat an
 individual parcel-size prediction, a structural cost estimate, a land-price
 event study, or the condo-tenure panel as a headline result.
 
+## Current framework
+
+[`framework_writeup.pdf`](framework_writeup.pdf), built from
+[`framework_writeup.tex`](framework_writeup.tex), contains the September 2026
+note *Project Size and Splitting under New York City's 485-x Program*.
+It asks how the threshold changes total proposed units when developers can
+also divide a parent into separately assessed constituents. The comparison
+retains historical size and organization together. A direct mean comparison
+measures proposed-unit differences conditional on filing; the joint model
+explains design responses under explicit assumptions about regulatory and
+organization costs.
+
+The note's empirical facts are linked to the current generated analysis
+values through Make. It uses observed historical organization directly,
+without a separate historical propensity model. The distribution of unobserved
+organization costs remains a choice for structural estimation, which is not
+yet implemented. The framework changes are recorded in
+[`logbook/entries/2026-09-07-framework.tex`](logbook/entries/2026-09-07-framework.tex).
+
+## Next research priority
+
+The next step is estimating the joint size-and-splitting model in the framework.
+The current code produces descriptive distributions, a composition-adjusted
+historical benchmark, and bootstrap inference; it does not estimate structural
+policy or organization costs. Implementation needs an integer size/partition
+solver, an explicit specification for cost heterogeneity and feasible designs,
+and estimation against joint size and organization outcomes. Parameter recovery
+and identification checks should precede interpretation of fitted costs.
+
+ACS, QCEW, and LODES wage comparisons remain exploratory tasks under
+`tasks/audits/`. Further wage-data acquisition, including a NYDOL inquiry, is
+deferred while model estimation takes priority.
+
 ## Current workflow
 
 Run `make` from a task's `code/` folder. Task Makefiles are the dependency
@@ -79,6 +112,7 @@ and ACRIS/DOF exploration was removed from the active tree during the August
 - `make paper` compiles the draft paper separately. The draft is not the
   dependency root for the current empirical outputs yet.
 - `make source-registry` validates source metadata.
+- `make -C logbook` compiles the research logbook.
 
 Raw and manually acquired data live under `data_raw/<source>/<vintage>/` and
 must not be edited. Do not edit generated task outputs directly.

@@ -59,7 +59,11 @@ dob <- read_parquet(
     dob_filing_id = str_squish(job_filing_number),
     dob_filing_date = as.Date(filing_date),
     dob_units = as.integer(round(proposed_dwelling_units)),
-    dob_bbl = normalize_bbl_field(bbl),
+    dob_bbl = coalesce(
+      normalize_bbl_field(reported_bbl),
+      normalize_bbl_field(filing_bbl)
+    ),
+    dob_filing_bbl = normalize_bbl_field(filing_bbl),
     dob_bin = str_squish(as.character(bin)),
     dob_address = str_to_upper(str_squish(address)),
     dob_filing_status = filing_status,

@@ -1,0 +1,5 @@
+# setwd("tasks/audits/audit_qcew_construction_wages/code")
+library(readr)
+source("../../../shared/code/write_data_report.R")
+pay <- read_csv("../output/borough_construction_pay.csv", col_types = cols(area_fips = col_character(), industry_code = col_character(), disclosure_code = col_character()))
+write_data_report(pay, c("area_fips", "year", "industry_code"), "../output/borough_construction_pay.csv", "../report/borough_construction_pay.txt")

@@ -15,7 +15,9 @@ all: ../output/symmetric_parent_membership.parquet \
 
 ../output/symmetric_parent_membership.parquet: construct_parent_cohorts.R \
 	historical_parent_link_reviews.csv \
-	Makefile \
+	post_parent_reviews.csv \
+	post_parent_link_reviews.csv \
+	post_parent_filing_roles.csv \
 	../../_lib/source_pipeline_utils.R \
 	../input/historical_parent_filing_link_fields.parquet \
 	../input/historical_parent_candidate_pairs.parquet \

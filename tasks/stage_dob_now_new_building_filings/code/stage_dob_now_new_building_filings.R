@@ -68,8 +68,19 @@ staged_filings <- raw_filings |>
     borough_name = standardize_borough_name(borough),
     block = suppressWarnings(as.integer(block)),
     lot = suppressWarnings(as.integer(lot)),
-    bbl_reported = normalize_bbl_field(bbl),
-    bbl_built = build_bbl(borough, block, lot),
+    filing_bbl = build_bbl(borough, block, lot),
+    reported_bbl = normalize_bbl_field(bbl),
+    bbl_field_relation = case_when(
+      is.na(filing_bbl) & is.na(reported_bbl) ~ "both_missing",
+      is.na(filing_bbl) ~ "filing_bbl_missing",
+      is.na(reported_bbl) ~ "reported_bbl_missing",
+      filing_bbl == reported_bbl ~ "agree",
+      str_sub(filing_bbl, 1L, 1L) != str_sub(reported_bbl, 1L, 1L) ~
+        "borough_differs",
+      str_sub(filing_bbl, 2L, 6L) != str_sub(reported_bbl, 2L, 6L) ~
+        "block_differs",
+      TRUE ~ "lot_differs"
+    ),
     bin = str_squish(bin),
     house_number = str_squish(house_no),
     street_name = str_squish(street_name),
@@ -102,15 +113,6 @@ staged_filings <- raw_filings |>
     owner_type = str_squish(owner_type),
     job_description = str_squish(job_description)
   ) |>
-  mutate(
-    bbl = coalesce(bbl_reported, bbl_built),
-    bbl_source = case_when(
-      !is.na(bbl_reported) ~ "reported_bbl",
-      !is.na(bbl_built) ~ "built_from_borough_block_lot",
-      TRUE ~ "missing_bbl"
-    )
-  ) |>
-  select(-bbl_reported, -bbl_built) |>
   arrange(filing_date, job_filing_number)
 
 initial_filings <- staged_filings |>

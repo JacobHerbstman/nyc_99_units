@@ -19,7 +19,6 @@ all: ../output/nys_ag_offering_plan_search_audit.csv \
 	@test -s "$@"
 
 ../output/nys_ag_offering_plan_search_audit_batch_%.csv: fetch_nys_ag_offering_plan_matches.R \
-	Makefile \
 	../../../_lib/source_pipeline_utils.R \
 	../input/parent_485x_exposure_universe.csv | ../output
 	$(R) $< $(SOURCE_PULL_DATE) $* $(BATCH_COUNT)

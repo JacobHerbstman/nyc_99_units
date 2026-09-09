@@ -73,12 +73,18 @@ aggregate_parent_rows <- function(member_rows) {
       cohort_date = first(cohort_date),
       cohort_year = first(cohort_year),
       date_last_filed = max(date_filed),
-      units_hdb_priority = sum(hdb_priority_units),
-      units_dob_i1 = sum(dob_i1_units),
-      component_filings = n(),
-      exact_99_component_filings = sum(hdb_priority_units == 99L),
-      exact_99_component_filings_dob_i1 = sum(dob_i1_units == 99L),
-      component_jobs = paste(job_number, collapse = ";"),
+      units_hdb_priority = sum(hdb_priority_units[additive_component]),
+      units_dob_i1 = sum(dob_i1_units[additive_component]),
+      source_filings = n(),
+      component_filings = sum(additive_component),
+      exact_99_component_filings = sum(
+        hdb_priority_units == 99L & additive_component
+      ),
+      exact_99_component_filings_dob_i1 = sum(
+        dob_i1_units == 99L & additive_component
+      ),
+      source_jobs = paste(job_number, collapse = ";"),
+      component_jobs = paste(job_number[additive_component], collapse = ";"),
       nonmissing_bin_rows = sum(!is.na(bin_clean)),
       distinct_bins = n_distinct(bin_clean[!is.na(bin_clean)]),
       feature_complete = all(!is.na(feature_bbl)),
@@ -160,8 +166,9 @@ aggregate_parent_rows <- function(member_rows) {
       sample, observation_id, parent_id, analysis_status,
       cohort_date, cohort_year, date_last_filed, filing_year,
       units, units_hdb_priority, units_dob_i1,
-      component_filings, exact_99_component_filings,
-      exact_99_component_filings_dob_i1, component_jobs,
+      source_filings, component_filings,
+      exact_99_component_filings,
+      exact_99_component_filings_dob_i1, source_jobs, component_jobs,
       nonmissing_bin_rows, distinct_bins, duplicate_bin_rows,
       feature_complete, feature_methods, feature_lots,
       composition_eligible, lotarea, log_lotarea,
@@ -285,9 +292,9 @@ if (
     nrow(post_panel) == 0L ||
     anyDuplicated(historical_panel$observation_id) ||
     anyDuplicated(post_panel$observation_id) ||
-    sum(historical_panel$component_filings) !=
+    sum(historical_panel$source_filings) !=
       nrow(historical_member_rows) ||
-    sum(post_panel$component_filings) != nrow(post_member_rows) ||
+    sum(post_panel$source_filings) != nrow(post_member_rows) ||
     any(
       post_panel$composition_eligible &
         post_panel$analysis_status == "completed_2025_cohort" &

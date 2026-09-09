@@ -1,0 +1,27 @@
+Rows: 118
+Columns: 23
+Unique nonmissing key: boro_cd, table
+Saved-file MD5: 4f28f854b96bf4d3903ac9cbfc8b95fc
+boro_cd | numeric | nonmissing | 118 | distinct | 59 min/median/mean/max 101/306/280.3051/503
+borough | character | nonmissing | 118 | distinct | 5
+community_district | numeric | nonmissing | 118 | distinct | 18 min/median/mean/max 1/7/7.423729/18
+puma | character | nonmissing | 118 | distinct | 55
+puma_name | character | nonmissing | 118 | distinct | 55
+district_group | character | nonmissing | 118 | distinct | 21
+pooled | logical | nonmissing | 118 | distinct | 2
+table | character | nonmissing | 118 | distinct | 2
+universe | character | nonmissing | 118 | distinct | 2
+period | character | nonmissing | 118 | distinct | 1
+dollar_year | numeric | nonmissing | 118 | distinct | 1 min/median/mean/max 2023/2023/2023/2023
+estimate_raw | numeric | nonmissing | 118 | distinct | 109 min/median/mean/max 32268/54057.5/64201.22/158399
+moe_raw | numeric | nonmissing | 118 | distinct | 110 min/median/mean/max 1144/9107/15779.27/140484
+estimate_annotation | logical | nonmissing | 0 | distinct | 0
+moe_annotation | logical | nonmissing | 0 | distinct | 0
+estimate_status | character | nonmissing | 118 | distinct | 1
+earnings | numeric | nonmissing | 118 | distinct | 109 min/median/mean/max 32268/54057.5/64201.22/158399
+moe | numeric | nonmissing | 118 | distinct | 110 min/median/mean/max 1144/9107/15779.27/140484
+relative_moe | numeric | nonmissing | 118 | distinct | 110 min/median/mean/max 0.02430484/0.1669703/0.221087/1.126576
+imprecise | logical | nonmissing | 118 | distinct | 2
+ci90_lower | numeric | nonmissing | 118 | distinct | 110 min/median/mean/max -15784/45186.5/48421.95/120183
+ci90_upper | numeric | nonmissing | 118 | distinct | 110 min/median/mean/max 38431/65022/79980.49/265184
+geography_note | character | nonmissing | 118 | distinct | 1

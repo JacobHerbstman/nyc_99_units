@@ -1,0 +1,57 @@
+Rows: 81238
+Columns: 53
+Unique nonmissing key: w_geocode
+Saved-file MD5: 65a4c23137fa44a4a9a1d6388410e570
+w_geocode | character | nonmissing | 81238 | distinct | 81238
+C000 | numeric | nonmissing | 81238 | distinct | 719 min/median/mean/max 1/5/21.04941/23433
+CA01 | numeric | nonmissing | 81238 | distinct | 437 min/median/mean/max 0/1/8.270649/4060
+CA02 | numeric | nonmissing | 81238 | distinct | 413 min/median/mean/max 0/2/8.279992/13057
+CA03 | numeric | nonmissing | 81238 | distinct | 287 min/median/mean/max 0/1/4.498769/7551
+CE01 | numeric | nonmissing | 81238 | distinct | 719 min/median/mean/max 1/5/21.04941/23433
+CE02 | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 0/0/0/0
+CE03 | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 0/0/0/0
+CNS01 | numeric | nonmissing | 81238 | distinct | 32 min/median/mean/max 0/0/0.0648465/51
+CNS02 | numeric | nonmissing | 81238 | distinct | 11 min/median/mean/max 0/0/0.003692853/17
+CNS03 | numeric | nonmissing | 81238 | distinct | 20 min/median/mean/max 0/0/0.008875157/56
+CNS04 | numeric | nonmissing | 81238 | distinct | 76 min/median/mean/max 0/0/0.5758143/155
+CNS05 | numeric | nonmissing | 81238 | distinct | 79 min/median/mean/max 0/0/0.4267338/225
+CNS06 | numeric | nonmissing | 81238 | distinct | 76 min/median/mean/max 0/0/0.4147813/4604
+CNS07 | numeric | nonmissing | 81238 | distinct | 313 min/median/mean/max 0/0/3.400711/1660
+CNS08 | numeric | nonmissing | 81238 | distinct | 128 min/median/mean/max 0/0/0.4723651/1116
+CNS09 | numeric | nonmissing | 81238 | distinct | 128 min/median/mean/max 0/0/0.9959132/22147
+CNS10 | numeric | nonmissing | 81238 | distinct | 92 min/median/mean/max 0/0/0.2793151/789
+CNS11 | numeric | nonmissing | 81238 | distinct | 63 min/median/mean/max 0/0/0.3345356/161
+CNS12 | numeric | nonmissing | 81238 | distinct | 133 min/median/mean/max 0/0/0.7912061/981
+CNS13 | numeric | nonmissing | 81238 | distinct | 98 min/median/mean/max 0/0/0.1959305/1042
+CNS14 | numeric | nonmissing | 81238 | distinct | 250 min/median/mean/max 0/0/1.478421/1873
+CNS15 | numeric | nonmissing | 81238 | distinct | 244 min/median/mean/max 0/0/1.731493/6593
+CNS16 | numeric | nonmissing | 81238 | distinct | 379 min/median/mean/max 0/0/4.101529/4899
+CNS17 | numeric | nonmissing | 81238 | distinct | 184 min/median/mean/max 0/0/0.9168123/2247
+CNS18 | numeric | nonmissing | 81238 | distinct | 209 min/median/mean/max 0/0/3.396366/867
+CNS19 | numeric | nonmissing | 81238 | distinct | 150 min/median/mean/max 0/0/1.459526/770
+CNS20 | numeric | nonmissing | 81238 | distinct | 8 min/median/mean/max 0/0/0.0005416185/9
+CR01 | numeric | nonmissing | 81238 | distinct | 548 min/median/mean/max 0/3/14.56152/17110
+CR02 | numeric | nonmissing | 81238 | distinct | 312 min/median/mean/max 0/0/3.714702/4141
+CR03 | numeric | nonmissing | 81238 | distinct | 39 min/median/mean/max 0/0/0.1424949/132
+CR04 | numeric | nonmissing | 81238 | distinct | 221 min/median/mean/max 0/0/2.138716/4499
+CR05 | numeric | nonmissing | 81238 | distinct | 16 min/median/mean/max 0/0/0.03073685/41
+CR07 | numeric | nonmissing | 81238 | distinct | 78 min/median/mean/max 0/0/0.4612374/727
+CT01 | numeric | nonmissing | 81238 | distinct | 663 min/median/mean/max 0/4/17.70478/20838
+CT02 | numeric | nonmissing | 81238 | distinct | 271 min/median/mean/max 0/0/3.344629/2595
+CD01 | numeric | nonmissing | 81238 | distinct | 188 min/median/mean/max 0/0/2.11438/2065
+CD02 | numeric | nonmissing | 81238 | distinct | 227 min/median/mean/max 0/1/3.324282/4017
+CD03 | numeric | nonmissing | 81238 | distinct | 248 min/median/mean/max 0/1/3.722334/5773
+CD04 | numeric | nonmissing | 81238 | distinct | 261 min/median/mean/max 0/1/3.617765/8753
+CS01 | numeric | nonmissing | 81238 | distinct | 409 min/median/mean/max 0/2/8.840838/13508
+CS02 | numeric | nonmissing | 81238 | distinct | 536 min/median/mean/max 0/2/12.20857/9925
+CFA01 | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 0/0/0/0
+CFA02 | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 0/0/0/0
+CFA03 | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 0/0/0/0
+CFA04 | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 0/0/0/0
+CFA05 | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS01 | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS02 | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS03 | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS04 | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS05 | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 0/0/0/0
+createdate | numeric | nonmissing | 81238 | distinct | 1 min/median/mean/max 20230320/20230320/20230320/20230320

@@ -10,7 +10,6 @@ all: ../output/historical_polygon_adjacency_pairs.parquet \
 	../output/historical_polygon_geometry_coverage.parquet
 
 ../output/historical_polygon_adjacency_pairs.parquet: construct_historical_parent_adjacency.R \
-	Makefile \
 	../../_lib/source_pipeline_utils.R \
 	../input/historical_parent_filing_link_fields.parquet \
 	../input/historical_parent_candidate_pairs.parquet \

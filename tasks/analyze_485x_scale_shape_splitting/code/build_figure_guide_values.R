@@ -15,6 +15,14 @@ local_moments <- read_csv(
   "../output/local_excess_deficit_moments.csv",
   show_col_types = FALSE
 )
+parent_distribution <- read_csv(
+  "../output/reweighted_counterfactual_distributions.csv",
+  show_col_types = FALSE
+) |>
+  filter(
+    outcome == "Parent total",
+    series %in% c("Historical reweighted to post sites", "Post observed")
+  )
 bootstrap_intervals <- read_csv(
   "../output/bootstrap_intervals.csv",
   show_col_types = FALSE
@@ -25,10 +33,6 @@ exact_198 <- read_csv(
 )
 calibration_summary <- read_csv(
   "../output/calibration_summary.csv",
-  show_col_types = FALSE
-)
-temporal_sensitivity <- read_csv(
-  "../output/temporal_window_sensitivity.csv",
   show_col_types = FALSE
 )
 reweighted_components <- read_csv(
@@ -92,18 +96,26 @@ post_single_share <- reweighted_components |>
   filter(series == "Post observed", n_components == 1L) |>
   pull(share)
 
-sensitivity_2021 <- temporal_sensitivity |>
-  filter(
-    historical_window == "2021-2022",
-    moment == "excess_at_99"
-  ) |>
-  pull(estimate)
-
 successful_bootstraps <- bootstrap_summary |>
   filter(status == "successful") |>
   summarise(value = sum(replications)) |>
   pull(value)
 requested_bootstraps <- unique(bootstrap_summary$requested_replications)
+
+table_shares <- parent_distribution |>
+  mutate(
+    region = case_when(
+      unit_bin_order == 99L ~ "NinetyNine",
+      unit_bin_order >= 100L & unit_bin_order <= 149L ~ "OneHundredOneFortyNine",
+      unit_bin_order == 198L ~ "OneNinetyEight"
+    )
+  ) |>
+  filter(!is.na(region)) |>
+  group_by(series, region) |>
+  summarise(share = sum(share), .groups = "drop")
+
+stopifnot(nrow(table_shares) == 6L, all(is.finite(table_shares$share)),
+          all(table_shares$share >= 0 & table_shares$share <= 1))
 
 latex_lines <- c(
   paste0("\\newcommand{\\PreParentsAllSixPlus}{", pre_sample$parent_opportunities, "}"),
@@ -129,10 +141,17 @@ latex_lines <- c(
   paste0("\\newcommand{\\MaximumCalibrationWeight}{", sprintf("%.2f", calibration_summary$maximum_weight), "}"),
   paste0("\\newcommand{\\HistoricalSingleShare}{", sprintf("%.1f", 100 * historical_single_share), "}"),
   paste0("\\newcommand{\\PostSingleShare}{", sprintf("%.1f", 100 * post_single_share), "}"),
-  paste0("\\newcommand{\\SensitivityTwentyOneExcess}{", sprintf("%.1f", 100 * sensitivity_2021), "}"),
   paste0("\\newcommand{\\SuccessfulBootstraps}{", successful_bootstraps, "}"),
   paste0("\\newcommand{\\RequestedBootstraps}{", requested_bootstraps, "}")
 )
+
+for (row in seq_len(nrow(table_shares))) {
+  period <- if_else(table_shares$series[row] == "Post observed", "Post", "Historical")
+  latex_lines <- c(latex_lines, paste0(
+    "\\newcommand{\\", period, "Share", table_shares$region[row], "}{",
+    sprintf("%.2f", 100 * table_shares$share[row]), "}"
+  ))
+}
 
 temporary_tex <- tempfile(fileext = ".tex")
 writeLines(latex_lines, temporary_tex)

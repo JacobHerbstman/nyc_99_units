@@ -436,7 +436,9 @@ post_105_parent_cases <- membership |>
         component_job = job_filing_number,
         filing_status,
         address,
-        bbl,
+        filing_bbl,
+        reported_bbl,
+        bbl_field_relation,
         owner_business_name,
         applicant_business_name,
         job_description

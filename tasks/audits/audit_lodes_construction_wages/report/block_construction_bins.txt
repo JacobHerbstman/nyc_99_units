@@ -1,0 +1,14 @@
+Rows: 38399
+Columns: 10
+Unique nonmissing key: year, w_geocode
+Saved-file MD5: e8c93fae30742c40e66f69e067f017ee
+w_geocode | numeric | nonmissing | 38399 | distinct | 11373 min/median/mean/max 3.6005e+14/3.606102e+14/3.60616e+14/3.608503e+14
+total | numeric | nonmissing | 38399 | distinct | 492 min/median/mean/max 1/5/18.50757/1669
+SE01 | numeric | nonmissing | 38399 | distinct | 120 min/median/mean/max 0/1/2.30407/248
+SE02 | numeric | nonmissing | 38399 | distinct | 134 min/median/mean/max 0/2/3.916326/288
+SE03 | numeric | nonmissing | 38399 | distinct | 435 min/median/mean/max 0/2/12.28717/1546
+year | numeric | nonmissing | 38399 | distinct | 5 min/median/mean/max 2019/2021/2021.023/2023
+blklatdd | numeric | nonmissing | 38399 | distinct | 11355 min/median/mean/max 40.50052/40.71305/40.70612/40.91149
+blklondd | numeric | nonmissing | 38399 | distinct | 11348 min/median/mean/max -74.25383/-73.92967/-73.93005/-73.70114
+boro_cd | numeric | nonmissing | 38377 | distinct | 67 min/median/mean/max 101/318/330.443/503
+assignment | character | nonmissing | 38399 | distinct | 3

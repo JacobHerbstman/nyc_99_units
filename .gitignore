@@ -45,6 +45,9 @@ framework_writeup.fls
 framework_writeup.out
 framework_writeup.pdf
 framework_writeup.docling.md
+logbook/*.aux
+logbook/*.out
+logbook/*.pdf
 
 # Scratch
 tmp/

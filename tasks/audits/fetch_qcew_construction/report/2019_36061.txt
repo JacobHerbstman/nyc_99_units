@@ -1,0 +1,42 @@
+Rows: 2037
+Columns: 38
+Unique nonmissing key: area_fips, own_code, industry_code, agglvl_code, size_code, year, qtr
+Saved-file MD5: d78291aa932ed65b912ace2a9341fc42
+area_fips | numeric | nonmissing | 2037 | distinct | 1 min/median/mean/max 36061/36061/36061/36061
+own_code | numeric | nonmissing | 2037 | distinct | 5 min/median/mean/max 0/5/4.513009/5
+industry_code | character | nonmissing | 2037 | distinct | 1772
+agglvl_code | numeric | nonmissing | 2037 | distinct | 9 min/median/mean/max 70/77/76.98527/78
+size_code | numeric | nonmissing | 2037 | distinct | 1 min/median/mean/max 0/0/0/0
+year | numeric | nonmissing | 2037 | distinct | 1 min/median/mean/max 2019/2019/2019/2019
+qtr | character | nonmissing | 2037 | distinct | 1
+disclosure_code | character | nonmissing | 602 | distinct | 1
+annual_avg_estabs | numeric | nonmissing | 2037 | distinct | 410 min/median/mean/max 0/21/570.2253/129042
+annual_avg_emplvl | numeric | nonmissing | 2037 | distinct | 775 min/median/mean/max 0/294/10894.78/2527343
+total_annual_wages | numeric | nonmissing | 2037 | distinct | 893 min/median/mean/max 0/25867370/1400241000/322298400000
+taxable_annual_wages | numeric | nonmissing | 2037 | distinct | 813 min/median/mean/max 0/1827504/136149000/30988610000
+annual_contributions | numeric | nonmissing | 2037 | distinct | 812 min/median/mean/max 0/40202/3163244/719794400
+annual_avg_wkly_wage | numeric | nonmissing | 2037 | distinct | 779 min/median/mean/max 0/1250/1400.609/11151
+avg_annual_pay | numeric | nonmissing | 2037 | distinct | 892 min/median/mean/max 0/64981/72831.8/579871
+lq_disclosure_code | character | nonmissing | 602 | distinct | 1
+lq_annual_avg_estabs | numeric | nonmissing | 2037 | distinct | 317 min/median/mean/max 0/0.47/1.170417/79.31
+lq_annual_avg_emplvl | numeric | nonmissing | 2037 | distinct | 338 min/median/mean/max 0/0.28/1.175999/31.21
+lq_total_annual_wages | numeric | nonmissing | 2037 | distinct | 299 min/median/mean/max 0/0.18/0.8454639/18.99
+lq_taxable_annual_wages | numeric | nonmissing | 2037 | distinct | 321 min/median/mean/max 0/0.09/1.016014/30.14
+lq_annual_contributions | numeric | nonmissing | 2037 | distinct | 305 min/median/mean/max 0/0.08/0.9508542/25.71
+lq_annual_avg_wkly_wage | numeric | nonmissing | 2037 | distinct | 131 min/median/mean/max 0/0.59/0.5125626/2.45
+lq_avg_annual_pay | numeric | nonmissing | 2037 | distinct | 131 min/median/mean/max 0/0.59/0.512381/2.45
+oty_disclosure_code | character | nonmissing | 645 | distinct | 1
+oty_annual_avg_estabs_chg | numeric | nonmissing | 2037 | distinct | 136 min/median/mean/max -414/0/8.329897/1910
+oty_annual_avg_estabs_pct_chg | numeric | nonmissing | 2037 | distinct | 281 min/median/mean/max -100/0/3.817771/300
+oty_annual_avg_emplvl_chg | numeric | nonmissing | 2037 | distinct | 460 min/median/mean/max -7858/0/284.0025/63157
+oty_annual_avg_emplvl_pct_chg | numeric | nonmissing | 2037 | distinct | 376 min/median/mean/max -82.1/0/2.327246/337.6
+oty_total_annual_wages_chg | numeric | nonmissing | 2037 | distinct | 872 min/median/mean/max -3045017000/0/82101300/17930940000
+oty_total_annual_wages_pct_chg | numeric | nonmissing | 2037 | distinct | 428 min/median/mean/max -83/0/5.994993/1081
+oty_taxable_annual_wages_chg | numeric | nonmissing | 2037 | distinct | 792 min/median/mean/max -217188400/0/7449782/1639240000
+oty_taxable_annual_wages_pct_chg | numeric | nonmissing | 2037 | distinct | 403 min/median/mean/max -82.5/0/4.065194/347.6
+oty_annual_contributions_chg | numeric | nonmissing | 2037 | distinct | 788 min/median/mean/max -50899480/0/-218664.8/6378341
+oty_annual_contributions_pct_chg | numeric | nonmissing | 2037 | distinct | 438 min/median/mean/max -91.3/0/-2.080756/360.9
+oty_annual_avg_wkly_wage_chg | numeric | nonmissing | 2037 | distinct | 409 min/median/mean/max -5545/3/32.14629/3675
+oty_annual_avg_wkly_wage_pct_chg | numeric | nonmissing | 2037 | distinct | 319 min/median/mean/max -75.4/0.2/2.804026/227.6
+oty_avg_annual_pay_chg | numeric | nonmissing | 2037 | distinct | 856 min/median/mean/max -288316/148/1672.153/191122
+oty_avg_annual_pay_pct_chg | numeric | nonmissing | 2037 | distinct | 313 min/median/mean/max -75.4/0.2/2.805155/227.6

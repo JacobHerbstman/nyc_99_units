@@ -1,0 +1,16 @@
+Rows: 125
+Columns: 12
+Unique nonmissing key: area_fips, year, industry_code
+Saved-file MD5: 6af24852175534b24423d0704ce6b2b5
+area_fips | character | nonmissing | 125 | distinct | 5
+year | numeric | nonmissing | 125 | distinct | 5 min/median/mean/max 2019/2021/2021/2023
+industry_code | character | nonmissing | 125 | distinct | 5
+disclosure_code | character | nonmissing | 0 | distinct | 0
+annual_avg_estabs | numeric | nonmissing | 125 | distinct | 120 min/median/mean/max 29/1094/1476.064/6095
+annual_avg_emplvl | numeric | nonmissing | 125 | distinct | 125 min/median/mean/max 667/7591/12307.06/55000
+total_annual_wages | numeric | nonmissing | 125 | distinct | 125 min/median/mean/max 77846280/550620100/1072136000/4772436000
+annual_avg_wkly_wage | numeric | nonmissing | 125 | distinct | 121 min/median/mean/max 989/1554/1699.632/2819
+avg_annual_pay | numeric | nonmissing | 125 | distinct | 125 min/median/mean/max 51445/80808/88382.11/146582
+status | character | nonmissing | 125 | distinct | 1
+borough | character | nonmissing | 125 | distinct | 5
+industry | character | nonmissing | 125 | distinct | 5

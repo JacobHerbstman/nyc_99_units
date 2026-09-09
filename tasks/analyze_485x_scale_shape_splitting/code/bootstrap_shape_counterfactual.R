@@ -14,7 +14,7 @@ suppressPackageStartupMessages({
 })
 
 source("../../_lib/source_pipeline_utils.R")
-source("scale_shape_helpers.R")
+source("../../_lib/scale_shape_helpers.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 

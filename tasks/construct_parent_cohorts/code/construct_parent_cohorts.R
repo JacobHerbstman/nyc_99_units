@@ -109,6 +109,24 @@ historical_link_reviews <- read_csv(
   col_types = cols(.default = col_character())
 )
 
+post_parent_reviews <- read_csv(
+  "post_parent_reviews.csv",
+  show_col_types = FALSE,
+  col_types = cols(.default = col_character())
+)
+
+post_link_reviews <- read_csv(
+  "post_parent_link_reviews.csv",
+  show_col_types = FALSE,
+  col_types = cols(.default = col_character())
+)
+
+post_filing_roles <- read_csv(
+  "post_parent_filing_roles.csv",
+  show_col_types = FALSE,
+  col_types = cols(.default = col_character())
+)
+
 historical_geometry_coverage <- read_parquet(
   "../input/historical_polygon_geometry_coverage.parquet"
 ) |>
@@ -176,6 +194,20 @@ if (
     any(!historical_link_reviews$review_decision %in% c("accept", "reject")) ||
     any(!historical_link_reviews$job_number_1 %in% historical_rows$job_number) ||
     any(!historical_link_reviews$job_number_2 %in% historical_rows$job_number) ||
+    anyDuplicated(post_parent_reviews$reviewed_parent_id) ||
+    any(!post_parent_reviews$review_decision %in% c("accept", "reject", "unresolved")) ||
+    any(!post_parent_reviews$configuration_action %in% c(
+      "keep_additive", "split", "exclude_superseded",
+      "split_and_exclude_superseded"
+    )) ||
+    anyDuplicated(post_link_reviews[c("job_number_1", "job_number_2")]) ||
+    any(!post_link_reviews$review_decision %in% c("accept", "reject")) ||
+    any(!post_link_reviews$job_number_1 %in% post_rows$job_number) ||
+    any(!post_link_reviews$job_number_2 %in% post_rows$job_number) ||
+    anyDuplicated(post_filing_roles$job_number) ||
+    any(!post_filing_roles$filing_role %in% "superseded_alternative") ||
+    any(!post_filing_roles$job_number %in% post_rows$job_number) ||
+    any(!post_filing_roles$replacement_job_number %in% post_rows$job_number) ||
     anyDuplicated(historical_geometry_coverage$job_number) ||
     !setequal(
       historical_geometry_coverage$job_number,
@@ -406,6 +438,8 @@ post_pairs <- tibble(
   date_filed_2 = post_rows$filing_date[post_right_rows],
   filing_bbl_1 = post_rows$filing_bbl[post_left_rows],
   filing_bbl_2 = post_rows$filing_bbl[post_right_rows],
+  site_linkage_bbl_1 = post_rows$site_linkage_bbl[post_left_rows],
+  site_linkage_bbl_2 = post_rows$site_linkage_bbl[post_right_rows],
   historical_appbbl_1 = post_rows$historical_appbbl[post_left_rows],
   historical_appbbl_2 = post_rows$historical_appbbl[post_right_rows],
   lot_history_group_bbl_1 =
@@ -432,6 +466,9 @@ post_pairs <- tibble(
     same_filing_bbl =
       !is.na(filing_bbl_1) & !is.na(filing_bbl_2) &
       coalesce(filing_bbl_1 == filing_bbl_2, FALSE),
+    same_site_linkage_bbl =
+      !is.na(site_linkage_bbl_1) & !is.na(site_linkage_bbl_2) &
+      coalesce(site_linkage_bbl_1 == site_linkage_bbl_2, FALSE),
     strict_lot_history_link =
       !is.na(lot_history_group_bbl_1) &
       !is.na(lot_history_group_bbl_2) &
@@ -476,12 +513,75 @@ post_pairs <- tibble(
     corroborated_exact_adjacency =
       exact_polygon_touch &
       (filing_days_apart <= corroboration_days | same_owner_support),
-    enhanced_link =
+    automatic_link =
       same_filing_bbl |
+      same_site_linkage_bbl |
       strict_lot_history_link |
       explicit_job_reference |
       same_project_code |
       corroborated_exact_adjacency
+  )
+
+automatic_post_membership <- assign_components(
+  post_rows |>
+    transmute(job_number, date_filed = filing_date),
+  post_pairs |>
+    filter(automatic_link) |>
+    select(job_number_1, job_number_2)
+) |>
+  group_by(component) |>
+  mutate(
+    reviewed_parent_id = paste(
+      "post_policy",
+      first(job_number),
+      sep = "__"
+    )
+  ) |>
+  ungroup()
+
+expected_reviewed_parent_ids <- post_pairs |>
+  filter(automatic_link, same_site_linkage_bbl, !same_filing_bbl) |>
+  select(job_number = job_number_1) |>
+  bind_rows(
+    post_pairs |>
+      filter(automatic_link, same_site_linkage_bbl, !same_filing_bbl) |>
+      select(job_number = job_number_2)
+  ) |>
+  distinct() |>
+  left_join(
+    automatic_post_membership |>
+      select(job_number, reviewed_parent_id),
+    by = "job_number",
+    relationship = "one-to-one"
+  ) |>
+  pull(reviewed_parent_id) |>
+  unique()
+
+if (
+  !setequal(
+    expected_reviewed_parent_ids,
+    post_parent_reviews$reviewed_parent_id
+  ) ||
+    nrow(anti_join(
+      post_link_reviews,
+      post_pairs,
+      by = c("job_number_1", "job_number_2")
+    )) > 0L
+) {
+  stop("Post parent-review files do not cover the declared filing pairs.")
+}
+
+post_pairs <- post_pairs |>
+  left_join(
+    post_link_reviews,
+    by = c("job_number_1", "job_number_2"),
+    relationship = "one-to-one"
+  ) |>
+  mutate(
+    reviewed_accept = coalesce(review_decision == "accept", FALSE),
+    reviewed_reject = coalesce(review_decision == "reject", FALSE),
+    enhanced_link =
+      (automatic_link & !reviewed_reject) | reviewed_accept
   ) |>
   mutate(
     later_lot_history_candidate_only =
@@ -491,17 +591,14 @@ post_pairs <- tibble(
 post_links <- post_pairs |>
   filter(enhanced_link) |>
   mutate(
-    sample = "post_policy",
-    reviewed_accept = FALSE,
-    reviewed_reject = FALSE,
-    review_basis = NA_character_,
-    review_source = NA_character_
+    sample = "post_policy"
   ) |>
   select(
     sample, job_number_1, job_number_2,
     date_filed_1, date_filed_2, filing_days_apart,
     filing_bbl_1, filing_bbl_2,
-    same_filing_bbl, strict_lot_history_link,
+    site_linkage_bbl_1, site_linkage_bbl_2,
+    same_filing_bbl, same_site_linkage_bbl, strict_lot_history_link,
     later_lot_history_candidate, explicit_job_reference,
     same_project_code, same_owner_support, exact_polygon_touch,
     corroborated_exact_adjacency,
@@ -511,11 +608,17 @@ post_links <- post_pairs |>
 
 links <- bind_rows(
   historical_links |>
+    mutate(
+      site_linkage_bbl_1 = filing_bbl_1,
+      site_linkage_bbl_2 = filing_bbl_2,
+      same_site_linkage_bbl = same_filing_bbl
+    ) |>
     select(
       sample, job_number_1, job_number_2,
       date_filed_1, date_filed_2, filing_days_apart,
       filing_bbl_1, filing_bbl_2,
-      same_filing_bbl, strict_lot_history_link,
+      site_linkage_bbl_1, site_linkage_bbl_2,
+      same_filing_bbl, same_site_linkage_bbl, strict_lot_history_link,
       later_lot_history_candidate, explicit_job_reference,
       same_project_code, same_owner_support, exact_polygon_touch,
       corroborated_exact_adjacency,
@@ -528,6 +631,11 @@ links <- bind_rows(
     link_reason = str_remove(
       paste0(
         if_else(same_filing_bbl, "same_filing_bbl;", ""),
+        if_else(
+          same_site_linkage_bbl & !same_filing_bbl,
+          "same_site_linkage_bbl;",
+          ""
+        ),
         if_else(
           strict_lot_history_link,
           "strict_lot_history_link;",
@@ -562,7 +670,11 @@ historical_member_rows <- historical_rows |>
     hdb_priority_units = units,
     dob_i1_units = units,
     unit_source = "hdb",
-    filing_bbl
+    filing_role = "additive_component",
+    additive_component = TRUE,
+    replacement_job_number = NA_character_,
+    filing_bbl,
+    site_linkage_bbl = filing_bbl
   ) |>
   left_join(
     historical_geometry_coverage |>
@@ -573,6 +685,11 @@ historical_member_rows <- historical_rows |>
 
 post_member_rows <- post_rows |>
   left_join(
+    post_filing_roles,
+    by = "job_number",
+    relationship = "one-to-one"
+  ) |>
+  left_join(
     hdb_post_jobs |>
       select(root_job_id = job_number, hdb_units),
     by = "root_job_id",
@@ -581,7 +698,9 @@ post_member_rows <- post_rows |>
   mutate(
     dob_i1_units = units,
     hdb_priority_units = coalesce(hdb_units, dob_i1_units),
-    unit_source = if_else(!is.na(hdb_units), "hdb", "dob_i1")
+    unit_source = if_else(!is.na(hdb_units), "hdb", "dob_i1"),
+    filing_role = coalesce(filing_role, "additive_component"),
+    additive_component = filing_role == "additive_component"
   ) |>
   transmute(
     sample = "post_policy",
@@ -593,7 +712,11 @@ post_member_rows <- post_rows |>
     hdb_priority_units,
     dob_i1_units,
     unit_source,
+    filing_role,
+    additive_component,
+    replacement_job_number,
     filing_bbl,
+    site_linkage_bbl,
     geometry_available = filing_bbl %in% post_lots$bbl
   )
 
@@ -608,6 +731,30 @@ post_membership <- assign_components(
     select(job_number_1, job_number_2)
 )
 
+post_filing_role_qc <- post_membership |>
+  filter(filing_role == "superseded_alternative") |>
+  select(job_number, component, replacement_job_number) |>
+  left_join(
+    post_membership |>
+      select(
+        replacement_job_number = job_number,
+        replacement_component = component
+      ),
+    by = "replacement_job_number",
+    relationship = "many-to-one"
+  )
+
+if (
+  nrow(post_filing_role_qc) != nrow(post_filing_roles) ||
+    any(is.na(post_filing_role_qc$replacement_component)) ||
+    any(
+      post_filing_role_qc$component !=
+        post_filing_role_qc$replacement_component
+    )
+) {
+  stop("A superseded filing is not grouped with its reviewed replacement.")
+}
+
 membership <- bind_rows(historical_membership, post_membership) |>
   arrange(sample, date_filed, job_number) |>
   group_by(sample, component) |>
@@ -618,11 +765,20 @@ membership <- bind_rows(historical_membership, post_membership) |>
     cohort_year = as.integer(format(cohort_date, "%Y")),
     parent_last_filing_date = max(date_filed),
     parent_span_days = as.integer(parent_last_filing_date - cohort_date),
-    parent_observed_filings = n(),
-    parent_observed_units = sum(hdb_priority_units),
-    parent_observed_units_dob_i1 = sum(dob_i1_units),
-    parent_exact_99_filings = sum(hdb_priority_units == 99L),
-    parent_exact_99_filings_dob_i1 = sum(dob_i1_units == 99L),
+    parent_source_filings = n(),
+    parent_observed_filings = sum(additive_component),
+    parent_source_units = sum(hdb_priority_units),
+    parent_source_units_dob_i1 = sum(dob_i1_units),
+    parent_observed_units = sum(hdb_priority_units[additive_component]),
+    parent_observed_units_dob_i1 = sum(dob_i1_units[additive_component]),
+    parent_source_exact_99_filings = sum(hdb_priority_units == 99L),
+    parent_exact_99_filings = sum(
+      hdb_priority_units == 99L & additive_component
+    ),
+    parent_source_exact_99_filings_dob_i1 = sum(dob_i1_units == 99L),
+    parent_exact_99_filings_dob_i1 = sum(
+      dob_i1_units == 99L & additive_component
+    ),
     member_order = row_number()
   ) |>
   ungroup() |>
@@ -688,6 +844,8 @@ if (
     anyDuplicated(membership[c("sample", "job_number")]) ||
     nrow(membership) != nrow(historical_rows) + nrow(post_rows) ||
     any(is.na(membership$geometry_available)) ||
+    any(membership$parent_observed_filings < 1L) ||
+    any(membership$parent_observed_units < 1L) ||
     any(membership$parent_span_days > max_filing_days) ||
     any(membership$analysis_status == "unclassified")
 ) {

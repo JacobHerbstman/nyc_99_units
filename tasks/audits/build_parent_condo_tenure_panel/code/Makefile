@@ -16,7 +16,6 @@ all: ../output/parent_condo_tenure_panel.csv \
 	../output/parent_condo_tenure_qc.csv
 
 ../output/parent_condo_tenure_panel.csv: build_parent_condo_tenure_panel.R \
-	Makefile \
 	../../../_lib/source_pipeline_utils.R \
 	../input/symmetric_parent_membership.parquet \
 	../input/dcp_housing_database_project_level_25q4.parquet \

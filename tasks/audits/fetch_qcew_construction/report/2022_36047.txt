@@ -1,0 +1,42 @@
+Rows: 1991
+Columns: 38
+Unique nonmissing key: area_fips, own_code, industry_code, agglvl_code, size_code, year, qtr
+Saved-file MD5: f6b89b52dcfa95fb03ee00371bae7c62
+area_fips | numeric | nonmissing | 1991 | distinct | 1 min/median/mean/max 36047/36047/36047/36047
+own_code | numeric | nonmissing | 1991 | distinct | 5 min/median/mean/max 0/5/4.5555/5
+industry_code | character | nonmissing | 1991 | distinct | 1764
+agglvl_code | numeric | nonmissing | 1991 | distinct | 9 min/median/mean/max 70/77/77.00653/78
+size_code | numeric | nonmissing | 1991 | distinct | 1 min/median/mean/max 0/0/0/0
+year | numeric | nonmissing | 1991 | distinct | 1 min/median/mean/max 2022/2022/2022/2022
+qtr | character | nonmissing | 1991 | distinct | 1
+disclosure_code | character | nonmissing | 573 | distinct | 1
+annual_avg_estabs | numeric | nonmissing | 1991 | distinct | 338 min/median/mean/max 0/17/323.2767/71499
+annual_avg_emplvl | numeric | nonmissing | 1991 | distinct | 679 min/median/mean/max 0/131/3674.341/827192
+total_annual_wages | numeric | nonmissing | 1991 | distinct | 893 min/median/mean/max 0/8762415/208843600/47444070000
+taxable_annual_wages | numeric | nonmissing | 1991 | distinct | 814 min/median/mean/max 0/1085008/40239630/8991620000
+annual_contributions | numeric | nonmissing | 1991 | distinct | 812 min/median/mean/max 0/33365/1126352/251654300
+annual_avg_wkly_wage | numeric | nonmissing | 1991 | distinct | 710 min/median/mean/max 0/907/921.1888/7925
+avg_annual_pay | numeric | nonmissing | 1991 | distinct | 888 min/median/mean/max 0/47173/47901.56/412108
+lq_disclosure_code | character | nonmissing | 573 | distinct | 1
+lq_annual_avg_estabs | numeric | nonmissing | 1991 | distinct | 300 min/median/mean/max 0/0.62/0.9852285/40.28
+lq_annual_avg_emplvl | numeric | nonmissing | 1991 | distinct | 279 min/median/mean/max 0/0.33/0.8111753/52.9
+lq_total_annual_wages | numeric | nonmissing | 1991 | distinct | 312 min/median/mean/max 0/0.38/0.9719689/36.69
+lq_taxable_annual_wages | numeric | nonmissing | 1991 | distinct | 268 min/median/mean/max 0/0.22/0.6936665/18.6
+lq_annual_contributions | numeric | nonmissing | 1991 | distinct | 267 min/median/mean/max 0/0.21/0.6778252/16.82
+lq_annual_avg_wkly_wage | numeric | nonmissing | 1991 | distinct | 168 min/median/mean/max 0/0.97/0.8493822/4.48
+lq_avg_annual_pay | numeric | nonmissing | 1991 | distinct | 170 min/median/mean/max 0/0.97/0.8493219/4.48
+oty_disclosure_code | character | nonmissing | 779 | distinct | 1
+oty_annual_avg_estabs_chg | numeric | nonmissing | 1991 | distinct | 164 min/median/mean/max -111/0/35.97137/4631
+oty_annual_avg_estabs_pct_chg | numeric | nonmissing | 1991 | distinct | 258 min/median/mean/max -100/0/12.89548/300
+oty_annual_avg_emplvl_chg | numeric | nonmissing | 1991 | distinct | 339 min/median/mean/max -1046/0/250.2034/57107
+oty_annual_avg_emplvl_pct_chg | numeric | nonmissing | 1991 | distinct | 400 min/median/mean/max -59.4/0/6.264992/295.2
+oty_total_annual_wages_chg | numeric | nonmissing | 1991 | distinct | 775 min/median/mean/max -36267740/0/18132980/4145331000
+oty_total_annual_wages_pct_chg | numeric | nonmissing | 1991 | distinct | 444 min/median/mean/max -67.3/0/10.40201/525.5
+oty_taxable_annual_wages_chg | numeric | nonmissing | 1991 | distinct | 699 min/median/mean/max -22347950/0/3708949/827698800
+oty_taxable_annual_wages_pct_chg | numeric | nonmissing | 1991 | distinct | 415 min/median/mean/max -66.9/0/7.803566/935.7
+oty_annual_contributions_chg | numeric | nonmissing | 1991 | distinct | 696 min/median/mean/max -39587650/0/-166618.6/1075758
+oty_annual_contributions_pct_chg | numeric | nonmissing | 1991 | distinct | 411 min/median/mean/max -76.4/0/-2.924661/1371.3
+oty_annual_avg_wkly_wage_chg | numeric | nonmissing | 1991 | distinct | 333 min/median/mean/max -983/0/41.21999/2349
+oty_annual_avg_wkly_wage_pct_chg | numeric | nonmissing | 1991 | distinct | 310 min/median/mean/max -41.6/0/3.649925/261.5
+oty_avg_annual_pay_chg | numeric | nonmissing | 1991 | distinct | 759 min/median/mean/max -51089/0/2143.531/122130
+oty_avg_annual_pay_pct_chg | numeric | nonmissing | 1991 | distinct | 314 min/median/mean/max -41.6/0/3.649573/261.6

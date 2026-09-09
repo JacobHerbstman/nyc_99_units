@@ -102,7 +102,7 @@ Splitting evidence & Among those 198-unit parents, \VerifiedOneNinetyEight{} is 
 \addlinespace
 Composition adjustment & Positive exponential weights compare \CalibrationHistoricalParents{} historical parents with \CalibrationPostParents{} post parents using predetermined site traits. Effective historical sample size is \CalibrationESS{}; weights range from \MinimumCalibrationWeight{} to \MaximumCalibrationWeight{}. \\
 \addlinespace
-Stability & Using only 2021-2022 produces a 99-unit excess of \SensitivityTwentyOneExcess{} percentage points, close to the preferred estimate. \SuccessfulBootstraps{} of \RequestedBootstraps{} bootstrap recalibrations succeeded. \\
+Inference & \SuccessfulBootstraps{} of \RequestedBootstraps{} bootstrap recalibrations succeeded. Historical-window and forward-placebo checks are reported in the separate counterfactual audit. \\
 \bottomrule
 \end{tabular}
 
@@ -224,12 +224,6 @@ calculations are informative; the global identity is not.
   {19. Year-specific historical shapes}
   {../output/pdf/historical_year_normalized_parent_total.pdf}
   {Each pre-policy year is normalized separately over all 50-plus A/B parent opportunities.}
-  {Exact one-unit histograms are noisy from year to year, but none displays the post-period 99 or 198 concentrations. The preferred 99 excess remains similar when the benchmark is restricted to 2021-2022, which reduces concern that 2019-2020 drive the result.}
-
-\FigurePage
-  {20. Forward pre-policy placebos}
-  {../output/pdf/historical_forward_placebos.pdf}
-  {The first panel reweights 2019-2020 parents to predict 2021; the second reweights 2019-2021 to predict 2022.}
-  {The exact-bin fits are noisy, as expected with sparse yearly data, so the method should not be sold as precisely predicting every unit count. Crucially, the placebos do not create false spikes comparable to the post 99 and 198 concentrations. The exercise supports using the method for local threshold contrasts while counseling against overinterpreting small bin-by-bin differences.}
+  {Exact one-unit histograms are noisy from year to year, but none displays the post-period 99 or 198 concentrations. Formal window and forward-placebo checks are kept in the separate counterfactual audit.}
 
 \end{document}

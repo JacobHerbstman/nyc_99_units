@@ -1,0 +1,57 @@
+Rows: 72635
+Columns: 53
+Unique nonmissing key: w_geocode
+Saved-file MD5: ab911fa306e9140b6192fe785edfa71c
+w_geocode | character | nonmissing | 72635 | distinct | 72635
+C000 | numeric | nonmissing | 72635 | distinct | 658 min/median/mean/max 1/4/19.1415/23944
+CA01 | numeric | nonmissing | 72635 | distinct | 385 min/median/mean/max 0/1/7.453666/3909
+CA02 | numeric | nonmissing | 72635 | distinct | 390 min/median/mean/max 0/2/7.379239/13221
+CA03 | numeric | nonmissing | 72635 | distinct | 271 min/median/mean/max 0/1/4.308598/8607
+CE01 | numeric | nonmissing | 72635 | distinct | 658 min/median/mean/max 1/4/19.1415/23944
+CE02 | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 0/0/0/0
+CE03 | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 0/0/0/0
+CNS01 | numeric | nonmissing | 72635 | distinct | 29 min/median/mean/max 0/0/0.06583603/33
+CNS02 | numeric | nonmissing | 72635 | distinct | 11 min/median/mean/max 0/0/0.00337303/13
+CNS03 | numeric | nonmissing | 72635 | distinct | 19 min/median/mean/max 0/0/0.007365595/56
+CNS04 | numeric | nonmissing | 72635 | distinct | 59 min/median/mean/max 0/0/0.4911957/172
+CNS05 | numeric | nonmissing | 72635 | distinct | 66 min/median/mean/max 0/0/0.3886005/300
+CNS06 | numeric | nonmissing | 72635 | distinct | 67 min/median/mean/max 0/0/0.3715151/5632
+CNS07 | numeric | nonmissing | 72635 | distinct | 258 min/median/mean/max 0/0/2.862119/2784
+CNS08 | numeric | nonmissing | 72635 | distinct | 132 min/median/mean/max 0/0/0.5347422/2006
+CNS09 | numeric | nonmissing | 72635 | distinct | 91 min/median/mean/max 0/0/0.7848145/22698
+CNS10 | numeric | nonmissing | 72635 | distinct | 75 min/median/mean/max 0/0/0.2234598/395
+CNS11 | numeric | nonmissing | 72635 | distinct | 51 min/median/mean/max 0/0/0.2858264/117
+CNS12 | numeric | nonmissing | 72635 | distinct | 119 min/median/mean/max 0/0/0.7427549/3009
+CNS13 | numeric | nonmissing | 72635 | distinct | 83 min/median/mean/max 0/0/0.1748881/891
+CNS14 | numeric | nonmissing | 72635 | distinct | 208 min/median/mean/max 0/0/1.269636/1552
+CNS15 | numeric | nonmissing | 72635 | distinct | 211 min/median/mean/max 0/0/1.708295/6101
+CNS16 | numeric | nonmissing | 72635 | distinct | 371 min/median/mean/max 0/0/4.111365/6159
+CNS17 | numeric | nonmissing | 72635 | distinct | 168 min/median/mean/max 0/0/0.8147037/1425
+CNS18 | numeric | nonmissing | 72635 | distinct | 179 min/median/mean/max 0/0/3.072417/954
+CNS19 | numeric | nonmissing | 72635 | distinct | 125 min/median/mean/max 0/0/1.228347/704
+CNS20 | numeric | nonmissing | 72635 | distinct | 4 min/median/mean/max 0/0/0.0002478144/15
+CR01 | numeric | nonmissing | 72635 | distinct | 497 min/median/mean/max 0/3/13.00474/16964
+CR02 | numeric | nonmissing | 72635 | distinct | 287 min/median/mean/max 0/0/3.289681/4632
+CR03 | numeric | nonmissing | 72635 | distinct | 41 min/median/mean/max 0/0/0.1401941/140
+CR04 | numeric | nonmissing | 72635 | distinct | 232 min/median/mean/max 0/0/2.207668/3351
+CR05 | numeric | nonmissing | 72635 | distinct | 18 min/median/mean/max 0/0/0.02977903/44
+CR07 | numeric | nonmissing | 72635 | distinct | 79 min/median/mean/max 0/0/0.4694431/820
+CT01 | numeric | nonmissing | 72635 | distinct | 596 min/median/mean/max 0/4/16.04181/21170
+CT02 | numeric | nonmissing | 72635 | distinct | 253 min/median/mean/max 0/0/3.09969/2774
+CD01 | numeric | nonmissing | 72635 | distinct | 187 min/median/mean/max 0/0/1.965457/2379
+CD02 | numeric | nonmissing | 72635 | distinct | 212 min/median/mean/max 0/1/2.938253/4300
+CD03 | numeric | nonmissing | 72635 | distinct | 238 min/median/mean/max 0/1/3.363943/5979
+CD04 | numeric | nonmissing | 72635 | distinct | 256 min/median/mean/max 0/1/3.420183/9170
+CS01 | numeric | nonmissing | 72635 | distinct | 365 min/median/mean/max 0/2/7.926165/13741
+CS02 | numeric | nonmissing | 72635 | distinct | 511 min/median/mean/max 0/2/11.21534/10203
+CFA01 | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 0/0/0/0
+CFA02 | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 0/0/0/0
+CFA03 | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 0/0/0/0
+CFA04 | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 0/0/0/0
+CFA05 | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS01 | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS02 | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS03 | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS04 | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS05 | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 0/0/0/0
+createdate | numeric | nonmissing | 72635 | distinct | 1 min/median/mean/max 20251200/20251200/20251200/20251200

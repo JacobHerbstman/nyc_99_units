@@ -27,7 +27,6 @@ all: ../output/parent_150_period_summary.csv \
 	../output/parent_150_yearly_multi_filing_share.png
 
 ../output/parent_150_period_summary.csv: audit_parent_150_threshold.R \
-	Makefile \
 	../../../_lib/source_pipeline_utils.R \
 	../input/parent_485x_exposure.csv \
 	../input/parent_485x_exposure_universe.csv \

@@ -1,0 +1,26 @@
+Rows: 4664
+Columns: 22
+Unique nonmissing key: geography, geoid, table
+Saved-file MD5: 5140ecdb0b2bd0038f5a5650e0f90738
+geography | character | nonmissing | 4664 | distinct | 2
+geoid | character | nonmissing | 4664 | distinct | 2332
+name | character | nonmissing | 4664 | distinct | 2332
+state | character | nonmissing | 4664 | distinct | 1
+county | character | nonmissing | 4664 | distinct | 5
+tract | character | nonmissing | 4654 | distinct | 1530
+table | character | nonmissing | 4664 | distinct | 2
+universe | character | nonmissing | 4664 | distinct | 2
+estimate_raw | numeric | nonmissing | 4664 | distinct | 1997 min/median/mean/max -666666700/21987/-315146800/250001
+moe_raw | numeric | nonmissing | 4664 | distinct | 2120 min/median/mean/max -333333300/2263/-105819300/400586
+estimate_annotation | character | nonmissing | 2216 | distinct | 3
+moe_annotation | character | nonmissing | 2216 | distinct | 2
+borough | character | nonmissing | 4664 | distinct | 5
+period | character | nonmissing | 4664 | distinct | 1
+dollar_year | numeric | nonmissing | 4664 | distinct | 1 min/median/mean/max 2023/2023/2023/2023
+estimate_status | character | nonmissing | 4664 | distinct | 3
+earnings | numeric | nonmissing | 2448 | distinct | 1994 min/median/mean/max 4241/54265.5/62796.36/240511
+moe | numeric | nonmissing | 2448 | distinct | 2118 min/median/mean/max 232/33953.5/51194.62/400586
+relative_moe | numeric | nonmissing | 2448 | distinct | 2143 min/median/mean/max 0.002911034/0.6112939/1.027594/29.65462
+precision | character | nonmissing | 4664 | distinct | 4
+ci90_lower | numeric | nonmissing | 2448 | distinct | 2123 min/median/mean/max -361680/21026.5/11601.74/159236
+ci90_upper | numeric | nonmissing | 2448 | distinct | 2128 min/median/mean/max 8273/94226/113991/551351

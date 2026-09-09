@@ -9,7 +9,6 @@ MIN_UNITS := 6
 all: ../output/parent_485x_exposure_universe.csv
 
 ../output/parent_485x_exposure_universe.csv: build_parent_485x_exposure_universe.R \
-	Makefile \
 	../../_lib/source_pipeline_utils.R \
 	../input/symmetric_parent_membership.parquet \
 	../input/dcp_housing_database_project_level_25q4.parquet \

@@ -9,7 +9,6 @@ all: ../output/linkage_by_cohort.csv \
 	../output/tail_relevant_parent_review_validation.csv
 
 ../output/linkage_by_cohort.csv: audit_historical_parent_linkage.R \
-	Makefile \
 	tail_relevant_parent_reviews.csv \
 	../../../_lib/source_pipeline_utils.R \
 	../input/symmetric_parent_membership.parquet \

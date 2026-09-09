@@ -10,6 +10,8 @@ ZOOM_MIN_UNITS := 50
 ZOOM_MAX_UNITS := 150
 WIDE_MAX_UNITS := 300
 FULL_BIN_WIDTH := 25
+FULL_PRE_YEARS := 12
+RECENT_PRE_YEARS := 4
 
 all: ../output/parent_unit_distribution_80_120.csv \
 	../output/parent_unit_distribution_sample_summary.csv \
@@ -46,8 +48,21 @@ all: ../output/parent_unit_distribution_80_120.csv \
 	../output/pdf/parent_unit_distribution_total_50_300_ab_post_vs_2019_2022.pdf \
 	../output/pdf/parent_unit_distribution_annualized_50_300_ab_post_vs_2019_2022.pdf
 
+../output/pdf/parent_unit_distribution_normalized_density_50_300_ab_post_vs_2011_2022.pdf: plot_parent_unit_distribution_comparisons.R \
+	../../_lib/source_pipeline_utils.R \
+	../output/parent_unit_distribution_annualized_50_300.csv \
+	../output/parent_unit_distribution_normalized_density_50_300_ab.csv | ../output/pdf
+	$(R) $< $(FULL_PRE_YEARS) $(RECENT_PRE_YEARS)
+
+../output/pdf/parent_unit_distribution_normalized_density_50_300_ab_post_vs_2011_2014.pdf \
+	../output/pdf/parent_unit_distribution_normalized_density_50_300_ab_post_vs_2019_2022.pdf \
+	../output/pdf/parent_unit_distribution_total_50_300_ab_post_vs_2011_2022.pdf \
+	../output/pdf/parent_unit_distribution_annualized_50_300_ab_post_vs_2011_2022.pdf \
+	../output/pdf/parent_unit_distribution_total_50_300_ab_post_vs_2019_2022.pdf \
+	../output/pdf/parent_unit_distribution_annualized_50_300_ab_post_vs_2019_2022.pdf: ../output/pdf/parent_unit_distribution_normalized_density_50_300_ab_post_vs_2011_2022.pdf
+	@test -s "$@"
+
 ../output/parent_unit_distribution_80_120.csv: plot_parent_unit_distribution.R \
-	Makefile \
 	../../_lib/source_pipeline_utils.R \
 	../input/symmetric_parent_membership.parquet \
 	../input/dob_now_new_building_initial_filings.parquet \
@@ -68,7 +83,6 @@ all: ../output/parent_unit_distribution_80_120.csv \
 	@test -s "$@"
 
 ../output/parent_unit_distribution_full.csv: plot_parent_unit_distribution_views.R \
-	Makefile \
 	../../_lib/source_pipeline_utils.R \
 	../input/symmetric_parent_membership.parquet \
 	../input/parent_485x_exposure.csv | ../output ../output/pdf
@@ -91,14 +105,7 @@ all: ../output/parent_unit_distribution_80_120.csv \
 ../output/pdf/parent_unit_distribution_annualized_50_300.pdf \
 ../output/pdf/parent_unit_distribution_annualized_50_300_all.pdf \
 ../output/pdf/parent_unit_distribution_annualized_50_300_ab.pdf \
-../output/pdf/parent_unit_distribution_normalized_density_50_300_ab.pdf \
-../output/pdf/parent_unit_distribution_normalized_density_50_300_ab_post_vs_2011_2022.pdf \
-../output/pdf/parent_unit_distribution_normalized_density_50_300_ab_post_vs_2011_2014.pdf \
-../output/pdf/parent_unit_distribution_normalized_density_50_300_ab_post_vs_2019_2022.pdf \
-../output/pdf/parent_unit_distribution_total_50_300_ab_post_vs_2011_2022.pdf \
-../output/pdf/parent_unit_distribution_annualized_50_300_ab_post_vs_2011_2022.pdf \
-../output/pdf/parent_unit_distribution_total_50_300_ab_post_vs_2019_2022.pdf \
-../output/pdf/parent_unit_distribution_annualized_50_300_ab_post_vs_2019_2022.pdf: ../output/parent_unit_distribution_full.csv
+../output/pdf/parent_unit_distribution_normalized_density_50_300_ab.pdf: ../output/parent_unit_distribution_full.csv
 	@test -s "$@"
 
 ../input/symmetric_parent_membership.parquet: ../../construct_parent_cohorts/output/symmetric_parent_membership.parquet | ../input

@@ -1,523 +1,307 @@
 \documentclass[11pt]{article}
-
 \usepackage[margin=1in]{geometry}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amsthm,mathtools}
+\usepackage{amsmath,mathtools}
 \usepackage{newtxtext,newtxmath}
-\usepackage{microtype}
-\usepackage{setspace}
-\usepackage{booktabs,array,tabularx}
-\usepackage{enumitem}
-\usepackage{tikz}
-\usepackage{natbib}
-\usepackage[hidelinks]{hyperref}
-\hypersetup{pdftitle={Developer Responses to New York City's 100-Unit Threshold: A Notch-and-Kink Model},pdfauthor={Jacob Herbstman}}
+\usepackage{microtype,booktabs,tabularx,array}
 \usepackage{fancyhdr}
-\usepackage{xcolor}
-
-\setstretch{1.06}
-\setlength{\parindent}{1.25em}
-\setlength{\parskip}{0.15em}
-\setlist[itemize]{leftmargin=1.4em,itemsep=0.15em,topsep=0.25em}
-\setlist[enumerate]{leftmargin=1.6em,itemsep=0.15em,topsep=0.25em}
-
-\newtheorem{proposition}{Proposition}
-\newtheorem{assumption}{Assumption}
-\newtheorem{remark}{Remark}
-
-\newcommand{\ind}{\mathbf{1}}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\dd}{\,\mathrm{d}}
-
+\usepackage[round]{natbib}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Project Size and Splitting under New York City's 485-x Program},pdfauthor={Jacob Herbstman}}
+\setlength{\parindent}{1.15em}
+\setlength{\parskip}{2pt}
+\setlength{\emergencystretch}{2em}
+\linespread{1.035}
+\newcommand{\E}{\mathbb E}
+\newcommand{\ind}{\mathbf 1}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small Developer Responses to NYC's 100-Unit Threshold}
-\fancyhead[R]{\small \thepage}
+\fancyhead[L]{\small Project size and splitting under 485-x}
+\fancyhead[R]{\small Research framework}
+\fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
-
-\title{\vspace{-1.25cm}\textbf{Developer Responses to New York City's 100-Unit Threshold}\\[0.35em]
-\large A Notch-and-Kink Model}
+\setlength{\headheight}{14pt}
+\input{tasks/analyze_485x_scale_shape_splitting/temp/scale_shape_splitting_figure_guide_values.tex}
+\title{\vspace{-1.25cm}\textbf{Project Size and Splitting\\under New York City's 485-x Program}}
 \author{Jacob Herbstman}
-\date{August 2026}
-
+\date{September 2026}
 \begin{document}
 \maketitle
-\vspace{-1.2em}
-
+\vspace{-1em}
 \begin{abstract}
-This note develops a parsimonious model of residential developer behavior around New York City's 100-unit threshold under the 485-x tax incentive. Crossing the threshold may create both a discontinuous project-level burden---a notch---and a persistent increase in marginal project cost---a kink. The model predicts a mass point at 99 units, a missing source interval in the no-policy unit-count distribution, and horizontal compression of projects that remain above the threshold. A reweighted historical distribution identifies the no-policy size of the marginal bunching project from excess mass at 99; the surviving upper tail identifies, or bounds, the compression parameter. Given a curvature parameter, these behavioral objects map into a marginal-cost wedge, a normalized level notch, and the total policy burden faced by the marginal developer. The model also yields transparent implications for housing units, total floor area, and average unit size.
+New York City's 485-x program gives developers a reason to keep separately assessed rental developments below 100 units. Developers can respond by building fewer apartments or by dividing a larger project into smaller parts. We study these choices together to measure how the threshold changes proposed housing supply. The empirical comparison uses earlier projects on similar sites, retaining both their total units and their division across filings. A model of project size and splitting explains why the same incentive can produce 99-unit projects, preserve units through subdivision, or generate pairs of 99-unit constituents. The main quantity of interest is the difference in proposed units among filing opportunities. Interpreting that difference as a policy effect requires a credible historical comparison; estimating regulatory and splitting costs requires additional restrictions on developers' choices.
 \end{abstract}
 
-\section{Motivation}
+\section{The question: fewer units or a different project design?}
 
-New York City's 485-x program changes the regulatory treatment of rental projects at 100 units. Relative to projects below 100 units, large rental projects face different affordability requirements and construction compensation rules; projects at 150 units in designated areas face an additional regime change \citep{nys_485x,nyc_hpd_485x}. The sharp empirical motivation is a large increase in projects proposed at exactly 99 units after the policy took effect.
+A concentration of filings at 99 units can reflect two different responses. A developer who reduces a 110-unit project to 99 proposes 11 fewer apartments. A developer who divides the same project into two 55-unit parts preserves all 110. Splitting can also accompany a reduction in size: a 210-unit project divided into two 99-unit parts loses 12 apartments. The housing-supply question therefore requires following the whole development, including its related filings.
 
-The model combines two ideas. First, size-dependent regulations can create a discontinuity in total project value or cost, generating bunching below a threshold and missing mass above it \citep{klevenwaseem2013,bestkleven2018,kopczukmunroe2015}. Second, the high-regime cost schedule may remain persistently steeper, compressing the surviving upper tail rather than allowing it to return point-by-point to its no-policy distribution \citep{gourioroys2014,garicano2016}. The setup follows the isoelastic cost structure used by \citet{brueckner2024}, but the policy combines a notch and a kink rather than a pure kink.
+We call that development the \emph{parent project}. Its \emph{constituents} are the parts into which it is organized. The data link related new-building filings into parents and retain the size of each constituent. This lets us distinguish a parent's total units from the number of filings it generates.
 
-\section{Developer problem}
+Under 485-x, rental developments face different affordability requirements and construction compensation rules when the eligible site reaches 100 units. Eligible sites in specified geographic zones face a further regime at 150 units. The statutory unit can be a tax lot or a zoning lot containing several buildings in one application; a separate filing alone does not establish separate treatment \citep[\S1(s), (bb), (ss); \S3; \S8]{nys485x}. We therefore use administrative evidence to assess which observed constituents can be treated separately.
 
-\subsection{No-policy benchmark}
+The current comparison places more weight at both 99 and 198 parent units than a historical benchmark adjusted for site characteristics (Table~\ref{tab:evidence}). Every observed 198-unit parent consists of two 99-unit filings. This makes project organization central to the analysis: counting those filings as unrelated opportunities would obscure the scale of the underlying development.
 
-A developer chooses the number of residential units, $n$. Unit counts are discrete in the data; calculus is used to characterize choices within each regime. Let $v>0$ denote a project-specific marginal profitability shifter, net of ordinary linear per-unit costs. Smooth no-policy profit is
-\begin{equation}
-\pi_0(n;v)=vn-C_0(n),
-\qquad
-C_0(n)=\frac{\alpha}{1+\lambda}n^{1+\lambda},
-\label{eq:baseline_profit}
-\end{equation}
-where $\alpha>0$ and $\lambda>0$. Marginal cost is $C_0'(n)=\alpha n^\lambda$, so the unique no-policy optimum is
-\begin{equation}
- n_0(v)=\left(\frac{v}{\alpha}\right)^{1/\lambda}.
-\label{eq:n0}
-\end{equation}
-The parameter $1/\lambda$ is the elasticity of desired unit count with respect to $v$.
-
-\subsection{Policy cost schedule}
-
-Let $N=100$ be the first unit count in the high regime and $b=N-1=99$ the largest avoiding choice. For $n\geq N$, define the incremental net policy burden
-\begin{equation}
-D(n)=K+\frac{\beta}{1+\lambda}\left(n^{1+\lambda}-N^{1+\lambda}\right),
-\qquad K\geq0,\quad \beta\geq0.
-\label{eq:policy_burden}
-\end{equation}
-Total profit is
-\begin{equation}
-\pi(n;v)=\pi_0(n;v)-\ind\{n\geq N\}D(n).
-\label{eq:full_profit}
-\end{equation}
-The parameter $K=D(N)$ is the net level discontinuity at entry. It can collect threshold-triggered wage, affordability, compliance, and tax-benefit effects. The parameter $\beta$ raises marginal cost above the threshold because
-\begin{equation}
-C_H'(n)=(\alpha+\beta)n^\lambda,
-\qquad n>N.
-\end{equation}
-Thus $\beta=0$ gives a pure notch, $K=0$ gives the pure-kink structure in \citet{brueckner2024}, and $K,\beta>0$ gives a notch plus a kink.
-
-\subsection{Choice conditional on entering}
-
-Conditional on entering the high regime, the developer solves the constrained problem $\max_{n\geq N}\pi_H(n;v)$. The unconstrained high-regime first-order condition is
-\begin{equation}
- v=(\alpha+\beta)n^\lambda.
-\end{equation}
-Define the compression factor
-\begin{equation}
-\theta\equiv\left(\frac{\alpha+\beta}{\alpha}\right)^{1/\lambda}\geq1.
-\label{eq:theta}
-\end{equation}
-Combining the low- and high-regime first-order conditions gives the unconstrained high-regime optimum $n_0(v)/\theta$. Respecting the lower boundary of the high regime, the best feasible high-regime choice is therefore
-\begin{equation}
- n_H(v)=\max\left\{N,\frac{n_0(v)}{\theta}\right\}.
-\label{eq:compression}
-\end{equation}
-Thus $\theta=1$ under a pure notch, while $\theta>1$ horizontally compresses projects that still enter. Equation \eqref{eq:compression} only characterizes the best choice conditional on entry; a developer whose best high-regime option is $N$ may still prefer $b=99$ once the level discontinuity $K$ is taken into account.
-
-\subsection{Entry and the marginal developer}
-
-For a developer with $n_0(v)>b$, the best avoiding choice is $b$. Let
-\begin{equation}
- V_L(v)=vb-C_0(b),
- \qquad
- V_H(v)=\max_{n\geq N}\pi_H(n;v),
-\end{equation}
-and define the gain from entry as $\Delta(v)=V_H(v)-V_L(v)$. The envelope theorem gives the monotone-sorting result directly. Since $V_H(v)=\pi_H(n_H(v);v)$,
-\begin{align}
- V_H'(v)
- &=\frac{\partial\pi_H}{\partial v}
- +\frac{\partial\pi_H}{\partial n}n_H'(v)
- =n_H(v),
- \label{eq:envelope_main}
-\end{align}
-where the second term vanishes by the first-order condition at an interior optimum and because $n_H(v)=N$ is locally constant when the boundary binds. Since $V_L'(v)=b$,
-\begin{equation}
-\boxed{\Delta'(v)=n_H(v)-b>0.}
-\label{eq:monotone_entry}
-\end{equation}
-There is therefore a unique marginal type $v^\dagger$ satisfying $\Delta(v^\dagger)=0$. Define
-\begin{equation}
- q\equiv n_0(v^\dagger),
- \qquad
- h\equiv n_H(v^\dagger)
- =\max\left\{N,\frac{q}{\theta}\right\}.
-\label{eq:q_h}
-\end{equation}
-The resulting decision rule is
-\begin{equation}
- n^*(v)=
- \begin{cases}
- n_0(v), & n_0(v)\leq b,\\[3pt]
- b, & b<n_0(v)<q,\\[3pt]
- \max\left\{N,n_0(v)/\theta\right\}, & n_0(v)\geq q.
- \end{cases}
-\label{eq:decision_rule}
-\end{equation}
-The model therefore permits a boundary choice at $N$. If $q<\theta N$, a positive interval of developers enters but chooses exactly $N$. If instead $q\geq\theta N$, the boundary is weakly dominated by $b=99$ for every type whose conditional high-regime optimum is $N$; under strict inequality, the first crosser is interior and the surviving upper tail begins at $q/\theta>N$. The current data contain no mass at exactly 100 and little mass immediately above it, so the main analysis emphasizes this strict interior-crossing branch, while retaining boundary entry as a technically feasible model outcome. Figure \ref{fig:mapping} illustrates the interior-crossing branch.
-
-\begin{figure}[t]
+\begin{table}[htbp]
 \centering
-\begin{tikzpicture}[x=1.05cm,y=0.78cm,>=stealth]
-  % axes
-  \draw[->] (0,0) -- (8.2,0) node[right] {$x$: no-policy units};
-  \draw[->] (0,0) -- (0,6.2) node[above] {$n^*(x)$};
-  % 45 degree lower branch
-  \draw[thick] (0.45,0.45) -- (2.15,2.15);
-  % bunching branch
-  \draw[thick] (2.85,2.15) -- (5.30,2.15);
-  % upper compressed branch
-  \draw[thick] (5.30,3.55) -- (7.65,5.12);
-  % dashed guides
-  \draw[dashed] (2.15,0) -- (2.15,2.15);
-  \draw[dashed] (2.85,0) -- (2.85,2.15);
-  \draw[dashed] (5.30,0) -- (5.30,3.55);
-  \draw[dashed] (0,2.15) -- (5.30,2.15);
-  \draw[dashed] (0,3.55) -- (5.30,3.55);
-  % labels
-  \node[below] at (2.15,0) {$b$};
-  \node[below] at (2.85,0) {$N$};
-  \node[below] at (5.30,0) {$q$};
-  \node[left] at (0,2.15) {$b$};
-  \node[left] at (0,3.55) {$q/\theta$};
-  \node[align=center] at (4.05,1.45) {move to\\99};
-  \node[align=center,rotate=33] at (6.70,4.72) {slope $1/\theta$};
-  \node[align=center] at (6.15,2.65) {gap};
-\end{tikzpicture}
-\caption{Schematic policy mapping in the interior-crossing branch $q>\theta N$. Projects with no-policy size between $N$ and $q$ move to $b=99$; projects above $q$ remain in the high regime but are compressed by $1/\theta$. The general model also permits a boundary choice at $N$.}
-\label{fig:mapping}
-\end{figure}
-
-\section{Distributional implications and identification}
-
-Let $H_0(j)$ denote the expected number of projects choosing exactly $j$ units without the policy, and let $h_0(x)$ denote a continuous interpolation of this distribution. The model generates two distinct moments.
-
-\subsection{Bunching identifies the no-policy source frontier}
-
-Excess mass at 99 is
-\begin{equation}
- B\equiv H_{\mathrm{obs}}(b)-H_0(b).
-\end{equation}
-Under \eqref{eq:decision_rule}, these projects come from no-policy choices between $N$ and $q$. The exact integer and continuous equations are
-\begin{equation}
- B=\sum_{j=N}^{q-1}H_0(j)
- \qquad\text{and}\qquad
- B=\int_N^q h_0(x)\dd x.
-\label{eq:bunching_mass}
-\end{equation}
-Given a counterfactual $H_0$, the spike identifies $q$ by accumulating mass from 100 upward. If the frontier cuts through an integer bin, the empirical implementation allocates that terminal bin fractionally. Importantly, $\theta$ does not enter \eqref{eq:bunching_mass}: the spike identifies which no-policy projects leave the high regime, not how the surviving projects are compressed.
-
-\subsection{The upper tail identifies the compression factor}
-
-The model permits two high-regime components. If $q<\theta N$, developers with no-policy sizes between $q$ and $\theta N$ choose the boundary $N$, generating an atom
-\begin{equation}
- B_N=\int_q^{\theta N}h_0(x)\dd x.
-\label{eq:boundary_atom}
-\end{equation}
-This atom is zero when $q\geq\theta N$. For the continuous part of the upper tail, observed size is $n=x/\theta$, where $x$ is no-policy size. Conservation of mass implies
-\begin{equation}
- h_1(n)=\theta h_0(\theta n),
- \qquad n>\max\left\{N,\frac{q}{\theta}\right\}.
-\label{eq:tail_density}
-\end{equation}
-Regardless of whether the boundary branch is active, observed projects between $N$ and any $m\geq h$ originate from no-policy projects between $q$ and $\theta m$:
-\begin{equation}
- H_{\mathrm{obs}}([N,m])=\int_q^{\theta m}h_0(x)\dd x.
-\label{eq:cumulative_theta}
-\end{equation}
-Setting $m=q$ yields a particularly transparent identifying moment:
-\begin{equation}
- H_{\mathrm{obs}}([N,q])=\int_q^{\theta q}h_0(x)\dd x.
-\label{eq:theta_moment}
-\end{equation}
-Thus $q$ is identified by the mass moved to 99, while $\theta$ is identified, in principle, by the mass and shape of the surviving upper tail, including any boundary atom. In sparse samples, \eqref{eq:theta_moment} can be used for a point estimate and the full distributional restrictions \eqref{eq:boundary_atom}--\eqref{eq:tail_density} for minimum-distance or likelihood estimation. A sensitivity analysis over $\theta$ remains useful.
-
-The condition
-\begin{equation}
- q>\theta N
- \quad\Longleftrightarrow\quad
- \theta<\frac{q}{N}
-\label{eq:theta_bound}
-\end{equation}
-characterizes the interior-crossing branch; it is not imposed by the model. If instead $q<\theta N$, the model predicts positive mass at exactly $N$. The absence of observed 100-unit projects therefore provides direct evidence about which branch is empirically relevant.
-
-\subsection{Why the missing-mass curve need not recover}
-
-Define the cumulative deficit through $m$ as
-\begin{equation}
- \mathcal{D}(m)=\int_N^m\left[h_0(n)-h_1(n)\right]\dd n.
-\end{equation}
-For $m\geq q$, equations \eqref{eq:bunching_mass} and \eqref{eq:tail_density} imply
-\begin{equation}
- \boxed{\mathcal{D}(m)=B-\int_m^{\theta m}h_0(x)\dd x.}
-\label{eq:deficit_identity}
-\end{equation}
-The second term is no-policy mass from above $m$ compressed into the observed range below $m$. Under a pure notch, $\theta=1$ and the term is zero, so the deficit reaches $B$. With a kink, $\theta>1$ and pointwise recovery is not expected.
-
-\section{Mapping behavior into policy costs}
-
-The model distinguishes three related cost objects.
-
-\subsection{Marginal-cost wedge}
-
-From \eqref{eq:theta},
-\begin{equation}
- \boxed{\frac{\beta}{\alpha}=\theta^\lambda-1.}
-\label{eq:beta_wedge}
-\end{equation}
-This is the proportional increase in marginal cost at a fixed project size above the threshold.
-
-\subsection{Level notch}
-
-The marginal developer is indifferent between the avoiding choice $b$ and the optimal high-regime choice $h=\max\{N,q/\theta\}$. Hence
-\begin{equation}
-\begin{aligned}
-K
-={}&v^\dagger(h-b)-\left[C_0(h)-C_0(b)\right]\\
-&-\frac{\beta}{1+\lambda}\left(h^{1+\lambda}-N^{1+\lambda}\right).
-\end{aligned}
-\label{eq:K_main}
-\end{equation}
-The first term is the gross value of expanding beyond 99, the second is ordinary incremental cost, and the third is the accumulated kink cost above 100. Use
-\begin{equation}
- v^\dagger=\alpha q^\lambda,
- \qquad
- \frac{\beta}{\alpha}=\theta^\lambda-1,
-\end{equation}
-and define the dimensionless ratios
-\begin{equation}
- x\equiv\frac{q}{b},
- \qquad
- r\equiv\frac{N}{b},
- \qquad
- y\equiv\frac{h}{b}=\max\left\{r,\frac{x}{\theta}\right\},
- \qquad
- \kappa\equiv\frac{K}{C_0(b)}.
-\end{equation}
-Dividing \eqref{eq:K_main} by $C_0(b)=\alpha b^{1+\lambda}/(1+\lambda)$ removes the unidentified cost scale $\alpha$ and yields the general normalized notch:
-\begin{equation}
-\boxed{
-\kappa
-=(1+\lambda)x^\lambda(y-1)
--\left(y^{1+\lambda}-1\right)
--(\theta^\lambda-1)\left(y^{1+\lambda}-r^{1+\lambda}\right).}
-\label{eq:kappa_general}
-\end{equation}
-In the interior-crossing branch, $y=x/\theta$, and \eqref{eq:kappa_general} simplifies to
-\begin{equation}
- \boxed{
- \kappa
- =1+\frac{\lambda}{\theta}x^{1+\lambda}
- -(1+\lambda)x^\lambda
- +(\theta^\lambda-1)r^{1+\lambda}.}
-\label{eq:kappa}
-\end{equation}
-If the marginal crosser instead chooses the boundary, $y=r$ and
-\begin{equation}
- \kappa
- =(1+\lambda)x^\lambda(r-1)-\left(r^{1+\lambda}-1\right).
-\label{eq:kappa_boundary}
-\end{equation}
-The pure-notch special case $\theta=1$ is
-\begin{equation}
- \kappa_{\mathrm{notch}}
- =1+\lambda x^{1+\lambda}-(1+\lambda)x^\lambda.
-\label{eq:pure_notch_kappa}
-\end{equation}
-For fixed $(q,\lambda)$, $\kappa$ falls with $\theta$ within the interior-crossing branch: a stronger marginal-cost effect requires a smaller level jump to generate the same bunching frontier.
-
-\subsection{Total burden faced by the marginal crosser}
-
-The total policy burden at $h$ is
-\begin{equation}
-D(h)=K+\frac{\beta}{1+\lambda}\left(h^{1+\lambda}-N^{1+\lambda}\right).
-\end{equation}
-Normalized by $C_0(b)$, it can be written generally as
-\begin{equation}
- \boxed{
- \delta\equiv\frac{D(h)}{C_0(b)}
- =(1+\lambda)x^\lambda(y-1)-\left(y^{1+\lambda}-1\right),}
-\label{eq:delta}
-\end{equation}
-where $y=\max\{r,x/\theta\}$. Equivalently,
-\begin{equation}
- \delta=\kappa+(\theta^\lambda-1)\left(y^{1+\lambda}-r^{1+\lambda}\right).
-\end{equation}
-The three objects answer different questions:
-\begin{center}
-\begin{tabularx}{0.96\textwidth}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth} >{\centering\arraybackslash}p{0.25\textwidth} X@{}}
+\caption{Changes in the distribution of proposed parent units}
+\label{tab:evidence}
+\begin{tabular}{@{}lrrrr@{}}
 \toprule
-Object & Formula & Interpretation \\
+Parent units & Historical & Post & Difference & 95\% interval \\
+ & share (\%) & share (\%) & (pp) & (pp) \\
 \midrule
-Marginal-cost wedge & $\beta/\alpha=\theta^\lambda-1$ & Percentage increase in marginal cost in the high regime. \\
-Level notch & $\kappa=K/C_0(b)$ & Net discontinuity triggered at 100, relative to modeled smooth cost at 99. \\
-Total marginal-project burden & $\delta=D(h)/C_0(b)$ & Total direct policy burden paid by the marginal crosser at its optimal high-regime size. \\
+99 (excess) & \HistoricalShareNinetyNine & \PostShareNinetyNine & \ExcessNinetyNine & [\ExcessNinetyNineLower, \ExcessNinetyNineUpper] \\
+100--149 (deficit) & \HistoricalShareOneHundredOneFortyNine & \PostShareOneHundredOneFortyNine & \DeficitOneHundredOneFortyNine & [\DeficitOneHundredOneFortyNineLower, \DeficitOneHundredOneFortyNineUpper] \\
+198 (excess) & \HistoricalShareOneNinetyEight & \PostShareOneNinetyEight & \ExcessOneNinetyEight & [\ExcessOneNinetyEightLower, \ExcessOneNinetyEightUpper] \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{\textwidth}
+\footnotesize Historical shares use the reweighted 2019--2022 distribution. Excesses subtract the historical share from the post share; the deficit reverses that subtraction. Differences and intervals are in percentage points (pp), calculated before rounding. The post period is January 1, 2025--July 8, 2026. The comparison uses \CalibrationHistoricalParents{} historical and \CalibrationPostParents{} post-period plausible rental opportunities with at least 50 units and complete site characteristics. All parent sizes above 300 remain in the denominator. Intervals are parent-bootstrap percentile intervals with weights re-estimated in each successful draw; \SuccessfulBootstraps{} of \RequestedBootstraps{} draws succeeded. Values are generated from the current analysis outputs.
+\end{minipage}
+\end{table}
+
+There are \ExactOneNinetyEightParents{} observed 198-unit parents. The registration crosswalk verifies separate 485-x units for \VerifiedOneNinetyEight{}; evidence is suggestive for \SuggestiveOneNinetyEight{}, and \UnresolvedOneNinetyEight{} remain unresolved. These counts describe the full observed sample of 198-unit parents, which is broader than the sample with complete characteristics used in Table~\ref{tab:evidence}. The common 99+99 configuration establishes a pattern in proposed design. Its interpretation as successful threshold avoidance depends on separate policy treatment.
+
+\section{Measuring the change in proposed units}
+
+We compare recent filing opportunities with historical projects on similar sites. Historical parents carry two outcomes together: their proposed total and their observed organization. Reweighting changes how much each historical parent contributes to the comparison; it leaves that parent's outcomes intact. Thus ordinary multi-building development remains part of the benchmark.
+
+Let historical parent $j$ have total units $x_j$, constituent count $J_j^0$, and predetermined site characteristics $X_j$. Give it normalized weight $\widetilde w_j$, where $\sum_j\widetilde w_j=1$. Let $P$ be the number of post-period parents in the same comparison sample, with observed totals $m_i$. The direct difference in proposed units is
+\begin{equation}
+\Delta U_{\mathrm{dist}}
+=P\left(\sum_j\widetilde w_jx_j-\frac{1}{P}\sum_{i=1}^{P}m_i\right).
+\label{eq:direct}
+\end{equation}
+A positive value means that the historical benchmark implies more units for the same number of filing opportunities. This calculation needs complete unit totals, including the largest projects. A chart that combines projects above 300 into one bin retains their probability mass but cannot, on its own, measure their contribution to housing supply.
+
+The economic assumption is that, after adjusting for site composition, earlier projects describe what these opportunities would have proposed without the size-dependent escalation. Earlier tax regimes, financing conditions, rents, and construction costs can differ. Balanced site characteristics address differences in observed sites; they do not remove all changes in project economics. Recent pre-policy comparisons help assess whether the benchmark predicts size and organization before the threshold changes.
+
+The estimate is conditional on filing. It measures units proposed within a set of opportunities, while annualized filing counts describe changes in activity separately. It does not recover projects that were cancelled or never filed. The current size comparison also conditions on parents with at least 50 observed units. If the policy moves projects across that sample boundary, the comparison changes membership as well as size. We therefore examine the broader six-plus-unit population when assessing the quantity result. Appendix~\ref{app:data} gives the sample and linkage details.
+
+Equation~\eqref{eq:direct} provides the quantity benchmark. The model below adds an explanation for the change: how much reflects smaller projects, how much reflects different organization, and what the joint response implies about the costs developers face. Structural quantity and cost estimates remain to be produced.
+
+\section{The developer's choice}
+
+\subsection{Total units and the ordinary cost of organization}
+
+A developer chooses total units $m$ and a feasible division $\mathbf n=(n_1,\ldots,n_J)$, with $m=\sum_{k=1}^J n_k$. Before the modeled escalation, surplus from total units is
+\begin{equation}
+\pi_{0i}(m)=v_i m-C_{0i}(m),
+\qquad C_{0i}(m)=\frac{\alpha_i}{1+\lambda}m^{1+\lambda},
+\qquad \alpha_i>0,\quad\lambda>0.
+\label{eq:baseline}
+\end{equation}
+The profitability shifter $v_i$ captures what another unit contributes before the curved cost term. The preferred continuous total is $x_i=(v_i/\alpha_i)^{1/\lambda}$. Curvature $\lambda$ determines how costly it is to depart from that total. The cost function summarizes project economics after other design choices have been made; it need not equal the construction budget. The approach builds on housing-supply models in which regulation raises marginal development cost \citep{brueckner2024}.
+
+Organization also has an ordinary cost. Some sites naturally favor several buildings; others are costly to divide. To explain this margin, first consider one or two constituents. Let $F_i$ be the cost of two relative to one at the same total. Positive $F_i$ favors one constituent; negative $F_i$ favors two. Writing the disadvantages as
+\begin{equation}
+\psi_i(1)=(-F_i)_+,\qquad \psi_i(2)=(F_i)_+,
+\qquad a_+=\max\{a,0\},
+\label{eq:organization}
+\end{equation}
+makes the preferred organization cost zero. Both alternatives face the same normalization, so it does not change the design choice.
+
+The simplifying assumption is that $F_i$ is fixed as this parent considers different totals. When both organizations can accommodate $x_i$, ordinary total units remain $x_i$, and the sign of $F_i$ determines the preferred organization. Historical organization therefore restricts which alternative a developer prefers, but does not reveal how much that preference is worth. We retain observed historical organization directly in the comparison.
+
+\subsection{The burden at 100 units}
+
+For a constituent assessed separately under the policy, let the incremental net burden be
+\begin{equation}
+d_i(n)=
+\begin{cases}
+0,& n\le99,\\[2pt]
+K_i+\dfrac{\beta_i}{1+\lambda}
+\left(n^{1+\lambda}-100^{1+\lambda}\right),& n\ge100,
+\end{cases}
+\qquad K_i,\beta_i\ge0.
+\label{eq:burden}
+\end{equation}
+The level jump $K_i$ makes entry into the high regime costly even for a project that would otherwise choose just over 99. The steeper cost schedule, governed by $\beta_i$, can also reduce the size of projects that remain above the threshold. Both terms represent net effects of policy requirements and benefits. Setting the incremental burden to zero removes the modeled escalation while retaining ordinary project economics, rather than removing the entire tax incentive.
+
+For a given total $m$ and constituent count $J$, the developer selects the feasible division with the lowest policy burden:
+\begin{equation}
+d_{iJ}(m)=\min_{\mathbf n\in\mathcal P_{iJ}(m)}\sum_{k=1}^{J}d_i(n_k).
+\label{eq:partition}
+\end{equation}
+Here $\mathcal P_{iJ}(m)$ contains the divisions permitted by the site's physical and legal constraints. If separate constituents share a policy obligation, their cost must reflect that joint treatment instead of the additive schedule in \eqref{eq:partition}.
+
+The developer then chooses size and organization together:
+\begin{equation}
+\max_{m,J}\left\{v_i m-C_{0i}(m)-\psi_i(J)-d_{iJ}(m)\right\}.
+\label{eq:choice}
+\end{equation}
+This comparison allows the developer to reduce total units, change organization, or do both. It also allows the original design to remain optimal.
+
+\subsection{Why 99 and 198 emerge}
+
+For one constituent, 99 is the largest total below the escalation. For two independently assessed constituents, that total is 198, uniquely divided as 99+99. A project that would prefer more than 198 units may stop there if the cost of reducing size is smaller than the burden of crossing the threshold. A project that would prefer 180 units can avoid the escalation through two subthreshold constituents without reducing its total.
+
+Above 198, the developer can put 99 units in one constituent and the remainder in another, or allow both constituents to cross 100. Thus a 220-unit total can be organized as 99+121 or 110+110. Which is cheaper depends on the level jump, the marginal burden, and the site's feasible divisions. The model does not force every large parent into one building or an exact multiple of 99.
+
+Splitting consequently changes what the spikes can identify. A project at 99 may have reduced size because splitting was expensive or unavailable. A project at 198 may have preserved its total or reduced a larger proposal. The distribution of parent totals alone cannot assign a unique origin to each spike. The joint distribution of totals and constituent configurations supplies the additional evidence.
+
+The two-constituent example explains the mechanism. Estimation must allow the larger constituent counts present in the data, with corresponding organization costs. Likewise, the 150-unit regime must enter the choice problem wherever a feasible alternative faces it. Restricting the observed outcome below 150 does not remove larger alternatives the developer could have chosen.
+
+\section{What the joint response can tell us about costs}
+
+The model compares the value of retaining units with the cost of a different design. Conditional on a historical parent's size, organization, and site, it predicts a distribution of policy-era totals and constituent counts. We fit those joint outcomes using the concentration at 99 and 198, the distribution across broader size ranges, and the prevalence of single, multiple, and mixed configurations. Physical outcomes such as floor area per unit can then test whether the assumed relationship between size and organization is a useful approximation.
+
+Costs can be expressed relative to each parent's curved cost of 99 units, $A_i=C_{0i}(99)$. Define
+\begin{equation}
+\kappa=K_i/A_i,\qquad
+\tau=\beta_i/\alpha_i,\qquad
+\omega_i=F_i/A_i.
+\label{eq:ratios}
+\end{equation}
+Common regulatory ratios allow dollar costs to differ across sites. We examine the estimates over values of $\lambda$, since unit-count curvature is not directly observed. These ratios do not establish dollar costs or shares of an all-in construction budget.
+
+Observed historical organization constrains the sign of $\omega_i$ in the two-constituent case. Predicting how many developers switch also requires a distribution of its magnitude conditional on historical size, organization, and site. Its specification is a remaining structural modeling choice; Appendix~\ref{app:costs} states where it enters. Cost estimates must be reported conditional on those restrictions and on which designs can receive separate policy treatment.
+
+The model's proposed-unit difference is
+\begin{equation}
+\Delta U_{\mathrm{model}}
+=P\sum_j\widetilde w_j
+\left[x_j-\E\{m_j^*\mid x_j,J_j^0,X_j\}\right].
+\label{eq:modelunits}
+\end{equation}
+We compare this with the direct difference in \eqref{eq:direct}. A model that matches the spikes but misses mean units has not explained the housing-supply change. We also compare predicted totals when developers retain their ordinary organization with totals when they can reorganize. The difference measures the model's quantity contribution from reorganization; its sign is an outcome of the comparison.
+
+The central empirical challenge is separating policy responses from changes in the opportunities that reach the filing stage. Within that comparison, the model must also distinguish a high regulatory burden from an inexpensive way to avoid it. Joint size and organization outcomes can help separate these forces, but a well-fitting point estimate alone does not establish that the data distinguish them. We assess that distinction through parameter profiles, recovery from simulated data, and sensitivity to feasible designs and cost heterogeneity.
+
+\appendix
+\section{Data, comparison sample, and evidence}
+\label{app:data}
+
+\subsection{Linking proposals into parent projects}
+Historical proposals come from the DCP Housing Database; recent proposals come from DOB NOW new-building filings. The parent construction links filings within 365 days of the first filing using parcel and site identifiers, historical lot links, explicit project references, and corroborated adjacency. It applies the same window rule across periods. Reviewed links and filing roles are recorded separately. A superseded alternative design remains a source proposal but does not add its units to the parent total.
+
+The main comparison uses 2019--2022 and January 1, 2025--July 8, 2026. Historical parents have complete linkage windows; recent parents enter with complete left-side coverage but can lack a full year of follow-up. Later companion filings can therefore change recent totals and organization. Comparisons with a common follow-up horizon are necessary to assess this difference in observation time.
+
+The exposure screen identifies plausible taxable rental opportunities under affordability Options A and B. This is a classification of potential exposure, not confirmed program enrollment; those option names are distinct from geographic Zones A and B. Registrations provide positive evidence, while tenure and ownership records help identify developments outside the relevant rental choice. Unresolved legal separation remains a scenario for the structural analysis rather than a confirmed exemption.
+
+\subsection{Reweighting and sample support}
+The descriptive parent population begins at six units. The preferred shape comparison begins at 50 parent units and retains all larger parents in its denominator. The reweighted comparison requires complete predetermined characteristics. Historical features use lagged MapPLUTO releases; recent features use release 23v3.1. Positive calibration weights match log lot area, residential floor-area ratio, built floor-area ratio, multi-lot status, and borough. Proposed units and realized constituent count do not enter the weights.
+
+The complete-characteristic sample contains \CalibrationHistoricalParents{} historical and \CalibrationPostParents{} recent parents. Its weighted historical effective sample size is \CalibrationESS{}. Bootstrap inference re-estimates the weights in each draw and records failed calibrations. Table~\ref{tab:evidence} reports local differences in normalized shares, not counts of projects known to have moved from one size to another.
+
+Exact totals are retained in the underlying parent panel even when figures pool the upper tail. Both quantity formulas use the same target sample and weights. Broadening the sample below 50 requires recomputing that comparison; the existing shape weights should not be applied as though they represented every filing opportunity.
+
+Predetermined lot attributes can still be aggregated over parent boundaries chosen after the policy. The historical comparison therefore depends on credible parent links and stable treatment of parcel assembly as well as on the dates of the underlying attributes. Recent pre-policy holdouts assess whether the weighted comparison reproduces size and organization before the policy change. Floor area, stories, and other physical outcomes provide further evidence where measurement is comparable.
+
+\subsection{Reproducing the reported facts}
+The empirical values in this note are generated by
+\path{build_figure_guide_values.R} in the
+\path{analyze_485x_scale_shape_splitting} task. They use the saved calibration summary, local differences, bootstrap intervals, and decomposition of 198-unit parents. The framework Make target checks that task's prerequisites before compiling. No structural estimates or direct aggregate unit-loss estimate are reported here.
+
+\section{Solving the size and partition problem}
+\label{app:solution}
+
+\subsection{Loss from departing from the preferred total}
+Using $v_i=\alpha_i x_i^\lambda$, divide the ordinary surplus loss by $A_i=C_{0i}(99)$:
+\begin{equation}
+\ell_\lambda(m;x)
+=\left(\frac{m}{99}\right)^{1+\lambda}
++\lambda\left(\frac{x}{99}\right)^{1+\lambda}
+-(1+\lambda)\left(\frac{x}{99}\right)^\lambda\frac{m}{99}.
+\label{eq:loss}
+\end{equation}
+This follows from $\pi_0(x)-\pi_0(m)=v(x-m)-C_0(x)+C_0(m)$. For $\lambda=1$, the normalized loss is simply $((m-x)/99)^2$. The normalized constituent burden is
+\begin{equation}
+\bar d(n)=\ind\{n\ge100\}
+\left\{\kappa+\tau\left[\left(\frac{n}{99}\right)^{1+\lambda}
+-\left(\frac{100}{99}\right)^{1+\lambda}\right]\right\}.
+\end{equation}
+The developer minimizes $\ell_\lambda(m;x)+\bar\psi_i(J)+\bar d_{iJ}(m)$ over feasible integer totals and divisions. A bar denotes division by $A_i$. The unknown dollar scale cancels.
+
+\subsection{Two separately assessed constituents}
+Suppress the parent index and write $D(n)$ for the high-regime branch of \eqref{eq:burden}. If the relevant divisions are feasible, the minimum burden for two constituents is
+\begin{equation}
+d_2(m)=
+\begin{cases}
+0,&m\le198,\\
+K,&m=199,\\
+\min\{D(m-99),\ D(\lfloor m/2\rfloor)+D(\lceil m/2\rceil)\},&m\ge200.
+\end{cases}
+\label{eq:two}
+\end{equation}
+The first case requires a feasible division satisfying both constituents' minimum sizes. At 199, a cost-minimizing division is 99+100. For larger totals, one candidate keeps a constituent at 99; the other divides units as evenly as possible between two high-regime constituents. Convexity delivers the latter result. When burdens are flat, additional cost-minimizing divisions can tie.
+
+For smooth interior branches, put $\theta=(1+\tau)^{1/\lambda}$. The conditional first-order conditions are
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}p{0.40\textwidth}X@{}}
+\toprule
+Organization & Conditional parent total \\
+\midrule
+One constituent above 99 & $m=x/\theta$ \\[4pt]
+Two constituents below 100 & $m=x$, if feasible and $m\le198$ \\[4pt]
+One at 99, one above 99 & $x^\lambda=m^\lambda+\tau(m-99)^\lambda$ \\[4pt]
+Two above 99, equal sizes & $m=x/(1+\tau/2^\lambda)^{1/\lambda}$ \\
 \bottomrule
 \end{tabularx}
 \end{center}
-The denominator $C_0(b)$ is the explicitly modeled convex cost component. Converting these objects into a share of all-in project cost, or into dollars, requires additional cost information.
+These formulas describe candidates, not the global choice. The integer calculation compares feasible totals, divisions, and regime boundaries. The 150-unit schedule replaces \eqref{eq:burden} where applicable, including for alternatives not observed in the data.
 
-\section{Empirical implementation}
-
-The baseline counterfactual need not assign a latent no-policy unit count to each post-policy lot. Let historical parent projects retain their observed untreated unit counts $N_j^0$ and receive calibration weights $w_j$ chosen using predetermined site characteristics. The transported no-policy distribution is
+\subsection{Larger constituent counts and integer choices}
+For unrestricted partitions with minimum constituent size $n_{\min}$, the burden can be computed recursively:
 \begin{equation}
- \widehat H_0(n)=\sum_{j\in\mathrm{pre}}w_j\ind\{N_j^0=n\}.
-\label{eq:transport}
+d_J(m)=\min_{n_{\min}\le n\le m-(J-1)n_{\min}}
+\{d(n)+d_{J-1}(m-n)\},\qquad d_1(m)=d(m),
 \end{equation}
-This preserves historical exact-count heaping and estimates an aggregate distribution for a population with the post-policy site composition.
+with integer $n$. Site restrictions can instead require direct enumeration. Ordinary organization costs must be defined for every allowed $J$, with the historical choice preferred when the escalation is absent. Observed three-plus-constituent parents remain in the analysis.
 
-A natural estimation sequence is:
-\begin{enumerate}
-\item Estimate natural mass at 99 and excess bunching $\widehat B$.
-\item Solve \eqref{eq:bunching_mass} for the no-policy frontier $\widehat q$.
-\item Estimate $\theta$ from \eqref{eq:theta_moment} or the full transformed distribution \eqref{eq:boundary_atom}--\eqref{eq:tail_density}. The general estimator should allow the boundary branch, while a sensitivity grid can emphasize values below $\widehat q/N$ when the data contain no mass at 100.
-\item For each $(\theta,\lambda)$, report $\beta/\alpha$, $\kappa$, and $\delta$ using \eqref{eq:beta_wedge}, \eqref{eq:kappa_general}, and \eqref{eq:delta}.
-\end{enumerate}
-The 150-unit threshold creates a separate policy regime. Empirical moments used to estimate the 100-unit model should therefore remain below 150 or explicitly model the second threshold. When $\widehat q$ is near 122, values $\theta<1.22$ place the marginal crosser above 100 and keep the identifying interval $[q,\theta q]$ below 150. Values at or above this boundary predict an atom at 100 and are directly testable against the observed histogram.
-
-The parameter $\lambda$ governs curvature in unit-count space. It should not be imported mechanically from a floor-space production function if developers can respond by changing apartment size rather than total floor area. The preferred approach is to report cost mappings over a plausible range of $\lambda$ until project cost or pro forma data provide additional discipline.
-
-\section{Quantity and design implications}
-
-The model separates unit losses among bunchers from changes among crossers. Aggregate units suppressed among bunchers are
+For an observed historical optimum $k$, exact discrete choice implies
 \begin{equation}
- \Delta U_B=\int_N^q(x-b)h_0(x)\dd x,
+C_0(k)-C_0(k-1)\le v\le C_0(k+1)-C_0(k).
 \end{equation}
-while losses among crossers are, in the general model,
+Setting $v=C_0'(k)$ is a convenient anchoring convention consistent with these inequalities. Rounding a continuous policy optimum is not a substitute for comparing integer profits. When layouts tie, the no-escalation calculation retains the historical vector; otherwise exact tied vector frequencies require a separate account of layout preferences.
+
+\section{Organization costs and identification}
+\label{app:costs}
+
+In the two-constituent model, solve the size problem for each organization before adding the fixed organizational disadvantage:
 \begin{equation}
- \Delta U_H=\int_q^\infty\left[x-\max\left\{N,\frac{x}{\theta}\right\}\right]h_0(x)\dd x.
+R_{iJ}(x)=\min_m\{\ell_\lambda(m;x)+\bar d_{iJ}(m)\},
+\qquad S_i(x)=R_{i1}(x)-R_{i2}(x).
 \end{equation}
-In the interior-crossing branch this simplifies to $\int_q^\infty x(1-1/\theta)h_0(x)\dd x$. The buncher term is identified from the local counterfactual below $q$; the crosser term requires the broader upper tail and, in this application, an extension through the 150-unit regime.
+Because $\bar\psi_i(2)-\bar\psi_i(1)=\omega_i$, two constituents are preferred when $\omega_i<S_i$. A tie can retain historical organization. The conditional sizes $m_{i1}^*$ and $m_{i2}^*$ do not depend on the fixed cost draw.
 
-Let total residential floor area satisfy the reduced-form relationship $Q^*(n,z)=A(z)n^\eta$. Average floor area per unit is $s=Q/n$. A project that bunches from no-policy size $x$ to $b$ satisfies
+Let $G_{J^0}(s\mid x,X)$ denote the conditional distribution function of $\omega$ for a parent with historical organization $J^0$. If both organizations can accommodate $x$, the historical choice restricts $G_1$ to nonnegative costs and $G_2$ to nonpositive costs. With no atom at zero or the policy indifference point, the probability of two constituents is
 \begin{equation}
- \frac{Q_1}{Q_0}=\left(\frac{b}{x}\right)^\eta,
- \qquad
- \frac{s_1}{s_0}=\left(\frac{x}{b}\right)^{1-\eta}.
-\label{eq:floor_area_buncher}
-\end{equation}
-For a crosser with observed size $n_H(x)=\max\{N,x/\theta\}$,
-\begin{equation}
- \frac{Q_1}{Q_0}=\left(\frac{n_H(x)}{x}\right)^\eta,
- \qquad
- \frac{s_1}{s_0}=\left(\frac{x}{n_H(x)}\right)^{1-\eta}.
-\label{eq:floor_area_crosser}
-\end{equation}
-In the interior branch these ratios simplify to $\theta^{-\eta}$ and $\theta^{1-\eta}$.
-If $\eta<1$, unit counts fall more than floor area, so average apartments become larger. This provides auxiliary predictions for floor area, FAR, square feet per unit, and bedroom mix.
-
-\section{Discussion}
-
-The baseline is intentionally parsimonious. It assumes a common $(K,\beta)$, a fixed set of development opportunities, and monotone sorting into bunching and crossing. Boundary entry at 100 is technically permitted and generates a testable atom; the current distribution strongly favors the interior-crossing branch but this is an empirical implication rather than a primitive restriction. The main extensions are heterogeneous policy burdens, project delay or cancellation, participation outside 485-x, alternative avoidance points such as 95 units, and an explicit model of the 150-unit threshold. These extensions should be introduced only when the baseline distributional restrictions fail in ways that are both economically and statistically meaningful.
-
-\appendix
-\section{Derivations}
-
-\subsection{Monotone entry}
-
-For types with $n_0(v)>b$, the low-regime value is $V_L(v)=vb-C_0(b)$, so $V_L'(v)=b$. Optimized high-regime value is $V_H(v)=\pi_H(n_H(v);v)$. The multivariable chain rule gives
-\begin{equation}
- V_H'(v)=\frac{\partial\pi_H}{\partial v}
- +\frac{\partial\pi_H}{\partial n}n_H'(v).
-\end{equation}
-At an interior optimum, the second term is zero by the first-order condition. When the boundary binds, $n_H(v)=N$ is locally constant, so $n_H'(v)=0$. In either case, $\partial\pi_H/\partial v=n_H(v)$ and $V_H'(v)=n_H(v)$ almost everywhere. Hence
-\begin{equation}
-\Delta'(v)=V_H'(v)-V_L'(v)=n_H(v)-b>0.
-\end{equation}
-
-\subsection{Upper-tail density and cumulative deficit}
-
-For interior crossers, $n=x/\theta$, or $x=\theta n$. A small observed interval $\dd n$ corresponds to no-policy width $\dd x=\theta\dd n$. Conservation of mass gives
-\begin{equation}
- h_1(n)\dd n=h_0(\theta n)\theta\dd n,
-\end{equation}
-which yields the continuous-tail restriction \eqref{eq:tail_density}. If $q<\theta N$, the no-policy interval $[q,\theta N]$ maps to the boundary $N$, producing \eqref{eq:boundary_atom}.
-
-For any $m\geq q$, the total observed high-regime mass through $m$ is $\int_q^{\theta m}h_0(x)\dd x$, including any boundary atom. Hence
-\begin{align}
-\mathcal{D}(m)
-&=\int_N^m h_0(n)\dd n-\int_q^{\theta m}h_0(x)\dd x\\
-&=\int_N^q h_0(x)\dd x-\int_m^{\theta m}h_0(x)\dd x,
-\end{align}
-which is \eqref{eq:deficit_identity}.
-
-\subsection{Normalized level-notch formula}
-
-The marginal developer's indifference condition is \eqref{eq:K_main}. Use
-\begin{equation}
- v^\dagger=\alpha q^\lambda,
- \qquad
- h=yb,
- \qquad
- y=\max\left\{r,\frac{x}{\theta}\right\},
- \qquad
- \frac{\beta}{\alpha}=\theta^\lambda-1.
-\end{equation}
-Divide by $C_0(b)=\alpha b^{1+\lambda}/(1+\lambda)$. The three normalized terms are
-\begin{align}
-\frac{v^\dagger(h-b)}{C_0(b)}
-&=(1+\lambda)x^\lambda(y-1),\\
-\frac{C_0(h)-C_0(b)}{C_0(b)}
-&=y^{1+\lambda}-1,\\
-\frac{\beta(h^{1+\lambda}-N^{1+\lambda})/(1+\lambda)}{C_0(b)}
-&=(\theta^\lambda-1)\left(y^{1+\lambda}-r^{1+\lambda}\right).
-\end{align}
-Subtracting the latter two terms from the first yields \eqref{eq:kappa_general}. In the interior branch $y=x/\theta$, and collecting powers of $x$ and $\theta$ yields \eqref{eq:kappa}.
-
-\subsection{Special cases}
-
-Under a pure notch, $\beta=0$ and $\theta=1$, producing \eqref{eq:pure_notch_kappa}. If $\lambda=1$, then
-\begin{equation}
-\kappa_{\mathrm{notch}}=\left(\frac{q-b}{b}\right)^2.
-\end{equation}
-
-If the high regime proportionally raises the entire smooth cost function by $\tau$, then $C_H(n)=(1+\tau)C_0(n)$. This is nested by setting
-\begin{equation}
-\beta=\tau\alpha,
+p_{i2}=G_{J_i^0}(S_i\mid x_i,X_i),
 \qquad
-K=\tau C_0(N).
+\E[m_i^*\mid x_i,J_i^0,X_i]
+=(1-p_{i2})m_{i1}^*+p_{i2}m_{i2}^*.
+\label{eq:mixture}
 \end{equation}
-The policy burden then satisfies $D(n)=\tau C_0(n)$ for all $n\geq N$.
+These are conditional cost distributions, not predictions replacing observed historical organization. The data's historical choices alone do not determine them. A structural implementation must specify their form or an admissible class and report how the resulting cost and quantity estimates depend on that restriction. The direct mean comparison in \eqref{eq:direct} does not require this choice.
 
-\begin{thebibliography}{99}
+With the escalation removed and $x$ feasible in both organizations, $R_1=R_2=0$. The sign restrictions then reproduce the historical organization and total. If an organization cannot implement $x$, historical choice instead constrains its optimized value; the sign restriction alone is insufficient. If organization costs vary with trial size, the model must solve size separately for each draw. For more than two organizations, the same logic applies to a vector of relative costs conditional on the observed historical choice.
 
-\bibitem[Best and Kleven(2018)]{bestkleven2018}
-Best, Michael Carlos, and Henrik Jacobsen Kleven. 2018.
-``Housing Market Responses to Transaction Taxes: Evidence from Notches and Stimulus in the UK.''
-\emph{Review of Economic Studies} 85(1): 157--193.
+For a specified cost-distribution family indexed by $\eta$, estimation compares observed joint moments $\widehat{\mathbf M}$ with model moments $\mathbf M(\kappa,\tau,\eta;\lambda)$:
+\begin{equation}
+\min_{\kappa,\tau,\eta}
+[\widehat{\mathbf M}-\mathbf M(\kappa,\tau,\eta;\lambda)]'
+W[\widehat{\mathbf M}-\mathbf M(\kappa,\tau,\eta;\lambda)].
+\end{equation}
+The weights $W$ must account for the fact that parent totals and constituent summaries describe the same projects. Curvature and legal treatment define separate sensitivity cases. Weakly distinguished parameter combinations should be reported as such rather than reduced to an optimizer's preferred point.
 
-\bibitem[Brueckner et al.(2024)]{brueckner2024}
+Numerical checks recover historical totals and organization when the escalation is zero, recover the scalar choice when only one constituent is feasible, and compare the two-constituent formula with exhaustive partitions. The size grid must be large enough that its upper bound does not determine quantities. Simulated-data recovery and held-out joint moments assess whether the proposed estimation can distinguish the costs it seeks to measure.
+
+\begin{thebibliography}{9}
+\bibitem[Brueckner, Leather, and Zerecero(2024)]{brueckner2024}
 Brueckner, Jan K., David Leather, and Miguel Zerecero. 2024.
 ``Bunching in Real-Estate Markets: Regulated Building Heights in New York City.''
 \emph{Journal of Urban Economics} 143: 103683.
+\url{https://doi.org/10.1016/j.jue.2024.103683}.
 
-\bibitem[Garicano et al.(2016)]{garicano2016}
-Garicano, Luis, Claire Lelarge, and John Van Reenen. 2016.
-``Firm Size Distortions and the Productivity Distribution: Evidence from France.''
-\emph{American Economic Review} 106(11): 3439--3479.
-
-\bibitem[Gourio and Roys(2014)]{gourioroys2014}
-Gourio, Fran\c{c}ois, and Nicolas Roys. 2014.
-``Size-Dependent Regulations, Firm Size Distribution, and Reallocation.''
-\emph{Quantitative Economics} 5(2): 377--416.
-
-\bibitem[Kleven and Waseem(2013)]{klevenwaseem2013}
-Kleven, Henrik J., and Mazhar Waseem. 2013.
-``Using Notches to Uncover Optimization Frictions and Structural Elasticities: Theory and Evidence from Pakistan.''
-\emph{Quarterly Journal of Economics} 128(2): 669--723.
-
-\bibitem[Kopczuk and Munroe(2015)]{kopczukmunroe2015}
-Kopczuk, Wojciech, and David Munroe. 2015.
-``Mansion Tax: The Effect of Transfer Taxes on the Residential Real Estate Market.''
-\emph{American Economic Journal: Economic Policy} 7(2): 214--257.
-
-\bibitem[New York City HPD(2026)]{nyc_hpd_485x}
-New York City Department of Housing Preservation and Development. 2026.
-``485-x: Affordable Neighborhoods for New Yorkers.''
-\url{https://www.nyc.gov/site/hpd/services-and-information/tax-incentives-485-x.page}.
-Accessed August 2026.
-
-\bibitem[New York State Legislature(2024)]{nys_485x}
-New York State Legislature. 2024.
-``S. 8306-C / A. 8806-C, Part R: Affordable Neighborhoods for New Yorkers Tax Incentive.''
-\url{https://legislation.nysenate.gov/pdf/bills/2023/s8306c}.
-
+\bibitem[New York State Senate(2026)]{nys485x}
+New York State Senate. 2026.
+Real Property Tax Law, section 485-x, ``Affordable Neighborhoods for New Yorkers Tax Incentive.''
+\url{https://www.nysenate.gov/legislation/laws/RPT/485-X}.
+Accessed September 2026.
 \end{thebibliography}
-
 \end{document}

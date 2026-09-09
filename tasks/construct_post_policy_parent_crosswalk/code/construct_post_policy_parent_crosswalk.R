@@ -66,7 +66,9 @@ filing_link_fields <- dob_initial |>
     filing_year = as.integer(format(filing_date, "%Y")),
     integer_units = !is.na(proposed_dwelling_units) &
       abs(proposed_dwelling_units - round(proposed_dwelling_units)) < 1e-8,
-    filing_bbl = normalize_bbl_field(bbl),
+    filing_bbl = normalize_bbl_field(filing_bbl),
+    reported_bbl = normalize_bbl_field(reported_bbl),
+    site_linkage_bbl = coalesce(reported_bbl, filing_bbl),
     owner_business_clean = na_if(str_squish(owner_business_name), ""),
     owner_business_clean = if_else(
       str_to_upper(owner_business_clean) %in%
@@ -97,6 +99,8 @@ filing_link_fields <- dob_initial |>
     filing_year,
     units = as.integer(round(proposed_dwelling_units)),
     filing_bbl,
+    reported_bbl,
+    site_linkage_bbl,
     owner_match_key = na_if(owner_match_key, ""),
     description_referenced_job_id = str_remove(
       str_extract(
@@ -113,15 +117,15 @@ filing_link_fields <- dob_initial |>
   left_join(
     appbbl_crosswalk |>
       select(
-        filing_bbl = current_bbl,
+        site_linkage_bbl = current_bbl,
         historical_appbbl = appbbl,
         appbbl_date_min = appdate_min
       ),
-    by = "filing_bbl",
+    by = "site_linkage_bbl",
     relationship = "many-to-one"
   ) |>
   mutate(
-    lot_history_group_bbl = coalesce(historical_appbbl, filing_bbl),
+    lot_history_group_bbl = coalesce(historical_appbbl, site_linkage_bbl),
     appbbl_change_after_filing =
       !is.na(appbbl_date_min) & appbbl_date_min > filing_date
   ) |>

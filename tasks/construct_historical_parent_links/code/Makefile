@@ -12,13 +12,11 @@ all: ../output/historical_parent_filing_link_fields.parquet \
 	../output/historical_parent_candidate_pairs.parquet
 
 ../output/historical_parent_candidate_pairs.parquet: construct_historical_parent_candidate_pairs.R \
-	Makefile \
 	../../_lib/source_pipeline_utils.R \
 	../output/historical_parent_filing_link_fields.parquet | ../output
 	$(R) $< $(NEARBY_METERS) $(REVIEW_METERS) $(MAX_FILING_DAYS)
 
 ../output/historical_parent_filing_link_fields.parquet: extract_historical_parent_link_fields.R \
-	Makefile \
 	../../_lib/source_pipeline_utils.R \
 	../input/hdb_mappluto_site_panel.parquet \
 	../input/dcp_housing_database_project_level_raw_25q4.parquet \
