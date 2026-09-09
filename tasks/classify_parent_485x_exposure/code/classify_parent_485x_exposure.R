@@ -64,6 +64,20 @@ if (
   stop("An exposure-classification input failed identifier or value QC.")
 }
 
+# Search evidence belongs to a filing and its queried address, not an old parent ID.
+current_queries <- universe |> select(sample, root_job_id, search_query = ag_search_query, parent_id)
+stopifnot(!anyDuplicated(current_queries[c("sample", "root_job_id", "search_query")]))
+ag_search_audit <- ag_search_audit |>
+  mutate(sample = sub("__.*$", "", parent_id)) |> select(-parent_id)
+ag_matches <- ag_matches |>
+  mutate(sample = sub("__.*$", "", parent_id)) |> select(-parent_id)
+stopifnot(!anyDuplicated(ag_search_audit[c("sample", "root_job_id", "search_query")]),
+  !anyDuplicated(ag_matches[c("sample", "root_job_id", "search_query", "plan_id")]))
+ag_search_audit <- ag_search_audit |>
+  inner_join(current_queries, by = c("sample", "root_job_id", "search_query"), relationship = "one-to-one")
+ag_matches <- ag_matches |>
+  inner_join(current_queries, by = c("sample", "root_job_id", "search_query"), relationship = "many-to-one")
+
 parent_universe <- universe |>
   group_by(sample, parent_id) |>
   summarise(

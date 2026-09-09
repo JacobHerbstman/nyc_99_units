@@ -87,7 +87,7 @@ aggregate_parent_rows <- function(member_rows) {
       component_jobs = paste(job_number[additive_component], collapse = ";"),
       nonmissing_bin_rows = sum(!is.na(bin_clean)),
       distinct_bins = n_distinct(bin_clean[!is.na(bin_clean)]),
-      feature_complete = all(!is.na(feature_bbl)),
+      feature_complete = all(!is.na(feature_bbl) & !is.na(lotarea) & lotarea > 0),
       feature_methods = paste(sort(unique(feature_method)), collapse = ";"),
       .groups = "drop"
     ) |>
@@ -239,7 +239,8 @@ historical_member_rows <- membership |>
     by = "job_number",
     relationship = "one-to-one"
   ) |>
-  mutate(feature_method = "filing_specific_lagged_mappluto")
+  mutate(feature_method = if_else(is.na(feature_bbl),
+    "missing_lagged_mappluto", "filing_specific_lagged_mappluto"))
 
 post_hdb_fields <- hdb_panel |>
   transmute(
@@ -277,9 +278,8 @@ post_member_rows <- membership |>
 if (
   nrow(historical_member_rows) != sum(membership$sample == "historical") ||
     nrow(post_member_rows) != sum(membership$sample == "post_policy") ||
-    any(is.na(historical_member_rows$feature_bbl)) ||
-    any(is.na(historical_member_rows$lotarea)) ||
-    any(historical_member_rows$lotarea <= 0)
+    any(!historical_member_rows$job_number %in% hdb_panel$job_number) ||
+    any(historical_member_rows$lotarea <= 0, na.rm = TRUE)
 ) {
   stop("Historical or post member feature construction failed QC.")
 }

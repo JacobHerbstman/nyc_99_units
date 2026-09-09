@@ -54,7 +54,7 @@ all: ../output/borough_bunching.pdf \
 .PHONY: check-analyze_485x_scale_shape_splitting
 
 check-analyze_485x_scale_shape_splitting:
-	$(MAKE) -C ../../analyze_485x_scale_shape_splitting/code all ../output/constituent_filing_panel.parquet
+	$(MAKE) -C ../../analyze_485x_scale_shape_splitting/code ../output/parent_opportunity_panel.parquet ../output/constituent_filing_panel.parquet ../report/parent_opportunity_panel.txt ../report/constituent_filing_panel.txt
 
 ../../stage_dob_now_new_building_filings/output/dob_now_new_building_initial_filings.parquet: check-stage_dob_now_new_building_filings ;
 

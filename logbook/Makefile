@@ -4,7 +4,23 @@ SHELL := /bin/bash
 
 all: logbook.pdf
 
-logbook.pdf: entries/2026-09-09-workflow-overhaul.tex \
+logbook.pdf: entries/2026-09-09-manual-parent-decisions.tex \
+	../tasks/parent_opportunities_manual/output/pair_decisions.csv \
+	../tasks/parent_opportunities_manual/output/unit_decisions.csv \
+	entries/2026-09-09-companion-causes.tex \
+	../tasks/audits/audit_estimation_parent_links/output/companion_link_trace.csv \
+	../tasks/audits/audit_estimation_parent_links/report/companion_link_trace.txt \
+	../tasks/audits/audit_estimation_parent_links/output/third_avenue_plan.png \
+	entries/2026-09-09-ten-case-deep-review.tex \
+	../tasks/audits/audit_estimation_parent_links/report/ten_case_deep_review.md \
+	entries/2026-09-09-all-parent-links.tex \
+	../tasks/audits/audit_estimation_parent_links/output/parent_casebook.md \
+	../tasks/audits/audit_estimation_parent_links/report/parent_constituents.txt \
+	../tasks/audits/audit_estimation_parent_links/report/nearby_filings.txt \
+	entries/2026-09-09-parent-link-review.tex \
+	../tasks/audits/audit_symmetric_parent_cohorts/report/2026-09-09-ten-pair-followup.md \
+	../tasks/audits/audit_symmetric_parent_cohorts/report/2026-09-09-five-99-pairs.md \
+	entries/2026-09-09-workflow-overhaul.tex \
 	entries/2026-09-08-production-review.tex \
 	entries/2026-09-08-lodes.tex \
 	../tasks/audits/audit_lodes_construction_wages/output/workplace_earnings_maps.pdf \
@@ -62,3 +78,14 @@ check-audit_qcew_construction_wages:
 .PHONY: check-audit_lodes_construction_wages
 check-audit_lodes_construction_wages:
 	$(MAKE) --silent -C ../tasks/audits/audit_lodes_construction_wages/code all ../output/workplace_earnings_maps.pdf ../report/findings.md
+
+../tasks/audits/audit_estimation_parent_links/output/companion_link_trace.csv \
+../tasks/audits/audit_estimation_parent_links/report/companion_link_trace.txt \
+../tasks/audits/audit_estimation_parent_links/output/third_avenue_plan.png \
+../tasks/audits/audit_estimation_parent_links/output/parent_casebook.md \
+../tasks/audits/audit_estimation_parent_links/report/parent_constituents.txt \
+../tasks/audits/audit_estimation_parent_links/report/nearby_filings.txt: check-audit_estimation_parent_links ;
+
+.PHONY: check-audit_estimation_parent_links
+check-audit_estimation_parent_links:
+	$(MAKE) --silent -C ../tasks/audits/audit_estimation_parent_links/code all

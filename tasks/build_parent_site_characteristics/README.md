@@ -13,3 +13,5 @@ are never used to construct the site characteristics.
 Parents with incomplete lot features or repeated nonmissing BIN rows remain in
 the output with an explicit eligibility flag. Nothing is imputed. This task
 does not estimate or score an individual parcel unit-count model.
+
+Documented historical companions with missing lagged parcel matches are retained with `missing_lagged_mappluto`. Their parents fail `feature_complete` and `composition_eligible`; units remain complete while land values are not imputed. Identifier coverage and positive observed land areas are still checked.

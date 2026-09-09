@@ -11,3 +11,10 @@ the conservative link signals used by the parent construction.
 The task produces two analytical datasets: filing-level link fields and
 candidate filing pairs. Coverage summaries and alternative grouping rules
 remain in `tasks/audits/audit_historical_parent_link_feasibility`.
+
+Accepted historical endpoints from `parent_opportunities_manual/output/pair_decisions.csv`
+remain in the filing universe even when land covariates fail their match. This
+restores observed companions without inventing geometry or land area. All ordinary
+filing-year and unit restrictions remain. The producer verifies that every accepted
+endpoint exists in the source universe; downstream manual edges do not depend on
+successful automatic candidate discovery.

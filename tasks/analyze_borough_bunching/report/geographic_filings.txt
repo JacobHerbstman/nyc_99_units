@@ -1,46 +1,46 @@
 geographic_filings
-Rows: 2646  Columns: 34
-MD5 of saved file: d927459088cb5af33178327767c914e1
-sample | character | nonmissing 2646 | distinct 2
-parent_id | character | nonmissing 2646 | distinct 2477
-root_job_id | character | nonmissing 2646 | distinct 2646
-constituent_rank | integer | nonmissing 2646 | distinct 7| min/median/mean/max 1/1/1.088435/7
-constituent_units | integer | nonmissing 2646 | distinct 319| min/median/mean/max 6/30/66.63757/1313
-parent_constituent_weight | numeric | nonmissing 2646 | distinct 7| min/median/mean/max 0.1428571/1/0.93613/1
-date_filed | Date | nonmissing 2646 | distinct 1113
-filing_bbl | character | nonmissing 2646 | distinct 2580
-address | character | nonmissing 2646 | distinct 2623
-borough_name | character | nonmissing 2646 | distinct 5
-ownership_type | character | nonmissing 2646 | distinct 10
-owner_name | character | nonmissing 2646 | distinct 1720
+Rows: 2654  Columns: 34
+MD5 of saved file: f8f37528a3341d80273a2876d87e3801
+sample | character | nonmissing 2654 | distinct 2
+parent_id | character | nonmissing 2654 | distinct 2478
+root_job_id | character | nonmissing 2654 | distinct 2654
+constituent_rank | integer | nonmissing 2654 | distinct 7| min/median/mean/max 1/1/1.093821/7
+constituent_units | integer | nonmissing 2654 | distinct 319| min/median/mean/max 6/30/66.52185/1313
+parent_constituent_weight | numeric | nonmissing 2654 | distinct 7| min/median/mean/max 0.1428571/1/0.933685/1
+date_filed | Date | nonmissing 2654 | distinct 1115
+filing_bbl | character | nonmissing 2654 | distinct 2588
+address | character | nonmissing 2654 | distinct 2631
+borough_name | character | nonmissing 2654 | distinct 5
+ownership_type | character | nonmissing 2654 | distinct 10
+owner_name | character | nonmissing 2654 | distinct 1721
 hpd_response_number | character | nonmissing 129 | distinct 129
 hpd_registration_building_key | character | nonmissing 129 | distinct 129
 hpd_reported_units | integer | nonmissing 129 | distinct 57| min/median/mean/max 6/29/48.06202/792
 hpd_reported_option | character | nonmissing 129 | distinct 2
 hpd_reported_bbl | character | nonmissing 129 | distinct 129
 hpd_intended_separate_sub100 | logical | nonmissing 129 | distinct 2
-period | character | nonmissing 2646 | distinct 2
-exposure_years | numeric | nonmissing 2646 | distinct 2| min/median/mean/max 1.516769/4/3.086854/4
-cohort_date | Date | nonmissing 2646 | distinct 1107
-cohort_year | integer | nonmissing 2646 | distinct 6| min/median/mean/max 2019/2022/2022.287/2026
-parent_total_units | integer | nonmissing 2646 | distinct 329| min/median/mean/max 6/31/84.53099/1754
-n_components | integer | nonmissing 2646 | distinct 7| min/median/mean/max 1/1/1.176871/7
-exact_99x2 | logical | nonmissing 2646 | distinct 2
-exact_99x3 | logical | nonmissing 2646 | distinct 2
-splitting_verification_status | character | nonmissing 2646 | distinct 4
-exposure_status | character | nonmissing 2646 | distinct 1
-included_ab | logical | nonmissing 2646 | distinct 1
-included_ab_plus_d | logical | nonmissing 2646 | distinct 1
-latitude | numeric | nonmissing 2640 | distinct 2607| min/median/mean/max 40.57303/40.72973/40.74357/40.91119
-longitude | numeric | nonmissing 2640 | distinct 2607| min/median/mean/max -74.13198/-73.91987/-73.9163/-73.73395
-coordinate_source | character | nonmissing 2646 | distinct 2
-coordinate_status | character | nonmissing 2646 | distinct 2
+period | character | nonmissing 2654 | distinct 2
+exposure_years | numeric | nonmissing 2654 | distinct 2| min/median/mean/max 1.516769/4/3.08025/4
+cohort_date | Date | nonmissing 2654 | distinct 1106
+cohort_year | integer | nonmissing 2654 | distinct 6| min/median/mean/max 2019/2022/2022.3/2026
+parent_total_units | integer | nonmissing 2654 | distinct 329| min/median/mean/max 6/31.5/85.39902/1754
+n_components | integer | nonmissing 2654 | distinct 7| min/median/mean/max 1/1/1.187641/7
+exact_99x2 | logical | nonmissing 2654 | distinct 2
+exact_99x3 | logical | nonmissing 2654 | distinct 2
+splitting_verification_status | character | nonmissing 2654 | distinct 4
+exposure_status | character | nonmissing 2654 | distinct 1
+included_ab | logical | nonmissing 2654 | distinct 1
+included_ab_plus_d | logical | nonmissing 2654 | distinct 1
+latitude | numeric | nonmissing 2648 | distinct 2615| min/median/mean/max 40.57303/40.73159/40.74378/40.91119
+longitude | numeric | nonmissing 2648 | distinct 2614| min/median/mean/max -74.13198/-73.91987/-73.91624/-73.73395
+coordinate_source | character | nonmissing 2654 | distinct 2
+coordinate_status | character | nonmissing 2654 | distinct 2
 
 # A tibble: 3 × 3
   sample      coordinate_status           n
   <chr>       <chr>                   <int>
-1 historical  inside reported borough  1673
-2 post_policy inside reported borough   967
+1 historical  inside reported borough  1671
+2 post_policy inside reported borough   977
 3 post_policy missing coordinates         6
 # A tibble: 9 × 4
   sample      borough_name coordinate_status           n
@@ -53,4 +53,4 @@ coordinate_status | character | nonmissing 2646 | distinct 2
 6 post_policy Bronx        missing coordinates         1
 7 post_policy Brooklyn     inside reported borough    31
 8 post_policy Manhattan    inside reported borough    10
-9 post_policy Queens       inside reported borough    17
+9 post_policy Queens       inside reported borough    19

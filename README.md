@@ -71,6 +71,8 @@ Top-level tasks are limited to source acquisition/staging, canonical linkage
 and parent datasets, predetermined site characteristics, and the current
 analysis tasks. In particular:
 
+- `parent_opportunities_manual` holds committed, documented pair and unit decisions;
+  its source files are symlinked into the data producers.
 - `construct_parent_cohorts` defines historical and post-policy economic
   parents and preserves reviewed linkage decisions.
 - `build_parent_485x_exposure_universe` assembles the parent-level information

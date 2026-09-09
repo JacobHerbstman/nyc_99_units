@@ -1,29 +1,29 @@
-Rows: 683
+Rows: 687
 Columns: 25
 Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: c3dcfe0f7cd144d2cee2dc5480e7bb6c
-sample | character | nonmissing | 683 | distinct | 2
-job_number_1 | character | nonmissing | 683 | distinct | 462
-job_number_2 | character | nonmissing | 683 | distinct | 456
-date_filed_1 | Date | nonmissing | 683 | distinct | 326
-date_filed_2 | Date | nonmissing | 683 | distinct | 326
-filing_days_apart | integer | nonmissing | 683 | distinct | 82 min/median/mean/max 0/0/17.79941/353
-filing_bbl_1 | character | nonmissing | 683 | distinct | 403
-filing_bbl_2 | character | nonmissing | 683 | distinct | 395
-site_linkage_bbl_1 | character | nonmissing | 683 | distinct | 382
-site_linkage_bbl_2 | character | nonmissing | 683 | distinct | 373
-same_filing_bbl | logical | nonmissing | 683 | distinct | 2
-same_site_linkage_bbl | logical | nonmissing | 683 | distinct | 2
-strict_lot_history_link | logical | nonmissing | 683 | distinct | 2
-later_lot_history_candidate | logical | nonmissing | 683 | distinct | 2
-explicit_job_reference | logical | nonmissing | 683 | distinct | 2
-same_project_code | logical | nonmissing | 683 | distinct | 2
-same_owner_support | logical | nonmissing | 683 | distinct | 2
-exact_polygon_touch | logical | nonmissing | 683 | distinct | 2
-corroborated_exact_adjacency | logical | nonmissing | 683 | distinct | 2
-reviewed_accept | logical | nonmissing | 683 | distinct | 2
-reviewed_reject | logical | nonmissing | 683 | distinct | 1
-review_basis | character | nonmissing | 1 | distinct | 1
-review_source | character | nonmissing | 1 | distinct | 1
-enhanced_link | logical | nonmissing | 683 | distinct | 1
-link_reason | character | nonmissing | 683 | distinct | 21
+Saved-file MD5: 5f7905d2d6a5082ee843bd96dddd4bd8
+sample | character | nonmissing | 687 | distinct | 2
+job_number_1 | character | nonmissing | 687 | distinct | 460
+job_number_2 | character | nonmissing | 687 | distinct | 460
+date_filed_1 | Date | nonmissing | 687 | distinct | 325
+date_filed_2 | Date | nonmissing | 687 | distinct | 327
+filing_days_apart | integer | nonmissing | 687 | distinct | 83 min/median/mean/max 0/0/17.84862/353
+filing_bbl_1 | character | nonmissing | 687 | distinct | 401
+filing_bbl_2 | character | nonmissing | 687 | distinct | 397
+site_linkage_bbl_1 | character | nonmissing | 687 | distinct | 380
+site_linkage_bbl_2 | character | nonmissing | 687 | distinct | 375
+same_filing_bbl | logical | nonmissing | 687 | distinct | 2
+same_site_linkage_bbl | logical | nonmissing | 687 | distinct | 2
+strict_lot_history_link | logical | nonmissing | 687 | distinct | 2
+later_lot_history_candidate | logical | nonmissing | 687 | distinct | 2
+explicit_job_reference | logical | nonmissing | 687 | distinct | 2
+same_project_code | logical | nonmissing | 687 | distinct | 2
+same_owner_support | logical | nonmissing | 687 | distinct | 2
+exact_polygon_touch | logical | nonmissing | 687 | distinct | 2
+corroborated_exact_adjacency | logical | nonmissing | 687 | distinct | 2
+reviewed_accept | logical | nonmissing | 687 | distinct | 2
+reviewed_reject | logical | nonmissing | 687 | distinct | 1
+review_basis | character | nonmissing | 8 | distinct | 8
+review_source | character | nonmissing | 8 | distinct | 7
+enhanced_link | logical | nonmissing | 687 | distinct | 1
+link_reason | character | nonmissing | 687 | distinct | 21

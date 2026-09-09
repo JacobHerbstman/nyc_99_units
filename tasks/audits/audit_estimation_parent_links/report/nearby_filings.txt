@@ -1,0 +1,28 @@
+Rows: 1216
+Columns: 22
+Key fields: sample, parent_id, neighbor_job
+Saved-file MD5: 79d5763d0f3d841fa62d158cc837cea4
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 1216 | distinct | 2
+neighbor_parent | character | nonmissing | 1074 | distinct | 668
+parent_id | character | nonmissing | 1216 | distinct | 528
+anchor_job | character | nonmissing | 1216 | distinct | 541
+anchor_address | character | nonmissing | 1216 | distinct | 540
+anchor_date | Date | nonmissing | 1216 | distinct | 399
+anchor_owner | character | nonmissing | 1216 | distinct | 426
+neighbor_job | character | nonmissing | 1216 | distinct | 837
+neighbor_address | character | nonmissing | 1216 | distinct | 834
+neighbor_date | Date | nonmissing | 1216 | distinct | 581
+neighbor_units | numeric | nonmissing | 1216 | distinct | 219 min/median/mean/max 1/55/94.06414/1313
+neighbor_owner | character | nonmissing | 1182 | distinct | 616
+neighbor_applicant | character | nonmissing | 464 | distinct | 106
+neighbor_description | character | nonmissing | 980 | distinct | 593
+neighbor_role | character | nonmissing | 1074 | distinct | 2
+distance_metres | numeric | nonmissing | 1216 | distinct | 745 min/median/mean/max 1.9/123.8/119.6922/200
+days_apart | numeric | nonmissing | 1216 | distinct | 310 min/median/mean/max 0/112/138.5789/365
+same_lot | logical | nonmissing | 1216 | distinct | 1
+same_owner | logical | nonmissing | 1216 | distinct | 2
+review_decision | character | nonmissing | 1216 | distinct | 7
+review_note | character | nonmissing | 129 | distinct | 13
+review_scope | character | nonmissing | 1216 | distinct | 2

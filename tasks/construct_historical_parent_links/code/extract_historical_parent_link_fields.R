@@ -177,17 +177,22 @@ read_pluto_link_fields <- function(raw_path, needed_bbls) {
   selected_fields
 }
 
+# A documented companion must not disappear because its land covariates are missing.
+reviewed_pairs <- read_csv("../input/pair_decisions.csv", show_col_types = FALSE,
+  col_types = cols(.default = col_character())) |>
+  filter(sample == "historical", review_decision == "accept")
+reviewed_jobs <- unique(c(reviewed_pairs$job_number_1, reviewed_pairs$job_number_2))
+
 panel <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
   as.data.frame() |>
   as_tibble() |>
   filter(
     filing_year >= start_year,
     filing_year <= end_year,
-    primary_leakage_safe_sample,
+    (primary_leakage_safe_sample & !is.na(lotarea) & lotarea > 0) |
+      job_number %in% reviewed_jobs,
     classa_prop_integer,
-    classa_prop >= min_units,
-    !is.na(lotarea),
-    lotarea > 0
+    classa_prop >= min_units
   ) |>
   transmute(
     job_number = str_squish(job_number),
@@ -204,7 +209,8 @@ panel <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
   ) |>
   arrange(date_filed, job_number)
 
-if (nrow(panel) == 0L || anyDuplicated(panel$job_number)) {
+if (nrow(panel) == 0L || anyDuplicated(panel$job_number) ||
+    any(!reviewed_jobs %in% panel$job_number)) {
   stop("Historical training sample failed job-number QC.")
 }
 

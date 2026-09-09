@@ -31,3 +31,5 @@ Post-policy 150-plus parents and observations near 99 and 150 receive explicit
 review priorities because these are the policy-relevant size margins.
 
 The classification and manual-review ledger are canonical production inputs. Recorded Attorney General responses come from `load_nys_ag_offering_plan_matches`; live searches and diagnostic review queues remain in audits. Standard saved-data report: `report/parent_485x_exposure.txt`.
+
+Saved Attorney General search evidence is attached to current parents through sample, filing ID and the exact queried address. A changed parent ID does not discard a completed filing search; an absent or changed query remains incomplete. Original search snapshots are unchanged.

@@ -35,6 +35,7 @@ check-empirics:
 
 
 task_graph.svg: tasks/shared/code/draw_task_graph.py \
+	tasks/parent_opportunities_manual/code/Makefile \
 	tasks/analyze_485x_scale_shape_splitting/code/Makefile \
 	tasks/analyze_borough_bunching/code/Makefile \
 	tasks/analyze_parent_unit_distribution/code/Makefile \

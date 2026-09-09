@@ -20,7 +20,7 @@ all: ../output/historical_parent_filing_link_fields.parquet ../output/historical
 	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output
 	$(R) $< $(NEARBY_METERS) $(REVIEW_METERS) $(MAX_FILING_DAYS)
 
-../output/historical_parent_filing_link_fields.parquet: extract_historical_parent_link_fields.R Makefile \
+../output/historical_parent_filing_link_fields.parquet: extract_historical_parent_link_fields.R Makefile ../input/pair_decisions.csv \
 	../input/mappluto_09v1.zip ../input/mappluto_09v2.zip ../input/mappluto_10v1.zip ../input/mappluto_10v2.zip \
 	../input/mappluto_11v1.zip ../input/mappluto_11v2.zip ../input/mappluto_12v1.zip ../input/mappluto_12v2.zip \
 	../input/mappluto_13v1.zip ../input/mappluto_13v2.zip ../input/mappluto_14v1.zip ../input/mappluto_14v2.zip \
@@ -70,7 +70,10 @@ all: ../output/historical_parent_filing_link_fields.parquet ../output/historical
 ../input/mappluto_files.csv: ../../fetch_mappluto_archive/output/mappluto_files.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-link-inputs: ../input/hdb_mappluto_site_panel.parquet \
+../input/pair_decisions.csv: ../../parent_opportunities_manual/output/pair_decisions.csv | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
+link-inputs: ../input/pair_decisions.csv ../input/hdb_mappluto_site_panel.parquet \
 	../input/dcp_housing_database_project_level_raw_25q4.parquet \
 	../input/dob_now_new_building_initial_filings.parquet \
 	../input/mappluto_files.csv

@@ -56,3 +56,7 @@ LOCAL_PROJECT_MEMO.md
 # Auto-generated graphics
 Rplots.pdf
 **/code/Rplots.pdf
+
+# Hand-researched parent decisions are committed source data.
+!tasks/parent_opportunities_manual/output/
+!tasks/parent_opportunities_manual/output/*.csv

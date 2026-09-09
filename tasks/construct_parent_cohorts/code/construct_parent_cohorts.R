@@ -104,29 +104,27 @@ historical_adjacency <- read_parquet(
   as.data.frame() |>
   as_tibble()
 
-historical_link_reviews <- read_csv(
-  "historical_parent_link_reviews.csv",
-  show_col_types = FALSE,
-  col_types = cols(.default = col_character())
-)
-
-post_parent_reviews <- read_csv(
-  "post_parent_reviews.csv",
-  show_col_types = FALSE,
-  col_types = cols(.default = col_character())
-)
-
-post_link_reviews <- read_csv(
-  "post_parent_link_reviews.csv",
-  show_col_types = FALSE,
-  col_types = cols(.default = col_character())
-)
-
-post_filing_roles <- read_csv(
-  "post_parent_filing_roles.csv",
-  show_col_types = FALSE,
-  col_types = cols(.default = col_character())
-)
+pair_decisions <- read_csv("../input/pair_decisions.csv", show_col_types = FALSE,
+  col_types = cols(.default = col_character()))
+stopifnot(!anyNA(pair_decisions),
+  all(pair_decisions$sample %in% c("historical", "post_policy")),
+  all(pair_decisions$review_decision %in% c("accept", "reject")),
+  all(pair_decisions$job_number_1 != pair_decisions$job_number_2),
+  !anyDuplicated(data.frame(sample = pair_decisions$sample,
+    first = pmin(pair_decisions$job_number_1, pair_decisions$job_number_2),
+    second = pmax(pair_decisions$job_number_1, pair_decisions$job_number_2))))
+historical_link_reviews <- pair_decisions |> filter(sample == "historical") |> select(-sample, -review_date)
+post_link_reviews <- pair_decisions |> filter(sample == "post_policy") |> select(-sample, -review_date)
+post_parent_reviews <- read_csv("../input/post_parent_reviews.csv", show_col_types = FALSE,
+  col_types = cols(.default = col_character()))
+post_filing_roles <- read_csv("../input/post_parent_filing_roles.csv", show_col_types = FALSE,
+  col_types = cols(.default = col_character()))
+unit_decisions <- read_csv("../input/unit_decisions.csv", show_col_types = FALSE,
+  col_types = cols(.default = col_character(), reviewed_units = col_integer()))
+stopifnot(!anyNA(unit_decisions),
+  all(unit_decisions$unit_definition == "documented_proposed_design"),
+  all(unit_decisions$reviewed_units > 0L),
+  !anyDuplicated(unit_decisions[c("sample", "root_job_id")]))
 
 historical_geometry_coverage <- read_parquet(
   "../input/historical_polygon_geometry_coverage.parquet"
@@ -264,7 +262,7 @@ historical_pairs <- full_join(
   by = c("job_number_1", "job_number_2"),
   relationship = "one-to-one"
 ) |>
-  left_join(
+  full_join(
     historical_link_reviews,
     by = c("job_number_1", "job_number_2"),
     relationship = "one-to-one"
@@ -757,6 +755,10 @@ if (
 }
 
 membership <- bind_rows(historical_membership, post_membership) |>
+  left_join(unit_decisions |> select(sample, root_job_id,
+    documented_units = reviewed_units, documented_unit_definition = unit_definition,
+    documented_unit_source_date = source_date, documented_unit_source = review_source),
+    by = c("sample", "root_job_id"), relationship = "one-to-one") |>
   arrange(sample, date_filed, job_number) |>
   group_by(sample, component) |>
   mutate(
@@ -852,6 +854,19 @@ if (
 ) {
   stop("Symmetric parent-cohort outputs failed final QC.")
 }
+
+# Manual decisions must survive component construction, including transitive paths.
+reviewed_components <- pair_decisions |>
+  left_join(membership |> select(sample, job_number_1 = job_number, parent_1 = parent_id),
+    by = c("sample", "job_number_1"), relationship = "many-to-one") |>
+  left_join(membership |> select(sample, job_number_2 = job_number, parent_2 = parent_id),
+    by = c("sample", "job_number_2"), relationship = "many-to-one")
+stopifnot(!anyNA(reviewed_components$parent_1), !anyNA(reviewed_components$parent_2),
+  all((reviewed_components$parent_1 == reviewed_components$parent_2) ==
+    (reviewed_components$review_decision == "accept")),
+  nrow(anti_join(unit_decisions, membership, by = c("sample", "root_job_id"))) == 0L,
+  all(membership$units[!is.na(membership$documented_units)] ==
+    membership$documented_units[!is.na(membership$documented_units)]))
 
 write_parquet_atomic(
   membership,
