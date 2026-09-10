@@ -1,13 +1,13 @@
 Rows: 2
 Columns: 9
 Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: 5f65d562c447373c57008a7aa26e98fd
+Saved-file MD5: 23e5b8aff237438e88afc666e0911fbb
 period | character | nonmissing | 2 | distinct | 2
 period_start | Date | nonmissing | 2 | distinct | 2
 period_end | Date | nonmissing | 2 | distinct | 2
 exposure_years | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 1.516769/6.758385/6.758385/12
-included_parents_all_unit_counts | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 918/3117.5/3117.5/5317
-included_parents_80_120 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 112/221.5/221.5/331
-exact_99_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 12/27.5/27.5/43
+included_parents_all_unit_counts | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 915/3115.5/3115.5/5316
+included_parents_80_120 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 109/220/220/331
+exact_99_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 12/26.5/26.5/41
 excluded_for_left_boundary | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 0/0/0/0
 parent_status | character | nonmissing | 2 | distinct | 2
