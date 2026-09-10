@@ -13,7 +13,7 @@ all: ../output/parent_485x_exposure_summary.csv \
 	$(R) $<
 
 ../output/parent_485x_exposure_by_unit.csv ../output/parent_485x_exposure_review_queue.csv: ../output/parent_485x_exposure_summary.csv
-	$(MAKE) -W summarize_exposure.R all
+	$(RECOVER) -W summarize_exposure.R all
 
 ../report/parent_485x_exposure_summary.txt: report_data.R ../../../shared/code/write_data_report.R ../output/parent_485x_exposure_summary.csv Makefile \
 	../../../shared/code/shell_functions.make ../../../shared/code/shell_functions.sh | ../report

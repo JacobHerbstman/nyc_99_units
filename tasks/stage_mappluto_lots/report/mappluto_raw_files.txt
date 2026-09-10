@@ -1,0 +1,15 @@
+Rows: 58
+Columns: 9
+Key fields: source_id, vintage
+Saved-file MD5: 5bfc37047daa1ef6c1b454e189aba009
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+source_id | character | nonmissing | 58 | distinct | 2
+vintage | character | nonmissing | 58 | distinct | 41
+raw_path | character | nonmissing | 58 | distinct | 58
+raw_parquet_path | character | nonmissing | 41 | distinct | 41
+file_role | character | nonmissing | 58 | distinct | 2
+raw_file_release | character | nonmissing | 41 | distinct | 41
+fetch_status | character | nonmissing | 58 | distinct | 1
+raw_zip_valid | logical | nonmissing | 58 | distinct | 1
+status | character | nonmissing | 58 | distinct | 2

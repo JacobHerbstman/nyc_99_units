@@ -1,7 +1,7 @@
 Rows: 41
 Columns: 10
 Key fields: source_id, vintage
-Saved-file MD5: 3e8868f21d7477349df3ffbcc27797d4
+Saved-file MD5: 817b012041745d34c024140610ff9546
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 source_id | character | nonmissing | 41 | distinct | 2

@@ -24,7 +24,7 @@ all: ../output/historical_polygon_adjacency_pairs.parquet \
 	../output/historical_polygon_adjacency_release_summary.csv \
 	../output/historical_polygon_adjacency_grouping_sensitivity.csv \
 	../output/historical_polygon_adjacency_qc.csv: ../output/historical_polygon_adjacency_pairs.parquet
-	$(MAKE) -W audit_historical_exact_parcel_adjacency.R all
+	$(RECOVER) -W audit_historical_exact_parcel_adjacency.R all
 
 ../input/historical_parent_filing_link_fields.parquet: ../../audit_historical_parent_link_feasibility/output/historical_parent_filing_link_fields.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"

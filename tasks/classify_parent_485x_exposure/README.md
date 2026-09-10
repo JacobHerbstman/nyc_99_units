@@ -26,10 +26,11 @@ ownership other than a resolved manual case remains unresolved rather than
 being silently treated as taxable or tax-exempt.
 
 The manual review file is authoritative and records sources, reasons, and dates.
-Unresolved and low-confidence observations are written to a review queue.
-Post-policy 150-plus parents and observations near 99 and 150 receive explicit
-review priorities because these are the policy-relevant size margins.
+Unresolved and low-confidence observations remain identified in the classification.
+The exposure audit produces the review queue, including priorities near the policy thresholds.
 
-The classification and manual-review ledger are canonical production inputs. Recorded Attorney General responses come from `load_nys_ag_offering_plan_matches`; live searches and diagnostic review queues remain in audits. Standard saved-data report: `report/parent_485x_exposure.txt`.
+The classification and manual-review ledger are canonical production inputs. Recorded Attorney General responses are checksum-verified snapshots loaded by this task; live searches and diagnostic review queues remain in audits. Standard saved-data report: `report/parent_485x_exposure.txt`.
 
 Saved Attorney General search evidence is attached to current parents through sample, filing ID and the exact queried address. A changed parent ID does not discard a completed filing search; an absent or changed query remains incomplete. Original search snapshots are unchanged.
+
+The task first assembles the parent exposure universe from membership and recorded administrative sources, then classifies it. `parent_485x_exposure_universe.csv` remains available to the final panel and audits. The assembly no longer has a separate task folder.

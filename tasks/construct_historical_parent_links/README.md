@@ -18,3 +18,5 @@ restores observed companions without inventing geometry or land area. All ordina
 filing-year and unit restrictions remain. The producer verifies that every accepted
 endpoint exists in the source universe; downstream manual edges do not depend on
 successful automatic candidate discovery.
+
+This task also extracts exact filing-date parcel polygons and constructs adjacency pairs. The 2018 geometry provides the lookback for 2019 parent anchors. Adjacency is a link signal only under the documented corroboration rule; near-touch sensitivities remain in audits.

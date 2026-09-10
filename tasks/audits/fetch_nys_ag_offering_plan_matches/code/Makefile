@@ -15,7 +15,7 @@ all: ../output/nys_ag_offering_plan_search_audit.csv \
 	$(R) $< $(BATCH_COUNT)
 
 ../output/nys_ag_offering_plan_matches.csv: ../output/nys_ag_offering_plan_search_audit.csv
-	$(MAKE) -W combine_nys_ag_offering_plan_match_batches.R ../output/nys_ag_offering_plan_search_audit.csv
+	$(RECOVER) -W combine_nys_ag_offering_plan_match_batches.R ../output/nys_ag_offering_plan_search_audit.csv
 
 ../output/nys_ag_offering_plan_search_audit_batch_%.csv: fetch_nys_ag_offering_plan_matches.R Makefile \
 	../../../shared/code/source_pipeline_utils.R ../input/parent_485x_exposure_universe.csv \
@@ -23,18 +23,18 @@ all: ../output/nys_ag_offering_plan_search_audit.csv \
 	$(R) $< $(SOURCE_PULL_DATE) $* $(BATCH_COUNT)
 
 ../output/nys_ag_offering_plan_matches_batch_%.csv: ../output/nys_ag_offering_plan_search_audit_batch_%.csv
-	$(MAKE) -W fetch_nys_ag_offering_plan_matches.R ../output/nys_ag_offering_plan_search_audit_batch_$*.csv
+	$(RECOVER) -W fetch_nys_ag_offering_plan_matches.R ../output/nys_ag_offering_plan_search_audit_batch_$*.csv
 
-../input/parent_485x_exposure_universe.csv: ../../../build_parent_485x_exposure_universe/output/parent_485x_exposure_universe.csv | ../input
+../input/parent_485x_exposure_universe.csv: ../../../classify_parent_485x_exposure/output/parent_485x_exposure_universe.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
 link-inputs: ../input/parent_485x_exposure_universe.csv
 
-../../../build_parent_485x_exposure_universe/output/parent_485x_exposure_universe.csv: check-build_parent_485x_exposure_universe ;
+../../../classify_parent_485x_exposure/output/parent_485x_exposure_universe.csv: check-classify_parent_485x_exposure ;
 
-.PHONY: check-build_parent_485x_exposure_universe
+.PHONY: check-classify_parent_485x_exposure
 
-check-build_parent_485x_exposure_universe:
-	$(MAKE) -C ../../../build_parent_485x_exposure_universe/code all ../output/parent_485x_exposure_universe.csv
+check-classify_parent_485x_exposure:
+	$(MAKE) -C ../../../classify_parent_485x_exposure/code all ../output/parent_485x_exposure_universe.csv
 
 include ../../../shared/code/generic.make

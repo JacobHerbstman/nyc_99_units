@@ -14,3 +14,5 @@ determination.
 The task produces only the canonical response-level link. Parent-specific
 summaries and threshold interpretations belong downstream, so this mechanical
 link no longer depends on any parcel or parent unit-count prediction model.
+
+Registration normalization and DOB matching are now two linear scripts in this task. It owns both `hpd_485x_registrations.parquet` and `hpd_485x_registration_dob_links.csv`, together with their standard reports. The original recorded HPD source is still acquired by `fetch_hpd_485x_registrations`.

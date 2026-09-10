@@ -12,6 +12,9 @@ if (!interactive()) {
 if (dataset == "hpd_485x_registration_dob_links") {
   data <- readr::read_csv("../output/hpd_485x_registration_dob_links.csv", show_col_types = FALSE, guess_max = Inf)
   write_data_report(data, c("response_number"), "../output/hpd_485x_registration_dob_links.csv", "../report/hpd_485x_registration_dob_links.txt")
+} else if (dataset == "hpd_485x_registrations") {
+  data <- arrow::read_parquet("../output/hpd_485x_registrations.parquet")
+  write_data_report(data, NULL, "../output/hpd_485x_registrations.parquet", "../report/hpd_485x_registrations.txt")
 } else {
   stop("Unknown dataset: ", dataset)
 }

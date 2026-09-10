@@ -29,7 +29,7 @@ all: ../output/symmetric_parent_cohort_inventory.csv \
 ../output/symmetric_parent_link_summary.csv \
 ../output/symmetric_parent_cohort_summary.csv \
 ../output/symmetric_parent_cohort_qc.csv: ../output/symmetric_parent_cohort_inventory.csv
-	$(MAKE) -W audit_symmetric_parent_cohorts.R all
+	$(RECOVER) -W audit_symmetric_parent_cohorts.R all
 
 ../input/symmetric_parent_membership.parquet: ../../../construct_parent_cohorts/output/symmetric_parent_membership.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"

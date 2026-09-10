@@ -45,7 +45,7 @@ row <- mappluto_files |>
   filter(.data$source_id == .env$source_id, sanitize_file_stub(.data$vintage) == sanitize_file_stub(.env$vintage))
 stopifnot(nrow(row) == 1L)
 
-lot_table <- read_parquet(paste0("../input/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), "_raw.parquet")) |>
+lot_table <- read_parquet(paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), "_raw.parquet")) |>
   as.data.frame() |>
   as_tibble() |>
   mutate(

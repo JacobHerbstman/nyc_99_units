@@ -133,7 +133,7 @@ historical_geometry_coverage <- read_parquet(
   as_tibble()
 
 post_rows <- read_parquet(
-  "../input/post_policy_filing_link_fields.parquet"
+  "../output/post_policy_filing_link_fields.parquet"
 ) |>
   as.data.frame() |>
   as_tibble() |>

@@ -21,7 +21,7 @@ if (is.na(threshold_units)) {
   stop("threshold_units must be an integer.")
 }
 
-hpd_registrations <- read_parquet("../input/hpd_485x_registrations.parquet")
+hpd_registrations <- read_parquet("../output/hpd_485x_registrations.parquet")
 dob_initial <- read_parquet("../input/dob_now_new_building_initial_filings.parquet") |>
   mutate(
     job_number = str_squish(job_number),

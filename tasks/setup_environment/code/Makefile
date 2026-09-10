@@ -6,6 +6,4 @@ all: ../output/R_packages.txt
 	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output
 	$(R) $<
 
-
-
 include ../../shared/code/generic.make

@@ -18,7 +18,7 @@ all: ../output/hdb_dob_identifier_later_same_site_candidates.csv ../output/hdb_d
 ../output/hdb_dob_identifier_handoff.csv \
 	../output/hdb_dob_identifier_review.csv \
 	../output/hdb_dob_identifier_summary.csv: ../output/hdb_dob_identifier_later_same_site_candidates.csv
-	$(MAKE) -W audit_hdb_dob_identifier_handoff.R all
+	$(RECOVER) -W audit_hdb_dob_identifier_handoff.R all
 
 ../input/hdb_mappluto_site_panel.parquet: ../../../build_hdb_mappluto_site_panel/output/hdb_mappluto_site_panel.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
@@ -26,7 +26,7 @@ all: ../output/hdb_dob_identifier_later_same_site_candidates.csv ../output/hdb_d
 ../input/dob_now_new_building_initial_filings.parquet: ../../../stage_dob_now_new_building_filings/output/dob_now_new_building_initial_filings.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/post_policy_filing_link_fields.parquet: ../../../construct_post_policy_parent_crosswalk/output/post_policy_filing_link_fields.parquet | ../input
+../input/post_policy_filing_link_fields.parquet: ../../../construct_parent_cohorts/output/post_policy_filing_link_fields.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
 link-inputs: ../input/hdb_mappluto_site_panel.parquet \
@@ -47,11 +47,11 @@ check-build_hdb_mappluto_site_panel:
 check-stage_dob_now_new_building_filings:
 	$(MAKE) -C ../../../stage_dob_now_new_building_filings/code all ../output/dob_now_new_building_initial_filings.parquet
 
-../../../construct_post_policy_parent_crosswalk/output/post_policy_filing_link_fields.parquet: check-construct_post_policy_parent_crosswalk ;
+../../../construct_parent_cohorts/output/post_policy_filing_link_fields.parquet: check-construct_parent_cohorts ;
 
-.PHONY: check-construct_post_policy_parent_crosswalk
+.PHONY: check-construct_parent_cohorts
 
-check-construct_post_policy_parent_crosswalk:
-	$(MAKE) -C ../../../construct_post_policy_parent_crosswalk/code all ../output/post_policy_filing_link_fields.parquet
+check-construct_parent_cohorts:
+	$(MAKE) -C ../../../construct_parent_cohorts/code all ../output/post_policy_filing_link_fields.parquet
 
 include ../../../shared/code/generic.make

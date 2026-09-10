@@ -1,12 +1,12 @@
 Rows: 8
 Columns: 6
 Key fields: unit_count
-Saved-file MD5: 6f528b31a3c623c9cf350a4e6bc4fd24
+Saved-file MD5: 78224d2a1c6d3d7dd8d13cb610cf278a
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 unit_count | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 99/102.5/102.5/106
-plotted_parent_count | numeric | nonmissing | 8 | distinct | 4 min/median/mean/max 0/0/6/43
-all_parent_count_including_left_boundary | numeric | nonmissing | 8 | distinct | 4 min/median/mean/max 0/0/6/43
+plotted_parent_count | numeric | nonmissing | 8 | distinct | 4 min/median/mean/max 0/0/5.625/41
+all_parent_count_including_left_boundary | numeric | nonmissing | 8 | distinct | 4 min/median/mean/max 0/0/5.625/41
 initial_filing_count | numeric | nonmissing | 8 | distinct | 4 min/median/mean/max 0/0/12/92
 latest_filing_version_count | numeric | nonmissing | 8 | distinct | 4 min/median/mean/max 0/0/12.25/94
 all_four_layers_empty | logical | nonmissing | 8 | distinct | 2

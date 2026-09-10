@@ -44,7 +44,7 @@ all: ../output/analysis_samples_summary.csv \
 ../output/category_support_c99.csv \
 ../output/tail_pre_c99.rds \
 ../output/tail_post_c99.rds: ../output/analysis_samples_summary.csv
-	$(MAKE) -W construct_parent_tail_samples.R all
+	$(RECOVER) -W construct_parent_tail_samples.R all
 
 ../output/tail_pre_c99_calibration_weights.csv: calibrate_parent_tail_weights.R Makefile \
 	../../../shared/code/source_pipeline_utils.R ../output/tail_pre_c99.rds ../output/tail_post_c99.rds \
@@ -56,7 +56,7 @@ all: ../output/analysis_samples_summary.csv \
 ../output/calibration_balance_c99.csv \
 ../output/calibration_weight_diagnostics_c99.csv \
 ../output/calibration_cohort_composition_c99.csv: ../output/tail_pre_c99_calibration_weights.csv
-	$(MAKE) -W calibrate_parent_tail_weights.R all
+	$(RECOVER) -W calibrate_parent_tail_weights.R all
 
 ../output/counterfactual_exact_counts_c99.csv: construct_weighted_counterfactual.R Makefile \
 	../../../shared/code/source_pipeline_utils.R ../output/tail_pre_c99.rds ../output/tail_post_c99.rds \
@@ -69,7 +69,7 @@ all: ../output/analysis_samples_summary.csv \
 ../output/counterfactual_structural_frontier_c99.csv \
 ../output/counterfactual_exact_counts_c99.png \
 ../output/counterfactual_cumulative_diagnostics_c99.png: ../output/counterfactual_exact_counts_c99.csv
-	$(MAKE) -W construct_weighted_counterfactual.R all
+	$(RECOVER) -W construct_weighted_counterfactual.R all
 
 ../output/historical_window_comparison_c99.csv: compare_historical_windows.R Makefile \
 	../../../shared/code/source_pipeline_utils.R ../input/historical_parent_site_characteristics.parquet \
@@ -81,7 +81,7 @@ all: ../output/analysis_samples_summary.csv \
 
 ../output/historical_window_cohort_composition_c99.csv \
 ../output/historical_window_parent_weights_c99.csv: ../output/historical_window_comparison_c99.csv
-	$(MAKE) -W compare_historical_windows.R all
+	$(RECOVER) -W compare_historical_windows.R all
 
 ../input/historical_parent_site_characteristics.parquet: ../../../build_parent_site_characteristics/output/historical_parent_site_characteristics.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"

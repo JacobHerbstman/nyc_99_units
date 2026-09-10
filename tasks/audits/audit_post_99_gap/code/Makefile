@@ -15,7 +15,7 @@ all: ../output/post_99_next_observed_unit_audit.csv ../output/post_105_parent_ca
 	$(R) $< $(POST_START_DATE)
 
 ../output/post_105_parent_cases.csv: ../output/post_99_next_observed_unit_audit.csv
-	$(MAKE) -W audit_post_99_gap.R all
+	$(RECOVER) -W audit_post_99_gap.R all
 
 ../report/post_99_next_observed_unit_audit.txt: report_data.R ../../../shared/code/write_data_report.R ../output/post_99_next_observed_unit_audit.csv Makefile \
 	../../../shared/code/shell_functions.make ../../../shared/code/shell_functions.sh | ../report

@@ -10,21 +10,21 @@ suppressPackageStartupMessages({
 source("../../shared/code/source_pipeline_utils.R")
 
 universe <- read_csv(
-  "../input/parent_485x_exposure_universe.csv",
+  "../output/parent_485x_exposure_universe.csv",
   show_col_types = FALSE,
   guess_max = Inf,
   na = c("", "NA")
 )
 
 ag_search_audit <- read_csv(
-  "../input/nys_ag_offering_plan_search_audit.csv",
+  "../output/nys_ag_offering_plan_search_audit.csv",
   show_col_types = FALSE,
   guess_max = Inf,
   na = c("", "NA")
 )
 
 ag_matches <- read_csv(
-  "../input/nys_ag_offering_plan_matches.csv",
+  "../output/nys_ag_offering_plan_matches.csv",
   show_col_types = FALSE,
   guess_max = Inf,
   na = c("", "NA")

@@ -13,3 +13,5 @@ feature BBLs remain visible through `pluto_feature_bbl_hdb_rows`.
 This is a canonical site-matching panel used to construct historical parents
 and predetermined parent characteristics. It does not estimate or score an
 individual parcel unit-count model.
+
+The same task validates the recorded parcel-release calendar and builds the official current APPBBL crosswalk. These are intermediate inputs to site matching, with separate source files and output tables. They no longer require standalone task folders.

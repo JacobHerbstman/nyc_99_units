@@ -28,7 +28,7 @@ all: ../output/condo_recovery_status_by_borough.csv ../output/condo_recovery_sum
 	../output/condo_recovery_status_by_year.csv \
 	../output/duplicate_feature_bbl_groups.csv \
 	../output/large_unresolved_no_match_examples.csv: ../output/condo_recovery_status_by_borough.csv
-	$(MAKE) -W audit_hdb_mappluto_condo_recovery.R all
+	$(RECOVER) -W audit_hdb_mappluto_condo_recovery.R all
 
 ../input/hdb_mappluto_site_panel.parquet: ../../../build_hdb_mappluto_site_panel/output/hdb_mappluto_site_panel.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"

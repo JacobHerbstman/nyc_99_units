@@ -18,7 +18,7 @@ all: ../output/linkage_by_cohort.csv \
 ../output/adjacency_only_link_review.csv \
 ../output/geometry_dependent_parent_review.csv \
 ../output/tail_relevant_parent_review_validation.csv: ../output/linkage_by_cohort.csv
-	$(MAKE) -W audit_historical_parent_linkage.R all
+	$(RECOVER) -W audit_historical_parent_linkage.R all
 
 ../input/symmetric_parent_membership.parquet: ../../../construct_parent_cohorts/output/symmetric_parent_membership.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"

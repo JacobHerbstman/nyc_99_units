@@ -52,9 +52,9 @@ requires selected units to equal `hdb_priority_units` for every record. Third
 Avenue remains 99 per building and Boyland 86+28 because those are HDB counts.
 Turnbull returns to 91; its externally documented 228 remains a separate field.
 Parent observed totals and exact-99 counts use the selected administrative units.
-The historical field named `dob_i1_units` currently repeats HDB and must not be
-interpreted as independent DOB evidence; the source-comparison audit joins the
-actual DOB extract. Neither administrative vintage reconstructs every design
+The `dob_i1_units` field uses the actual saved DOB source and is missing for
+legacy filings without DOB coverage. Parent DOB totals are missing when
+component coverage is incomplete. Neither administrative vintage reconstructs every design
 at its original submission date.
 
 Astoria Cove's four January 13, 2022 filings are joined by a documented manual
@@ -66,3 +66,5 @@ a separate vintage. The Coney Island rejection separates LCOR's 1515 Surf/
 Automatic refiling detection uses the saved July 2026 DOB initial records. A withdrawn filing must have a valid seven-digit BIN and nonempty recorded owner/applicant; its unique non-withdrawn replacement must share the BIN and normalized owner/applicant and be filed strictly after both the original filing and recorded withdrawal. The rule scans the retained filing universe without using unit similarity or address proximity. Multiple candidates, multiple predecessors for one replacement, cross-parent matches, and conflicts with manual roles fail for review. They do not create new parent links.
 
 Both source records remain, but only the replacement contributes units. Raw `date_filed` is unchanged in membership. Both records have `refiled = TRUE`, the original date in `original_filing_date`, and the replacement date in `refiling_date`. Other records have `refiled = FALSE` and a missing refiling date. This means no qualifying refiling observed in the saved source, not proof of no refiling outside its coverage. The original parent anchor and cohort date remain unchanged. Existing manually adjudicated alternative designs are not automatically labeled refilings unless they satisfy this rule.
+
+Recent DOB filing-field preparation is now the first producer in this task, using the official APPBBL crosswalk from `build_hdb_mappluto_site_panel`. It retains the existing years, unit restrictions, and link-field definitions.

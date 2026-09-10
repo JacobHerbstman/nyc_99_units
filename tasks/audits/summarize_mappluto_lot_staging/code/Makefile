@@ -10,10 +10,10 @@ all: ../output/mappluto_lot_staging_zip_selection.csv ../output/mappluto_lot_sta
 	$(R) $<
 
 ../output/mappluto_lot_staging_borough_counts.csv: ../output/mappluto_lot_staging_qc.csv
-	$(MAKE) -W summarize_mappluto_lot_staging.R all
+	$(RECOVER) -W summarize_mappluto_lot_staging.R all
 
 ../output/mappluto_lot_staging_qc.csv: ../output/mappluto_lot_staging_zip_selection.csv
-	$(MAKE) -W summarize_mappluto_lot_staging.R all
+	$(RECOVER) -W summarize_mappluto_lot_staging.R all
 
 ../input/mappluto_lot_files.csv: ../../../stage_mappluto_lots/output/mappluto_lot_files.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"

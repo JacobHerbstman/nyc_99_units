@@ -28,7 +28,7 @@ all: ../output/parent_condo_tenure_panel.csv \
 ../output/parent_condo_counts_by_period.csv \
 ../output/condo_plan_parent_assignment_review.csv \
 ../output/parent_condo_tenure_qc.csv: ../output/parent_condo_tenure_panel.csv
-	$(MAKE) -W build_parent_condo_tenure_panel.R all
+	$(RECOVER) -W build_parent_condo_tenure_panel.R all
 
 ../input/symmetric_parent_membership.parquet: ../../../construct_parent_cohorts/output/symmetric_parent_membership.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
@@ -42,10 +42,10 @@ all: ../output/parent_condo_tenure_panel.csv \
 ../input/historical_parent_filing_link_fields.parquet: ../../../construct_historical_parent_links/output/historical_parent_filing_link_fields.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/nys_ag_offering_plan_search_audit.csv: ../../fetch_nys_ag_offering_plan_matches/output/nys_ag_offering_plan_search_audit.csv | ../input
+../input/nys_ag_offering_plan_search_audit.csv: ../../../classify_parent_485x_exposure/output/nys_ag_offering_plan_search_audit.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/nys_ag_offering_plan_matches.csv: ../../fetch_nys_ag_offering_plan_matches/output/nys_ag_offering_plan_matches.csv | ../input
+../input/nys_ag_offering_plan_matches.csv: ../../../classify_parent_485x_exposure/output/nys_ag_offering_plan_matches.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
 ../input/hpd_485x_registration_dob_links.csv: ../../../link_hpd_485x_registrations/output/hpd_485x_registration_dob_links.csv | ../input
@@ -87,13 +87,13 @@ check-stage_dob_now_new_building_filings:
 check-construct_historical_parent_links:
 	$(MAKE) -C ../../../construct_historical_parent_links/code all ../output/historical_parent_filing_link_fields.parquet
 
-../../fetch_nys_ag_offering_plan_matches/output/nys_ag_offering_plan_search_audit.csv \
-	../../fetch_nys_ag_offering_plan_matches/output/nys_ag_offering_plan_matches.csv: check-fetch_nys_ag_offering_plan_matches ;
+../../../classify_parent_485x_exposure/output/nys_ag_offering_plan_search_audit.csv \
+	../../../classify_parent_485x_exposure/output/nys_ag_offering_plan_matches.csv: check-classify_parent_485x_exposure ;
 
-.PHONY: check-fetch_nys_ag_offering_plan_matches
+.PHONY: check-classify_parent_485x_exposure
 
-check-fetch_nys_ag_offering_plan_matches:
-	$(MAKE) -C ../../fetch_nys_ag_offering_plan_matches/code all ../output/nys_ag_offering_plan_search_audit.csv ../output/nys_ag_offering_plan_matches.csv
+check-classify_parent_485x_exposure:
+	$(MAKE) -C ../../../classify_parent_485x_exposure/code all ../output/nys_ag_offering_plan_search_audit.csv ../output/nys_ag_offering_plan_matches.csv
 
 ../../../link_hpd_485x_registrations/output/hpd_485x_registration_dob_links.csv: check-link_hpd_485x_registrations ;
 

@@ -15,6 +15,9 @@ if (dataset == "symmetric_parent_links") {
 } else if (dataset == "symmetric_parent_membership") {
   data <- arrow::read_parquet("../output/symmetric_parent_membership.parquet")
   write_data_report(data, c("sample", "job_number"), "../output/symmetric_parent_membership.parquet", "../report/symmetric_parent_membership.txt")
+} else if (dataset == "post_policy_filing_link_fields") {
+  data <- arrow::read_parquet("../output/post_policy_filing_link_fields.parquet")
+  write_data_report(data, NULL, "../output/post_policy_filing_link_fields.parquet", "../report/post_policy_filing_link_fields.txt")
 } else {
   stop("Unknown dataset: ", dataset)
 }

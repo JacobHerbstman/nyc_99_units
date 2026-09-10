@@ -49,8 +49,8 @@ hdb <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet") 
   as_tibble()
 
 mappluto_lot_files <- read_csv("../input/mappluto_lot_files.csv", show_col_types = FALSE, na = c("", "NA"))
-release_calendar <- read_csv("../input/mappluto_release_calendar.csv", show_col_types = FALSE, na = c("", "NA"))
-mappluto_appbbl_crosswalk <- read_csv("../input/mappluto_appbbl_crosswalk.csv", show_col_types = FALSE, na = c("", "NA"))
+release_calendar <- read_csv("../output/mappluto_release_calendar.csv", show_col_types = FALSE, na = c("", "NA"))
+mappluto_appbbl_crosswalk <- read_csv("../output/mappluto_appbbl_crosswalk.csv", show_col_types = FALSE, na = c("", "NA"))
 
 missing_mappluto_columns <- setdiff(c("source_id", "vintage", "parquet_path"), names(mappluto_lot_files))
 

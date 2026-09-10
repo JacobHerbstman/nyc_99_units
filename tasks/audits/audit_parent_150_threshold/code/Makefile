@@ -48,12 +48,12 @@ all: ../output/parent_150_period_summary.csv \
 ../output/parent_150_component_exact_distribution_annualized.png \
 ../output/parent_150_borough_comparison_annualized.png \
 ../output/parent_150_yearly_multi_filing_share.png: ../output/parent_150_period_summary.csv
-	$(MAKE) -W audit_parent_150_threshold.R all
+	$(RECOVER) -W audit_parent_150_threshold.R all
 
 ../input/parent_485x_exposure.csv: ../../../classify_parent_485x_exposure/output/parent_485x_exposure.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/parent_485x_exposure_universe.csv: ../../../build_parent_485x_exposure_universe/output/parent_485x_exposure_universe.csv | ../input
+../input/parent_485x_exposure_universe.csv: ../../../classify_parent_485x_exposure/output/parent_485x_exposure_universe.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
 ../input/hpd_485x_registration_dob_links.csv: ../../../link_hpd_485x_registrations/output/hpd_485x_registration_dob_links.csv | ../input
@@ -78,12 +78,9 @@ link-inputs: ../input/parent_485x_exposure.csv \
 check-classify_parent_485x_exposure:
 	$(MAKE) -C ../../../classify_parent_485x_exposure/code all ../output/parent_485x_exposure.csv
 
-../../../build_parent_485x_exposure_universe/output/parent_485x_exposure_universe.csv: check-build_parent_485x_exposure_universe ;
+../../../classify_parent_485x_exposure/output/parent_485x_exposure_universe.csv: check-classify_parent_485x_exposure ;
 
-.PHONY: check-build_parent_485x_exposure_universe
-
-check-build_parent_485x_exposure_universe:
-	$(MAKE) -C ../../../build_parent_485x_exposure_universe/code all ../output/parent_485x_exposure_universe.csv
+.PHONY: check-classify_parent_485x_exposure
 
 ../../../link_hpd_485x_registrations/output/hpd_485x_registration_dob_links.csv: check-link_hpd_485x_registrations ;
 
