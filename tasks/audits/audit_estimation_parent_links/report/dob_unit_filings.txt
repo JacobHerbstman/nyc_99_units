@@ -1,0 +1,31 @@
+Rows: 2916
+Columns: 25
+Key fields: sample, root_job_id
+Saved-file MD5: 7f58990a2213384c95e87dcde070eeed
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 2916 | distinct | 2
+parent_id | character | nonmissing | 2916 | distinct | 2733
+root_job_id | character | nonmissing | 2916 | distinct | 2916
+date_filed | Date | nonmissing | 2916 | distinct | 1166
+original_filing_date | Date | nonmissing | 2916 | distinct | 1167
+refiled | logical | nonmissing | 2916 | distinct | 2
+refiling_date | Date | nonmissing | 10 | distinct | 8
+current_units | numeric | nonmissing | 2916 | distinct | 334 min/median/mean/max 6/29/66.01509/1313
+hdb_priority_units | numeric | nonmissing | 2916 | distinct | 333 min/median/mean/max 6/29/65.96811/1313
+unit_source | character | nonmissing | 2916 | distinct | 3
+included_ab | logical | nonmissing | 2916 | distinct | 2
+composition_eligible | logical | nonmissing | 2916 | distinct | 2
+dob_address | character | nonmissing | 1879 | distinct | 1872
+dob_i1_units | numeric | nonmissing | 1879 | distinct | 280 min/median/mean/max 4/35/73.08302/1803
+dob_status_date | Date | nonmissing | 1879 | distinct | 554
+dob_stories | numeric | nonmissing | 1879 | distinct | 52 min/median/mean/max 2/7/9.165514/86
+dob_floor_area | numeric | nonmissing | 1879 | distinct | 1843 min/median/mean/max 1/32724.5/72387.23/3888880
+hdb_address | character | nonmissing | 2536 | distinct | 2532
+hdb_units | numeric | nonmissing | 2536 | distinct | 320 min/median/mean/max 0/27/65.84267/1313
+hdb_update_date | Date | nonmissing | 2536 | distinct | 837
+hdb_stories | numeric | nonmissing | 2536 | distinct | 54 min/median/mean/max 2/7/8.503943/85
+address | character | nonmissing | 2916 | distinct | 2903
+dob_available | logical | nonmissing | 2916 | distinct | 2
+dob_change | numeric | nonmissing | 1879 | distinct | 44 min/median/mean/max -137/0/2.477914/829
+available_dob_units | numeric | nonmissing | 2916 | distinct | 335 min/median/mean/max 4/29/67.6118/1803

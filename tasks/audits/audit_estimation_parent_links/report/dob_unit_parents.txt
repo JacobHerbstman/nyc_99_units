@@ -1,0 +1,27 @@
+Rows: 2733
+Columns: 21
+Key fields: parent_id
+Saved-file MD5: abf6174df0bb33d05f41c4e678d6b43e
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 2733 | distinct | 2
+parent_id | character | nonmissing | 2733 | distinct | 2733
+current_total | numeric | nonmissing | 2733 | distinct | 344 min/median/mean/max 6/27/70.43542/1754
+current_vector | character | nonmissing | 2733 | distinct | 407
+n_components | numeric | nonmissing | 2733 | distinct | 7 min/median/mean/max 1/1/1.066959/7
+dob_components | numeric | nonmissing | 2733 | distinct | 8 min/median/mean/max 0/1/0.6875229/7
+dob_complete | logical | nonmissing | 2733 | distinct | 2
+dob_total | numeric | nonmissing | 1734 | distinct | 290 min/median/mean/max 4/33/79.08881/2697
+available_dob_total | numeric | nonmissing | 2733 | distinct | 344 min/median/mean/max 4/28/72.13904/2697
+available_dob_vector | character | nonmissing | 2733 | distinct | 411
+current_99x2 | logical | nonmissing | 2733 | distinct | 2
+available_dob_99x2 | logical | nonmissing | 2733 | distinct | 2
+current_99x3 | logical | nonmissing | 2733 | distinct | 2
+available_dob_99x3 | logical | nonmissing | 2733 | distinct | 2
+parent_total_units | numeric | nonmissing | 2733 | distinct | 344 min/median/mean/max 6/27/70.43542/1754
+included_ab | logical | nonmissing | 2733 | distinct | 2
+composition_eligible | logical | nonmissing | 2733 | distinct | 2
+cohort_date | Date | nonmissing | 2733 | distinct | 1156
+borough | character | nonmissing | 2712 | distinct | 5
+component_addresses | character | nonmissing | 2733 | distinct | 2723
+available_dob_change | numeric | nonmissing | 2733 | distinct | 42 min/median/mean/max -137/0/1.703622/1781

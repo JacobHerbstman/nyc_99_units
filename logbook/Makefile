@@ -4,7 +4,12 @@ SHELL := /bin/bash
 
 all: logbook.pdf
 
-logbook.pdf: entries/2026-09-10-unit-boundaries.tex \
+logbook.pdf: entries/2026-09-10-dob-unit-comparison.tex \
+	../tasks/audits/audit_estimation_parent_links/output/dob_unit_filings.csv \
+	../tasks/audits/audit_estimation_parent_links/output/dob_unit_parents.csv \
+	../tasks/audits/audit_estimation_parent_links/report/dob_unit_filings.txt \
+	../tasks/audits/audit_estimation_parent_links/report/dob_unit_parents.txt \
+	entries/2026-09-10-unit-boundaries.tex \
 	entries/2026-09-10-refilings.tex \
 	../tasks/audits/audit_estimation_parent_links/output/refilings.csv \
 	../tasks/audits/audit_estimation_parent_links/report/refilings.txt \
@@ -95,3 +100,5 @@ check-audit_estimation_parent_links:
 	$(MAKE) --silent -C ../tasks/audits/audit_estimation_parent_links/code all
 
 ../tasks/audits/audit_estimation_parent_links/output/refilings.csv ../tasks/audits/audit_estimation_parent_links/report/refilings.txt: check-audit_estimation_parent_links ;
+
+../tasks/audits/audit_estimation_parent_links/output/dob_unit_filings.csv ../tasks/audits/audit_estimation_parent_links/output/dob_unit_parents.csv ../tasks/audits/audit_estimation_parent_links/report/dob_unit_filings.txt ../tasks/audits/audit_estimation_parent_links/report/dob_unit_parents.txt: check-audit_estimation_parent_links ;

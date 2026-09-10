@@ -7,7 +7,19 @@ ifneq ($(filter command,$(origin NEAR_METRES) $(origin NEAR_DAYS)),)
 $(error Edit the recorded settings here for these fixed-name outputs)
 endif
 
-all: ../output/refilings.csv ../report/refilings.txt ../output/companion_link_trace.csv ../report/companion_link_trace.txt ../output/third_avenue_plan.png ../output/parent_constituents.csv ../output/parent_casebook.md ../output/nearby_filings.csv ../report/parent_constituents.txt ../report/nearby_filings.txt
+all: ../output/dob_unit_filings.csv ../output/dob_unit_parents.csv ../report/dob_unit_filings.txt ../report/dob_unit_parents.txt ../output/refilings.csv ../report/refilings.txt ../output/companion_link_trace.csv ../report/companion_link_trace.txt ../output/third_avenue_plan.png ../output/parent_constituents.csv ../output/parent_casebook.md ../output/nearby_filings.csv ../report/parent_constituents.txt ../report/nearby_filings.txt
+
+../output/dob_unit_filings.csv: compare_unit_sources.R ../input/parent_opportunity_panel.parquet ../input/symmetric_parent_membership.parquet ../input/dob_now_new_building_initial_filings.parquet ../input/dcp_housing_database_project_level_raw_25q4.parquet | ../output
+	$(R) $<
+
+../output/dob_unit_parents.csv: ../output/dob_unit_filings.csv
+	$(MAKE) -W compare_unit_sources.R all
+
+../report/dob_unit_filings.txt: report_data.R ../../../shared/code/write_data_report.R ../output/dob_unit_filings.csv | ../report
+	$(R) $< dob_unit_filings
+
+../report/dob_unit_parents.txt: report_data.R ../../../shared/code/write_data_report.R ../output/dob_unit_parents.csv | ../report
+	$(R) $< dob_unit_parents
 
 ../output/refilings.csv: review_refilings.R ../input/symmetric_parent_membership.parquet ../input/dob_now_new_building_initial_filings.parquet | ../output
 	$(R) $<
