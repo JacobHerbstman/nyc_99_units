@@ -78,9 +78,13 @@ review <- read_csv("neighbor_evidence.csv", show_col_types = FALSE) |>
   rename(original_parent_id = parent_id) |>
   mutate(job_number = sub("^.*__", "", original_parent_id)) |>
   left_join(membership |> select(job_number, parent_id), by = "job_number", relationship = "many-to-one")
-stopifnot(!anyNA(review$parent_id), !anyDuplicated(review[c("parent_id", "neighbor_job")]))
-review <- review |> select(-original_parent_id, -job_number) |>
-  semi_join(neighbors, by = c("parent_id", "neighbor_job"))
+stopifnot(!anyNA(review$parent_id),
+  !anyDuplicated(review[c("original_parent_id", "neighbor_job")]))
+review <- review |> semi_join(neighbors, by = c("parent_id", "neighbor_job")) |>
+  arrange(original_parent_id) |>
+  group_by(parent_id, neighbor_job) |>
+  summarise(across(c(review_decision, review_note),
+    ~ paste(unique(.x), collapse = " | ")), .groups = "drop")
 multi <- parents |> filter(n_components > 1)
 neighbors <- neighbors |>
   left_join(review, by = c("parent_id", "neighbor_job"), relationship = "one-to-one") |>

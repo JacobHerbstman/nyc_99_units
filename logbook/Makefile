@@ -4,7 +4,8 @@ SHELL := /bin/bash
 
 all: logbook.pdf
 
-logbook.pdf: entries/2026-09-10-refilings.tex \
+logbook.pdf: entries/2026-09-10-unit-boundaries.tex \
+	entries/2026-09-10-refilings.tex \
 	../tasks/audits/audit_estimation_parent_links/output/refilings.csv \
 	../tasks/audits/audit_estimation_parent_links/report/refilings.txt \
 	entries/2026-09-09-manual-parent-decisions.tex \

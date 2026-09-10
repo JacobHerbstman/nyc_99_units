@@ -315,7 +315,7 @@ features <- bind_rows(historical_features, post_features) |>
   transmute(
     sample,
     parent_id,
-    feature_units = units_hdb_priority,
+    feature_units = units,
     feature_complete,
     composition_eligible,
     number_unique_lots = feature_lots,

@@ -20,7 +20,11 @@ evidence <- read_csv("parent_evidence.csv", show_col_types = FALSE) |>
   mutate(job_number = sub("^.*__", "", original_parent_id)) |>
   left_join(membership |> select(job_number, parent_id), by = "job_number", relationship = "many-to-one")
 stopifnot(!anyNA(evidence$parent_id))
-evidence <- evidence |> semi_join(parents, by = "parent_id")
+evidence <- evidence |> semi_join(parents, by = "parent_id") |>
+  arrange(original_parent_id) |>
+  group_by(parent_id) |>
+  summarise(across(c(verdict, finding, limitation, sources),
+    ~ paste(unique(.x), collapse = " | ")), .groups = "drop")
 neighbors <- read_csv("../output/nearby_filings.csv", show_col_types = FALSE)
 stopifnot(!anyDuplicated(hdb$job_number), !anyDuplicated(dob$job_number),
           !anyDuplicated(historical$job_number), !anyDuplicated(evidence$parent_id),
@@ -49,8 +53,8 @@ stopifnot(all(check$total == check$parent_total_units), all(check$count == check
 write_csv(filings, "../output/parent_constituents.csv", na = "")
 
 lines <- c(paste0("# Current ", nrow(parents), " multi-constituent estimation parents: evidence and outstanding questions"), "",
-  "Reviewed against saved HDB 25Q4 and DOB July 2026 records. Public-source review dated September 9, 2026.", "",
-  "A supported connection does not establish the correct decision-date unit count, complete project boundary, or common legal wage assessment. The manual source task applies the September 9 decisions in production. Original written reviews below are retained and mapped through filing IDs; new decisions and remaining questions are documented in report/ten_case_deep_review.md.", "")
+  "Reviewed against saved HDB 25Q4 and DOB July 2026 records. Public-source review updated September 10, 2026.", "",
+  "A supported connection does not establish the correct decision-date unit count, complete project boundary, or common legal wage assessment. The manual source task applies the documented decisions in production. Written reviews below are mapped through filing IDs; when old parents merge, their evidence is combined explicitly. Updated decisions and remaining questions are documented in report/ten_case_deep_review.md.", "")
 refilings <- read_csv("../output/refilings.csv", show_col_types = FALSE)
 lines <- c(lines, "## Automatic refiling correction", "",
   paste0("The full membership file contains ", nrow(refilings),

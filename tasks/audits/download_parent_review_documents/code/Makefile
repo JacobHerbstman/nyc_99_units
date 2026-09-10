@@ -27,4 +27,6 @@ all: ../output/1660_boone_bcp_application_2024-10-28.pdf ../output/4121_third_ra
 	pdfinfo ../temp/1660_boone_bcp_application.pdf > /dev/null
 	mv ../temp/1660_boone_bcp_application.pdf $@
 
+include boundary_documents.make
+
 include ../../../shared/code/generic.make

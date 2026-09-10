@@ -810,6 +810,10 @@ membership <- membership |>
     documented_units = reviewed_units, documented_unit_definition = unit_definition,
     documented_unit_source_date = source_date, documented_unit_source = review_source),
     by = c("sample", "root_job_id"), relationship = "one-to-one") |>
+  mutate(
+    units = coalesce(documented_units, hdb_priority_units),
+    unit_source = if_else(!is.na(documented_units), "documented_proposed_design", unit_source)
+  ) |>
   arrange(sample, date_filed, job_number) |>
   group_by(sample, component) |>
   mutate(
@@ -823,11 +827,11 @@ membership <- membership |>
     parent_observed_filings = sum(additive_component),
     parent_source_units = sum(hdb_priority_units),
     parent_source_units_dob_i1 = sum(dob_i1_units),
-    parent_observed_units = sum(hdb_priority_units[additive_component]),
+    parent_observed_units = sum(units[additive_component]),
     parent_observed_units_dob_i1 = sum(dob_i1_units[additive_component]),
     parent_source_exact_99_filings = sum(hdb_priority_units == 99L),
     parent_exact_99_filings = sum(
-      hdb_priority_units == 99L & additive_component
+      units == 99L & additive_component
     ),
     parent_source_exact_99_filings_dob_i1 = sum(dob_i1_units == 99L),
     parent_exact_99_filings_dob_i1 = sum(

@@ -73,12 +73,13 @@ aggregate_parent_rows <- function(member_rows) {
       cohort_date = first(cohort_date),
       cohort_year = first(cohort_year),
       date_last_filed = max(date_filed),
+      observed_units = sum(units[additive_component]),
       units_hdb_priority = sum(hdb_priority_units[additive_component]),
       units_dob_i1 = sum(dob_i1_units[additive_component]),
       source_filings = n(),
       component_filings = sum(additive_component),
       exact_99_component_filings = sum(
-        hdb_priority_units == 99L & additive_component
+        units == 99L & additive_component
       ),
       exact_99_component_filings_dob_i1 = sum(
         dob_i1_units == 99L & additive_component
@@ -154,7 +155,7 @@ aggregate_parent_rows <- function(member_rows) {
     mutate(
       observation_id = parent_id,
       filing_year = cohort_year,
-      units = units_hdb_priority,
+      units = observed_units,
       log_lotarea = log(lotarea),
       composition_eligible =
         feature_complete &

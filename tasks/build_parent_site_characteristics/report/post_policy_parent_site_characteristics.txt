@@ -1,38 +1,38 @@
-Rows: 1946
+Rows: 1945
 Columns: 32
 Key fields: parent_id
-Saved-file MD5: 9530a9094b1e83007010385b260c11f6
+Saved-file MD5: acb34ab93a5df4ffca70d9322e5a66a3
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 1946 | distinct | 1
-observation_id | character | nonmissing | 1946 | distinct | 1946
-parent_id | character | nonmissing | 1946 | distinct | 1946
-analysis_status | character | nonmissing | 1946 | distinct | 5
-cohort_date | Date | nonmissing | 1946 | distinct | 867
-cohort_year | integer | nonmissing | 1946 | distinct | 5 min/median/mean/max 2022/2024/2023.965/2026
-date_last_filed | Date | nonmissing | 1946 | distinct | 871
-filing_year | integer | nonmissing | 1946 | distinct | 5 min/median/mean/max 2022/2024/2023.965/2026
-units | integer | nonmissing | 1946 | distinct | 291 min/median/mean/max 6/29/67.111/1754
-units_hdb_priority | integer | nonmissing | 1946 | distinct | 291 min/median/mean/max 6/29/67.111/1754
-units_dob_i1 | integer | nonmissing | 1946 | distinct | 290 min/median/mean/max 6/29/67.54779/1754
-source_filings | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 1/1/1.097636/7
-component_filings | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 1/1/1.089928/7
-exact_99_component_filings | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 0/0/0.05909558/7
-exact_99_component_filings_dob_i1 | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 0/0/0.05806783/7
-source_jobs | character | nonmissing | 1946 | distinct | 1946
-component_jobs | character | nonmissing | 1946 | distinct | 1946
-nonmissing_bin_rows | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 0/1/0.8489209/6
-distinct_bins | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 0/1/0.8432682/6
-duplicate_bin_rows | integer | nonmissing | 1946 | distinct | 3 min/median/mean/max 0/0/0.005652621/2
-feature_complete | logical | nonmissing | 1946 | distinct | 2
-feature_methods | character | nonmissing | 1946 | distinct | 6
-feature_lots | integer | nonmissing | 1916 | distinct | 4 min/median/mean/max 1/1/1.038622/4
-composition_eligible | logical | nonmissing | 1946 | distinct | 2
-lotarea | numeric | nonmissing | 1916 | distinct | 1237 min/median/mean/max 0/4750/17351.29/2747985
-log_lotarea | numeric | nonmissing | 1916 | distinct | 1237 min/median/mean/max -Inf/8.4659/-Inf/14.82638
-residfar | numeric | nonmissing | 1914 | distinct | 31 min/median/mean/max 0/3/3.433925/10
-broad_zoning_far | numeric | nonmissing | 1914 | distinct | 25 min/median/mean/max 0/4.8/4.509272/15
-builtfar | numeric | nonmissing | 1914 | distinct | 411 min/median/mean/max 0/0.4925/0.8700736/18.12
-borough | character | nonmissing | 1916 | distinct | 5
-zone_detail | character | nonmissing | 1916 | distinct | 9
-prior_site_use | character | nonmissing | 1916 | distinct | 9
+sample | character | nonmissing | 1945 | distinct | 1
+observation_id | character | nonmissing | 1945 | distinct | 1945
+parent_id | character | nonmissing | 1945 | distinct | 1945
+analysis_status | character | nonmissing | 1945 | distinct | 5
+cohort_date | Date | nonmissing | 1945 | distinct | 867
+cohort_year | integer | nonmissing | 1945 | distinct | 5 min/median/mean/max 2022/2024/2023.966/2026
+date_last_filed | Date | nonmissing | 1945 | distinct | 871
+filing_year | integer | nonmissing | 1945 | distinct | 5 min/median/mean/max 2022/2024/2023.966/2026
+units | integer | nonmissing | 1945 | distinct | 291 min/median/mean/max 6/29/67.21594/1754
+units_hdb_priority | integer | nonmissing | 1945 | distinct | 291 min/median/mean/max 6/29/67.1455/1754
+units_dob_i1 | integer | nonmissing | 1945 | distinct | 290 min/median/mean/max 6/29/67.58252/1754
+source_filings | integer | nonmissing | 1945 | distinct | 7 min/median/mean/max 1/1/1.098201/7
+component_filings | integer | nonmissing | 1945 | distinct | 7 min/median/mean/max 1/1/1.090488/7
+exact_99_component_filings | integer | nonmissing | 1945 | distinct | 7 min/median/mean/max 0/0/0.05912596/7
+exact_99_component_filings_dob_i1 | integer | nonmissing | 1945 | distinct | 7 min/median/mean/max 0/0/0.05809769/7
+source_jobs | character | nonmissing | 1945 | distinct | 1945
+component_jobs | character | nonmissing | 1945 | distinct | 1945
+nonmissing_bin_rows | integer | nonmissing | 1945 | distinct | 7 min/median/mean/max 0/1/0.8493573/6
+distinct_bins | integer | nonmissing | 1945 | distinct | 7 min/median/mean/max 0/1/0.8437018/6
+duplicate_bin_rows | integer | nonmissing | 1945 | distinct | 3 min/median/mean/max 0/0/0.005655527/2
+feature_complete | logical | nonmissing | 1945 | distinct | 2
+feature_methods | character | nonmissing | 1945 | distinct | 6
+feature_lots | integer | nonmissing | 1915 | distinct | 4 min/median/mean/max 1/1/1.039164/4
+composition_eligible | logical | nonmissing | 1945 | distinct | 2
+lotarea | numeric | nonmissing | 1915 | distinct | 1236 min/median/mean/max 0/4750/17360.35/2747985
+log_lotarea | numeric | nonmissing | 1915 | distinct | 1236 min/median/mean/max -Inf/8.4659/-Inf/14.82638
+residfar | numeric | nonmissing | 1913 | distinct | 32 min/median/mean/max 0/3/3.433367/10
+broad_zoning_far | numeric | nonmissing | 1913 | distinct | 26 min/median/mean/max 0/4.8/4.509277/15
+builtfar | numeric | nonmissing | 1913 | distinct | 411 min/median/mean/max 0/0.495/0.8704252/18.12
+borough | character | nonmissing | 1915 | distinct | 5
+zone_detail | character | nonmissing | 1915 | distinct | 9
+prior_site_use | character | nonmissing | 1915 | distinct | 9

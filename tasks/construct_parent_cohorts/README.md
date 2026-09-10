@@ -41,16 +41,26 @@ identifier and role, and one row per accepted filing link with its reason.
 The manual task owns all committed review sources; this task reads input symlinks.
 The seven September 2026 companion decisions overcome documented map-coverage
 failures without broadening the automatic ownership/proximity rule. Three disputed
-pair links are rejected; Wilson/Boston remains explicitly provisional. Final
+pair links are rejected; Wilson/Boston is now adjudicated separate in the baseline, with residual affiliation uncertainty recorded. Final
 assertions check pair decisions against the resulting connected components, so
 an indirect path cannot silently undo a rejection.
 
-The three Third Avenue filings form a 297-unit parent. `documented_units` and its
-definition, source date and URL retain the October plan's 99-unit schedule for each
-filing. It is checked against selected units; conflicting original DOB I1 values
-remain unchanged. A future disagreement fails the build rather than silently
-changing the unit measurement rule. This documents proposed design, not first-filed
-or approved units. The membership and unit-measurement review is not yet complete.
+Documented proposed-unit schedules in the manual task take priority in `units`;
+`hdb_priority_units` and `dob_i1_units` remain unchanged source measures. The
+selected source is identified in `unit_source`, with the documented count,
+definition, source date and URL retained. Third Avenue is confirmed at 99 per
+building and Boyland at 86+28. Turnbull is corrected from 91 to 228 apartments
+using HDC's June 2026 schedule, including 137 supportive apartments. These are
+observed proposed designs, not reconstructions of first-filed choices. Parent
+observed totals and exact-99 counts use selected units; `parent_source_*` unit
+and exact-99 fields retain the original source-priority measures across all
+source filings. The overall unit review still has unresolved cases.
+
+Astoria Cove's four January 13, 2022 filings are joined by a documented manual
+edge in both linkage routes. The December 2023 GEI report identifies them as one
+Phase 1. The saved 576-unit program is unchanged; subsequent 731-unit plans are
+a separate vintage. The Coney Island rejection separates LCOR's 1515 Surf/
+2925 West 16th project from BFC's neighboring 1601 Surf/2938 West 16th project.
 
 Automatic refiling detection uses the saved July 2026 DOB initial records. A withdrawn filing must have a valid seven-digit BIN and nonempty recorded owner/applicant; its unique non-withdrawn replacement must share the BIN and normalized owner/applicant and be filed strictly after both the original filing and recorded withdrawal. The rule scans the retained filing universe without using unit similarity or address proximity. Multiple candidates, multiple predecessors for one replacement, cross-parent matches, and conflicts with manual roles fail for review. They do not create new parent links.
 

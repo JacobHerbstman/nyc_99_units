@@ -1,15 +1,15 @@
 borough_summary
 Rows: 20  Columns: 10
-MD5 of saved file: bd988a2976492a9b5d78af86b2dd13ee
+MD5 of saved file: 871be270161277e66d178f6a0877c78d
 measure | character | nonmissing 20 | distinct 2
 borough_name | character | nonmissing 20 | distinct 5
 sample | character | nonmissing 20 | distinct 2
-n_50_plus | numeric | nonmissing 20 | distinct 19| min/median/mean/max 3/102.5/95/216
+n_50_plus | numeric | nonmissing 20 | distinct 19| min/median/mean/max 3/102.5/94.95/216
 n_99 | numeric | nonmissing 20 | distinct 11| min/median/mean/max 0/2/7.3/33
 n_100_149 | numeric | nonmissing 20 | distinct 14| min/median/mean/max 0/8.5/13.15/36
 n_198 | numeric | nonmissing 20 | distinct 4| min/median/mean/max 0/0/0.45/5
-share_99 | numeric | nonmissing 20 | distinct 17| min/median/mean/max 0/0.01475819/0.07021677/0.248
-share_100_149 | numeric | nonmissing 20 | distinct 18| min/median/mean/max 0/0.1404913/0.1458233/0.6666667
+share_99 | numeric | nonmissing 20 | distinct 16| min/median/mean/max 0/0.01475819/0.07022952/0.248
+share_100_149 | numeric | nonmissing 20 | distinct 18| min/median/mean/max 0/0.1404913/0.145904/0.6666667
 share_198 | numeric | nonmissing 20 | distinct 4| min/median/mean/max 0/0/0.004389427/0.04854369
 
  measure  borough_name      sample n_50_plus n_99 n_100_149 n_198    share_99
@@ -29,7 +29,7 @@ share_198 | numeric | nonmissing 20 | distinct 4| min/median/mean/max 0/0/0.0043
  parents      Brooklyn post_policy       103   13         9     5 0.126213592
  parents     Manhattan  historical        86    1        19     0 0.011627907
  parents     Manhattan post_policy        36    1         3     0 0.027777778
- parents        Queens  historical       109    3        19     0 0.027522936
+ parents        Queens  historical       108    3        19     0 0.027777778
  parents        Queens post_policy        76    6         9     1 0.078947368
  parents Staten Island  historical         4    0         0     0 0.000000000
  parents Staten Island post_policy         3    0         2     0 0.000000000
@@ -50,7 +50,7 @@ share_198 | numeric | nonmissing 20 | distinct 4| min/median/mean/max 0/0/0.0043
     0.08737864 0.04854369
     0.22093023 0.00000000
     0.08333333 0.00000000
-    0.17431193 0.00000000
+    0.17592593 0.00000000
     0.11842105 0.01315789
     0.00000000 0.00000000
     0.66666667 0.00000000

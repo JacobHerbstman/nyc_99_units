@@ -1,17 +1,17 @@
 Rows: 7133
 Columns: 15
 Key fields: sample, root_job_id
-Saved-file MD5: 87747dce2515c5fce69fe8a94dcbcb48
+Saved-file MD5: 277329c426cc0b9a375df70d6a277758
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 7133 | distinct | 2
-parent_id | character | nonmissing | 7133 | distinct | 6718
+parent_id | character | nonmissing | 7133 | distinct | 6717
 root_job_id | character | nonmissing | 7133 | distinct | 7132
-member_order | numeric | nonmissing | 7133 | distinct | 20 min/median/mean/max 1/1/1.103883/20
+member_order | numeric | nonmissing | 7133 | distinct | 20 min/median/mean/max 1/1/1.104444/20
 cohort_date | Date | nonmissing | 7133 | distinct | 2968
 cohort_year | numeric | nonmissing | 7133 | distinct | 16 min/median/mean/max 2011/2018/2018.559/2026
-parent_total_units | numeric | nonmissing | 7133 | distinct | 444 min/median/mean/max 6/22/65.92107/1754
-component_units | numeric | nonmissing | 7133 | distinct | 433 min/median/mean/max 6/20/55.38357/1313
+parent_total_units | numeric | nonmissing | 7133 | distinct | 445 min/median/mean/max 6/22/66.12099/1754
+component_units | numeric | nonmissing | 7133 | distinct | 433 min/median/mean/max 6/20/55.40278/1313
 filing_bbl | numeric | nonmissing | 7133 | distinct | 6983 min/median/mean/max 1000198000/3022498000/2799548000/5075840000
 address | character | nonmissing | 7133 | distinct | 7090
 borough_name | character | nonmissing | 7133 | distinct | 5
