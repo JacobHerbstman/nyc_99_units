@@ -51,31 +51,17 @@ write_csv(filings, "../output/parent_constituents.csv", na = "")
 lines <- c(paste0("# Current ", nrow(parents), " multi-constituent estimation parents: evidence and outstanding questions"), "",
   "Reviewed against saved HDB 25Q4 and DOB July 2026 records. Public-source review dated September 9, 2026.", "",
   "A supported connection does not establish the correct decision-date unit count, complete project boundary, or common legal wage assessment. The manual source task applies the September 9 decisions in production. Original written reviews below are retained and mapped through filing IDs; new decisions and remaining questions are documented in report/ten_case_deep_review.md.", "")
-withdrawn <- filings |> filter(dob_status == "Filing Withdrawn")
-stopifnot(nrow(withdrawn) == 6, sum(withdrawn$units) == 368,
-  n_distinct(withdrawn$parent_id) == 5)
-for (j in seq_len(nrow(withdrawn))) {
-  w <- withdrawn[j, ]
-  replacement <- filings |> filter(parent_id == w$parent_id, dob_bin == w$dob_bin,
-    root_job_id != w$root_job_id, date_filed > w$dob_status_date,
-    dob_status != "Filing Withdrawn")
-  stopifnot(nrow(replacement) == 1,
-    replacement$dob_owner == w$dob_owner,
-    replacement$dob_applicant == w$dob_applicant)
-}
-lines <- c(lines, "## What changes our confidence", "",
-  "The original 76-parent review is preserved as source evidence. This casebook follows current membership after the manual decisions; retired parent IDs are mapped through their anchor filings. Public corroboration varies, and the written findings are not independent verification of every legal project.", "",
-  "Six withdrawn applications are still summed with replacement applications in five parents, adding 368 units. Four of those parents appear to represent single buildings. Production now separates East 232nd, Boone, and provisionally Wilson/Boston; evidence and remaining affiliation limits appear in report/ten_case_deep_review.md. Several additional cases have incomplete boundaries or inconsistent unit measures.", "",
-  "### Withdrawn applications counted again", "",
-  "These are audit recommendations. The table removes withdrawn applications from the saved total; it does not choose a new cohort date or change production data.", "",
-  "| Current parent | Saved total | Withdrawn units | Remaining units |",
-  "|---|---:|---:|---:|")
-for (id in unique(withdrawn$parent_id)) {
-  p <- filter(parents, parent_id == id)
-  removed <- sum(withdrawn$units[withdrawn$parent_id == id])
-  lines <- c(lines, paste0("| ", p$component_addresses, " | ", p$parent_total_units,
-    " | ", removed, " | ", p$parent_total_units - removed, " |"))
-}
+refilings <- read_csv("../output/refilings.csv", show_col_types = FALSE)
+lines <- c(lines, "## Automatic refiling correction", "",
+  paste0("The full membership file contains ", nrow(refilings),
+    " automatically detected replacement pairs. Counting only their replacement filings removes ",
+    sum(refilings$original_units), " duplicate units. Original proposal dates are retained; refiling dates are recorded separately."), "",
+  "The rule requires the same recorded building identifier, owner and applicant, with one non-withdrawn replacement filed after withdrawal. Ambiguous matches or matches spanning existing parents stop the build. The original review findings below predate this correction where they discuss withdrawn duplicates.", "",
+  "| Address | Original filing date | Refiling date | Original units removed | Replacement units retained |",
+  "|---|---|---|---:|---:|")
+for (j in seq_len(nrow(refilings))) lines <- c(lines, paste0("| ", refilings$address[j],
+  " | ", refilings$original_filing_date[j], " | ", refilings$refiling_date[j],
+  " | ", refilings$original_units[j], " | ", refilings$replacement_units[j], " |"))
 lines <- c(lines, "", "### Nearby filings", "",
   paste0("The 200-metre, 365-day screen retains same-lot filings without a distance requirement. The current screen contains ", nrow(neighbors), " parent–filing pairs; ", sum(neighbors$review_decision == "Not individually adjudicated"), " lack an individual review in the original neighbor evidence table. Accepted companions are now inside their parents and no longer appear as external neighbors. Screen counts and missing coordinates are printed by the producing script."), "",
   "Different owner labels and unsuccessful searches do not prove independence. Cases with no additional connection established remain distinct from verified rejections. Filings outside the radius, year window, source coverage or recorded vintage may still be missing.", "",

@@ -754,7 +754,58 @@ if (
   stop("A superseded filing is not grouped with its reviewed replacement.")
 }
 
-membership <- bind_rows(historical_membership, post_membership) |>
+membership <- bind_rows(historical_membership, post_membership)
+
+# A withdrawn application and its unique subsequent filing describe one building.
+dob_filings <- read_parquet("../input/dob_now_new_building_initial_filings.parquet") |>
+  transmute(root_job_id = job_number, bin = as.character(bin),
+    filing_status, withdrawal_date = current_status_date,
+    owner = str_squish(str_to_upper(paste(coalesce(owner_business_name, ""),
+      coalesce(owner_first_name, ""), coalesce(owner_last_name, "")))),
+    applicant = str_squish(str_to_upper(paste(coalesce(applicant_first_name, ""),
+      coalesce(applicant_last_name, ""), coalesce(applicant_business_name, "")))))
+stopifnot(!anyDuplicated(dob_filings$root_job_id))
+refiling_fields <- membership |>
+  left_join(dob_filings, by = "root_job_id", relationship = "many-to-one")
+replacement_index <- rep(NA_integer_, nrow(membership))
+for (i in which(refiling_fields$filing_status == "Filing Withdrawn" &
+    !is.na(refiling_fields$withdrawal_date) &
+    str_detect(refiling_fields$bin, "^[1-5][0-9]{6}$") &
+    !refiling_fields$owner %in% c("", "PR", "PRIVATE", "NOT APPLICABLE") &
+    refiling_fields$applicant != "")) {
+  candidates <- which(refiling_fields$sample == refiling_fields$sample[i] &
+    refiling_fields$bin == refiling_fields$bin[i] &
+    refiling_fields$owner == refiling_fields$owner[i] &
+    refiling_fields$applicant == refiling_fields$applicant[i] &
+    refiling_fields$date_filed > refiling_fields$date_filed[i] &
+    refiling_fields$date_filed > refiling_fields$withdrawal_date[i] &
+    refiling_fields$filing_status != "Filing Withdrawn")
+  if (length(candidates) > 1L) stop("Multiple refiling candidates for ", membership$job_number[i])
+  if (length(candidates) == 1L) replacement_index[i] <- candidates
+}
+original_index <- which(!is.na(replacement_index))
+new_index <- replacement_index[original_index]
+stopifnot(!anyDuplicated(new_index),
+  all(membership$sample[original_index] == membership$sample[new_index]),
+  all(membership$component[original_index] == membership$component[new_index]),
+  all(membership$additive_component[new_index]))
+# A conflicting manual role or a pair outside an existing parent requires review.
+stopifnot(all(is.na(membership$replacement_job_number[original_index]) |
+  membership$replacement_job_number[original_index] == membership$job_number[new_index]))
+membership$original_filing_date <- membership$date_filed
+membership$refiled <- FALSE
+membership$refiling_date <- as.Date(NA)
+membership$refiled[c(original_index, new_index)] <- TRUE
+membership$refiling_date[original_index] <- membership$date_filed[new_index]
+membership$refiling_date[new_index] <- membership$date_filed[new_index]
+membership$original_filing_date[new_index] <- membership$date_filed[original_index]
+membership$filing_role[original_index] <- "superseded_refiling"
+membership$additive_component[original_index] <- FALSE
+membership$replacement_job_number[original_index] <- membership$job_number[new_index]
+stopifnot(all(membership$refiled == !is.na(membership$refiling_date)),
+  all(membership$refiling_date[membership$refiled] > membership$original_filing_date[membership$refiled]))
+
+membership <- membership |>
   left_join(unit_decisions |> select(sample, root_job_id,
     documented_units = reviewed_units, documented_unit_definition = unit_definition,
     documented_unit_source_date = source_date, documented_unit_source = review_source),

@@ -1,30 +1,30 @@
 borough_summary
 Rows: 20  Columns: 10
-MD5 of saved file: b73a246d9eeac7e6e1510b42331ebab7
+MD5 of saved file: bd988a2976492a9b5d78af86b2dd13ee
 measure | character | nonmissing 20 | distinct 2
 borough_name | character | nonmissing 20 | distinct 5
 sample | character | nonmissing 20 | distinct 2
-n_50_plus | numeric | nonmissing 20 | distinct 19| min/median/mean/max 3/103.5/95.3/216
+n_50_plus | numeric | nonmissing 20 | distinct 19| min/median/mean/max 3/102.5/95/216
 n_99 | numeric | nonmissing 20 | distinct 11| min/median/mean/max 0/2/7.3/33
-n_100_149 | numeric | nonmissing 20 | distinct 14| min/median/mean/max 0/9/13.2/36
+n_100_149 | numeric | nonmissing 20 | distinct 14| min/median/mean/max 0/8.5/13.15/36
 n_198 | numeric | nonmissing 20 | distinct 4| min/median/mean/max 0/0/0.45/5
-share_99 | numeric | nonmissing 20 | distinct 17| min/median/mean/max 0/0.01475819/0.06973057/0.248
-share_100_149 | numeric | nonmissing 20 | distinct 18| min/median/mean/max 0/0.1404913/0.1461037/0.6666667
-share_198 | numeric | nonmissing 20 | distinct 4| min/median/mean/max 0/0/0.004356266/0.04854369
+share_99 | numeric | nonmissing 20 | distinct 17| min/median/mean/max 0/0.01475819/0.07021677/0.248
+share_100_149 | numeric | nonmissing 20 | distinct 18| min/median/mean/max 0/0.1404913/0.1458233/0.6666667
+share_198 | numeric | nonmissing 20 | distinct 4| min/median/mean/max 0/0/0.004389427/0.04854369
 
  measure  borough_name      sample n_50_plus n_99 n_100_149 n_198    share_99
  filings         Bronx  historical       163    2        32     0 0.012269939
- filings         Bronx post_policy       139   33         3     0 0.237410072
+ filings         Bronx post_policy       138   33         3     0 0.239130435
  filings      Brooklyn  historical       216    1        36     0 0.004629630
  filings      Brooklyn post_policy       125   31         8     0 0.248000000
  filings     Manhattan  historical        88    1        18     0 0.011363636
  filings     Manhattan post_policy        45   10         3     0 0.222222222
  filings        Queens  historical       117    2        24     0 0.017094017
- filings        Queens post_policy       104   19         5     0 0.182692308
+ filings        Queens post_policy       102   19         5     0 0.186274510
  filings Staten Island  historical         6    0         1     0 0.000000000
  filings Staten Island post_policy         4    0         0     0 0.000000000
  parents         Bronx  historical       161    2        31     0 0.012422360
- parents         Bronx post_policy       118   20         9     3 0.169491525
+ parents         Bronx post_policy       115   20         8     3 0.173913043
  parents      Brooklyn  historical       203    1        33     0 0.004926108
  parents      Brooklyn post_policy       103   13         9     5 0.126213592
  parents     Manhattan  historical        86    1        19     0 0.011627907
@@ -35,17 +35,17 @@ share_198 | numeric | nonmissing 20 | distinct 4| min/median/mean/max 0/0/0.0043
  parents Staten Island post_policy         3    0         2     0 0.000000000
  share_100_149  share_198
     0.19631902 0.00000000
-    0.02158273 0.00000000
+    0.02173913 0.00000000
     0.16666667 0.00000000
     0.06400000 0.00000000
     0.20454545 0.00000000
     0.06666667 0.00000000
     0.20512821 0.00000000
-    0.04807692 0.00000000
+    0.04901961 0.00000000
     0.16666667 0.00000000
     0.00000000 0.00000000
     0.19254658 0.00000000
-    0.07627119 0.02542373
+    0.06956522 0.02608696
     0.16256158 0.00000000
     0.08737864 0.04854369
     0.22093023 0.00000000

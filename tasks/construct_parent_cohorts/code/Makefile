@@ -17,7 +17,7 @@ all: ../output/symmetric_parent_membership.parquet ../output/symmetric_parent_li
 	../report/symmetric_parent_links.txt \
 	../report/symmetric_parent_membership.txt
 
-../output/symmetric_parent_membership.parquet: construct_parent_cohorts.R Makefile \
+../output/symmetric_parent_membership.parquet: construct_parent_cohorts.R Makefile ../input/dob_now_new_building_initial_filings.parquet \
 	../input/nyc_mappluto_23v3_1_arc_shp.zip ../input/pair_decisions.csv ../input/post_parent_reviews.csv \
 	../input/unit_decisions.csv ../input/post_parent_filing_roles.csv ../../shared/code/source_pipeline_utils.R \
 	../input/historical_parent_filing_link_fields.parquet ../input/historical_parent_candidate_pairs.parquet \
@@ -77,7 +77,10 @@ all: ../output/symmetric_parent_membership.parquet ../output/symmetric_parent_li
 ../input/post_parent_filing_roles.csv: ../../parent_opportunities_manual/output/post_parent_filing_roles.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-link-inputs: ../input/pair_decisions.csv ../input/unit_decisions.csv ../input/post_parent_reviews.csv ../input/post_parent_filing_roles.csv \
+../input/dob_now_new_building_initial_filings.parquet: ../../stage_dob_now_new_building_filings/output/dob_now_new_building_initial_filings.parquet | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
+link-inputs: ../input/dob_now_new_building_initial_filings.parquet ../input/pair_decisions.csv ../input/unit_decisions.csv ../input/post_parent_reviews.csv ../input/post_parent_filing_roles.csv \
 	../input/historical_parent_filing_link_fields.parquet \
 	../input/historical_parent_candidate_pairs.parquet \
 	../input/historical_polygon_adjacency_pairs.parquet \
@@ -127,5 +130,11 @@ check-build_hdb_mappluto_site_panel:
 
 check-fetch_mappluto_archive:
 	$(MAKE) -C ../../fetch_mappluto_archive/code all ../output/mappluto_files.csv ../output/dcp_mappluto_archive_23v3.1_nyc_mappluto_23v3_1_arc_shp.zip
+
+../../stage_dob_now_new_building_filings/output/dob_now_new_building_initial_filings.parquet: check-stage_dob_now_new_building_filings ;
+
+.PHONY: check-stage_dob_now_new_building_filings
+check-stage_dob_now_new_building_filings:
+	$(MAKE) -C ../../stage_dob_now_new_building_filings/code all ../output/dob_now_new_building_initial_filings.parquet
 
 include ../../shared/code/generic.make

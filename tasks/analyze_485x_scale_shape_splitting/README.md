@@ -87,3 +87,5 @@ values are generated from the current result tables before LaTeX compilation.
 annualized and normalized filing sizes, separate pre/post one-unit histograms
 with common axes, 50+ and 6+ filing-size CDFs, normalized parent totals, the
 composition-adjusted benchmark, and two views of repeated-99 configurations.
+
+Refiling dates are separate from original proposal dates. In the constituent panel, `date_filed` is the original filing date, `record_filing_date` is the retained application's actual filing date, and `refiled`/`refiling_date` record an automatically detected replacement. Only the replacement's units are additive. The parent panel keeps the original `cohort_date`, sets `refiled` when any constituent refiled, and records the earliest qualifying refiling date across its constituents (missing otherwise). This correction uses observed replacement units and does not claim to recover the original design's unit choice.

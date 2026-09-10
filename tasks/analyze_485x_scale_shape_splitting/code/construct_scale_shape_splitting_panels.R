@@ -143,6 +143,8 @@ parent_dates <- membership |>
   group_by(sample, parent_id) |>
   summarise(
     cohort_date = first(cohort_date),
+    refiling_date = if (any(refiled)) min(refiling_date[refiled]) else as.Date(NA),
+    refiled = any(refiled),
     cohort_year = first(cohort_year),
     parent_total_units_stored = first(parent_observed_units),
     full_window_observed = first(full_window_observed),
@@ -410,6 +412,8 @@ parent_panel <- parent_dates |>
     exposure_years,
     parent_id,
     cohort_date,
+    refiled,
+    refiling_date,
     cohort_year,
     parent_last_filing_date,
     source_end_date,
@@ -499,7 +503,10 @@ constituent_panel <- constituents |>
     constituent_rank,
     constituent_units = units,
     parent_constituent_weight,
-    date_filed,
+    date_filed = original_filing_date,
+    record_filing_date = date_filed,
+    refiled,
+    refiling_date,
     filing_bbl,
     address,
     borough_name,
@@ -533,6 +540,9 @@ constituent_panel <- constituents |>
     by = c("sample", "parent_id"),
     relationship = "many-to-one"
   )
+
+stopifnot(all(parent_panel$refiled == !is.na(parent_panel$refiling_date)),
+  all(constituent_panel$refiled == !is.na(constituent_panel$refiling_date)))
 
 if (
   anyDuplicated(constituent_panel[c("sample", "root_job_id")]) ||

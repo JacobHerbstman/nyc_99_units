@@ -7,7 +7,13 @@ ifneq ($(filter command,$(origin NEAR_METRES) $(origin NEAR_DAYS)),)
 $(error Edit the recorded settings here for these fixed-name outputs)
 endif
 
-all: ../output/companion_link_trace.csv ../report/companion_link_trace.txt ../output/third_avenue_plan.png ../output/parent_constituents.csv ../output/parent_casebook.md ../output/nearby_filings.csv ../report/parent_constituents.txt ../report/nearby_filings.txt
+all: ../output/refilings.csv ../report/refilings.txt ../output/companion_link_trace.csv ../report/companion_link_trace.txt ../output/third_avenue_plan.png ../output/parent_constituents.csv ../output/parent_casebook.md ../output/nearby_filings.csv ../report/parent_constituents.txt ../report/nearby_filings.txt
+
+../output/refilings.csv: review_refilings.R ../input/symmetric_parent_membership.parquet ../input/dob_now_new_building_initial_filings.parquet | ../output
+	$(R) $<
+
+../report/refilings.txt: report_data.R ../../../shared/code/write_data_report.R ../output/refilings.csv | ../report
+	$(R) $< refilings
 
 ../output/companion_link_trace.csv: trace_companions.R Makefile ../input/symmetric_parent_membership.parquet ../input/post_policy_filing_link_fields.parquet ../input/historical_parent_filing_link_fields.parquet ../input/historical_parent_candidate_pairs.parquet ../input/hdb_mappluto_site_panel.parquet ../input/symmetric_parent_links.parquet ../input/nyc_mappluto_23v3_1_arc_shp.zip | ../output
 	$(R) $<
@@ -18,7 +24,7 @@ all: ../output/companion_link_trace.csv ../report/companion_link_trace.txt ../ou
 ../output/third_avenue_plan.png: ../input/4121_third_rawp_2025-10-01.pdf Makefile | ../output
 	pdftoppm -f 77 -l 77 -singlefile -scale-to 2600 -png $< ../output/third_avenue_plan
 
-../output/parent_constituents.csv: review_parents.R Makefile parent_evidence.csv ../report/ten_case_deep_review.md ../output/nearby_filings.csv \
+../output/parent_constituents.csv: review_parents.R Makefile parent_evidence.csv ../output/refilings.csv ../report/ten_case_deep_review.md ../output/nearby_filings.csv \
 	../input/parent_opportunity_panel.parquet \
 	../input/symmetric_parent_membership.parquet \
 	../input/symmetric_parent_links.parquet \

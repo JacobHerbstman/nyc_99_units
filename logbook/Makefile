@@ -4,7 +4,10 @@ SHELL := /bin/bash
 
 all: logbook.pdf
 
-logbook.pdf: entries/2026-09-09-manual-parent-decisions.tex \
+logbook.pdf: entries/2026-09-10-refilings.tex \
+	../tasks/audits/audit_estimation_parent_links/output/refilings.csv \
+	../tasks/audits/audit_estimation_parent_links/report/refilings.txt \
+	entries/2026-09-09-manual-parent-decisions.tex \
 	../tasks/parent_opportunities_manual/output/pair_decisions.csv \
 	../tasks/parent_opportunities_manual/output/unit_decisions.csv \
 	entries/2026-09-09-companion-causes.tex \
@@ -89,3 +92,5 @@ check-audit_lodes_construction_wages:
 .PHONY: check-audit_estimation_parent_links
 check-audit_estimation_parent_links:
 	$(MAKE) --silent -C ../tasks/audits/audit_estimation_parent_links/code all
+
+../tasks/audits/audit_estimation_parent_links/output/refilings.csv ../tasks/audits/audit_estimation_parent_links/report/refilings.txt: check-audit_estimation_parent_links ;

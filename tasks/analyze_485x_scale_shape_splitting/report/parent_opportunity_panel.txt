@@ -1,7 +1,7 @@
 Rows: 2734
-Columns: 69
+Columns: 71
 Key fields: sample, parent_id
-Saved-file MD5: e2c8c1a047249307902a088aa3566000
+Saved-file MD5: c2f0b8cb7a1415295dc2c06d1a6a656f
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 2734 | distinct | 2
@@ -9,6 +9,8 @@ period | character | nonmissing | 2734 | distinct | 2
 exposure_years | numeric | nonmissing | 2734 | distinct | 2 min/median/mean/max 1.516769/4/3.168926/4
 parent_id | character | nonmissing | 2734 | distinct | 2734
 cohort_date | Date | nonmissing | 2734 | distinct | 1156
+refiled | logical | nonmissing | 2734 | distinct | 2
+refiling_date | Date | nonmissing | 9 | distinct | 8
 cohort_year | integer | nonmissing | 2734 | distinct | 6 min/median/mean/max 2019/2022/2022.113/2026
 parent_last_filing_date | Date | nonmissing | 2734 | distinct | 1156
 source_end_date | Date | nonmissing | 2734 | distinct | 2
@@ -16,12 +18,12 @@ observed_followup_days | integer | nonmissing | 2734 | distinct | 1115 min/media
 left_window_observed | logical | nonmissing | 2734 | distinct | 1
 right_window_observed | logical | nonmissing | 2734 | distinct | 2
 full_window_observed | logical | nonmissing | 2734 | distinct | 2
-parent_total_units | integer | nonmissing | 2734 | distinct | 344 min/median/mean/max 6/28/70.51719/1754
-constituent_total_units | integer | nonmissing | 2734 | distinct | 344 min/median/mean/max 6/28/70.51719/1754
-n_components | integer | nonmissing | 2734 | distinct | 7 min/median/mean/max 1/1/1.070227/7
+parent_total_units | integer | nonmissing | 2734 | distinct | 344 min/median/mean/max 6/27.5/70.35955/1754
+constituent_total_units | integer | nonmissing | 2734 | distinct | 344 min/median/mean/max 6/27.5/70.35955/1754
+n_components | integer | nonmissing | 2734 | distinct | 7 min/median/mean/max 1/1/1.066569/7
 max_component_units | integer | nonmissing | 2734 | distinct | 320 min/median/mean/max 6/27/64.60168/1313
-second_component_units | integer | nonmissing | 145 | distinct | 74 min/median/mean/max 6/63/83.15172/583
-third_component_units | integer | nonmissing | 31 | distinct | 24 min/median/mean/max 6/92/99/484
+second_component_units | integer | nonmissing | 137 | distinct | 69 min/median/mean/max 6/68/85.9854/583
+third_component_units | integer | nonmissing | 30 | distinct | 23 min/median/mean/max 6/91/99.03333/484
 min_component_units | integer | nonmissing | 2734 | distinct | 310 min/median/mean/max 6/27/62.35845/1313
 n_components_eq_99 | integer | nonmissing | 2734 | distinct | 7 min/median/mean/max 0/0/0.03657644/7
 n_components_ge_100 | integer | nonmissing | 2734 | distinct | 4 min/median/mean/max 0/0/0.1678859/3
@@ -32,11 +34,11 @@ multi_component | logical | nonmissing | 2734 | distinct | 2
 exact_99x2 | logical | nonmissing | 2734 | distinct | 2
 exact_99x3 | logical | nonmissing | 2734 | distinct | 2
 near_99x2 | logical | nonmissing | 2734 | distinct | 2
-sorted_component_vector | character | nonmissing | 2734 | distinct | 415
+sorted_component_vector | character | nonmissing | 2734 | distinct | 408
 component_job_numbers | character | nonmissing | 2734 | distinct | 2734
 component_bbls | character | nonmissing | 2734 | distinct | 2721
 component_addresses | character | nonmissing | 2734 | distinct | 2724
-component_filing_dates | character | nonmissing | 2734 | distinct | 1280
+component_filing_dates | character | nonmissing | 2734 | distinct | 1272
 n_unique_component_bbls | integer | nonmissing | 2734 | distinct | 5 min/median/mean/max 1/1/1.049012/7
 hpd_linked_components | integer | nonmissing | 2734 | distinct | 4 min/median/mean/max 0/0/0.05193855/4
 hpd_response_numbers | character | nonmissing | 2734 | distinct | 133
@@ -55,7 +57,7 @@ source_url | character | nonmissing | 284 | distinct | 153
 government_owner | logical | nonmissing | 2734 | distinct | 2
 nycha_owner | logical | nonmissing | 2734 | distinct | 2
 hotel_project | logical | nonmissing | 2734 | distinct | 2
-feature_units | integer | nonmissing | 2734 | distinct | 344 min/median/mean/max 6/28/70.51719/1754
+feature_units | integer | nonmissing | 2734 | distinct | 344 min/median/mean/max 6/27.5/70.35955/1754
 feature_complete | logical | nonmissing | 2734 | distinct | 2
 composition_eligible | logical | nonmissing | 2734 | distinct | 2
 number_unique_lots | integer | nonmissing | 2713 | distinct | 4 min/median/mean/max 1/1/1.033542/4

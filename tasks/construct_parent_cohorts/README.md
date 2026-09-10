@@ -23,7 +23,7 @@ economic opportunity, and whether their proposed units can be summed.
 
 The completed review covers all 37 original shared-site parents. Thirty-five
 groupings are accepted and two are rejected; no decision remains unresolved.
-Three filings are retained as superseded alternatives. The output therefore
+Three manually reviewed filings are retained as superseded alternatives. Automatic refiling detection additionally marks withdrawn predecessors as `superseded_refiling`. The output therefore
 reports both additive `parent_observed_*` measures and `parent_source_*`
 measures that describe every source filing before the supersession rule.
 
@@ -51,3 +51,7 @@ filing. It is checked against selected units; conflicting original DOB I1 values
 remain unchanged. A future disagreement fails the build rather than silently
 changing the unit measurement rule. This documents proposed design, not first-filed
 or approved units. The membership and unit-measurement review is not yet complete.
+
+Automatic refiling detection uses the saved July 2026 DOB initial records. A withdrawn filing must have a valid seven-digit BIN and nonempty recorded owner/applicant; its unique non-withdrawn replacement must share the BIN and normalized owner/applicant and be filed strictly after both the original filing and recorded withdrawal. The rule scans the retained filing universe without using unit similarity or address proximity. Multiple candidates, multiple predecessors for one replacement, cross-parent matches, and conflicts with manual roles fail for review. They do not create new parent links.
+
+Both source records remain, but only the replacement contributes units. Raw `date_filed` is unchanged in membership. Both records have `refiled = TRUE`, the original date in `original_filing_date`, and the replacement date in `refiling_date`. Other records have `refiled = FALSE` and a missing refiling date. This means no qualifying refiling observed in the saved source, not proof of no refiling outside its coverage. The original parent anchor and cohort date remain unchanged. Existing manually adjudicated alternative designs are not automatically labeled refilings unless they satisfy this rule.

@@ -1,7 +1,7 @@
 Rows: 8054
-Columns: 43
+Columns: 46
 Key fields: sample, job_number
-Saved-file MD5: a075442f6231f42bf64f1bf6ed6bbf3d
+Saved-file MD5: 3ab519e7fab9aac66bc42f9a7b5967a3
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 8054 | distinct | 2
@@ -13,13 +13,16 @@ units | integer | nonmissing | 8054 | distinct | 437 min/median/mean/max 6/20/56
 hdb_priority_units | integer | nonmissing | 8054 | distinct | 437 min/median/mean/max 6/20/56.01055/1313
 dob_i1_units | integer | nonmissing | 8054 | distinct | 438 min/median/mean/max 6/20/56.11609/1313
 unit_source | character | nonmissing | 8054 | distinct | 2
-filing_role | character | nonmissing | 8054 | distinct | 2
+filing_role | character | nonmissing | 8054 | distinct | 3
 additive_component | logical | nonmissing | 8054 | distinct | 2
-replacement_job_number | character | nonmissing | 3 | distinct | 2
+replacement_job_number | character | nonmissing | 15 | distinct | 14
 filing_bbl | character | nonmissing | 8054 | distinct | 7221
 site_linkage_bbl | character | nonmissing | 8054 | distinct | 7154
 geometry_available | logical | nonmissing | 8054 | distinct | 2
 component | integer | nonmissing | 8054 | distinct | 5731 min/median/mean/max 1/2013/2455.897/5918
+original_filing_date | Date | nonmissing | 8054 | distinct | 3094
+refiled | logical | nonmissing | 8054 | distinct | 2
+refiling_date | Date | nonmissing | 24 | distinct | 10
 documented_units | integer | nonmissing | 3 | distinct | 1 min/median/mean/max 99/99/99/99
 documented_unit_definition | character | nonmissing | 3 | distinct | 1
 documented_unit_source_date | character | nonmissing | 3 | distinct | 1
@@ -31,11 +34,11 @@ cohort_year | integer | nonmissing | 8054 | distinct | 17 min/median/mean/max 20
 parent_last_filing_date | Date | nonmissing | 8054 | distinct | 3063
 parent_span_days | integer | nonmissing | 8054 | distinct | 80 min/median/mean/max 0/0/2.799603/353
 parent_source_filings | integer | nonmissing | 8054 | distinct | 9 min/median/mean/max 1/1/1.20586/20
-parent_observed_filings | integer | nonmissing | 8054 | distinct | 9 min/median/mean/max 1/1/1.204743/20
+parent_observed_filings | integer | nonmissing | 8054 | distinct | 9 min/median/mean/max 1/1/1.201266/20
 parent_source_units | integer | nonmissing | 8054 | distinct | 449 min/median/mean/max 6/22/67.02781/1754
 parent_source_units_dob_i1 | integer | nonmissing | 8054 | distinct | 451 min/median/mean/max 6/22/67.09772/1754
-parent_observed_units | integer | nonmissing | 8054 | distinct | 449 min/median/mean/max 6/22/66.94996/1754
-parent_observed_units_dob_i1 | integer | nonmissing | 8054 | distinct | 451 min/median/mean/max 6/22/67.01987/1754
+parent_observed_units | integer | nonmissing | 8054 | distinct | 449 min/median/mean/max 6/22/66.78607/1754
+parent_observed_units_dob_i1 | integer | nonmissing | 8054 | distinct | 451 min/median/mean/max 6/22/66.85597/1754
 parent_source_exact_99_filings | integer | nonmissing | 8054 | distinct | 7 min/median/mean/max 0/0/0.03563447/7
 parent_exact_99_filings | integer | nonmissing | 8054 | distinct | 7 min/median/mean/max 0/0/0.03563447/7
 parent_source_exact_99_filings_dob_i1 | integer | nonmissing | 8054 | distinct | 7 min/median/mean/max 0/0/0.03464117/7

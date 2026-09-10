@@ -1,7 +1,7 @@
 Rows: 1946
 Columns: 32
 Key fields: parent_id
-Saved-file MD5: 054880313455b428c45e8dbdc94e99ab
+Saved-file MD5: 9530a9094b1e83007010385b260c11f6
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 1946 | distinct | 1
@@ -12,17 +12,17 @@ cohort_date | Date | nonmissing | 1946 | distinct | 867
 cohort_year | integer | nonmissing | 1946 | distinct | 5 min/median/mean/max 2022/2024/2023.965/2026
 date_last_filed | Date | nonmissing | 1946 | distinct | 871
 filing_year | integer | nonmissing | 1946 | distinct | 5 min/median/mean/max 2022/2024/2023.965/2026
-units | integer | nonmissing | 1946 | distinct | 291 min/median/mean/max 6/29/67.34943/1754
-units_hdb_priority | integer | nonmissing | 1946 | distinct | 291 min/median/mean/max 6/29/67.34943/1754
-units_dob_i1 | integer | nonmissing | 1946 | distinct | 290 min/median/mean/max 6/29/67.78623/1754
+units | integer | nonmissing | 1946 | distinct | 291 min/median/mean/max 6/29/67.111/1754
+units_hdb_priority | integer | nonmissing | 1946 | distinct | 291 min/median/mean/max 6/29/67.111/1754
+units_dob_i1 | integer | nonmissing | 1946 | distinct | 290 min/median/mean/max 6/29/67.54779/1754
 source_filings | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 1/1/1.097636/7
-component_filings | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 1/1/1.096095/7
+component_filings | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 1/1/1.089928/7
 exact_99_component_filings | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 0/0/0.05909558/7
 exact_99_component_filings_dob_i1 | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 0/0/0.05806783/7
 source_jobs | character | nonmissing | 1946 | distinct | 1946
 component_jobs | character | nonmissing | 1946 | distinct | 1946
-nonmissing_bin_rows | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 0/1/0.852518/6
-distinct_bins | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 0/1/0.8468654/6
+nonmissing_bin_rows | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 0/1/0.8489209/6
+distinct_bins | integer | nonmissing | 1946 | distinct | 7 min/median/mean/max 0/1/0.8432682/6
 duplicate_bin_rows | integer | nonmissing | 1946 | distinct | 3 min/median/mean/max 0/0/0.005652621/2
 feature_complete | logical | nonmissing | 1946 | distinct | 2
 feature_methods | character | nonmissing | 1946 | distinct | 6

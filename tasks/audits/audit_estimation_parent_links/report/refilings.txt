@@ -1,0 +1,21 @@
+Rows: 12
+Columns: 15
+Key fields: sample, original_job
+Saved-file MD5: f56aa3c3e368857607a119671c3c6a1c
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 12 | distinct | 1
+parent_id | character | nonmissing | 12 | distinct | 11
+original_job | character | nonmissing | 12 | distinct | 12
+root_job_id | character | nonmissing | 12 | distinct | 12
+replacement_job_number | character | nonmissing | 12 | distinct | 12
+original_filing_date | Date | nonmissing | 12 | distinct | 10
+refiling_date | Date | nonmissing | 12 | distinct | 10
+original_units | numeric | nonmissing | 12 | distinct | 11 min/median/mean/max 6/30/38.66667/98
+replacement_parent | character | nonmissing | 12 | distinct | 11
+replacement_units | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 6/31.5/35.41667/98
+additive_component | logical | nonmissing | 12 | distinct | 1
+address | character | nonmissing | 12 | distinct | 12
+bin | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 2017373/2625533/3018956/5000208
+filing_status | character | nonmissing | 12 | distinct | 1
+withdrawal_date | Date | nonmissing | 12 | distinct | 8

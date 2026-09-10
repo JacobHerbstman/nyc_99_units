@@ -1,36 +1,39 @@
-Rows: 2926
-Columns: 30
+Rows: 2916
+Columns: 33
 Key fields: sample, root_job_id
-Saved-file MD5: 150199cf6e197b36ebbad0f430ac4c34
+Saved-file MD5: c159545645258e8efc41b0517248dcbf
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 2926 | distinct | 2
-parent_id | character | nonmissing | 2926 | distinct | 2734
-root_job_id | character | nonmissing | 2926 | distinct | 2926
-constituent_rank | integer | nonmissing | 2926 | distinct | 7 min/median/mean/max 1/1/1.091593/7
-constituent_units | integer | nonmissing | 2926 | distinct | 333 min/median/mean/max 6/29/65.88995/1313
-parent_constituent_weight | numeric | nonmissing | 2926 | distinct | 7 min/median/mean/max 0.1428571/1/0.9343814/1
-date_filed | Date | nonmissing | 2926 | distinct | 1167
-filing_bbl | character | nonmissing | 2926 | distinct | 2855
-address | character | nonmissing | 2926 | distinct | 2903
-borough_name | character | nonmissing | 2926 | distinct | 5
-ownership_type | character | nonmissing | 2926 | distinct | 17
-owner_name | character | nonmissing | 2926 | distinct | 1857
+sample | character | nonmissing | 2916 | distinct | 2
+parent_id | character | nonmissing | 2916 | distinct | 2734
+root_job_id | character | nonmissing | 2916 | distinct | 2916
+constituent_rank | integer | nonmissing | 2916 | distinct | 7 min/median/mean/max 1/1/1.087449/7
+constituent_units | integer | nonmissing | 2916 | distinct | 333 min/median/mean/max 6/29/65.96811/1313
+parent_constituent_weight | numeric | nonmissing | 2916 | distinct | 7 min/median/mean/max 0.1428571/1/0.9375857/1
+date_filed | Date | nonmissing | 2916 | distinct | 1167
+record_filing_date | Date | nonmissing | 2916 | distinct | 1166
+refiled | logical | nonmissing | 2916 | distinct | 2
+refiling_date | Date | nonmissing | 10 | distinct | 8
+filing_bbl | character | nonmissing | 2916 | distinct | 2855
+address | character | nonmissing | 2916 | distinct | 2903
+borough_name | character | nonmissing | 2916 | distinct | 5
+ownership_type | character | nonmissing | 2916 | distinct | 17
+owner_name | character | nonmissing | 2916 | distinct | 1857
 hpd_response_number | character | nonmissing | 142 | distinct | 142
 hpd_registration_building_key | character | nonmissing | 142 | distinct | 142
 hpd_reported_units | integer | nonmissing | 142 | distinct | 58 min/median/mean/max 6/24.5/44.98592/792
 hpd_reported_option | character | nonmissing | 142 | distinct | 4
 hpd_reported_bbl | character | nonmissing | 142 | distinct | 142
 hpd_intended_separate_sub100 | logical | nonmissing | 142 | distinct | 2
-period | character | nonmissing | 2926 | distinct | 2
-exposure_years | numeric | nonmissing | 2926 | distinct | 2 min/median/mean/max 1.516769/4/3.132651/4
-cohort_date | Date | nonmissing | 2926 | distinct | 1156
-cohort_year | integer | nonmissing | 2926 | distinct | 6 min/median/mean/max 2019/2022/2022.186/2026
-parent_total_units | integer | nonmissing | 2926 | distinct | 344 min/median/mean/max 6/29/84.59433/1754
-n_components | integer | nonmissing | 2926 | distinct | 7 min/median/mean/max 1/1/1.183185/7
-exact_99x2 | logical | nonmissing | 2926 | distinct | 2
-exact_99x3 | logical | nonmissing | 2926 | distinct | 2
-splitting_verification_status | character | nonmissing | 2926 | distinct | 4
-exposure_status | character | nonmissing | 2926 | distinct | 4
-included_ab | logical | nonmissing | 2926 | distinct | 2
-included_ab_plus_d | logical | nonmissing | 2926 | distinct | 2
+period | character | nonmissing | 2916 | distinct | 2
+exposure_years | numeric | nonmissing | 2916 | distinct | 2 min/median/mean/max 1.516769/4/3.138193/4
+cohort_date | Date | nonmissing | 2916 | distinct | 1156
+cohort_year | integer | nonmissing | 2916 | distinct | 6 min/median/mean/max 2019/2022/2022.176/2026
+parent_total_units | integer | nonmissing | 2916 | distinct | 344 min/median/mean/max 6/29/84.26818/1754
+n_components | integer | nonmissing | 2916 | distinct | 7 min/median/mean/max 1/1/1.174897/7
+exact_99x2 | logical | nonmissing | 2916 | distinct | 2
+exact_99x3 | logical | nonmissing | 2916 | distinct | 2
+splitting_verification_status | character | nonmissing | 2916 | distinct | 4
+exposure_status | character | nonmissing | 2916 | distinct | 4
+included_ab | logical | nonmissing | 2916 | distinct | 2
+included_ab_plus_d | logical | nonmissing | 2916 | distinct | 2

@@ -1,14 +1,14 @@
 Rows: 6718
 Columns: 37
 Key fields: sample, parent_id
-Saved-file MD5: 57d7e1e7bb29cea637abf3b04c026976
+Saved-file MD5: 8a314d9eee2ee6f4cb19522c671b64ac
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 6718 | distinct | 2
 parent_id | character | nonmissing | 6718 | distinct | 6718
 cohort_date | Date | nonmissing | 6718 | distinct | 2968
 cohort_year | numeric | nonmissing | 6718 | distinct | 16 min/median/mean/max 2011/2018/2018.491/2026
-parent_total_units | numeric | nonmissing | 6718 | distinct | 444 min/median/mean/max 6/21/58.77374/1754
+parent_total_units | numeric | nonmissing | 6718 | distinct | 444 min/median/mean/max 6/21/58.70467/1754
 component_filings | numeric | nonmissing | 6718 | distinct | 9 min/median/mean/max 1/1/1.061774/20
 ag_queryable_components | numeric | nonmissing | 6718 | distinct | 9 min/median/mean/max 1/1/1.061774/20
 component_jobs | character | nonmissing | 6718 | distinct | 6718

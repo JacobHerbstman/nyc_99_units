@@ -85,8 +85,8 @@ aggregate_parent_rows <- function(member_rows) {
       ),
       source_jobs = paste(job_number, collapse = ";"),
       component_jobs = paste(job_number[additive_component], collapse = ";"),
-      nonmissing_bin_rows = sum(!is.na(bin_clean)),
-      distinct_bins = n_distinct(bin_clean[!is.na(bin_clean)]),
+      nonmissing_bin_rows = sum(!is.na(bin_clean) & additive_component),
+      distinct_bins = n_distinct(bin_clean[!is.na(bin_clean) & additive_component]),
       feature_complete = all(!is.na(feature_bbl) & !is.na(lotarea) & lotarea > 0),
       feature_methods = paste(sort(unique(feature_method)), collapse = ";"),
       .groups = "drop"
