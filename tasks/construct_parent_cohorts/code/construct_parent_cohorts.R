@@ -810,10 +810,6 @@ membership <- membership |>
     documented_units = reviewed_units, documented_unit_definition = unit_definition,
     documented_unit_source_date = source_date, documented_unit_source = review_source),
     by = c("sample", "root_job_id"), relationship = "one-to-one") |>
-  mutate(
-    units = coalesce(documented_units, hdb_priority_units),
-    unit_source = if_else(!is.na(documented_units), "documented_proposed_design", unit_source)
-  ) |>
   arrange(sample, date_filed, job_number) |>
   group_by(sample, component) |>
   mutate(
@@ -920,8 +916,7 @@ stopifnot(!anyNA(reviewed_components$parent_1), !anyNA(reviewed_components$paren
   all((reviewed_components$parent_1 == reviewed_components$parent_2) ==
     (reviewed_components$review_decision == "accept")),
   nrow(anti_join(unit_decisions, membership, by = c("sample", "root_job_id"))) == 0L,
-  all(membership$units[!is.na(membership$documented_units)] ==
-    membership$documented_units[!is.na(membership$documented_units)]))
+  all(membership$units == membership$hdb_priority_units))
 
 write_parquet_atomic(
   membership,

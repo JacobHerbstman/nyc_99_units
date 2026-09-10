@@ -1,7 +1,7 @@
 Rows: 2916
 Columns: 25
 Key fields: sample, root_job_id
-Saved-file MD5: 7f58990a2213384c95e87dcde070eeed
+Saved-file MD5: 6b6083a798c05b8d409bcef000fa9a88
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 2916 | distinct | 2
@@ -11,9 +11,9 @@ date_filed | Date | nonmissing | 2916 | distinct | 1166
 original_filing_date | Date | nonmissing | 2916 | distinct | 1167
 refiled | logical | nonmissing | 2916 | distinct | 2
 refiling_date | Date | nonmissing | 10 | distinct | 8
-current_units | numeric | nonmissing | 2916 | distinct | 334 min/median/mean/max 6/29/66.01509/1313
+current_units | numeric | nonmissing | 2916 | distinct | 333 min/median/mean/max 6/29/65.96811/1313
 hdb_priority_units | numeric | nonmissing | 2916 | distinct | 333 min/median/mean/max 6/29/65.96811/1313
-unit_source | character | nonmissing | 2916 | distinct | 3
+unit_source | character | nonmissing | 2916 | distinct | 2
 included_ab | logical | nonmissing | 2916 | distinct | 2
 composition_eligible | logical | nonmissing | 2916 | distinct | 2
 dob_address | character | nonmissing | 1879 | distinct | 1872
@@ -27,5 +27,5 @@ hdb_update_date | Date | nonmissing | 2536 | distinct | 837
 hdb_stories | numeric | nonmissing | 2536 | distinct | 54 min/median/mean/max 2/7/8.503943/85
 address | character | nonmissing | 2916 | distinct | 2903
 dob_available | logical | nonmissing | 2916 | distinct | 2
-dob_change | numeric | nonmissing | 1879 | distinct | 44 min/median/mean/max -137/0/2.477914/829
+dob_change | numeric | nonmissing | 1879 | distinct | 43 min/median/mean/max -20/0/2.550825/829
 available_dob_units | numeric | nonmissing | 2916 | distinct | 335 min/median/mean/max 4/29/67.6118/1803

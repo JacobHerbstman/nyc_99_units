@@ -1,7 +1,7 @@
 Rows: 8054
 Columns: 46
 Key fields: sample, job_number
-Saved-file MD5: 6d14bfa839cb551d8995f23232b95c4d
+Saved-file MD5: 5dad3c1bad709ca72cb2f0d5ae4d0e3b
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 8054 | distinct | 2
@@ -9,10 +9,10 @@ root_job_id | character | nonmissing | 8054 | distinct | 7323
 job_number | character | nonmissing | 8054 | distinct | 8054
 date_filed | Date | nonmissing | 8054 | distinct | 3095
 filing_year | integer | nonmissing | 8054 | distinct | 17 min/median/mean/max 2010/2019/2018.823/2026
-units | integer | nonmissing | 8054 | distinct | 437 min/median/mean/max 6/20/56.02756/1313
+units | integer | nonmissing | 8054 | distinct | 437 min/median/mean/max 6/20/56.01055/1313
 hdb_priority_units | integer | nonmissing | 8054 | distinct | 437 min/median/mean/max 6/20/56.01055/1313
 dob_i1_units | integer | nonmissing | 8054 | distinct | 438 min/median/mean/max 6/20/56.11609/1313
-unit_source | character | nonmissing | 8054 | distinct | 3
+unit_source | character | nonmissing | 8054 | distinct | 2
 filing_role | character | nonmissing | 8054 | distinct | 3
 additive_component | logical | nonmissing | 8054 | distinct | 2
 replacement_job_number | character | nonmissing | 15 | distinct | 14
@@ -37,7 +37,7 @@ parent_source_filings | integer | nonmissing | 8054 | distinct | 9 min/median/me
 parent_observed_filings | integer | nonmissing | 8054 | distinct | 9 min/median/mean/max 1/1/1.203253/20
 parent_source_units | integer | nonmissing | 8054 | distinct | 449 min/median/mean/max 6/22/67.31388/1754
 parent_source_units_dob_i1 | integer | nonmissing | 8054 | distinct | 451 min/median/mean/max 6/22/67.38378/1754
-parent_observed_units | integer | nonmissing | 8054 | distinct | 450 min/median/mean/max 6/22/67.10616/1754
+parent_observed_units | integer | nonmissing | 8054 | distinct | 449 min/median/mean/max 6/22/67.07214/1754
 parent_observed_units_dob_i1 | integer | nonmissing | 8054 | distinct | 451 min/median/mean/max 6/22/67.14204/1754
 parent_source_exact_99_filings | integer | nonmissing | 8054 | distinct | 7 min/median/mean/max 0/0/0.03563447/7
 parent_exact_99_filings | integer | nonmissing | 8054 | distinct | 7 min/median/mean/max 0/0/0.03563447/7

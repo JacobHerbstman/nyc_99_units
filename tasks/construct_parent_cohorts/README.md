@@ -45,16 +45,17 @@ pair links are rejected; Wilson/Boston is now adjudicated separate in the baseli
 assertions check pair decisions against the resulting connected components, so
 an indirect path cannot silently undo a rejection.
 
-Documented proposed-unit schedules in the manual task take priority in `units`;
-`hdb_priority_units` and `dob_i1_units` remain unchanged source measures. The
-selected source is identified in `unit_source`, with the documented count,
-definition, source date and URL retained. Third Avenue is confirmed at 99 per
-building and Boyland at 86+28. Turnbull is corrected from 91 to 228 apartments
-using HDC's June 2026 schedule, including 137 supportive apartments. These are
-observed proposed designs, not reconstructions of first-filed choices. Parent
-observed totals and exact-99 counts use selected units; `parent_source_*` unit
-and exact-99 fields retain the original source-priority measures across all
-source filings. The overall unit review still has unresolved cases.
+Selected `units` retain the existing Housing Database priority with DOB fallback.
+Documented proposed-unit schedules in the manual task are comparison evidence;
+they never override the selected administrative measure. A final assertion
+requires selected units to equal `hdb_priority_units` for every record. Third
+Avenue remains 99 per building and Boyland 86+28 because those are HDB counts.
+Turnbull returns to 91; its externally documented 228 remains a separate field.
+Parent observed totals and exact-99 counts use the selected administrative units.
+The historical field named `dob_i1_units` currently repeats HDB and must not be
+interpreted as independent DOB evidence; the source-comparison audit joins the
+actual DOB extract. Neither administrative vintage reconstructs every design
+at its original submission date.
 
 Astoria Cove's four January 13, 2022 filings are joined by a documented manual
 edge in both linkage routes. The December 2023 GEI report identifies them as one

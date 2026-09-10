@@ -1,11 +1,11 @@
 geographic_filings
 Rows: 2644  Columns: 37
-MD5 of saved file: c809abbcb7e3c20a4f05ace316349601
+MD5 of saved file: 2e001676a9f169abb6ca65484a522e74
 sample | character | nonmissing 2644 | distinct 2
 parent_id | character | nonmissing 2644 | distinct 2477
 root_job_id | character | nonmissing 2644 | distinct 2644
 constituent_rank | integer | nonmissing 2644 | distinct 7| min/median/mean/max 1/1/1.090772/7
-constituent_units | integer | nonmissing 2644 | distinct 320| min/median/mean/max 6/30/66.66225/1313
+constituent_units | integer | nonmissing 2644 | distinct 319| min/median/mean/max 6/30/66.61044/1313
 parent_constituent_weight | numeric | nonmissing 2644 | distinct 7| min/median/mean/max 0.1428571/1/0.9368381/1
 date_filed | Date | nonmissing 2644 | distinct 1115
 record_filing_date | Date | nonmissing 2644 | distinct 1114
@@ -26,7 +26,7 @@ period | character | nonmissing 2644 | distinct 2
 exposure_years | numeric | nonmissing 2644 | distinct 2| min/median/mean/max 1.516769/4/3.086164/4
 cohort_date | Date | nonmissing 2644 | distinct 1106
 cohort_year | integer | nonmissing 2644 | distinct 6| min/median/mean/max 2019/2022/2022.289/2026
-parent_total_units | integer | nonmissing 2644 | distinct 329| min/median/mean/max 6/31/85.58169/1754
+parent_total_units | integer | nonmissing 2644 | distinct 329| min/median/mean/max 6/31/85.47806/1754
 n_components | integer | nonmissing 2644 | distinct 7| min/median/mean/max 1/1/1.181543/7
 exact_99x2 | logical | nonmissing 2644 | distinct 2
 exact_99x3 | logical | nonmissing 2644 | distinct 2

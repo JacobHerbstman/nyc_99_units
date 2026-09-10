@@ -1,14 +1,14 @@
 Rows: 2916
 Columns: 33
 Key fields: sample, root_job_id
-Saved-file MD5: ff1ab1244a4d27f0dd30b10808d2c128
+Saved-file MD5: 13229b541a78ba1a32ca65025c3cff17
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 2916 | distinct | 2
 parent_id | character | nonmissing | 2916 | distinct | 2733
 root_job_id | character | nonmissing | 2916 | distinct | 2916
 constituent_rank | integer | nonmissing | 2916 | distinct | 7 min/median/mean/max 1/1/1.08882/7
-constituent_units | integer | nonmissing | 2916 | distinct | 334 min/median/mean/max 6/29/66.01509/1313
+constituent_units | integer | nonmissing | 2916 | distinct | 333 min/median/mean/max 6/29/65.96811/1313
 parent_constituent_weight | numeric | nonmissing | 2916 | distinct | 7 min/median/mean/max 0.1428571/1/0.9372428/1
 date_filed | Date | nonmissing | 2916 | distinct | 1167
 record_filing_date | Date | nonmissing | 2916 | distinct | 1166
@@ -29,7 +29,7 @@ period | character | nonmissing | 2916 | distinct | 2
 exposure_years | numeric | nonmissing | 2916 | distinct | 2 min/median/mean/max 1.516769/4/3.138193/4
 cohort_date | Date | nonmissing | 2916 | distinct | 1156
 cohort_year | integer | nonmissing | 2916 | distinct | 6 min/median/mean/max 2019/2022/2022.176/2026
-parent_total_units | integer | nonmissing | 2916 | distinct | 344 min/median/mean/max 6/29/84.7572/1754
+parent_total_units | integer | nonmissing | 2916 | distinct | 344 min/median/mean/max 6/29/84.66324/1754
 n_components | integer | nonmissing | 2916 | distinct | 7 min/median/mean/max 1/1/1.177641/7
 exact_99x2 | logical | nonmissing | 2916 | distinct | 2
 exact_99x3 | logical | nonmissing | 2916 | distinct | 2

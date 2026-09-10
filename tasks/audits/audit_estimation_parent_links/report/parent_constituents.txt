@@ -1,7 +1,7 @@
 Rows: 155
 Columns: 68
 Key fields: sample, root_job_id
-Saved-file MD5: a8472f796e8c4164144e08bee905e1b4
+Saved-file MD5: fff20707e4e1b3e3c31c4f33293c6f78
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 155 | distinct | 2
@@ -9,10 +9,10 @@ root_job_id | character | nonmissing | 155 | distinct | 155
 job_number | character | nonmissing | 155 | distinct | 155
 date_filed | Date | nonmissing | 155 | distinct | 96
 filing_year | numeric | nonmissing | 155 | distinct | 6 min/median/mean/max 2019/2025/2023.755/2026
-units | numeric | nonmissing | 155 | distinct | 84 min/median/mean/max 27/98/144.3742/811
+units | numeric | nonmissing | 155 | distinct | 84 min/median/mean/max 27/98/143.4903/811
 hdb_priority_units | numeric | nonmissing | 155 | distinct | 84 min/median/mean/max 27/98/143.4903/811
 dob_i1_units | numeric | nonmissing | 155 | distinct | 86 min/median/mean/max 27/98/143.3677/811
-unit_source | character | nonmissing | 155 | distinct | 3
+unit_source | character | nonmissing | 155 | distinct | 2
 filing_role | character | nonmissing | 155 | distinct | 2
 additive_component | logical | nonmissing | 155 | distinct | 2
 replacement_job_number | character | nonmissing | 2 | distinct | 2
@@ -37,7 +37,7 @@ parent_source_filings | numeric | nonmissing | 155 | distinct | 4 min/median/mea
 parent_observed_filings | numeric | nonmissing | 155 | distinct | 4 min/median/mean/max 2/2/2.509677/6
 parent_source_units | numeric | nonmissing | 155 | distinct | 58 min/median/mean/max 65/228/367.5806/1754
 parent_source_units_dob_i1 | numeric | nonmissing | 155 | distinct | 58 min/median/mean/max 65/228/367.1871/1754
-parent_observed_units | numeric | nonmissing | 155 | distinct | 57 min/median/mean/max 65/198/364.2903/1754
+parent_observed_units | numeric | nonmissing | 155 | distinct | 57 min/median/mean/max 65/198/362.5226/1754
 parent_observed_units_dob_i1 | numeric | nonmissing | 155 | distinct | 57 min/median/mean/max 65/198/362.129/1754
 parent_source_exact_99_filings | numeric | nonmissing | 155 | distinct | 5 min/median/mean/max 0/0/0.6322581/5
 parent_exact_99_filings | numeric | nonmissing | 155 | distinct | 5 min/median/mean/max 0/0/0.6322581/5

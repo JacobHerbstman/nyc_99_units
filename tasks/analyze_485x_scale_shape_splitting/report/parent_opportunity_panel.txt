@@ -1,7 +1,7 @@
 Rows: 2733
 Columns: 71
 Key fields: sample, parent_id
-Saved-file MD5: 5038e7aff08039144d9df7c653cd39cc
+Saved-file MD5: c1716ef3df787a944094129331e261f1
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 2733 | distinct | 2
@@ -18,15 +18,15 @@ observed_followup_days | integer | nonmissing | 2733 | distinct | 1115 min/media
 left_window_observed | logical | nonmissing | 2733 | distinct | 1
 right_window_observed | logical | nonmissing | 2733 | distinct | 2
 full_window_observed | logical | nonmissing | 2733 | distinct | 2
-parent_total_units | integer | nonmissing | 2733 | distinct | 344 min/median/mean/max 6/27/70.43542/1754
-constituent_total_units | integer | nonmissing | 2733 | distinct | 344 min/median/mean/max 6/27/70.43542/1754
+parent_total_units | integer | nonmissing | 2733 | distinct | 344 min/median/mean/max 6/27/70.38529/1754
+constituent_total_units | integer | nonmissing | 2733 | distinct | 344 min/median/mean/max 6/27/70.38529/1754
 n_components | integer | nonmissing | 2733 | distinct | 7 min/median/mean/max 1/1/1.066959/7
-max_component_units | integer | nonmissing | 2733 | distinct | 320 min/median/mean/max 6/27/64.58251/1313
-second_component_units | integer | nonmissing | 136 | distinct | 68 min/median/mean/max 6/66.5/87.02941/583
+max_component_units | integer | nonmissing | 2733 | distinct | 320 min/median/mean/max 6/27/64.57483/1313
+second_component_units | integer | nonmissing | 136 | distinct | 68 min/median/mean/max 6/66.5/86.17647/583
 third_component_units | integer | nonmissing | 31 | distinct | 23 min/median/mean/max 6/92/99.32258/484
-min_component_units | integer | nonmissing | 2733 | distinct | 311 min/median/mean/max 6/27/62.38419/1313
+min_component_units | integer | nonmissing | 2733 | distinct | 310 min/median/mean/max 6/27/62.34175/1313
 n_components_eq_99 | integer | nonmissing | 2733 | distinct | 7 min/median/mean/max 0/0/0.03658983/7
-n_components_ge_100 | integer | nonmissing | 2733 | distinct | 4 min/median/mean/max 0/0/0.1683132/3
+n_components_ge_100 | integer | nonmissing | 2733 | distinct | 4 min/median/mean/max 0/0/0.1679473/3
 all_components_le_99 | logical | nonmissing | 2733 | distinct | 2
 any_component_ge_100 | logical | nonmissing | 2733 | distinct | 2
 single_component | logical | nonmissing | 2733 | distinct | 2
@@ -57,7 +57,7 @@ source_url | character | nonmissing | 284 | distinct | 153
 government_owner | logical | nonmissing | 2733 | distinct | 2
 nycha_owner | logical | nonmissing | 2733 | distinct | 2
 hotel_project | logical | nonmissing | 2733 | distinct | 2
-feature_units | integer | nonmissing | 2733 | distinct | 344 min/median/mean/max 6/27/70.43542/1754
+feature_units | integer | nonmissing | 2733 | distinct | 344 min/median/mean/max 6/27/70.38529/1754
 feature_complete | logical | nonmissing | 2733 | distinct | 2
 composition_eligible | logical | nonmissing | 2733 | distinct | 2
 number_unique_lots | integer | nonmissing | 2712 | distinct | 4 min/median/mean/max 1/1/1.033923/4

@@ -247,3 +247,10 @@ The renewed check also distinguishes actual missing evidence from conflicts that
 - **Boone:** the across-street question is a genuine project-boundary question, unaffected by the choice of unit source. Shared Vaja ownership and architect identify a review candidate but do not themselves establish one development across the two sites.
 
 DOB NOW's live Turnbull property/job table loaded during this follow-up and displayed the I1 and supporting job records; the initial empty/loading grid was not evidence of missing jobs. This corrects the earlier overly broad treatment of empty UI states as a substantive research stopping point. No claim is made that the inaccessible architectural PDFs were inspected.
+
+
+## 14. September 10 clarification: retain administrative source priority
+
+Jacob clarified that the Housing Database remains an acceptable source. The concern is changing city filing-derived counts based on outside documentary research, not requiring DOB NOW counts instead of HDB. The constructor therefore retains HDB priority with DOB fallback and stores reviewed documentary schedules only as comparison evidence. It asserts that external schedules never change selected units.
+
+This reverses only Turnbull's 228-unit override: the selected count returns to 91 and its parent to 298. Third Avenue remains 99+99+99=297 because HDB already reports 99 for each building. Boyland stays 114 and Myrtle's parent stays 289. The earlier DOB-only comparison is a different, unadopted source rule. The historical DOB NOW coverage gap does not require dropping HDB observations or delay using the existing administrative measure. Common-development boundary decisions and the automatic refiling correction remain unchanged.

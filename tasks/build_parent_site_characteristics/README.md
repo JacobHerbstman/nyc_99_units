@@ -18,4 +18,4 @@ Documented historical companions with missing lagged parcel matches are retained
 
 Repeated-BIN eligibility counts additive buildings only, so a retained superseded source application does not itself make its replacement a duplicate building. Original source rows remain available for the established prefiling site-characteristic construction.
 
-`units` and exact-99 component counts aggregate the constructor's selected units, including documented proposed-design corrections. `units_hdb_priority` and `units_dob_i1` separately retain unaltered source-based totals; the downstream panel checks selected totals against selected totals.
+`units` and exact-99 component counts aggregate the constructor's selected units, using Housing Database priority with DOB fallback; documentary schedules do not override them. `units_hdb_priority` and `units_dob_i1` separately retain unaltered source-based totals; the downstream panel checks selected totals against selected totals.

@@ -4,7 +4,8 @@ SHELL := /bin/bash
 
 all: logbook.pdf
 
-logbook.pdf: entries/2026-09-10-dob-unit-comparison.tex \
+logbook.pdf: entries/2026-09-10-administrative-unit-priority.tex \
+	entries/2026-09-10-dob-unit-comparison.tex \
 	../tasks/audits/audit_estimation_parent_links/output/dob_unit_filings.csv \
 	../tasks/audits/audit_estimation_parent_links/output/dob_unit_parents.csv \
 	../tasks/audits/audit_estimation_parent_links/report/dob_unit_filings.txt \
