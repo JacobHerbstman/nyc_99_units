@@ -41,17 +41,19 @@ dob_initial <- read_parquet(
   as_tibble()
 
 post_parent_reviews <- read_csv(
-  "../../../construct_parent_cohorts/code/post_parent_reviews.csv",
+  "../input/post_parent_reviews.csv",
   show_col_types = FALSE
 )
 
 post_link_reviews <- read_csv(
-  "../../../construct_parent_cohorts/code/post_parent_link_reviews.csv",
+  "../input/pair_decisions.csv",
   show_col_types = FALSE
 )
 
+post_link_reviews <- post_link_reviews |> filter(sample == "post_policy")
+
 post_filing_roles <- read_csv(
-  "../../../construct_parent_cohorts/code/post_parent_filing_roles.csv",
+  "../input/post_parent_filing_roles.csv",
   show_col_types = FALSE
 )
 

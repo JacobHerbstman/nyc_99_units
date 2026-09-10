@@ -1,13 +1,13 @@
 Rows: 502
 Columns: 7
 Key fields: period, parent_total_units
-Saved-file MD5: 70daafd003f3a3cf7c6b914a599c50b3
+Saved-file MD5: 4c4d6666f48a247e7cf3e1c023f47f16
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 period | character | nonmissing | 502 | distinct | 2
 parent_total_units | numeric | nonmissing | 502 | distinct | 251 min/median/mean/max 50/175/175/300
 exposure_years | numeric | nonmissing | 502 | distinct | 2 min/median/mean/max 1.516769/2.758385/2.758385/4
-parent_count | numeric | nonmissing | 502 | distinct | 16 min/median/mean/max 0/1/1.575697/41
-annualized_count | numeric | nonmissing | 502 | distinct | 25 min/median/mean/max 0/0.25/0.6426002/27.03114
-support_parent_count | numeric | nonmissing | 502 | distinct | 2 min/median/mean/max 305/395.5/395.5/486
-normalized_share | numeric | nonmissing | 502 | distinct | 25 min/median/mean/max 0/0.002057613/0.003984064/0.1344262
+parent_count | numeric | nonmissing | 502 | distinct | 16 min/median/mean/max 0/1/1.569721/40
+annualized_count | numeric | nonmissing | 502 | distinct | 25 min/median/mean/max 0/0.25/0.6402908/26.37184
+support_parent_count | numeric | nonmissing | 502 | distinct | 2 min/median/mean/max 304/394/394/484
+normalized_share | numeric | nonmissing | 502 | distinct | 25 min/median/mean/max 0/0.002066116/0.003984064/0.1315789

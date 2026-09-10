@@ -667,7 +667,7 @@ historical_member_rows <- historical_rows |>
     filing_year,
     units,
     hdb_priority_units = units,
-    dob_i1_units = units,
+    dob_i1_units = NA_integer_,
     unit_source = "hdb",
     filing_role = "additive_component",
     additive_component = TRUE,
@@ -759,14 +759,19 @@ membership <- bind_rows(historical_membership, post_membership)
 # A withdrawn application and its unique subsequent filing describe one building.
 dob_filings <- read_parquet("../input/dob_now_new_building_initial_filings.parquet") |>
   transmute(root_job_id = job_number, bin = as.character(bin),
+    dob_i1_units = proposed_dwelling_units,
     filing_status, withdrawal_date = current_status_date,
     owner = str_squish(str_to_upper(paste(coalesce(owner_business_name, ""),
       coalesce(owner_first_name, ""), coalesce(owner_last_name, "")))),
     applicant = str_squish(str_to_upper(paste(coalesce(applicant_first_name, ""),
       coalesce(applicant_last_name, ""), coalesce(applicant_business_name, "")))))
 stopifnot(!anyDuplicated(dob_filings$root_job_id))
+# DOB comparisons use the actual source; unavailable legacy records stay missing.
+membership$dob_i1_units <- dob_filings$dob_i1_units[
+  match(membership$root_job_id, dob_filings$root_job_id)]
 refiling_fields <- membership |>
-  left_join(dob_filings, by = "root_job_id", relationship = "many-to-one")
+  left_join(dob_filings |> select(-dob_i1_units),
+    by = "root_job_id", relationship = "many-to-one")
 replacement_index <- rep(NA_integer_, nrow(membership))
 for (i in which(refiling_fields$filing_status == "Filing Withdrawn" &
     !is.na(refiling_fields$withdrawal_date) &

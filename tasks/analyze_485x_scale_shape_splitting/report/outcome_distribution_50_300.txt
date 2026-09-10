@@ -1,11 +1,11 @@
 Rows: 3012
 Columns: 5
 Key fields: outcome, period, unit_count
-Saved-file MD5: ded5ba599e502fa12f4d2c8b84e8f7db
+Saved-file MD5: 9be6a1b0018eb0f937937e5e4296af37
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 outcome | character | nonmissing | 3012 | distinct | 6
 period | character | nonmissing | 3012 | distinct | 2
 unit_count | numeric | nonmissing | 3012 | distinct | 251 min/median/mean/max 50/175/175/300
-weighted_count | numeric | nonmissing | 3012 | distinct | 48 min/median/mean/max 0/0/1.351959/91
-normalized_share | numeric | nonmissing | 3012 | distinct | 158 min/median/mean/max 0/0/0.003984064/0.2962963
+weighted_count | numeric | nonmissing | 3012 | distinct | 54 min/median/mean/max 0/0/1.352512/93
+normalized_share | numeric | nonmissing | 3012 | distinct | 164 min/median/mean/max 0/0/0.003984064/0.2909091

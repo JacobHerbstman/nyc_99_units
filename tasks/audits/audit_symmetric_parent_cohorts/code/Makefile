@@ -13,9 +13,9 @@ all: ../output/symmetric_parent_cohort_inventory.csv \
 	../output/symmetric_parent_cohort_qc.csv
 
 ../output/symmetric_parent_cohort_inventory.csv: audit_symmetric_parent_cohorts.R Makefile \
-	../../../shared/code/source_pipeline_utils.R ../../../construct_parent_cohorts/code/post_parent_reviews.csv \
-	../../../construct_parent_cohorts/code/post_parent_link_reviews.csv \
-	../../../construct_parent_cohorts/code/post_parent_filing_roles.csv \
+	../../../shared/code/source_pipeline_utils.R ../input/post_parent_reviews.csv \
+	../input/pair_decisions.csv \
+	../input/post_parent_filing_roles.csv \
 	../input/symmetric_parent_membership.parquet ../input/symmetric_parent_links.parquet \
 	../input/dob_now_new_building_initial_filings.parquet \
 	../../../shared/code/shell_functions.make ../../../shared/code/shell_functions.sh | ../output
@@ -40,7 +40,17 @@ all: ../output/symmetric_parent_cohort_inventory.csv \
 ../input/dob_now_new_building_initial_filings.parquet: ../../../stage_dob_now_new_building_filings/output/dob_now_new_building_initial_filings.parquet | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-link-inputs: ../input/symmetric_parent_membership.parquet \
+../input/post_parent_reviews.csv: ../../../parent_opportunities_manual/output/post_parent_reviews.csv | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
+../input/pair_decisions.csv: ../../../parent_opportunities_manual/output/pair_decisions.csv | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
+../input/post_parent_filing_roles.csv: ../../../parent_opportunities_manual/output/post_parent_filing_roles.csv | ../input
+	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+
+link-inputs: ../input/post_parent_reviews.csv ../input/pair_decisions.csv ../input/post_parent_filing_roles.csv \
+	../input/symmetric_parent_membership.parquet \
 	../input/symmetric_parent_links.parquet \
 	../input/dob_now_new_building_initial_filings.parquet
 

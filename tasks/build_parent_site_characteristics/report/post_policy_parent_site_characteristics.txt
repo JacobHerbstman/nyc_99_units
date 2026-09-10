@@ -1,7 +1,7 @@
 Rows: 1945
 Columns: 32
 Key fields: parent_id
-Saved-file MD5: 13231d5ba579d59132e9e360b4a064e5
+Saved-file MD5: b9eb8f976053988984a30642b7e7ea34
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 1945 | distinct | 1
@@ -14,7 +14,7 @@ date_last_filed | Date | nonmissing | 1945 | distinct | 871
 filing_year | integer | nonmissing | 1945 | distinct | 5 min/median/mean/max 2022/2024/2023.966/2026
 units | integer | nonmissing | 1945 | distinct | 291 min/median/mean/max 6/29/67.1455/1754
 units_hdb_priority | integer | nonmissing | 1945 | distinct | 291 min/median/mean/max 6/29/67.1455/1754
-units_dob_i1 | integer | nonmissing | 1945 | distinct | 290 min/median/mean/max 6/29/67.58252/1754
+units_dob_i1 | numeric | nonmissing | 1945 | distinct | 290 min/median/mean/max 6/29/67.58252/1754
 source_filings | integer | nonmissing | 1945 | distinct | 7 min/median/mean/max 1/1/1.098201/7
 component_filings | integer | nonmissing | 1945 | distinct | 7 min/median/mean/max 1/1/1.090488/7
 exact_99_component_filings | integer | nonmissing | 1945 | distinct | 7 min/median/mean/max 0/0/0.05912596/7

@@ -11,8 +11,7 @@ stopifnot(!anyDuplicated(parents$parent_id),
   !anyDuplicated(membership[c("sample", "root_job_id")]),
   !anyDuplicated(dob$job_number), !anyDuplicated(hdb$job_number))
 
-# Compare the same retained buildings, dates and classifications. The historical
-# membership field called dob_i1_units repeats HDB; join the actual DOB source.
+# Compare the same retained buildings, dates and classifications against sources.
 filings <- membership |>
   filter(additive_component) |>
   inner_join(parents |> select(parent_id, included_ab, composition_eligible),

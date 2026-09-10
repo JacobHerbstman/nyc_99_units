@@ -1,10 +1,10 @@
 Rows: 3
 Columns: 6
 Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: f4b7556f797a64f522ba61c75c181f39
+Saved-file MD5: 0aba57dc451e1f18ba6c88cb758b5559
 period | character | nonmissing | 3 | distinct | 1
 sorted_component_vector | character | nonmissing | 3 | distinct | 1
 splitting_verification_status | character | nonmissing | 3 | distinct | 3
-parent_count | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 1/2/3.333333/7
-exact_198_parents | numeric | nonmissing | 3 | distinct | 1 min/median/mean/max 10/10/10/10
-conditional_share | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 0.1/0.2/0.3333333/0.7
+parent_count | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 1/2/3/6
+exact_198_parents | numeric | nonmissing | 3 | distinct | 1 min/median/mean/max 9/9/9/9
+conditional_share | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 0.1111111/0.2222222/0.3333333/0.6666667
