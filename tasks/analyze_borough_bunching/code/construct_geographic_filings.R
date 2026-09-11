@@ -1,4 +1,5 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/analyze_borough_bunching/code")
+source("../../shared/code/write_data_report.R")
 suppressPackageStartupMessages({library(arrow); library(dplyr); library(sf)})
 
 filings <- read_parquet("../input/constituent_filing_panel.parquet") |>
@@ -45,3 +46,8 @@ filings <- filings |> arrange(sample, borough_name, parent_id, root_job_id)
 write_parquet(filings, "../output/geographic_filings.parquet")
 print(filings |> count(sample, coordinate_status))
 print(filings |> filter(constituent_units == 99) |> count(sample, coordinate_status))
+
+write_data_report(
+  read_parquet("../output/geographic_filings.parquet"),
+  c("sample", "root_job_id"), "../output/geographic_filings.parquet", "../report/geographic_filings.txt"
+)

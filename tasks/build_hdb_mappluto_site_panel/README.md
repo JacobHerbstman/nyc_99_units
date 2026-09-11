@@ -1,9 +1,10 @@
 # Build HDB–MapPLUTO site panel
 
 This task attaches leakage-safe historical lot characteristics to DCP Housing
-Database filings. It uses the first MapPLUTO release that was safely available
-before each filing where possible and records the earliest archived release as
-an explicit backfill for earlier observations.
+Database filings. It finds the latest release safely available before each
+filing, then uses the preceding release to provide an additional lag. If that
+lag is unavailable, it retains the earliest release with an explicit backfill
+flag; those observations do not enter the primary leakage-safe sample.
 
 The HDB filing BBL remains in `bbl`; the matched parcel is
 `pluto_feature_bbl`. If the filing BBL is absent from the selected vintage, the

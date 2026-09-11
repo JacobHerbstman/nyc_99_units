@@ -132,14 +132,14 @@ check-stage_dob_now_new_building_filings:
 check-build_hdb_mappluto_site_panel:
 	$(MAKE) -C ../../../build_hdb_mappluto_site_panel/code all ../output/hdb_mappluto_site_panel.parquet
 
-../input/nyc_mappluto_23v3_1_arc_shp.zip: ../../../fetch_mappluto_archive/output/dcp_mappluto_archive_23v3.1_nyc_mappluto_23v3_1_arc_shp.zip | ../input
+../input/nyc_mappluto_23v3_1_arc_shp.zip: ../../../fetch_mappluto_archive/output/nyc_mappluto_23v3_1_arc_shp.zip | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../../../fetch_mappluto_archive/output/dcp_mappluto_archive_23v3.1_nyc_mappluto_23v3_1_arc_shp.zip: check-fetch_mappluto_archive ;
+../../../fetch_mappluto_archive/output/nyc_mappluto_23v3_1_arc_shp.zip: check-fetch_mappluto_archive ;
 
 .PHONY: check-fetch_mappluto_archive
 check-fetch_mappluto_archive:
-	$(MAKE) -C ../../../fetch_mappluto_archive/code all ../output/dcp_mappluto_archive_23v3.1_nyc_mappluto_23v3_1_arc_shp.zip
+	$(MAKE) -C ../../../fetch_mappluto_archive/code all ../output/nyc_mappluto_23v3_1_arc_shp.zip
 
 ../input/4121_third_rawp_2025-10-01.pdf: ../../download_parent_review_documents/output/4121_third_rawp_2025-10-01.pdf | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"

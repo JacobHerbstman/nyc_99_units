@@ -8,6 +8,7 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
 universe <- read_csv(
   "../output/parent_485x_exposure_universe.csv",
@@ -406,3 +407,7 @@ write_csv_atomic(
   parent_exposure,
   "../output/parent_485x_exposure.csv"
 )
+
+write_data_report(
+  readr::read_csv("../output/parent_485x_exposure.csv", show_col_types = FALSE, guess_max = Inf),
+  c("sample", "parent_id"), "../output/parent_485x_exposure.csv", "../report/parent_485x_exposure.txt")

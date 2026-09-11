@@ -1,15 +1,15 @@
 Rows: 1
 Columns: 13
 Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: 937adbe554e8dd0357af7381ad774524
+Saved-file MD5: c21f5751ef67fe0066db887511d826a5
 historical_parents | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 560/560/560/560
 post_parents | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 309/309/309/309
 sum_calibration_weights | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 309/309/309/309
-minimum_weight | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.08510861/0.08510861/0.08510861/0.08510861
-median_weight | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.4982507/0.4982507/0.4982507/0.4982507
-maximum_weight | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 3.782419/3.782419/3.782419/3.782419
-effective_sample_size | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 391.6623/391.6623/391.6623/391.6623
-maximum_absolute_moment_error | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 2.637597e-08/2.637597e-08/2.637597e-08/2.637597e-08
+minimum_weight | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.08594386/0.08594386/0.08594386/0.08594386
+median_weight | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.4986334/0.4986334/0.4986334/0.4986334
+maximum_weight | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 3.870405/3.870405/3.870405/3.870405
+effective_sample_size | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 392.2972/392.2972/392.2972/392.2972
+maximum_absolute_moment_error | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 2.426407e-08/2.426407e-08/2.426407e-08/2.426407e-08
 excluded_historical_incomplete_features | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 2/2/2/2
 excluded_post_incomplete_features | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 24/24/24/24
 calibration_method | character | nonmissing | 1 | distinct | 1

@@ -1,7 +1,7 @@
 Rows: 1945
 Columns: 32
 Key fields: parent_id
-Saved-file MD5: b9eb8f976053988984a30642b7e7ea34
+Saved-file MD5: f92a2fc3282a3e91e0fcc14f8ccaa897
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 1945 | distinct | 1
@@ -30,9 +30,9 @@ feature_lots | integer | nonmissing | 1915 | distinct | 4 min/median/mean/max 1/
 composition_eligible | logical | nonmissing | 1945 | distinct | 2
 lotarea | numeric | nonmissing | 1915 | distinct | 1236 min/median/mean/max 0/4750/17360.35/2747985
 log_lotarea | numeric | nonmissing | 1915 | distinct | 1236 min/median/mean/max -Inf/8.4659/-Inf/14.82638
-residfar | numeric | nonmissing | 1913 | distinct | 32 min/median/mean/max 0/3/3.433367/10
-broad_zoning_far | numeric | nonmissing | 1913 | distinct | 26 min/median/mean/max 0/4.8/4.509277/15
-builtfar | numeric | nonmissing | 1913 | distinct | 411 min/median/mean/max 0/0.495/0.8704252/18.12
+residfar | numeric | nonmissing | 1913 | distinct | 33 min/median/mean/max 0/3/3.433612/10
+broad_zoning_far | numeric | nonmissing | 1913 | distinct | 28 min/median/mean/max 0/4.8/4.509693/15
+builtfar | numeric | nonmissing | 1913 | distinct | 425 min/median/mean/max 0/0.49/0.8696035/18.12
 borough | character | nonmissing | 1915 | distinct | 5
 zone_detail | character | nonmissing | 1915 | distinct | 9
 prior_site_use | character | nonmissing | 1915 | distinct | 9

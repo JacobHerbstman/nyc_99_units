@@ -9,11 +9,7 @@ suppressPackageStartupMessages({
 
 source("../../shared/code/source_pipeline_utils.R")
 
-parents <- read_parquet(
-  "../input/parent_opportunity_panel.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
+parents <- read_parquet("../input/parent_opportunity_panel.parquet")
 
 if (
   nrow(parents) == 0L ||

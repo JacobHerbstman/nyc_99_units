@@ -19,6 +19,7 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
 mappluto_files <- read_csv("../input/source_files.csv", show_col_types = FALSE, na = c("", "NA"))
 
@@ -196,3 +197,9 @@ lot_table <- lot_table |>
   select(source_id, source_vintage, source_raw_path, everything())
 write_parquet_atomic(lot_table, paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), "_raw.parquet"))
 unlink(temp_dir, recursive = TRUE)
+
+write_data_report(
+  arrow::read_parquet(paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), "_raw.parquet")),
+  "bbl", paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), "_raw.parquet"),
+  paste0("../report/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), "_raw.txt"), require_unique = FALSE
+)

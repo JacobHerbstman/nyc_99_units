@@ -8,6 +8,7 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
 row <- read_csv("../input/dcp_housing_database_files.csv", show_col_types = FALSE) |>
   filter(file_role == "project_level_csv_zip", vintage == "25Q4")
@@ -26,12 +27,12 @@ extracted_csv <- unzip("../input/nychdb_25q4_csv.zip", files = csv_inside_zip, e
 raw_df <- read_csv(extracted_csv, show_col_types = FALSE, guess_max = 50000)
 names(raw_df) <- normalize_names(names(raw_df))
 
-raw_df <- raw_df %>%
+raw_df <- raw_df |>
   mutate(
     source_id = row$source_id,
     vintage = row$vintage,
     source_raw_path = row$raw_path
-  ) %>%
+  ) |>
   select(source_id, vintage, source_raw_path, everything())
 
 write_parquet_atomic(raw_df, "../output/dcp_housing_database_project_level_raw_25q4.parquet")
@@ -81,3 +82,19 @@ write_csv_atomic(tibble(
   parquet_path = "../output/dcp_housing_database_project_level_25q4.parquet",
   status = "staged"
 ), "../output/dcp_housing_database_files.csv")
+
+write_data_report(
+  readr::read_csv("../output/dcp_housing_database_files.csv", show_col_types = FALSE, guess_max = Inf),
+  c("source_id", "vintage"), "../output/dcp_housing_database_files.csv", "../report/dcp_housing_database_files.txt")
+
+write_data_report(
+  arrow::read_parquet("../output/dcp_housing_database_project_level_25q4.parquet"),
+  NULL, "../output/dcp_housing_database_project_level_25q4.parquet", "../report/dcp_housing_database_project_level_25q4.txt")
+
+write_data_report(
+  arrow::read_parquet("../output/dcp_housing_database_project_level_raw_25q4.parquet"),
+  NULL, "../output/dcp_housing_database_project_level_raw_25q4.parquet", "../report/dcp_housing_database_project_level_raw_25q4.txt")
+
+write_data_report(
+  readr::read_csv("../output/dcp_housing_database_raw_files.csv", show_col_types = FALSE, guess_max = Inf),
+  c("source_id", "vintage"), "../output/dcp_housing_database_raw_files.csv", "../report/dcp_housing_database_raw_files.txt")

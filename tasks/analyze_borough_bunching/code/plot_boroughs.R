@@ -1,10 +1,11 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/analyze_borough_bunching/code")
 # measure <- "filings"
 suppressPackageStartupMessages({library(arrow); library(dplyr); library(readr); library(tidyr); library(ggplot2)})
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(measure))
-stopifnot(length(args) == 1)
-measure <- args[1]
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 1L)
+  measure <- args[1]
+}
 stopifnot(measure %in% c("filings", "parents"))
 filings <- read_parquet("../output/geographic_filings.parquet")
 counts <- read_csv("../output/borough_summary.csv", show_col_types = FALSE) |>

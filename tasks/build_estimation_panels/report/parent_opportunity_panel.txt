@@ -1,7 +1,7 @@
 Rows: 2733
 Columns: 71
 Key fields: sample, parent_id
-Saved-file MD5: c1716ef3df787a944094129331e261f1
+Saved-file MD5: 65b7fb6f763e574b888237715eda54cf
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 2733 | distinct | 2
@@ -64,12 +64,12 @@ number_unique_lots | integer | nonmissing | 2712 | distinct | 4 min/median/mean/
 multi_lot_indicator | integer | nonmissing | 2712 | distinct | 2 min/median/mean/max 0/0/0.02839233/1
 lot_area_sqft | numeric | nonmissing | 2711 | distinct | 1534 min/median/mean/max 279/4387/33126.79/2747985
 log_lot_area | numeric | nonmissing | 2711 | distinct | 1534 min/median/mean/max 5.631212/8.386401/8.669602/14.82638
-residential_far | numeric | nonmissing | 2711 | distinct | 36 min/median/mean/max 0/3/3.336873/10
-broad_zoning_far | numeric | nonmissing | 2711 | distinct | 25 min/median/mean/max 0/4.8/4.483107/15
-built_far | numeric | nonmissing | 2711 | distinct | 396 min/median/mean/max 0/0.49/0.6813574/12.1
-residential_capacity_sqft | numeric | nonmissing | 2711 | distinct | 1769 min/median/mean/max 0/11764.8/39902.66/2761126
-built_floor_area_sqft | numeric | nonmissing | 2711 | distinct | 1533 min/median/mean/max 0/1923.75/10751.4/1489849
-redevelopment_slack_sqft | numeric | nonmissing | 2711 | distinct | 2152 min/median/mean/max 0/9288/30105.08/1671982
+residential_far | numeric | nonmissing | 2712 | distinct | 38 min/median/mean/max 0/3/3.337061/10
+broad_zoning_far | numeric | nonmissing | 2712 | distinct | 28 min/median/mean/max 0/4.8/4.483576/15
+built_far | numeric | nonmissing | 2712 | distinct | 410 min/median/mean/max 0/0.49/0.6807584/12.1
+residential_capacity_sqft | numeric | nonmissing | 2711 | distinct | 1769 min/median/mean/max 0/11764.8/39897.92/2761126
+built_floor_area_sqft | numeric | nonmissing | 2711 | distinct | 1531 min/median/mean/max 0/1923.75/10794.41/1489849
+redevelopment_slack_sqft | numeric | nonmissing | 2711 | distinct | 2153 min/median/mean/max 0/9288/30057.41/1664863
 zero_residential_capacity | integer | nonmissing | 2711 | distinct | 2 min/median/mean/max 0/0/0.04352637/1
 zero_redevelopment_slack | integer | nonmissing | 2711 | distinct | 2 min/median/mean/max 0/0/0.05791221/1
 borough | character | nonmissing | 2712 | distinct | 5

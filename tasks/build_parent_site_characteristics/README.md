@@ -2,7 +2,7 @@
 
 This task aggregates predetermined parcel characteristics to the linked
 economic-parent level. It produces one historical panel and one post-policy
-panel for composition adjustment in the current scale-and-shape analysis.
+panel used in the final estimation datasets and exploratory composition checks.
 
 Historical characteristics come from each filing's leakage-safe lagged
 MapPLUTO match. Post-policy characteristics use the fixed 23v3.1 MapPLUTO
@@ -19,3 +19,9 @@ Documented historical companions with missing lagged parcel matches are retained
 Repeated-BIN eligibility counts additive buildings only, so a retained superseded source application does not itself make its replacement a duplicate building. Original source rows remain available for the established prefiling site-characteristic construction.
 
 `units` and exact-99 component counts aggregate the constructor's selected units, using Housing Database priority with DOB fallback; documentary schedules do not override them. `units_hdb_priority` and `units_dob_i1` separately retain unaltered source-based totals; the downstream panel checks selected totals against selected totals.
+
+The producer takes one sample name (`historical` or `post_policy`) and writes
+that dataset and its report. Its weighted FAR calculation uses each lot's
+original area before summing the parent's land area. The September 11 review
+corrected an earlier column-overwrite error that had given equal weights to
+lots within a parent. Unit counts and membership do not depend on these FARs.

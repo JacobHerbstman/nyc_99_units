@@ -8,6 +8,7 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
 calendar <- read_csv("mappluto_release_calendar_manual.csv", show_col_types = FALSE, na = c("", "NA")) |>
   mutate(
@@ -71,7 +72,7 @@ staged_training_vintages <- mappluto_lot_files |>
   filter(
     (source_id == "dcp_pluto_archive" & str_detect(as.character(vintage), "^((09|10|11|12|13|14|15|16|17)v|18v1)$")) |
       (source_id == "dcp_mappluto_archive" & str_detect(as.character(vintage), "^(18|19|20|21|22|23)v")),
-    if ("raw_status" %in% names(mappluto_lot_files)) raw_status == "loaded" else TRUE
+    raw_status == "loaded"
   ) |>
   distinct(source_id = as.character(source_id), vintage = as.character(vintage))
 
@@ -92,3 +93,7 @@ calendar <- calendar |>
 
 write_csv_atomic(calendar, "../output/mappluto_release_calendar.csv")
 cat("Wrote MapPLUTO release calendar to ../output/mappluto_release_calendar.csv\n")
+
+write_data_report(
+  readr::read_csv("../output/mappluto_release_calendar.csv", show_col_types = FALSE, guess_max = Inf),
+  NULL, "../output/mappluto_release_calendar.csv", "../report/mappluto_release_calendar.txt")

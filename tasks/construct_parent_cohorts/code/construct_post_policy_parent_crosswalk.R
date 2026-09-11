@@ -13,21 +13,16 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(start_year), as.character(end_year), as.character(min_units), as.character(max_units))
-
-if (length(args) != 4L) {
-  stop(
-    "Expected four arguments: start year, end year, minimum units, ",
-    "and maximum units."
-  )
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 4L)
+  start_year <- as.integer(args[1])
+  end_year <- as.integer(args[2])
+  min_units <- as.integer(args[3])
+  max_units <- as.integer(args[4])
 }
-
-start_year <- as.integer(args[1])
-end_year <- as.integer(args[2])
-min_units <- as.integer(args[3])
-max_units <- as.integer(args[4])
 
 if (
   any(is.na(c(start_year, end_year, min_units, max_units))) ||
@@ -38,11 +33,7 @@ if (
   stop("Post-policy filing-link arguments are not internally consistent.")
 }
 
-dob_initial <- read_parquet(
-  "../input/dob_now_new_building_initial_filings.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
+dob_initial <- read_parquet("../input/dob_now_new_building_initial_filings.parquet")
 
 appbbl_crosswalk <- read_csv(
   "../input/mappluto_appbbl_crosswalk.csv",
@@ -141,9 +132,10 @@ if (
   stop("Post-policy filing-link fields failed identifier QC.")
 }
 
-write_parquet_atomic(
-  filing_link_fields,
-  "../output/post_policy_filing_link_fields.parquet"
-)
+write_parquet_atomic(filing_link_fields, "../output/post_policy_filing_link_fields.parquet")
 
 cat("Wrote post-policy filing-link fields to ../output\n")
+
+write_data_report(
+  arrow::read_parquet("../output/post_policy_filing_link_fields.parquet"),
+  NULL, "../output/post_policy_filing_link_fields.parquet", "../report/post_policy_filing_link_fields.txt")

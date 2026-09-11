@@ -14,17 +14,14 @@ suppressPackageStartupMessages({
 
 source("../../shared/code/source_pipeline_utils.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(plot_minimum), as.character(plot_maximum), as.character(measure), as.character(plot_style))
-
-if (length(args) != 4L) {
-  stop("Expected the minimum, maximum, measure, and style for the filing-size plot.")
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 4L)
+  plot_minimum <- as.integer(args[1])
+  plot_maximum <- as.integer(args[2])
+  measure <- args[3]
+  plot_style <- args[4]
 }
-
-plot_minimum <- as.integer(args[1])
-plot_maximum <- as.integer(args[2])
-measure <- args[3]
-plot_style <- args[4]
 
 if (
   is.na(plot_minimum) ||
@@ -36,11 +33,7 @@ if (
   stop("The filing-size plot bounds are invalid.")
 }
 
-constituents <- read_parquet(
-  "../input/constituent_filing_panel.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble() |>
+constituents <- read_parquet("../input/constituent_filing_panel.parquet") |>
   filter(included_ab, constituent_units >= plot_minimum)
 
 if (

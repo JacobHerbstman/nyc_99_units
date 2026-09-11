@@ -18,26 +18,20 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(historical_link_start_year), as.character(historical_cohort_start_year), as.character(historical_end_year), as.character(post_comparison_start_year), as.character(post_cohort_year), as.character(max_filing_days), as.character(corroboration_days), as.character(post_geometry_vintage))
-
-if (length(args) != 8L) {
-  stop(
-    "Expected eight arguments: historical link start, cohort start and end ",
-    "years, post comparison start and cohort years, maximum filing days, ",
-    "corroboration days, and post geometry vintage."
-  )
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 8L)
+  historical_link_start_year <- as.integer(args[1])
+  historical_cohort_start_year <- as.integer(args[2])
+  historical_end_year <- as.integer(args[3])
+  post_comparison_start_year <- as.integer(args[4])
+  post_cohort_year <- as.integer(args[5])
+  max_filing_days <- as.integer(args[6])
+  corroboration_days <- as.integer(args[7])
+  post_geometry_vintage <- args[8]
 }
-
-historical_link_start_year <- as.integer(args[1])
-historical_cohort_start_year <- as.integer(args[2])
-historical_end_year <- as.integer(args[3])
-post_comparison_start_year <- as.integer(args[4])
-post_cohort_year <- as.integer(args[5])
-max_filing_days <- as.integer(args[6])
-corroboration_days <- as.integer(args[7])
-post_geometry_vintage <- args[8]
 
 if (
   any(is.na(c(
@@ -81,28 +75,16 @@ assign_components <- function(rows, links) {
     mutate(component = component)
 }
 
-historical_rows <- read_parquet(
-  "../input/historical_parent_filing_link_fields.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble() |>
+historical_rows <- read_parquet("../input/historical_parent_filing_link_fields.parquet") |>
   filter(
     filing_year >= historical_link_start_year,
     filing_year <= historical_end_year
   ) |>
   arrange(date_filed, job_number)
 
-historical_candidates <- read_parquet(
-  "../input/historical_parent_candidate_pairs.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
+historical_candidates <- read_parquet("../input/historical_parent_candidate_pairs.parquet")
 
-historical_adjacency <- read_parquet(
-  "../input/historical_polygon_adjacency_pairs.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
+historical_adjacency <- read_parquet("../input/historical_polygon_adjacency_pairs.parquet")
 
 pair_decisions <- read_csv("../input/pair_decisions.csv", show_col_types = FALSE,
   col_types = cols(.default = col_character()))
@@ -126,17 +108,9 @@ stopifnot(!anyNA(unit_decisions),
   all(unit_decisions$reviewed_units > 0L),
   !anyDuplicated(unit_decisions[c("sample", "root_job_id")]))
 
-historical_geometry_coverage <- read_parquet(
-  "../input/historical_polygon_geometry_coverage.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
+historical_geometry_coverage <- read_parquet("../input/historical_polygon_geometry_coverage.parquet")
 
-post_rows <- read_parquet(
-  "../output/post_policy_filing_link_fields.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble() |>
+post_rows <- read_parquet("../output/post_policy_filing_link_fields.parquet") |>
   arrange(filing_date, job_number)
 
 mappluto_inventory <- read_csv(
@@ -153,11 +127,7 @@ mappluto_files <- mappluto_inventory |>
   ) |>
   select(raw_path)
 
-hdb_post_jobs <- read_parquet(
-  "../input/hdb_mappluto_site_panel.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble() |>
+hdb_post_jobs <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
   select(
     job_number, filing_year, classa_prop,
     classa_prop_integer, primary_leakage_safe_sample, lotarea
@@ -354,7 +324,7 @@ historical_links <- historical_pairs |>
 
 archive_listing <- system2(
   "unzip",
-  c("-Z1", file.path("../input", basename(mappluto_files$raw_path))),
+  c("-Z1", sprintf("../input/nyc_mappluto_%s_arc_shp.zip", sanitize_file_stub(post_geometry_vintage))),
   stdout = TRUE,
   stderr = FALSE
 )
@@ -370,7 +340,7 @@ if (is.na(shapefile_entry) || !nzchar(shapefile_entry)) {
 
 post_lots <- st_read(
   paste0(
-    "/vsizip/", file.path("../input", basename(mappluto_files$raw_path)), "/", shapefile_entry
+    "/vsizip/", sprintf("../input/nyc_mappluto_%s_arc_shp.zip", sanitize_file_stub(post_geometry_vintage)), "/", shapefile_entry
   ),
   query = paste0(
     "SELECT BBL FROM MapPLUTO WHERE BBL IN (",
@@ -923,13 +893,15 @@ stopifnot(!anyNA(reviewed_components$parent_1), !anyNA(reviewed_components$paren
   nrow(anti_join(unit_decisions, membership, by = c("sample", "root_job_id"))) == 0L,
   all(membership$units == membership$hdb_priority_units))
 
-write_parquet_atomic(
-  membership,
-  "../output/symmetric_parent_membership.parquet"
-)
-write_parquet_atomic(
-  links,
-  "../output/symmetric_parent_links.parquet"
-)
+write_parquet_atomic(membership, "../output/symmetric_parent_membership.parquet")
+write_parquet_atomic(links, "../output/symmetric_parent_links.parquet")
 
 cat("Wrote symmetric parent cohorts to ../output\n")
+
+write_data_report(
+  arrow::read_parquet("../output/symmetric_parent_links.parquet"),
+  NULL, "../output/symmetric_parent_links.parquet", "../report/symmetric_parent_links.txt")
+
+write_data_report(
+  arrow::read_parquet("../output/symmetric_parent_membership.parquet"),
+  c("sample", "job_number"), "../output/symmetric_parent_membership.parquet", "../report/symmetric_parent_membership.txt")

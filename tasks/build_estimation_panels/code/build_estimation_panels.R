@@ -15,23 +15,18 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(pre_start_date_text), as.character(pre_end_date_text), as.character(post_start_date_text), as.character(post_end_date_text), as.character(minimum_units), as.character(near_99_minimum))
-
-if (length(args) != 6L) {
-  stop(
-    "Expected pre start/end dates, post start/end dates, minimum units, ",
-    "and the lower bound for the near-99 constituent definition."
-  )
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 6L)
+  pre_start_date_text <- args[1]
+  pre_end_date_text <- args[2]
+  post_start_date_text <- args[3]
+  post_end_date_text <- args[4]
+  minimum_units <- as.integer(args[5])
+  near_99_minimum <- as.integer(args[6])
 }
-
-pre_start_date_text <- args[1]
-pre_end_date_text <- args[2]
-post_start_date_text <- args[3]
-post_end_date_text <- args[4]
-minimum_units <- as.integer(args[5])
-near_99_minimum <- as.integer(args[6])
 
 pre_start_date <- as.Date(pre_start_date_text)
 pre_end_date <- as.Date(pre_end_date_text)
@@ -54,14 +49,10 @@ if (
     near_99_minimum < 1L ||
     near_99_minimum > 99L
 ) {
-  stop("Scale-shape panel arguments are not internally consistent.")
+  stop("Estimation panel arguments are not internally consistent.")
 }
 
-membership <- read_parquet(
-  "../input/symmetric_parent_membership.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
+membership <- read_parquet("../input/symmetric_parent_membership.parquet")
 
 exposure <- read_csv(
   "../input/parent_485x_exposure.csv",
@@ -81,18 +72,10 @@ hpd_links <- read_csv(
   guess_max = Inf
 )
 
-historical_features <- read_parquet(
-  "../input/historical_parent_site_characteristics.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble() |>
+historical_features <- read_parquet("../input/historical_parent_site_characteristics.parquet") |>
   mutate(sample = "historical")
 
-post_features <- read_parquet(
-  "../input/post_policy_parent_site_characteristics.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble() |>
+post_features <- read_parquet("../input/post_policy_parent_site_characteristics.parquet") |>
   mutate(sample = "post_policy")
 
 if (
@@ -556,12 +539,14 @@ if (
   stop("The constituent panel failed uniqueness or parent-weight QC.")
 }
 
-write_parquet_atomic(
-  parent_panel,
-  "../output/parent_opportunity_panel.parquet"
-)
-write_parquet_atomic(
-  constituent_panel,
-  "../output/constituent_filing_panel.parquet"
-)
-cat("Wrote parent and constituent scale-shape panels to ../output\n")
+write_parquet_atomic(parent_panel, "../output/parent_opportunity_panel.parquet")
+write_parquet_atomic(constituent_panel, "../output/constituent_filing_panel.parquet")
+cat("Wrote parent and constituent panels to ../output\n")
+
+write_data_report(
+  arrow::read_parquet("../output/parent_opportunity_panel.parquet"),
+  c("sample", "parent_id"), "../output/parent_opportunity_panel.parquet", "../report/parent_opportunity_panel.txt")
+
+write_data_report(
+  arrow::read_parquet("../output/constituent_filing_panel.parquet"),
+  c("sample", "root_job_id"), "../output/constituent_filing_panel.parquet", "../report/constituent_filing_panel.txt")

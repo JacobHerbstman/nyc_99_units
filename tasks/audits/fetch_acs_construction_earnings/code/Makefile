@@ -13,8 +13,7 @@ all: ../report/puma_boundaries.txt \
 	../report/acs_2023_tract.txt \
 	../report/acs_2023_county.txt
 
-../output/acs_2023_%.json: fetch_acs.R Makefile \
-	../../../shared/code/shell_functions.make ../../../shared/code/shell_functions.sh | ../output
+../output/acs_2023_%.json: fetch_acs.R | ../output
 	$(R) $< $*
 
 include download_recipes.make

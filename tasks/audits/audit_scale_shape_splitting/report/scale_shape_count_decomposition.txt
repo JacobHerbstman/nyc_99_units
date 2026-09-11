@@ -1,12 +1,12 @@
 Rows: 252
 Columns: 8
 Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: afe7419666da13175580055c76d5260e
+Saved-file MD5: 08d6b2fd91b8578657a3433533dcbb2b
 unit_bin_order | numeric | nonmissing | 252 | distinct | 252 min/median/mean/max 50/175.5/175.5/301
 Historical unweighted | numeric | nonmissing | 252 | distinct | 16 min/median/mean/max 0/0.001785714/0.003968254/0.1375
-Historical reweighted to post sites | numeric | nonmissing | 252 | distinct | 171 min/median/mean/max 0/0.001775035/0.003968254/0.1083024
+Historical reweighted to post sites | numeric | nonmissing | 252 | distinct | 171 min/median/mean/max 0/0.001774787/0.003968254/0.1083834
 Post observed | numeric | nonmissing | 252 | distinct | 11 min/median/mean/max 0/0/0.003968254/0.1262136
 post_annualized_opportunity_rate | numeric | nonmissing | 252 | distinct | 1 min/median/mean/max 203.7225/203.7225/203.7225/203.7225
-scale_only_counterfactual_count | numeric | nonmissing | 252 | distinct | 171 min/median/mean/max 0/0.3616145/0.8084225/22.06363
+scale_only_counterfactual_count | numeric | nonmissing | 252 | distinct | 171 min/median/mean/max 0/0.3615639/0.8084225/22.08013
 observed_post_annualized_count | numeric | nonmissing | 252 | distinct | 11 min/median/mean/max 0/0/0.8084225/25.71255
-shape_effect_count | numeric | nonmissing | 252 | distinct | 175 min/median/mean/max -6.240529/0/-4.370402e-16/21.60534
+shape_effect_count | numeric | nonmissing | 252 | distinct | 175 min/median/mean/max -6.257021/0/-4.96957e-16/21.61079

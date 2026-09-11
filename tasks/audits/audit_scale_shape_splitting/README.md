@@ -30,7 +30,7 @@ cohorts remain provisional as new filings arrive.
 
 ## Parent and constituent construction
 
-`construct_scale_shape_splitting_panels.R` produces one row per linked economic
+`build_estimation_panels.R` in the main dataset task produces one row per linked economic
 parent and one row per constituent filing/building. It validates that the sum
 of constituent units equals the parent total exactly. The parent panel records
 sorted constituent sizes, component counts, exact 99 x 2 and 99 x 3 flags, and

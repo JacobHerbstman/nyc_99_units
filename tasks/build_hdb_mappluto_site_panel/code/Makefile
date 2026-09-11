@@ -1,337 +1,56 @@
 include ../../shared/code/shell_functions.make
 
+MAPPLUTO_DATA_RELEASES := 18v1_1 18v2_1 18v2beta 19v1 19v2 20v1 20v2 20v3 20v4 20v5 20v6 20v7 20v8 21v1 21v3 22v1 22v2 \
+	23v1 23v1_1 23v1_2 23v2 23v3 23v3_1
+PLUTO_DATA_RELEASES := 09v1 09v2 10v1 10v2 11v1 11v2 12v1 12v2 13v1 13v2 14v1 14v2 15v1 16v1 16v2 17v1 17v1_1 18v1
 START_DATE := 2010-01-01
-
 END_DATE := 2025-12-31
 
 ifneq ($(filter command,$(origin START_DATE) $(origin END_DATE)),)
-
 $(error These fixed-name outputs use the settings recorded in this Makefile; edit those settings here so Make tracks the change)
-
 endif
 
-all: ../output/hdb_mappluto_site_panel.parquet ../report/hdb_mappluto_site_panel.txt \
-	../output/mappluto_release_calendar.csv ../report/mappluto_release_calendar.txt \
-	../output/mappluto_appbbl_crosswalk.csv ../report/mappluto_appbbl_crosswalk.txt
+all: ../report/mappluto_release_calendar.txt ../output/mappluto_release_calendar.csv \
+	../report/mappluto_appbbl_crosswalk.txt ../output/mappluto_appbbl_crosswalk.csv \
+	../report/hdb_mappluto_site_panel.txt ../output/hdb_mappluto_site_panel.parquet
 
-../output/hdb_mappluto_site_panel.parquet: build_hdb_mappluto_site_panel.R ../../shared/code/source_pipeline_utils.R \
-	../input/dcp_housing_database_project_level_25q4.parquet ../input/mappluto_lot_files.csv \
-	../output/mappluto_release_calendar.csv ../output/mappluto_appbbl_crosswalk.csv Makefile \
-	../input/dcp_mappluto_archive_18v1_1.parquet ../input/dcp_mappluto_archive_18v2_1.parquet \
-	../input/dcp_mappluto_archive_18v2beta.parquet ../input/dcp_mappluto_archive_19v1.parquet \
-	../input/dcp_mappluto_archive_19v2.parquet ../input/dcp_mappluto_archive_20v1.parquet \
-	../input/dcp_mappluto_archive_20v2.parquet ../input/dcp_mappluto_archive_20v3.parquet \
-	../input/dcp_mappluto_archive_20v4.parquet ../input/dcp_mappluto_archive_20v5.parquet \
-	../input/dcp_mappluto_archive_20v6.parquet ../input/dcp_mappluto_archive_20v7.parquet \
-	../input/dcp_mappluto_archive_20v8.parquet ../input/dcp_mappluto_archive_21v1.parquet \
-	../input/dcp_mappluto_archive_21v3.parquet ../input/dcp_mappluto_archive_22v1.parquet \
-	../input/dcp_mappluto_archive_22v2.parquet ../input/dcp_mappluto_archive_23v1.parquet \
-	../input/dcp_mappluto_archive_23v1_1.parquet ../input/dcp_mappluto_archive_23v1_2.parquet \
-	../input/dcp_mappluto_archive_23v2.parquet ../input/dcp_mappluto_archive_23v3.parquet \
-	../input/dcp_mappluto_archive_23v3_1.parquet ../input/dcp_pluto_archive_09v1.parquet \
-	../input/dcp_pluto_archive_09v2.parquet ../input/dcp_pluto_archive_10v1.parquet \
-	../input/dcp_pluto_archive_10v2.parquet ../input/dcp_pluto_archive_11v1.parquet \
-	../input/dcp_pluto_archive_11v2.parquet ../input/dcp_pluto_archive_12v1.parquet \
-	../input/dcp_pluto_archive_12v2.parquet ../input/dcp_pluto_archive_13v1.parquet \
-	../input/dcp_pluto_archive_13v2.parquet ../input/dcp_pluto_archive_14v1.parquet \
-	../input/dcp_pluto_archive_14v2.parquet ../input/dcp_pluto_archive_15v1.parquet \
-	../input/dcp_pluto_archive_16v1.parquet ../input/dcp_pluto_archive_16v2.parquet \
-	../input/dcp_pluto_archive_17v1.parquet ../input/dcp_pluto_archive_17v1_1.parquet \
-	../input/dcp_pluto_archive_18v1.parquet ../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh \
-	| ../output
+../output/hdb_mappluto_site_panel.parquet ../report/hdb_mappluto_site_panel.txt: build_hdb_mappluto_site_panel.R \
+	../../shared/code/source_pipeline_utils.R ../input/dcp_housing_database_project_level_25q4.parquet \
+	../input/mappluto_lot_files.csv ../output/mappluto_release_calendar.csv ../output/mappluto_appbbl_crosswalk.csv \
+	Makefile $(foreach v,$(MAPPLUTO_DATA_RELEASES),../input/dcp_mappluto_archive_$(v).parquet) \
+	$(foreach v,$(PLUTO_DATA_RELEASES),../input/dcp_pluto_archive_$(v).parquet) ../../shared/code/write_data_report.R | \
+	../output ../report
 	$(R) $< $(START_DATE) $(END_DATE)
 
-../report/hdb_mappluto_site_panel.txt: report_data.R ../../shared/code/write_data_report.R \
-	../output/hdb_mappluto_site_panel.parquet Makefile ../../shared/code/shell_functions.make \
-	../../shared/code/shell_functions.sh | ../report
-	$(R) $< hdb_mappluto_site_panel
-
-../output/mappluto_release_calendar.csv: define_mappluto_release_calendar.R \
+../output/mappluto_release_calendar.csv ../report/mappluto_release_calendar.txt: define_mappluto_release_calendar.R \
 	../../shared/code/source_pipeline_utils.R mappluto_release_calendar_manual.csv ../input/mappluto_lot_files.csv \
-	Makefile ../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../output
+	Makefile ../../shared/code/write_data_report.R | ../output ../report
 	$(R) $<
 
-../report/mappluto_release_calendar.txt: report_data.R \
-	../../shared/code/write_data_report.R ../output/mappluto_release_calendar.csv Makefile \
-	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
-	$(R) $< mappluto_release_calendar
-
-../output/mappluto_appbbl_crosswalk.csv: build_mappluto_appbbl_crosswalk.R ../../shared/code/source_pipeline_utils.R \
-	../input/mappluto_files.csv Makefile ../input/nyc_pluto_25v4_csv.zip | ../output \
-	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh
+../output/mappluto_appbbl_crosswalk.csv ../report/mappluto_appbbl_crosswalk.txt: build_mappluto_appbbl_crosswalk.R \
+	../../shared/code/source_pipeline_utils.R ../input/mappluto_files.csv Makefile ../input/nyc_pluto_25v4_csv.zip \
+	../../shared/code/write_data_report.R | ../output ../report
 	$(R) $<
-
-../report/mappluto_appbbl_crosswalk.txt: report_data.R \
-	../../shared/code/write_data_report.R ../output/mappluto_appbbl_crosswalk.csv Makefile \
-	../../shared/code/shell_functions.make ../../shared/code/shell_functions.sh | ../report
-	$(R) $< mappluto_appbbl_crosswalk
 
 ../input/dcp_housing_database_project_level_25q4.parquet: \
 	../../stage_dcp_housing_database/output/dcp_housing_database_project_level_25q4.parquet | ../input
-	@test "$$(readlink "$@")" = "../../stage_dcp_housing_database/output/dcp_housing_database_project_level_25q4.parquet" || ln -sf "../../stage_dcp_housing_database/output/dcp_housing_database_project_level_25q4.parquet" "$@"
+	ln -sf $< $@
 
 ../input/mappluto_lot_files.csv: ../../stage_mappluto_lots/output/mappluto_lot_files.csv | ../input
-	@test "$$(readlink "$@")" = "../../stage_mappluto_lots/output/mappluto_lot_files.csv" || ln -sf "../../stage_mappluto_lots/output/mappluto_lot_files.csv" "$@"
-
-../input/dcp_mappluto_archive_18v1_1.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_18v1_1.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_18v2_1.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_18v2_1.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_18v2beta.parquet: \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_18v2beta.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_19v1.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_19v1.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_19v2.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_19v2.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_20v1.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_20v1.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_20v2.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_20v2.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_20v3.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_20v3.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_20v4.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_20v4.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_20v5.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_20v5.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_20v6.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_20v6.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_20v7.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_20v7.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_20v8.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_20v8.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_21v1.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_21v1.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_21v3.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_21v3.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_22v1.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_22v1.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_22v2.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_22v2.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_23v1.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_23v1.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_23v1_1.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_23v1_1.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_23v1_2.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_23v1_2.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_23v2.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_23v2.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_23v3.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_23v3.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_mappluto_archive_23v3_1.parquet: ../../stage_mappluto_lots/output/dcp_mappluto_archive_23v3_1.parquet | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_09v1.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_09v1.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_09v2.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_09v2.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_10v1.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_10v1.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_10v2.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_10v2.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_11v1.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_11v1.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_11v2.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_11v2.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_12v1.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_12v1.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_12v2.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_12v2.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_13v1.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_13v1.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_13v2.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_13v2.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_14v1.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_14v1.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_14v2.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_14v2.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_15v1.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_15v1.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_16v1.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_16v1.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_16v2.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_16v2.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_17v1.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_17v1.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_17v1_1.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_17v1_1.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
-
-../input/dcp_pluto_archive_18v1.parquet: ../../stage_mappluto_lots/output/dcp_pluto_archive_18v1.parquet | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+	ln -sf $< $@
 
 ../input/mappluto_files.csv: ../../fetch_mappluto_archive/output/mappluto_files.csv | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+	ln -sf $< $@
 
-../input/nyc_pluto_25v4_csv.zip: ../../fetch_mappluto_archive/output/dcp_pluto_current_25v4_nyc_pluto_25v4_csv.zip | \
-	../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+../input/%.zip: ../../fetch_mappluto_archive/output/%.zip | ../input
+	ln -sf $< $@
 
-.PHONY: check-stage_dcp_housing_database
-
-check-stage_dcp_housing_database:
-	$(MAKE) -C ../../stage_dcp_housing_database/code all ../output/dcp_housing_database_project_level_25q4.parquet
-
-.PHONY: check-stage_mappluto_lots
-
-check-stage_mappluto_lots:
-	$(MAKE) -C ../../stage_mappluto_lots/code all ../output/mappluto_lot_files.csv \
-	../output/dcp_mappluto_archive_18v1_1.parquet ../output/dcp_mappluto_archive_18v2_1.parquet \
-	../output/dcp_mappluto_archive_18v2beta.parquet ../output/dcp_mappluto_archive_19v1.parquet \
-	../output/dcp_mappluto_archive_19v2.parquet ../output/dcp_mappluto_archive_20v1.parquet \
-	../output/dcp_mappluto_archive_20v2.parquet ../output/dcp_mappluto_archive_20v3.parquet \
-	../output/dcp_mappluto_archive_20v4.parquet ../output/dcp_mappluto_archive_20v5.parquet \
-	../output/dcp_mappluto_archive_20v6.parquet ../output/dcp_mappluto_archive_20v7.parquet \
-	../output/dcp_mappluto_archive_20v8.parquet ../output/dcp_mappluto_archive_21v1.parquet \
-	../output/dcp_mappluto_archive_21v3.parquet ../output/dcp_mappluto_archive_22v1.parquet \
-	../output/dcp_mappluto_archive_22v2.parquet ../output/dcp_mappluto_archive_23v1.parquet \
-	../output/dcp_mappluto_archive_23v1_1.parquet ../output/dcp_mappluto_archive_23v1_2.parquet \
-	../output/dcp_mappluto_archive_23v2.parquet ../output/dcp_mappluto_archive_23v3.parquet \
-	../output/dcp_mappluto_archive_23v3_1.parquet ../output/dcp_pluto_archive_09v1.parquet \
-	../output/dcp_pluto_archive_09v2.parquet ../output/dcp_pluto_archive_10v1.parquet \
-	../output/dcp_pluto_archive_10v2.parquet ../output/dcp_pluto_archive_11v1.parquet \
-	../output/dcp_pluto_archive_11v2.parquet ../output/dcp_pluto_archive_12v1.parquet \
-	../output/dcp_pluto_archive_12v2.parquet ../output/dcp_pluto_archive_13v1.parquet \
-	../output/dcp_pluto_archive_13v2.parquet ../output/dcp_pluto_archive_14v1.parquet \
-	../output/dcp_pluto_archive_14v2.parquet ../output/dcp_pluto_archive_15v1.parquet \
-	../output/dcp_pluto_archive_16v1.parquet ../output/dcp_pluto_archive_16v2.parquet \
-	../output/dcp_pluto_archive_17v1.parquet ../output/dcp_pluto_archive_17v1_1.parquet \
-	../output/dcp_pluto_archive_18v1.parquet
-
-.PHONY: check-fetch_mappluto_archive
-
-check-fetch_mappluto_archive:
-	$(MAKE) -C ../../fetch_mappluto_archive/code all ../output/mappluto_files.csv \
-	../output/dcp_pluto_current_25v4_nyc_pluto_25v4_csv.zip
-
-../../stage_dcp_housing_database/output/dcp_housing_database_project_level_25q4.parquet: check-stage_dcp_housing_database ;
-
-../../stage_mappluto_lots/output/mappluto_lot_files.csv \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_18v1_1.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_18v2_1.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_18v2beta.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_19v1.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_19v2.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_20v1.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_20v2.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_20v3.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_20v4.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_20v5.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_20v6.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_20v7.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_20v8.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_21v1.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_21v3.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_22v1.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_22v2.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_23v1.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_23v1_1.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_23v1_2.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_23v2.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_23v3.parquet \
-	../../stage_mappluto_lots/output/dcp_mappluto_archive_23v3_1.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_09v1.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_09v2.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_10v1.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_10v2.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_11v1.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_11v2.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_12v1.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_12v2.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_13v1.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_13v2.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_14v1.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_14v2.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_15v1.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_16v1.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_16v2.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_17v1.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_17v1_1.parquet \
-	../../stage_mappluto_lots/output/dcp_pluto_archive_18v1.parquet: check-stage_mappluto_lots ;
-
-../../fetch_mappluto_archive/output/mappluto_files.csv \
-	../../fetch_mappluto_archive/output/dcp_pluto_current_25v4_nyc_pluto_25v4_csv.zip: check-fetch_mappluto_archive ;
+../input/dcp_%.parquet: ../../stage_mappluto_lots/output/dcp_%.parquet | ../input
+	ln -sf $< $@
 
 link-inputs: ../input/dcp_housing_database_project_level_25q4.parquet ../input/mappluto_lot_files.csv \
-	../input/dcp_mappluto_archive_18v1_1.parquet ../input/dcp_mappluto_archive_18v2_1.parquet \
-	../input/dcp_mappluto_archive_18v2beta.parquet ../input/dcp_mappluto_archive_19v1.parquet \
-	../input/dcp_mappluto_archive_19v2.parquet ../input/dcp_mappluto_archive_20v1.parquet \
-	../input/dcp_mappluto_archive_20v2.parquet ../input/dcp_mappluto_archive_20v3.parquet \
-	../input/dcp_mappluto_archive_20v4.parquet ../input/dcp_mappluto_archive_20v5.parquet \
-	../input/dcp_mappluto_archive_20v6.parquet ../input/dcp_mappluto_archive_20v7.parquet \
-	../input/dcp_mappluto_archive_20v8.parquet ../input/dcp_mappluto_archive_21v1.parquet \
-	../input/dcp_mappluto_archive_21v3.parquet ../input/dcp_mappluto_archive_22v1.parquet \
-	../input/dcp_mappluto_archive_22v2.parquet ../input/dcp_mappluto_archive_23v1.parquet \
-	../input/dcp_mappluto_archive_23v1_1.parquet ../input/dcp_mappluto_archive_23v1_2.parquet \
-	../input/dcp_mappluto_archive_23v2.parquet ../input/dcp_mappluto_archive_23v3.parquet \
-	../input/dcp_mappluto_archive_23v3_1.parquet ../input/dcp_pluto_archive_09v1.parquet \
-	../input/dcp_pluto_archive_09v2.parquet ../input/dcp_pluto_archive_10v1.parquet \
-	../input/dcp_pluto_archive_10v2.parquet ../input/dcp_pluto_archive_11v1.parquet \
-	../input/dcp_pluto_archive_11v2.parquet ../input/dcp_pluto_archive_12v1.parquet \
-	../input/dcp_pluto_archive_12v2.parquet ../input/dcp_pluto_archive_13v1.parquet \
-	../input/dcp_pluto_archive_13v2.parquet ../input/dcp_pluto_archive_14v1.parquet \
-	../input/dcp_pluto_archive_14v2.parquet ../input/dcp_pluto_archive_15v1.parquet \
-	../input/dcp_pluto_archive_16v1.parquet ../input/dcp_pluto_archive_16v2.parquet \
-	../input/dcp_pluto_archive_17v1.parquet ../input/dcp_pluto_archive_17v1_1.parquet \
-	../input/dcp_pluto_archive_18v1.parquet ../input/mappluto_files.csv ../input/nyc_pluto_25v4_csv.zip
+	$(foreach v,$(MAPPLUTO_DATA_RELEASES),../input/dcp_mappluto_archive_$(v).parquet) \
+	$(foreach v,$(PLUTO_DATA_RELEASES),../input/dcp_pluto_archive_$(v).parquet) ../input/mappluto_files.csv \
+	../input/nyc_pluto_25v4_csv.zip
 
 include ../../shared/code/generic.make

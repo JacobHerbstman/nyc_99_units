@@ -12,15 +12,12 @@ suppressPackageStartupMessages({
 
 source("../../shared/code/source_pipeline_utils.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(plot_minimum), as.character(detail_maximum))
-
-if (length(args) != 2L) {
-  stop("Expected the minimum and detail maximum for the filing-size CDF.")
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 2L)
+  plot_minimum <- as.integer(args[1])
+  detail_maximum <- as.integer(args[2])
 }
-
-plot_minimum <- as.integer(args[1])
-detail_maximum <- as.integer(args[2])
 
 if (
   is.na(plot_minimum) ||
@@ -30,11 +27,7 @@ if (
   stop("The filing-size CDF bounds are invalid.")
 }
 
-constituents <- read_parquet(
-  "../input/constituent_filing_panel.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble() |>
+constituents <- read_parquet("../input/constituent_filing_panel.parquet") |>
   filter(included_ab, constituent_units >= plot_minimum)
 
 if (

@@ -13,21 +13,18 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(pre_start_year), as.character(pre_end_year), as.character(post_start_date_text), as.character(min_units))
-
-if (length(args) != 4L) {
-  stop(
-    "Expected pre start year, pre end year, post start date, and minimum units."
-  )
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 4L)
+  pre_start_year <- as.integer(args[1])
+  pre_end_year <- as.integer(args[2])
+  post_start_date_text <- args[3]
+  min_units <- as.integer(args[4])
 }
 
-pre_start_year <- as.integer(args[1])
-pre_end_year <- as.integer(args[2])
-post_start_date_text <- args[3]
 post_start_date <- as.Date(post_start_date_text)
-min_units <- as.integer(args[4])
 
 if (
   any(is.na(c(
@@ -39,29 +36,13 @@ if (
   stop("Exposure-universe arguments are not internally consistent.")
 }
 
-membership <- read_parquet(
-  "../input/symmetric_parent_membership.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
+membership <- read_parquet("../input/symmetric_parent_membership.parquet")
 
-hdb <- read_parquet(
-  "../input/dcp_housing_database_project_level_25q4.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
+hdb <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet")
 
-dob <- read_parquet(
-  "../input/dob_now_new_building_initial_filings.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
+dob <- read_parquet("../input/dob_now_new_building_initial_filings.parquet")
 
-historical_fields <- read_parquet(
-  "../input/historical_parent_filing_link_fields.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
+historical_fields <- read_parquet("../input/historical_parent_filing_link_fields.parquet")
 
 if (
   anyDuplicated(membership[c("sample", "root_job_id")]) ||
@@ -176,3 +157,7 @@ cat(
   " component filings to ../output\n",
   sep = ""
 )
+
+write_data_report(
+  readr::read_csv("../output/parent_485x_exposure_universe.csv", show_col_types = FALSE, guess_max = Inf),
+  c("sample", "root_job_id"), "../output/parent_485x_exposure_universe.csv", "../report/parent_485x_exposure_universe.txt")

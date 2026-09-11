@@ -9,6 +9,7 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
 file_manifest <- read_csv(
   "../input/hpd_485x_registration_files.csv",
@@ -19,7 +20,7 @@ file_manifest <- read_csv(
 registration_file <- file_manifest |>
   filter(file_role == "building_registration_submissions")
 
-if (nrow(registration_file) != 1L || !file.exists("../input/hpd_485x_registrations.csv")) {
+if (nrow(registration_file) != 1L) {
   stop("Expected one available HPD 485-x registration extract.")
 }
 
@@ -97,9 +98,10 @@ if (any(!str_detect(staged_registrations$dob_bin, "^[1-5][0-9]{6}$"))) {
   stop("Staged HPD DOB BIN is missing or malformed.")
 }
 
-write_parquet_atomic(
-  staged_registrations,
-  "../output/hpd_485x_registrations.parquet"
-)
+write_parquet_atomic(staged_registrations, "../output/hpd_485x_registrations.parquet")
 
 cat("Wrote staged HPD 485-x registration responses to ../output\n")
+
+write_data_report(
+  arrow::read_parquet("../output/hpd_485x_registrations.parquet"),
+  NULL, "../output/hpd_485x_registrations.parquet", "../report/hpd_485x_registrations.txt")

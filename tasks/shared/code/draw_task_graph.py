@@ -18,11 +18,20 @@ for makefile in sorted(Path('tasks').glob('*/code/Makefile')):
     for prerequisite in re.findall(r'^\.\./input/[^:]+:\s+(\S+)', text, re.M):
         # Resolve through the declared path, not through an existing input link.
         parts = Path(prerequisite).parts
-        if 'output' in parts:
-            owner = parts[parts.index('output') - 1]
+        if 'output' in parts or 'code' in parts:
+            folder = 'output' if 'output' in parts else 'code'
+            owner = parts[parts.index(folder) - 1]
             if owner != task and owner not in {".", ".."}:
                 edges.add((owner, task))
                 tasks.add(owner)
+
+root_rules = Path("Makefile").read_text().replace("\\\n", " ")
+root_edges = set()
+for task, prerequisites in re.findall(r"^([a-z][a-z0-9_]+):([^\n]*)", root_rules, re.M):
+    if task in tasks:
+        root_edges.update((source, task) for source in prerequisites.split() if source in tasks)
+if root_edges != edges:
+    raise ValueError(f"Root/task dependency mismatch: {sorted(root_edges ^ edges)}")
 
 lines = ['digraph tasks {', 'rankdir=TB;',
          'graph [bgcolor="white", pad=0.2, nodesep=0.15, ranksep=0.35];',

@@ -11,16 +11,14 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(start_date), as.character(end_date))
-
-if (length(args) != 2L) {
-  stop("Expected two arguments: panel start date and panel end date.")
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 2L)
+  start_date <- as.Date(args[1])
+  end_date <- as.Date(args[2])
 }
-
-start_date <- as.Date(args[1])
-end_date <- as.Date(args[2])
 
 if (is.na(start_date) || is.na(end_date) || end_date < start_date) {
   stop("Panel start and end dates are not valid.")
@@ -44,9 +42,7 @@ numeric_feature_columns <- c(
   "allowed_res_area", "residual_res_area"
 )
 
-hdb <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet") |>
-  as.data.frame() |>
-  as_tibble()
+hdb <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet")
 
 mappluto_lot_files <- read_csv("../input/mappluto_lot_files.csv", show_col_types = FALSE, na = c("", "NA"))
 release_calendar <- read_csv("../output/mappluto_release_calendar.csv", show_col_types = FALSE, na = c("", "NA"))
@@ -239,7 +235,7 @@ mappluto_lot_files <- mappluto_lot_files |>
     source_id = as.character(source_id),
     vintage = as.character(vintage),
     parquet_path = as.character(parquet_path),
-    raw_status = if ("raw_status" %in% names(mappluto_lot_files)) as.character(raw_status) else NA_character_
+    raw_status = as.character(raw_status)
   )
 
 mappluto_index <- release_calendar |>
@@ -766,3 +762,7 @@ candidate_panel <- candidate_panel |>
 
 write_parquet_atomic(candidate_panel, "../output/hdb_mappluto_site_panel.parquet")
 cat("Wrote HDB-MapPLUTO site panel to ../output/hdb_mappluto_site_panel.parquet\n")
+
+write_data_report(
+  arrow::read_parquet("../output/hdb_mappluto_site_panel.parquet"),
+  NULL, "../output/hdb_mappluto_site_panel.parquet", "../report/hdb_mappluto_site_panel.txt")

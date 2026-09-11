@@ -15,21 +15,16 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(exact_plot_minimum), as.character(exact_plot_maximum), as.character(preferred_minimum), as.character(pooled_tail_start))
-
-if (length(args) != 4L) {
-  stop(
-    "Expected exact-plot minimum/maximum, preferred minimum, and pooled-tail ",
-    "start."
-  )
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 4L)
+  exact_plot_minimum <- as.integer(args[1])
+  exact_plot_maximum <- as.integer(args[2])
+  preferred_minimum <- as.integer(args[3])
+  pooled_tail_start <- as.integer(args[4])
 }
-
-exact_plot_minimum <- as.integer(args[1])
-exact_plot_maximum <- as.integer(args[2])
-preferred_minimum <- as.integer(args[3])
-pooled_tail_start <- as.integer(args[4])
 
 if (
   any(is.na(c(
@@ -45,11 +40,7 @@ if (
   stop("Descriptive scale-shape arguments are not internally consistent.")
 }
 
-parents <- read_parquet(
-  "../input/parent_opportunity_panel.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
+parents <- read_parquet("../input/parent_opportunity_panel.parquet")
 
 stopifnot(!anyDuplicated(parents$parent_id))
 
@@ -255,3 +246,11 @@ write_csv_atomic(preferred_parent_distribution, "../output/preferred_parent_dist
 save_pdf(annualized_figure, "../output/pdf/annualized_parent_total_50_300.pdf")
 save_pdf(normalized_reproduction_figure, "../output/pdf/normalized_parent_total_50_300_reproduction.pdf")
 save_pdf(preferred_normalized_figure, "../output/pdf/normalized_parent_total_50_plus.pdf")
+
+write_data_report(
+  readr::read_csv("../output/parent_total_exact_distribution_50_300.csv", show_col_types = FALSE),
+  c("period", "parent_total_units"), "../output/parent_total_exact_distribution_50_300.csv", "../report/parent_total_exact_distribution_50_300.txt")
+
+write_data_report(
+  readr::read_csv("../output/preferred_parent_distribution_50_plus.csv", show_col_types = FALSE),
+  c("period", "unit_bin_order"), "../output/preferred_parent_distribution_50_plus.csv", "../report/preferred_parent_distribution_50_plus.txt")

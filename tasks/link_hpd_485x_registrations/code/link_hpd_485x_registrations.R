@@ -8,14 +8,13 @@ suppressPackageStartupMessages({
   library(stringr)
 })
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(threshold_units))
+source("../../shared/code/write_data_report.R")
 
-if (length(args) != 1L) {
-  stop("Expected argument: threshold_units.")
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 1L)
+  threshold_units <- as.integer(args[1])
 }
-
-threshold_units <- as.integer(args[1])
 
 if (is.na(threshold_units)) {
   stop("threshold_units must be an integer.")
@@ -174,3 +173,7 @@ write_csv(
 )
 
 cat("Wrote HPD registration-to-DOB links to ../output\n")
+
+write_data_report(
+  readr::read_csv("../output/hpd_485x_registration_dob_links.csv", show_col_types = FALSE, guess_max = Inf),
+  c("response_number"), "../output/hpd_485x_registration_dob_links.csv", "../report/hpd_485x_registration_dob_links.txt")

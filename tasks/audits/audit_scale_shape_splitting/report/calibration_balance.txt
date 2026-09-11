@@ -1,13 +1,13 @@
 Rows: 8
 Columns: 7
 Key fields: balance_moment
-Saved-file MD5: ca027010ec9a2707e2b9c6c6c4f4f47f
+Saved-file MD5: eaa3385029d34f75611ebf25c9074243
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 balance_moment | character | nonmissing | 8 | distinct | 8
-historical_unweighted_mean | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -1.312442e-16/0.01785714/0.09263393/0.3589286
-historical_weighted_mean | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -0.1659786/0.08712677/0.06350033/0.3009709
-post_mean | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -0.1659786/0.08712677/0.06350033/0.3009709
-historical_standard_deviation | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0.08428833/0.4375048/0.5608632/1
-standardized_difference_before | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -0.4108962/0.06430347/-0.001720518/0.1659786
-standardized_difference_after | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -3.523481e-11/1.141577e-11/2.719176e-11/1.400759e-10
+historical_unweighted_mean | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 4.242638e-17/0.01785714/0.09263393/0.3589286
+historical_weighted_mean | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -0.1659786/0.08620022/0.06347452/0.3009709
+post_mean | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -0.1659786/0.08620022/0.06347452/0.3009709
+historical_standard_deviation | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0.08428833/0.4375048/0.5608632/1
+standardized_difference_before | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -0.4108962/0.06430347/-0.001694709/0.1659786
+standardized_difference_after | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -3.233804e-11/1.096274e-11/2.512485e-11/1.289779e-10

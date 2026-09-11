@@ -10,7 +10,10 @@ and a map of exact-99 filings. It does not estimate the joint size-and-organizat
 
 Run `make` at the repository root to build the current plots and maps and
 follow their dataset dependencies. `make data` requests just the two final
-panels and their reports. Run individual tasks from their `code/` folders.
+panels and their reports. The root Makefile orders the tasks; each task's
+Makefile decides which files are stale. Individual tasks run from their `code/`
+folders using the inputs already prepared. After upstream changes, run Make
+from the root.
 
 - Data: `tasks/build_estimation_panels/output/parent_opportunity_panel.parquet`
   and `constituent_filing_panel.parquet`.
@@ -56,12 +59,15 @@ depends on an audit task.
 The joint model is described in `framework_writeup.tex`. `make framework-writeup`
 rebuilds the note and its existing empirical illustrations explicitly; those
 illustrations use the exploratory scale-and-shape audit and are not part of
-the default data-and-plots build. `make paper` builds the paper through its own Makefile.
+the default data-and-plots build. `make paper` and `make logbook` first build the main pipeline, then compile those
+documents through their own Makefiles. The logbook command also refreshes the
+existing audit outputs cited by its entries.
 
 `tasks/audits/` retains parent-link investigations, wage comparisons, the older
 2011–2022 distribution analysis, source-registry checks, and exploratory
 reweighting, decomposition, and bootstrap calculations. These remain runnable
-research evidence, not prerequisites for the current bunching plots.
+research evidence, not prerequisites for the current bunching plots. Build the
+main pipeline from the root before running an individual audit against it.
 
 The research decisions and remaining data questions are recorded in `logbook/`.
 The structural model has not yet been estimated.

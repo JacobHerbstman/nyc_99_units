@@ -13,17 +13,15 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(start_year), as.character(end_year), as.character(min_units))
-
-if (length(args) != 3L) {
-  stop("Expected three arguments: start year, end year, and minimum units.")
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 3L)
+  start_year <- as.integer(args[1])
+  end_year <- as.integer(args[2])
+  min_units <- as.integer(args[3])
 }
-
-start_year <- as.integer(args[1])
-end_year <- as.integer(args[2])
-min_units <- as.integer(args[3])
 
 if (
   any(is.na(c(start_year, end_year, min_units))) ||
@@ -184,8 +182,6 @@ reviewed_pairs <- read_csv("../input/pair_decisions.csv", show_col_types = FALSE
 reviewed_jobs <- unique(c(reviewed_pairs$job_number_1, reviewed_pairs$job_number_2))
 
 panel <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
-  as.data.frame() |>
-  as_tibble() |>
   filter(
     filing_year >= start_year,
     filing_year <= end_year,
@@ -214,11 +210,7 @@ if (nrow(panel) == 0L || anyDuplicated(panel$job_number) ||
   stop("Historical training sample failed job-number QC.")
 }
 
-hdb_raw <- read_parquet(
-  "../input/dcp_housing_database_project_level_raw_25q4.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble() |>
+hdb_raw <- read_parquet("../input/dcp_housing_database_project_level_raw_25q4.parquet") |>
   transmute(
     job_number = str_squish(as.character(job_number)),
     hdb_description = na_if(str_squish(as.character(job_desc)), ""),
@@ -226,11 +218,7 @@ hdb_raw <- read_parquet(
     hdb_longitude = suppressWarnings(as.numeric(longitude))
   )
 
-dob_now <- read_parquet(
-  "../input/dob_now_new_building_initial_filings.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble() |>
+dob_now <- read_parquet("../input/dob_now_new_building_initial_filings.parquet") |>
   transmute(
     job_number = str_squish(job_number),
     dob_now_match = TRUE,
@@ -374,8 +362,9 @@ if (anyDuplicated(filings$job_number)) {
   stop("Historical parent-link field extraction failed final QC.")
 }
 
-write_parquet_atomic(
-  filings,
-  "../output/historical_parent_filing_link_fields.parquet"
-)
+write_parquet_atomic(filings, "../output/historical_parent_filing_link_fields.parquet")
 cat("Wrote historical parent-link filing fields to ../output\n")
+
+write_data_report(
+  arrow::read_parquet("../output/historical_parent_filing_link_fields.parquet"),
+  c("job_number"), "../output/historical_parent_filing_link_fields.parquet", "../report/historical_parent_filing_link_fields.txt")

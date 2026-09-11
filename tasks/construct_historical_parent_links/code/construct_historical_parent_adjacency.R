@@ -14,21 +14,16 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(start_year), as.character(end_year), as.character(max_filing_days), as.character(corroboration_days))
-
-if (length(args) != 4L) {
-  stop(
-    "Expected four arguments: start year, end year, maximum filing days, ",
-    "and corroboration days."
-  )
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 4L)
+  start_year <- as.integer(args[1])
+  end_year <- as.integer(args[2])
+  max_filing_days <- as.integer(args[3])
+  corroboration_days <- as.integer(args[4])
 }
-
-start_year <- as.integer(args[1])
-end_year <- as.integer(args[2])
-max_filing_days <- as.integer(args[3])
-corroboration_days <- as.integer(args[4])
 
 if (
   any(is.na(c(start_year, end_year, max_filing_days, corroboration_days))) ||
@@ -40,19 +35,11 @@ if (
   stop("Historical adjacency arguments are not internally consistent.")
 }
 
-filings <- read_parquet(
-  "../output/historical_parent_filing_link_fields.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble() |>
+filings <- read_parquet("../output/historical_parent_filing_link_fields.parquet") |>
   filter(filing_year >= start_year, filing_year <= end_year) |>
   arrange(date_filed, job_number)
 
-existing_pairs <- read_parquet(
-  "../output/historical_parent_candidate_pairs.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble()
+existing_pairs <- read_parquet("../output/historical_parent_candidate_pairs.parquet")
 
 mappluto_files <- read_csv(
   "../input/mappluto_files.csv",
@@ -372,13 +359,15 @@ if (anyDuplicated(adjacency_pairs[c("job_number_1", "job_number_2")])) {
   stop("Historical adjacency output is not unique by job pair.")
 }
 
-write_parquet_atomic(
-  adjacency_pairs,
-  "../output/historical_polygon_adjacency_pairs.parquet"
-)
-write_parquet_atomic(
-  geometry_coverage,
-  "../output/historical_polygon_geometry_coverage.parquet"
-)
+write_parquet_atomic(adjacency_pairs, "../output/historical_polygon_adjacency_pairs.parquet")
+write_parquet_atomic(geometry_coverage, "../output/historical_polygon_geometry_coverage.parquet")
 
 cat("Wrote historical polygon adjacency and geometry coverage to ../output\n")
+
+write_data_report(
+  arrow::read_parquet("../output/historical_polygon_adjacency_pairs.parquet"),
+  NULL, "../output/historical_polygon_adjacency_pairs.parquet", "../report/historical_polygon_adjacency_pairs.txt")
+
+write_data_report(
+  arrow::read_parquet("../output/historical_polygon_geometry_coverage.parquet"),
+  NULL, "../output/historical_polygon_geometry_coverage.parquet", "../report/historical_polygon_geometry_coverage.txt")

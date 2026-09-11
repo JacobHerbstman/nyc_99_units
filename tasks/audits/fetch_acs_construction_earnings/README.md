@@ -31,6 +31,12 @@ This source task reports the raw data contents and fingerprints in report/.
 The sibling audit task reports the cleaned estimates. Existing audit Make infrastructure is retained without a
 shared-infrastructure migration.
 
+The API query is defined entirely in `fetch_acs.R`, and the geography is encoded
+in each output filename. Those source files depend on the query script;
+changes to execution settings or report rules do not refresh Census data.
+Refresh a recorded response deliberately with `make -B ../output/acs_2023_puma.json`
+(or the corresponding tract/county target), then review its fingerprint and results.
+
 ## Community-district extension
 
 The same ACS tables are requested for all New York State PUMAs; the map consumer

@@ -21,8 +21,8 @@
   Do not pass fixed task-local input/output file paths as command-line arguments.
 - Tasks that use output from ``upstream`` tasks should use symlinking and makefiles to connect them together.
   It should be easy to trace the path out via makefiles from the `data_raw/` folder to final outputs.
-- This project follows the logbook/Dingel task workflow: task-local Makefiles declare concrete file targets and prerequisites, and explicit upstream checks use the common conventions in `tasks/shared/code/README.md`.
-- `make` in `paper/` is the end-to-end paper entry point. It should compile the paper and chase task-generated figures/tables upstream through Make only when those prerequisites are missing or stale.
+- This project follows the logbook/Dingel task workflow: task-local Makefiles declare concrete files, and the root Makefile orders the main tasks. See `tasks/shared/code/README.md`.
+- Use root `make paper` for data plus the paper. `make` in `paper/` compiles the paper from the prepared task outputs.
 
   ## Project Structure
 - `paper/` - LaTeX paper and sections
@@ -51,29 +51,18 @@
 - Do not silence dplyr many-to-many warnings with `relationship = "many-to-many"`. If `relationship` is used, use it to assert the expected one-to-one, many-to-one, or one-to-many contract.
 - If a join would be many-to-many, fix the producer/root data issue first instead of expanding rows downstream.
 
-## Make Incrementality Rules
-- Do not maintain a broad manual phase runner as the canonical dependency graph. File-level prerequisites in task Makefiles and `paper/Makefile` are the source of truth.
-- Active task Makefiles should include `../../shared/code/generic.make`, which owns standard task-directory creation. Group upstream checks by producing task, retain concrete file prerequisites, and use the verified GNU Make 3.81 timestamp rules documented in `tasks/shared/code/README.md`.
-- Do not call recursive upstream builds ad hoc inside active task symlink/input recipes. Recursive checks belong in explicit upstream-check rules, separate from input-link recipes.
-- Recursive upstream checks should preserve Make incrementality: they may invoke the upstream task Makefile, but upstream outputs should only rebuild when missing or stale relative to their own prerequisites.
-- `link-inputs` should only create symlinks and should not orchestrate upstream task execution.
-- Each symlink input should depend on the specific upstream output file path, not on broad/coarse gate files when avoidable.
-- Symlink recipes should be idempotent: check the existing `readlink "$@"` target before running `ln -sf`, so recursive upstream checks do not refresh input mtimes when the link is already correct.
-- Prefer narrow dependency edges over single-report anchors that can trigger unnecessary relinking and downstream invalidation.
-- Stamp-file workflows can obscure real dependency edges; use them sparingly and only when there is no clearer file-target alternative.
-- Before expensive runs, prefer `make -n` to inspect what will rebuild.
-- Do not duplicate Make's incrementality inside active scripts with executable `!exists(...)`, `file.exists(...)`, or "skip if already built" branches.
-
-## Makefile Readability Rules
-- Keep Makefiles minimal, linear, and easy to scan.
-- Keep comments brief and structural only.
-- Keep default workflow targets limited to essentials (`all`, `link-inputs`, and task-specific essential file targets).
-- Keep one concise recipe per logical output producer.
-- Keep output and input names explicit and traceable.
-- Order active task Makefiles in a standard top-down cascade: `all`, output-producing target rules, input symlink target rules, `link-inputs`, then shared includes.
-- Output files should appear as Make targets before the input symlink targets they depend on, so the reader starts from what the task produces and then traces prerequisites downward.
-- This repo uses GNU Make 3.81, so do not use ordinary multiple-target producer rules for scripts that write several outputs; they can rerun the same script once per target. Instead, use one canonical output as the producer target and make the other outputs depend on that canonical output.
-- Favor readability over clever Make metaprogramming unless scale requires it.
+## Make workflow
+- Root `make` checks the main tasks in dependency order. Root `make data` requests the final datasets; `make plots` and `make maps` request those exhibits.
+- Task-local `make` builds that task from its declared input files. It does not run upstream tasks. After changing an upstream source or script, build from the root.
+- Keep the root task dependencies consistent with the concrete input prerequisites. The generated task graph checks that agreement.
+- Main task Makefiles contain the shared execution include, scalar settings, `all`, output rules, input-link rules, `link-inputs`, and the generic include last.
+- In `all`, list local intermediate producers before consumers, with reports before their data. Verify missing intermediate reports as well as missing final files.
+- Use ordinary explicit or pattern rules for coherent output sets. Shared `.NOTPARALLEL` prevents concurrent writers within a task. Verify missing members, changed inputs, and unchanged second builds on GNU Make 3.81.
+- Do not add `check-*` blocks, empty upstream-file rules, `RECOVER`, recursive task builds, stamps, or guarded `readlink` recipes to main task Makefiles.
+- Use plain `ln -sf $< $@` with each link depending on its real upstream file. Make compares the referenced file's timestamp, so unchanged builds do not relink it.
+- List actual files explicitly. Use release/specification lists and ordinary patterns for real repeated families. Do not introduce generic task runners or Make metaprogramming.
+- Generate standard reports in the data producer, using the shared report function on the saved data. A separate report-only script is appropriate for externally acquired source files.
+- Never implement Make's incrementality again inside R or Python.
 
 ## Makefile Path Style
 - Write file paths directly in targets and recipes.

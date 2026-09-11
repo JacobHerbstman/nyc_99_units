@@ -17,6 +17,7 @@ suppressPackageStartupMessages({
 })
 
 source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
 mappluto_files <- read_csv("../input/source_files.csv", show_col_types = FALSE)
 
@@ -46,8 +47,6 @@ row <- mappluto_files |>
 stopifnot(nrow(row) == 1L)
 
 lot_table <- read_parquet(paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), "_raw.parquet")) |>
-  as.data.frame() |>
-  as_tibble() |>
   mutate(
     source_id = as.character(source_id),
     source_vintage = as.character(source_vintage),
@@ -119,3 +118,9 @@ lot_table <- read_parquet(paste0("../output/", sanitize_file_stub(paste(source_i
   select(-bbl_raw, -bbl_built)
 
 write_parquet_atomic(lot_table, paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), ".parquet"))
+
+write_data_report(
+  arrow::read_parquet(paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), ".parquet")),
+  "bbl", paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), ".parquet"),
+  paste0("../report/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), ".txt"), require_unique = FALSE
+)
