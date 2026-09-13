@@ -35,13 +35,17 @@ raw_df <- raw_df |>
   ) |>
   select(source_id, vintage, source_raw_path, everything())
 
-write_parquet_atomic(raw_df, "../output/dcp_housing_database_project_level_raw_25q4.parquet")
-write_csv_atomic(tibble(
-  source_id = row$source_id, vintage = row$vintage, raw_path = row$raw_path,
-  csv_inside_zip = csv_inside_zip,
-  raw_parquet_path = "../output/dcp_housing_database_project_level_raw_25q4.parquet",
-  status = "loaded"
-), "../output/dcp_housing_database_raw_files.csv")
+SaveData(raw_df, NULL, "../output/dcp_housing_database_project_level_raw_25q4.parquet")
+SaveData(
+  tibble(
+    source_id = row$source_id, vintage = row$vintage, raw_path = row$raw_path,
+    csv_inside_zip = csv_inside_zip,
+    raw_parquet_path = "../output/dcp_housing_database_project_level_raw_25q4.parquet",
+    status = "loaded"
+  ),
+  c("source_id", "vintage"),
+  "../output/dcp_housing_database_raw_files.csv"
+)
 
 staged_df <- tibble(
   source_id = row$source_id,
@@ -75,26 +79,14 @@ staged_df <- tibble(
   source_raw_path = row$raw_path
 )
 
-write_parquet_atomic(staged_df, "../output/dcp_housing_database_project_level_25q4.parquet")
-write_csv_atomic(tibble(
-  source_id = row$source_id, vintage = row$vintage, raw_path = row$raw_path,
-  raw_parquet_path = "../output/dcp_housing_database_project_level_raw_25q4.parquet",
-  parquet_path = "../output/dcp_housing_database_project_level_25q4.parquet",
-  status = "staged"
-), "../output/dcp_housing_database_files.csv")
-
-write_data_report(
-  readr::read_csv("../output/dcp_housing_database_files.csv", show_col_types = FALSE, guess_max = Inf),
-  c("source_id", "vintage"), "../output/dcp_housing_database_files.csv", "../report/dcp_housing_database_files.txt")
-
-write_data_report(
-  arrow::read_parquet("../output/dcp_housing_database_project_level_25q4.parquet"),
-  NULL, "../output/dcp_housing_database_project_level_25q4.parquet", "../report/dcp_housing_database_project_level_25q4.txt")
-
-write_data_report(
-  arrow::read_parquet("../output/dcp_housing_database_project_level_raw_25q4.parquet"),
-  NULL, "../output/dcp_housing_database_project_level_raw_25q4.parquet", "../report/dcp_housing_database_project_level_raw_25q4.txt")
-
-write_data_report(
-  readr::read_csv("../output/dcp_housing_database_raw_files.csv", show_col_types = FALSE, guess_max = Inf),
-  c("source_id", "vintage"), "../output/dcp_housing_database_raw_files.csv", "../report/dcp_housing_database_raw_files.txt")
+SaveData(staged_df, NULL, "../output/dcp_housing_database_project_level_25q4.parquet")
+SaveData(
+  tibble(
+    source_id = row$source_id, vintage = row$vintage, raw_path = row$raw_path,
+    raw_parquet_path = "../output/dcp_housing_database_project_level_raw_25q4.parquet",
+    parquet_path = "../output/dcp_housing_database_project_level_25q4.parquet",
+    status = "staged"
+  ),
+  c("source_id", "vintage"),
+  "../output/dcp_housing_database_files.csv"
+)

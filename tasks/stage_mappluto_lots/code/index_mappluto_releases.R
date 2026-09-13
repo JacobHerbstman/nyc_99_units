@@ -59,10 +59,4 @@ file_index <- available_rows |>
     status = if_else(status == "loadable", "loaded", status)) |>
   arrange(status == "loaded") |>
   select(source_id, vintage, raw_path, raw_parquet_path, file_role, raw_file_release, fetch_status, raw_zip_valid, status)
-write_csv_atomic(file_index, "../output/mappluto_raw_files.csv")
-
-write_data_report(
-  readr::read_csv("../output/mappluto_raw_files.csv", show_col_types = FALSE, guess_max = Inf),
-  c("source_id", "vintage"), "../output/mappluto_raw_files.csv",
-  "../report/mappluto_raw_files.txt"
-)
+SaveData(file_index, c("source_id", "vintage"), "../output/mappluto_raw_files.csv")

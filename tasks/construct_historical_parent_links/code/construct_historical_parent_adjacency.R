@@ -359,15 +359,7 @@ if (anyDuplicated(adjacency_pairs[c("job_number_1", "job_number_2")])) {
   stop("Historical adjacency output is not unique by job pair.")
 }
 
-write_parquet_atomic(adjacency_pairs, "../output/historical_polygon_adjacency_pairs.parquet")
-write_parquet_atomic(geometry_coverage, "../output/historical_polygon_geometry_coverage.parquet")
+SaveData(adjacency_pairs, NULL, "../output/historical_polygon_adjacency_pairs.parquet")
+SaveData(geometry_coverage, NULL, "../output/historical_polygon_geometry_coverage.parquet")
 
 cat("Wrote historical polygon adjacency and geometry coverage to ../output\n")
-
-write_data_report(
-  arrow::read_parquet("../output/historical_polygon_adjacency_pairs.parquet"),
-  NULL, "../output/historical_polygon_adjacency_pairs.parquet", "../report/historical_polygon_adjacency_pairs.txt")
-
-write_data_report(
-  arrow::read_parquet("../output/historical_polygon_geometry_coverage.parquet"),
-  NULL, "../output/historical_polygon_geometry_coverage.parquet", "../report/historical_polygon_geometry_coverage.txt")

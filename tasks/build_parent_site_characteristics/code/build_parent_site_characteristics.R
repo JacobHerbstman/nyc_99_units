@@ -256,9 +256,4 @@ stopifnot(nrow(panel) > 0L, !anyDuplicated(panel$observation_id),
           !any(panel$composition_eligible &
                  panel$analysis_status == "completed_2025_cohort" & is.na(panel$lotarea)))
 
-write_parquet_atomic(panel, sprintf("../output/%s_parent_site_characteristics.parquet", sample_name))
-write_data_report(
-  read_parquet(sprintf("../output/%s_parent_site_characteristics.parquet", sample_name)),
-  "parent_id", sprintf("../output/%s_parent_site_characteristics.parquet", sample_name),
-  sprintf("../report/%s_parent_site_characteristics.txt", sample_name)
-)
+SaveData(panel, "parent_id", sprintf("../output/%s_parent_site_characteristics.parquet", sample_name))

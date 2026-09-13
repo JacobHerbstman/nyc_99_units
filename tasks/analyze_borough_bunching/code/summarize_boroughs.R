@@ -14,10 +14,5 @@ summary <- observations |> group_by(measure, borough_name, sample) |>
             share_198 = n_198 / n_50_plus, .groups = "drop") |>
   arrange(measure, borough_name, sample)
 stopifnot(nrow(summary) == 20, !anyDuplicated(summary[c("measure", "borough_name", "sample")]))
-write_csv(summary, "../output/borough_summary.csv")
+SaveData(summary, c("measure", "borough_name", "sample"), "../output/borough_summary.csv", na = "NA")
 print(summary, n = 20)
-
-write_data_report(
-  read_csv("../output/borough_summary.csv", show_col_types = FALSE),
-  c("measure", "borough_name", "sample"), "../output/borough_summary.csv", "../report/borough_summary.txt"
-)

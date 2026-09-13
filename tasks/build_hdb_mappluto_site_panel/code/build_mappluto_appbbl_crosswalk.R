@@ -84,9 +84,5 @@ if (nrow(duplicate_crosswalk_keys) > 0) {
   stop("APPBBL crosswalk is not unique by source/vintage/current_bbl/appbbl.")
 }
 
-write_csv_atomic(mappluto_appbbl_crosswalk, "../output/mappluto_appbbl_crosswalk.csv")
+SaveData(mappluto_appbbl_crosswalk, c("current_bbl"), "../output/mappluto_appbbl_crosswalk.csv")
 cat("Wrote MapPLUTO APPBBL crosswalk to ../output/mappluto_appbbl_crosswalk.csv\n")
-
-write_data_report(
-  readr::read_csv("../output/mappluto_appbbl_crosswalk.csv", show_col_types = FALSE, guess_max = Inf),
-  c("current_bbl"), "../output/mappluto_appbbl_crosswalk.csv", "../report/mappluto_appbbl_crosswalk.txt")

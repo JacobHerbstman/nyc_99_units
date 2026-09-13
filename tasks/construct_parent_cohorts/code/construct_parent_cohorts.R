@@ -893,15 +893,7 @@ stopifnot(!anyNA(reviewed_components$parent_1), !anyNA(reviewed_components$paren
   nrow(anti_join(unit_decisions, membership, by = c("sample", "root_job_id"))) == 0L,
   all(membership$units == membership$hdb_priority_units))
 
-write_parquet_atomic(membership, "../output/symmetric_parent_membership.parquet")
-write_parquet_atomic(links, "../output/symmetric_parent_links.parquet")
+SaveData(membership, c("sample", "job_number"), "../output/symmetric_parent_membership.parquet")
+SaveData(links, NULL, "../output/symmetric_parent_links.parquet")
 
 cat("Wrote symmetric parent cohorts to ../output\n")
-
-write_data_report(
-  arrow::read_parquet("../output/symmetric_parent_links.parquet"),
-  NULL, "../output/symmetric_parent_links.parquet", "../report/symmetric_parent_links.txt")
-
-write_data_report(
-  arrow::read_parquet("../output/symmetric_parent_membership.parquet"),
-  c("sample", "job_number"), "../output/symmetric_parent_membership.parquet", "../report/symmetric_parent_membership.txt")

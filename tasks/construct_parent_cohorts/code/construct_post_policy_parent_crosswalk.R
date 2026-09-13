@@ -132,10 +132,6 @@ if (
   stop("Post-policy filing-link fields failed identifier QC.")
 }
 
-write_parquet_atomic(filing_link_fields, "../output/post_policy_filing_link_fields.parquet")
+SaveData(filing_link_fields, NULL, "../output/post_policy_filing_link_fields.parquet")
 
 cat("Wrote post-policy filing-link fields to ../output\n")
-
-write_data_report(
-  arrow::read_parquet("../output/post_policy_filing_link_fields.parquet"),
-  NULL, "../output/post_policy_filing_link_fields.parquet", "../report/post_policy_filing_link_fields.txt")

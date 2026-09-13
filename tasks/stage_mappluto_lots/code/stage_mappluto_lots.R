@@ -117,10 +117,9 @@ lot_table <- read_parquet(paste0("../output/", sanitize_file_stub(paste(source_i
   ) |>
   select(-bbl_raw, -bbl_built)
 
-write_parquet_atomic(lot_table, paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), ".parquet"))
-
-write_data_report(
-  arrow::read_parquet(paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), ".parquet")),
-  "bbl", paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), ".parquet"),
-  paste0("../report/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), ".txt"), require_unique = FALSE
+SaveData(
+  lot_table,
+  "bbl",
+  paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), ".parquet"),
+  require_unique = FALSE
 )

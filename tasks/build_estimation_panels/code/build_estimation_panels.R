@@ -539,14 +539,6 @@ if (
   stop("The constituent panel failed uniqueness or parent-weight QC.")
 }
 
-write_parquet_atomic(parent_panel, "../output/parent_opportunity_panel.parquet")
-write_parquet_atomic(constituent_panel, "../output/constituent_filing_panel.parquet")
+SaveData(parent_panel, c("sample", "parent_id"), "../output/parent_opportunity_panel.parquet")
+SaveData(constituent_panel, c("sample", "root_job_id"), "../output/constituent_filing_panel.parquet")
 cat("Wrote parent and constituent panels to ../output\n")
-
-write_data_report(
-  arrow::read_parquet("../output/parent_opportunity_panel.parquet"),
-  c("sample", "parent_id"), "../output/parent_opportunity_panel.parquet", "../report/parent_opportunity_panel.txt")
-
-write_data_report(
-  arrow::read_parquet("../output/constituent_filing_panel.parquet"),
-  c("sample", "root_job_id"), "../output/constituent_filing_panel.parquet", "../report/constituent_filing_panel.txt")

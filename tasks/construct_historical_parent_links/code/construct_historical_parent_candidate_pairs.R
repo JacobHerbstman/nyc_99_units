@@ -33,7 +33,6 @@ if (
 filings <- read_parquet("../output/historical_parent_filing_link_fields.parquet") |>
   arrange(date_filed, job_number)
 
-
 if (nrow(filings) == 0L || anyDuplicated(filings$job_number)) {
   stop("Historical parent-link filing fields failed identifier QC.")
 }
@@ -255,11 +254,6 @@ if (
   stop("Historical candidate-pair construction failed QC.")
 }
 
-
-write_parquet_atomic(candidate_pairs, "../output/historical_parent_candidate_pairs.parquet")
+SaveData(candidate_pairs, NULL, "../output/historical_parent_candidate_pairs.parquet")
 
 cat("Wrote historical parent candidate pairs to ../output\n")
-
-write_data_report(
-  arrow::read_parquet("../output/historical_parent_candidate_pairs.parquet"),
-  NULL, "../output/historical_parent_candidate_pairs.parquet", "../report/historical_parent_candidate_pairs.txt")

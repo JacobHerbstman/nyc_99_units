@@ -760,9 +760,5 @@ candidate_panel <- candidate_panel |>
     starts_with("missing_")
   )
 
-write_parquet_atomic(candidate_panel, "../output/hdb_mappluto_site_panel.parquet")
+SaveData(candidate_panel, NULL, "../output/hdb_mappluto_site_panel.parquet")
 cat("Wrote HDB-MapPLUTO site panel to ../output/hdb_mappluto_site_panel.parquet\n")
-
-write_data_report(
-  arrow::read_parquet("../output/hdb_mappluto_site_panel.parquet"),
-  NULL, "../output/hdb_mappluto_site_panel.parquet", "../report/hdb_mappluto_site_panel.txt")

@@ -166,14 +166,11 @@ registration_links <- registration_links |>
     root_and_bin_agree
   )
 
-write_csv(
+SaveData(
   registration_links,
+  c("response_number"),
   "../output/hpd_485x_registration_dob_links.csv",
   na = ""
 )
 
 cat("Wrote HPD registration-to-DOB links to ../output\n")
-
-write_data_report(
-  readr::read_csv("../output/hpd_485x_registration_dob_links.csv", show_col_types = FALSE, guess_max = Inf),
-  c("response_number"), "../output/hpd_485x_registration_dob_links.csv", "../report/hpd_485x_registration_dob_links.txt")

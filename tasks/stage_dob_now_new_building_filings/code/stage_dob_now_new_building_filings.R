@@ -118,16 +118,16 @@ if (nrow(duplicate_initial_job_numbers) > 0L) {
   stop("DOB NOW initial job_number is not unique.")
 }
 
-write_parquet_atomic(staged_filings, "../output/dob_now_new_building_filings.parquet")
+SaveData(
+  staged_filings,
+  c("source_pull_date", "source_row_number"),
+  "../output/dob_now_new_building_filings.parquet"
+)
 
-write_parquet_atomic(initial_filings, "../output/dob_now_new_building_initial_filings.parquet")
+SaveData(
+  initial_filings,
+  c("job_filing_number"),
+  "../output/dob_now_new_building_initial_filings.parquet"
+)
 
 cat("Wrote staged DOB NOW New Building filing history and initial filings to ../output\n")
-
-write_data_report(
-  arrow::read_parquet("../output/dob_now_new_building_filings.parquet"),
-  c("source_pull_date", "source_row_number"), "../output/dob_now_new_building_filings.parquet", "../report/dob_now_new_building_filings.txt")
-
-write_data_report(
-  arrow::read_parquet("../output/dob_now_new_building_initial_filings.parquet"),
-  c("job_filing_number"), "../output/dob_now_new_building_initial_filings.parquet", "../report/dob_now_new_building_initial_filings.txt")

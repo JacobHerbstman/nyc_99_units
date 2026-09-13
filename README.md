@@ -51,7 +51,9 @@ through concrete Make prerequisites.
 
 Shared execution rules and reusable functions live in `tasks/shared/code/`.
 The supported Make runtime is GNU Make 3.81. Producers write standard data
-reports, and unchanged builds reuse the recorded source vintage. No main task
+reports through `SaveData` when saving datasets. Make targets are the actual
+outputs; data reports and execution logs are written during production.
+Unchanged builds reuse the recorded source vintage. No main task
 depends on an audit task.
 
 ## Framework and audits

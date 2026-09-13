@@ -43,11 +43,6 @@ filings$coordinate_status[located] <- vapply(seq_along(inside), function(i) {
   } else { "outside reported borough" }
 }, character(1))
 filings <- filings |> arrange(sample, borough_name, parent_id, root_job_id)
-write_parquet(filings, "../output/geographic_filings.parquet")
+SaveData(filings, c("sample", "root_job_id"), "../output/geographic_filings.parquet")
 print(filings |> count(sample, coordinate_status))
 print(filings |> filter(constituent_units == 99) |> count(sample, coordinate_status))
-
-write_data_report(
-  read_parquet("../output/geographic_filings.parquet"),
-  c("sample", "root_job_id"), "../output/geographic_filings.parquet", "../report/geographic_filings.txt"
-)

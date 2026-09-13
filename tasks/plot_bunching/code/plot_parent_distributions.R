@@ -241,16 +241,16 @@ preferred_normalized_figure <- ggplot(
   theme_minimal(base_size = 11) +
   theme(legend.position = "top", panel.grid.minor = element_blank())
 
-write_csv_atomic(parent_total_exact_distribution, "../output/parent_total_exact_distribution_50_300.csv")
-write_csv_atomic(preferred_parent_distribution, "../output/preferred_parent_distribution_50_plus.csv")
+SaveData(
+  parent_total_exact_distribution,
+  c("period", "parent_total_units"),
+  "../output/parent_total_exact_distribution_50_300.csv"
+)
+SaveData(
+  preferred_parent_distribution,
+  c("period", "unit_bin_order"),
+  "../output/preferred_parent_distribution_50_plus.csv"
+)
 save_pdf(annualized_figure, "../output/pdf/annualized_parent_total_50_300.pdf")
 save_pdf(normalized_reproduction_figure, "../output/pdf/normalized_parent_total_50_300_reproduction.pdf")
 save_pdf(preferred_normalized_figure, "../output/pdf/normalized_parent_total_50_plus.pdf")
-
-write_data_report(
-  readr::read_csv("../output/parent_total_exact_distribution_50_300.csv", show_col_types = FALSE),
-  c("period", "parent_total_units"), "../output/parent_total_exact_distribution_50_300.csv", "../report/parent_total_exact_distribution_50_300.txt")
-
-write_data_report(
-  readr::read_csv("../output/preferred_parent_distribution_50_plus.csv", show_col_types = FALSE),
-  c("period", "unit_bin_order"), "../output/preferred_parent_distribution_50_plus.csv", "../report/preferred_parent_distribution_50_plus.txt")

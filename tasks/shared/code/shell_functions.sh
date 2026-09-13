@@ -1,4 +1,5 @@
 run_r() {
+	set -o pipefail;
 	if command -v sbatch > /dev/null && [ -f run.sbatch ]; then
 		command1="module load R";
 		command2="Rscript --vanilla $*";
@@ -7,7 +8,7 @@ run_r() {
 		sbatch -W --export=command1="$command1",command2="$command2" --job-name="$jobname" run.sbatch;
 	else
 		print_info R "$@";
-		Rscript --vanilla "$@";
+		Rscript --vanilla "$@" 2>&1 | tee "$(basename "${1%.*}").log";
 	fi;
 }
 

@@ -195,11 +195,10 @@ lot_table$bbl[missing_bbl] <- build_bbl(lot_table$borough, lot_table$block, lot_
 lot_table <- lot_table |>
   mutate(source_id = row$source_id, source_vintage = row$vintage, source_raw_path = row$raw_path) |>
   select(source_id, source_vintage, source_raw_path, everything())
-write_parquet_atomic(lot_table, paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), "_raw.parquet"))
-unlink(temp_dir, recursive = TRUE)
-
-write_data_report(
-  arrow::read_parquet(paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), "_raw.parquet")),
-  "bbl", paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), "_raw.parquet"),
-  paste0("../report/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), "_raw.txt"), require_unique = FALSE
+SaveData(
+  lot_table,
+  "bbl",
+  paste0("../output/", sanitize_file_stub(paste(source_id, vintage, sep = "_")), "_raw.parquet"),
+  require_unique = FALSE
 )
+unlink(temp_dir, recursive = TRUE)

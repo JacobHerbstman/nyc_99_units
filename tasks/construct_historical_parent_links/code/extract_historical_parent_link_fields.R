@@ -362,9 +362,5 @@ if (anyDuplicated(filings$job_number)) {
   stop("Historical parent-link field extraction failed final QC.")
 }
 
-write_parquet_atomic(filings, "../output/historical_parent_filing_link_fields.parquet")
+SaveData(filings, c("job_number"), "../output/historical_parent_filing_link_fields.parquet")
 cat("Wrote historical parent-link filing fields to ../output\n")
-
-write_data_report(
-  arrow::read_parquet("../output/historical_parent_filing_link_fields.parquet"),
-  c("job_number"), "../output/historical_parent_filing_link_fields.parquet", "../report/historical_parent_filing_link_fields.txt")

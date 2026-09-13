@@ -91,9 +91,5 @@ calendar <- calendar |>
     evidence_url, date_basis, notes
   )
 
-write_csv_atomic(calendar, "../output/mappluto_release_calendar.csv")
+SaveData(calendar, NULL, "../output/mappluto_release_calendar.csv")
 cat("Wrote MapPLUTO release calendar to ../output/mappluto_release_calendar.csv\n")
-
-write_data_report(
-  readr::read_csv("../output/mappluto_release_calendar.csv", show_col_types = FALSE, guess_max = Inf),
-  NULL, "../output/mappluto_release_calendar.csv", "../report/mappluto_release_calendar.txt")

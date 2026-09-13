@@ -403,11 +403,4 @@ if (
   stop("Final parent exposure classifications failed QC.")
 }
 
-write_csv_atomic(
-  parent_exposure,
-  "../output/parent_485x_exposure.csv"
-)
-
-write_data_report(
-  readr::read_csv("../output/parent_485x_exposure.csv", show_col_types = FALSE, guess_max = Inf),
-  c("sample", "parent_id"), "../output/parent_485x_exposure.csv", "../report/parent_485x_exposure.txt")
+SaveData(parent_exposure, c("sample", "parent_id"), "../output/parent_485x_exposure.csv")

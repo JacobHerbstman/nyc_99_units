@@ -144,10 +144,7 @@ if (
   stop("Final exposure universe failed row-level QC.")
 }
 
-write_csv_atomic(
-  exposure_universe,
-  "../output/parent_485x_exposure_universe.csv"
-)
+SaveData(exposure_universe, c("sample", "root_job_id"), "../output/parent_485x_exposure_universe.csv")
 
 cat(
   "Wrote ",
@@ -157,7 +154,3 @@ cat(
   " component filings to ../output\n",
   sep = ""
 )
-
-write_data_report(
-  readr::read_csv("../output/parent_485x_exposure_universe.csv", show_col_types = FALSE, guess_max = Inf),
-  c("sample", "root_job_id"), "../output/parent_485x_exposure_universe.csv", "../report/parent_485x_exposure_universe.txt")
