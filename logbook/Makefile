@@ -4,7 +4,11 @@ SHELL := /bin/bash
 
 all: logbook.pdf
 
-logbook.pdf: entries/2026-09-11-readable-workflow.tex \
+logbook.pdf: entries/2026-09-12-reweighting-sample.tex \
+	../tasks/build_estimation_panels/output/parent_opportunity_panel.parquet \
+	../tasks/build_parent_site_characteristics/output/historical_parent_site_characteristics.parquet \
+	../tasks/build_parent_site_characteristics/output/post_policy_parent_site_characteristics.parquet \
+	entries/2026-09-11-readable-workflow.tex \
 	../tasks/build_parent_site_characteristics/report/historical_parent_site_characteristics.txt \
 	../tasks/build_parent_site_characteristics/report/post_policy_parent_site_characteristics.txt \
 	../tasks/build_estimation_panels/report/parent_opportunity_panel.txt \

@@ -1,0 +1,40 @@
+\clearpage
+\section*{September 12, 2026: Which parents enter the reweighting sample?}
+\textit{Agent-drafted research entry.}
+
+The current reweighting sample excludes nine rental parents solely because
+multiple additive filings share a building identification number (BIN): two
+historical parents and seven post-period parents. These parents have complete
+lot coverage. The calibration summary labels all exclusions as incomplete
+features, so that label does not describe the full selection rule.
+
+Among the adopted rental parents with at least 50 units, the canonical panel
+contains 562 historical parents from 2019--2022 and 333 post-period parents from
+January 2025--July 8, 2026. The composition-eligibility rule leaves 560 and 309,
+respectively. The historical exclusions are the two repeated-BIN cases. The
+post-period exclusions comprise seven repeated-BIN cases and 17 parents with
+incomplete lot coverage. Lot coverage requires a matched parcel with positive
+area for every source filing in the parent; this includes source filings whose
+units are not additive.
+
+The repeated-BIN exclusions include three post-period parents recorded as
+$99+99$: 229 Shepherd Avenue/240 Highland Place, 2433 Atlantic Avenue/28 Havens
+Place, and 937/951 East 108 Street. They also include the $99+99+99+99$ parent at
+54/62 Sullivan Place and 73/99 Empire Boulevard. This rule therefore affects
+the organizational outcomes central to the joint model. A shared BIN warrants
+checking what the identifier represents and whether the retained filings
+duplicate a building. Its role in sample selection remains a research question.
+
+Recomputing the calibration from the current canonical panel reproduces the
+saved weights to floating-point precision (maximum absolute difference
+$2.22\times10^{-16}$). The weights sum to 309. This verifies the saved
+calculation for the selected sample; adopting it for estimation also requires
+resolving the sample restrictions and the timing of the matched site features.
+
+\textit{Reproduction note.} Code revision \texttt{6d308e9}. Read the canonical
+parent panel from \texttt{build\_estimation\_panels} and both site-characteristic
+panels from \texttt{build\_parent\_site\_characteristics}. Select
+\texttt{included\_ab} parents with \texttt{parent\_total\_units >= 50}; compare
+\texttt{composition\_eligible}, \texttt{feature\_complete}, and
+\texttt{duplicate\_bin\_rows}. The weighting routine is
+\texttt{calibrate\_historical\_to\_target} in the shared scale/shape helper.
