@@ -2,9 +2,13 @@
 
 all: logbook.pdf
 
-# Entries are dated records. They read only the frozen figures and archived
-# results committed here, never live task outputs.
-logbook.pdf: logbook.tex Makefile $(wildcard entries/*.tex) $(wildcard figures/*) \
-	$(wildcard archive/*/*.tex) $(wildcard archive/*/pdf/*.pdf)
+# Figures from live tasks are prerequisites; figures whose producers were
+# removed are archived byte copies under archive/.
+logbook.pdf: logbook.tex Makefile $(wildcard entries/*.tex) $(wildcard archive/*/*.tex) \
+	$(wildcard archive/*/*.pdf) $(wildcard archive/*/pdf/*.pdf) \
+	../tasks/analyze_borough_bunching/output/borough_filings.pdf \
+	../tasks/analyze_borough_bunching/output/borough_parents.pdf \
+	../tasks/audits/audit_scale_shape_splitting/output/pdf/annual_split_shares.pdf \
+	../tasks/audits/audit_estimation_parent_links/output/third_avenue_plan.png
 	pdflatex -interaction=nonstopmode -halt-on-error logbook.tex
 	pdflatex -interaction=nonstopmode -halt-on-error logbook.tex

@@ -135,7 +135,9 @@ setup-environment:
 paper: all
 	$(MAKE) -C paper
 
-logbook:
+logbook: maps
+	$(MAKE) -C tasks/audits/audit_scale_shape_splitting/code ../output/pdf/annual_split_shares.pdf
+	$(MAKE) -C tasks/audits/audit_estimation_parent_links/code ../output/third_avenue_plan.png
 	$(MAKE) -C logbook
 
 framework-writeup: plots
