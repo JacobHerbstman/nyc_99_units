@@ -1,13 +1,22 @@
 # Fetch DCP Housing Database
 
-Fetches the official DCP Housing Database project-level release metadata and files into `data_raw/dcp_housing_database_project_level/`.
+Publishes the DCP Housing Database project-level files used by the study in
+`output/` and writes an inventory, `output/dcp_housing_database_files.csv`.
+It does not clean or analyze the records.
 
-The task writes a file inventory to `output/dcp_housing_database_files.csv`. It does not clean or analyze the project records.
+| File | Source |
+|---|---|
+| 23Q4 project-level CSV ZIP | Official archive, downloaded directly. Contains `HousingDB_post2010.csv` and `HousingDB_post2010_inactive_included.csv`; internal files are dated April 2024 and every record identifies version 23Q4. |
+| 25Q4 project-level CSV ZIP and data dictionary | Captures in `data_raw/dcp_housing_database_project_level/25Q4/`. |
+| Release metadata (archive JSON, content-API JSON) | Dated captures in `data_raw/dcp_housing_database_project_level/20260501/`; the agency offers no historical query endpoint. |
 
-## Recorded source vintage
+`code/checksums.sha256` records the bytes of each published file and
+`code/source_files.csv` records release, pull date and official URL. A file is
+downloaded or copied only when it is missing from `output/`, and its checksum
+is verified before it is published. The inventory rule re-verifies every file
+whenever the ledger changes. A missing `data_raw/` capture fails the build
+rather than being replaced with current data. To refresh a source, save the new
+capture under a new dated path and update both ledgers.
 
-`code/source_files.csv` records the exact source release used in this study. The Makefile owns each received file, checks its SHA-256, and exposes it through `output/`. Versioned public archives have direct download recipes. Mutable API responses and metadata require the original dated capture at the literal `data_raw/` prerequisite: the agency does not provide a historical query endpoint. A missing capture fails the build; it is never replaced silently with current data. Source refreshes require deliberately updating the capture, ledger, and checksum together. The original `raw_path` column remains provenance metadata; consumers read local input links.
-
-The original 25Q4 URL returned 404 in the September 9, 2026 fresh-build check. NYC moved the ZIP under `bytes/housing-database/housing-project-level/`. The replacement in the Makefile was identified from the agency content API and downloaded successfully; its SHA-256 exactly matches the original capture (`76f16a63535ea661700afd2440f143e718f9ffa4e8685de6e166c4ea208cada2`). The ledger retains the URL recorded at acquisition, and the analysis still uses 25Q4.
-
-The official [23Q4 archive](https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/housing-database/nychousingdb_23q4_csv.zip) was recorded on September 22, 2026 with SHA-256 `ba204b240053f2477241d46eb9f4f4b11a15907484009e21264914c8cff1d45e`. Its ZIP contains both `HousingDB_post2010.csv` and `HousingDB_post2010_inactive_included.csv`, plus the city's data dictionaries. The internal files are dated April 2024; all records identify version `23Q4`. This acquisition provides the pre-adoption historical snapshot without changing the 25Q4 source.
+The 25Q4 ZIP has since moved to `bytes/housing-database/housing-project-level/`
+on the agency site; the file there has the same checksum as the capture.
