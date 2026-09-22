@@ -9,8 +9,7 @@ each filing date. It then identifies filing pairs within one year and records
 the conservative link signals used by the parent construction.
 
 The task produces two analytical datasets: filing-level link fields and
-candidate filing pairs. Coverage summaries and alternative grouping rules
-remain in `tasks/audits/audit_historical_parent_link_feasibility`.
+candidate filing pairs.
 
 Accepted historical endpoints from `parent_opportunities_manual/output/pair_decisions.csv`
 remain in the filing universe even when land covariates fail their match. This

@@ -135,13 +135,7 @@ setup-environment:
 paper: all
 	$(MAKE) -C paper
 
-logbook: all dof-subset-review dof-site-review flatbush-floor-review five-floor-review
-	$(MAKE) -C tasks/audits/audit_hdb_mappluto_condo_recovery/code ../output/dof_lot_changes.csv ../output/dof_applications.csv
-	$(MAKE) -C tasks/audits/audit_acs_construction_wages/code
-	$(MAKE) -C tasks/audits/audit_qcew_construction_wages/code
-	$(MAKE) -C tasks/audits/audit_lodes_construction_wages/code
-	$(MAKE) -C tasks/audits/audit_estimation_parent_links/code
-	$(MAKE) -C tasks/audits/audit_scale_shape_splitting/code
+logbook:
 	$(MAKE) -C logbook
 
 framework-writeup: plots

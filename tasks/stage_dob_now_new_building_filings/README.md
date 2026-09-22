@@ -5,8 +5,7 @@ table plus a table containing one row per initial filing. Amendment identifiers
 can repeat in the source history; its observation is a source record, keyed by
 source pull date and the retained source row number. It normalizes job numbers, dates, BBLs, unit counts,
 and total construction floor area. The script fails if initial job numbers are
-not unique; broader coverage diagnostics live in
-`tasks/audits/audit_dob_now_new_building_filings/`.
+not unique.
 
 The staged data retain two distinct lot identifiers. `filing_bbl` is constructed
 from the filing's explicit borough, block, and lot fields. `reported_bbl` is the

@@ -1,9 +1,0 @@
-Rows: 71
-Columns: 3
-Key fields: boro_cd
-Saved-file MD5: bdf241f15d12ef9fa6b334858b707ba6
-Rows missing a key field: 0
-Repeated keys beyond the first row: 0
-boro_cd | character | nonmissing | 71 | distinct | 71
-shape_leng | character | nonmissing | 71 | distinct | 71
-shape_area | character | nonmissing | 71 | distinct | 71

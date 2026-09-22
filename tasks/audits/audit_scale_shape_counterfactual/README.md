@@ -1,9 +1,12 @@
-# Scale-shape counterfactual audit
+# Historical holdout checks
 
-This task keeps diagnostics and robustness exercises outside the production
-scale-shape task. It audits the parent and constituent panels, preserves the
-190--205 parent case listing, reports the exploratory q-theta calculation, and
-runs forward-placebo, leave-one-pre-year-out, and historical-window checks.
+Tests whether the reweighted historical benchmark in `audit_scale_shape_splitting`
+reproduces pre-policy distributions it was not fit to. `audit_shape_counterfactual.R`
+runs forward placebos (earlier historical years predicting later ones),
+leave-one-pre-year-out estimates, historical-window sensitivity, and an
+exploratory q–θ calculation, all on the benchmark sample of parents with 50–300
+units and a pooled 301+ bin.
 
-These outputs are evidence about the maintained counterfactual, not inputs to
-the main empirical figure guide. Run the task from `code/` with `make`.
+These are the pre-policy holdout checks cited in `framework_writeup.tex`. They
+are evidence about the maintained counterfactual, not inputs to it. Build the
+main panels and `audit_scale_shape_splitting` first, then run `make` in `code/`.
