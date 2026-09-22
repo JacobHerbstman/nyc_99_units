@@ -1,0 +1,11 @@
+Rows: 10
+Columns: 5
+Key fields: period, parent_total_units
+Saved-file MD5: 41778535a79a039693098185ec15270c
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+period | character | nonmissing | 10 | distinct | 2
+parent_total_units | numeric | nonmissing | 10 | distinct | 5 min/median/mean/max 99/150/168.8/297
+parent_count | numeric | nonmissing | 10 | distinct | 5 min/median/mean/max 0/2/5.7/38
+opportunity_count | numeric | nonmissing | 10 | distinct | 2 min/median/mean/max 327/466.5/466.5/606
+normalized_share | numeric | nonmissing | 10 | distinct | 6 min/median/mean/max 0/0.004125413/0.01630484/0.116208

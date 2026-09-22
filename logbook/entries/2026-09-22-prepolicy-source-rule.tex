@@ -1,0 +1,126 @@
+\section{22 September 2026: A common pre-adoption source for historical proposals}
+
+Historical proposals filed in 2019--2022 now use the inactive-inclusive
+23Q4 Housing Database. Jacob selected all recorded proposals with status
+flags. The archived unit count, filing date, lot, building identifier,
+description and ownership category define the historical record. The latest
+DOB update in this archive is 12 January 2024. It measures designs recorded
+before 485-x adoption, including amendments made since their initial filings.
+Post-policy proposals retain the 25Q4 Housing Database count with DOB fallback
+when that count is missing. Recorded zeros remain zero.
+
+The source correction gives Livingston one parent with 144+105=249 units.
+Both archived filings identify the same lot and refer to the neighboring
+application. The later 99-unit design does not enter its historical outcome.
+Across the historical panel, exact-99 constituent filings fall from six to
+two. Four of the previous six have other unit counts in 23Q4. This comparison
+identifies a source-vintage problem; it does not establish when those designs
+changed or why.
+
+\paragraph{Inactive proposals and alternatives.}
+Archived status and membership in the archive's active/completed file are
+preserved separately. Earlier withdrawn applications count as alternatives
+when a valid archived BIN, identical lot and exact address identify one later
+nonwithdrawn application within the parent window. Multiple withdrawn
+versions can share that successor. In the canonical historical cohorts this
+rule excludes 34 earlier applications carrying 734 units from additive totals.
+It preserves the initial date, successor filing date and evidence basis;
+the archive does not supply the date of withdrawal.
+
+Two reviewed roles supplement that rule. The 773 Neptune institutional job
+retains its recorded 189 Class~A units as source evidence but contributes no
+residential units: its archived description specifies a house of worship and
+the later official DOB filing records institutional use with zero dwellings.
+The withdrawn 158-unit West 49th Street proposal is an alternative to the
+158-unit West 48th Street application. Their archived lot and program agree,
+and the City's environmental assessment describes one housing building on
+the reviewed western ground. The assessment does not name both application
+IDs, so this relationship remains a documented inference. Its earlier date
+anchors the parent; the reviewed 21,924-square-foot allocation is unchanged.
+
+The panel contains 2,173 historical parents and 2,348 additive constituents,
+with 141,632 units, compared with 1,811 parents, 1,904 constituents and
+129,335 units before the source correction. Of the new parents, 206 include
+an inactive additive constituent. Another 25 have active additive
+constituents but an inactive earlier application. Separate parent flags
+record these two definitions of activity. The post-policy panel retains
+907 parents, 1,005 constituents and 61,319 units; the comparison also verifies
+its dates, memberships, exposure, composition eligibility and land covariates.
+
+The underlying 2019--2022 archive contains 2,432 new-building filings with at
+least six units: 2,166 active/completed-file records and 266 other records.
+The existing positive-area pre-filing parcel-coverage rule leaves 42 outside
+the historical linkage universe. Seven join parents anchored before 2019;
+36 remain nonadditive source filings. The remaining 2,347 additive filings,
+plus the 2023 Livingston companion inside its parent's observation window,
+give the 2,348 canonical constituents. The coverage audit identifies every
+excluded source job.
+
+Reweighting uses 595 historical and 310 post-period parents, balancing the
+existing log-land-area, residential-FAR, built-FAR and borough moments.
+The maximum absolute balance error is $1.42\times10^{-9}$ and the historical
+effective sample size is 534.35. The reweighted historical share of parents
+totaling exactly 99 units is 0.5261\%, compared with 1.3537\% before the source
+correction and 11.9355\% in the post period. This parent-total measure includes
+one historical parent whose smaller constituents sum to 99; it differs from
+the count of two exact-99 individual filings. Of 499 bootstrap draws, 495
+calibrate successfully and four failures are recorded. These are descriptive
+comparisons pending the remaining parcel review.
+
+\paragraph{Source corroboration and reviewed boundaries.}
+Bedford Square illustrates why an identifier collision needs interpretation.
+The archive assigns the same BIN to two of its four documented buildings.
+The saved official DOB initial records give all four distinct valid BINs.
+The complete additive filing set also matches the reviewed production land
+allocation. A common rule permits this combination of evidence while
+retaining the archived collision and flagging the corroboration. Bedford is
+the only historical parent that qualifies. Its four buildings, 877 units and
+177,520.79 square feet remain in the weighting sample.
+
+The historical ownership and description screen also uses 23Q4. Offering-plan
+searches cover every historical parent in the canonical period; only plans
+with dated pre-snapshot submissions inform that classification. These are
+2026 searches of dated records, not an archived 2023 search database. The
+supplement adds 652 exact job/address queries and one cross-year Livingston
+companion query to the saved August searches. Missing searches remain
+different from confirmed zero results. Retrospective July 2026 DOB unit
+counts remain labeled comparison fields and do not determine historical units.
+
+\paragraph{Remaining boundary questions.}
+The refreshed screen flags 152 of the 905 weighting parents: 120 historical
+and 32 post-period. The other 753 pass the current scope checks. These flags
+identify questions about coverage and allocation; they are not 152 established
+measurement errors. Among the 753 passing parents, 227 candidate land areas
+differ from production by more than one square foot. Earlier floor and zoning
+allocations still require review before those candidate covariates are adopted.
+
+Of the former 111 queued cases, 103 remain flagged in the weighting sample.
+Two of those old cases now belong to one parent, giving 102 distinct current
+parents. The other eight have left the weighting sample and have not been
+classified as resolved. None of the old queued cases was cleared by this
+source correction. The additional 50 flagged parents comprise 29 newly
+entering parents and 21 previously supported parents that the revised filing
+information sends back for review. Both directions of this reconciliation
+are saved as audit tables.
+
+Documentary land reviews also retain their original filing scope. Of 45
+reviews in the scope audit, 42 apply to the current weighting parents.
+West 48th Street is outside that sample. The two Jamaica/Sutphin reviews
+refer to separate filing sets that now form one mechanically linked parent;
+their earlier separate allocations do not establish the merged parent's
+complete boundary. All 40 production land decisions satisfy their explicit
+filing-set checks.
+
+\paragraph{Reproduction.}
+The earlier pilot's numerical exhibits are preserved in a dated logbook archive
+with input fingerprints. They use the earlier historical source rule. Compiling
+the research record does not initiate a new structural fit while boundary
+adjudication remains open. A new fit requires the explicit pilot build.
+
+Root \texttt{make} rebuilds the main panels, plots and maps.
+\texttt{make dof-site-review} refreshes the parcel checks and reconciles the
+old boundary queue with the new sample. The source-rule audit compares
+against dated pre-change filing, parent and boundary tables saved in its
+\path{code/} directory. The 23Q4 archive is a checksum-pinned production
+download, and the new AG query results are fixed received sources. Reviewed
+filing roles and land allocations belong to the production manual task.

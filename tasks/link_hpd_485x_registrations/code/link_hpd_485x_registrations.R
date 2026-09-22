@@ -8,19 +8,19 @@ suppressPackageStartupMessages({
   library(stringr)
 })
 
-args <- commandArgs(trailingOnly = TRUE)
+source("../../shared/code/write_data_report.R")
 
-if (length(args) != 1L) {
-  stop("Expected argument: threshold_units.")
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 1L)
+  threshold_units <- as.integer(args[1])
 }
-
-threshold_units <- as.integer(args[1])
 
 if (is.na(threshold_units)) {
   stop("threshold_units must be an integer.")
 }
 
-hpd_registrations <- read_parquet("../input/hpd_485x_registrations.parquet")
+hpd_registrations <- read_parquet("../output/hpd_485x_registrations.parquet")
 dob_initial <- read_parquet("../input/dob_now_new_building_initial_filings.parquet") |>
   mutate(
     job_number = str_squish(job_number),
@@ -118,7 +118,8 @@ dob_match_fields <- dob_initial |>
     matched_dob_filing_number = job_filing_number,
     matched_dob_filing_date = filing_date,
     matched_dob_bin = bin,
-    matched_dob_bbl = bbl,
+    matched_dob_filing_bbl = filing_bbl,
+    matched_dob_reported_bbl = reported_bbl,
     matched_dob_address = address,
     matched_dob_units = proposed_dwelling_units,
     matched_dob_first_permit_date = first_permit_date
@@ -155,7 +156,8 @@ registration_links <- registration_links |>
     matched_dob_filing_number,
     matched_dob_filing_date,
     matched_dob_bin,
-    matched_dob_bbl,
+    matched_dob_filing_bbl,
+    matched_dob_reported_bbl,
     matched_dob_address,
     matched_dob_units,
     matched_dob_first_permit_date,
@@ -164,8 +166,9 @@ registration_links <- registration_links |>
     root_and_bin_agree
   )
 
-write_csv(
+SaveData(
   registration_links,
+  c("response_number"),
   "../output/hpd_485x_registration_dob_links.csv",
   na = ""
 )

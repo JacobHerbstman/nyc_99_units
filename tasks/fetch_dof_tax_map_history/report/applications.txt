@@ -1,0 +1,70 @@
+Rows: 7549
+Columns: 64
+Key fields: OBJECTID
+Saved-file MD5: 55758c1060c9ae5f9b0ca5af60c24c5b
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+OBJECTID | integer | nonmissing | 7549 | distinct | 7549 min/median/mean/max 1/3785/3819.613/7680
+ID | logical | nonmissing | 0 | distinct | 0
+Borough | character | nonmissing | 7549 | distinct | 8
+Borough_Block_Lot | numeric | nonmissing | 7549 | distinct | 6648 min/median/mean/max 1000010000/3033830000/3088824000/5080490000
+Multiple_BBLs | character | nonmissing | 5854 | distinct | 5616
+Date_Received | numeric | nonmissing | 7549 | distinct | 1716 min/median/mean/max 1.577941e+12/1.683778e+12/1.686062e+12/1.789488e+12
+Expediter_Name | character | nonmissing | 5854 | distinct | 2136
+Application_Type | character | nonmissing | 7549 | distinct | 8
+Accepted | character | nonmissing | 4264 | distinct | 4
+Accepted_Date | numeric | nonmissing | 6827 | distinct | 1644 min/median/mean/max 1.578373e+12/1.689048e+12/1.689333e+12/1.789402e+12
+Rejected | character | nonmissing | 4264 | distinct | 4
+Rejected_Date | numeric | nonmissing | 5499 | distinct | 1614 min/median/mean/max 1.578373e+12/1.686629e+12/1.687477e+12/1.789488e+12
+Number_of_Rejections | integer | nonmissing | 5354 | distinct | 8 min/median/mean/max 0/1/1.504109/7
+Resubmission | character | nonmissing | 4264 | distinct | 4
+Resubmission_Date | numeric | nonmissing | 4634 | distinct | 1585 min/median/mean/max 1.578892e+12/1.689739e+12/1.689962e+12/1.789488e+12
+On_Hold | character | nonmissing | 6223 | distinct | 2
+On_Hold_Date | numeric | nonmissing | 133 | distinct | 116 min/median/mean/max 1.581397e+12/1.700086e+12/1.69674e+12/1.788451e+12
+Completed | character | nonmissing | 4264 | distinct | 4
+Completed_Date | numeric | nonmissing | 6697 | distinct | 1578 min/median/mean/max 1.578373e+12/1.691035e+12/1.691241e+12/1.789488e+12
+Date_Reviewed | numeric | nonmissing | 7499 | distinct | 1657 min/median/mean/max 1.516252e+12/1.686542e+12/1.714919e+12/2.081665e+14
+Number_of_Reviews | integer | nonmissing | 7500 | distinct | 8 min/median/mean/max 1/1/1.628133/8
+Reviewed | character | nonmissing | 4264 | distinct | 4
+Condo_Number | character | nonmissing | 2933 | distinct | 2715
+Condo_Number_1 | logical | nonmissing | 0 | distinct | 0
+Number_Of_Lots_Requested | integer | nonmissing | 7499 | distinct | 160 min/median/mean/max 0/2/90.01213/305829
+TMU_Asks_Client_To_Review_At_BC | logical | nonmissing | 0 | distinct | 0
+Client_Wants_Review_At_BC | logical | nonmissing | 0 | distinct | 0
+Customer_Action | logical | nonmissing | 0 | distinct | 0
+Submitted_To | character | nonmissing | 7549 | distinct | 3
+Abandon_Application | character | nonmissing | 6216 | distinct | 2
+Abandon_Application_Date | numeric | nonmissing | 49 | distinct | 6 min/median/mean/max -2.209144e+12/-2.209144e+12/-1.812423e+12/1.68853e+12
+Created | logical | nonmissing | 0 | distinct | 0
+Productivity_Points | logical | nonmissing | 0 | distinct | 0
+Productivity_Case_Type | logical | nonmissing | 0 | distinct | 0
+App_Created_By | logical | nonmissing | 0 | distinct | 0
+App_Modified_By | logical | nonmissing | 0 | distinct | 0
+Created_By | logical | nonmissing | 0 | distinct | 0
+Modified | logical | nonmissing | 0 | distinct | 0
+Modified_By | logical | nonmissing | 0 | distinct | 0
+Item_Type | logical | nonmissing | 0 | distinct | 0
+Path | logical | nonmissing | 0 | distinct | 0
+Status | character | nonmissing | 7543 | distinct | 7
+Rejected_Date2 | numeric | nonmissing | 572 | distinct | 392 min/median/mean/max 1.588709e+12/1.747238e+12/1.744755e+12/1.789142e+12
+Rejected_Date3 | numeric | nonmissing | 150 | distinct | 128 min/median/mean/max 1.608502e+12/1.750349e+12/1.748997e+12/1.788451e+12
+Rejected_Date4 | numeric | nonmissing | 39 | distinct | 38 min/median/mean/max 1.689005e+12/1.758211e+12/1.74948e+12/1.787846e+12
+Rejected_Date5 | numeric | nonmissing | 16 | distinct | 15 min/median/mean/max 1.69835e+12/1.752336e+12/1.749287e+12/1.787155e+12
+Resubmission_Date2 | numeric | nonmissing | 551 | distinct | 393 min/median/mean/max 1.611853e+12/1.74672e+12/1.74715e+12/1.789056e+12
+Resubmission_Date3 | numeric | nonmissing | 143 | distinct | 125 min/median/mean/max 1.686931e+12/1.751472e+12/1.751279e+12/1.788365e+12
+Resubmission_Date4 | numeric | nonmissing | 41 | distinct | 39 min/median/mean/max 1.691957e+12/1.760026e+12/1.752125e+12/1.789056e+12
+Resubmission_Date5 | numeric | nonmissing | 15 | distinct | 15 min/median/mean/max 1.699913e+12/1.762189e+12/1.751066e+12/1.788451e+12
+Date_Reviewed2 | numeric | nonmissing | 1328 | distinct | 577 min/median/mean/max 1.588709e+12/1.75441e+12/1.750533e+12/1.789142e+12
+Date_Reviewed3 | numeric | nonmissing | 427 | distinct | 302 min/median/mean/max 1.644858e+12/1.756483e+12/1.753625e+12/1.788883e+12
+Date_Reviewed4 | numeric | nonmissing | 133 | distinct | 125 min/median/mean/max 1.689005e+12/1.759162e+12/1.755461e+12/1.789402e+12
+Date_Reviewed5 | numeric | nonmissing | 38 | distinct | 36 min/median/mean/max 1.69835e+12/1.76171e+12/1.756542e+12/1.788278e+12
+Review_Count | integer | nonmissing | 4 | distinct | 2 min/median/mean/max 1/1/1.25/2
+Reject_Count | logical | nonmissing | 0 | distinct | 0
+GlobalID | character | nonmissing | 7549 | distinct | 7549
+Number_of_Resubmissions | integer | nonmissing | 4654 | distinct | 9 min/median/mean/max 0/1/1.16373/8
+Borough_1 | character | nonmissing | 1 | distinct | 1
+Number_of_Returns | logical | nonmissing | 0 | distinct | 0
+Return_Date | logical | nonmissing | 0 | distinct | 0
+Abandoned_Application | logical | nonmissing | 0 | distinct | 0
+Is_there_an_REUC_Associated_Wit | character | nonmissing | 6551 | distinct | 2
+Abandoned_Application_Date | numeric | nonmissing | 42 | distinct | 40 min/median/mean/max -5.565217e+13/1.715141e+12/350812300000/1.785341e+12

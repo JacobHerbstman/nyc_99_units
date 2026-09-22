@@ -1,84 +1,100 @@
 # NYC 99 Units
 
-This repository studies developer responses to the 100-unit threshold in New
-York City's 485-x housing tax incentive. The current empirical work measures
-the distribution of proposed project sizes in a plausible rental-opportunity
-sample and tests whether linked economic parents are split across multiple
-filings or buildings. The unit of observation is the linked parent proposal,
-not an individual filing.
+This project studies bunching below the 100-unit threshold in New York City's
+485-x program and whether developers divide larger projects into constituent
+filings. The current production pipeline prepares the parent and constituent
+data and produces citywide bunching plots, filing CDFs, borough comparisons,
+and a map of exact-99 filings. It does not estimate the joint size-and-organization model.
 
-The current analysis is descriptive and design-based. It does not treat an
-individual parcel-size prediction, a structural cost estimate, a land-price
-event study, or the condo-tenure panel as a headline result.
+## Build and outputs
 
-## Current workflow
+Run `make` at the repository root to build the current plots and maps and
+follow their dataset dependencies. `make data` requests just the two final
+panels and their reports. The root Makefile orders the tasks; each task's
+Makefile decides which files are stale. Individual tasks run from their `code/`
+folders using the inputs already prepared. After upstream changes, run Make
+from the root.
 
-Run `make` from a task's `code/` folder. Task Makefiles are the dependency
-graph; generated inputs are symlinks to named upstream outputs.
+- Data: `tasks/build_estimation_panels/output/parent_opportunity_panel.parquet`
+  and `constituent_filing_panel.parquet`.
+- Citywide plots: `tasks/plot_bunching/output/pdf/main_project_plots.pdf`.
+- Borough plots and map: `tasks/analyze_borough_bunching/output/borough_bunching.pdf`.
 
-The current empirical path is:
+The comparison is 2019–2022 versus January 1, 2025–July 8, 2026. Historical outcomes and filing identifiers use the complete **23Q4 Housing Database**, including inactive proposals and their status flags. Post-policy counts use **25Q4 Housing Database Class A units**, with DOB initial-filing fallback where HDB is missing. Recorded zeros stay zero. Documentary counts are comparison evidence.
 
-```text
-DCP Housing Database + DOB NOW + historical MapPLUTO
-  -> construct historical and post-policy filing link fields
-  -> construct linked parent cohorts
-  -> build the 6-plus-unit exposure universe
-  -> classify plausible 485-x A/B rental opportunities
-  -> analyze exact parent-size distributions
-  -> analyze scale, shape, and multi-filing composition
+Committed decisions in `parent_opportunities_manual` govern reviewed links and filing roles. Archived withdrawn versions of the same building count once under the documented replacement rule. The panels retain source vintage, refiling dates, missingness and follow-up coverage. The [estimation-panel README](tasks/build_estimation_panels/README.md) states the source and sample rules; the parcel-boundary review and remaining classification coverage still govern readiness for estimation.
 
-HPD 485-x registrations + DOB NOW
-  -> link registrations to DOB jobs
-  -> verify observed multi-filing configurations
+## Main tasks
 
-linked parent cohorts + predetermined MapPLUTO characteristics
-  -> build parent site characteristics
-  -> reweight the historical distribution to the post-period site mix
-```
+There are 19 main tasks, plus `setup_environment` for replication. The DOF
+acquisition task currently supplies the footprint audit; the other 18 produce
+the main data and descriptive exhibits.
+Their responsibilities are:
 
-The main empirical compilation is
-`tasks/analyze_485x_scale_shape_splitting/output/pdf/scale_shape_splitting_figure_guide.pdf`.
-The underlying count and normalized-density figures are produced by
-`tasks/analyze_parent_unit_distribution/`.
+| Work | Tasks |
+|---|---|
+| Acquire the recorded HDB, DOB, HPD, parcel, and borough sources | Five `fetch_*` tasks |
+| Acquire citywide DOF lot changes, condominium links, and map references | `fetch_dof_tax_map_history` |
+| Load and normalize administrative records and parcel vintages | Three `stage_*` tasks |
+| Attach parcel histories and construct parent membership | `build_hdb_mappluto_site_panel`, `construct_historical_parent_links`, `construct_parent_cohorts` |
+| Retain reviewed links and source evidence; link registrations and classify exposure | `parent_opportunities_manual`, `link_hpd_485x_registrations`, `classify_parent_485x_exposure` |
+| Prepare parent characteristics and final panels | `build_parent_site_characteristics`, `build_estimation_panels` |
+| Produce citywide and geographic exhibits | `plot_bunching`, `analyze_borough_bunching` |
 
-## Production tasks
+Raw loading and staging share folders. Release-calendar and APPBBL preparation
+belong to parcel matching; adjacency belongs to historical link construction;
+recent filing-field preparation belongs to parent construction; exposure
+assembly belongs to classification. Their intermediate files remain traceable
+through concrete Make prerequisites.
 
-Top-level tasks are limited to source acquisition/staging, canonical linkage
-and parent datasets, predetermined site characteristics, and the two current
-analysis tasks. In particular:
+![Production task dependencies](task_graph.svg)
 
-- `construct_parent_cohorts` defines historical and post-policy economic
-  parents and preserves reviewed linkage decisions.
-- `build_parent_485x_exposure_universe` assembles the parent-level information
-  used for the rental-opportunity screen.
-- `link_hpd_485x_registrations` produces the canonical HPD-to-DOB link without
-  depending on a unit-count prediction model.
-- `build_parent_site_characteristics` aggregates predetermined parcel traits
-  used for composition adjustment; it does not predict project unit counts.
-- `analyze_parent_unit_distribution` produces the raw, annualized, and
-  normalized parent-size distributions.
-- `analyze_485x_scale_shape_splitting` produces the current scale, shape,
-  reweighting, and multi-filing results.
+Shared execution rules and reusable functions live in `tasks/shared/code/`.
+The supported Make runtime is GNU Make 3.81. Producers write standard data
+reports through `SaveData` when saving datasets. Make targets are the actual
+outputs; data reports and execution logs are written during production.
+Unchanged builds reuse the recorded source vintage. No main task
+depends on an audit task.
 
-## Audits
+## Framework and audits
 
-`tasks/audits/` contains validation, manual review, sensitivity analysis, and
-the deliberately non-headline condo branch. The exposure classification stays
-there because it combines source-based rules with an explicit manual-review
-ledger. The condo panel and Attorney General search also stay there because
-recent cohorts are right-censored and the evidence is not yet strong enough
-for the main empirical design.
+The joint model is described in `framework_writeup.tex`. `make framework-writeup`
+rebuilds the note and its existing empirical illustrations explicitly; those
+illustrations use the exploratory scale-and-shape audit and are not part of
+the default data-and-plots build. `make paper` and `make logbook` first build the main pipeline, then compile those
+documents through their own Makefiles. The logbook command also refreshes the
+descriptive audits cited by its entries. Earlier pilot exhibits are preserved
+with their input fingerprints in `logbook/archive/2026-09-22-prepolicy-pilot`.
+Structural estimation uses the explicit `make pure-notch-pilot` target.
 
-Earlier parcel-prediction, structural no-notch, cost-calibration, land-price,
-and ACRIS/DOF exploration was removed from the active tree during the August
-2026 cleanup. It remains recoverable from Git history at commit `1374dda`.
+`tasks/audits/` retains parent-link investigations, wage comparisons, the older
+2011–2022 distribution analysis, source-registry checks, and exploratory
+reweighting, decomposition, and bootstrap calculations. These remain runnable
+research evidence, not prerequisites for the current bunching plots. Build the
+main pipeline from the root before running an individual audit against it.
 
-## Builds
+`make dof-parcel-audit` prepares the recorded DOF snapshot and traces every
+parent meeting the estimation size and policy-sample rules back to its parcel
+reference vintage. Its [coverage review](tasks/audits/audit_hdb_mappluto_condo_recovery/report/dof_full_sample.md)
+lists remaining ambiguities. Production land characteristics, weights, and
+pilot estimates remain provisional pending resolution of those footprints.
 
-- `make` builds the current framework PDF and empirical figure guide.
-- `make paper` compiles the draft paper separately. The draft is not the
-  dependency root for the current empirical outputs yet.
-- `make source-registry` validates source metadata.
+`make dof-geometry-review` compares the flagged weighting-sample parents
+with the archived parcel outlines. Its [geometry review](tasks/audits/audit_hdb_mappluto_condo_recovery/report/dof_geometry_review.md)
+reports whole-parcel matches, partial overlaps, and missing map coverage, with
+a complete footprint atlas. These comparisons remain in the audit.
 
-Raw and manually acquired data live under `data_raw/<source>/<vintage>/` and
-must not be edited. Do not edit generated task outputs directly.
+`make dof-subset-review` reproduces a fixed-seed review of twelve flagged
+parents, with ten provisional land-area comparisons and two unresolved cases.
+Its [comparison and maps](tasks/audits/audit_hdb_mappluto_condo_recovery/report/dof_subset_review.md)
+measure the size of the discrepancies without changing the estimation inputs.
+The same command produces [lot-area validation](tasks/audits/audit_hdb_mappluto_condo_recovery/report/dof_area_validation.md)
+against DOF assessment history, printed map dimensions, and recorded boundary
+descriptions, including Sackett's dated parcels and Noble/Oak's shoreline.
+
+The research decisions and remaining data questions are recorded in `logbook/`.
+An initial pure-notch fit of the joint size-and-organization model lives in
+[`tasks/audits/fit_pure_notch_pilot`](tasks/audits/fit_pure_notch_pilot/README.md).
+Run `make pure-notch-pilot` to prepare its inputs and reproduce the estimates.
+This pilot fixes the marginal-cost parameter at zero and diagnoses the fit of
+the proposed organization-cost model.

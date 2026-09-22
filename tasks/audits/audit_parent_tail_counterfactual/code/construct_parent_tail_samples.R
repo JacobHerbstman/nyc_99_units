@@ -14,7 +14,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -389,23 +389,23 @@ if (any(category_support$support_status == "post_only_overlap_failure")) {
   stop("The 2025 tail contains a category absent from the historical tail.")
 }
 
-write_csv_if_changed(
+write_csv_atomic(
   analysis_samples_summary,
   "../output/analysis_samples_summary.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   sample_flow,
   "../output/analysis_sample_flow.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   analysis_sample_qc,
   "../output/analysis_sample_qc.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   balance_variable_summary,
   "../output/balance_variable_summary_unweighted_c99.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   category_support,
   "../output/category_support_c99.csv"
 )

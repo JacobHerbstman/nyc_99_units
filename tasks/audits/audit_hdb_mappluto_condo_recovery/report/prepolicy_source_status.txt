@@ -1,0 +1,13 @@
+Rows: 11
+Columns: 7
+Key fields: historical_active, hdb_job_status, filing_role
+Saved-file MD5: 43eb61d1ca6c62dc134a942e9d75929a
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+historical_active | logical | nonmissing | 11 | distinct | 2
+hdb_job_status | character | nonmissing | 11 | distinct | 5
+filing_role | character | nonmissing | 11 | distinct | 3
+filings | numeric | nonmissing | 11 | distinct | 11 min/median/mean/max 1/81/216.7273/1073
+parents | numeric | nonmissing | 11 | distinct | 11 min/median/mean/max 1/73/202.9091/1007
+source_units | numeric | nonmissing | 11 | distinct | 11 min/median/mean/max 19/3635/12973.91/80301
+additive_units | numeric | nonmissing | 11 | distinct | 10 min/median/mean/max 0/3635/12875.64/80301

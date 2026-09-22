@@ -1,0 +1,44 @@
+Rows: 2009
+Columns: 38
+Key fields: area_fips, own_code, industry_code, agglvl_code, size_code, year, qtr
+Saved-file MD5: 2024079be9dbbac8c8cbeba470e200c9
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+area_fips | numeric | nonmissing | 2009 | distinct | 1 min/median/mean/max 36061/36061/36061/36061
+own_code | numeric | nonmissing | 2009 | distinct | 5 min/median/mean/max 0/5/4.513688/5
+industry_code | character | nonmissing | 2009 | distinct | 1750
+agglvl_code | numeric | nonmissing | 2009 | distinct | 9 min/median/mean/max 70/77/76.98158/78
+size_code | numeric | nonmissing | 2009 | distinct | 1 min/median/mean/max 0/0/0/0
+year | numeric | nonmissing | 2009 | distinct | 1 min/median/mean/max 2023/2023/2023/2023
+qtr | character | nonmissing | 2009 | distinct | 1
+disclosure_code | character | nonmissing | 590 | distinct | 1
+annual_avg_estabs | numeric | nonmissing | 2009 | distinct | 400 min/median/mean/max 0/20/580.566/129574
+annual_avg_emplvl | numeric | nonmissing | 2009 | distinct | 758 min/median/mean/max 0/282/10618.65/2423561
+total_annual_wages | numeric | nonmissing | 2009 | distinct | 881 min/median/mean/max 0/28156670/1680207000/380895700000
+taxable_annual_wages | numeric | nonmissing | 2009 | distinct | 796 min/median/mean/max 0/1671956/137500100/30799100000
+annual_contributions | numeric | nonmissing | 2009 | distinct | 796 min/median/mean/max 0/49137/3988809/893765300
+annual_avg_wkly_wage | numeric | nonmissing | 2009 | distinct | 774 min/median/mean/max 0/1529/1683.132/12733
+avg_annual_pay | numeric | nonmissing | 2009 | distinct | 879 min/median/mean/max 0/79496/87523.45/662105
+lq_disclosure_code | character | nonmissing | 592 | distinct | 1
+lq_annual_avg_estabs | numeric | nonmissing | 2009 | distinct | 313 min/median/mean/max 0/0.48/1.010428/30.53
+lq_annual_avg_emplvl | numeric | nonmissing | 2009 | distinct | 334 min/median/mean/max 0/0.27/1.129657/26.97
+lq_total_annual_wages | numeric | nonmissing | 2009 | distinct | 282 min/median/mean/max 0/0.17/0.7802887/12.27
+lq_taxable_annual_wages | numeric | nonmissing | 2009 | distinct | 307 min/median/mean/max 0/0.09/0.9875212/27.24
+lq_annual_contributions | numeric | nonmissing | 2009 | distinct | 304 min/median/mean/max 0/0.09/0.8799104/16.37
+lq_annual_avg_wkly_wage | numeric | nonmissing | 2009 | distinct | 131 min/median/mean/max 0/0.56/0.507103/2.94
+lq_avg_annual_pay | numeric | nonmissing | 2009 | distinct | 131 min/median/mean/max 0/0.56/0.5068442/2.93
+oty_disclosure_code | character | nonmissing | 662 | distinct | 1
+oty_annual_avg_estabs_chg | numeric | nonmissing | 2009 | distinct | 134 min/median/mean/max -629/0/6.478347/1443
+oty_annual_avg_estabs_pct_chg | numeric | nonmissing | 2009 | distinct | 276 min/median/mean/max -100/0/7.986063/400
+oty_annual_avg_emplvl_chg | numeric | nonmissing | 2009 | distinct | 467 min/median/mean/max -11751/0/251.445/57412
+oty_annual_avg_emplvl_pct_chg | numeric | nonmissing | 2009 | distinct | 364 min/median/mean/max -85.8/0/3.030712/672.8
+oty_total_annual_wages_chg | numeric | nonmissing | 2009 | distinct | 838 min/median/mean/max -1790665000/0/45645780/10580120000
+oty_total_annual_wages_pct_chg | numeric | nonmissing | 2009 | distinct | 406 min/median/mean/max -92.5/0/5.303285/1008.7
+oty_taxable_annual_wages_chg | numeric | nonmissing | 2009 | distinct | 757 min/median/mean/max -447263800/0/-1559563/333631500
+oty_taxable_annual_wages_pct_chg | numeric | nonmissing | 2009 | distinct | 402 min/median/mean/max -91.6/0/4.483375/669
+oty_annual_contributions_chg | numeric | nonmissing | 2009 | distinct | 755 min/median/mean/max -14556690/0/-8926.747/8982333
+oty_annual_contributions_pct_chg | numeric | nonmissing | 2009 | distinct | 463 min/median/mean/max -87.8/0/6.076207/1164.2
+oty_annual_avg_wkly_wage_chg | numeric | nonmissing | 2009 | distinct | 445 min/median/mean/max -2949/0/36.01195/3295
+oty_annual_avg_wkly_wage_pct_chg | numeric | nonmissing | 2009 | distinct | 303 min/median/mean/max -74.7/0/2.367894/121.5
+oty_avg_annual_pay_chg | numeric | nonmissing | 2009 | distinct | 824 min/median/mean/max -153372/0/1873.627/171341
+oty_avg_annual_pay_pct_chg | numeric | nonmissing | 2009 | distinct | 307 min/median/mean/max -74.7/0/2.370234/121.6

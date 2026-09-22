@@ -1,0 +1,13 @@
+Rows: 502
+Columns: 7
+Key fields: period, parent_total_units
+Saved-file MD5: f29d7f9a8a95778cd9b0cd99f8ad91e2
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+period | character | nonmissing | 502 | distinct | 2
+parent_total_units | numeric | nonmissing | 502 | distinct | 251 min/median/mean/max 50/175/175/300
+exposure_years | numeric | nonmissing | 502 | distinct | 2 min/median/mean/max 1.516769/2.758385/2.758385/4
+parent_count | numeric | nonmissing | 502 | distinct | 17 min/median/mean/max 0/1/1.615538/38
+annualized_count | numeric | nonmissing | 502 | distinct | 26 min/median/mean/max 0/0.25/0.6476684/25.05325
+support_parent_count | numeric | nonmissing | 502 | distinct | 2 min/median/mean/max 299/405.5/405.5/512
+normalized_share | numeric | nonmissing | 502 | distinct | 26 min/median/mean/max 0/0.001953125/0.003984064/0.1270903

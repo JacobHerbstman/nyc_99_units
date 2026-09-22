@@ -1,0 +1,143 @@
+Rows: 24144
+Columns: 137
+Key fields: job_number
+Saved-file MD5: 92e6dfb01aa725041eee739f270c80c8
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+hdb_panel_row_id | integer | nonmissing | 24144 | distinct | 24144 min/median/mean/max 1/12072.5/12072.5/24144
+job_number | character | nonmissing | 24144 | distinct | 24144
+hdb_release | character | nonmissing | 24144 | distinct | 1
+historical_active | logical | nonmissing | 24144 | distinct | 2
+job_status | character | nonmissing | 24144 | distinct | 5
+date_filed | Date | nonmissing | 24144 | distinct | 3583
+filing_year | integer | nonmissing | 24144 | distinct | 14 min/median/mean/max 2010/2016/2016.427/2023
+bbl | character | nonmissing | 24144 | distinct | 20251
+hdb_bbl_borough | character | nonmissing | 24144 | distinct | 5
+hdb_bbl_block | integer | nonmissing | 24144 | distinct | 6164 min/median/mean/max 1/3810/4823.312/99999
+hdb_bbl_lot | integer | nonmissing | 24144 | distinct | 720 min/median/mean/max 1/44/800.9469/7522
+bin | character | nonmissing | 24144 | distinct | 21879
+address | character | nonmissing | 24144 | distinct | 22520
+house_number | character | nonmissing | 24144 | distinct | 7429
+street_name | character | nonmissing | 24144 | distinct | 3741
+ownership | character | nonmissing | 24144 | distinct | 19
+hdb_borough_code | character | nonmissing | 24144 | distinct | 5
+hdb_borough_name | character | nonmissing | 24144 | distinct | 5
+hdb_community_district | integer | nonmissing | 24115 | distinct | 59 min/median/mean/max 101/403/367.4008/503
+hdb_council_district | integer | nonmissing | 24115 | distinct | 51 min/median/mean/max 1/34/33.90574/51
+classa_prop | numeric | nonmissing | 24144 | distinct | 454 min/median/mean/max 0/2/17.34986/1313
+classa_prop_integer | logical | nonmissing | 24144 | distinct | 2
+y100 | logical | nonmissing | 23691 | distinct | 2
+pluto_source_id_latest_pre_filing | character | nonmissing | 24144 | distinct | 2
+pluto_version_latest_pre_filing | character | nonmissing | 24144 | distinct | 40
+pluto_release_order_latest_pre_filing | integer | nonmissing | 24144 | distinct | 40 min/median/mean/max 2/14/16.93046/41
+pluto_safe_available_date_latest_pre_filing | Date | nonmissing | 24144 | distinct | 40
+pluto_source_id_used | character | nonmissing | 24144 | distinct | 2
+pluto_version_used | character | nonmissing | 24144 | distinct | 40
+pluto_release_order_used | integer | nonmissing | 24144 | distinct | 40 min/median/mean/max 1/13/15.93046/40
+pluto_safe_available_date_used | Date | nonmissing | 24144 | distinct | 40
+pluto_timing_status | character | nonmissing | 24144 | distinct | 1
+true_lagged_pluto_available | logical | nonmissing | 24144 | distinct | 1
+backfill_used | logical | nonmissing | 24144 | distinct | 1
+post_filing_pluto | logical | nonmissing | 24144 | distinct | 1
+pluto_days_relative_to_filing | integer | nonmissing | 24144 | distinct | 564 min/median/mean/max 25/266/264.2013/631
+selected_pluto_parquet_path | character | nonmissing | 24144 | distinct | 40
+selected_pluto_raw_status | character | nonmissing | 24144 | distinct | 1
+pluto_feature_bbl | character | nonmissing | 24144 | distinct | 16593
+pluto_match_method | character | nonmissing | 24144 | distinct | 4
+pluto_feature_bbl_hdb_rows | integer | nonmissing | 24144 | distinct | 27 min/median/mean/max 1/1/2.84609/125
+strict_pluto_match_status | character | nonmissing | 24144 | distinct | 2
+appbbl_recovery_used | logical | nonmissing | 24144 | distinct | 2
+appbbl_resolution_status | character | nonmissing | 24144 | distinct | 5
+appbbl_feature_bbl | character | nonmissing | 6475 | distinct | 4192
+appbbl_feature_bbl_hdb_rows | integer | nonmissing | 24144 | distinct | 28 min/median/mean/max 0/0/2.114273/125
+appbbl_match_method | character | nonmissing | 6475 | distinct | 2
+appbbl_evidence_rows | numeric | nonmissing | 6475 | distinct | 1 min/median/mean/max 1/1/1/1
+appbbl_condono_values | character | nonmissing | 2074 | distinct | 1798
+appbbl_appdate_min | Date | nonmissing | 5295 | distinct | 1434
+appbbl_appdate_max | Date | nonmissing | 5295 | distinct | 1434
+appbbl_future_appdate_used_for_linkage | logical | nonmissing | 24144 | distinct | 2
+n_appbbl_candidates | integer | nonmissing | 24144 | distinct | 2 min/median/mean/max 0/0/0.3650596/1
+n_appbbl_distinct_candidates | integer | nonmissing | 24144 | distinct | 2 min/median/mean/max 0/0/0.3650596/1
+n_appbbl_same_boro_block_candidates | integer | nonmissing | 24144 | distinct | 2 min/median/mean/max 0/0/0.3584742/1
+n_appbbl_cross_boro_block_candidates | integer | nonmissing | 24144 | distinct | 2 min/median/mean/max 0/0/0.006585487/1
+n_appbbl_unique_lagged_candidates | integer | nonmissing | 24144 | distinct | 2 min/median/mean/max 0/0/0.3325878/1
+n_appbbl_duplicate_lagged_candidates | integer | nonmissing | 24144 | distinct | 1 min/median/mean/max 0/0/0/0
+n_appbbl_not_in_lagged_candidates | integer | nonmissing | 24144 | distinct | 2 min/median/mean/max 0/0/0.02588635/1
+pluto_match_status | character | nonmissing | 24144 | distinct | 2
+valid_bbl | logical | nonmissing | 24144 | distinct | 1
+primary_sample | logical | nonmissing | 24144 | distinct | 2
+primary_leakage_safe_sample | logical | nonmissing | 24144 | distinct | 2
+expanded_backfill_sample | logical | nonmissing | 24144 | distinct | 2
+exclusion_reason | character | nonmissing | 24144 | distinct | 4
+pluto_borough | character | nonmissing | 23400 | distinct | 5
+pluto_block | integer | nonmissing | 23400 | distinct | 6150 min/median/mean/max 1/3808/4848.891/16350
+pluto_lot | integer | nonmissing | 23400 | distinct | 523 min/median/mean/max 1/35/71.87466/7517
+pluto_address | character | nonmissing | 23355 | distinct | 14766
+pluto_cd | integer | nonmissing | 23400 | distinct | 60 min/median/mean/max 0/404/367.6771/503
+zipcode | character | nonmissing | 23228 | distinct | 181
+ct2010 | character | nonmissing | 20799 | distinct | 1162
+cb2010 | character | nonmissing | 19600 | distinct | 235
+schooldist | integer | nonmissing | 23316 | distinct | 32 min/median/mean/max 1/25/22.58788/32
+pluto_council | integer | nonmissing | 23331 | distinct | 52 min/median/mean/max 0/34/33.77956/51
+zonedist1 | character | nonmissing | 23383 | distinct | 149
+zonedist2 | character | nonmissing | 1332 | distinct | 88
+zonedist3 | character | nonmissing | 144 | distinct | 12
+zonedist4 | character | nonmissing | 1 | distinct | 1
+overlay1 | character | nonmissing | 3638 | distinct | 10
+overlay2 | character | nonmissing | 105 | distinct | 7
+spdist1 | character | nonmissing | 4620 | distinct | 84
+spdist2 | character | nonmissing | 7 | distinct | 5
+spdist3 | character | nonmissing | 0 | distinct | 0
+ltdheight | character | nonmissing | 20 | distinct | 1
+splitzone | character | nonmissing | 23383 | distinct | 2
+zonemap | character | nonmissing | 23337 | distinct | 243
+zmcode | character | nonmissing | 990 | distinct | 1
+landuse | character | nonmissing | 22993 | distinct | 20
+bldgclass | character | nonmissing | 23369 | distinct | 159
+histdist | character | nonmissing | 212 | distinct | 68
+landmark | character | nonmissing | 38 | distinct | 10
+firm07_flag | character | nonmissing | 96 | distinct | 1
+pfirm15_flag | character | nonmissing | 134 | distinct | 1
+lotarea | numeric | nonmissing | 23400 | distinct | 5135 min/median/mean/max 0/5000/294066.8/12253430
+lotfront | numeric | nonmissing | 23400 | distinct | 2126 min/median/mean/max 0/50/149.0465/4300
+lotdepth | numeric | nonmissing | 23400 | distinct | 2222 min/median/mean/max 0/100/169.7777/2530.83
+bldgarea | numeric | nonmissing | 23400 | distinct | 3703 min/median/mean/max 0/1125/10951.56/2598091
+resarea | numeric | nonmissing | 23400 | distinct | 2493 min/median/mean/max 0/0/5835.993/1600000
+comarea | numeric | nonmissing | 23400 | distinct | 1726 min/median/mean/max 0/0/3381.835/2598091
+unitsres | numeric | nonmissing | 23400 | distinct | 114 min/median/mean/max 0/0/41.93205/1887
+unitstotal | numeric | nonmissing | 23400 | distinct | 123 min/median/mean/max 0/1/42.71393/1906
+numbldgs | integer | nonmissing | 23400 | distinct | 73 min/median/mean/max 0/1/42.67547/1933
+numfloors | numeric | nonmissing | 23400 | distinct | 44 min/median/mean/max 0/1/1.250669/57
+yearbuilt | integer | nonmissing | 14755 | distinct | 145 min/median/mean/max 1800/1930/1933.319/2022
+builtfar | numeric | nonmissing | 23400 | distinct | 520 min/median/mean/max 0/0.17/0.4072009/39.59
+maxallwfar | numeric | nonmissing | 5348 | distinct | 30 min/median/mean/max 0/0.9/1.754903/15
+residfar | numeric | nonmissing | 18052 | distinct | 30 min/median/mean/max 0/0.9/1.787012/12
+commfar | numeric | nonmissing | 18052 | distinct | 16 min/median/mean/max 0/0/0.4024429/15
+facilfar | numeric | nonmissing | 18052 | distinct | 20 min/median/mean/max 0/2/2.668372/15
+assessland | numeric | nonmissing | 23400 | distinct | 8559 min/median/mean/max 0/17772/628072.3/104445400
+assesstot | numeric | nonmissing | 23400 | distinct | 8549 min/median/mean/max 0/32900/985548.3/151691900
+allowed_res_area | numeric | nonmissing | 18052 | distinct | 5835 min/median/mean/max 0/5985/267275.6/11028090
+residual_res_area | numeric | nonmissing | 18052 | distinct | 7992 min/median/mean/max 0/4736.75/260546.3/11027990
+is_vacant_landuse | logical | nonmissing | 24144 | distinct | 2
+is_vacant_bldgclass | logical | nonmissing | 24144 | distinct | 2
+is_vacant_lot | logical | nonmissing | 24144 | distinct | 2
+missing_lotarea | logical | nonmissing | 24144 | distinct | 2
+missing_lotfront | logical | nonmissing | 24144 | distinct | 2
+missing_lotdepth | logical | nonmissing | 24144 | distinct | 2
+missing_bldgarea | logical | nonmissing | 24144 | distinct | 2
+missing_resarea | logical | nonmissing | 24144 | distinct | 2
+missing_comarea | logical | nonmissing | 24144 | distinct | 2
+missing_unitsres | logical | nonmissing | 24144 | distinct | 2
+missing_unitstotal | logical | nonmissing | 24144 | distinct | 2
+missing_numbldgs | logical | nonmissing | 24144 | distinct | 2
+missing_numfloors | logical | nonmissing | 24144 | distinct | 2
+missing_yearbuilt | logical | nonmissing | 24144 | distinct | 2
+missing_builtfar | logical | nonmissing | 24144 | distinct | 2
+missing_maxallwfar | logical | nonmissing | 24144 | distinct | 2
+missing_residfar | logical | nonmissing | 24144 | distinct | 2
+missing_commfar | logical | nonmissing | 24144 | distinct | 2
+missing_facilfar | logical | nonmissing | 24144 | distinct | 2
+missing_assessland | logical | nonmissing | 24144 | distinct | 2
+missing_assesstot | logical | nonmissing | 24144 | distinct | 2
+missing_allowed_res_area | logical | nonmissing | 24144 | distinct | 2
+missing_residual_res_area | logical | nonmissing | 24144 | distinct | 2

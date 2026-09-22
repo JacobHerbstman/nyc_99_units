@@ -7,7 +7,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -88,11 +88,11 @@ if (
   stop("Combined Attorney General batches failed coverage or identifier QC.")
 }
 
-write_csv_if_changed(
+write_csv_atomic(
   search_audit,
   "../output/nys_ag_offering_plan_search_audit.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   plan_matches,
   "../output/nys_ag_offering_plan_matches.csv"
 )

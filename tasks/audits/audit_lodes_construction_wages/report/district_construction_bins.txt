@@ -1,0 +1,17 @@
+Rows: 354
+Columns: 11
+Key fields: year, boro_cd
+Saved-file MD5: dc5414cb6a4bbe44d4d1fc045b27995f
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+boro_cd | numeric | nonmissing | 354 | distinct | 59 min/median/mean/max 101/306/280.3051/503
+year | numeric | nonmissing | 354 | distinct | 6 min/median/mean/max 0/2020.5/1684.167/2023
+total | numeric | nonmissing | 354 | distinct | 343 min/median/mean/max 92/1653/3994.367/90592
+SE01 | numeric | nonmissing | 354 | distinct | 271 min/median/mean/max 9/226/497.9944/7387
+SE02 | numeric | nonmissing | 354 | distinct | 303 min/median/mean/max 39/409/847.1921/11203
+SE03 | numeric | nonmissing | 354 | distinct | 336 min/median/mean/max 15/978.5/2649.181/72002
+period | character | nonmissing | 354 | distinct | 6
+borough | character | nonmissing | 354 | distinct | 5
+share_SE01 | numeric | nonmissing | 354 | distinct | 353 min/median/mean/max 0.04045701/0.1322192/0.1469109/0.468254
+share_SE02 | numeric | nonmissing | 354 | distinct | 352 min/median/mean/max 0.07641881/0.2517835/0.2562674/0.47268
+share_SE03 | numeric | nonmissing | 354 | distinct | 354 min/median/mean/max 0.1190476/0.6198808/0.5968217/0.8831242

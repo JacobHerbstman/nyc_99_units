@@ -1,0 +1,57 @@
+Rows: 37874
+Columns: 51
+Key fields: source_pull_date, source_row_number
+Saved-file MD5: 49ead30884973cc3cbdf6681cd724b73
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+source_row_number | integer | nonmissing | 37874 | distinct | 37874 min/median/mean/max 1/18937.5/18937.5/37874
+source_id | character | nonmissing | 37874 | distinct | 1
+source_pull_date | numeric | nonmissing | 37874 | distinct | 1 min/median/mean/max 20260710/20260710/20260710/20260710
+job_filing_number | character | nonmissing | 37874 | distinct | 37785
+job_number | character | nonmissing | 37874 | distinct | 9207
+filing_type | character | nonmissing | 37863 | distinct | 67
+filing_status | character | nonmissing | 37874 | distinct | 29
+job_type | character | nonmissing | 37874 | distinct | 1
+filing_date | Date | nonmissing | 37874 | distinct | 1740
+current_status_date | Date | nonmissing | 37874 | distinct | 1299
+first_permit_date | Date | nonmissing | 13093 | distinct | 1279
+approved_date | Date | nonmissing | 31005 | distinct | 1468
+signoff_date | Date | nonmissing | 3311 | distinct | 650
+borough_code | character | nonmissing | 37874 | distinct | 5
+borough_name | character | nonmissing | 37874 | distinct | 5
+block | integer | nonmissing | 37874 | distinct | 4048 min/median/mean/max 1/3382/4448.738/99999
+lot | integer | nonmissing | 37874 | distinct | 417 min/median/mean/max 1/33/174.1773/7509
+filing_bbl | character | nonmissing | 37874 | distinct | 8005
+reported_bbl | character | nonmissing | 31166 | distinct | 5918
+bbl_field_relation | character | nonmissing | 37874 | distinct | 4
+bin | character | nonmissing | 37874 | distinct | 9061
+house_number | character | nonmissing | 37874 | distinct | 5095
+street_name | character | nonmissing | 37874 | distinct | 2655
+address | character | nonmissing | 37874 | distinct | 9037
+community_district | integer | nonmissing | 37854 | distinct | 65 min/median/mean/max 101/313/336.3129/503
+council_district | integer | nonmissing | 37212 | distinct | 51 min/median/mean/max 1/31/30.02956/51
+nta | character | nonmissing | 37212 | distinct | 214
+postcode | character | nonmissing | 37823 | distinct | 177
+latitude | numeric | nonmissing | 37212 | distinct | 7716 min/median/mean/max 40.49923/40.69949/40.70584/40.91119
+longitude | numeric | nonmissing | 37212 | distinct | 7669 min/median/mean/max -74.25373/-73.92967/-73.93874/-73.7014
+filing_review_type | character | nonmissing | 37874 | distinct | 2
+building_type | character | nonmissing | 37873 | distinct | 4
+existing_stories | numeric | nonmissing | 0 | distinct | 0
+existing_height | numeric | nonmissing | 0 | distinct | 0
+existing_dwelling_units | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 0/0/0/0
+proposed_stories | numeric | nonmissing | 37861 | distinct | 61 min/median/mean/max 1/4/6.333008/1000
+proposed_height | numeric | nonmissing | 33936 | distinct | 324 min/median/mean/max 0/45/79.09326/25825
+proposed_dwelling_units | numeric | nonmissing | 37861 | distinct | 331 min/median/mean/max 0/3/39.09265/1803
+initial_cost | numeric | nonmissing | 37874 | distinct | 1489 min/median/mean/max 0/0/627023.3/6.54e+08
+total_construction_floor_area | numeric | nonmissing | 37874 | distinct | 6562 min/median/mean/max 0.1/9151.6/54054.78/3888880
+applicant_professional_title | character | nonmissing | 37874 | distinct | 5
+applicant_license | character | nonmissing | 37874 | distinct | 1691
+applicant_first_name | character | nonmissing | 37874 | distinct | 1035
+applicant_middle_initial | character | nonmissing | 11195 | distinct | 35
+applicant_last_name | character | nonmissing | 37874 | distinct | 1557
+applicant_business_name | character | nonmissing | 37874 | distinct | 1632
+owner_business_name | character | nonmissing | 37627 | distinct | 2681
+owner_first_name | character | nonmissing | 37818 | distinct | 2663
+owner_last_name | character | nonmissing | 37821 | distinct | 2992
+owner_type | character | nonmissing | 37874 | distinct | 9
+job_description | character | nonmissing | 37874 | distinct | 21698

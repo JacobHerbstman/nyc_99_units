@@ -1,0 +1,16 @@
+Rows: 4
+Columns: 10
+Key fields: series
+Saved-file MD5: 7a67f277d5a59efeed61f9ef5f3f9ca4
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+series | character | nonmissing | 4 | distinct | 4
+mean_units | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 136.5839/149.6613/146.8217/151.3804
+share_99 | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 0.01353677/0.1227643/0.09985037/0.1403361
+share_100 | numeric | nonmissing | 4 | distinct | 3 min/median/mean/max 0/1.453585e-06/0.001568215/0.006269952
+share_198 | numeric | nonmissing | 4 | distinct | 3 min/median/mean/max 0/0.0009323533/0.007724241/0.02903226
+share_99x2 | numeric | nonmissing | 4 | distinct | 3 min/median/mean/max 0/0.0009323533/0.007724241/0.02903226
+share_J2 | numeric | nonmissing | 4 | distinct | 3 min/median/mean/max 0.03092713/0.03759632/0.05959446/0.1322581
+share_J3plus | numeric | nonmissing | 4 | distinct | 3 min/median/mean/max 0.009946534/0.0227152/0.04458437/0.1229605
+share_301plus | numeric | nonmissing | 4 | distinct | 3 min/median/mean/max 0.07741935/0.09892019/0.09368541/0.09948189
+units_301plus_per_parent | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 38.09032/51.51063/48.20006/51.68866

@@ -1,0 +1,18 @@
+\clearpage
+\section*{September 8, 2026: Construction earnings bins at workplaces}
+\textit{Agent-drafted research entry.}
+
+Construction workplace earnings vary substantially across community districts. Pooling 2019--2023 job counts, 77.2\% of Manhattan construction jobs fall above \$3,333 per month, compared with 64.9\% in the Bronx and 55.2\% in Brooklyn. Queens is 65.7\% and Staten Island is 63.1\%. These borough comparisons use jobs assigned to the 59 standard community districts.
+
+Brooklyn Community District 6 has 63.3\% of construction jobs in the highest earnings bin. It remains above Brooklyn overall but below Manhattan. Unlike the earlier ACS map, this comparison locates jobs by workplace rather than workers by residence. The highest-bin share ranges from 32.0\% in Bronx CD5 to 81.4\% in Manhattan CD4. Small counts matter: Bronx CD5 contributes only 547 pooled job-years, compared with 26,941 in Manhattan CD4. These are repeated annual job counts, not unique workers.
+
+The Census LODES workplace files cover all private jobs in construction, including all occupations. The three monthly earnings bins are at most \$1,250, \$1,251--\$3,333, and above \$3,333. Their construction counts sum exactly to the total at every NYC workplace block in each year. All 59 districts have construction jobs in every year. Of 710,672 NYC construction job-years, 707,003 are assigned to standard districts, 3,156 to park or special areas, and 513 fall outside the supplied district polygons. The latter groups remain in the block data and are excluded from district shares; they are not moved to a nearby district.
+
+These bins provide geographic detail but cannot measure hourly wages or the fraction below the policy's hourly compensation floor. Employer offices may differ from construction sites, and the public data incorporate disclosure protection and modeled workplace allocation. Fixed nominal thresholds also make changes over time sensitive to inflation. The audit therefore includes annual maps alongside pooled shares and makes no causal claim about bunching.
+
+\textit{Reproduction:} Run Make in the code directory of
+\texttt{tasks/audits/audit\_lodes\_construction\_wages}.
+Sources are LODES8 New York WAC JT02 files, construction variable CNS04, and the Census block crosswalk; release 8.4, vintage 20251202\_1657, retrieved September 8, 2026. Publisher checksums verify the uncompressed source contents. Census block internal points are assigned to NYC district polygons in EPSG2263. Dataset reports establish the first baseline. This is an uncommitted audit addition to revision 7bbf6d5.
+
+\clearpage
+\includegraphics[width=\textwidth,page=3]{../tasks/audits/audit_lodes_construction_wages/output/workplace_earnings_maps.pdf}

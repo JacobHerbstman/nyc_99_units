@@ -1,0 +1,12 @@
+file,url,acquired_date
+schenectady_agmt_2026070900638021.pdf,https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentDetail?doc_id=2026070900638021,2026-09-20
+schenectady_dec_bcp_application_2025.pdf,https://extapps.dec.ny.gov/data/DecDocs/C224448/Application.BCP.C224448.2025-10-29.Complete%20BCP%20Application.pdf,2026-09-20
+schenectady_dec_phase1_2022.pdf,https://extapps.dec.ny.gov/data/DecDocs/C224448/Application.BCP.C224448.2022-01-14.Phase%20I%20ESA%20.pdf,2026-09-20
+schenectady_decl_2026070900638020.pdf,https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentDetail?doc_id=2026070900638020,2026-09-20
+schenectady_dof_inset_2008.pdf,https://propertyinformationportal.nyc.gov/pdf/home/index/map_inset/30460220080626103430_1,2026-09-20
+schenectady_dof_map_2008.pdf,https://propertyinformationportal.nyc.gov/pdf/home/index/map_library/30460220080626103430,2026-09-20
+schenectady_dof_map_2026.pdf,https://propertyinformationportal.nyc.gov/pdf/home/index/map_library/30460220260403094028,2026-09-20
+schenectady_dof_map_library.json,https://services6.arcgis.com/yG5s3afENB5iO9fj/ArcGIS/rest/services/DTM_ETL_DAILY_view/FeatureServer/8/query?where=BOROUGH%3D%273%27+AND+BLOCK%3D4602&outFields=%2A&returnGeometry=false&f=json,2026-09-20
+schenectady_dof_parcels.json,https://services6.arcgis.com/yG5s3afENB5iO9fj/ArcGIS/rest/services/DTM_ETL_DAILY_view/FeatureServer/18/query?where=PARID+IN+%28%273046020003%27%2C%273046020005%27%29&outFields=%2A&returnGeometry=false&f=json,2026-09-20
+schenectady_hcr_board_2026-05-13.pdf,https://hcr.ny.gov/system/files/documents/2026/08/may-13-2026-board-book-1_0_0.pdf,2026-09-20
+schenectady_zone_2026070900638022.pdf,https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentDetail?doc_id=2026070900638022,2026-09-20

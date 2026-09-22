@@ -1,0 +1,47 @@
+Rows: 288819
+Columns: 41
+Key fields: tabblk2020
+Saved-file MD5: 0a9f3be6620b5b566f1500ffc7b323be
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+tabblk2020 | character | nonmissing | 288819 | distinct | 288819
+st | character | nonmissing | 288819 | distinct | 1
+stusps | character | nonmissing | 288819 | distinct | 1
+stname | character | nonmissing | 288819 | distinct | 1
+cty | character | nonmissing | 288819 | distinct | 62
+ctyname | character | nonmissing | 288819 | distinct | 62
+trct | character | nonmissing | 288819 | distinct | 5411
+trctname | character | nonmissing | 288819 | distinct | 5411
+bgrp | character | nonmissing | 288819 | distinct | 16070
+bgrpname | character | nonmissing | 288819 | distinct | 16070
+cbsa | character | nonmissing | 288819 | distinct | 28
+cbsaname | character | nonmissing | 265382 | distinct | 27
+zcta | character | nonmissing | 288819 | distinct | 1827
+zctaname | character | nonmissing | 287028 | distinct | 1826
+stplc | character | nonmissing | 288819 | distinct | 1294
+stplcname | character | nonmissing | 163432 | distinct | 1289
+ctycsub | character | nonmissing | 288819 | distinct | 1015
+ctycsubname | character | nonmissing | 288738 | distinct | 1014
+stcd119 | character | nonmissing | 288819 | distinct | 26
+stcd119name | character | nonmissing | 288819 | distinct | 26
+stsldl | character | nonmissing | 288819 | distinct | 150
+stsldlname | character | nonmissing | 288819 | distinct | 150
+stsldu | character | nonmissing | 288819 | distinct | 63
+stslduname | character | nonmissing | 288819 | distinct | 63
+stschool | character | nonmissing | 288819 | distinct | 678
+stschoolname | character | nonmissing | 288532 | distinct | 677
+stsecon | character | nonmissing | 288819 | distinct | 4
+stseconname | character | nonmissing | 3564 | distinct | 3
+trib | character | nonmissing | 288819 | distinct | 12
+tribname | character | nonmissing | 3121 | distinct | 11
+tsub | character | nonmissing | 288819 | distinct | 1
+tsubname | character | nonmissing | 0 | distinct | 0
+stanrc | character | nonmissing | 288819 | distinct | 1
+stanrcname | character | nonmissing | 0 | distinct | 0
+mil | character | nonmissing | 288819 | distinct | 24
+milname | character | nonmissing | 859 | distinct | 23
+stwib | character | nonmissing | 288819 | distinct | 33
+stwibname | character | nonmissing | 288819 | distinct | 33
+blklatdd | character | nonmissing | 288819 | distinct | 286870
+blklondd | character | nonmissing | 288819 | distinct | 287507
+createdate | character | nonmissing | 288819 | distinct | 1

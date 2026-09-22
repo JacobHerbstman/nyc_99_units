@@ -1,0 +1,33 @@
+Rows: 81708
+Columns: 29
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 5ceccd744cd2174ba3ffaa413d1a074a
+source_id | character | nonmissing | 81708 | distinct | 1
+release | character | nonmissing | 81708 | distinct | 1
+job_number | character | nonmissing | 81708 | distinct | 81708
+job_type | character | nonmissing | 81708 | distinct | 3
+job_status | character | nonmissing | 81708 | distinct | 5
+permit_year | integer | nonmissing | 73977 | distinct | 28 min/median/mean/max 1998/2016/2015.267/2026
+completion_year | integer | nonmissing | 66508 | distinct | 17 min/median/mean/max 2010/2017/2017.103/2026
+classa_init | numeric | nonmissing | 81707 | distinct | 445 min/median/mean/max 0/1/6.069027/44695
+classa_prop | numeric | nonmissing | 81708 | distinct | 589 min/median/mean/max 0/2/12.68753/44695
+classa_net | numeric | nonmissing | 81707 | distinct | 582 min/median/mean/max -303/1/6.617732/1569
+units_co | numeric | nonmissing | 55598 | distinct | 575 min/median/mean/max 0/2/15.27643/3491
+borough_code | character | nonmissing | 81708 | distinct | 5
+borough_name | character | nonmissing | 81708 | distinct | 5
+bin | character | nonmissing | 81708 | distinct | 71408
+bbl | character | nonmissing | 81708 | distinct | 68190
+house_number | character | nonmissing | 81708 | distinct | 15659
+street_name | character | nonmissing | 81708 | distinct | 5606
+address | character | nonmissing | 81708 | distinct | 73307
+ownership | character | nonmissing | 81588 | distinct | 27
+community_district | integer | nonmissing | 81708 | distinct | 61 min/median/mean/max 101/317/339.243/595
+council_district | integer | nonmissing | 81708 | distinct | 51 min/median/mean/max 1/32/30.23748/51
+date_filed | Date | nonmissing | 81708 | distinct | 6816
+date_permit | Date | nonmissing | 73994 | distinct | 6296
+date_updated | Date | nonmissing | 81708 | distinct | 4409
+date_completed | Date | nonmissing | 66508 | distinct | 4094
+geom_source | character | nonmissing | 81708 | distinct | 6
+dcp_edited | character | nonmissing | 9533 | distinct | 761
+version | character | nonmissing | 81708 | distinct | 1
+source_raw_path | character | nonmissing | 81708 | distinct | 1

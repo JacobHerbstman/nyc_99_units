@@ -1,0 +1,76 @@
+\clearpage
+\section*{2026-09-20: Recorded zero dwellings, and the next boundary batch}
+\textit{Agent-drafted research entry.}
+
+Metropolitan Park's 1,000 hotel rooms had entered both residential panels and
+the reweighting/pilot sample. The error arose in our source-selection code:
+it filtered Housing Database records by a six-unit minimum and land-data
+availability before choosing a unit count. A recorded zero Class A count
+therefore became a missing match, triggering the positive DOB fallback.
+The initial DOB description said gaming facility, so the separate hotel text
+check missed the project. DCP's 25Q4 source explicitly records zero Class A
+units and 1,000 hotel rooms; the state-filed casino application corroborates
+that distinction.
+
+The producer now reads Class A units from the unfiltered staged HDB table.
+A recorded zero remains zero; DOB supplies units only when HDB's count is
+missing. Zero-Class-A source filings remain in membership with their original
+DOB counts, links, and filing/refiling dates, but contribute no residential
+units or constituents. This applies the existing administrative outcome to
+all matched jobs. It does not label community-facility beds as apartments or
+substitute an outside documentary unit count.
+
+The 50-plus-unit reweighting sample changes from 316 to 312 post-period
+parents, from 43,807 to 42,341 units, and from 25 to 24 parents above 300.
+Four entirely zero-Class-A parents drop: Metropolitan Park, Mermaid,
+Meserole, and Jamaica. A Bronx parent becomes 69 rather than 69+27, and
+another filing changes from 81 to 80. The latter accounts for one of the
+1,466 corrected units. A separate ten-unit filing becomes five and falls
+below the canonical six-unit minimum; it was never in the 50-plus sample.
+The broader panel also drops a 233-unit DOB fallback already excluded from
+the rental sample. Historical membership and units are unchanged. The post
+reweighting sample retains 39 exact-99 parents and nine exact-99 pairs.
+The hotel's effect was on the upper tail, normalization, and calibration
+composition, rather than the number of exact-99 observations. Refitting the
+existing flat-charge pilot gives $\kappa=0.115$ and organization scale 1.2,
+with 546 model-implied units lost. The direct reweighted unit gap is 4,471;
+that aggregate difference remains unsuitable for policy attribution. The existing
+plots, weighting diagnostics, and pilot outputs are refreshed from the
+corrected panels; the land and membership review still limits interpretation.
+
+The next documentary batch establishes five additional individual building
+boundaries. Penn South's recorded lease bounds a 247-by-163-foot parcel,
+40,261 square feet, within the earlier 393,100-square-foot campus. The St.
+James/Jerome deed and housing ground lease describe the same stepped parcel;
+its legal courses enclose approximately 17,774.63 square feet, matching the
+17,775 administrative area and excluding the retained church ground.
+Sutphin and 95th each occupy a complete successor parcel: 30,071 and 30,067
+square feet. Together these exhaust the earlier 60,138-square-foot site.
+Their shared filing date and development parties require a separate economic
+parent judgment; the applicant describes neighboring projects, so their
+individual boundaries do not settle a merger.
+
+Kingsbrook/Schenectady's agreement separates the 92,709-square-foot Phase I
+building and courtyard site, the 12,673-square-foot parking tract, the 23,363
+reserved for Phase II, and retained hospital land. The October 2025 DEC
+application describes the 402-unit building and courtyard; HCR's May 2026
+financing record includes 28 surface parking spaces and parking income.
+The observed opportunity therefore has 105,382 square feet including its
+ancillary parking. The nearly three-acre acquisition includes the reserved
+future phase and is a different quantity. Woodside's previously accepted
+478-unit parent has a verified six-lot archival union of 71,862 square feet,
+matching the official two-building site description exactly; it must be
+counted once when membership and land are implemented together. Atlantic's
+52,000-square-foot candidate still needs an accessible job-specific boundary.
+
+\paragraph{Reproduction and remaining work.}
+Run \texttt{make logbook} from the repository root. The canonical producer is
+\texttt{construct\_parent\_cohorts}; the existing parcel audit holds 32
+boundary records and eight companion decisions, with six accepted links and
+two open membership questions. The current screen leaves 136 of 873 parents
+unresolved: the new evidence clears Penn, Jerome, and Schenectady, while
+Metropolitan Park leaves the residential sample. Boundary decisions remain in the audit while
+the unit-source correction is applied in production. Source registers preserve
+original recorded instruments, agency documents, exact URLs, reviewed pages,
+and hashes. The twelve-case September 15 parcel draw remains fixed by its
+saved IDs when the current sample changes; it is not redrawn after review.

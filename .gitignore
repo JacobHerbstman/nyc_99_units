@@ -45,6 +45,9 @@ framework_writeup.fls
 framework_writeup.out
 framework_writeup.pdf
 framework_writeup.docling.md
+logbook/*.aux
+logbook/*.out
+logbook/*.pdf
 
 # Scratch
 tmp/
@@ -53,3 +56,7 @@ LOCAL_PROJECT_MEMO.md
 # Auto-generated graphics
 Rplots.pdf
 **/code/Rplots.pdf
+
+# Hand-researched parent decisions are committed source data.
+!tasks/parent_opportunities_manual/output/
+!tasks/parent_opportunities_manual/output/*.csv

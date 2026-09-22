@@ -1,0 +1,23 @@
+Rows: 78189
+Columns: 17
+Key fields: OBJECTID
+Saved-file MD5: fb59eaef9cb277b6273626fd77a78637
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+OBJECTID | integer | nonmissing | 78189 | distinct | 78189 min/median/mean/max 1/39095/39095/78189
+Sort_Order | integer | nonmissing | 78189 | distinct | 1 min/median/mean/max 0/0/0/0
+Change_Date | character | nonmissing | 78189 | distinct | 4465
+TRANS_NUM | integer | nonmissing | 78189 | distinct | 39777 min/median/mean/max 103/70130/83641.53/688545
+Change_Type | character | nonmissing | 78189 | distinct | 18
+Borough_Name | character | nonmissing | 78189 | distinct | 5
+Borough | character | nonmissing | 78189 | distinct | 5
+Block | integer | nonmissing | 78189 | distinct | 8155 min/median/mean/max 0/3151/4347.93/49650
+Lot | character | nonmissing | 78189 | distinct | 1492
+BBL | character | nonmissing | 78189 | distinct | 57011
+Change_Action | logical | nonmissing | 0 | distinct | 0
+Auth_for_Change | character | nonmissing | 78189 | distinct | 35405
+Change_Date_N | numeric | nonmissing | 78189 | distinct | 38809 min/median/mean/max 1.211276e+12/1.439976e+12/1.454606e+12/1.789417e+12
+TRANS_NUM_N | character | nonmissing | 78189 | distinct | 39777
+Block_N | character | nonmissing | 78189 | distinct | 8155
+Lot_N | integer | nonmissing | 78189 | distinct | 1492 min/median/mean/max 0/36/163.9123/9133
+Link | character | nonmissing | 78189 | distinct | 57013

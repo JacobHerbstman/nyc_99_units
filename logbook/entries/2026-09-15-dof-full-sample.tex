@@ -1,0 +1,54 @@
+\clearpage
+\section*{2026-09-15: Citywide DOF reconstruction leaves 166 weighting-sample parents for review}
+\textit{Agent-drafted research entry.}
+
+The complete DOF pass leaves a parcel-review flag for \textbf{166 of the 877
+parents currently used for weighting}: 120 of 561 historical parents and 46
+of 316 post-policy parents. The other 711 pass the administrative screen.
+Including the 18 otherwise eligible parents excluded by composition or
+identifier requirements gives 895 reviewed parents and 180 flagged parents.
+A flag identifies a question to resolve, not a confirmed error or a requirement
+for manual adjudication. Passing this screen does not independently establish
+the development boundary, pre-policy ownership, or the wage-assessment unit.
+
+Among the current 877, the primary flags are 149 parents covering only part of
+a lot-change transaction, five missing a candidate lot in the reference PLUTO
+release, three associated with several condominium base lots, five involving
+other physical changes, and four with unexplained HDB--DOB parcel disagreements.
+For example, DOB names Queens block 670 lot 4 for 35-53 41 Street, while HDB
+names lot 47. The downloaded DOF relationships do not establish their
+equivalence. Partial transactions require a comparison of the land on each side
+of the change; adding every old lot would risk including another site's land.
+
+The general rules recover Wyckoff's old lots 19/42/51 and Third Avenue's old
+lots 27/30/31/35/135, yielding 50,692 and 22,247 square feet, respectively.
+No project-specific exceptions enter the scripts. Sullivan retains a flag for
+proposed parcels absent from the reference map and completed lineage. Jamaica's
+six condominium base lots plus lots 98/99 total 111,540 square feet of associated
+land; the extent of the residential proposals within that land remains uncertain.
+Among current parents that pass the screen, 257 have different candidate areas
+from production: 196 historical and 61 post-policy parents. Production land
+characteristics, weights, and pilot estimates remain provisional; this audit
+does not replace them or change units and parent membership.
+
+The source task retains nine citywide tables with 1,589,845 rows and 39,777
+distinct header transactions. Nine ZIPs preserve 484 original API responses,
+exact query URLs, and SHA-256 hashes. The R scripts check transaction keys,
+construct explicit old/new parcel sets and condominium links, walk completed
+changes backward by date and timestamp, and join the resulting parcels to the
+existing reference vintages. New/Dropped actions under generic DOF editor
+labels are usable. Partial events, missing reference parcels, and unexplained
+administrative identifier differences remain visible. The application tracker
+and dated map index supply references for subsequent review.
+
+\small
+\textit{Reproduction.} Run \texttt{make dof-parcel-audit} from the project root.
+The source snapshot is in \path{data_raw/dof_tax_map/2026-09-15/} and must
+accompany the replication package; the public API is mutable. The source owner
+is \path{tasks/fetch_dof_tax_map_history/}. The audit's
+\texttt{dof\_parent\_coverage.csv} records all parents and reasons, with a
+parcel-level table and a coverage summary alongside it. The detailed assessment
+is \path{tasks/audits/audit_hdb_mappluto_condo_recovery/report/dof_full_sample.md}.
+Source checksums, complete ID sets, relevant joins, and build behavior were
+checked. No model estimation was run.
+\normalsize

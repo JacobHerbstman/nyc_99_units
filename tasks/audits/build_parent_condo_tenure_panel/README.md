@@ -49,3 +49,7 @@ Outputs:
 - `condo_plan_parent_assignment_review.csv`: every timing-eligible AG plan with
   more than one candidate parent;
 - `parent_condo_tenure_qc.csv`: source coverage and classification totals.
+
+The recorded August 26, 2026 Attorney General tables come from the checksum-verified snapshot owned by `classify_parent_485x_exposure`. Rebuilding this audit does not trigger a new live search. These tables are byte-identical to the former acquisition-task inputs.
+
+Current limitation (September 10, 2026): the full audit build stops at its Attorney General coverage assertion. The saved search ledger does not cover the current condo universe under this audit's parent-and-filing keys. This exploratory audit is not a dependency of the main data or figures. Its coverage must be reconciled before using its tenure results; the coverage check remains enforced.

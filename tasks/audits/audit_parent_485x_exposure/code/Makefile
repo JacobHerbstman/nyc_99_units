@@ -1,40 +1,40 @@
-SHELL := bash
-include ../../../shell_functions.make
+include ../../../shared/code/shell_functions.make
 
-all: ../output/parent_485x_exposure.csv \
-	../output/parent_485x_exposure_summary.csv \
+all: ../output/parent_485x_exposure_summary.csv \
 	../output/parent_485x_exposure_by_unit.csv \
-	../output/parent_485x_exposure_review_queue.csv
+	../output/parent_485x_exposure_review_queue.csv \
+	../report/parent_485x_exposure_summary.txt \
+	../report/parent_485x_exposure_by_unit.txt \
+	../report/parent_485x_exposure_review_queue.txt
 
-../output/parent_485x_exposure.csv: classify_parent_485x_exposure.R \
-	parent_exposure_manual_reviews.csv \
-	../../../_lib/source_pipeline_utils.R \
-	../input/parent_485x_exposure_universe.csv \
-	../input/nys_ag_offering_plan_search_audit.csv \
-	../input/nys_ag_offering_plan_matches.csv \
-	../input/hpd_485x_registration_dob_links.csv | ../output
+../output/parent_485x_exposure_summary.csv: summarize_exposure.R ../../../shared/code/source_pipeline_utils.R \
+	../input/parent_485x_exposure.csv Makefile \
+	../../../shared/code/shell_functions.make ../../../shared/code/shell_functions.sh | ../output
 	$(R) $<
 
-../output/parent_485x_exposure_summary.csv \
-../output/parent_485x_exposure_by_unit.csv \
-../output/parent_485x_exposure_review_queue.csv: ../output/parent_485x_exposure.csv
-	@test -s "$@"
+../output/parent_485x_exposure_by_unit.csv ../output/parent_485x_exposure_review_queue.csv: ../output/parent_485x_exposure_summary.csv
+	$(RECOVER) -W summarize_exposure.R all
 
-../input/parent_485x_exposure_universe.csv: ../../../build_parent_485x_exposure_universe/output/parent_485x_exposure_universe.csv | ../input
+../report/parent_485x_exposure_summary.txt: report_data.R ../../../shared/code/write_data_report.R ../output/parent_485x_exposure_summary.csv Makefile \
+	../../../shared/code/shell_functions.make ../../../shared/code/shell_functions.sh | ../report
+	$(R) $< parent_485x_exposure_summary
+
+../report/parent_485x_exposure_by_unit.txt: report_data.R ../../../shared/code/write_data_report.R ../output/parent_485x_exposure_by_unit.csv Makefile \
+	../../../shared/code/shell_functions.make ../../../shared/code/shell_functions.sh | ../report
+	$(R) $< parent_485x_exposure_by_unit
+
+../report/parent_485x_exposure_review_queue.txt: report_data.R ../../../shared/code/write_data_report.R ../output/parent_485x_exposure_review_queue.csv Makefile \
+	../../../shared/code/shell_functions.make ../../../shared/code/shell_functions.sh | ../report
+	$(R) $< parent_485x_exposure_review_queue
+
+../input/parent_485x_exposure.csv: ../../../classify_parent_485x_exposure/output/parent_485x_exposure.csv | ../input
 	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
 
-../input/nys_ag_offering_plan_search_audit.csv: ../../fetch_nys_ag_offering_plan_matches/output/nys_ag_offering_plan_search_audit.csv | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+../../../classify_parent_485x_exposure/output/parent_485x_exposure.csv: check-classify_parent_485x_exposure ;
 
-../input/nys_ag_offering_plan_matches.csv: ../../fetch_nys_ag_offering_plan_matches/output/nys_ag_offering_plan_matches.csv | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+.PHONY: check-classify_parent_485x_exposure
 
-../input/hpd_485x_registration_dob_links.csv: ../../../link_hpd_485x_registrations/output/hpd_485x_registration_dob_links.csv | ../input
-	@test "$$(readlink "$@")" = "$<" || ln -sf "$<" "$@"
+check-classify_parent_485x_exposure:
+	$(MAKE) -C ../../../classify_parent_485x_exposure/code all ../output/parent_485x_exposure.csv
 
-link-inputs: ../input/parent_485x_exposure_universe.csv \
-	../input/nys_ag_offering_plan_search_audit.csv \
-	../input/nys_ag_offering_plan_matches.csv \
-	../input/hpd_485x_registration_dob_links.csv
-
-include ../../generic.make
+include ../../../shared/code/generic.make

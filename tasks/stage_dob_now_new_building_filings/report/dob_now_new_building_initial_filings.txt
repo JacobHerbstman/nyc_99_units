@@ -1,0 +1,57 @@
+Rows: 9193
+Columns: 51
+Key fields: job_filing_number
+Saved-file MD5: 19375bbd5e61203b6e14d560344582e7
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+source_row_number | integer | nonmissing | 9193 | distinct | 9193 min/median/mean/max 1/4597/4597/9193
+source_id | character | nonmissing | 9193 | distinct | 1
+source_pull_date | numeric | nonmissing | 9193 | distinct | 1 min/median/mean/max 20260710/20260710/20260710/20260710
+job_filing_number | character | nonmissing | 9193 | distinct | 9193
+job_number | character | nonmissing | 9193 | distinct | 9193
+filing_type | character | nonmissing | 9193 | distinct | 1
+filing_status | character | nonmissing | 9193 | distinct | 23
+job_type | character | nonmissing | 9193 | distinct | 1
+filing_date | Date | nonmissing | 9193 | distinct | 1614
+current_status_date | Date | nonmissing | 9193 | distinct | 1209
+first_permit_date | Date | nonmissing | 5321 | distinct | 1261
+approved_date | Date | nonmissing | 6580 | distinct | 1379
+signoff_date | Date | nonmissing | 624 | distinct | 305
+borough_code | character | nonmissing | 9193 | distinct | 5
+borough_name | character | nonmissing | 9193 | distinct | 5
+block | integer | nonmissing | 9193 | distinct | 4047 min/median/mean/max 1/4658/5189.293/99999
+lot | integer | nonmissing | 9193 | distinct | 417 min/median/mean/max 1/36/123.8252/7509
+filing_bbl | character | nonmissing | 9193 | distinct | 7991
+reported_bbl | character | nonmissing | 6845 | distinct | 5909
+bbl_field_relation | character | nonmissing | 9193 | distinct | 4
+bin | character | nonmissing | 9193 | distinct | 9009
+house_number | character | nonmissing | 9193 | distinct | 5092
+street_name | character | nonmissing | 9193 | distinct | 2644
+address | character | nonmissing | 9193 | distinct | 9006
+community_district | integer | nonmissing | 9181 | distinct | 64 min/median/mean/max 101/407/374.9358/503
+council_district | integer | nonmissing | 8852 | distinct | 51 min/median/mean/max 1/32/32.84964/51
+nta | character | nonmissing | 8852 | distinct | 214
+postcode | character | nonmissing | 9171 | distinct | 177
+latitude | numeric | nonmissing | 8852 | distinct | 7697 min/median/mean/max 40.49923/40.67951/40.68523/40.91119
+longitude | numeric | nonmissing | 8852 | distinct | 7650 min/median/mean/max -74.25373/-73.92632/-73.94897/-73.7014
+filing_review_type | character | nonmissing | 9193 | distinct | 2
+building_type | character | nonmissing | 9193 | distinct | 4
+existing_stories | numeric | nonmissing | 0 | distinct | 0
+existing_height | numeric | nonmissing | 0 | distinct | 0
+existing_dwelling_units | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0/0/0/0
+proposed_stories | numeric | nonmissing | 9193 | distinct | 59 min/median/mean/max 1/3/4.339606/95
+proposed_height | numeric | nonmissing | 8483 | distinct | 318 min/median/mean/max 0/33/54.17529/25825
+proposed_dwelling_units | numeric | nonmissing | 9193 | distinct | 323 min/median/mean/max 0/2/20.31948/1803
+initial_cost | numeric | nonmissing | 9193 | distinct | 1291 min/median/mean/max 0/0/950635/6.54e+08
+total_construction_floor_area | numeric | nonmissing | 9193 | distinct | 6170 min/median/mean/max 0.1/4118.01/26871.55/3888880
+applicant_professional_title | character | nonmissing | 9193 | distinct | 2
+applicant_license | character | nonmissing | 9193 | distinct | 960
+applicant_first_name | character | nonmissing | 9193 | distinct | 657
+applicant_middle_initial | character | nonmissing | 3525 | distinct | 32
+applicant_last_name | character | nonmissing | 9193 | distinct | 903
+applicant_business_name | character | nonmissing | 9193 | distinct | 969
+owner_business_name | character | nonmissing | 9113 | distinct | 2416
+owner_first_name | character | nonmissing | 9173 | distinct | 2599
+owner_last_name | character | nonmissing | 9174 | distinct | 2896
+owner_type | character | nonmissing | 9193 | distinct | 9
+job_description | character | nonmissing | 9193 | distinct | 6427

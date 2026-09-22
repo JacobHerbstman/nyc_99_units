@@ -1,0 +1,95 @@
+\clearpage
+\section*{2026-09-20: Recorded boundaries resolve more sites; hotel fallback requires correction}
+\textit{Agent-drafted research entry.}
+
+The nine exact-99 priority parents now have documented physical ground. Six
+pass the combined land-and-filing checks. Godwin/Kimberly has an accepted
+164-unit economic-parent link with 18,441 square feet of ground, awaiting a
+joint membership and land update. Charles Place and Broadway retain earlier
+permitted-filing questions. Their ground is established at 12,590 and 9,262
+square feet; the accessible records do not establish formal replacement or
+the correct treatment of the older applications. The supervisor read decisive
+original pages and adjudicated the findings gathered by GPT-5.6 Sol agents.
+No Jev classification was used.
+
+Jamaica/165th Street is the newly resolved priority boundary. Recorded
+instrument 2026051400252004, PDF pages 4, 39, and 45, assigns six residential
+parcels to 39,349.50 square feet, separately from the 72,982-square-foot MTA
+terminal parcel. The companion easement describes approximately six buildings.
+The common project supports the collective match to the six saved filings;
+the instruments do not print their DOB IDs or certify their initial layout.
+The 591-unit administrative parent and its filing dates remain unchanged.
+
+The source table now contains 27 boundary decisions, sixteen added in this
+continuation. Examples demonstrate both directions of correction. Orchard's
+complete tower-and-accessory-garage site measures 82,400 archival square feet,
+rather than 25,000. Flatbush's recorded tower ground lease measures 12,603,
+rather than the small source lot's 1,198. Dean's B12 and B13 legal rectangles
+total 116,535, rather than 62,475. Separate residential and school deeds support
+53,978 at Shell and 56,048 at Van Cortlandt. East 125th's exact-job agency plan
+supports 42,540; NYCHA's ground conveyance and DOF maps support 24,990 at
+Amsterdam. HPD separates West 48th's 21,924-square-foot housing parcel from
+retained DEP land.
+
+Executed original instruments resolve two campus allocations. Casa Celina's
+June 2021 ground lease, document 2021063001174002, defines the leased premises
+by Exhibit A on PDF page 9. Its rounded courses yield approximately 12,613.61
+square feet: a 13,046.67-square-foot chord polygon less a 433.05758-square-foot
+circular segment. The adopted successor administrative area is 12,613,
+replacing a 344,900-square-foot campus value. Later NYCHA budget prose says
+9,400 without a corresponding boundary; that discrepancy remains recorded,
+and the executed lease governs the adjudication. De Kalb's development
+memorandum 2023071200021002 explicitly assigns the mixed-use tower to lot 15;
+its 28,650 administrative square feet agree with the companion legal description
+of 28,650.6. Retained LIU campus ground is excluded. Crown's exact-job zoning
+declaration and December 2019 map establish successor lot 29; its administrative
+area is 55,385. A roughly 54,954-square-foot course calculation assumes
+orthogonal streets and is a measurement check, not a conflicting recorded survey.
+
+Six economic-parent links are accepted in the audit: Godwin/Kimberly (164
+units), GO Broome (495), Woodside (478), Motto (264), Starhill (570), and
+Elara (429). Elara's recorded joint loan names both exact jobs and all three
+parcels and records joint financing before the filings. Its supported ground
+is 39,003 square feet. A seventh pair, Franklin, remains unresolved. All six
+accepted links await coherent membership and land implementation; merely
+combining existing production areas would double-count or misallocate land.
+An economic-parent decision does not establish a legal wage-assessment unit.
+
+The regenerated land screen leaves 140 of 877 currently eligible parents
+unresolved: 107 historical and 33 post-policy. Fifteen previously flagged
+parents clear and two companions become newly flagged, compared with 153
+unresolved at the start of this continuation. The 737 passing parents include
+256 candidate area corrections exceeding one square foot. The starting
+document inventory contained 158 parents including the nine priorities; the
+two added companions bring that tracked set to 160, with twenty passing and
+140 remaining open. The
+inventory is not a completed documentary adjudication of every case.
+
+The broader review also finds an independent sample error. Metropolitan Park,
+\texttt{Q01274555}, contributes 1,000 hotel rooms through a DOB fallback even
+though the raw Housing Database records zero Class A units and 1,000 hotel
+rooms. The state-filed application confirms the hotel count. Cohort construction
+filters HDB candidates on size and land eligibility before choosing the unit
+source, so a known zero becomes unavailable to the later fallback. The initial
+DOB description says gaming facility and does not trigger the separate hotel
+keyword screen. Four other included filings also use positive DOB counts
+despite known zero HDB Class A units; their community-facility and supportive
+accommodation definitions require review. The five carry 1,465 nominal units,
+but only the 1,000 hotel rooms have been adjudicated here. They must not all be
+subtracted mechanically. Production sample correction and reweighting remain
+pending.
+
+\textit{Reproduction and verification.} Run \texttt{make dof-site-review} at
+the root. The existing audit reads the two small boundary and membership source
+tables; reference areas are checked against named archival vintages. The linear
+\path{audit_hdb_unit_fallback.R} script exposes matched HDB records for current
+DOB-unit fallbacks. Reports are SaveData side effects. Raw source folders
+preserve documents, URLs, dates, inspected pages, and checksums. The logbook
+build exposed a checksum-path mismatch in the document acquisition rules;
+the recipes now translate manifest-relative output paths to the temporary
+download filenames before verifying and publishing the files. The audit
+retains all 877 parent IDs, administrative units, component counts, dates, and
+production land values. Production panels, land characteristics, and calibration
+files were verified unchanged. The detailed findings are in
+\path{site_research_supervised.md} and
+\path{roosevelt_hotel_unit_fallback_review.md}. Estimation remains on hold.

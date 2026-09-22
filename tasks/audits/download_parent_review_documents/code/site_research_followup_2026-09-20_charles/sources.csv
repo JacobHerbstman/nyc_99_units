@@ -1,0 +1,7 @@
+file,url,retrieved,sha256,bytes
+charles_old_zd1.pdf,https://www.pincusco.com/wp-content/uploads/2025/08/ZD1A-ES945452535-2021_03_12-09_34_48.pdf,2026-09-20,0c8dbb8f1c9f9a014adc944098ce20d3b0317eccd4a81ee7a9ea67398c3971be,1065929
+charles_new_ai1_zd1_deferred.pdf,https://www.pincusco.com/property-data/ZD1_B01320823_1.pdf,2026-09-20,d8707d0c5e03f7724792bac31fa6196b11614aa95570c46d9fdd34346589b345,722345
+broadway_new_zd1.pdf,https://www.pincusco.com/property-data/ZD1_B01327363_2.pdf,2026-09-20,07454c1ac1a22a8164e9feec046aadafba85afbad670a7beaeab0df4dee378d2,694240
+dob_bis_jobs.json,https://data.cityofnewyork.us/resource/ic3t-wcy2.json?%24where=job__+in+%28%22321590541%22%2C%22320911233%22%29&%24order=job__%2Cdoc__&%24limit=100,2026-09-20,fddeb7a4d5bc031ff89cd7e8f6f0e43e4637cf41faf0d35ba4b06998a08561cc,21950
+dob_now_jobs.json,https://data.cityofnewyork.us/resource/w9ak-ipjd.json?%24where=job_filing_number+like+%22B01320823%25%22+OR+job_filing_number+like+%22B01327363%25%22&%24order=job_filing_number&%24limit=1000,2026-09-20,37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570,3
+dob_now_b013_count.json,https://data.cityofnewyork.us/resource/w9ak-ipjd.json?%24select=count%28%2A%29&%24where=job_filing_number+like+%22B013%25%22,2026-09-20,07d6217bedd668c8470e3d89a3a03b783878bfa278c3c7e1caab9a04347e2632,16

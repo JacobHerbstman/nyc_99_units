@@ -7,7 +7,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 historical_tail <- readRDS("../output/tail_pre_c99.rds")
 post_tail <- readRDS("../output/tail_post_c99.rds")
@@ -245,23 +245,23 @@ cohort_composition <- historical_tail |>
     .groups = "drop"
   )
 
-write_csv_if_changed(
+write_csv_atomic(
   weighted_historical_rows,
   "../output/tail_pre_c99_calibration_weights.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   standardization,
   "../output/calibration_standardization_c99.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   balance_diagnostics,
   "../output/calibration_balance_c99.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   weight_diagnostics,
   "../output/calibration_weight_diagnostics_c99.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   cohort_composition,
   "../output/calibration_cohort_composition_c99.csv"
 )

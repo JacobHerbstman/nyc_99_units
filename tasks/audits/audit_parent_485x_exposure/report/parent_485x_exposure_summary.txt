@@ -1,0 +1,10 @@
+Rows: 16
+Columns: 4
+Key fields: sample, exposure_status, confidence
+Saved-file MD5: 64f903c6e563b36a3ef83b8269ab34d6
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 16 | distinct | 2
+exposure_status | character | nonmissing | 16 | distinct | 4
+confidence | character | nonmissing | 16 | distinct | 3
+parents | numeric | nonmissing | 16 | distinct | 13 min/median/mean/max 1/43/419.8125/4438

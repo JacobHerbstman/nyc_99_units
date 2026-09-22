@@ -1,0 +1,12 @@
+Rows: 1
+Columns: 6
+Key fields: source_id, vintage
+Saved-file MD5: e76997801fd2e6ce0fa26fe649e9eb7d
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+source_id | character | nonmissing | 1 | distinct | 1
+vintage | character | nonmissing | 1 | distinct | 1
+raw_path | character | nonmissing | 1 | distinct | 1
+raw_parquet_path | character | nonmissing | 1 | distinct | 1
+parquet_path | character | nonmissing | 1 | distinct | 1
+status | character | nonmissing | 1 | distinct | 1

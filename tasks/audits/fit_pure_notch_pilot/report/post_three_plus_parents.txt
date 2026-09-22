@@ -1,0 +1,18 @@
+Rows: 11
+Columns: 12
+Key fields: parent_id
+Saved-file MD5: fa3b6c30b5db9adb8091d3f05c69dd27
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parent_id | character | nonmissing | 11 | distinct | 11
+borough | character | nonmissing | 11 | distinct | 3
+component_addresses | character | nonmissing | 11 | distinct | 11
+cohort_date | Date | nonmissing | 11 | distinct | 11
+parent_total_units | numeric | nonmissing | 11 | distinct | 10 min/median/mean/max 228/297/384.1818/1023
+n_components | numeric | nonmissing | 11 | distinct | 3 min/median/mean/max 3/3/3.454545/6
+sorted_component_vector | character | nonmissing | 11 | distinct | 10
+splitting_verification_status | character | nonmissing | 11 | distinct | 3
+right_window_observed | logical | nonmissing | 11 | distinct | 2
+n_constituents_at_99 | numeric | nonmissing | 11 | distinct | 5 min/median/mean/max 0/1/1.818182/5
+n_constituents_100plus | numeric | nonmissing | 11 | distinct | 2 min/median/mean/max 0/0/0.2727273/3
+all_constituents_below_100 | logical | nonmissing | 11 | distinct | 2

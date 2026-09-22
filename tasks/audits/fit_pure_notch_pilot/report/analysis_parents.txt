@@ -1,0 +1,22 @@
+Rows: 864
+Columns: 16
+Key fields: sample, parent_id
+Saved-file MD5: 04e1fb55b3c7bcdad7f203a975b1571f
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 864 | distinct | 2
+parent_id | character | nonmissing | 864 | distinct | 864
+cohort_date | Date | nonmissing | 864 | distinct | 574
+source_end_date | Date | nonmissing | 864 | distinct | 2
+parent_total_units | numeric | nonmissing | 864 | distinct | 273 min/median/mean/max 50/99/160.7998/1754
+n_components | numeric | nonmissing | 864 | distinct | 5 min/median/mean/max 1/1/1.122685/6
+sorted_component_vector | character | nonmissing | 864 | distinct | 307
+component_addresses | character | nonmissing | 864 | distinct | 863
+splitting_verification_status | character | nonmissing | 864 | distinct | 4
+right_window_observed | logical | nonmissing | 864 | distinct | 2
+lot_area_sqft | numeric | nonmissing | 864 | distinct | 712 min/median/mean/max 279/10000/24639.39/1282062
+residential_far | numeric | nonmissing | 864 | distinct | 33 min/median/mean/max 0/3.44/4.220618/10
+built_far | numeric | nonmissing | 864 | distinct | 293 min/median/mean/max 0/0.58/0.8668819/12.1
+borough | character | nonmissing | 864 | distinct | 5
+multi_lot_indicator | numeric | nonmissing | 864 | distinct | 2 min/median/mean/max 0/0/0.07638889/1
+weight | numeric | nonmissing | 864 | distinct | 547 min/median/mean/max 0.0004576334/0.002324796/0.002314815/0.005164101

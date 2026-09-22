@@ -1,0 +1,11 @@
+Rows: 3
+Columns: 5
+Key fields: reference_bbl
+Saved-file MD5: 74cd586efc78d99c6c05bf7fe28d92bb
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+reference_bbl | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 3022490000/3022490000/3022490000/3022490000
+development_area_sqft | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 2507.693/18342.52/13107.67/18472.79
+reference_recorded_area_sqft | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 2500/18805/22935/47500
+earlier_floor_sqft | numeric | nonmissing | 3 | distinct | 1 min/median/mean/max 0/0/0/0
+residential_far | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 4/4.2/4.733333/6

@@ -1,0 +1,59 @@
+Rows: 105549
+Columns: 53
+Key fields: w_geocode
+Saved-file MD5: 32f3d573780b1d9f8825c3f31d8deb41
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+w_geocode | character | nonmissing | 105549 | distinct | 105549
+C000 | numeric | nonmissing | 105549 | distinct | 1895 min/median/mean/max 1/10/73.95666/39321
+CA01 | numeric | nonmissing | 105549 | distinct | 844 min/median/mean/max 0/2/17.23214/7736
+CA02 | numeric | nonmissing | 105549 | distinct | 1335 min/median/mean/max 0/5/38.72387/22770
+CA03 | numeric | nonmissing | 105549 | distinct | 851 min/median/mean/max 0/3/18.00064/10950
+CE01 | numeric | nonmissing | 105549 | distinct | 659 min/median/mean/max 0/2/13.38626/22978
+CE02 | numeric | nonmissing | 105549 | distinct | 812 min/median/mean/max 0/3/19.30544/7947
+CE03 | numeric | nonmissing | 105549 | distinct | 1431 min/median/mean/max 0/3/41.26496/33096
+CNS01 | numeric | nonmissing | 105549 | distinct | 98 min/median/mean/max 0/0/0.2457247/335
+CNS02 | numeric | nonmissing | 105549 | distinct | 55 min/median/mean/max 0/0/0.0443017/478
+CNS03 | numeric | nonmissing | 105549 | distinct | 128 min/median/mean/max 0/0/0.3656785/5781
+CNS04 | numeric | nonmissing | 105549 | distinct | 344 min/median/mean/max 0/0/3.592152/1506
+CNS05 | numeric | nonmissing | 105549 | distinct | 499 min/median/mean/max 0/0/3.967494/3529
+CNS06 | numeric | nonmissing | 105549 | distinct | 386 min/median/mean/max 0/0/2.95459/6245
+CNS07 | numeric | nonmissing | 105549 | distinct | 589 min/median/mean/max 0/0/7.901591/4603
+CNS08 | numeric | nonmissing | 105549 | distinct | 360 min/median/mean/max 0/0/2.684327/16188
+CNS09 | numeric | nonmissing | 105549 | distinct | 387 min/median/mean/max 0/0/3.037764/25640
+CNS10 | numeric | nonmissing | 105549 | distinct | 489 min/median/mean/max 0/0/4.617846/13724
+CNS11 | numeric | nonmissing | 105549 | distinct | 274 min/median/mean/max 0/0/1.858748/1551
+CNS12 | numeric | nonmissing | 105549 | distinct | 630 min/median/mean/max 0/0/6.613004/6800
+CNS13 | numeric | nonmissing | 105549 | distinct | 303 min/median/mean/max 0/0/1.347242/4102
+CNS14 | numeric | nonmissing | 105549 | distinct | 515 min/median/mean/max 0/0/4.771395/7801
+CNS15 | numeric | nonmissing | 105549 | distinct | 386 min/median/mean/max 0/0/3.699163/30094
+CNS16 | numeric | nonmissing | 105549 | distinct | 872 min/median/mean/max 0/0/15.14997/38742
+CNS17 | numeric | nonmissing | 105549 | distinct | 253 min/median/mean/max 0/0/1.40062/4337
+CNS18 | numeric | nonmissing | 105549 | distinct | 435 min/median/mean/max 0/0/6.493316/2027
+CNS19 | numeric | nonmissing | 105549 | distinct | 297 min/median/mean/max 0/0/3.211722/2263
+CNS20 | numeric | nonmissing | 105549 | distinct | 2 min/median/mean/max 0/0/9.474273e-06/1
+CR01 | numeric | nonmissing | 105549 | distinct | 1571 min/median/mean/max 0/8/52.19783/23763
+CR02 | numeric | nonmissing | 105549 | distinct | 745 min/median/mean/max 0/0/11.53784/8631
+CR03 | numeric | nonmissing | 105549 | distinct | 105 min/median/mean/max 0/0/0.5110612/238
+CR04 | numeric | nonmissing | 105549 | distinct | 647 min/median/mean/max 0/0/8.08289/7836
+CR05 | numeric | nonmissing | 105549 | distinct | 45 min/median/mean/max 0/0/0.1194043/73
+CR07 | numeric | nonmissing | 105549 | distinct | 223 min/median/mean/max 0/0/1.507632/1047
+CT01 | numeric | nonmissing | 105549 | distinct | 1723 min/median/mean/max 0/8/61.6808/33582
+CT02 | numeric | nonmissing | 105549 | distinct | 728 min/median/mean/max 0/1/12.27585/5739
+CD01 | numeric | nonmissing | 105549 | distinct | 540 min/median/mean/max 0/1/8.149627/3407
+CD02 | numeric | nonmissing | 105549 | distinct | 703 min/median/mean/max 0/2/13.41012/6054
+CD03 | numeric | nonmissing | 105549 | distinct | 830 min/median/mean/max 0/2/16.16856/9532
+CD04 | numeric | nonmissing | 105549 | distinct | 958 min/median/mean/max 0/2/18.99621/13974
+CS01 | numeric | nonmissing | 105549 | distinct | 1262 min/median/mean/max 0/5/36.53753/18176
+CS02 | numeric | nonmissing | 105549 | distinct | 1348 min/median/mean/max 0/4/37.41912/27550
+CFA01 | numeric | nonmissing | 105549 | distinct | 239 min/median/mean/max 0/0/2.166065/1876
+CFA02 | numeric | nonmissing | 105549 | distinct | 283 min/median/mean/max 0/0/2.583284/3621
+CFA03 | numeric | nonmissing | 105549 | distinct | 377 min/median/mean/max 0/0/3.46495/4626
+CFA04 | numeric | nonmissing | 105549 | distinct | 488 min/median/mean/max 0/0/6.632171/14955
+CFA05 | numeric | nonmissing | 105549 | distinct | 1734 min/median/mean/max 0/5/59.11019/39252
+CFS01 | numeric | nonmissing | 105549 | distinct | 497 min/median/mean/max 0/5/15.16822/3154
+CFS02 | numeric | nonmissing | 105549 | distinct | 343 min/median/mean/max 0/0/6.344551/1365
+CFS03 | numeric | nonmissing | 105549 | distinct | 623 min/median/mean/max 0/0/9.76771/2183
+CFS04 | numeric | nonmissing | 105549 | distinct | 567 min/median/mean/max 0/0/4.426172/2426
+CFS05 | numeric | nonmissing | 105549 | distinct | 1546 min/median/mean/max 0/0/38.25001/39189
+createdate | numeric | nonmissing | 105549 | distinct | 1 min/median/mean/max 20240920/20240920/20240920/20240920

@@ -1,0 +1,14 @@
+Rows: 3
+Columns: 8
+Key fields: series
+Saved-file MD5: 7f2c6d879f7377ffc37b9182fdfd7a64
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+series | character | nonmissing | 3 | distinct | 3
+share | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 0.02206254/0.07741935/0.06632126/0.09948189
+share_lower | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max -0.01103661/0.0516129/0.03854415/0.07505614
+share_upper | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 0.05689065/0.1096774/0.09781771/0.1268851
+parent_equivalents | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 6.839386/24/20.55959/30.83939
+parents_lower | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max -3.421348/16/11.94869/23.2674
+parents_upper | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 17.6361/34/30.32349/39.33437
+successful_replications | numeric | nonmissing | 3 | distinct | 1 min/median/mean/max 493/493/493/493

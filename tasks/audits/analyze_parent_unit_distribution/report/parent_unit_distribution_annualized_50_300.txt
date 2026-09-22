@@ -1,0 +1,10 @@
+Rows: 1004
+Columns: 6
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: af2fe6fcbaf95f7aa9f6714e49923674
+sample_scope | character | nonmissing | 1004 | distinct | 2
+period | character | nonmissing | 1004 | distinct | 2
+unit_count | numeric | nonmissing | 1004 | distinct | 251 min/median/mean/max 50/175/175/300
+parent_count | numeric | nonmissing | 1004 | distinct | 29 min/median/mean/max 0/1/2.924303/41
+exposure_years | numeric | nonmissing | 1004 | distinct | 2 min/median/mean/max 1.516769/6.758385/6.758385/12
+parents_per_year | numeric | nonmissing | 1004 | distinct | 39 min/median/mean/max 0/0.25/0.6022344/27.03114

@@ -1,0 +1,18 @@
+Rows: 2327
+Columns: 12
+Key fields: state, county, tract
+Saved-file MD5: 72f9dafd4938d3e3bf78345f68def860
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+NAME | character | nonmissing | 2327 | distinct | 2327
+B24031_005E | numeric | nonmissing | 2327 | distinct | 1326 min/median/mean/max -666666700/29817/-269553600/250001
+B24031_005M | numeric | nonmissing | 2327 | distinct | 1369 min/median/mean/max -333333300/8969/-91122250/400586
+B24031_005EA | character | nonmissing | 950 | distinct | 3
+B24031_005MA | character | nonmissing | 950 | distinct | 2
+B24041_005E | numeric | nonmissing | 2327 | distinct | 1017 min/median/mean/max -666666700/-666666700/-362094500/250001
+B24041_005M | numeric | nonmissing | 2327 | distinct | 1054 min/median/mean/max -333333300/-222222200/-120971200/399479
+B24041_005EA | character | nonmissing | 1266 | distinct | 2
+B24041_005MA | character | nonmissing | 1266 | distinct | 2
+state | character | nonmissing | 2327 | distinct | 1
+county | character | nonmissing | 2327 | distinct | 5
+tract | character | nonmissing | 2327 | distinct | 1530

@@ -1,0 +1,59 @@
+Rows: 78699
+Columns: 53
+Key fields: w_geocode
+Saved-file MD5: 337cfccee1d4a0a6dbe799116b66a90c
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+w_geocode | character | nonmissing | 78699 | distinct | 78699
+C000 | numeric | nonmissing | 78699 | distinct | 771 min/median/mean/max 1/5/23.50726/7450
+CA01 | numeric | nonmissing | 78699 | distinct | 333 min/median/mean/max 0/1/6.134525/2363
+CA02 | numeric | nonmissing | 78699 | distinct | 510 min/median/mean/max 0/3/11.63315/4257
+CA03 | numeric | nonmissing | 78699 | distinct | 339 min/median/mean/max 0/1/5.73959/2906
+CE01 | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 0/0/0/0
+CE02 | numeric | nonmissing | 78699 | distinct | 771 min/median/mean/max 1/5/23.50726/7450
+CE03 | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 0/0/0/0
+CNS01 | numeric | nonmissing | 78699 | distinct | 56 min/median/mean/max 0/0/0.123013/230
+CNS02 | numeric | nonmissing | 78699 | distinct | 20 min/median/mean/max 0/0/0.01064817/114
+CNS03 | numeric | nonmissing | 78699 | distinct | 24 min/median/mean/max 0/0/0.01768765/211
+CNS04 | numeric | nonmissing | 78699 | distinct | 128 min/median/mean/max 0/0/1.205072/425
+CNS05 | numeric | nonmissing | 78699 | distinct | 219 min/median/mean/max 0/0/1.457795/1173
+CNS06 | numeric | nonmissing | 78699 | distinct | 153 min/median/mean/max 0/0/0.8623617/744
+CNS07 | numeric | nonmissing | 78699 | distinct | 300 min/median/mean/max 0/0/3.559905/959
+CNS08 | numeric | nonmissing | 78699 | distinct | 177 min/median/mean/max 0/0/0.8900494/3183
+CNS09 | numeric | nonmissing | 78699 | distinct | 115 min/median/mean/max 0/0/0.3777176/1862
+CNS10 | numeric | nonmissing | 78699 | distinct | 137 min/median/mean/max 0/0/0.5949631/875
+CNS11 | numeric | nonmissing | 78699 | distinct | 94 min/median/mean/max 0/0/0.5618115/331
+CNS12 | numeric | nonmissing | 78699 | distinct | 167 min/median/mean/max 0/0/1.095046/1604
+CNS13 | numeric | nonmissing | 78699 | distinct | 127 min/median/mean/max 0/0/0.3320118/769
+CNS14 | numeric | nonmissing | 78699 | distinct | 279 min/median/mean/max 0/0/1.850405/3991
+CNS15 | numeric | nonmissing | 78699 | distinct | 174 min/median/mean/max 0/0/0.8658052/3665
+CNS16 | numeric | nonmissing | 78699 | distinct | 509 min/median/mean/max 0/0/6.640326/7411
+CNS17 | numeric | nonmissing | 78699 | distinct | 84 min/median/mean/max 0/0/0.268288/1135
+CNS18 | numeric | nonmissing | 78699 | distinct | 138 min/median/mean/max 0/0/1.808574/461
+CNS19 | numeric | nonmissing | 78699 | distinct | 123 min/median/mean/max 0/0/0.985578/564
+CNS20 | numeric | nonmissing | 78699 | distinct | 5 min/median/mean/max 0/0/0.0002033063/4
+CR01 | numeric | nonmissing | 78699 | distinct | 573 min/median/mean/max 0/4/15.96713/4462
+CR02 | numeric | nonmissing | 78699 | distinct | 365 min/median/mean/max 0/0/4.745499/2611
+CR03 | numeric | nonmissing | 78699 | distinct | 52 min/median/mean/max 0/0/0.200892/141
+CR04 | numeric | nonmissing | 78699 | distinct | 226 min/median/mean/max 0/0/2.071526/6674
+CR05 | numeric | nonmissing | 78699 | distinct | 22 min/median/mean/max 0/0/0.04603616/35
+CR07 | numeric | nonmissing | 78699 | distinct | 80 min/median/mean/max 0/0/0.4761814/233
+CT01 | numeric | nonmissing | 78699 | distinct | 678 min/median/mean/max 0/4/18.73449/7197
+CT02 | numeric | nonmissing | 78699 | distinct | 333 min/median/mean/max 0/0/4.772767/3131
+CD01 | numeric | nonmissing | 78699 | distinct | 250 min/median/mean/max 0/1/3.278098/2091
+CD02 | numeric | nonmissing | 78699 | distinct | 284 min/median/mean/max 0/1/4.858168/1608
+CD03 | numeric | nonmissing | 78699 | distinct | 303 min/median/mean/max 0/1/5.135033/1643
+CD04 | numeric | nonmissing | 78699 | distinct | 274 min/median/mean/max 0/1/4.101437/2379
+CS01 | numeric | nonmissing | 78699 | distinct | 457 min/median/mean/max 0/3/10.80816/2852
+CS02 | numeric | nonmissing | 78699 | distinct | 569 min/median/mean/max 0/2/12.69911/6194
+CFA01 | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 0/0/0/0
+CFA02 | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 0/0/0/0
+CFA03 | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 0/0/0/0
+CFA04 | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 0/0/0/0
+CFA05 | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS01 | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS02 | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS03 | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS04 | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 0/0/0/0
+CFS05 | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 0/0/0/0
+createdate | numeric | nonmissing | 78699 | distinct | 1 min/median/mean/max 20230320/20230320/20230320/20230320

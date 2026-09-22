@@ -1,0 +1,65 @@
+\clearpage
+\section*{2026-09-15: A twelve-parent review finds substantial land-area discrepancies}
+\textit{Agent-drafted research entry.}
+
+Ten provisional footprint comparisons give a mean land area of 32,755.5 square
+feet, compared with 50,076.6 in production: a reduction of 17,321.1 square feet
+per parent, or 34.6\% of the original mean. Seven areas decrease and three
+increase. The mean absolute difference is 23,513.7 square feet and the median
+absolute percentage difference is 55.4\%. These magnitudes show that the
+flagged records can contain substantial measurement problems.
+
+The sample was drawn before review using seed 20260915 after sorting the 166
+flagged, composition-eligible parents by ID: nine historical and three
+post-policy parents. Eleven of the twelve have partial lot-change flags.
+Two remain unresolved, leaving eight historical and two post-policy comparisons.
+Each compared parent counts once. The small sample, stratified draw, and
+exclusion of unresolved cases preclude treating this as an estimate for all
+166 parents. The median signed percentage change is $-26.4\%$. Averaging the
+individual percentage changes instead gives $+53.6\%$, driven by two projects
+with very small initial recorded areas; this differs from the change in the mean.
+
+The comparison sums published PLUTO 25v4 lot areas for the mapped filing BBLs.
+Dated DOF maps and transaction records explain how those parcels relate to the
+earlier lots. Across the ten usable comparisons, PLUTO and the September 15
+DOF geometry agree on more than 99.99\% of their union. The resulting footprints
+are plausible candidates, not adopted measurements of land available at the
+initial filing date. Production characteristics, weights, and model fits remain
+provisional and unchanged by this review.
+
+At 11 Gerry Street, production assigns all 111,040 square feet of a predecessor
+lot; the mapped filing parcel has 18,044 square feet. At 1166 Fox Street,
+production retains an earlier 2,500-square-foot parcel, while DOF documents a
+merger and reapportionment leaving a 10,015-square-foot filing parcel. Weirfield
+similarly reuses a lot number after changing its boundaries: 3,050 square feet
+in production versus 19,341 in PLUTO 25v4. A matching identifier can therefore
+refer to different land at different dates.
+
+Sackett and Noble/Oak are omitted from the averages. Sackett's filing lot 47
+has 12,500 square feet on the September 2025 map, but the March 2026 NYSDEC
+amendment describes a site containing lots 17 and 47 together. Lot 47 merges
+into 17 in August 2026, after the July 8 endpoint. Its original project extent
+needs reconciliation. Noble's proposed lot 10 is unmapped, and lot 1 has a
+waterfront boundary discrepancy. Godwin also illustrates an attribute problem:
+allocating the earlier lot's recorded area by geometric overlap gives about
+8,075 square feet, whereas PLUTO records 12,541 for the mapped new parcel.
+The diagnostic allocation is retained separately from the comparison area.
+
+\small
+\textit{Reproduction.} Run \texttt{make dof-subset-review}. The existing
+\path{tasks/audits/audit_hdb_mappluto_condo_recovery/} task produces
+a parent comparison table, an average-change table, and a twelve-page footprint
+PDF. Its small review table records the dated
+map IDs, transaction IDs, and documentary judgments. The acquisition task
+preserves the original geometry response and checksummed download rules for
+25 dated maps and the NYSDEC amendment. The detailed findings and formulas are
+in \texttt{report/dof\_subset\_review.md}.
+\normalsize
+
+
+\textit{September 21 update.} The current rebuild includes Godwin's accepted
+companion lot 88 and uses its merged 18,441-square-foot production footprint.
+A separately dated DOF geometry response supplies lot 88; the original geometry
+snapshot and assessment bytes remain unchanged. The numerical comparison above
+records the original September 15 draw. Current output tables compare the
+same selected IDs with the updated parent definition and production areas.

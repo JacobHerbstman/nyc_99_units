@@ -1,0 +1,8 @@
+Rows: 1004
+Columns: 4
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 500a03cc3211f4dcbe2e593c25022c50
+density_period | character | nonmissing | 1004 | distinct | 4
+unit_count | numeric | nonmissing | 1004 | distinct | 251 min/median/mean/max 50/175/175/300
+parent_count | numeric | nonmissing | 1004 | distinct | 23 min/median/mean/max 0/1/2.125498/40
+density_percent | numeric | nonmissing | 1004 | distinct | 55 min/median/mean/max 0/0.2066116/0.3984064/13.15789

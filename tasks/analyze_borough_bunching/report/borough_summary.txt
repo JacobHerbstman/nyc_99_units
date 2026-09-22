@@ -1,0 +1,16 @@
+Rows: 20
+Columns: 10
+Key fields: measure, borough_name, sample
+Saved-file MD5: f8176114468d287d65b11227a94d6a84
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+measure | character | nonmissing | 20 | distinct | 2
+borough_name | character | nonmissing | 20 | distinct | 5
+sample | character | nonmissing | 20 | distinct | 2
+n_50_plus | numeric | nonmissing | 20 | distinct | 19 min/median/mean/max 3/103.5/99.75/232
+n_99 | numeric | nonmissing | 20 | distinct | 10 min/median/mean/max 0/0.5/6.8/33
+n_100_149 | numeric | nonmissing | 20 | distinct | 13 min/median/mean/max 0/8/13.6/41
+n_198 | numeric | nonmissing | 20 | distinct | 4 min/median/mean/max 0/0/0.45/5
+share_99 | numeric | nonmissing | 20 | distinct | 11 min/median/mean/max 0/0.007407407/0.06671204/0.2520325
+share_100_149 | numeric | nonmissing | 20 | distinct | 18 min/median/mean/max 0/0.1269099/0.1428517/0.6666667
+share_198 | numeric | nonmissing | 20 | distinct | 4 min/median/mean/max 0/0/0.004475969/0.04950495

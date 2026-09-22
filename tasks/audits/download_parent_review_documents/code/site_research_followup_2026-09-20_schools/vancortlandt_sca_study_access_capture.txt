@@ -1,0 +1,14 @@
+Source: New York City School Construction Authority, Proposed PS at 160 Van Cortlandt Park South, Supplemental Environmental Studies
+Document date: June 16, 2022
+Public URL: https://www.nyc.gov/assets/bronxcb8/pdf/2022/Proposed-PS_160-VCPS-BX-EAF-Supp-Report-rev-61622.pdf
+Access date: 2026-09-21
+Access method: public PDF text extraction through the web reader; direct curl returned a 497-byte access-denied response, so this file is an access note rather than the original PDF.
+
+Relevant physical pages
+
+- Physical PDF page 32 (web text index P31): the western 21,810-square-foot school project site is a paved parking area; the three former church-complex buildings are on the remainder.
+- Physical PDF page 43 (web text index P42): repeats the same project-site and remainder distinction.
+- Physical PDF page 75 (web text index P74): places the former church, parochial school, parsonage, and bell tower east of the school site on the remainder of the block.
+- Physical PDF page 89 (web text index P88): calls the school site a vacant former parking lot and places the existing buildings on the separate eastern lot intended for residential redevelopment.
+
+Boundary implication: the school carve did not contain an earlier building. The archived floor on old lots 150 and 175 belongs to the eastern residential remainder, subject to the deeds and exact-job ZD1 crosswalk documented in the case report.

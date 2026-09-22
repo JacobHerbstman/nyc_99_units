@@ -1,0 +1,27 @@
+Rows: 3080
+Columns: 21
+Key fields: sample, parent_id
+Saved-file MD5: b32b7b4783fb86a528e0336e8aefa2a0
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 3080 | distinct | 2
+parent_id | character | nonmissing | 3080 | distinct | 3080
+current_total | numeric | nonmissing | 3080 | distinct | 360 min/median/mean/max 6/24/65.89318/1452
+current_vector | character | nonmissing | 3080 | distinct | 446
+n_components | numeric | nonmissing | 3080 | distinct | 8 min/median/mean/max 1/1/1.088636/8
+dob_components | numeric | nonmissing | 3080 | distinct | 8 min/median/mean/max 0/1/0.6467532/7
+dob_complete | logical | nonmissing | 3080 | distinct | 2
+dob_total | numeric | nonmissing | 1813 | distinct | 301 min/median/mean/max 3/31/78.76558/2697
+available_dob_total | numeric | nonmissing | 3080 | distinct | 361 min/median/mean/max 3/25/68.85/2697
+available_dob_vector | character | nonmissing | 3080 | distinct | 456
+current_99x2 | logical | nonmissing | 3080 | distinct | 2
+available_dob_99x2 | logical | nonmissing | 3080 | distinct | 2
+current_99x3 | logical | nonmissing | 3080 | distinct | 2
+available_dob_99x3 | logical | nonmissing | 3080 | distinct | 2
+parent_total_units | numeric | nonmissing | 3080 | distinct | 360 min/median/mean/max 6/24/65.89318/1452
+included_ab | logical | nonmissing | 3080 | distinct | 2
+composition_eligible | logical | nonmissing | 3080 | distinct | 2
+cohort_date | Date | nonmissing | 3080 | distinct | 1200
+borough | character | nonmissing | 3059 | distinct | 5
+component_addresses | character | nonmissing | 3080 | distinct | 3005
+available_dob_change | numeric | nonmissing | 3080 | distinct | 94 min/median/mean/max -200/0/2.956818/1781

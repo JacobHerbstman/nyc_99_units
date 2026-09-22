@@ -15,7 +15,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -1094,23 +1094,23 @@ parent_condo_tenure_qc <- tibble(
   )
 )
 
-write_csv_if_changed(
+write_csv_atomic(
   parent_condo_tenure_panel,
   "../output/parent_condo_tenure_panel.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   parent_condo_counts_by_cohort_year,
   "../output/parent_condo_counts_by_cohort_year.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   parent_condo_counts_by_period,
   "../output/parent_condo_counts_by_period.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   condo_plan_parent_assignment_review,
   "../output/condo_plan_parent_assignment_review.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   parent_condo_tenure_qc,
   "../output/parent_condo_tenure_qc.csv"
 )

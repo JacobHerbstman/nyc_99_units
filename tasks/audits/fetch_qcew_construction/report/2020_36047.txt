@@ -1,0 +1,44 @@
+Rows: 2029
+Columns: 38
+Key fields: area_fips, own_code, industry_code, agglvl_code, size_code, year, qtr
+Saved-file MD5: a8ea043bf3c24f8e692db7e82aeb4a20
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+area_fips | numeric | nonmissing | 2029 | distinct | 1 min/median/mean/max 36047/36047/36047/36047
+own_code | numeric | nonmissing | 2029 | distinct | 5 min/median/mean/max 0/5/4.567767/5
+industry_code | character | nonmissing | 2029 | distinct | 1804
+agglvl_code | numeric | nonmissing | 2029 | distinct | 9 min/median/mean/max 70/77/77.0138/78
+size_code | numeric | nonmissing | 2029 | distinct | 1 min/median/mean/max 0/0/0/0
+year | numeric | nonmissing | 2029 | distinct | 1 min/median/mean/max 2020/2020/2020/2020
+qtr | character | nonmissing | 2029 | distinct | 1
+disclosure_code | character | nonmissing | 604 | distinct | 1
+annual_avg_estabs | numeric | nonmissing | 2029 | distinct | 340 min/median/mean/max 0/17/294.9823/66484
+annual_avg_emplvl | numeric | nonmissing | 2029 | distinct | 664 min/median/mean/max 0/117/3212.086/737474
+total_annual_wages | numeric | nonmissing | 2029 | distinct | 902 min/median/mean/max 0/6866807/173320700/40109950000
+taxable_annual_wages | numeric | nonmissing | 2029 | distinct | 826 min/median/mean/max 0/974943/33728840/7673522000
+annual_contributions | numeric | nonmissing | 2029 | distinct | 825 min/median/mean/max 0/20906/742584.3/168882800
+annual_avg_wkly_wage | numeric | nonmissing | 2029 | distinct | 688 min/median/mean/max 0/814/814.5628/8177
+avg_annual_pay | numeric | nonmissing | 2029 | distinct | 899 min/median/mean/max 0/42332/42357.43/425223
+lq_disclosure_code | character | nonmissing | 604 | distinct | 1
+lq_annual_avg_estabs | numeric | nonmissing | 2029 | distinct | 317 min/median/mean/max 0/0.65/1.047255/31.55
+lq_annual_avg_emplvl | numeric | nonmissing | 2029 | distinct | 282 min/median/mean/max 0/0.35/0.8383982/49.93
+lq_total_annual_wages | numeric | nonmissing | 2029 | distinct | 315 min/median/mean/max 0/0.37/1.002548/46.98
+lq_taxable_annual_wages | numeric | nonmissing | 2029 | distinct | 276 min/median/mean/max 0/0.24/0.739862/17.95
+lq_annual_contributions | numeric | nonmissing | 2029 | distinct | 279 min/median/mean/max 0/0.22/0.7418236/18.72
+lq_annual_avg_wkly_wage | numeric | nonmissing | 2029 | distinct | 171 min/median/mean/max 0/0.94/0.8120059/3.28
+lq_avg_annual_pay | numeric | nonmissing | 2029 | distinct | 169 min/median/mean/max 0/0.94/0.8121784/3.28
+oty_disclosure_code | character | nonmissing | 659 | distinct | 1
+oty_annual_avg_estabs_chg | numeric | nonmissing | 2029 | distinct | 114 min/median/mean/max -188/0/7.169049/1616
+oty_annual_avg_estabs_pct_chg | numeric | nonmissing | 2029 | distinct | 301 min/median/mean/max -100/0/6.013208/300
+oty_annual_avg_emplvl_chg | numeric | nonmissing | 2029 | distinct | 436 min/median/mean/max -57873/-2/-251.4884/3636
+oty_annual_avg_emplvl_pct_chg | numeric | nonmissing | 2029 | distinct | 467 min/median/mean/max -79.4/-1.2/-4.382997/986
+oty_total_annual_wages_chg | numeric | nonmissing | 2029 | distinct | 868 min/median/mean/max -612018200/0/-395568.1/432506200
+oty_total_annual_wages_pct_chg | numeric | nonmissing | 2029 | distinct | 521 min/median/mean/max -78.7/0/1.616757/922.5
+oty_taxable_annual_wages_chg | numeric | nonmissing | 2029 | distinct | 792 min/median/mean/max -222531700/0/-953231.1/151090800
+oty_taxable_annual_wages_pct_chg | numeric | nonmissing | 2029 | distinct | 440 min/median/mean/max -73.6/0/-1.016609/382.2
+oty_annual_contributions_chg | numeric | nonmissing | 2029 | distinct | 790 min/median/mean/max -3341802/0/33916.55/10314020
+oty_annual_contributions_pct_chg | numeric | nonmissing | 2029 | distinct | 531 min/median/mean/max -90/0/5.870626/921.9
+oty_annual_avg_wkly_wage_chg | numeric | nonmissing | 2029 | distinct | 365 min/median/mean/max -5522/23/61.31148/5590
+oty_annual_avg_wkly_wage_pct_chg | numeric | nonmissing | 2029 | distinct | 371 min/median/mean/max -68/2.6/6.419911/216.1
+oty_avg_annual_pay_chg | numeric | nonmissing | 2029 | distinct | 843 min/median/mean/max -287156/1168/3188.036/290706
+oty_avg_annual_pay_pct_chg | numeric | nonmissing | 2029 | distinct | 368 min/median/mean/max -68/2.6/6.419073/216.1

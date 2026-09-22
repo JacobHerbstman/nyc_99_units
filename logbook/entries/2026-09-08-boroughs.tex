@@ -1,0 +1,51 @@
+\clearpage
+\section*{September 8, 2026: The 99-unit spike across boroughs}
+\textit{Agent-drafted entry.}
+
+The post-period spike at 99 units appears in constituent filings in the Bronx,
+Brooklyn, Manhattan, and Queens. Aggregating those filings to linked parents
+changes the geographic pattern. The Bronx and Brooklyn retain pronounced spikes
+at a parent total of 99, while most Manhattan filings at 99 belong to larger
+parents. Staten Island has too few observations to support a useful comparison.
+The two figures below separate these margins.
+
+At Jacob's request, both comparisons use the existing A/B rental-opportunity
+sample in 2019--2022 and January 1, 2025--July 8, 2026. Each borough and period
+has its own denominator of observations with at least 50 proposed units,
+including the full upper tail. A constituent filing must itself have 50 units
+to enter its distribution; parent eligibility uses the sum of its constituent
+units. These are unweighted descriptive comparisons. Changes in the composition
+of development opportunities and incomplete post-period linkage windows remain
+relevant to their interpretation.
+
+Borough comes from the constituent filing records, which agree within every
+parent. No observations are excluded because site characteristics are missing.
+The saved geographic panel establishes a first reporting baseline: filing keys
+are unique, all parent totals reconcile to constituent sums, and the parents
+reconstructed here match the canonical parent panel exactly.
+
+The accompanying map locates exact-99 filings and distinguishes parents totaling
+99 from larger parents containing a 99-unit filing. It uses historical Housing
+Database coordinates and post-period DOB NOW coordinates. One exact-99 filing,
+20 Brook Avenue in the Bronx, lacks coordinates and is omitted from the map
+while remaining in the borough counts. Coincident locations can overlap. The
+map describes locations, not neighborhood bunching rates or causal splitting.
+
+\smallskip
+{\small Reproduction: run \texttt{make} in
+\texttt{tasks/analyze\_borough\_bunching/code/}. The three-page
+\texttt{borough\_bunching.pdf} includes both distributions and the map.
+Inputs retain the current cohort definitions, Housing Database 25Q4, and the
+existing DOB NOW extract. Borough outlines are the September 8, 2026 NYC Open
+Data extract. This entry accompanies working changes on
+\texttt{simplify\_empirical\_tasks}, based on revision \texttt{7bbf6d5}.
+The current framework is unchanged.}
+
+\clearpage
+\begin{center}
+\includegraphics[width=\textwidth,height=.92\textheight,keepaspectratio]{../tasks/analyze_borough_bunching/output/borough_filings.pdf}
+\end{center}
+\clearpage
+\begin{center}
+\includegraphics[width=\textwidth,height=.92\textheight,keepaspectratio]{../tasks/analyze_borough_bunching/output/borough_parents.pdf}
+\end{center}

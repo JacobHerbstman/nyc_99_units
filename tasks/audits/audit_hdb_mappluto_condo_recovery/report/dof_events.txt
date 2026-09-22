@@ -1,0 +1,17 @@
+Rows: 39698
+Columns: 11
+Key fields: transaction_id
+Saved-file MD5: 5d242f9dfd5bb54d949888456245fc8b
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+transaction_id | integer | nonmissing | 39698 | distinct | 39698 min/median/mean/max 103/72186.5/86315.48/688545
+change_date | Date | nonmissing | 39698 | distinct | 4465
+change_time | POSIXct/POSIXt | nonmissing | 39698 | distinct | 38730
+change_type | character | nonmissing | 39698 | distinct | 18
+authority | character | nonmissing | 39698 | distinct | 35394
+old_bbls | arrow_list/vctrs_list_of/vctrs_vctr/list | nonmissing | 39698 | distinct | 30604
+new_bbls | arrow_list/vctrs_list_of/vctrs_vctr/list | nonmissing | 39698 | distinct | 29476
+all_bbls | arrow_list/vctrs_list_of/vctrs_vctr/list | nonmissing | 39698 | distinct | 31169
+ordinary_actions | logical | nonmissing | 39698 | distinct | 2
+new_or_dropped | logical | nonmissing | 39698 | distinct | 2
+reversible | logical | nonmissing | 39698 | distinct | 2

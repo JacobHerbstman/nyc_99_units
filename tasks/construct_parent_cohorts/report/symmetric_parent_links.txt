@@ -1,0 +1,29 @@
+Rows: 1170
+Columns: 25
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 819bd76657d5062192cafcaec3e35dbc
+sample | character | nonmissing | 1170 | distinct | 2
+job_number_1 | character | nonmissing | 1170 | distinct | 809
+job_number_2 | character | nonmissing | 1170 | distinct | 803
+date_filed_1 | Date | nonmissing | 1170 | distinct | 558
+date_filed_2 | Date | nonmissing | 1170 | distinct | 565
+filing_days_apart | integer | nonmissing | 1170 | distinct | 170 min/median/mean/max 0/1/32.02051/358
+filing_bbl_1 | character | nonmissing | 1170 | distinct | 673
+filing_bbl_2 | character | nonmissing | 1170 | distinct | 665
+site_linkage_bbl_1 | character | nonmissing | 1170 | distinct | 652
+site_linkage_bbl_2 | character | nonmissing | 1170 | distinct | 641
+same_filing_bbl | logical | nonmissing | 1170 | distinct | 2
+same_site_linkage_bbl | logical | nonmissing | 1170 | distinct | 2
+strict_lot_history_link | logical | nonmissing | 1170 | distinct | 2
+later_lot_history_candidate | logical | nonmissing | 1170 | distinct | 2
+explicit_job_reference | logical | nonmissing | 1170 | distinct | 2
+same_project_code | logical | nonmissing | 1170 | distinct | 2
+same_owner_support | logical | nonmissing | 1170 | distinct | 2
+exact_polygon_touch | logical | nonmissing | 1170 | distinct | 2
+corroborated_exact_adjacency | logical | nonmissing | 1170 | distinct | 2
+reviewed_accept | logical | nonmissing | 1170 | distinct | 2
+reviewed_reject | logical | nonmissing | 1170 | distinct | 1
+review_basis | character | nonmissing | 19 | distinct | 16
+review_source | character | nonmissing | 19 | distinct | 15
+enhanced_link | logical | nonmissing | 1170 | distinct | 1
+link_reason | character | nonmissing | 1170 | distinct | 21

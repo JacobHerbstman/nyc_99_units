@@ -10,17 +10,16 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-
-if (length(args) != 3L) {
-  stop("Expected three arguments: nearby meters, review meters, and maximum filing days.")
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 3L)
+  nearby_meters <- as.numeric(args[1])
+  review_meters <- as.numeric(args[2])
+  max_filing_days <- as.integer(args[3])
 }
-
-nearby_meters <- as.numeric(args[1])
-review_meters <- as.numeric(args[2])
-max_filing_days <- as.integer(args[3])
 
 if (
   any(is.na(c(nearby_meters, review_meters, max_filing_days))) ||
@@ -32,10 +31,7 @@ if (
 }
 
 filings <- read_parquet("../output/historical_parent_filing_link_fields.parquet") |>
-  as.data.frame() |>
-  as_tibble() |>
   arrange(date_filed, job_number)
-
 
 if (nrow(filings) == 0L || anyDuplicated(filings$job_number)) {
   stop("Historical parent-link filing fields failed identifier QC.")
@@ -258,10 +254,6 @@ if (
   stop("Historical candidate-pair construction failed QC.")
 }
 
-
-write_parquet_if_changed(
-  candidate_pairs,
-  "../output/historical_parent_candidate_pairs.parquet"
-)
+SaveData(candidate_pairs, NULL, "../output/historical_parent_candidate_pairs.parquet")
 
 cat("Wrote historical parent candidate pairs to ../output\n")

@@ -1,0 +1,16 @@
+Rows: 357
+Columns: 10
+Key fields: parent_id, vintage, bbl
+Saved-file MD5: 76e91b875009d426473b3caae0885e26
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parent_id | character | nonmissing | 357 | distinct | 152
+vintage | character | nonmissing | 357 | distinct | 17
+bbl | character | nonmissing | 357 | distinct | 329
+old_geometry_sqft | numeric | nonmissing | 357 | distinct | 344 min/median/mean/max 23.21656/10716.27/39725.93/1235772
+old_recorded_sqft | numeric | nonmissing | 357 | distinct | 282 min/median/mean/max 21/10709/43055.27/1227637
+overlap_sqft | numeric | nonmissing | 357 | distinct | 347 min/median/mean/max 20.12211/7177.303/20756.17/641256.4
+later_geometry_sqft | numeric | nonmissing | 357 | distinct | 151 min/median/mean/max 2045.673/26522.42/59417.23/641256.5
+old_share | numeric | nonmissing | 357 | distinct | 347 min/median/mean/max 0.004324968/0.9999969/0.7900507/1
+site_share | numeric | nonmissing | 357 | distinct | 347 min/median/mean/max 0.0003687713/0.3286954/0.4477882/1
+material | logical | nonmissing | 357 | distinct | 2

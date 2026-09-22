@@ -1,0 +1,16 @@
+Rows: 2
+Columns: 10
+Key fields: universe
+Saved-file MD5: d22f12de2cd1fdbaa4ee4827eb8de683
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+universe | character | nonmissing | 2 | distinct | 2
+filings | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 659/1503.5/1503.5/2348
+parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 595/1384/1384/2173
+matched_active | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 627/1373.5/1373.5/2120
+matched_inactive_inclusive | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 659/1503.5/1503.5/2348
+changed_filings | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 0/0/0/0
+changed_parents | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 0/0/0/0
+current_exact99_filings | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 2/2/2/2
+exact99_in_both | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 2/2/2/2
+changed_to99 | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 0/0/0/0

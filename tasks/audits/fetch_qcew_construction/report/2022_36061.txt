@@ -1,0 +1,44 @@
+Rows: 1985
+Columns: 38
+Key fields: area_fips, own_code, industry_code, agglvl_code, size_code, year, qtr
+Saved-file MD5: 4c047a7cf61b9bf03e2b1e0cfbf64ae5
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+area_fips | numeric | nonmissing | 1985 | distinct | 1 min/median/mean/max 36061/36061/36061/36061
+own_code | numeric | nonmissing | 1985 | distinct | 5 min/median/mean/max 0/5/4.507809/5
+industry_code | character | nonmissing | 1985 | distinct | 1726
+agglvl_code | numeric | nonmissing | 1985 | distinct | 9 min/median/mean/max 70/77/76.9733/78
+size_code | numeric | nonmissing | 1985 | distinct | 1 min/median/mean/max 0/0/0/0
+year | numeric | nonmissing | 1985 | distinct | 1 min/median/mean/max 2022/2022/2022/2022
+qtr | character | nonmissing | 1985 | distinct | 1
+disclosure_code | character | nonmissing | 601 | distinct | 1
+annual_avg_estabs | numeric | nonmissing | 1985 | distinct | 405 min/median/mean/max 0/20/581.0322/128131
+annual_avg_emplvl | numeric | nonmissing | 1985 | distinct | 747 min/median/mean/max 0/284/10484.77/2366149
+total_annual_wages | numeric | nonmissing | 1985 | distinct | 861 min/median/mean/max 0/26563510/1653602000/370315500000
+taxable_annual_wages | numeric | nonmissing | 1985 | distinct | 780 min/median/mean/max 0/1451442/140678700/3.1158e+10
+annual_contributions | numeric | nonmissing | 1985 | distinct | 780 min/median/mean/max 0/43192/4043457/895552700
+annual_avg_wkly_wage | numeric | nonmissing | 1985 | distinct | 777 min/median/mean/max 0/1439/1613.261/12637
+avg_annual_pay | numeric | nonmissing | 1985 | distinct | 859 min/median/mean/max 0/74825/83889.18/657122
+lq_disclosure_code | character | nonmissing | 601 | distinct | 1
+lq_annual_avg_estabs | numeric | nonmissing | 1985 | distinct | 315 min/median/mean/max 0/0.46/1.008801/29.97
+lq_annual_avg_emplvl | numeric | nonmissing | 1985 | distinct | 331 min/median/mean/max 0/0.25/1.130212/26.78
+lq_total_annual_wages | numeric | nonmissing | 1985 | distinct | 273 min/median/mean/max 0/0.16/0.7609169/11.94
+lq_taxable_annual_wages | numeric | nonmissing | 1985 | distinct | 301 min/median/mean/max 0/0.07/0.9662368/26.17
+lq_annual_contributions | numeric | nonmissing | 1985 | distinct | 304 min/median/mean/max 0/0.08/0.8717733/16.24
+lq_annual_avg_wkly_wage | numeric | nonmissing | 1985 | distinct | 129 min/median/mean/max 0/0.54/0.4855516/3.19
+lq_avg_annual_pay | numeric | nonmissing | 1985 | distinct | 128 min/median/mean/max 0/0.54/0.4855668/3.19
+oty_disclosure_code | character | nonmissing | 799 | distinct | 1
+oty_annual_avg_estabs_chg | numeric | nonmissing | 1985 | distinct | 182 min/median/mean/max -848/0/39.49622/3467
+oty_annual_avg_estabs_pct_chg | numeric | nonmissing | 1985 | distinct | 243 min/median/mean/max -100/0/12.0197/200
+oty_annual_avg_emplvl_chg | numeric | nonmissing | 1985 | distinct | 447 min/median/mean/max -32387/0/691.9788/168287
+oty_annual_avg_emplvl_pct_chg | numeric | nonmissing | 1985 | distinct | 401 min/median/mean/max -81/0/5.537028/513.6
+oty_total_annual_wages_chg | numeric | nonmissing | 1985 | distinct | 748 min/median/mean/max -9209136000/0/86264650/20494610000
+oty_total_annual_wages_pct_chg | numeric | nonmissing | 1985 | distinct | 443 min/median/mean/max -87.9/0/8.849874/643.6
+oty_taxable_annual_wages_chg | numeric | nonmissing | 1985 | distinct | 669 min/median/mean/max -510631000/0/10236130/2443084000
+oty_taxable_annual_wages_pct_chg | numeric | nonmissing | 1985 | distinct | 403 min/median/mean/max -87.7/0/6.528413/767.7
+oty_annual_contributions_chg | numeric | nonmissing | 1985 | distinct | 669 min/median/mean/max -165267200/0/-680581.2/15323080
+oty_annual_contributions_pct_chg | numeric | nonmissing | 1985 | distinct | 393 min/median/mean/max -95.1/0/-5.10932/755.4
+oty_annual_avg_wkly_wage_chg | numeric | nonmissing | 1985 | distinct | 428 min/median/mean/max -5711/0/52.04181/3559
+oty_annual_avg_wkly_wage_pct_chg | numeric | nonmissing | 1985 | distinct | 318 min/median/mean/max -72.1/0/3.208413/262.8
+oty_avg_annual_pay_chg | numeric | nonmissing | 1985 | distinct | 737 min/median/mean/max -296968/0/2706.082/185113
+oty_avg_annual_pay_pct_chg | numeric | nonmissing | 1985 | distinct | 321 min/median/mean/max -72.1/0/3.208615/262.9

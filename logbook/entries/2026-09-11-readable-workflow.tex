@@ -1,0 +1,52 @@
+\clearpage
+\section*{September 11, 2026: Readable task builds and correct parcel weights}
+\textit{Agent-drafted research entry.}
+
+The root Makefile now runs tasks in dependency order, and short task Makefiles
+build outputs from explicit input files. Fixed source filenames appear at the
+R read calls. Data producers write their standard reports directly. The manual
+parent decisions and source vintages are unchanged.
+
+The review also found a mistake in the parent site characteristics. The intended
+calculation weights each lot's floor-area ratio (FAR) by its land area. The old
+code replaced individual lot areas with their sum before calculating the
+weights, effectively giving each lot equal weight. For example, lots of 100 and
+300 square feet with FARs of 1 and 3 received a parent FAR of 2 instead of 2.5.
+The corrected code calculates all three weighted FARs before totaling land area.
+Its results exactly match the original script with only that mistake corrected.
+
+This correction changes previously observed FAR values for 49 parents:
+21 in 2019--2022 and 28 in January 2025--July 8, 2026. One additional historical
+parent, \texttt{B00678516} (3 West Street and 7/30 Wharf Drive), now retains FAR
+from its observed lots. Its total lot area remains missing, its incomplete-feature
+flag is unchanged, and it remains outside the adopted A/B sample. Thus 50
+parents have changed FAR fields overall; 47 belong to the adopted A/B sample.
+Capacity and redevelopment-slack measures change where the underlying FAR
+changes. No dwelling-unit count or parent link changes.
+
+The rebuilt data retain 2,733 parents and 2,916 constituent filings. All
+constituent fields and both membership/link tables match the baseline exactly.
+The 13 main figures match pixel for pixel. Three standard reports reflect
+the FAR correction; the two borough reports now use the common report format,
+with their underlying data unchanged. The main task Makefiles have fallen from
+2,767 to 879 lines, and 11 separate report-dispatch scripts have been removed.
+
+The refreshed reweighting comparison still contains 560 historical and 309
+post-period parents. The 99-unit excess moves from 10.605 to 10.608 percentage
+points; the 198-unit excess is unchanged. As before, 492 of 499 bootstrap
+calibrations succeed. Eighteen data audits pass. The older condo-tenure audit
+still stops at its documented Attorney General search-coverage check and does
+not feed the main pipeline.
+
+Root \texttt{make} succeeds, and unchanged dry and actual builds do no analysis
+work. HPD and parcel copies pass recovery checks after deleting data or reports;
+a three-task fixture confirms that source changes reach the final output.
+The ACS acquisition rule now follows the query script, so unrelated execution
+settings do not request new Census data. All three saved responses retain their
+recorded fingerprints.
+
+\textit{Reproduction note.} The comparison starts from commit
+\texttt{5428fd8} on \texttt{simplify\_empirical\_tasks}. Use root
+\texttt{make data} for the data and root \texttt{make} for the data, bunching
+plots, and borough maps. The runtime is GNU Make 3.81. All 60 parcel ZIP
+archives retain their recorded SHA-256 values under the publisher's filenames.

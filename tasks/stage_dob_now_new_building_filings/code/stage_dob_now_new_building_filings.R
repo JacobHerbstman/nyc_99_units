@@ -7,7 +7,8 @@ suppressPackageStartupMessages({
   library(stringr)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
 file_manifest <- read_csv(
   "../input/dob_now_new_building_filing_files.csv",
@@ -15,25 +16,16 @@ file_manifest <- read_csv(
   na = c("", "NA")
 )
 
-if (
-  nrow(file_manifest) != 2L ||
-    !setequal(
-      file_manifest$file_role,
-      c("initial_new_building_filings_2016_2026", "new_building_amendments_2024_2026")
-    ) ||
-    any(!file.exists(file_manifest$raw_path))
-) {
-  stop("Expected available initial-filing and amendment DOB NOW extracts.")
-}
+stopifnot(nrow(file_manifest) == 2L,
+          setequal(file_manifest$file_role,
+                   c("initial_new_building_filings_2016_2026", "new_building_amendments_2024_2026")))
 
-raw_filings <- bind_rows(lapply(file_manifest$raw_path, function(path) {
-  read_csv(
-    path,
-    show_col_types = FALSE,
-    col_types = cols(.default = col_character()),
-    na = c("", "NA")
-  )
-}))
+raw_filings <- bind_rows(
+  read_csv("../input/dob_now_new_building_initial_filings_2016_2026.csv",
+           col_types = cols(.default = col_character())),
+  read_csv("../input/dob_now_new_building_amendments_2024_2026.csv",
+           col_types = cols(.default = col_character()))
+)
 
 required_columns <- c(
   "job_filing_number", "filing_status", "house_no", "street_name",
@@ -68,8 +60,19 @@ staged_filings <- raw_filings |>
     borough_name = standardize_borough_name(borough),
     block = suppressWarnings(as.integer(block)),
     lot = suppressWarnings(as.integer(lot)),
-    bbl_reported = normalize_bbl_field(bbl),
-    bbl_built = build_bbl(borough, block, lot),
+    filing_bbl = build_bbl(borough, block, lot),
+    reported_bbl = normalize_bbl_field(bbl),
+    bbl_field_relation = case_when(
+      is.na(filing_bbl) & is.na(reported_bbl) ~ "both_missing",
+      is.na(filing_bbl) ~ "filing_bbl_missing",
+      is.na(reported_bbl) ~ "reported_bbl_missing",
+      filing_bbl == reported_bbl ~ "agree",
+      str_sub(filing_bbl, 1L, 1L) != str_sub(reported_bbl, 1L, 1L) ~
+        "borough_differs",
+      str_sub(filing_bbl, 2L, 6L) != str_sub(reported_bbl, 2L, 6L) ~
+        "block_differs",
+      TRUE ~ "lot_differs"
+    ),
     bin = str_squish(bin),
     house_number = str_squish(house_no),
     street_name = str_squish(street_name),
@@ -102,15 +105,6 @@ staged_filings <- raw_filings |>
     owner_type = str_squish(owner_type),
     job_description = str_squish(job_description)
   ) |>
-  mutate(
-    bbl = coalesce(bbl_reported, bbl_built),
-    bbl_source = case_when(
-      !is.na(bbl_reported) ~ "reported_bbl",
-      !is.na(bbl_built) ~ "built_from_borough_block_lot",
-      TRUE ~ "missing_bbl"
-    )
-  ) |>
-  select(-bbl_reported, -bbl_built) |>
   arrange(filing_date, job_filing_number)
 
 initial_filings <- staged_filings |>
@@ -124,13 +118,15 @@ if (nrow(duplicate_initial_job_numbers) > 0L) {
   stop("DOB NOW initial job_number is not unique.")
 }
 
-write_parquet_if_changed(
+SaveData(
   staged_filings,
+  c("source_pull_date", "source_row_number"),
   "../output/dob_now_new_building_filings.parquet"
 )
 
-write_parquet_if_changed(
+SaveData(
   initial_filings,
+  c("job_filing_number"),
   "../output/dob_now_new_building_initial_filings.parquet"
 )
 

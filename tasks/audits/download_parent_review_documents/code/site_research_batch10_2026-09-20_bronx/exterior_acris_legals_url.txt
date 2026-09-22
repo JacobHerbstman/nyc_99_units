@@ -1,0 +1,1 @@
+https://data.cityofnewyork.us/resource/8h5j-fqxa.json?%24where=borough%3D%272%27+and+block%3D%272349%27+and+lot+in+%28%2738%27%2C%2746%27%2C%2747%27%2C%27100%27%29&%24limit=5000

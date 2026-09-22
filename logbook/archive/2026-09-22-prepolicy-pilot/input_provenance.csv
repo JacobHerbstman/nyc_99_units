@@ -1,0 +1,5 @@
+file,md5,rows
+parent_opportunity_panel.parquet,777b259d26123c4318664eb0b7f9c20f,2718
+constituent_filing_panel.parquet,2e921231af62a105e8df5bd386635092,2909
+calibration_weights.csv,4e248a4179e8d45467b2046d686b5302,554
+calibration_summary.csv,833eef37feda6b0dc6781b8c130965f8,1

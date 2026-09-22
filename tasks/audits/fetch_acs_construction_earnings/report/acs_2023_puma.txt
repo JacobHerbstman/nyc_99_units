@@ -1,0 +1,17 @@
+Rows: 144
+Columns: 11
+Key fields: state, public use microdata area
+Saved-file MD5: 306774045c687f210eeaf751dca125a1
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+NAME | character | nonmissing | 144 | distinct | 144
+B24031_005E | numeric | nonmissing | 144 | distinct | 142 min/median/mean/max 32268/54089.5/59641.19/135369
+B24031_005M | numeric | nonmissing | 144 | distinct | 143 min/median/mean/max 1144/7490.5/10210.83/82729
+B24031_005EA | character | nonmissing | 0 | distinct | 0
+B24031_005MA | character | nonmissing | 0 | distinct | 0
+B24041_005E | numeric | nonmissing | 144 | distinct | 143 min/median/mean/max 40121/61601/67876.13/158399
+B24041_005M | numeric | nonmissing | 144 | distinct | 144 min/median/mean/max 1180/7958/11039.05/140484
+B24041_005EA | character | nonmissing | 0 | distinct | 0
+B24041_005MA | character | nonmissing | 0 | distinct | 0
+state | character | nonmissing | 144 | distinct | 1
+public use microdata area | character | nonmissing | 144 | distinct | 144

@@ -1,0 +1,63 @@
+\clearpage
+\section*{2026-09-15: DOF records provide a better starting point for parcel history}
+\textit{Agent-drafted research entry.}
+
+DOF publishes transaction-level tax-map histories that can recover predecessor
+parcel sets directly. Jacob requested a feasibility review before implementing
+spatial reconstruction. Public tables identify transaction dates, New/Dropped/
+Affected lots, condominium changes, and supporting deed or survey references.
+The source should lead the footprint audit, with map comparisons checking land
+coverage and resolving partial sites. This is a recommendation; production
+characteristics and estimation weights have not been corrected.
+
+The September 15 capture contains 60 header rows for five development blocks,
+representing 25 transactions. Retrieving their complete details returns 71
+lot-action rows across six blocks. Transaction metadata are identical within
+each repeated header group and are joined many-to-one to lot actions. Two
+seven-row pages reproduce the corresponding rows of the full ordered query;
+all five detail-table counts agree with the service. The citywide header count
+is 78,189 rows, with dates from May 20, 2008 to September 14, 2026. Retrieval
+needs no login or API key. A full extraction and coverage audit remain to be done.
+
+Wyckoff's May 7, 2025 transaction explicitly retains lot 19, drops 42/51,
+and creates 20/21/57. It recovers the three old parcels without a spatial
+matching threshold. Third Avenue's December 18, 2025 transaction retains
+27/31/35 and drops both 30 and \textbf{135}. The historical tax-map inset
+shows lot 135 as a narrow Third Avenue frontage strip; 2023 PLUTO records
+108 square feet. The documented five-parcel set sums to \textbf{22,247 square
+feet}, versus 19,555 in production. This corrects the September 14 audit's
+four-parcel total of 22,139. Only the audit source table and parcel-review
+outputs have been updated. Unit counts and parent membership are unchanged.
+
+Jamaica's 2024 condominium creation and 2025 termination identify all six
+base lots: 30/65/85/89/94/130. The separate application tracker records a
+March 23, 2026 request involving those six plus 98/99 and requesting seven
+lots; its status is Returned. These records support the associated parcel
+list but do not establish the exact land used by the six residential proposals.
+The full associated area of 111,540 square feet must not automatically replace
+the current feature. Sullivan's 2021 merger into lot 28 appears in DOF, but
+its proposed four-lot split does not appear in the retrieved records.
+Bruckner's retrieved current map likewise retains the older 1/34/38 layout.
+
+An Affected lot participated in a tax-map edit; that label alone does not
+identify a development's land. Transactions can cover several properties,
+and condominium sites can include retained uses. The action tables contain
+no historical polygons or complete allocation of each old parcel to each
+new one. Proposed subdivisions may also be absent from completed changes.
+DOF dates, tracker completion dates, PLUTO APPDates, filing dates, and
+developer decision dates are distinct. The recommended next step is to trace
+DOF histories for all estimation parents, check reconstructed site coverage
+against dated maps, and review the remaining ambiguous footprints.
+
+\small
+\textit{Sources and reproduction.} The acquisition audit retains 50 source
+responses with exact URLs and SHA-256 hashes in
+\path{tasks/audits/download_parent_review_documents/code/dof_history_2026-09-15/}.
+The \href{https://services6.arcgis.com/yG5s3afENB5iO9fj/ArcGIS/rest/services/DTM_ETL_DAILY_view/FeatureServer}{public DOF service}
+and \href{https://nycdof.maps.arcgis.com/apps/dashboards/4c90c216b3064767805833ff147a7e2a}{application tracker}
+are the primary sources. The audit's \texttt{review\_dof\_history.R} produces
+\texttt{dof\_lot\_changes.csv} and \texttt{dof\_applications.csv} with SaveData
+reports; the detailed assessment is
+\path{tasks/audits/audit_hdb_mappluto_condo_recovery/report/dof_history_feasibility.md}.
+Existing pilot results remain provisional. No model estimation was run.
+\normalsize

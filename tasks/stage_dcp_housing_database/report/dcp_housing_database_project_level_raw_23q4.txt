@@ -1,0 +1,73 @@
+Rows: 100107
+Columns: 67
+Key fields: job_number
+Saved-file MD5: 75e2b986518e203b9638c7b25bbd362d
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+source_id | character | nonmissing | 100107 | distinct | 1
+vintage | character | nonmissing | 100107 | distinct | 1
+source_raw_path | character | nonmissing | 100107 | distinct | 1
+job_number | character | nonmissing | 100107 | distinct | 100107
+job_type | character | nonmissing | 100107 | distinct | 3
+residflag | character | nonmissing | 100107 | distinct | 1
+nonresflag | character | nonmissing | 16704 | distinct | 1
+job_status | character | nonmissing | 100107 | distinct | 6
+compltyear | character | nonmissing | 60023 | distinct | 15
+permityear | character | nonmissing | 76733 | distinct | 26
+classainit | character | nonmissing | 99379 | distinct | 504
+classaprop | character | nonmissing | 100078 | distinct | 602
+classanet | character | nonmissing | 99350 | distinct | 579
+hotelinit | character | nonmissing | 36762 | distinct | 162
+hotelprop | character | nonmissing | 18023 | distinct | 345
+otherbinit | character | nonmissing | 36865 | distinct | 127
+otherbprop | character | nonmissing | 17914 | distinct | 143
+units_co | character | nonmissing | 49855 | distinct | 541
+boro | character | nonmissing | 100107 | distinct | 5
+bin | character | nonmissing | 100107 | distinct | 81418
+bbl | character | nonmissing | 100107 | distinct | 77083
+addressnum | character | nonmissing | 100107 | distinct | 16725
+addressst | character | nonmissing | 100107 | distinct | 5848
+occ_init | character | nonmissing | 93129 | distinct | 41
+occ_prop | character | nonmissing | 89192 | distinct | 41
+bldg_class | character | nonmissing | 99298 | distinct | 169
+job_desc | character | nonmissing | 64907 | distinct | 54403
+datefiled | character | nonmissing | 100107 | distinct | 6224
+datepermit | character | nonmissing | 76752 | distinct | 5838
+datelstupd | character | nonmissing | 100107 | distinct | 4112
+datecomplt | character | nonmissing | 60023 | distinct | 3593
+zoningdst1 | character | nonmissing | 89192 | distinct | 172
+zoningdst2 | character | nonmissing | 4881 | distinct | 146
+zoningdst3 | character | nonmissing | 166 | distinct | 56
+specldst1 | character | nonmissing | 12836 | distinct | 157
+specldst2 | character | nonmissing | 5599 | distinct | 80
+landmark | character | nonmissing | 5745 | distinct | 1
+floorsinit | character | nonmissing | 61839 | distinct | 71
+floorsprop | character | nonmissing | 82934 | distinct | 79
+enlargemnt | character | nonmissing | 8432 | distinct | 3
+ownership | character | nonmissing | 100105 | distinct | 26
+cenblock20 | character | nonmissing | 100063 | distinct | 21485
+centract20 | character | nonmissing | 100063 | distinct | 2209
+bctcb2020 | character | nonmissing | 100063 | distinct | 21485
+bct2020 | character | nonmissing | 100063 | distinct | 2209
+nta2020 | character | nonmissing | 100063 | distinct | 211
+ntaname20 | character | nonmissing | 100063 | distinct | 211
+cdta2020 | character | nonmissing | 100063 | distinct | 61
+cdtaname20 | character | nonmissing | 100063 | distinct | 61
+commntydst | character | nonmissing | 100063 | distinct | 61
+councildst | character | nonmissing | 100063 | distinct | 51
+schsubdist | character | nonmissing | 100023 | distinct | 96
+schcommnty | character | nonmissing | 100063 | distinct | 32
+schelmntry | character | nonmissing | 100059 | distinct | 731
+schmiddle | character | nonmissing | 100058 | distinct | 293
+firecmpany | character | nonmissing | 100063 | distinct | 348
+firebattln | character | nonmissing | 100063 | distinct | 54
+firedivsn | character | nonmissing | 100063 | distinct | 14
+policepcnt | character | nonmissing | 100063 | distinct | 103
+pl_firm07 | character | nonmissing | 7583 | distinct | 1
+pl_pfirm15 | character | nonmissing | 10554 | distinct | 1
+latitude | character | nonmissing | 100063 | distinct | 81359
+longitude | character | nonmissing | 100063 | distinct | 81363
+geomsource | character | nonmissing | 100063 | distinct | 6
+dcpedited | character | nonmissing | 10875 | distinct | 872
+version | character | nonmissing | 100107 | distinct | 1
+historical_active | logical | nonmissing | 100107 | distinct | 2

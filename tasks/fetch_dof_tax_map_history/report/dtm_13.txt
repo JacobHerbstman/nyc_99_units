@@ -1,0 +1,15 @@
+Rows: 10168
+Columns: 9
+Key fields: OBJECTID
+Saved-file MD5: 86930129da864f97ddc523f739eae49a
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+OBJECTID | integer | nonmissing | 10168 | distinct | 10168 min/median/mean/max 1/5084.5/5084.5/10168
+Borough | character | nonmissing | 10168 | distinct | 5
+Borough_Name | character | nonmissing | 10168 | distinct | 5
+Block | character | nonmissing | 10168 | distinct | 3153
+Lot | character | nonmissing | 10168 | distinct | 347
+BBL | character | nonmissing | 10168 | distinct | 7769
+Condo_Action | character | nonmissing | 10168 | distinct | 9
+Condo_Number | character | nonmissing | 10168 | distinct | 5578
+TRANS_NUM | integer | nonmissing | 10168 | distinct | 10009 min/median/mean/max 110/72097.5/92381.33/686545

@@ -1,0 +1,65 @@
+\clearpage
+\section*{2026-09-16: Document review supports Sullivan's full earlier parcel}
+\textit{Agent-drafted research entry.}
+
+The first documentary batch reviews the eleven post-policy parents with an
+exact-99 constituent and unresolved land in the full-sample screen. Together
+these parents contain 23 constituent filings, twenty exact-99 constituents,
+and 2,207 units. Three GPT-5.6 Sol agents researched bounded groups, with
+supervisory source inspection and review before accepting a finding.
+
+Sullivan/Empire's four 99-unit filings are supported by the complete earlier
+38,118-square-foot parcel. The supervisor inspected and saved the five-page
+ACRIS zoning declaration, document 2026030900544002, dated March 2, 2026 and
+recorded March 9. Page 3 explicitly partitions old Brooklyn block 1306 lot
+28 into tentative lots 20, 25, 28, and 30 and names all four constituent
+addresses. Page 5 gives the same external boundary. The diagram contains no
+fifth remainder. Its approximate dimensional area is 38,119 square feet,
+consistent with the recorded 38,118 after rounding; the administrative area
+remains the adopted measure. The former lot was assembled in 2021, before
+the 2023 reference map. Missing completed successor polygons therefore leave
+a source-coverage gap that the recorded diagram resolves.
+
+A small manual source table records this complete-parcel crosswalk. The audit
+checks it against the saved reference parcel identifiers and recorded area,
+while retaining independent filing and shared-land flags. This reduces the
+unresolved audit count from 160 to 159 of 877 parents: 119 historical and
+forty post-policy. Ten of the eleven exact-99 parents remain unresolved.
+Sullivan's production land value already equals 38,118; this finding changes
+its audit classification, not its production area or its units.
+
+The review also identifies a possible missed economic-parent link. The
+99-unit filing at 3008 Godwin Terrace and the 65-unit filing at 220 Kimberly
+Place are separate parents in the current panel. Both were filed March 31,
+2025 with the same owner and architect, and both point to old lot 78 in the
+parcel history. The link rule does not accept their shared APPBBL history
+because its recorded change is after filing; neither job supplies an explicit
+cross-reference or common project code. A May 2025 recorded agreement's
+inspected opening pages distinguish developer lot 78 from neighboring owner
+lot 99 within a shared zoning lot. This supports further investigation but
+does not yet establish the allocation among the two buildings, retained land,
+and other uses. The proposed 164-unit parent is not adopted.
+
+The 165th Street residential-unit contract names lots 65 and 85 and parts
+of lots 30 and 89, without dimensions; the eight-parcel assemblage remains
+unallocated. Beach 30th's filed City Planning plan describes a
+63,346.60-square-foot zoning lot for two buildings that also includes parcels
+with other live filings and omits the third parent building. These documents
+clarify why the earlier economic-parent boundary remains unresolved. Later
+polygon areas were retained as comparison evidence. Two initial agent proposals to resolve
+land from those measurements were rejected. A Broadway zoning drawing was
+available only through a search-index extract; its scan could not be retrieved
+and its claimed contents were not treated as verified evidence. HDB Class A
+unit counts retain priority over differently defined DOB totals. All parents
+remain in the production panels, with membership, dates, units, land values,
+and weights unchanged.
+
+\textit{Reproduction.} Working changes based on \texttt{a665b53}; run
+\texttt{make dof-site-review}. The existing audit reads
+\path{parent_site_document_review.csv}. The source scan, manual inspection
+notes, and frozen public API extracts are preserved under
+\path{tasks/audits/download_parent_review_documents/code/} in the dated
+\texttt{site\_research} folders. The supervisor's report,
+\path{site_research_supervised.md}, separates the accepted finding from agent
+proposals and unverified leads. A legal zoning lot does not by itself define
+the economic parent or the wage-assessment unit.

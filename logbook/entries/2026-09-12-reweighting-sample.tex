@@ -1,0 +1,296 @@
+\clearpage
+\section*{September 12, 2026: Which parents enter the reweighting sample?}
+\textit{Agent-drafted research entry.}
+
+The current reweighting sample excludes nine rental parents solely because
+multiple additive filings share a building identification number (BIN): two
+historical parents and seven post-period parents. These parents have complete
+lot coverage. The calibration summary labels all exclusions as incomplete
+features, so that label does not describe the full selection rule.
+
+Among the adopted rental parents with at least 50 units, the canonical panel
+contains 562 historical parents from 2019--2022 and 333 post-period parents from
+January 2025--July 8, 2026. The composition-eligibility rule leaves 560 and 309,
+respectively. The historical exclusions are the two repeated-BIN cases. The
+post-period exclusions comprise seven repeated-BIN cases and 17 parents with
+incomplete lot coverage. Lot coverage requires a matched parcel with positive
+area for every source filing in the parent; this includes source filings whose
+units are not additive.
+
+The repeated-BIN exclusions include three post-period parents recorded as
+$99+99$: 229 Shepherd Avenue/240 Highland Place, 2433 Atlantic Avenue/28 Havens
+Place, and 937/951 East 108 Street. They also include the $99+99+99+99$ parent at
+54/62 Sullivan Place and 73/99 Empire Boulevard. This rule therefore affects
+the organizational outcomes central to the joint model. A shared BIN warrants
+checking what the identifier represents and whether the retained filings
+duplicate a building. Its role in sample selection remains a research question.
+
+Recomputing the calibration from the current canonical panel reproduces the
+saved weights to floating-point precision (maximum absolute difference
+$2.22\times10^{-16}$). The weights sum to 309. This verifies the saved
+calculation for the selected sample; adopting it for estimation also requires
+resolving the sample restrictions and the timing of the matched site features.
+
+\textit{Reproduction note.} Code revision \texttt{6d308e9}. Read the canonical
+parent panel from \texttt{build\_estimation\_panels} and both site-characteristic
+panels from \texttt{build\_parent\_site\_characteristics}. Select
+\texttt{included\_ab} parents with \texttt{parent\_total\_units >= 50}; compare
+\texttt{composition\_eligible}, \texttt{feature\_complete}, and
+\texttt{duplicate\_bin\_rows}. The weighting routine is
+\texttt{calibrate\_historical\_to\_target} in the shared scale/shape helper.
+
+\clearpage
+\subsection*{Follow-up: DOB identifiers distinguish eight of the nine parents}
+
+Eight of the nine repeated-BIN exclusions have distinct DOB identifiers for
+every additive filing. The repetition occurs in the Housing Database
+identifiers used by the eligibility check. The saved July 2026 DOB records
+also agree with the panel's unit counts for all nine parents. The evidence
+supports a consistent DOB-first rule for building identity, with Housing
+Database fallback. Dwelling units retain their administrative source priority.
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\hline
+Parent & Units & Filings & DOB BINs \\
+\hline
+1832/1864 Fulton Street & 297 & 2 & 2 \\
+20 South Street/915 Erskine Street & 273 & 2 & 2 \\
+229 Shepherd Avenue/240 Highland Place & 198 & 2 & 2 \\
+2433 Atlantic Avenue/28 Havens Place & 198 & 2 & 2 \\
+937/951 East 108 Street & 198 & 2 & 2 \\
+Sullivan Place/Empire Boulevard & 396 & 4 & 4 \\
+2095/2097 Anthony Avenue & 132 & 2 & 2 \\
+Walton Avenue/East Burnside Avenue & 255 & 3 & 3 \\
+Bond Street/395 Carroll Street & 873 & 5 & 4 \\
+\hline
+\end{tabular}
+\end{center}
+
+For Shepherd/Highland, HDB reports BIN 3256546 for both filings; DOB reports
+3430170 and 3430169. Both filings propose 99 units and share Empire Management
+and DJLU Architect. The East 108th Street companion explicitly names the
+first filing and states that both have the same owner, applicant and zoning
+lot. Atlantic/Havens has two approved filings with distinct BINs and common
+ownership and architect; \href{https://commercialobserver.com/2025/07/developer-apartment-buildings-bed-stuy/}{July 2025 reporting}
+also describes two separate 99-unit buildings. Sullivan/Empire has four distinct
+DOB BINs, common ownership and one architect.
+
+Bond Street needs a separate filing-role review. Applications
+\texttt{B00646753} (164 units, withdrawn) and \texttt{B00650865} (179 units,
+permitted) share DOB BIN 3429849 at 323 Bond Street. They share a named
+individual owner and architect but have different owner-company labels.
+The withdrawal is recorded in May 2026, after the other application was filed
+in February 2022. These records fail the automatic refiling rule's same-company
+and post-withdrawal timing conditions. The 873-unit parent total remains
+unresolved for weighting.
+
+The initial in-memory comparison admitted one historical and seven post-period
+parents to the 50-plus sample, giving 561 and 316 parents. Across the full
+six-plus rental panel, it also admitted one 13-unit historical parent and
+flagged two post-period parents of 12 and 15 units. These findings motivated
+the adopted rule and checks recorded below. The detailed parent casebook
+inherits composition eligibility; its coverage is narrower than all linked
+parents.
+
+\textit{Reproduction note.} At revision \texttt{a665b53}, join retained parent
+membership to the DOB initial filings and HDB--parcel panel by root job number.
+Compare their BIN fields within parents using additive filings. The proposed
+eligibility calculation replaces HDB BIN with DOB BIN where observed and keeps
+the existing lot-coverage requirements.
+
+\clearpage
+\subsection*{Adopted rule: DOB building identifiers with HDB fallback}
+
+Jacob approved a common code rule and retaining the Bond Street exclusion from
+reweighting. The site-characteristics producer now joins DOB initial filings
+by root job number and uses each observed DOB BIN, with HDB fallback when it is
+missing. A parent passes the building-identity check when its additive filings
+have no repeated nonmissing BIN. All source filings must also have matched
+parcels with positive area. There is no address-specific inclusion override.
+
+The reweighting sample contains 561 historical and 316 post-period rental
+parents with at least 50 units. Eight parents enter under this rule, listed on
+the previous page. Bond remains excluded through its repeated DOB BIN. The
+remaining 17 post-period exclusions lack complete parcel coverage.
+
+The three smaller changes agree with the same administrative check. At
+893/895 Lenox Road, the seven- and six-unit filings have distinct DOB BINs
+3100952 and 3429374 despite sharing an HDB BIN. The parent becomes eligible.
+At 479 Washington Avenue, six- and nine-unit filings share DOB BIN 3425798;
+at 135-41 38 Avenue, two six-unit filings share DOB BIN 4112296. Each latter
+pair contains a withdrawn and an active application and becomes ineligible.
+Their filing roles remain subject to the established refiling rule; this
+change only flags them. All three are below the reweighting cutoff.
+
+The calibrated weights sum to 316 within numerical tolerance. They range from
+0.101 to 3.617, with effective sample size 408.56 and maximum absolute error
+$8.36\times10^{-9}$ in the matched totals. The 499-draw bootstrap, seed 48599,
+produces 489 successful calibrations and records 10 failures. Its intervals
+use successful draws. The weighting formula and bootstrap procedure are
+unchanged. The calibration summary now calls exclusions composition-ineligible,
+covering both repeated identifiers and missing parcel features.
+
+The refreshed casebook contains 74 eligible multi-constituent parents and
+records the administrative evidence for all eight entrants. Its spatial
+screen adds seven nearby parent--filing pairs, including 2055 Ryer Avenue
+near the Anthony Avenue parent with the same recorded owner. These seven
+remain marked as not individually adjudicated. The identifier correction
+does not establish that every parent boundary is complete.
+
+\textit{Verification and reproduction.} This change follows revision
+\texttt{a665b53}. Root \texttt{make} rebuilt the site characteristics,
+canonical panels, plots and maps; the reweighting and parent-review audits
+were then rebuilt from those inputs. Comparing the complete saved panels with
+the previous files finds only BIN counts and eligibility flags changed in
+site characteristics, and only 11 eligibility flags changed in the parent
+panel. All 2,733 parent rows retain their other fields; the 2,916-row
+constituent panel is identical. An independent join to DOB and HDB reproduces
+every saved BIN count. The main figure data and the rendered main plots are
+unchanged. The reweighted figures, meeting packet, framework values and
+reports use the updated sample.
+
+\clearpage
+\section*{September 14, 2026: Weighting before a first structural fit}
+\textit{Agent-drafted research entry.}
+
+The saved calibration is numerically suitable for an exploratory fit: it
+matches the specified moments, has positive weights, and has an effective
+sample size of 408.56 out of 561 historical parents. The largest historical
+parent contributes 1.14 percent of total weight. These checks establish how
+the weighting behaves; they do not establish that historical projects recover
+the post-period distribution absent the modeled escalation.
+
+The multi-lot moment materially affects the historical organization
+distribution. As a sensitivity, we recalibrated the same 561 historical
+parents to the same 316 post-period parents on log lot area, residential FAR,
+built FAR and borough, omitting only the multi-lot indicator. The saved
+baseline weights and production outputs were kept fixed.
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\hline
+Comparison & Mean units & Exactly 99 & Multiple constituents \\
+\hline
+Historical, saved weights & 157.65 & 1.94\% & 10.53\% \\
+Historical, omit multi-lot moment & 150.60 & 1.34\% & 3.46\% \\
+Observed post period & 138.63 & 12.34\% & 16.14\% \\
+\hline
+\end{tabular}
+\end{center}
+
+The 99-unit concentration is large relative to either historical comparison.
+The increase in multiple-constituent development is much more sensitive to
+the weighting specification. Parcel attributes can predate policy while the
+parent boundary used to aggregate them reflects a later assembly decision.
+Codex recommends using the saved weights for the initial pilot and comparing
+estimates under this alternative before interpreting organization costs.
+This is a sensitivity recommendation, not an adopted change in the benchmark.
+
+The original \path{CODEX_FIRST_PASS.md} remains in Jacob's Downloads folder.
+It specifies a coarse search over the normalized threshold jump, marginal
+cost increment and organizational-cost scale, initially fixing curvature at
+one. Its input locations need to point to the current canonical panels and
+saved calibration task. The plan treats independently assessed constituents
+under a single 100-unit threshold as a provisional mechanical scenario,
+includes joint-assessment sensitivity, and uses joint size--organization
+cells. No structural estimation was performed in this assessment.
+
+\textit{Reproduction note.} Starting from revision \texttt{a665b53} and the
+September 12 working-tree BIN correction, read the canonical parent panel,
+select \texttt{included\_ab}, at least 50 units, and composition eligibility.
+The comparison calls the shared \texttt{calibrate\_historical\_to\_target}
+routine with formula
+\texttt{\string~ log\_lot\_area\_z + residential\_far\_z + built\_far\_z + borough},
+and with \texttt{multi\_lot\_indicator} added for the initial specification.
+Compute historical means and shares using each specification's positive
+weights and post-period means and shares with equal parent weights.
+
+\clearpage
+\subsection*{Follow-up: treating lot assembly as a potential policy response}
+
+Jacob raised the concern that multi-lot status is likely affected by the
+policy and should not be assumed away. The baseline now calibrates historical
+parents on log lot area, residential FAR, built FAR and borough. Lot counts
+and constituent configurations remain in the data as observed characteristics
+of development choices. The eligible sample remains 561 historical and 316
+post-period parents; Bond Street remains ineligible.
+
+Matching multi-lot status had given historical parents the post-period
+multi-lot share of 9.49 percent. The revised weights yield 2.28 percent.
+Although multi-lot status and multiple constituent buildings are different
+variables, their relationship materially affects the comparison: the weighted
+historical share with multiple constituents falls from 10.53 to 3.46 percent,
+against 16.14 percent observed post-policy. The historical exact-99 share
+falls from 1.94 to 1.34 percent, against 12.34 percent observed. These are
+changes in the constructed comparison, not identified policy effects.
+
+The remaining site measures also depend on parent boundaries. Inspection of
+the producer confirms that land area sums distinct matched lots, while
+residential and built FAR are weighted averages over those same lots using
+their land areas. Historical parcel attributes come from filing-specific
+lagged vintages; post-period attributes come from 23v3.1. The underlying
+parcel attributes therefore predate the filing, but which lots enter the
+parent aggregate can reflect a later assembly choice. This remaining
+assumption needs review before treating the weighted comparison as a settled
+causal benchmark. The framework and figure descriptions now name the archival
+parcel measures and explain the boundary issue.
+
+The revised calibration has positive weights ranging from 0.138 to 1.672,
+effective sample size 495.74, and maximum absolute matched-total error
+$9.45\times10^{-10}$. Weights sum to 316 within numerical tolerance. The
+499-replication bootstrap has 489 successful calibrations and 10 recorded
+failures. The parent and constituent panels are unchanged. Reweighted
+distributions, bootstrap intervals, meeting figures, framework values, and
+the dependent placebo and historical-window diagnostics were rebuilt. No
+structural estimation has begun.
+
+\textit{Reproduction note.} The shared calibration formula in
+\path{tasks/shared/code/scale_shape_helpers.R} defines the four retained
+characteristics. Run root \texttt{make framework-writeup}, then the
+counterfactual audit's \path{../output/exploratory_q_theta.csv} target from its
+\texttt{code/} directory. Compare saved weights against a direct recalibration
+and verify that the canonical panel fingerprints remain unchanged. The
+source snapshots, eligibility rules, parent membership, and unit counts are
+fixed throughout this comparison.
+
+\clearpage
+\subsection*{Given parent sites and annual shares of multiple constituents}
+
+Jacob specified that the parent site's land footprint is taken as given:
+the developer chooses units and organization within that footprint. The
+counterfactual uses historical organization patterns, including parents that
+ordinarily have several constituents. This adopts a fixed-site assumption
+for the initial model. The framework and audit documentation now state it
+explicitly. Weighting continues to match log lot area, residential FAR,
+built FAR and borough; multiple-lot status remains an observed characteristic
+outside the calibration formula.
+
+The annual descriptive series counts each eligible rental parent with at
+least 50 units once, by the year of its original first filing. It uses
+unweighted shares. The multiple-constituent share is 4.0, 4.4, 3.9 and 4.1
+percent in 2019--2022; 20.4 percent in 2025; and 9.6 percent in 2026 through
+July 8. These correspond to 5/125, 5/114, 6/153, 7/169, 39/191 and 12/125
+parents. The separate multiple-tax-lot series counts distinct archival
+parcels matched to each parent. It describes parcel configuration, not the
+date of a legal subdivision event.
+
+The comparison sample omits 2023--2024, displayed as a gap. Recent parents
+have less time for companion filings to appear: only 81 of the 191 parents
+in 2025 and none of the 125 parents in 2026 have a full right-side linkage
+window. The observed decline from 2025 to 2026 therefore requires caution;
+this annual series does not hold follow-up duration constant.
+
+\begin{center}
+\includegraphics[width=\textwidth]{../tasks/audits/audit_scale_shape_splitting/output/pdf/annual_split_shares.pdf}
+\end{center}
+
+\textit{Reproduction note.} The audit's \path{plot_annual_split_shares.R}
+reads the canonical parent panel and selects \texttt{included\_ab}, at least
+50 units, and \texttt{composition\_eligible}. It saves annual numerators,
+denominators, shares and follow-up counts with a standard data report, and
+produces PDF and PNG versions of the figure. The task Makefile tracks the
+three actual outputs. No main dataset, sample definition or calibration
+formula changed for this plot.

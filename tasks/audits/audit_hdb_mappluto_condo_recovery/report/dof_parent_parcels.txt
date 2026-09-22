@@ -1,0 +1,12 @@
+Rows: 1818
+Columns: 6
+Key fields: parent_id, vintage, bbl
+Saved-file MD5: d0374682d209fb762d4db3949e9accf7
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parent_id | character | nonmissing | 1818 | distinct | 933
+vintage | character | nonmissing | 1818 | distinct | 18
+bbl | character | nonmissing | 1818 | distinct | 1778
+lotarea | numeric | nonmissing | 1735 | distinct | 1121 min/median/mean/max 108/5000/14860.46/821806
+residfar | numeric | nonmissing | 1735 | distinct | 22 min/median/mean/max 0/3.44/4.359441/10
+builtfar | numeric | nonmissing | 1735 | distinct | 312 min/median/mean/max 0/0.5/0.8478098/21.38

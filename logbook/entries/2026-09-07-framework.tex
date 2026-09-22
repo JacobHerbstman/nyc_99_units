@@ -1,0 +1,82 @@
+\section*{September 7, 2026: Joint choices of size and organization}
+{\small Drafted by Codex from the supplied framework and inspected repository.}
+
+Jacob requested that the supplied September framework replace the earlier
+notch-and-kink note. The new framework distinguishes a reduction in an economic
+parent's proposed units from a change in how those units are divided across
+constituents. It allows ordinary historical multi-constituent development and
+mixed configurations in which only some constituents face the modeled burden.
+The relevant legal mapping remains a maintained assumption to check against
+administrative evidence.
+
+The proposed counterfactual retains historical size and organization jointly,
+using site characteristics to reweight the recent historical population. Its
+primary quantity is the difference in proposed parent units conditional on
+filing. The framework does not identify entry effects, completed housing, or
+welfare. The excess at 99 alone no longer identifies a unique source frontier
+once organization is a choice.
+
+The current code constructs parent cohorts, constituent vectors, exposure
+classifications, predetermined site characteristics, and descriptive and
+reweighted distributions. It does not yet estimate the joint model. The
+supplied framework's implementation sequence is a proposal for subsequent work;
+this replacement changes no sample, linkage decision, or estimator. Comparable
+follow-up windows, feasible legal partitions, and the treatment of parents with
+more than two constituents remain issues for that implementation.
+
+The replacement source is preserved verbatim. Its opening empirical diagnostics
+describe an earlier figure-guide snapshot; they differ from the calibration,
+local-moment, and splitting-verification outputs inspected in the current
+working tree. Those diagnostics were not refreshed during this document
+replacement. The current empirical outputs should be used when reporting the
+latest descriptive results.
+
+{\small\textit{Reproduction note.}
+The supplied source was
+\texttt{nyc\_size\_and\_splitting\_framework.tex}, accompanied by its PDF.
+The canonical source is now \texttt{framework\_writeup.tex} at the repository
+root; \texttt{make framework-writeup} compiles its PDF using its inline
+bibliography. This entry records the working tree on branch
+\texttt{simplify\_empirical\_tasks}, based on commit \texttt{7bbf6d5}, including
+pre-existing uncommitted empirical changes. The source horizon for recent
+filings is July 8, 2026. The document build is checked separately from the
+empirical pipeline, which was read but not rerun for this replacement.}
+
+\clearpage
+\section*{September 7, 2026: Revision around the housing-supply question}
+{\small Drafted by Codex after Jacob requested a clearer framework.}
+
+The revised note leads with the distinction between fewer proposed apartments
+and a different division of the same apartments across constituents. It moves
+from that question to the historical comparison, the developer's joint choice,
+and the interpretation of costs. Data construction, partition formulas, and
+numerical checks now sit in the appendices.
+
+Jacob asked to remove the optional historical model. The revision retains
+observed historical size and organization directly and removes the historical
+propensity regression and its logistic probability formulas. It preserves
+heterogeneous ordinary organization costs. Their conditional magnitude
+distribution remains a structural specification to choose; the historical
+choice restricts preferences but cannot identify their strength. The note
+states this limitation without adding a replacement parametric model.
+
+The empirical table and sample counts now read the same generated values as
+the current figure guide. This supersedes the earlier imported diagnostics.
+The update changes the reported sample size, local differences, and
+splitting-verification counts to match the saved outputs; it changes no
+underlying analytical result. The framework distinguishes the complete-site
+sample used for reweighting from the broader sample of observed 198-unit
+parents, and explains the potential selection at the 50-unit sample boundary.
+
+Table 1 now displays the weighted historical and observed post-period shares
+alongside each difference and confidence interval. The table note states the
+subtraction direction and explains that differences use unrounded shares.
+Independent recalculation from parent records reproduced the point estimates
+and calibration weights; the saved bootstrap draws reproduced the intervals.
+
+{\small\textit{Reproduction note.}
+Run \texttt{make framework-writeup} at the repository root. The build checks
+\path{build_figure_guide_values.R} and its upstream task dependencies,
+then compiles the framework. Run \texttt{make} in \texttt{logbook/} for this
+entry. Source definitions, empirical estimators, and linkage decisions are unchanged.
+The value-export script now also supplies the shares shown in Table 1.}

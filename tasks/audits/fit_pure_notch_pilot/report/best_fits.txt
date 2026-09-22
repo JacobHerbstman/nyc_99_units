@@ -1,0 +1,29 @@
+Rows: 5
+Columns: 23
+Key fields: specification
+Saved-file MD5: 7a8da682ca3c18c1a74c5e9031b52c9e
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+specification | character | nonmissing | 5 | distinct | 5
+assessment | character | nonmissing | 5 | distinct | 2
+lambda | numeric | nonmissing | 5 | distinct | 3 min/median/mean/max 0.5/1/1.1/2
+J_cap | numeric | nonmissing | 5 | distinct | 2 min/median/mean/max 6/6/6.2/7
+fit_id | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 366/819/834/1217
+kappa | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 0.025/0.1/0.122/0.3
+tau | numeric | nonmissing | 5 | distinct | 1 min/median/mean/max 0/0/0/0
+sigma_org | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 0.0025/1/1.4705/5
+original_grid | logical | nonmissing | 5 | distinct | 2
+objective | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 0.006328979/0.006765404/0.007514071/0.01096768
+mean_units | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 149.5394/149.904/149.898/150.1726
+share_99 | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 0.110777/0.1243641/0.123381/0.1403361
+share_198 | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 0/0.001158172/0.001108482/0.001864707
+share_multi | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 0.04087366/0.1643649/0.1340503/0.1735663
+counterfactual_units | numeric | nonmissing | 5 | distinct | 1 min/median/mean/max 46927.93/46927.93/46927.93/46927.93
+observed_units | numeric | nonmissing | 5 | distinct | 1 min/median/mean/max 42341/42341/42341/42341
+predicted_units | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 46357.21/46470.25/46468.38/46553.51
+fixed_organization_units | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 46340.35/46408.22/46404.41/46473.33
+direct_difference | numeric | nonmissing | 5 | distinct | 1 min/median/mean/max 4586.932/4586.932/4586.932/4586.932
+model_difference | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 374.4215/457.6826/459.5507/570.724
+units_from_reorganization | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 0/80.17859/63.97088/92.42671
+rank | numeric | nonmissing | 5 | distinct | 1 min/median/mean/max 1/1/1/1
+objective_gap | numeric | nonmissing | 5 | distinct | 1 min/median/mean/max 0/0/0/0

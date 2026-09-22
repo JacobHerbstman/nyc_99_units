@@ -7,7 +7,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 tail_cutoff <- 99L
 exact_count_max <- 149L
@@ -343,19 +343,19 @@ cumulative_plot <- ggplot(
     text = element_text(color = "black")
   )
 
-write_csv_if_changed(
+write_csv_atomic(
   exact_counts,
   "../output/counterfactual_exact_counts_c99.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   counterfactual_summary,
   "../output/counterfactual_summary_c99.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   cumulative_diagnostics,
   "../output/counterfactual_cumulative_diagnostics_c99.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   frontier_summary,
   "../output/counterfactual_structural_frontier_c99.csv"
 )

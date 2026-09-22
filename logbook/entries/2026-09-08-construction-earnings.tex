@@ -1,0 +1,60 @@
+\clearpage
+\section*{September 8, 2026: Can ACS earnings explain geographic bunching?}
+\textit{Agent-drafted feasibility audit.}
+
+Construction-industry earnings are lower among Bronx and Brooklyn residents
+than among Manhattan residents in the pre-policy ACS. The difference remains
+when the sample is restricted to full-time, year-round workers. This fits the
+hypothesis that a common construction wage floor could impose a larger cost
+increase where baseline compensation was lower. It does not establish that
+labor on a Bronx or Brooklyn construction site actually cost less.
+
+The distinction matters because the ACS measures residents' annual earnings,
+including net self-employment earnings, across all occupations in construction.
+Workers can commute to other boroughs, and annual earnings also reflect hours,
+weeks, and occupation. Even the full-time, year-round table is not a measure of
+hourly pay. The relevant economic variable would be the gap between baseline
+job-site compensation and the applicable wage requirement. At the 100-unit
+threshold the construction floor is citywide; the higher requirements for
+150-plus-unit sites also depend on designated zones.
+
+The audit downloaded the 2019--2023 five-year ACS estimates and their margins
+of error for every NYC tract returned by the API and for the five counties.
+This window precedes 485-x's enactment, although it includes the pandemic and
+extends beyond the project's 2019--2022 filing comparison. The figure uses
+directly published county medians, not averages of tract medians. Tract
+estimates are often unavailable, especially in Manhattan, and many available
+estimates have large margins of error. The saved data preserve these limitations
+and distinguish unavailable values from medians reported only above or below
+a bound. No annual median is converted into an observed hourly wage.
+
+The geographic bunching result also needs careful wording. Manhattan has a
+large spike at 99 in individual filings; it has a much smaller spike in linked
+parent totals. A proposed wage mechanism may therefore need to explain project
+organization as well as unit choice. Assigning a residential-tract earnings
+median to a nearby development would not identify that mechanism.
+
+My recommendation is to retain the ACS results as a descriptive comparison
+and investigate employer-location construction payroll using QCEW before
+interpreting a tract-level earnings gradient. Public ACS/IPUMS microdata allow
+more detailed worker restrictions but identify PUMAs rather than tracts.
+Neither alternative has been downloaded or adopted as the project's wage
+measure.
+
+{\small Reproduction: run \texttt{make} in
+\texttt{tasks/audits/audit\_acs\_construction\_wages/code/}.
+The sibling acquisition task owns the Census responses. Tables B24031 and
+B24041 report annual earnings in 2023 dollars. The feasibility report contains
+coverage counts and the full numerical comparison; standard reports establish
+the first saved-data baseline. All cleaned estimates and annotations were
+independently reconciled to the responses. The existing home
+\texttt{.Renviron} supplies the Census key without storing it in the project;
+the separate IPUMS key was not used. Working revision: \texttt{7bbf6d5} plus
+this audit. The main analysis and framework are unchanged.}
+
+\clearpage
+\begin{center}
+\includegraphics[width=\textwidth]{../tasks/audits/audit_acs_construction_wages/output/construction_earnings.pdf}
+\vspace{12pt}
+\includegraphics[width=\textwidth]{../tasks/audits/audit_acs_construction_wages/output/tract_precision.pdf}
+\end{center}

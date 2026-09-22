@@ -1,0 +1,16 @@
+Rows: 93570
+Columns: 10
+Key fields: OBJECTID
+Saved-file MD5: d23a5a9f5370f2d97e11d3556afea0ec
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+OBJECTID | integer | nonmissing | 93570 | distinct | 93570 min/median/mean/max 1/46785.5/46785.5/93570
+ID | character | nonmissing | 93570 | distinct | 93566
+BLOCK | integer | nonmissing | 93570 | distinct | 14069 min/median/mean/max 1/3955/4824.342/16350
+SECTION_ | integer | nonmissing | 93570 | distinct | 64 min/median/mean/max 0/15/18.63553/63
+VOLUME | integer | nonmissing | 93570 | distinct | 13 min/median/mean/max 0/3/3.280442/12
+EFFECTIVE_DATE | character | nonmissing | 93570 | distinct | 4505
+END_DATE | character | nonmissing | 93570 | distinct | 4463
+CURRENT_FLAG | character | nonmissing | 93567 | distinct | 4
+BOROUGH | character | nonmissing | 93570 | distinct | 5
+PDF | character | nonmissing | 93570 | distinct | 93566

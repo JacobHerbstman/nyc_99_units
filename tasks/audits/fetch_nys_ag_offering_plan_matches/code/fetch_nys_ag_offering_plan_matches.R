@@ -12,7 +12,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -323,7 +323,7 @@ if (
   stop("Attorney General outputs failed identifier QC.")
 }
 
-write_csv_if_changed(
+write_csv_atomic(
   search_audit,
   paste0(
     "../output/nys_ag_offering_plan_search_audit_batch_",
@@ -331,7 +331,7 @@ write_csv_if_changed(
     ".csv"
   )
 )
-write_csv_if_changed(
+write_csv_atomic(
   plan_matches,
   paste0(
     "../output/nys_ag_offering_plan_matches_batch_",

@@ -1,0 +1,13 @@
+Rows: 119
+Columns: 7
+Key fields: bbl, fiscal_year_end
+Saved-file MD5: 67a8c30f68a50733a71be182616d6ddf
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+bbl | numeric | nonmissing | 119 | distinct | 32 min/median/mean/max 2029740000/3004260000/2683323000/4099990000
+fiscal_year_end | numeric | nonmissing | 119 | distinct | 5 min/median/mean/max 2023/2025/2024.95/2027
+extract_date | Date | nonmissing | 119 | distinct | 5
+area_sqft | numeric | nonmissing | 119 | distinct | 40 min/median/mean/max 900/20000/35183.61/299214
+frontage_ft | numeric | nonmissing | 119 | distinct | 33 min/median/mean/max 0/161.04/164.0147/564.87
+depth_ft | numeric | nonmissing | 119 | distinct | 22 min/median/mean/max 0/116.58/175.4589/789.25
+irregular | character | nonmissing | 115 | distinct | 2

@@ -1,0 +1,14 @@
+Rows: 2
+Columns: 8
+Key fields: case
+Saved-file MD5: 9ede519949a29e23b68197d3e43b83d6
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+case | character | nonmissing | 2 | distinct | 2
+ground | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 39349.5/72365.75/72365.75/105382
+candidate_floor | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 40342.49/133200.7/133200.7/226059
+mezzanine_low_floor | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 39678.62/132537.6/132537.6/225396.6
+mezzanine_high_floor | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 40735.68/133728.5/133728.5/226721.4
+no_cellar_floor | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 185255.7/185255.7/185255.7/185255.7
+plant_included_share | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.4791651/0.4791651/0.4791651/0.4791651
+plant_traced_ground | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 11766.9/11766.9/11766.9/11766.9

@@ -1,0 +1,44 @@
+Rows: 1921
+Columns: 38
+Key fields: area_fips, own_code, industry_code, agglvl_code, size_code, year, qtr
+Saved-file MD5: 0c3a9af9c69252a8baaf1e278266b4f9
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+area_fips | numeric | nonmissing | 1921 | distinct | 1 min/median/mean/max 36081/36081/36081/36081
+own_code | numeric | nonmissing | 1921 | distinct | 5 min/median/mean/max 0/5/4.661114/5
+industry_code | character | nonmissing | 1921 | distinct | 1758
+agglvl_code | numeric | nonmissing | 1921 | distinct | 9 min/median/mean/max 70/77/77.0026/78
+size_code | numeric | nonmissing | 1921 | distinct | 1 min/median/mean/max 0/0/0/0
+year | numeric | nonmissing | 1921 | distinct | 1 min/median/mean/max 2020/2020/2020/2020
+qtr | character | nonmissing | 1921 | distinct | 1
+disclosure_code | character | nonmissing | 582 | distinct | 1
+annual_avg_estabs | numeric | nonmissing | 1921 | distinct | 326 min/median/mean/max 0/17/253.7116/54137
+annual_avg_emplvl | numeric | nonmissing | 1921 | distinct | 659 min/median/mean/max 0/134/2789.847/637548
+total_annual_wages | numeric | nonmissing | 1921 | distinct | 852 min/median/mean/max 0/7276544/167067900/39019930000
+taxable_annual_wages | numeric | nonmissing | 1921 | distinct | 794 min/median/mean/max 0/990276/30671170/6725895000
+annual_contributions | numeric | nonmissing | 1921 | distinct | 793 min/median/mean/max 0/22482/696466.4/151979700
+annual_avg_wkly_wage | numeric | nonmissing | 1921 | distinct | 669 min/median/mean/max 0/833/832.9089/7049
+avg_annual_pay | numeric | nonmissing | 1921 | distinct | 850 min/median/mean/max 0/43304/43310.35/366561
+lq_disclosure_code | character | nonmissing | 582 | distinct | 1
+lq_annual_avg_estabs | numeric | nonmissing | 1921 | distinct | 303 min/median/mean/max 0/0.64/1.02849/14.36
+lq_annual_avg_emplvl | numeric | nonmissing | 1921 | distinct | 286 min/median/mean/max 0/0.36/0.9221812/32.42
+lq_total_annual_wages | numeric | nonmissing | 1921 | distinct | 301 min/median/mean/max 0/0.34/1.064211/49.86
+lq_taxable_annual_wages | numeric | nonmissing | 1921 | distinct | 271 min/median/mean/max 0/0.27/0.7192816/22.99
+lq_annual_contributions | numeric | nonmissing | 1921 | distinct | 271 min/median/mean/max 0/0.25/0.717595/21.33
+lq_annual_avg_wkly_wage | numeric | nonmissing | 1921 | distinct | 165 min/median/mean/max 0/0.85/0.7298126/4.55
+lq_avg_annual_pay | numeric | nonmissing | 1921 | distinct | 165 min/median/mean/max 0/0.85/0.7299479/4.55
+oty_disclosure_code | character | nonmissing | 639 | distinct | 1
+oty_annual_avg_estabs_chg | numeric | nonmissing | 1921 | distinct | 94 min/median/mean/max -216/0/1.595523/344
+oty_annual_avg_estabs_pct_chg | numeric | nonmissing | 1921 | distinct | 260 min/median/mean/max -100/0/3.365695/200
+oty_annual_avg_emplvl_chg | numeric | nonmissing | 1921 | distinct | 422 min/median/mean/max -81108/-8/-367.2166/1024
+oty_annual_avg_emplvl_pct_chg | numeric | nonmissing | 1921 | distinct | 449 min/median/mean/max -82.7/-4/-8.294482/1186.7
+oty_total_annual_wages_chg | numeric | nonmissing | 1921 | distinct | 821 min/median/mean/max -2578219000/0/-10510600/324631000
+oty_total_annual_wages_pct_chg | numeric | nonmissing | 1921 | distinct | 475 min/median/mean/max -84.6/0/-3.922124/1351.8
+oty_taxable_annual_wages_chg | numeric | nonmissing | 1921 | distinct | 764 min/median/mean/max -525237000/0/-2375874/24657670
+oty_taxable_annual_wages_pct_chg | numeric | nonmissing | 1921 | distinct | 419 min/median/mean/max -73.2/0/-4.503384/190.9
+oty_annual_contributions_chg | numeric | nonmissing | 1921 | distinct | 761 min/median/mean/max -4454355/0/-20478.09/4565055
+oty_annual_contributions_pct_chg | numeric | nonmissing | 1921 | distinct | 495 min/median/mean/max -91.9/0/0.03014055/297.3
+oty_annual_avg_wkly_wage_chg | numeric | nonmissing | 1921 | distinct | 355 min/median/mean/max -1032/8/45.38105/2826
+oty_annual_avg_wkly_wage_pct_chg | numeric | nonmissing | 1921 | distinct | 338 min/median/mean/max -49.6/0.7/5.005778/335.3
+oty_avg_annual_pay_chg | numeric | nonmissing | 1921 | distinct | 798 min/median/mean/max -53653/405/2358.386/146969
+oty_avg_annual_pay_pct_chg | numeric | nonmissing | 1921 | distinct | 342 min/median/mean/max -49.6/0.7/5.003904/335.3

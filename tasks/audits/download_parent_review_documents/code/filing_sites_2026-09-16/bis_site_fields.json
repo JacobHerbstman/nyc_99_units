@@ -1,0 +1,172 @@
+[
+  {
+    "job_number": "420666210",
+    "premises": "1018 BEACH 20 STREET QUEENS",
+    "zoning_lots": "00008 00010 00058",
+    "zoning_area_sqft": 15888,
+    "original_lots": "00008 00010 00058",
+    "tentative_lots": "00008 00058",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=420666210",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "321387478",
+    "premises": "805 ATLANTIC AVENUE BROOKLYN",
+    "zoning_lots": "00001 00059 00005 00007 00008 00010 00051",
+    "zoning_area_sqft": 58415,
+    "original_lots": "00001 00059",
+    "tentative_lots": "00001 00059",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=321387478",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "420665952",
+    "premises": "46-10 70 STREET QUEENS",
+    "zoning_lots": "00008 00009 00021 00041 00044 00050",
+    "zoning_area_sqft": 71907,
+    "original_lots": "00041 00044 00050",
+    "tentative_lots": "00041",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=420665952",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "321595145",
+    "premises": "90 FLATBUSH AVENUE BROOKLYN",
+    "zoning_lots": "00001 00007 00010 00013 00023",
+    "zoning_area_sqft": 61399,
+    "original_lots": "00023 00024 00018",
+    "tentative_lots": "00023",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=321595145",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "321595403",
+    "premises": "595 DEAN STREET BROOKLYN",
+    "zoning_lots": "00050 00100",
+    "zoning_area_sqft": 116535,
+    "original_lots": "00050 00100",
+    "tentative_lots": "00050",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=321595403",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "121207292",
+    "premises": "55 SUFFOLK STREET MANHATTAN",
+    "zoning_lots": "00001 00037 00075",
+    "zoning_area_sqft": 51884,
+    "original_lots": "00001 00037 00075",
+    "tentative_lots": "00001 00037 00075",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=121207292",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "121207354",
+    "premises": "2686 BROADWAY MANHATTAN",
+    "zoning_lots": "00043 00044 00045",
+    "zoning_area_sqft": 10798,
+    "original_lots": "00043 00044 00045",
+    "tentative_lots": "00043",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=121207354",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "121207522",
+    "premises": "60 NORFOLK STREET MANHATTAN",
+    "zoning_lots": "00001 00037 00075",
+    "zoning_area_sqft": 51884,
+    "original_lots": "00001 00037 00075",
+    "tentative_lots": "00001 00037 00075",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=121207522",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "510115670",
+    "premises": "471 BAY STREET STATEN ISLAND",
+    "zoning_lots": "00009 00157 00162 00164",
+    "zoning_area_sqft": 66808,
+    "original_lots": "",
+    "tentative_lots": "00009 00157",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=510115670",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "420667488",
+    "premises": "1605 VILLAGE LANE QUEENS",
+    "zoning_lots": "Not Provided",
+    "zoning_area_sqft": 124598,
+    "original_lots": "00112 00128 00130 00001",
+    "tentative_lots": "00112",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=420667488",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "420667497",
+    "premises": "1607 VILLAGE LANE QUEENS",
+    "zoning_lots": "Not Provided",
+    "zoning_area_sqft": 124598,
+    "original_lots": "00112 00128 00130 00001",
+    "tentative_lots": "00112",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=420667497",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "420667558",
+    "premises": "1626 VILLAGE LANE QUEENS",
+    "zoning_lots": "Not Provided",
+    "zoning_area_sqft": 124598,
+    "original_lots": "00060 00101 00065 01001 01020",
+    "tentative_lots": "00065 00060 00101",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=420667558",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "321592200",
+    "premises": "111 WILLOUGHBY STREET BROOKLYN",
+    "zoning_lots": "00038 00046 00047 00049 00050",
+    "zoning_area_sqft": 15719,
+    "original_lots": "00047 00049 00050",
+    "tentative_lots": "00047",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=321592200",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "421133026",
+    "premises": "22-52 46 STREET QUEENS",
+    "zoning_lots": "00025 00030 00042",
+    "zoning_area_sqft": 32875,
+    "original_lots": "00025 00042",
+    "tentative_lots": "00025",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=421133026",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "421133035",
+    "premises": "22-51 45 STREET QUEENS",
+    "zoning_lots": "00025 00030 00042",
+    "zoning_area_sqft": 32875,
+    "original_lots": "00025 00042",
+    "tentative_lots": "00025",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=421133035",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "321592825",
+    "premises": "273 SNEDIKER AVENUE BROOKLYN",
+    "zoning_lots": "Not Provided",
+    "zoning_area_sqft": 95000,
+    "original_lots": "00001 00024 00042",
+    "tentative_lots": "00001",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=321592825",
+    "observed_date": "2026-09-16"
+  },
+  {
+    "job_number": "421133302",
+    "premises": "5119 BEACH CHANNEL DRIVE QUEENS",
+    "zoning_lots": "00001 00015 00025 00095 00035 00045 00085 00055 00075 00065",
+    "zoning_area_sqft": 389978,
+    "original_lots": "00001",
+    "tentative_lots": "00001 00015 00025 00095 00035 00045 00085 00055 00075 00065",
+    "source_url": "https://a810-bisweb.nyc.gov/bisweb/JobsQueryByNumberServlet?passjobnumber=421133302",
+    "observed_date": "2026-09-16"
+  }
+]

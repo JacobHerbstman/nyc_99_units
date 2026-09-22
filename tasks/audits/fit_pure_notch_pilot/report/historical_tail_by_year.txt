@@ -1,0 +1,11 @@
+Rows: 4
+Columns: 5
+Key fields: filing_year
+Saved-file MD5: 1692404c5274cfadbbe41ad1f9b177e1
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+filing_year | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 2019/2020.5/2020.5/2022
+parents | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 112/138/138.5/166
+parents_301plus | numeric | nonmissing | 4 | distinct | 3 min/median/mean/max 15/16/19.5/31
+share_301plus | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 0.09638554/0.1324042/0.1409521/0.2026144
+mean_units | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 162.3659/168.896/173.4578/193.6732

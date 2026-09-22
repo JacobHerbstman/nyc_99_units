@@ -1,0 +1,5 @@
+case,source,url,local_file,evidence_location
+Woodside,NYC DOF October 2018 digital tax map,https://propertyinformationportal.nyc.gov/pdf/home/index/map_library/40243220181001152024,woodside_dof_tax_map_2018-10-01.pdf,pdf page 1; six predecessor lots 8 9 21 41 44 50 and excluded neighbors visually checked
+Woodside,NYC DOF March 2020 digital tax map,https://propertyinformationportal.nyc.gov/pdf/home/index/map_library/40243220200317141102,woodside_dof_tax_map_2020-03-17.pdf,pdf page 1; successor lots 8 and 9 visually checked
+Sutphin Site A,NY Department of State BOA application April 2023,https://dos.ny.gov/147-35-95th-avenue-boa-conformance-application,sutphin_site_a_boa_application_2023-04-06.pdf,pdf page 4; lot 40 30067 sf and one 24-story building occupying entire lot footprint
+Sutphin Site B,NY Department of State BOA application June 2024,https://dos.ny.gov/2024-06-07-final-94-15-sutphin-blvd-final-boa-application-proofs-delivery-dos,sutphin_site_b_boa_application_2024-06-07.pdf,pdf pages 4-5 and 30; lot 1 building occupies entire lot footprint; 147-35 called neighboring project with many same parties

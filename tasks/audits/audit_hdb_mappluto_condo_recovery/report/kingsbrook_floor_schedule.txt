@@ -1,0 +1,11 @@
+Rows: 4
+Columns: 5
+Key fields: building
+Saved-file MD5: ad1af4a6d3fa19251b80fa50d70f6155
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+building | character | nonmissing | 4 | distinct | 4
+basement_floor | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 5395/9640/8811.25/10570
+total_gross_floor | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 44890/47547.5/53570/74295
+above_basement_floor | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 35580/39865/44758.75/63725
+source | character | nonmissing | 4 | distinct | 1

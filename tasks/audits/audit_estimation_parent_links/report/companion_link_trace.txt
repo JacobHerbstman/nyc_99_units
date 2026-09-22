@@ -1,0 +1,19 @@
+Rows: 7
+Columns: 13
+Key fields: companion
+Saved-file MD5: acb540bcfe2be0119b9de7b5d64835dc
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+companion | character | nonmissing | 7 | distinct | 7
+anchor | character | nonmissing | 7 | distinct | 7
+sample | character | nonmissing | 7 | distinct | 2
+in_linking_universe | logical | nonmissing | 7 | distinct | 1
+geometry_present_23v3_1 | logical | nonmissing | 5 | distinct | 2
+exact_touch_23v3_1 | logical | nonmissing | 1 | distinct | 1
+polygon_distance_metres | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 7.238989/7.238989/7.238989/7.238989
+same_owner | logical | nonmissing | 6 | distinct | 1
+existing_owner_candidate | logical | nonmissing | 2 | distinct | 2
+later_lot_history | logical | nonmissing | 5 | distinct | 2
+site_exclusion | character | nonmissing | 2 | distinct | 2
+accepted_link | logical | nonmissing | 7 | distinct | 2
+same_parent | logical | nonmissing | 7 | distinct | 1

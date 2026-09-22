@@ -1,0 +1,16 @@
+# setwd("tasks/audits/audit_lodes_construction_wages/code")
+library(readr)
+library(dplyr)
+library(tidyr)
+library(sf)
+blocks <- read_csv("../output/block_construction_bins.csv", show_col_types = FALSE)
+cd <- st_read("../input/community_districts.geojson", quiet = TRUE) |> st_drop_geometry() |> transmute(boro_cd = as.integer(boro_cd)) |> filter(boro_cd %% 100 < 20)
+counts <- blocks |> filter(assignment == "standard district") |> group_by(boro_cd, year) |> summarise(across(c(total, SE01, SE02, SE03), sum), .groups = "drop")
+stopifnot(!anyDuplicated(counts[c("boro_cd", "year")]))
+counts <- expand_grid(boro_cd = cd$boro_cd, year = 2019:2023) |> left_join(counts, by = c("boro_cd", "year"), relationship = "one-to-one") |> mutate(across(c(total, SE01, SE02, SE03), ~replace_na(.x, 0)))
+pooled <- counts |> group_by(boro_cd) |> summarise(across(c(total, SE01, SE02, SE03), sum), .groups = "drop") |> mutate(year = 0L)
+counts <- bind_rows(counts, pooled) |> mutate(period = if_else(year == 0, "2019-2023 pooled", as.character(year)),
+  borough = recode(as.character(boro_cd %/% 100), `1` = "Manhattan", `2` = "Bronx", `3` = "Brooklyn", `4` = "Queens", `5` = "Staten Island"),
+  across(c(SE01, SE02, SE03), ~if_else(total > 0, .x / total, NA_real_), .names = "share_{.col}")) |> arrange(year, boro_cd)
+stopifnot(nrow(counts) == 354, all(counts$total == counts$SE01 + counts$SE02 + counts$SE03))
+write_csv(counts, "../output/district_construction_bins.csv")

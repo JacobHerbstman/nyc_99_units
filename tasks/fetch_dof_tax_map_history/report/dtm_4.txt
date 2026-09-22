@@ -1,0 +1,31 @@
+Rows: 307762
+Columns: 25
+Key fields: OBJECTID
+Saved-file MD5: 8e5f2e465515098969f4c41543dd69a8
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+OBJECTID | integer | nonmissing | 307762 | distinct | 307762 min/median/mean/max 1/153881.5/153881.5/307762
+CONDO_BASE_BORO | character | nonmissing | 307762 | distinct | 5
+CONDO_BASE_BLOCK | integer | nonmissing | 307762 | distinct | 3858 min/median/mean/max 1/1484/2470.271/16238
+CONDO_BASE_LOT | integer | nonmissing | 307762 | distinct | 353 min/median/mean/max 0/26/80.2655/9133
+CONDO_BASE_BBL | character | nonmissing | 307762 | distinct | 12122
+CONDO_NUMBER | integer | nonmissing | 307762 | distinct | 5992 min/median/mean/max 1/1161/1518.447/9613
+CONDO_KEY | integer | nonmissing | 307762 | distinct | 10979 min/median/mean/max 100001/200115/232547/501942
+CONDO_BASE_BBL_KEY | character | nonmissing | 307762 | distinct | 12140
+UNIT_BORO | character | nonmissing | 307762 | distinct | 6
+UNIT_BLOCK | integer | nonmissing | 307762 | distinct | 3860 min/median/mean/max 1/1484/2470.305/16238
+UNIT_LOT | integer | nonmissing | 307762 | distinct | 5649 min/median/mean/max 1/1138/1381.644/9117
+UNIT_BBL | character | nonmissing | 307762 | distinct | 307084
+UNIT_DESIGNATION | character | nonmissing | 301289 | distinct | 29733
+FLOOR_TEXT | character | nonmissing | 14368 | distinct | 1477
+CINC_GEN | integer | nonmissing | 307762 | distinct | 2 min/median/mean/max 1/1/1.000858/2
+CINC_PARENT | character | nonmissing | 429 | distinct | 2
+CINC_CONDO_PARENT | character | nonmissing | 478 | distinct | 45
+CINC_UNIT_PARENT | character | nonmissing | 478 | distinct | 56
+MODEL | character | nonmissing | 307762 | distinct | 3
+GEOMETRY_TYPE | character | nonmissing | 307762 | distinct | 2
+CREATED_USER | character | nonmissing | 15408 | distinct | 10
+CREATED_DATE | numeric | nonmissing | 15534 | distinct | 2054 min/median/mean/max -2.209162e+12/1.741273e+12/1.709458e+12/1.789068e+12
+LAST_EDITED_USER | character | nonmissing | 16122 | distinct | 10
+LAST_EDITED_DATE | numeric | nonmissing | 16249 | distinct | 14019 min/median/mean/max -2.209162e+12/1.742221e+12/1.71155e+12/1.789068e+12
+EFFECTIVE_TAX_YEAR | character | nonmissing | 128559 | distinct | 22

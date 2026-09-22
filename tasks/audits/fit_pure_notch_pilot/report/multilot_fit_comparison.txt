@@ -1,0 +1,21 @@
+Rows: 2
+Columns: 15
+Key fields: weighting
+Saved-file MD5: be24916ca0e942c26af2604a72611ef8
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+weighting | character | nonmissing | 2 | distinct | 2
+kappa | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.11/0.1125/0.1125/0.115
+sigma_org | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 1.1/1.2/1.2/1.3
+objective | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.006328979/0.007081395/0.007081395/0.00783381
+objective_J1 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.002754872/0.003548318/0.003548318/0.004341765
+objective_J2 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.001925864/0.002027482/0.002027482/0.0021291
+objective_J3plus | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.001362945/0.001505595/0.001505595/0.001648244
+counterfactual_units | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 46927.93/48936.12/48936.12/50944.31
+observed_units | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 42341/42341/42341/42341
+predicted_units | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 46432.78/48445.98/48445.98/50459.19
+model_difference | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 485.1243/490.1396/490.1396/495.1548
+direct_difference | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 4586.932/6595.122/6595.122/8603.312
+effective_historical_size | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 445.1445/469.4518/469.4518/493.759
+maximum_moment_error | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 6.464234e-10/2.377504e-09/2.377504e-09/4.108585e-09
+weighted_multilot_share | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.04123131/0.07545436/0.07545436/0.1096774

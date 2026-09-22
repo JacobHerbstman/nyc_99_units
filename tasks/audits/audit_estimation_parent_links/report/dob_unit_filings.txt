@@ -1,0 +1,32 @@
+Rows: 3353
+Columns: 26
+Key fields: sample, root_job_id
+Saved-file MD5: 8dd4a8162588a9506c838636cb2def96
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 3353 | distinct | 2
+parent_id | character | nonmissing | 3353 | distinct | 3080
+root_job_id | character | nonmissing | 3353 | distinct | 3353
+date_filed | Date | nonmissing | 3353 | distinct | 1216
+original_filing_date | Date | nonmissing | 3353 | distinct | 1218
+refiled | logical | nonmissing | 3353 | distinct | 2
+refiling_date | Date | nonmissing | 41 | distinct | 38
+current_units | numeric | nonmissing | 3353 | distinct | 344 min/median/mean/max 6/25/60.52818/1313
+hdb_priority_units | numeric | nonmissing | 3353 | distinct | 344 min/median/mean/max 6/25/60.52818/1313
+unit_source | character | nonmissing | 3353 | distinct | 2
+included_ab | logical | nonmissing | 3353 | distinct | 2
+composition_eligible | logical | nonmissing | 3353 | distinct | 2
+dob_address | character | nonmissing | 1992 | distinct | 1974
+dob_i1_units | numeric | nonmissing | 1992 | distinct | 293 min/median/mean/max 2/34/71.93725/1803
+dob_status_date | Date | nonmissing | 1992 | distinct | 623
+dob_stories | numeric | nonmissing | 1992 | distinct | 52 min/median/mean/max 2/7/9.111446/86
+dob_floor_area | numeric | nonmissing | 1992 | distinct | 1946 min/median/mean/max 1/31329.5/69810.24/1654440
+hdb_release | character | nonmissing | 2973 | distinct | 2
+hdb_address | character | nonmissing | 2973 | distinct | 2887
+hdb_units | numeric | nonmissing | 2973 | distinct | 334 min/median/mean/max 6/23/60.29902/1313
+hdb_update_date | Date | nonmissing | 2973 | distinct | 987
+hdb_stories | numeric | nonmissing | 1969 | distinct | 48 min/median/mean/max 2/6/7.796343/71
+address | character | nonmissing | 3353 | distinct | 3248
+dob_available | logical | nonmissing | 3353 | distinct | 2
+dob_change | numeric | nonmissing | 1992 | distinct | 96 min/median/mean/max -200/0/4.571787/829
+available_dob_units | numeric | nonmissing | 3353 | distinct | 351 min/median/mean/max 2/25/63.24426/1803

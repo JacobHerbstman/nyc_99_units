@@ -1,0 +1,13 @@
+Rows: 69
+Columns: 9
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: f6d286b842b50ae77db3235bd4eb6739
+source_id | character | nonmissing | 69 | distinct | 4
+vintage | character | nonmissing | 69 | distinct | 45
+pull_date | numeric | nonmissing | 69 | distinct | 1 min/median/mean/max 20260500/20260500/20260500/20260500
+file_role | character | nonmissing | 69 | distinct | 8
+raw_path | character | nonmissing | 67 | distinct | 66
+status | character | nonmissing | 69 | distinct | 2
+official_url | character | nonmissing | 69 | distinct | 65
+archive_release_label | character | nonmissing | 60 | distinct | 43
+archive_file_release | character | nonmissing | 60 | distinct | 41

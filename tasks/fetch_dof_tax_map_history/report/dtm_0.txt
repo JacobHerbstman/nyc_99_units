@@ -1,0 +1,28 @@
+Rows: 858065
+Columns: 22
+Key fields: OBJECTID
+Saved-file MD5: e045383d170f75e7f382ad1c8168c6ae
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+OBJECTID | integer | nonmissing | 858065 | distinct | 858065 min/median/mean/max 1/429033/429033/858065
+BORO | character | nonmissing | 858065 | distinct | 5
+BLOCK | integer | nonmissing | 858065 | distinct | 13947 min/median/mean/max 0/4828/5316.408/16350
+LOT | integer | nonmissing | 858065 | distinct | 2389 min/median/mean/max 0/38/60.61345/9102
+BBL | character | nonmissing | 858065 | distinct | 857998
+CONDO_FLAG | character | nonmissing | 12169 | distinct | 1
+REUC_FLAG | character | nonmissing | 8254 | distinct | 1
+AIR_LOT_FLAG | character | nonmissing | 253 | distinct | 1
+SUB_LOT_FLAG | character | nonmissing | 69 | distinct | 1
+EASEMENT_FLAG | character | nonmissing | 37652 | distinct | 1
+LOT_NOTE | character | nonmissing | 400 | distinct | 95
+EFFECTIVE_TAX_YEAR | character | nonmissing | 42097 | distinct | 27
+BILL_BBL_FLAG | integer | nonmissing | 853055 | distinct | 2 min/median/mean/max 0/0/1.64116e-05/1
+NYCMAP_BLDG_FLAG | integer | nonmissing | 853053 | distinct | 3 min/median/mean/max 0/0/0.395122/2
+CONVERSION_EXCEPTION_FLAG | integer | nonmissing | 591027 | distinct | 4 min/median/mean/max 0/0/0.004321292/9
+VALUE_REFLECTED_OUT_FLAG | integer | nonmissing | 839936 | distinct | 7 min/median/mean/max 0/0/0.00590164/7
+CREATED_USER | character | nonmissing | 37443 | distinct | 40
+CREATED_DATE | numeric | nonmissing | 66359 | distinct | 1611 min/median/mean/max -2.209162e+12/9.4392e+11/905543900000/1.789415e+12
+LAST_EDITED_USER | character | nonmissing | 794217 | distinct | 39
+LAST_EDITED_DATE | numeric | nonmissing | 81415 | distinct | 5119 min/median/mean/max -2.209162e+12/1.196381e+12/1.177569e+12/1.789417e+12
+Shape__Area | numeric | nonmissing | 858065 | distinct | 268299 min/median/mean/max 0/426.5/1386.722/34817510
+Shape__Length | numeric | nonmissing | 858065 | distinct | 858065 min/median/mean/max 0.04584467/102.9023/120.9612/32411.98

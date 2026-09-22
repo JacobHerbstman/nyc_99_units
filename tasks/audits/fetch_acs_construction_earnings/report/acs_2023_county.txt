@@ -1,0 +1,17 @@
+Rows: 5
+Columns: 11
+Key fields: state, county
+Saved-file MD5: d90a1c561a2f5c6ad7b9ba0da54f5536
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+NAME | character | nonmissing | 5 | distinct | 5
+B24031_005E | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 45659/49614/54693/69103
+B24031_005M | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 986/1751/3609.4/8809
+B24031_005EA | character | nonmissing | 0 | distinct | 0
+B24031_005MA | character | nonmissing | 0 | distinct | 0
+B24041_005E | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 50158/57151/65147/86079
+B24041_005M | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 1738/2994/5997.2/12793
+B24041_005EA | character | nonmissing | 0 | distinct | 0
+B24041_005MA | character | nonmissing | 0 | distinct | 0
+state | character | nonmissing | 5 | distinct | 1
+county | character | nonmissing | 5 | distinct | 5

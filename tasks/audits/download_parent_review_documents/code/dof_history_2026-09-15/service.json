@@ -1,0 +1,332 @@
+{
+  "currentVersion" : 12, 
+  "serviceItemId" : "2cf51c5f165c4c569691617a492d9b21", 
+  "isView" : true, 
+  "isUpdatableView" : true, 
+  "preserveLayerIds" : true, 
+  "sourceSchemaChangesAllowed" : true, 
+  "serviceDescription" : "", 
+  "hasVersionedData" : false, 
+  "supportsDisconnectedEditing" : false, 
+  "hasStaticData" : true, 
+  "hasSharedDomains" : false, 
+  "maxRecordCount" : 1000, 
+  "maxIdsCount" : 1000000, 
+  "supportedQueryFormats" : "JSON", 
+  "supportsVCSProjection" : false, 
+  "supportedExportFormats" : "csv,shapefile,sqlite,geoPackage,filegdb,featureCollection,geojson,kml,excel", 
+  "supportedConvertFileFormats" : "JSON,PBF", 
+  "supportedConvertContentFormats" : "LayerEditCollection", 
+  "supportedFullTextLocales" : [
+    "neutral", 
+    "ar-SA", 
+    "bg-BG", 
+    "bn-IN", 
+    "ca-ES", 
+    "cs-CZ", 
+    "da-DK", 
+    "de-DE", 
+    "el-GR", 
+    "en-GB", 
+    "en-US", 
+    "es-ES", 
+    "fr-FR", 
+    "gu-IN", 
+    "he-IL", 
+    "hi-IN", 
+    "hr-HR", 
+    "id-ID", 
+    "is-IS", 
+    "it-IT", 
+    "ja-JP", 
+    "kn-IN", 
+    "ko-KR", 
+    "lt-LT", 
+    "lv-LV", 
+    "ml-IN", 
+    "mr-IN", 
+    "ms-MY", 
+    "nb-NO", 
+    "nl-NL", 
+    "pa-IN", 
+    "pl-PL", 
+    "pt-BR", 
+    "pt-PT", 
+    "ro-RO", 
+    "ru-RU", 
+    "sk-SK", 
+    "sl-SI", 
+    "sr-Cyrl-CS", 
+    "sr-Latn-CS", 
+    "sv-SE", 
+    "ta-IN", 
+    "te-IN", 
+    "th-TH", 
+    "tr-TR", 
+    "uk-UA", 
+    "ur-PK", 
+    "vi-VN", 
+    "zh-CN", 
+    "zh-HK", 
+    "zh-MO", 
+    "zh-SG", 
+    "zh-TW"
+  ], 
+  "supportsSharedTemplates" : true, 
+  "hasSharedTemplates" : true, 
+  "capabilities" : "Query,Extract", 
+  "description" : "", 
+  "copyrightText" : "", 
+  "spatialReference" : {
+    "wkid" : 102100, 
+    "latestWkid" : 3857
+  }, 
+  "initialExtent" : {
+    "xmin" : -8266164.012929704, 
+    "ymin" : 4938064.444113004, 
+    "xmax" : -8204266.22026527, 
+    "ymax" : 5000007.1237645522, 
+    "spatialReference" : {
+      "wkid" : 102100, 
+      "latestWkid" : 3857
+    }
+  }, 
+  "fullExtent" : {
+    "xmin" : -8266339.6901727123, 
+    "ymin" : 4938042.5291436631, 
+    "xmax" : -8204177.61687321, 
+    "ymax" : 5000011.9059532965, 
+    "spatialReference" : {
+      "wkid" : 102100, 
+      "latestWkid" : 3857
+    }
+  }, 
+  "allowGeometryUpdates" : true, 
+  "supportsTrueCurve" : true, 
+  "trueCurveSupportMode" : "OGC", 
+  "supportedCurveTypes" : [
+    "esriGeometryCircularArc"
+  ], 
+  "supportedTrueCurvePbfFeatureEncodings" : [
+    "esriCompressedShapeBuffer", 
+    "esriDefault"
+  ], 
+  "allowTrueCurvesUpdates" : true, 
+  "onlyAllowTrueCurveUpdatesByTrueCurveClients" : true, 
+  "units" : "esriMeters", 
+  "supportsAppend" : true, 
+  "supportedAppendCapabilities" : "Features", 
+  "supportsSharedDomains" : true, 
+  "supportsWebHooks" : true, 
+  "supportsTemporalLayers" : true, 
+  "layerOverridesEnabled" : true, 
+  "syncEnabled" : false, 
+  "supportsApplyEditsWithGlobalIds" : false, 
+  "supportsReturnDeleteResults" : true, 
+  "supportsLayerOverrides" : true, 
+  "supportsTilesAndBasicQueriesMode" : true, 
+  "supportsQueryContingentValues" : true, 
+  "supportedContingentValuesFormats" : "JSON, PBF", 
+  "supportsContingentValuesJson" : 2, 
+  "advancedEditingCapabilities" : {
+    "supportsSplit" : false, 
+    "supportsReturnServiceEditsInSourceSR" : false, 
+    "supportsAsyncApplyEdits" : true, 
+    "supportsReturnEditResults" : true, 
+    "supportsApplyEditsbyUploadID" : true, 
+    "supportedApplyEditsUploadIDFormats" : "JSON,PBF"
+  }, 
+  "xssPreventionInfo" : {
+    "xssPreventionEnabled" : true, 
+    "xssPreventionRule" : "InputOnly", 
+    "xssInputRule" : "rejectInvalid"
+  }, 
+  "layers" : [
+    {
+      "id" : 0, 
+      "name" : "TAX_LOT_POLYGON", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 1155582, 
+      "maxScale" : 1128, 
+      "type" : "Feature Layer", 
+      "geometryType" : "esriGeometryPolygon"
+    }, 
+    {
+      "id" : 1, 
+      "name" : "TAX_BLOCK_POLYGON", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 1155582, 
+      "maxScale" : 1128, 
+      "type" : "Feature Layer", 
+      "geometryType" : "esriGeometryPolygon"
+    }
+  ], 
+  "tables" : [
+    {
+      "id" : 2, 
+      "name" : "AIR_LOT", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 3, 
+      "name" : "CONDO", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 4, 
+      "name" : "CONDO_UNIT", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 5, 
+      "name" : "REUC_LOT", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 6, 
+      "name" : "SUB_LOT", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 7, 
+      "name" : "MAPLIBRARY_HAB", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 8, 
+      "name" : "MAPLIBRARY_MAP", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 9, 
+      "name" : "DAB_BOOK_HEADER", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 10, 
+      "name" : "DAB_AIR", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 11, 
+      "name" : "DAB_BLOCK", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 12, 
+      "name" : "DAB_BOUNDARY", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 13, 
+      "name" : "DAB_CONDO", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 14, 
+      "name" : "DAB_CONDO_UNIT", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 15, 
+      "name" : "DAB_LOT", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 16, 
+      "name" : "DAB_REUC", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 17, 
+      "name" : "DAB_SUB", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 18, 
+      "name" : "PTS_DESC_DAILY", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }, 
+    {
+      "id" : 19, 
+      "name" : "PTS_CONDO_DAILY", 
+      "parentLayerId" : -1, 
+      "defaultVisibility" : true, 
+      "subLayerIds" : null, 
+      "minScale" : 0, 
+      "maxScale" : 0
+    }
+  ]
+}

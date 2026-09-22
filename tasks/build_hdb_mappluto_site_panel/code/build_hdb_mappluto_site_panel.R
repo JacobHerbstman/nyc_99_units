@@ -1,6 +1,7 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/build_hdb_mappluto_site_panel/code")
 # start_date <- as.Date("2010-01-01")
-# end_date <- as.Date("2025-12-31")
+# end_date <- as.Date("2023-12-31")
+# hdb_release <- "23Q4"
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -10,16 +11,16 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-
-if (length(args) != 2L) {
-  stop("Expected two arguments: panel start date and panel end date.")
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 3L)
+  start_date <- as.Date(args[1])
+  end_date <- as.Date(args[2])
+  hdb_release <- args[3]
 }
-
-start_date <- as.Date(args[1])
-end_date <- as.Date(args[2])
 
 if (is.na(start_date) || is.na(end_date) || end_date < start_date) {
   stop("Panel start and end dates are not valid.")
@@ -43,39 +44,18 @@ numeric_feature_columns <- c(
   "allowed_res_area", "residual_res_area"
 )
 
-parse_bbl_borough <- function(x) {
-  substr(as.character(x), 1L, 1L)
+stopifnot(hdb_release %in% c("23Q4", "25Q4"))
+if (hdb_release == "23Q4") {
+  hdb <- read_parquet("../input/dcp_housing_database_project_level_23q4.parquet")
+} else {
+  hdb <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet") |>
+    mutate(historical_active = NA)
 }
-
-parse_bbl_block <- function(x) {
-  suppressWarnings(as.integer(substr(as.character(x), 2L, 6L)))
-}
-
-parse_bbl_lot <- function(x) {
-  suppressWarnings(as.integer(substr(as.character(x), 7L, 10L)))
-}
-
-min_date_value <- function(x) {
-  if (all(is.na(x))) {
-    return(as.Date(NA))
-  }
-  min(x, na.rm = TRUE)
-}
-
-max_date_value <- function(x) {
-  if (all(is.na(x))) {
-    return(as.Date(NA))
-  }
-  max(x, na.rm = TRUE)
-}
-
-hdb <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet") |>
-  as.data.frame() |>
-  as_tibble()
+stopifnot(all(hdb$release == hdb_release), !anyDuplicated(hdb$job_number))
 
 mappluto_lot_files <- read_csv("../input/mappluto_lot_files.csv", show_col_types = FALSE, na = c("", "NA"))
-release_calendar <- read_csv("../input/mappluto_release_calendar.csv", show_col_types = FALSE, na = c("", "NA"))
-mappluto_appbbl_crosswalk <- read_csv("../input/mappluto_appbbl_crosswalk.csv", show_col_types = FALSE, na = c("", "NA"))
+release_calendar <- read_csv("../output/mappluto_release_calendar.csv", show_col_types = FALSE, na = c("", "NA"))
+mappluto_appbbl_crosswalk <- read_csv("../output/mappluto_appbbl_crosswalk.csv", show_col_types = FALSE, na = c("", "NA"))
 
 missing_mappluto_columns <- setdiff(c("source_id", "vintage", "parquet_path"), names(mappluto_lot_files))
 
@@ -124,9 +104,9 @@ mappluto_appbbl_crosswalk <- mappluto_appbbl_crosswalk |>
     appdate_min = as.Date(appdate_min),
     appdate_max = as.Date(appdate_max),
     same_boro_block = str_to_upper(as.character(same_boro_block)) == "TRUE",
-    appbbl_borough = parse_bbl_borough(appbbl),
-    appbbl_block = parse_bbl_block(appbbl),
-    appbbl_lot = parse_bbl_lot(appbbl)
+    appbbl_borough = substr(as.character(appbbl), 1L, 1L),
+    appbbl_block = suppressWarnings(as.integer(substr(as.character(appbbl), 2L, 6L))),
+    appbbl_lot = suppressWarnings(as.integer(substr(as.character(appbbl), 7L, 10L)))
   ) |>
   filter(!is.na(current_bbl), !is.na(appbbl), current_bbl != appbbl)
 
@@ -149,6 +129,8 @@ candidate_panel <- hdb |>
   ) |>
   transmute(
     job_number,
+    hdb_release = release,
+    historical_active,
     job_status,
     date_filed,
     filing_year,
@@ -236,9 +218,9 @@ candidate_panel <- candidate_panel |>
     post_filing_pluto = !is.na(pluto_safe_available_date_used) & pluto_safe_available_date_used >= date_filed,
     pluto_days_relative_to_filing = as.integer(date_filed - pluto_safe_available_date_used),
     valid_bbl = str_detect(bbl, "^[1-5][0-9]{9}$"),
-    hdb_bbl_borough = parse_bbl_borough(bbl),
-    hdb_bbl_block = parse_bbl_block(bbl),
-    hdb_bbl_lot = parse_bbl_lot(bbl),
+    hdb_bbl_borough = substr(as.character(bbl), 1L, 1L),
+    hdb_bbl_block = suppressWarnings(as.integer(substr(as.character(bbl), 2L, 6L))),
+    hdb_bbl_lot = suppressWarnings(as.integer(substr(as.character(bbl), 7L, 10L))),
     hdb_panel_row_id = row_number()
   )
 
@@ -264,7 +246,7 @@ mappluto_lot_files <- mappluto_lot_files |>
     source_id = as.character(source_id),
     vintage = as.character(vintage),
     parquet_path = as.character(parquet_path),
-    raw_status = if ("raw_status" %in% names(mappluto_lot_files)) as.character(raw_status) else NA_character_
+    raw_status = as.character(raw_status)
   )
 
 mappluto_index <- release_calendar |>
@@ -429,7 +411,7 @@ selected_vintages <- candidate_panel |>
 
 for (i in seq_len(nrow(selected_vintages))) {
   version_row <- selected_vintages[i, ]
-  parquet_path <- file.path("..", "..", "stage_mappluto_lots", "output", basename(version_row$selected_pluto_parquet_path))
+  parquet_path <- file.path("../input", basename(version_row$selected_pluto_parquet_path))
 
   needed_bbl <- needed_feature_bbl |>
     filter(
@@ -438,7 +420,7 @@ for (i in seq_len(nrow(selected_vintages))) {
     ) |>
     distinct(bbl = feature_bbl)
 
-  if (!file.exists(parquet_path) || nrow(needed_bbl) == 0) {
+  if (nrow(needed_bbl) == 0) {
     next
   }
 
@@ -663,8 +645,8 @@ appbbl_accepted_rows <- appbbl_candidate_status |>
     ),
     appbbl_evidence_rows = sum(evidence_rows),
     appbbl_condono_values = paste(sort(unique(as.character(condono_values[!is.na(condono_values) & condono_values != ""]))), collapse = ";"),
-    appbbl_appdate_min = min_date_value(appdate_min),
-    appbbl_appdate_max = max_date_value(appdate_max),
+    appbbl_appdate_min = if (all(is.na(appdate_min))) as.Date(NA) else min(appdate_min, na.rm = TRUE),
+    appbbl_appdate_max = if (all(is.na(appdate_max))) as.Date(NA) else max(appdate_max, na.rm = TRUE),
     .groups = "drop"
   )
 
@@ -762,7 +744,7 @@ for (feature_name in numeric_feature_columns) {
 
 candidate_panel <- candidate_panel |>
   select(
-    hdb_panel_row_id, job_number, job_status, date_filed, filing_year, bbl, hdb_bbl_borough, hdb_bbl_block, hdb_bbl_lot,
+    hdb_panel_row_id, job_number, hdb_release, historical_active, job_status, date_filed, filing_year, bbl, hdb_bbl_borough, hdb_bbl_block, hdb_bbl_lot,
     bin, address, house_number, street_name, ownership,
     hdb_borough_code, hdb_borough_name, hdb_community_district, hdb_council_district,
     classa_prop, classa_prop_integer, y100,
@@ -789,5 +771,8 @@ candidate_panel <- candidate_panel |>
     starts_with("missing_")
   )
 
-write_parquet_if_changed(candidate_panel, "../output/hdb_mappluto_site_panel.parquet")
-cat("Wrote HDB-MapPLUTO site panel to ../output/hdb_mappluto_site_panel.parquet\n")
+if (hdb_release == "23Q4") {
+  SaveData(candidate_panel, "job_number", "../output/historical_hdb_mappluto_site_panel.parquet")
+} else {
+  SaveData(candidate_panel, "job_number", "../output/hdb_mappluto_site_panel.parquet")
+}

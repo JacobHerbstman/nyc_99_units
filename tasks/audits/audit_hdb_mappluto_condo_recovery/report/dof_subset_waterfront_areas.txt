@@ -1,0 +1,12 @@
+Rows: 1
+Columns: 6
+Key fields: bbl
+Saved-file MD5: bc28f2ab8438186a239d62040f59f5c2
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+bbl | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 3025670000/3025670000/3025670000/3025670000
+assessment_area_sqft | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 299214/299214/299214/299214
+dof_polygon_sqft | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 297133.6/297133.6/297133.6/297133.6
+shoreline_clipped_polygon_sqft | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 172690.7/172690.7/172690.7/172690.7
+cb1_reported_site_sqft | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 173834/173834/173834/173834
+clipped_area_outside_dof_sqft | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.05641987/0.05641987/0.05641987/0.05641987

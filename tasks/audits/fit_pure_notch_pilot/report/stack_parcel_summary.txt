@@ -1,0 +1,30 @@
+Rows: 5
+Columns: 24
+Key fields: parent_id
+Saved-file MD5: 2664d43c80f25d60a6bacbd6b1f58ad2
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parent_id | character | nonmissing | 5 | distinct | 5
+filing_lots | numeric | nonmissing | 5 | distinct | 2 min/median/mean/max 3/3/3.4/4
+filing_lots_present_in_26v2 | numeric | nonmissing | 5 | distinct | 4 min/median/mean/max 1/3/2.6/4
+parent_total_units | numeric | nonmissing | 5 | distinct | 4 min/median/mean/max 297/367/389.6/591
+n_components | numeric | nonmissing | 5 | distinct | 3 min/median/mean/max 3/4/4/6
+sorted_component_vector | character | nonmissing | 5 | distinct | 4
+number_unique_lots | numeric | nonmissing | 5 | distinct | 3 min/median/mean/max 1/3/2.8/6
+lot_area_sqft | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 19555/38118/34482.9/46692
+site_feature_method | character | nonmissing | 5 | distinct | 3
+matched_2023_lots | numeric | nonmissing | 5 | distinct | 2 min/median/mean/max 1/3/2.2/3
+matched_2023_area | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 19555/28700/31269/46692
+reviewed_associated_lots | numeric | nonmissing | 5 | distinct | 4 min/median/mean/max 1/3/4/8
+reviewed_associated_area | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 22247/38118/50259.4/111540
+reviewed_2023_bbls | character | nonmissing | 5 | distinct | 5
+case_name | character | nonmissing | 5 | distinct | 5
+zoning_lot_status | character | nonmissing | 5 | distinct | 5
+document_date | Date | nonmissing | 4 | distinct | 4
+recorded_date | Date | nonmissing | 4 | distinct | 4
+zoning_source_url | character | nonmissing | 5 | distinct | 5
+zoning_evidence | character | nonmissing | 5 | distinct | 5
+tax_lot_status | character | nonmissing | 5 | distinct | 5
+assessment_evidence | character | nonmissing | 5 | distinct | 2
+associated_area_gap | numeric | nonmissing | 5 | distinct | 4 min/median/mean/max 0/2692/18990.4/88260
+observed_filings_exceed_reviewed_lots | logical | nonmissing | 5 | distinct | 2

@@ -1,0 +1,13 @@
+Rows: 6
+Columns: 7
+Key fields: development_bbl, reference_bbl
+Saved-file MD5: f3aa7cd79b907851506823fed43636a3
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+development_bbl | numeric | nonmissing | 6 | distinct | 3 min/median/mean/max 3022490000/3022490000/3022493000/3022498000
+reference_bbl | numeric | nonmissing | 6 | distinct | 3 min/median/mean/max 3022490000/3022490000/3022490000/3022490000
+overlap_sqft | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 18.95218/5442.937/6395.27/17438.52
+development_map_sqft | numeric | nonmissing | 6 | distinct | 3 min/median/mean/max 9176.09/9257.045/12790.57/19938.57
+development_recorded_sqft | numeric | nonmissing | 6 | distinct | 3 min/median/mean/max 9643/9680/13107.67/20000
+map_coverage | numeric | nonmissing | 6 | distinct | 3 min/median/mean/max 0.9999967/0.9999987/0.9999981/0.9999989
+allocated_recorded_sqft | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 19.81813/5660.149/6553.833/17492.31

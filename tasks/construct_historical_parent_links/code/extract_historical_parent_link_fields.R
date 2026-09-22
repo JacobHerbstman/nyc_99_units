@@ -12,17 +12,16 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../_lib/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-
-if (length(args) != 3L) {
-  stop("Expected three arguments: start year, end year, and minimum units.")
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 3L)
+  start_year <- as.integer(args[1])
+  end_year <- as.integer(args[2])
+  min_units <- as.integer(args[3])
 }
-
-start_year <- as.integer(args[1])
-end_year <- as.integer(args[2])
-min_units <- as.integer(args[3])
 
 if (
   any(is.na(c(start_year, end_year, min_units))) ||
@@ -176,23 +175,27 @@ read_pluto_link_fields <- function(raw_path, needed_bbls) {
   selected_fields
 }
 
-panel <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
-  as.data.frame() |>
-  as_tibble() |>
+# A documented companion must not disappear because its land covariates are missing.
+reviewed_pairs <- read_csv("../input/pair_decisions.csv", show_col_types = FALSE,
+  col_types = cols(.default = col_character())) |>
+  filter(sample == "historical", review_decision == "accept")
+reviewed_jobs <- unique(c(reviewed_pairs$job_number_1, reviewed_pairs$job_number_2))
+
+panel <- read_parquet("../input/historical_hdb_mappluto_site_panel.parquet") |>
   filter(
     filing_year >= start_year,
     filing_year <= end_year,
-    primary_leakage_safe_sample,
+    (primary_leakage_safe_sample & !is.na(lotarea) & lotarea > 0) |
+      job_number %in% reviewed_jobs,
     classa_prop_integer,
-    classa_prop >= min_units,
-    !is.na(lotarea),
-    lotarea > 0
+    classa_prop >= min_units
   ) |>
   transmute(
     job_number = str_squish(job_number),
     date_filed = as.Date(date_filed),
     filing_year,
     units = as.integer(round(classa_prop)),
+    hdb_release, historical_active, hdb_job_status = job_status,
     filing_bbl = normalize_bbl_field(bbl),
     prefiling_feature_bbl = normalize_bbl_field(pluto_feature_bbl),
     pluto_source_id_used,
@@ -207,11 +210,7 @@ if (nrow(panel) == 0L || anyDuplicated(panel$job_number)) {
   stop("Historical training sample failed job-number QC.")
 }
 
-hdb_raw <- read_parquet(
-  "../input/dcp_housing_database_project_level_raw_25q4.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble() |>
+hdb_raw <- read_parquet("../input/dcp_housing_database_project_level_raw_23q4.parquet") |>
   transmute(
     job_number = str_squish(as.character(job_number)),
     hdb_description = na_if(str_squish(as.character(job_desc)), ""),
@@ -219,32 +218,17 @@ hdb_raw <- read_parquet(
     hdb_longitude = suppressWarnings(as.numeric(longitude))
   )
 
-dob_now <- read_parquet(
-  "../input/dob_now_new_building_initial_filings.parquet"
-) |>
-  as.data.frame() |>
-  as_tibble() |>
-  transmute(
-    job_number = str_squish(job_number),
-    dob_now_match = TRUE,
-    dob_owner_name = coalesce(
-      na_if(str_squish(owner_business_name), ""),
-      na_if(str_squish(paste(owner_first_name, owner_last_name)), "")
-    ),
-    dob_owner_match_key = normalize_match_key(dob_owner_name),
-    dob_description = na_if(str_squish(job_description), "")
-  )
-
-if (anyDuplicated(hdb_raw$job_number) || anyDuplicated(dob_now$job_number)) {
-  stop("HDB or DOB source is not unique by job number.")
-}
+stopifnot(!anyDuplicated(hdb_raw$job_number), all(panel$hdb_release == "23Q4"))
 
 filings <- panel |>
   left_join(hdb_raw, by = "job_number", relationship = "one-to-one") |>
-  left_join(dob_now, by = "job_number", relationship = "one-to-one") |>
   mutate(
-    dob_now_match = coalesce(dob_now_match, FALSE),
-    description = coalesce(dob_description, hdb_description),
+    # Historical owner support comes from the archived parcel map.
+    dob_now_match = FALSE,
+    dob_owner_name = NA_character_,
+    dob_owner_match_key = NA_character_,
+    dob_description = NA_character_,
+    description = hdb_description,
     description_referenced_jobs = mapply(
       extract_reference_jobs,
       description,
@@ -312,7 +296,7 @@ for (release_row in seq_len(nrow(required_releases))) {
   )
 
   release_extract <- read_pluto_link_fields(
-    required_releases$raw_path[release_row], needed_bbls
+    file.path("../input", basename(required_releases$raw_path[release_row])), needed_bbls
   )
 
   pluto_job_fields[[release_row]] <- release_jobs |>
@@ -367,8 +351,5 @@ if (anyDuplicated(filings$job_number)) {
   stop("Historical parent-link field extraction failed final QC.")
 }
 
-write_parquet_if_changed(
-  filings,
-  "../output/historical_parent_filing_link_fields.parquet"
-)
+SaveData(filings, c("job_number"), "../output/historical_parent_filing_link_fields.parquet")
 cat("Wrote historical parent-link filing fields to ../output\n")

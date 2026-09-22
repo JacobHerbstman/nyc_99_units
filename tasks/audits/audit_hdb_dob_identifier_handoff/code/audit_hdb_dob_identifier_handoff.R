@@ -10,7 +10,7 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../_lib/source_pipeline_utils.R")
+source("../../../shared/code/source_pipeline_utils.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -59,7 +59,11 @@ dob <- read_parquet(
     dob_filing_id = str_squish(job_filing_number),
     dob_filing_date = as.Date(filing_date),
     dob_units = as.integer(round(proposed_dwelling_units)),
-    dob_bbl = normalize_bbl_field(bbl),
+    dob_bbl = coalesce(
+      normalize_bbl_field(reported_bbl),
+      normalize_bbl_field(filing_bbl)
+    ),
+    dob_filing_bbl = normalize_bbl_field(filing_bbl),
     dob_bin = str_squish(as.character(bin)),
     dob_address = str_to_upper(str_squish(address)),
     dob_filing_status = filing_status,
@@ -263,19 +267,19 @@ summary <- tibble(
   )
 )
 
-write_csv_if_changed(
+write_csv_atomic(
   later_same_site_candidates,
   "../output/hdb_dob_identifier_later_same_site_candidates.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   review,
   "../output/hdb_dob_identifier_review.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   summary,
   "../output/hdb_dob_identifier_summary.csv"
 )
-write_csv_if_changed(
+write_csv_atomic(
   handoff,
   "../output/hdb_dob_identifier_handoff.csv"
 )
