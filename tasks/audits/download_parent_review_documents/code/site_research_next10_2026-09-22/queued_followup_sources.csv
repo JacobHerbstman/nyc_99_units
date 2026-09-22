@@ -1,0 +1,5 @@
+file,url,retrieved_date,bytes,sha256,method
+rockaway_condo_index.json,"https://data.cityofnewyork.us/resource/bnx9-e6tj.json?$where=crfn%20in%20(%222022000210977%22,%222022000210978%22)",2026-09-22,773,2c7ebdcb459c92efdf5cbb7cdbf9f8af84e5f792212e73aa719f9be9703afbb0,Public API GET
+rockaway_condo_maps_2022051300461002.pdf,https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=2022051300461002,2026-09-22,5436264,8fc03de110579ef472548e1c670cde1a7ad75c65f48334f6dd5bb6815e797c77,ACRIS Save All browser export
+livingston_zone_2025021001245002.pdf,https://a836-acris.nyc.gov/DS/DocumentSearch/DocumentImageView?doc_id=2025021001245002,2026-09-22,138766,812b00d203d85b517c2020b5107c1088aa1548bfbe233d60a06a464dae830362,ACRIS Save All browser export
+../../output/nychousingdb_23q4_csv.zip,https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/housing-database/nychousingdb_23q4_csv.zip,2026-09-22,20399376,ba204b240053f2477241d46eb9f4f4b11a15907484009e21264914c8cff1d45e,curl checksum-pinned archive

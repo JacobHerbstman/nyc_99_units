@@ -1,0 +1,5 @@
+borough,block,lot,bbl,lotarea,bldgarea,unitsres,unitstotal,builtfar,residfar,commfar,facilfar,landuse,bldgclass,zonedist1,overlay1,splitzone
+2,2319,155,2023190155,5298,0,0,0,0,6.02,5,6.5,11,V1,M1-3/R8,NA,N
+2,2319,37,2023190037,15448,69357,46,50,4.49,6.02,5,6.5,03,D9,M1-3/R8,NA,N
+2,2319,38,2023190038,10157,13458,0,1,1.32,6.02,5,6.5,06,F9,M1-3/R8,NA,N
+2,2319,39,2023190039,9425,1121,0,1,0.12,6.02,5,6.5,07,G9,M1-3/R8,NA,N

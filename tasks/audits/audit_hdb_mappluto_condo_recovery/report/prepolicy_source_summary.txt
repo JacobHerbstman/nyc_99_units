@@ -1,0 +1,13 @@
+Rows: 4
+Columns: 7
+Key fields: version, sample
+Saved-file MD5: db0d32915ed3394c1464a0e01721dd37
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+version | character | nonmissing | 4 | distinct | 2
+sample | character | nonmissing | 4 | distinct | 2
+parents | numeric | nonmissing | 4 | distinct | 3 min/median/mean/max 907/1359/1449.5/2173
+filings | numeric | nonmissing | 4 | distinct | 3 min/median/mean/max 1005/1454.5/1565.5/2348
+units | numeric | nonmissing | 4 | distinct | 3 min/median/mean/max 61319/95327/98401.25/141632
+exact99_parents | numeric | nonmissing | 4 | distinct | 3 min/median/mean/max 3/23/22/39
+weighting_parents | numeric | nonmissing | 4 | distinct | 3 min/median/mean/max 310/432/442.25/595

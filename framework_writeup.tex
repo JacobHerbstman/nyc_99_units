@@ -70,7 +70,7 @@ There are \ExactOneNinetyEightParents{} observed 198-unit parents. The registrat
 
 We compare recent filing opportunities with historical projects on similar sites. Historical parents carry two outcomes together: their proposed total and their observed organization. Reweighting changes how much each historical parent contributes to the comparison; it leaves that parent's outcomes intact. Thus ordinary multi-building development remains part of the benchmark.
 
-Let historical parent $j$ have total units $x_j$, constituent count $J_j^0$, and predetermined site characteristics $X_j$. Give it normalized weight $\widetilde w_j$, where $\sum_j\widetilde w_j=1$. Let $P$ be the number of post-period parents in the same comparison sample, with observed totals $m_i$. The direct difference in proposed units is
+Let historical parent $j$ have total units $x_j$, constituent count $J_j^0$, and site characteristics $X_j$ measured from archival parcels. Give it normalized weight $\widetilde w_j$, where $\sum_j\widetilde w_j=1$. Let $P$ be the number of post-period parents in the same comparison sample, with observed totals $m_i$. The direct difference in proposed units is
 \begin{equation}
 \Delta U_{\mathrm{dist}}
 =P\left(\sum_j\widetilde w_jx_j-\frac{1}{P}\sum_{i=1}^{P}m_i\right).
@@ -88,7 +88,7 @@ Equation~\eqref{eq:direct} provides the quantity benchmark. The model below adds
 
 \subsection{Total units and the ordinary cost of organization}
 
-A developer chooses total units $m$ and a feasible division $\mathbf n=(n_1,\ldots,n_J)$, with $m=\sum_{k=1}^J n_k$. Before the modeled escalation, surplus from total units is
+A developer chooses total units $m$ and a feasible division $\mathbf n=(n_1,\ldots,n_J)$, with $m=\sum_{k=1}^J n_k$. We take the parent site's total land footprint as given in both the policy and counterfactual choices. The developer chooses size and organization within that footprint. The reweighted historical joint distribution supplies ordinary size and organization, including parents that ordinarily have multiple constituents. Before the modeled escalation, surplus from total units is
 \begin{equation}
 \pi_{0i}(m)=v_i m-C_{0i}(m),
 \qquad C_{0i}(m)=\frac{\alpha_i}{1+\lambda}m^{1+\lambda},
@@ -184,13 +184,13 @@ The main comparison uses 2019--2022 and January 1, 2025--July 8, 2026. Historica
 The exposure screen identifies plausible taxable rental opportunities under affordability Options A and B. This is a classification of potential exposure, not confirmed program enrollment; those option names are distinct from geographic Zones A and B. Registrations provide positive evidence, while tenure and ownership records help identify developments outside the relevant rental choice. Unresolved legal separation remains a scenario for the structural analysis rather than a confirmed exemption.
 
 \subsection{Reweighting and sample support}
-The descriptive parent population begins at six units. The preferred shape comparison begins at 50 parent units and retains all larger parents in its denominator. The reweighted comparison requires complete predetermined characteristics. Historical features use lagged MapPLUTO releases; recent features use release 23v3.1. Positive calibration weights match log lot area, residential floor-area ratio, built floor-area ratio, multi-lot status, and borough. Proposed units and realized constituent count do not enter the weights.
+The descriptive parent population begins at six units. The preferred shape comparison begins at 50 parent units and retains all larger parents in its denominator. The reweighted comparison requires complete parcel characteristics. Historical parcel attributes use lagged MapPLUTO releases; recent attributes use release 23v3.1. Positive calibration weights match log lot area, residential floor-area ratio, built floor-area ratio, and borough. Constituent organization within the given parent site is a modeled policy response.
 
 The complete-characteristic sample contains \CalibrationHistoricalParents{} historical and \CalibrationPostParents{} recent parents. Its weighted historical effective sample size is \CalibrationESS{}. Bootstrap inference re-estimates the weights in each draw and records failed calibrations. Table~\ref{tab:evidence} reports local differences in normalized shares, not counts of projects known to have moved from one size to another.
 
 Exact totals are retained in the underlying parent panel even when figures pool the upper tail. Both quantity formulas use the same target sample and weights. Broadening the sample below 50 requires recomputing that comparison; the existing shape weights should not be applied as though they represented every filing opportunity.
 
-Predetermined lot attributes can still be aggregated over parent boundaries chosen after the policy. The historical comparison therefore depends on credible parent links and stable treatment of parcel assembly as well as on the dates of the underlying attributes. Recent pre-policy holdouts assess whether the weighted comparison reproduces size and organization before the policy change. Floor area, stories, and other physical outcomes provide further evidence where measurement is comparable.
+We treat the observed parent boundary as the land available under both policy regimes. Historical land area and area-weighted FARs describe that given footprint; the number and sizes of constituents can change within it. Holding the footprint fixed is a maintained assumption about the developer's opportunity. Recent pre-policy holdouts assess whether the weighted comparison reproduces size and organization before the policy change. Floor area, stories, and other physical outcomes provide further evidence where measurement is comparable.
 
 \subsection{Reproducing the reported facts}
 The empirical values in this note are generated by

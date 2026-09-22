@@ -110,29 +110,20 @@ calibration_summary <- tibble(
   maximum_weight = max(weight_vector),
   effective_sample_size = sum(weight_vector)^2 / sum(weight_vector^2),
   maximum_absolute_moment_error = calibration$maximum_moment_error,
-  excluded_historical_incomplete_features = sum(
+  excluded_historical_composition_ineligible = sum(
     parents$sample == "historical" &
       parents$included_ab &
       parents$parent_total_units >= minimum_units &
       !parents$composition_eligible
   ),
-  excluded_post_incomplete_features = sum(
+  excluded_post_composition_ineligible = sum(
     parents$sample == "post_policy" &
       parents$included_ab &
       parents$parent_total_units >= minimum_units &
       !parents$composition_eligible
   ),
   calibration_method = "Positive exponential calibration (survey raking)",
-  calibration_moments = paste(
-    "log lot area, residential FAR, built FAR, multi-lot status,",
-    "and borough"
-  ),
-  omitted_candidate_moments = paste(
-    "Capacity and slack levels/zero flags, number of lots, zoning family,",
-    "and prior site use",
-    "were retained in the panel but omitted from exact calibration because",
-    "the richer moment vector failed positive-weight overlap/convergence."
-  )
+  calibration_moments = "log lot area, residential FAR, built FAR, and borough"
 )
 
 outcome_definitions <- tribble(
@@ -326,7 +317,7 @@ counterfactual_figure <- ggplot(
     title = "Composition-adjusted parent-size benchmark",
     subtitle = paste(
       "Historical 2019-2022 opportunities are exponentially reweighted using",
-      "predetermined site characteristics."
+      "archival parcel characteristics and borough."
     ),
     x = "Total proposed units in the linked parent",
     y = "Share of feature-complete 50+ A/B opportunities",

@@ -7,6 +7,7 @@ suppressPackageStartupMessages({
   library(readr)
   library(stringr)
   library(tibble)
+  library(tidyr)
 })
 
 source("../../shared/code/source_pipeline_utils.R")
@@ -76,10 +77,15 @@ add_site_categories <- function(rows) {
 membership <- read_parquet("../input/symmetric_parent_membership.parquet") |>
   filter(sample == sample_name)
 
-hdb_panel <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
+if (sample_name == "historical") {
+  hdb_panel <- read_parquet("../input/historical_hdb_mappluto_site_panel.parquet")
+} else {
+  hdb_panel <- read_parquet("../input/hdb_mappluto_site_panel.parquet")
+}
+hdb_panel <- hdb_panel |>
   mutate(
     feature_bbl = normalize_bbl_field(pluto_feature_bbl),
-    bin_clean = na_if(str_squish(as.character(bin)), ""),
+    hdb_bin = na_if(str_squish(as.character(bin)), ""),
     borough = hdb_borough_name
   ) |>
   add_site_categories()
@@ -94,7 +100,7 @@ if (sample_name == "historical") {
     left_join(
       hdb_panel |>
         select(
-          job_number, feature_bbl, bin_clean, lotarea,
+          job_number, feature_bbl, hdb_bin, lotarea,
           residfar, broad_zoning_far,
           builtfar, borough, zone_detail, prior_site_use
         ),
@@ -129,7 +135,7 @@ if (sample_name == "historical") {
     transmute(
       root_job_id = job_number,
       hdb_feature_bbl = feature_bbl,
-      bin_clean
+      hdb_bin
     )
 
   member_rows <- membership |>
@@ -157,6 +163,19 @@ if (sample_name == "historical") {
       relationship = "many-to-one"
     )
 }
+
+# Historical building identifiers come from the pre-adoption HDB snapshot.
+# Post-policy identifiers use DOB initial filings, with HDB fallback.
+dob_filings <- read_parquet("../input/dob_now_new_building_initial_filings.parquet") |>
+  transmute(
+    root_job_id = job_number,
+    dob_bin = na_if(str_squish(as.character(bin)), "")
+  )
+stopifnot(!anyDuplicated(dob_filings$root_job_id))
+
+member_rows <- member_rows |>
+  left_join(dob_filings, by = "root_job_id", relationship = "many-to-one") |>
+  mutate(bin_clean = if (sample_name == "historical") hdb_bin else coalesce(dob_bin, hdb_bin))
 stopifnot(nrow(member_rows) == nrow(membership))
 
 # Sum additive filings, and count each matched tax lot once within its parent.
@@ -183,6 +202,8 @@ parent_outcomes <- member_rows |>
     component_jobs = paste(job_number[additive_component], collapse = ";"),
     nonmissing_bin_rows = sum(!is.na(bin_clean) & additive_component),
     distinct_bins = n_distinct(bin_clean[!is.na(bin_clean) & additive_component]),
+    distinct_valid_dob_bins = n_distinct(dob_bin[additive_component &
+      !is.na(dob_bin) & str_detect(dob_bin, "^[1-5][0-9]{6}$")]),
     feature_complete = all(!is.na(feature_bbl) & !is.na(lotarea) & lotarea > 0),
     feature_methods = paste(sort(unique(feature_method)), collapse = ";"),
     .groups = "drop"
@@ -194,15 +215,111 @@ parent_outcomes <- member_rows |>
     )
   )
 
-parent_features <- member_rows |>
+site_lots <- member_rows |>
   filter(!is.na(feature_bbl)) |>
   arrange(parent_id, date_filed, job_number) |>
   group_by(sample, parent_id, feature_bbl) |>
   slice_head(n = 1L) |>
   ungroup() |>
+  mutate(feature_lots = 1L)
+
+# Reviewed allocations replace the complete parcel set for the named parent.
+# Deduct retained floor or an explicitly documented archive correction before
+# calculating existing density; source reasons distinguish those decisions.
+site_decisions <- read_csv("../input/site_lot_decisions.csv", show_col_types = FALSE,
+  col_types = cols(reference_bbls = col_character())) |>
+  filter(sample == sample_name)
+stopifnot(!anyNA(site_decisions$built_floor_area_estimated))
+reference_sets <- site_decisions |>
+  select(parent_id, reference_vintage, reference_bbls) |>
+  mutate(reference_bbl = reference_bbls) |>
+  separate_longer_delim(reference_bbl, ";")
+reviewed_parents <- site_decisions |>
+  distinct(parent_id, expected_component_jobs) |>
+  left_join(parent_outcomes |> select(parent_id, component_jobs),
+    by = "parent_id", relationship = "one-to-one")
+stopifnot(!anyDuplicated(reference_sets[c("parent_id", "reference_bbl")]),
+  !anyNA(reviewed_parents$component_jobs),
+  all(reviewed_parents$expected_component_jobs == reviewed_parents$component_jobs))
+
+if (nrow(site_decisions) > 0L) {
+  reference_lots <- bind_rows(
+    read_parquet("../input/dcp_mappluto_archive_18v1_1.parquet") |>
+      mutate(reference_vintage = "18v1_1"),
+    read_parquet("../input/dcp_mappluto_archive_18v2beta.parquet") |>
+      mutate(reference_vintage = "18v2beta"),
+    read_parquet("../input/dcp_mappluto_archive_18v2_1.parquet") |>
+      mutate(reference_vintage = "18v2_1"),
+    read_parquet("../input/dcp_mappluto_archive_19v1.parquet") |>
+      mutate(reference_vintage = "19v1"),
+    read_parquet("../input/dcp_mappluto_archive_19v2.parquet") |>
+      mutate(reference_vintage = "19v2"),
+    read_parquet("../input/dcp_mappluto_archive_20v1.parquet") |>
+      mutate(reference_vintage = "20v1"),
+    read_parquet("../input/dcp_mappluto_archive_20v3.parquet") |>
+      mutate(reference_vintage = "20v3"),
+    read_parquet("../input/dcp_mappluto_archive_20v5.parquet") |>
+      mutate(reference_vintage = "20v5"),
+    read_parquet("../input/dcp_mappluto_archive_20v8.parquet") |>
+      mutate(reference_vintage = "20v8"),
+    read_parquet("../input/dcp_mappluto_archive_21v1.parquet") |>
+      mutate(reference_vintage = "21v1"),
+    read_parquet("../input/dcp_mappluto_archive_21v3.parquet") |>
+      mutate(reference_vintage = "21v3"),
+    read_parquet("../input/dcp_mappluto_archive_22v1.parquet") |>
+      mutate(reference_vintage = "22v1"),
+    read_parquet("../input/dcp_mappluto_archive_23v3_1.parquet") |>
+      mutate(reference_vintage = "23v3_1")
+  ) |>
+    filter(bbl %in% reference_sets$reference_bbl) |>
+    mutate(borough = recode(as.character(borough),
+      `1` = "Manhattan", `2` = "Bronx", `3` = "Brooklyn",
+      `4` = "Queens", `5` = "Staten Island")) |>
+    add_site_categories() |>
+    select(reference_vintage, reference_bbl = bbl, lotarea, bldgarea,
+      residfar, broad_zoning_far, borough, zone_detail, prior_site_use)
+  reference_sets <- reference_sets |>
+    left_join(reference_lots, by = c("reference_vintage", "reference_bbl"),
+      relationship = "many-to-one")
+  stopifnot(!anyNA(reference_sets$lotarea), !anyNA(reference_sets$bldgarea),
+    !anyNA(reference_sets$residfar), !anyNA(reference_sets$broad_zoning_far))
+  # A documented combined area needs no invented internal allocation when
+  # all contributing parcels have the same FARs. Preserve every source lot.
+  reference_sets <- reference_sets |>
+    group_by(parent_id, reference_vintage, reference_bbls) |>
+    summarise(lotarea = sum(lotarea), bldgarea = sum(bldgarea), feature_lots = n(),
+      residential_fars = n_distinct(residfar), broad_fars = n_distinct(broad_zoning_far),
+      residfar = first(residfar), broad_zoning_far = first(broad_zoning_far),
+      borough = collapse_category(borough, "Mixed"),
+      zone_detail = collapse_category(zone_detail, "Mixed"),
+      prior_site_use = collapse_category(prior_site_use, "mixed_prior_use"), .groups = "drop")
+  stopifnot(all(reference_sets$residential_fars == 1L), all(reference_sets$broad_fars == 1L))
+  reviewed_lots <- site_decisions |>
+    left_join(reference_sets, by = c("parent_id", "reference_vintage", "reference_bbls"),
+      relationship = "one-to-one", suffix = c("_reviewed", ""))
+  stopifnot(
+    all(reviewed_lots$reference_recorded_area_sqft == reviewed_lots$lotarea),
+    all(reviewed_lots$development_area_sqft > 0),
+    all(reviewed_lots$excluded_building_area_sqft >= 0),
+    all(reviewed_lots$excluded_building_area_sqft <= reviewed_lots$bldgarea))
+  reviewed_lots <- reviewed_lots |>
+    transmute(sample, parent_id, feature_bbl = reference_bbls, feature_lots,
+      lotarea = development_area_sqft, residfar, broad_zoning_far,
+      builtfar = (bldgarea - excluded_building_area_sqft) / development_area_sqft,
+      borough, zone_detail, prior_site_use = coalesce(prior_site_use_reviewed, prior_site_use))
+  site_lots <- bind_rows(
+    site_lots |> anti_join(reviewed_parents, by = "parent_id"), reviewed_lots)
+  parent_outcomes <- parent_outcomes |>
+    mutate(feature_complete = if_else(parent_id %in% reviewed_parents$parent_id,
+      TRUE, feature_complete),
+      feature_methods = if_else(parent_id %in% reviewed_parents$parent_id,
+        "reviewed_parcel_allocation", feature_methods))
+}
+
+parent_features <- site_lots |>
   group_by(sample, parent_id) |>
   summarise(
-    feature_lots = n(),
+    feature_lots = sum(feature_lots),
     # Keep individual lot areas until all three weighted means are calculated.
     across(c(residfar, broad_zoning_far, builtfar), ~ {
       observed_area <- sum(if_else(!is.na(.x), lotarea, 0))
@@ -230,11 +347,17 @@ panel <- parent_outcomes |>
     filing_year = cohort_year,
     units = observed_units,
     log_lotarea = log(lotarea),
+    # Later official identifiers can corroborate separate buildings whose full
+    # additive filing set and land allocation have already been reviewed.
+    reviewed_distinct_buildings = sample == "historical" & duplicate_bin_rows > 0L &
+      parent_id %in% reviewed_parents$parent_id & distinct_valid_dob_bins == component_filings,
     composition_eligible =
       feature_complete &
       !is.na(lotarea) &
       lotarea > 0 &
-      duplicate_bin_rows == 0L
+      (duplicate_bin_rows == 0L | reviewed_distinct_buildings),
+    built_floor_area_estimated = parent_id %in%
+      site_decisions$parent_id[site_decisions$built_floor_area_estimated]
   ) |>
   select(
     sample, observation_id, parent_id, analysis_status,
@@ -244,9 +367,10 @@ panel <- parent_outcomes |>
     exact_99_component_filings,
     exact_99_component_filings_dob_i1, source_jobs, component_jobs,
     nonmissing_bin_rows, distinct_bins, duplicate_bin_rows,
+    distinct_valid_dob_bins, reviewed_distinct_buildings,
     feature_complete, feature_methods, feature_lots,
     composition_eligible, lotarea, log_lotarea,
-    residfar, broad_zoning_far, builtfar,
+    residfar, broad_zoning_far, builtfar, built_floor_area_estimated,
     borough, zone_detail, prior_site_use
   ) |>
   arrange(cohort_date, parent_id)

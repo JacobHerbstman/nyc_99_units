@@ -1,21 +1,26 @@
-Rows: 12
-Columns: 15
+Rows: 109
+Columns: 20
 Key fields: sample, original_job
-Saved-file MD5: f56aa3c3e368857607a119671c3c6a1c
+Saved-file MD5: df27bce6d49634e148b6047d1bc7d126
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 12 | distinct | 1
-parent_id | character | nonmissing | 12 | distinct | 11
-original_job | character | nonmissing | 12 | distinct | 12
-root_job_id | character | nonmissing | 12 | distinct | 12
-replacement_job_number | character | nonmissing | 12 | distinct | 12
-original_filing_date | Date | nonmissing | 12 | distinct | 10
-refiling_date | Date | nonmissing | 12 | distinct | 10
-original_units | numeric | nonmissing | 12 | distinct | 11 min/median/mean/max 6/30/38.66667/98
-replacement_parent | character | nonmissing | 12 | distinct | 11
-replacement_units | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 6/31.5/35.41667/98
-additive_component | logical | nonmissing | 12 | distinct | 1
-address | character | nonmissing | 12 | distinct | 12
-bin | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 2017373/2625533/3018956/5000208
-filing_status | character | nonmissing | 12 | distinct | 1
+sample | character | nonmissing | 109 | distinct | 2
+parent_id | character | nonmissing | 109 | distinct | 102
+original_job | character | nonmissing | 109 | distinct | 109
+root_job_id | character | nonmissing | 109 | distinct | 109
+replacement_job_number | character | nonmissing | 109 | distinct | 104
+original_filing_date | Date | nonmissing | 109 | distinct | 101
+refiling_date | Date | nonmissing | 109 | distinct | 97
+original_units | numeric | nonmissing | 109 | distinct | 43 min/median/mean/max 6/12/28.10092/290
+refiling_basis | character | nonmissing | 109 | distinct | 3
+archived_original_status | character | nonmissing | 97 | distinct | 1
+replacement_parent | character | nonmissing | 109 | distinct | 102
+replacement_units | numeric | nonmissing | 109 | distinct | 43 min/median/mean/max 6/14/27.85321/218
+additive_component | logical | nonmissing | 109 | distinct | 1
+archived_replacement_status | character | nonmissing | 97 | distinct | 4
+address | character | nonmissing | 109 | distinct | 104
+bin | numeric | nonmissing | 13 | distinct | 13 min/median/mean/max 2017373/3116126/3026431/5000208
+filing_status | character | nonmissing | 13 | distinct | 1
+dob_current_status_date | Date | nonmissing | 13 | distinct | 9
+archived_address | character | nonmissing | 97 | distinct | 92
 withdrawal_date | Date | nonmissing | 12 | distinct | 8

@@ -1,0 +1,17 @@
+Rows: 690
+Columns: 11
+Key fields: parent_id, vintage
+Saved-file MD5: c03b5683153aaed91f6c3250a90bdd2f
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parent_id | character | nonmissing | 690 | distinct | 30
+vintage | character | nonmissing | 690 | distinct | 23
+map_date | Date | nonmissing | 690 | distinct | 23
+requested_lots | numeric | nonmissing | 690 | distinct | 5 min/median/mean/max 1/1/1.533333/6
+mapped_lots | numeric | nonmissing | 690 | distinct | 6 min/median/mean/max 0/1/0.926087/6
+mapped_bbls | character | nonmissing | 521 | distinct | 25
+missing_bbls | character | nonmissing | 344 | distinct | 17
+complete | logical | nonmissing | 690 | distinct | 2
+cohort_date | Date | nonmissing | 690 | distinct | 30
+parent_last_filing_date | Date | nonmissing | 690 | distinct | 30
+days_from_filing | numeric | nonmissing | 690 | distinct | 636 min/median/mean/max -2576/-576/-574.1232/1785

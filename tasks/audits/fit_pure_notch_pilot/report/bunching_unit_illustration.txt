@@ -1,0 +1,15 @@
+Rows: 2
+Columns: 9
+Key fields: threshold_total
+Saved-file MD5: a465e30a7a63352b2c7dc4b322b821f6
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+threshold_total | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 99/148.5/148.5/198
+post_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 9/23/23/37
+historical_parent_equivalents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0/2.0982/2.0982/4.196399
+excess_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 9/20.9018/20.9018/32.8036
+origin_min | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 100/149.5/149.5/199
+continuous_origin_bound | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 131.8346/181.3346/181.3346/230.8346
+origin_max | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 131/180.5/180.5/230
+assumed_mean_reduction | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 16.5/16.5/16.5/16.5
+illustrative_unit_reduction | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 148.5/344.8797/344.8797/541.2594

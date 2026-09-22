@@ -1,10 +1,10 @@
-Rows: 5918
+Rows: 7466
 Columns: 6
 Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: b403ff6894a0989b7fae2e97c72ecb1a
-job_number | character | nonmissing | 5918 | distinct | 5918
-filing_bbl | character | nonmissing | 5918 | distinct | 5822
-geometry_bbl | character | nonmissing | 5918 | distinct | 5528
-pluto_source_id_used | character | nonmissing | 5918 | distinct | 2
-pluto_version_used | character | nonmissing | 5918 | distinct | 40
-geometry_available | logical | nonmissing | 5918 | distinct | 2
+Saved-file MD5: 9b7513242bebc205c09e63ea160a1e65
+job_number | character | nonmissing | 7466 | distinct | 7466
+filing_bbl | character | nonmissing | 7466 | distinct | 6641
+geometry_bbl | character | nonmissing | 7466 | distinct | 6347
+pluto_source_id_used | character | nonmissing | 7466 | distinct | 2
+pluto_version_used | character | nonmissing | 7466 | distinct | 40
+geometry_available | logical | nonmissing | 7466 | distinct | 2

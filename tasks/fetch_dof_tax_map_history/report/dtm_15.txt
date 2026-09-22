@@ -1,0 +1,14 @@
+Rows: 78108
+Columns: 8
+Key fields: OBJECTID
+Saved-file MD5: 6a65c130869c81ab31691a755baa4f4f
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+OBJECTID | integer | nonmissing | 78108 | distinct | 78108 min/median/mean/max 1/39054.5/39054.5/78108
+Borough | character | nonmissing | 78108 | distinct | 5
+Borough_Name | character | nonmissing | 78108 | distinct | 5
+Block | integer | nonmissing | 78108 | distinct | 8155 min/median/mean/max 0/3151/4349.925/49650
+Lot | character | nonmissing | 78108 | distinct | 1492
+BBL | character | nonmissing | 78108 | distinct | 57007
+Lot_Action | character | nonmissing | 78108 | distinct | 8
+TRANS_NUM | integer | nonmissing | 78108 | distinct | 39698 min/median/mean/max 103/70102/83643.12/688545

@@ -1,0 +1,17 @@
+Rows: 22
+Columns: 11
+Key fields: truth, replication
+Saved-file MD5: 0bab91c81a32f58fe95384e5b8b72520
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+truth | numeric | nonmissing | 22 | distinct | 2 min/median/mean/max 1/1.5/1.5/2
+replication | numeric | nonmissing | 22 | distinct | 11 min/median/mean/max 0/5/5/10
+true_kappa | numeric | nonmissing | 22 | distinct | 2 min/median/mean/max 0.02/0.06/0.06/0.1
+true_sigma_org | numeric | nonmissing | 22 | distinct | 2 min/median/mean/max 0.025/0.0375/0.0375/0.05
+minimum_objective | numeric | nonmissing | 22 | distinct | 21 min/median/mean/max 0/0.001613255/0.001670794/0.005887102
+true_objective | numeric | nonmissing | 22 | distinct | 21 min/median/mean/max 0/0.001778161/0.001819135/0.005914085
+n_minimizers | numeric | nonmissing | 22 | distinct | 1 min/median/mean/max 1/1/1/1
+kappa_min | numeric | nonmissing | 22 | distinct | 11 min/median/mean/max 0.005/0.06/0.3311364/1
+kappa_max | numeric | nonmissing | 22 | distinct | 11 min/median/mean/max 0.005/0.06/0.3311364/1
+sigma_min | numeric | nonmissing | 22 | distinct | 5 min/median/mean/max 0.005/0.05/0.04159091/0.1
+sigma_max | numeric | nonmissing | 22 | distinct | 5 min/median/mean/max 0.005/0.05/0.04159091/0.1

@@ -1,0 +1,32 @@
+Source: NYC Housing Authority, Board Meeting Minutes, July 29, 2020, item 14.
+Original PDF: https://www.nyc.gov/assets/nycha/downloads/pdf/board-meetings/archives-2020-2011/board_meeting_minutes_07292020.pdf
+Access: official public web document extraction, 2026-09-20. Physical PDF p. 9 (web viewer page index 8), lines 229-254.
+Status: text capture only, not original PDF bytes. Direct original download returned HTTP 403.
+
+14 Authorization to Amend Board Resolution 19-10/30-2
+Location: Justice Sonia Sotomayor
+Administering Department: Real Estate Development
+Funding Source: N/A
+Amount: N/A
+Projected Section 3 Hires: Not Required
+______________________________________________________________________
+Authorization is requested to amend Board Resolution 19-10/30-2, which authorized the
+Authority to (i) submit an application to the United States Department of Housing and
+Urban Development (“HUD”), pursuant to Section 18 of the United States Housing Act of
+1937, as amended (the "Section 18 Application") for approval to enter into a ninety-nine
+(99) year ground lease for an approximately 12,614 square foot parcel of land located at
+Bronx County, Block 3730, part of Tax Lot 1 (tentative Tax Lot TBD) (the “Project Site”),
+with a total of approximately 130,193 square feet of zoning floor area, and easements, for
+the construction of a building with approximately two hundred (200) affordable senior
+housing units, one (1) superintendent’s unit, ground floor community facility uses, and on-
+site supportive services for residents, and (ii) upon HUD approval of the Section 18
+Application, enter into a ninety-nine (99) year ground lease for the Project Site with zoning
+floor area and easements with Casa Celina, a joint venture among Xenolith Partners, The
+Kretchmer Companies, ELH Mgmt., and Jewish Association Serving the Aging, or its
+affiliate, to (i) reflect a change in the anticipated prepaid lease payment to the Authority
+from $2,677,660.00 to $1.00 as the result of ongoing negotiations and in consideration of
+the value provided by the construction of the building and its affordable units, (ii) reflect a
+change in the approximate zoning floor area from 130,193 square feet to 132,237 square
+feet in light of construction design changes, and (iii) update the tentative Tax Lot TBD to
+Bronx Block 3730 Tax Lot 39.
+APPROVED

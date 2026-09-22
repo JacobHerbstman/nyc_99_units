@@ -18,7 +18,8 @@ ifneq ($(filter command,$(origin PRE_START_DATE) $(origin PRE_END_DATE) $(origin
 $(error These fixed-name outputs use the settings recorded in this Makefile; edit those settings here so Make tracks the change)
 endif
 
-all: ../output/sample_exposure_summary.csv \
+all: ../output/annual_split_shares.csv ../output/annual_split_shares.png \
+	../output/pdf/annual_split_shares.pdf ../output/sample_exposure_summary.csv \
 	../output/calibration_weights.csv \
 	../output/calibration_summary.csv \
 	../output/bootstrap_draws.csv \
@@ -61,6 +62,14 @@ all: ../output/sample_exposure_summary.csv \
 	../report/sample_exposure_summary.txt \
 	../report/scale_shape_count_decomposition.txt \
 	../report/scale_shape_decomposition.txt
+
+include ../../../shared/code/generic.make
+
+../output/annual_split_shares.csv ../output/annual_split_shares.png \
+	../output/pdf/annual_split_shares.pdf: plot_annual_split_shares.R \
+	../input/parent_opportunity_panel.parquet ../../../shared/code/write_data_report.R Makefile \
+	| $(OOPR) ../output/pdf
+	$(R) $<
 
 ../output/sample_exposure_summary.csv: summarize_scale_shape_splitting.R Makefile \
 	../../../shared/code/source_pipeline_utils.R ../input/parent_opportunity_panel.parquet \
@@ -307,5 +316,3 @@ link-inputs: ../input/parent_opportunity_panel.parquet ../input/constituent_fili
 .PHONY: check-plot_bunching
 check-plot_bunching:
 	$(MAKE) -C ../../../plot_bunching/code all
-
-include ../../../shared/code/generic.make

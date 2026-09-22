@@ -1,0 +1,8 @@
+filename,dataset_id,endpoint,where_summary,order,limit,observed_date,row_count,sha256,storage
+dob_now_jobs.json,w9ak-ipjd,https://data.cityofnewyork.us/resource/w9ak-ipjd.json,seven listed filing IDs,job_filing_number,20,2026-09-16,7,e90e4e8fdabc8b6a67c9f64a7c2be0e0ef9fff56794f01da9bcc3807faded166,original API bytes
+dob_bis_jobs.json,ic3t-wcy2,https://data.cityofnewyork.us/resource/ic3t-wcy2.json,jobs 321590541 and 320911233,"job__,doc__",100,2026-09-16,14,6861bb123ef5413e12285c54798e41de1d13e1a60cf9f2d5ab6d19c44946eb39,original API bytes
+acris_master.json,bnx9-e6tj,https://data.cityofnewyork.us/resource/bnx9-e6tj.json,six listed document IDs,document_id,100,2026-09-16,7,bf2ac9b5f1ca7ad025f8bcce6fdb8dfb48c19de92573ef78d218edaf3d0c0b3c,original API bytes
+acris_legals.json,8h5j-fqxa,https://data.cityofnewyork.us/resource/8h5j-fqxa.json,six listed document IDs,document_id,100,2026-09-16,10,109ad177913e584e54fb42c8f61cc15713e8370608edcb95f2dbfb394577dfcc,original API bytes
+acris_parties.json,636b-3b5g,https://data.cityofnewyork.us/resource/636b-3b5g.json,six listed document IDs,"document_id,party_type",100,2026-09-16,18,048b93d2d87f33a2cf93e20ac55185e6708961143fcdac65232671d19769c0eb,original API bytes
+dob_now_all_related_filings.json,w9ak-ipjd,https://data.cityofnewyork.us/resource/w9ak-ipjd.json,five listed job-number prefixes,job_filing_number,500,2026-09-16,60,4e4ee99b6c170fc1e733da95b95319e47de267a9afdac6aa7b671182479eda88,original API bytes
+dob_bis_x01273665_related.json,ic3t-wcy2,https://data.cityofnewyork.us/resource/ic3t-wcy2.json,job_description contains X01273665,"job__,doc__",100,2026-09-16,1,47194564f2907ae014c66c15abb0f65d1f80670a10d813dbbd2721d2dd64e1ef,original API bytes

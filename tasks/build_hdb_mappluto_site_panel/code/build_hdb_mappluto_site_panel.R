@@ -1,6 +1,7 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/build_hdb_mappluto_site_panel/code")
 # start_date <- as.Date("2010-01-01")
-# end_date <- as.Date("2025-12-31")
+# end_date <- as.Date("2023-12-31")
+# hdb_release <- "23Q4"
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -15,9 +16,10 @@ source("../../shared/code/write_data_report.R")
 
 if (!interactive()) {
   args <- commandArgs(trailingOnly = TRUE)
-  stopifnot(length(args) == 2L)
+  stopifnot(length(args) == 3L)
   start_date <- as.Date(args[1])
   end_date <- as.Date(args[2])
+  hdb_release <- args[3]
 }
 
 if (is.na(start_date) || is.na(end_date) || end_date < start_date) {
@@ -42,7 +44,14 @@ numeric_feature_columns <- c(
   "allowed_res_area", "residual_res_area"
 )
 
-hdb <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet")
+stopifnot(hdb_release %in% c("23Q4", "25Q4"))
+if (hdb_release == "23Q4") {
+  hdb <- read_parquet("../input/dcp_housing_database_project_level_23q4.parquet")
+} else {
+  hdb <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet") |>
+    mutate(historical_active = NA)
+}
+stopifnot(all(hdb$release == hdb_release), !anyDuplicated(hdb$job_number))
 
 mappluto_lot_files <- read_csv("../input/mappluto_lot_files.csv", show_col_types = FALSE, na = c("", "NA"))
 release_calendar <- read_csv("../output/mappluto_release_calendar.csv", show_col_types = FALSE, na = c("", "NA"))
@@ -120,6 +129,8 @@ candidate_panel <- hdb |>
   ) |>
   transmute(
     job_number,
+    hdb_release = release,
+    historical_active,
     job_status,
     date_filed,
     filing_year,
@@ -733,7 +744,7 @@ for (feature_name in numeric_feature_columns) {
 
 candidate_panel <- candidate_panel |>
   select(
-    hdb_panel_row_id, job_number, job_status, date_filed, filing_year, bbl, hdb_bbl_borough, hdb_bbl_block, hdb_bbl_lot,
+    hdb_panel_row_id, job_number, hdb_release, historical_active, job_status, date_filed, filing_year, bbl, hdb_bbl_borough, hdb_bbl_block, hdb_bbl_lot,
     bin, address, house_number, street_name, ownership,
     hdb_borough_code, hdb_borough_name, hdb_community_district, hdb_council_district,
     classa_prop, classa_prop_integer, y100,
@@ -760,5 +771,8 @@ candidate_panel <- candidate_panel |>
     starts_with("missing_")
   )
 
-SaveData(candidate_panel, NULL, "../output/hdb_mappluto_site_panel.parquet")
-cat("Wrote HDB-MapPLUTO site panel to ../output/hdb_mappluto_site_panel.parquet\n")
+if (hdb_release == "23Q4") {
+  SaveData(candidate_panel, "job_number", "../output/historical_hdb_mappluto_site_panel.parquet")
+} else {
+  SaveData(candidate_panel, "job_number", "../output/hdb_mappluto_site_panel.parquet")
+}

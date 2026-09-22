@@ -1,9 +1,13 @@
 Rows: 21168
-Columns: 135
-Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: 73a3b51f18e948dacbc78449f68430d8
+Columns: 137
+Key fields: job_number
+Saved-file MD5: aa0bb2ae86a5a5edc9761f9aa71d21b9
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
 hdb_panel_row_id | integer | nonmissing | 21168 | distinct | 21168 min/median/mean/max 1/10584.5/10584.5/21168
 job_number | character | nonmissing | 21168 | distinct | 21168
+hdb_release | character | nonmissing | 21168 | distinct | 1
+historical_active | logical | nonmissing | 0 | distinct | 0
 job_status | character | nonmissing | 21168 | distinct | 4
 date_filed | Date | nonmissing | 21168 | distinct | 4042
 filing_year | integer | nonmissing | 21168 | distinct | 16 min/median/mean/max 2010/2017/2017.297/2025

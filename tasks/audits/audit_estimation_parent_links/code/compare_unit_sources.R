@@ -2,14 +2,23 @@
 library(arrow)
 library(dplyr)
 library(readr)
+source("../../../shared/code/write_data_report.R")
 
 parents <- read_parquet("../input/parent_opportunity_panel.parquet")
 membership <- read_parquet("../input/symmetric_parent_membership.parquet")
 dob <- read_parquet("../input/dob_now_new_building_initial_filings.parquet")
-hdb <- read_parquet("../input/dcp_housing_database_project_level_raw_25q4.parquet")
+hdb_historical <- read_parquet("../input/dcp_housing_database_project_level_raw_23q4.parquet") |>
+  select(job_number, addressnum, addressst, classaprop, datelstupd, floorsprop) |>
+  mutate(across(c(classaprop, floorsprop), as.numeric),
+    datelstupd = as.Date(datelstupd), sample = "historical", hdb_release = "23Q4")
+hdb_post <- read_parquet("../input/dcp_housing_database_project_level_raw_25q4.parquet") |>
+  select(job_number, addressnum, addressst, classaprop, datelstupd, floorsprop) |>
+  mutate(across(c(classaprop, floorsprop), as.numeric),
+    datelstupd = as.Date(datelstupd), sample = "post_policy", hdb_release = "25Q4")
+hdb <- bind_rows(hdb_historical, hdb_post)
 stopifnot(!anyDuplicated(parents$parent_id),
   !anyDuplicated(membership[c("sample", "root_job_id")]),
-  !anyDuplicated(dob$job_number), !anyDuplicated(hdb$job_number))
+  !anyDuplicated(dob$job_number), !anyDuplicated(hdb[c("sample", "job_number")]))
 
 # Compare the same retained buildings, dates and classifications against sources.
 filings <- membership |>
@@ -23,11 +32,11 @@ filings <- membership |>
     dob_i1_units = proposed_dwelling_units, dob_status_date = current_status_date,
     dob_stories = proposed_stories, dob_floor_area = total_construction_floor_area),
     by = "root_job_id", relationship = "many-to-one") |>
-  left_join(hdb |> transmute(root_job_id = job_number,
+  left_join(hdb |> transmute(sample, root_job_id = job_number, hdb_release,
     hdb_address = paste(addressnum, addressst), hdb_units = classaprop,
     hdb_update_date = datelstupd, hdb_stories = floorsprop),
-    by = "root_job_id", relationship = "many-to-one") |>
-  mutate(address = coalesce(dob_address, hdb_address),
+    by = c("sample", "root_job_id"), relationship = "many-to-one") |>
+  mutate(address = if_else(sample == "historical", hdb_address, coalesce(dob_address, hdb_address)),
     dob_available = !is.na(dob_i1_units),
     dob_change = dob_i1_units - current_units,
     # Explicit partial-coverage sensitivity, never labeled a DOB-only panel.
@@ -60,8 +69,8 @@ stopifnot(nrow(comparison) == nrow(parents),
   all(is.na(comparison$dob_total) == !comparison$dob_complete),
   sum(comparison$current_total) == sum(filings$current_units),
   sum(comparison$available_dob_total) == sum(filings$available_dob_units))
-write_csv(filings, "../output/dob_unit_filings.csv", na = "")
-write_csv(comparison, "../output/dob_unit_parents.csv", na = "")
+SaveData(filings, c("sample", "root_job_id"), "../output/dob_unit_filings.csv")
+SaveData(comparison, c("sample", "parent_id"), "../output/dob_unit_parents.csv")
 
 print(filings |> filter(included_ab) |> group_by(sample) |>
   summarise(filings = n(), matched = sum(dob_available),

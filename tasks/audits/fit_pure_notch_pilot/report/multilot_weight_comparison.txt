@@ -1,0 +1,12 @@
+Rows: 554
+Columns: 6
+Key fields: parent_id
+Saved-file MD5: 2f4f21780f58c9fc951a1d55562207df
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parent_id | character | nonmissing | 554 | distinct | 554
+parent_total_units | numeric | nonmissing | 554 | distinct | 235 min/median/mean/max 50/110/174.3502/1754
+n_components | numeric | nonmissing | 554 | distinct | 4 min/median/mean/max 1/1/1.068592/4
+multi_lot_indicator | numeric | nonmissing | 554 | distinct | 2 min/median/mean/max 0/0/0.05776173/1
+baseline_weight | numeric | nonmissing | 554 | distinct | 546 min/median/mean/max 0.0004576334/0.00177131/0.001805054/0.005164101
+multilot_weight | numeric | nonmissing | 554 | distinct | 546 min/median/mean/max 0.0003098135/0.001694744/0.001805054/0.007874295

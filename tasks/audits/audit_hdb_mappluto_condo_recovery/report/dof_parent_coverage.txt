@@ -1,0 +1,34 @@
+Rows: 933
+Columns: 28
+Key fields: parent_id
+Saved-file MD5: ec7c6aeaf421223caef37296ac269a0d
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parent_id | character | nonmissing | 933 | distinct | 933
+sample | character | nonmissing | 933 | distinct | 2
+vintages | character | nonmissing | 933 | distinct | 30
+mixed_vintages | logical | nonmissing | 933 | distinct | 2
+recovered_with_dof | logical | nonmissing | 933 | distinct | 2
+condo_scope_review | logical | nonmissing | 933 | distinct | 2
+partial_change | logical | nonmissing | 933 | distinct | 2
+unusual_change | logical | nonmissing | 933 | distinct | 2
+source_bbl_disagreement | logical | nonmissing | 933 | distinct | 2
+unmatched_lots | numeric | nonmissing | 933 | distinct | 6 min/median/mean/max 0/0/0.08896034/6
+unmapped_filing_lots | numeric | nonmissing | 933 | distinct | 5 min/median/mean/max 0/0/0.03858521/6
+applied_transactions | character | nonmissing | 332 | distinct | 331
+partial_transactions | character | nonmissing | 149 | distinct | 141
+unusual_transactions | character | nonmissing | 11 | distinct | 11
+candidate_bbls | character | nonmissing | 933 | distinct | 915
+filing_bbls | character | nonmissing | 933 | distinct | 915
+hdb_bbls | character | nonmissing | 794 | distinct | 785
+candidate_area_sqft | numeric | nonmissing | 862 | distinct | 725 min/median/mean/max 657/12947/25549.13/821806
+composition_eligible | logical | nonmissing | 933 | distinct | 2
+parent_total_units | numeric | nonmissing | 933 | distinct | 301 min/median/mean/max 50/99/163.9914/1452
+n_components | numeric | nonmissing | 933 | distinct | 8 min/median/mean/max 1/1/1.176849/8
+component_addresses | character | nonmissing | 933 | distinct | 925
+lot_area_sqft | numeric | nonmissing | 923 | distinct | 751 min/median/mean/max 279/10386/24701.35/1227637
+area_difference_sqft | numeric | nonmissing | 861 | distinct | 262 min/median/mean/max -91072/0/4259.056/367950
+reason | character | nonmissing | 933 | distinct | 7
+unresolved | logical | nonmissing | 933 | distinct | 2
+application_ids | character | nonmissing | 512 | distinct | 498
+reference_map_ids | character | nonmissing | 933 | distinct | 826

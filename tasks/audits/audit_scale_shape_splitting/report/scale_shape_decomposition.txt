@@ -1,25 +1,25 @@
 Rows: 8
 Columns: 19
 Key fields: range_label
-Saved-file MD5: e4a379889d4bd78c43aa56ff894c1fa1
+Saved-file MD5: 5c90daf44f60b27c7e285757ab7ee591
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 range_label | character | nonmissing | 8 | distinct | 8
 exposure_years__Pre: 2019-2022 | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 4/4/4/4
 exposure_years__Post: 2025-Jul 8, 2026 | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 1.516769/1.516769/1.516769/1.516769
-opportunity_count__Pre: 2019-2022 | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 562/562/562/562
-opportunity_count__Post: 2025-Jul 8, 2026 | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 333/333/333/333
-annualized_opportunity_rate__Pre: 2019-2022 | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 140.5/140.5/140.5/140.5
-annualized_opportunity_rate__Post: 2025-Jul 8, 2026 | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 219.5456/219.5456/219.5456/219.5456
-range_count__Pre: 2019-2022 | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0/21.5/29.625/102
-range_count__Post: 2025-Jul 8, 2026 | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0/10/14.625/40
-annualized_range_count__Pre: 2019-2022 | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0/5.375/7.40625/25.5
-annualized_range_count__Post: 2025-Jul 8, 2026 | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0/6.59296/9.642204/26.37184
-range_share__Pre: 2019-2022 | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0/0.03825623/0.05271352/0.1814947
-range_share__Post: 2025-Jul 8, 2026 | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0/0.03003003/0.04391892/0.1201201
-annualized_count_ratio_post_pre | numeric | nonmissing | 7 | distinct | 7 min/median/mean/max 0/0.8014971/2.772842/15.06962
-market_scale_ratio_post_pre | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 1.562602/1.562602/1.562602/1.562602
-shape_ratio_post_pre | numeric | nonmissing | 7 | distinct | 7 min/median/mean/max 0/0.5129247/1.774503/9.64393
-ratio_identity_error | numeric | nonmissing | 7 | distinct | 3 min/median/mean/max -5.551115e-17/0/2.379049e-17/2.220446e-16
-annualized_count_difference_post_pre | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -7.497744/-0.1128159/2.235954/24.62184
-share_difference_post_pre | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -0.08840157/-0.007560942/-0.008794604/0.1076646
+opportunity_count__Pre: 2019-2022 | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 606/606/606/606
+opportunity_count__Post: 2025-Jul 8, 2026 | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 327/327/327/327
+annualized_opportunity_rate__Pre: 2019-2022 | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 151.5/151.5/151.5/151.5
+annualized_opportunity_rate__Post: 2025-Jul 8, 2026 | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 215.5898/215.5898/215.5898/215.5898
+range_count__Pre: 2019-2022 | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0/22/29/105
+range_count__Post: 2025-Jul 8, 2026 | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0/10/14.125/38
+annualized_range_count__Pre: 2019-2022 | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0/5.5/7.25/26.25
+annualized_range_count__Post: 2025-Jul 8, 2026 | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0/6.59296/9.312556/25.05325
+range_share__Pre: 2019-2022 | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0/0.03630363/0.04785479/0.1732673
+range_share__Post: 2025-Jul 8, 2026 | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0/0.03058104/0.04319572/0.116208
+annualized_count_ratio_post_pre | numeric | nonmissing | 7 | distinct | 7 min/median/mean/max 0/0.7283651/5.400728/33.40433
+market_scale_ratio_post_pre | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 1.423035/1.423035/1.423035/1.423035
+shape_ratio_post_pre | numeric | nonmissing | 7 | distinct | 7 min/median/mean/max 0/0.5118392/3.795218/23.47401
+ratio_identity_error | numeric | nonmissing | 7 | distinct | 5 min/median/mean/max -7.105427e-15/0/-1.022991e-15/1.110223e-16
+annualized_count_difference_post_pre | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -7.130415/-0.4878159/2.062556/24.30325
+share_difference_post_pre | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max -0.08458231/-0.008394647/-0.004659067/0.1112575

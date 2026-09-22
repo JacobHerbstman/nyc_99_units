@@ -3,6 +3,7 @@ library(arrow)
 library(dplyr)
 library(readr)
 library(sf)
+source("../../../shared/code/write_data_report.R")
 
 # These are the seven cases already identified by the full nearby-filings screen.
 cases <- tibble(
@@ -13,7 +14,7 @@ cases <- tibble(
 post <- read_parquet("../input/post_policy_filing_link_fields.parquet")
 historical <- read_parquet("../input/historical_parent_filing_link_fields.parquet")
 candidates <- read_parquet("../input/historical_parent_candidate_pairs.parquet")
-site <- read_parquet("../input/hdb_mappluto_site_panel.parquet")
+site <- read_parquet("../input/historical_hdb_mappluto_site_panel.parquet")
 membership <- read_parquet("../input/symmetric_parent_membership.parquet")
 stopifnot(!anyDuplicated(membership[c("sample", "root_job_id")]))
 links <- read_parquet("../input/symmetric_parent_links.parquet")
@@ -57,7 +58,9 @@ for (i in seq_len(nrow(cases))) {
     right <- historical[historical$job_number == cases$anchor[i], ]
     cases$in_linking_universe[i] <- nrow(left) == 1
     if (nrow(left) == 1 && nrow(right) == 1) {
-      cases$same_owner[i] <- !is.na(left$dob_owner_match_key) && identical(left$dob_owner_match_key, right$dob_owner_match_key)
+      if (!is.na(left$pluto_owner_match_key) && !is.na(right$pluto_owner_match_key)) {
+        cases$same_owner[i] <- identical(left$pluto_owner_match_key, right$pluto_owner_match_key)
+      }
     }
     pair <- candidates[(candidates$job_number_1 == cases$companion[i] & candidates$job_number_2 == cases$anchor[i]) |
       (candidates$job_number_2 == cases$companion[i] & candidates$job_number_1 == cases$anchor[i]), ]
@@ -80,4 +83,4 @@ cases <- cases |>
   select(-companion_parent, -anchor_parent)
 stopifnot(!anyNA(cases$same_parent), all(cases$same_parent))
 stopifnot(nrow(cases) == 7, !anyDuplicated(cases$companion))
-write_csv(cases, "../output/companion_link_trace.csv")
+SaveData(cases, "companion", "../output/companion_link_trace.csv")

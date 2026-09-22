@@ -1,0 +1,12 @@
+Rows: 5
+Columns: 6
+Key fields: series
+Saved-file MD5: c216415671368d8dff8c090779c7da92
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+series | character | nonmissing | 5 | distinct | 5
+mean_units | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 136.5839/151.3804/152.9711/164.3365
+share_99 | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 0.01353677/0.1193548/0.07993646/0.1261738
+share_J2 | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 0.03092713/0.07401556/0.07243637/0.1322581
+share_J3plus | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 0.009946534/0.03548387/0.0594699/0.1229605
+share_99x2 | numeric | nonmissing | 5 | distinct | 4 min/median/mean/max 0/0.00150971/0.006481335/0.02903226

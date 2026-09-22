@@ -1,14 +1,14 @@
 Rows: 789
 Columns: 8
 Key fields: statistic
-Saved-file MD5: 0be6da572d92f819bee6cf01aa60e070
+Saved-file MD5: 96d8770a1b926a9680bfb649a481cb6e
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 statistic | character | nonmissing | 789 | distinct | 789
-point_estimate | numeric | nonmissing | 789 | distinct | 377 min/median/mean/max -0.03071346/0/0.1972605/124
-successful_replications | numeric | nonmissing | 789 | distinct | 3 min/median/mean/max 490/492/491.9911/492
-bootstrap_mean | numeric | nonmissing | 789 | distinct | 464 min/median/mean/max -0.03017927/0/0.1995355/126.102
-percentile_lower | numeric | nonmissing | 789 | distinct | 244 min/median/mean/max -0.0691547/0/0.1672567/116
-percentile_upper | numeric | nonmissing | 789 | distinct | 288 min/median/mean/max -0.003732922/0.003928066/0.2389466/139.775
-basic_lower | numeric | nonmissing | 789 | distinct | 381 min/median/mean/max -0.1666667/-0.00112702/0.1555743/108.225
-basic_upper | numeric | nonmissing | 789 | distinct | 380 min/median/mean/max -0.001585154/0.003097913/0.2272642/132
+point_estimate | numeric | nonmissing | 789 | distinct | 387 min/median/mean/max -0.03323459/0/0.214489/134
+successful_replications | numeric | nonmissing | 789 | distinct | 2 min/median/mean/max 486/495/494.9772/495
+bootstrap_mean | numeric | nonmissing | 789 | distinct | 472 min/median/mean/max -0.03265898/0/0.2103947/130.8951
+percentile_lower | numeric | nonmissing | 789 | distinct | 254 min/median/mean/max -0.06693503/0/0.1766399/119
+percentile_upper | numeric | nonmissing | 789 | distinct | 297 min/median/mean/max -0.005431448/0.004305189/0.2493293/144.875
+basic_lower | numeric | nonmissing | 789 | distinct | 389 min/median/mean/max -0.1111111/-0.001377924/0.1796487/123.125
+basic_upper | numeric | nonmissing | 789 | distinct | 388 min/median/mean/max -0.004220475/0.002964479/0.2523381/149

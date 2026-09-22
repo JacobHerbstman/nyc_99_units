@@ -1,0 +1,8 @@
+Source: New York City Housing Authority, 2025 Five Year Operating Plan, 2025-2029 Operating Plan Narrative.
+Original PDF: https://home4.nyc.gov/assets/nycha/downloads/pdf/annual-plan/2025/2025-2029-annual-plan-operating-plan-narrative.pdf
+Access: official public web document extraction, 2026-09-20. Physical PDF p. 20 (web viewer page index 19), lines 675-677.
+Status: text capture only, not original PDF bytes. Direct original download returned HTTP 404; web document viewer remained readable.
+
+Casa Celina, Bronx
+In 2021, NYCHA leased a parcel of approximately 9,400 square feet on Block 3730, Lot 1, for
+the construction of a 205-unit senior housing development. Construction is underway.

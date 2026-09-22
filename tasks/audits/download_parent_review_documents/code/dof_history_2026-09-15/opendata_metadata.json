@@ -1,0 +1,793 @@
+{
+  "id" : "i38t-6if2",
+  "name" : "TAX_LOT_POLYGON",
+  "assetType" : "dataset",
+  "attribution" : "Department of Finance (DOF)",
+  "attributionLink" : "https://propertyinformationportal.nyc.gov/",
+  "averageRating" : 0,
+  "category" : "City Government",
+  "createdAt" : 1729109087,
+  "description" : "This polygon-based spatial data represents the shape, location, and identity of Tax Lots in the <a href=\"https://data.cityofnewyork.us/browse?Data-Collection_Data-Collection=Department+of+Finance+Digital+Tax+Map&sortBy=relevance&page=1&pageSize=20\" target=\"_blank\" rel=\"noreferrer\">Digital Tax Map Collection</a>.\n\n• <strong>Updates:</strong> Data is extracted from DOF’s internal system on the last Friday of each month and refreshed on ArcGIS Online on the 1st. The online map always shows the most recent version.\n\n• <strong>Accessing the Data:</strong>  \n  • <strong>Digital Tax Map on NYC Open Data:</strong> See the <a href=\"https://data.cityofnewyork.us/browse?Data-Collection_Data-Collection=Department+of+Finance+Digital+Tax+Map&sortBy=relevance&page=1&pageSize=20\" target=\"_blank\" rel=\"noreferrer\">complete collection</a>.  \n  • <strong>Individual layers:</strong> Downloadable from the <a href=\"https://services6.arcgis.com/yG5s3afENB5iO9fj/ArcGIS/rest/services/DTM_ETL_DAILY_view/FeatureServer\" target=\"_blank\" rel=\"noreferrer\">Digital Tax Map Feature Server</a>.  \n \n<strong>Note:</strong> To ensure reliability, the Tax Map alternates between <em>Set A</em> and <em>Set B</em> each month. If one set has issues, the previous month’s copy remains online. Both sets are kept about a month apart and are available for download:  \n    &nbsp;&nbsp;&nbsp;&nbsp;• <a href=\"https://nyc.maps.arcgis.com/home/item.html?id=4da1c8c5f64d4771ae5861dd8ea3775c\">Set A link</a>  \n    &nbsp;&nbsp;&nbsp;&nbsp;• <a href=\"https://nyc.maps.arcgis.com/home/item.html?id=537aff653f6547cea117ccc4e8cf5ebf\">Set B link</a>\n\n• <strong>Digital Alteration Book (DAB):</strong> The DAB is the official log of map changes—such as new lots, merges, or boundary shifts—providing a clear record of how the Tax Map evolves. It is available through the <a href=\"https://www.nyc.gov/site/finance/property/property-digital-tax-map.page#\">Property Information Portal</a>.\n\n<b>Disclaimer:</b>  \nThis dataset reflects formal applications submitted to DOF but may not reflect the latest changes in other City systems (e.g., exemptions or buildings data). It is provided for informational purposes only and is not guaranteed to be accurate as of today’s date.",
+  "diciBackend" : false,
+  "displayType" : "table",
+  "downloadCount" : 1155,
+  "hideFromCatalog" : false,
+  "hideFromDataJson" : false,
+  "locked" : false,
+  "newBackend" : true,
+  "numberOfComments" : 0,
+  "oid" : 40910496,
+  "provenance" : "official",
+  "publicationAppendEnabled" : false,
+  "publicationDate" : 1729109090,
+  "publicationGroup" : 19668679,
+  "publicationStage" : "published",
+  "rowsUpdatedAt" : 1788327595,
+  "rowsUpdatedBy" : "ft46-kupe",
+  "tableId" : 19668679,
+  "totalTimesRated" : 0,
+  "viewCount" : 6930,
+  "viewLastModified" : 1783369905,
+  "viewType" : "tabular",
+  "approvals" : [ {
+    "reviewedAt" : 1757348299,
+    "reviewedAutomatically" : false,
+    "state" : "approved",
+    "submissionId" : 7111932,
+    "submissionObject" : "public_audience_request",
+    "submissionOutcome" : "change_audience",
+    "submittedAt" : 1757348284,
+    "targetAudience" : "public",
+    "workflowId" : 2285,
+    "reviewer" : {
+      "id" : "5fuc-pqz2",
+      "displayName" : "NYC OpenData"
+    },
+    "submissionDetails" : {
+      "permissionType" : "read"
+    },
+    "submissionOutcomeApplication" : {
+      "endedAt" : 1757348299,
+      "failureCount" : 0,
+      "startedAt" : 1757348299,
+      "status" : "success"
+    },
+    "submitter" : {
+      "id" : "5fuc-pqz2",
+      "displayName" : "NYC OpenData"
+    }
+  } ],
+  "clientContext" : {
+    "clientContextVariables" : [ ],
+    "inheritedVariables" : { }
+  },
+  "columns" : [ {
+    "id" : 600586305,
+    "name" : "the_geom",
+    "dataTypeName" : "multipolygon",
+    "description" : "Geometry field used for mapping. Geometry Type: MultiPolygon",
+    "fieldName" : "the_geom",
+    "position" : 1,
+    "renderTypeName" : "multipolygon",
+    "tableColumnId" : 155199479,
+    "format" : { }
+  }, {
+    "id" : 600586307,
+    "name" : "BORO",
+    "dataTypeName" : "text",
+    "description" : "This is a one digit number field that identifies the borough in which the associated feature exists.",
+    "fieldName" : "boro",
+    "position" : 3,
+    "renderTypeName" : "text",
+    "tableColumnId" : 155199481,
+    "cachedContents" : {
+      "non_null" : "858050",
+      "largest" : "5",
+      "null" : "0",
+      "top" : [ {
+        "item" : "4",
+        "count" : "324421"
+      }, {
+        "item" : "3",
+        "count" : "276363"
+      }, {
+        "item" : "5",
+        "count" : "125825"
+      }, {
+        "item" : "2",
+        "count" : "89318"
+      }, {
+        "item" : "1",
+        "count" : "42123"
+      } ],
+      "smallest" : "1",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586308,
+    "name" : "BLOCK",
+    "dataTypeName" : "number",
+    "description" : "Block is a five digit numeric field that identifies the block on which the associated feature exists.",
+    "fieldName" : "block",
+    "position" : 4,
+    "renderTypeName" : "number",
+    "tableColumnId" : 155199482,
+    "cachedContents" : {
+      "non_null" : "858050",
+      "largest" : "16350",
+      "null" : "0",
+      "top" : [ {
+        "item" : "2925",
+        "count" : "577"
+      }, {
+        "item" : "7405",
+        "count" : "539"
+      }, {
+        "item" : "4452",
+        "count" : "538"
+      }, {
+        "item" : "7422",
+        "count" : "485"
+      }, {
+        "item" : "869",
+        "count" : "412"
+      }, {
+        "item" : "4478",
+        "count" : "390"
+      }, {
+        "item" : "7441",
+        "count" : "371"
+      }, {
+        "item" : "6022",
+        "count" : "370"
+      }, {
+        "item" : "1670",
+        "count" : "366"
+      }, {
+        "item" : "5408",
+        "count" : "342"
+      }, {
+        "item" : "5626",
+        "count" : "332"
+      }, {
+        "item" : "5409",
+        "count" : "323"
+      }, {
+        "item" : "4500",
+        "count" : "321"
+      }, {
+        "item" : "5741",
+        "count" : "316"
+      }, {
+        "item" : "6018",
+        "count" : "310"
+      }, {
+        "item" : "4645",
+        "count" : "310"
+      }, {
+        "item" : "6023",
+        "count" : "306"
+      }, {
+        "item" : "377",
+        "count" : "303"
+      }, {
+        "item" : "2879",
+        "count" : "300"
+      }, {
+        "item" : "848",
+        "count" : "299"
+      } ],
+      "smallest" : "0",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586309,
+    "name" : "LOT",
+    "dataTypeName" : "number",
+    "description" : "Lot is a four digit numeric field that identifies a unique lot within a tax block. Although DOF has a set of defined limits for different types of lots, the fact that there are exceptions to these rules makes it impossible to use a domain for validity checking of the lot numbers.",
+    "fieldName" : "lot",
+    "position" : 5,
+    "renderTypeName" : "number",
+    "tableColumnId" : 155199483,
+    "cachedContents" : {
+      "non_null" : "858050",
+      "largest" : "9102",
+      "null" : "0",
+      "top" : [ {
+        "item" : "1",
+        "count" : "24062"
+      }, {
+        "item" : "20",
+        "count" : "12263"
+      }, {
+        "item" : "15",
+        "count" : "12127"
+      }, {
+        "item" : "12",
+        "count" : "12077"
+      }, {
+        "item" : "16",
+        "count" : "12051"
+      }, {
+        "item" : "14",
+        "count" : "12035"
+      }, {
+        "item" : "18",
+        "count" : "11987"
+      }, {
+        "item" : "17",
+        "count" : "11969"
+      }, {
+        "item" : "25",
+        "count" : "11916"
+      }, {
+        "item" : "21",
+        "count" : "11802"
+      }, {
+        "item" : "23",
+        "count" : "11679"
+      }, {
+        "item" : "22",
+        "count" : "11618"
+      }, {
+        "item" : "19",
+        "count" : "11616"
+      }, {
+        "item" : "30",
+        "count" : "11605"
+      }, {
+        "item" : "24",
+        "count" : "11590"
+      }, {
+        "item" : "6",
+        "count" : "11570"
+      }, {
+        "item" : "26",
+        "count" : "11543"
+      }, {
+        "item" : "28",
+        "count" : "11333"
+      }, {
+        "item" : "29",
+        "count" : "11322"
+      }, {
+        "item" : "27",
+        "count" : "11298"
+      } ],
+      "smallest" : "0",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586310,
+    "name" : "BBL",
+    "dataTypeName" : "text",
+    "description" : "BBL is a concatenation of Boro-Block-Lot and is stored with every instance of those three fields. Although the BBL value can always be determined dynamically, this field is maintained in order to simplify indexing, searching and the use of the files by other, as yet undetermined, applications.",
+    "fieldName" : "bbl",
+    "position" : 6,
+    "renderTypeName" : "text",
+    "tableColumnId" : 155199484,
+    "cachedContents" : {
+      "non_null" : "858050",
+      "largest" : "5080500094",
+      "null" : "0",
+      "top" : [ {
+        "item" : "5070550001",
+        "count" : "6"
+      }, {
+        "item" : "2099998900",
+        "count" : "5"
+      }, {
+        "item" : "4076210001",
+        "count" : "4"
+      }, {
+        "item" : "1013730001",
+        "count" : "4"
+      }, {
+        "item" : "5003190001",
+        "count" : "4"
+      }, {
+        "item" : "5070410001",
+        "count" : "3"
+      }, {
+        "item" : "5030240001",
+        "count" : "3"
+      }, {
+        "item" : "2025418900",
+        "count" : "3"
+      }, {
+        "item" : "5024500020",
+        "count" : "3"
+      }, {
+        "item" : "5062500035",
+        "count" : "3"
+      }, {
+        "item" : "4059170001",
+        "count" : "3"
+      }, {
+        "item" : "1018970001",
+        "count" : "3"
+      }, {
+        "item" : "4039160025",
+        "count" : "3"
+      }, {
+        "item" : "5031730999",
+        "count" : "2"
+      }, {
+        "item" : "5070480150",
+        "count" : "2"
+      }, {
+        "item" : "4159050058",
+        "count" : "2"
+      }, {
+        "item" : "2025390002",
+        "count" : "2"
+      }, {
+        "item" : "5024500010",
+        "count" : "2"
+      }, {
+        "item" : "1011710007",
+        "count" : "2"
+      }, {
+        "item" : "4159050057",
+        "count" : "2"
+      } ],
+      "smallest" : "1000010010",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586311,
+    "name" : "CONDO_FLAG",
+    "dataTypeName" : "text",
+    "description" : "The lot defines a condominium complex",
+    "fieldName" : "condo_flag",
+    "position" : 7,
+    "renderTypeName" : "text",
+    "tableColumnId" : 155199485,
+    "cachedContents" : {
+      "non_null" : "12151",
+      "largest" : "C",
+      "null" : "845899",
+      "top" : [ {
+        "item" : "C",
+        "count" : "12151"
+      } ],
+      "smallest" : "C",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586312,
+    "name" : "REUC_FLAG",
+    "dataTypeName" : "text",
+    "description" : "An REUC easement exists on part or all of this lot.",
+    "fieldName" : "reuc_flag",
+    "position" : 8,
+    "renderTypeName" : "text",
+    "tableColumnId" : 155199486,
+    "cachedContents" : {
+      "non_null" : "8255",
+      "largest" : "R",
+      "null" : "849795",
+      "top" : [ {
+        "item" : "R",
+        "count" : "8255"
+      } ],
+      "smallest" : "R",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586313,
+    "name" : "AIR_LOT_FLAG",
+    "dataTypeName" : "text",
+    "description" : "An air rights easement exists on this lot.",
+    "fieldName" : "air_lot_flag",
+    "position" : 9,
+    "renderTypeName" : "text",
+    "tableColumnId" : 155199487,
+    "cachedContents" : {
+      "non_null" : "253",
+      "largest" : "A",
+      "null" : "857797",
+      "top" : [ {
+        "item" : "A",
+        "count" : "253"
+      } ],
+      "smallest" : "A",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586314,
+    "name" : "SUB_LOT_FLAG",
+    "dataTypeName" : "text",
+    "description" : "A subterranean easement exists on part or all of this lot.",
+    "fieldName" : "sub_lot_flag",
+    "position" : 10,
+    "renderTypeName" : "text",
+    "tableColumnId" : 155199488,
+    "cachedContents" : {
+      "non_null" : "69",
+      "largest" : "S",
+      "null" : "857981",
+      "top" : [ {
+        "item" : "S",
+        "count" : "69"
+      } ],
+      "smallest" : "S",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586315,
+    "name" : "EASEMENT_FLAG",
+    "dataTypeName" : "text",
+    "description" : "A land easement exists on part or all of this lot",
+    "fieldName" : "easement_flag",
+    "position" : 11,
+    "renderTypeName" : "text",
+    "tableColumnId" : 155199489,
+    "cachedContents" : {
+      "non_null" : "37654",
+      "largest" : "E",
+      "null" : "820396",
+      "top" : [ {
+        "item" : "E",
+        "count" : "37654"
+      } ],
+      "smallest" : "E",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586316,
+    "name" : "LOT_NOTE",
+    "dataTypeName" : "text",
+    "description" : "Notes",
+    "fieldName" : "lot_note",
+    "position" : 12,
+    "renderTypeName" : "text",
+    "tableColumnId" : 155199490,
+    "cachedContents" : {
+      "non_null" : "400",
+      "largest" : "We are ignoring this 130.04 dimension.",
+      "null" : "857650",
+      "top" : [ {
+        "item" : "Add Lot faces for Block 15905.  Intermediate step to lot apportionment.",
+        "count" : "242"
+      }, {
+        "item" : "Lot was not in COGIS",
+        "count" : "20"
+      }, {
+        "item" : "No dimension has been captured because dimensions on either side of the dittos are different",
+        "count" : "11"
+      }, {
+        "item" : "Base lot number is not shown for the condo lot on the tax map",
+        "count" : "7"
+      }, {
+        "item" : "Lot faces edits",
+        "count" : "7"
+      }, {
+        "item" : "Correction to lot 200, 06/22/2017 apportionment into new lots 200, 201, 202, 203, 204. Survey by John J Toscano , 5-11-2017",
+        "count" : "5"
+      }, {
+        "item" : "Condo number and Base Lot number are not shown for the condo lot on the tax map",
+        "count" : "5"
+      }, {
+        "item" : "CD splits this lot",
+        "count" : "4"
+      }, {
+        "item" : "0",
+        "count" : "4"
+      }, {
+        "item" : "Tax map shape of lots was incorrect.",
+        "count" : "3"
+      }, {
+        "item" : "Value reflected lot.",
+        "count" : "3"
+      }, {
+        "item" : "Updated Lot Face Length 06232025",
+        "count" : "3"
+      }, {
+        "item" : "CD boundary splits this lot",
+        "count" : "3"
+      }, {
+        "item" : "Amend lot depth dimension from 99.76 to 99.79 US STD.",
+        "count" : "2"
+      }, {
+        "item" : "Shape modified due to edgematch",
+        "count" : "2"
+      }, {
+        "item" : "51",
+        "count" : "1"
+      }, {
+        "item" : "50",
+        "count" : "1"
+      }, {
+        "item" : "18",
+        "count" : "1"
+      }, {
+        "item" : "45",
+        "count" : "1"
+      }, {
+        "item" : "37",
+        "count" : "1"
+      } ],
+      "smallest" : ".",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586317,
+    "name" : "EFFECTIVE_TAX_YEAR",
+    "dataTypeName" : "text",
+    "description" : "Effective Tax Year",
+    "fieldName" : "effective_tax_year",
+    "position" : 13,
+    "renderTypeName" : "text",
+    "tableColumnId" : 155199491,
+    "cachedContents" : {
+      "non_null" : "42015",
+      "largest" : "2027-2028",
+      "null" : "816035",
+      "top" : [ {
+        "item" : "2007-2008",
+        "count" : "4859"
+      }, {
+        "item" : "2008-2009",
+        "count" : "3891"
+      }, {
+        "item" : "2006-2007",
+        "count" : "3087"
+      }, {
+        "item" : "2009-2010",
+        "count" : "2800"
+      }, {
+        "item" : "2005-2006",
+        "count" : "2170"
+      }, {
+        "item" : "2010-2011",
+        "count" : "2154"
+      }, {
+        "item" : "2012-2013",
+        "count" : "1724"
+      }, {
+        "item" : "2025-2026",
+        "count" : "1710"
+      }, {
+        "item" : "2026-2027",
+        "count" : "1672"
+      }, {
+        "item" : "2014-2015",
+        "count" : "1593"
+      }, {
+        "item" : "2011-2012",
+        "count" : "1564"
+      }, {
+        "item" : "2018-2019",
+        "count" : "1539"
+      }, {
+        "item" : "2017-2018",
+        "count" : "1521"
+      }, {
+        "item" : "2015-2016",
+        "count" : "1487"
+      }, {
+        "item" : "2019-2020",
+        "count" : "1470"
+      }, {
+        "item" : "2016-2017",
+        "count" : "1390"
+      }, {
+        "item" : "2024-2025",
+        "count" : "1349"
+      }, {
+        "item" : "2022-2023",
+        "count" : "1280"
+      }, {
+        "item" : "2020-2021",
+        "count" : "1244"
+      }, {
+        "item" : "2013-2014",
+        "count" : "1217"
+      } ],
+      "smallest" : "2000-2001",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586318,
+    "name" : "BILL_BBL_FLAG",
+    "dataTypeName" : "number",
+    "description" : "This field is used to identify the source of the Billing BBL Lot Number.",
+    "fieldName" : "bill_bbl_flag",
+    "position" : 14,
+    "renderTypeName" : "number",
+    "tableColumnId" : 155199492,
+    "cachedContents" : {
+      "non_null" : "853040",
+      "largest" : "1",
+      "null" : "5010",
+      "top" : [ {
+        "item" : "0",
+        "count" : "853026"
+      }, {
+        "item" : "1",
+        "count" : "14"
+      } ],
+      "smallest" : "0",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586319,
+    "name" : "NYCMAP_BLDG_FLAG",
+    "dataTypeName" : "number",
+    "description" : "This field is used to identify those lots where a building footprint associated with that lot extends beyond the lot boundary.",
+    "fieldName" : "nycmap_bldg_flag",
+    "position" : 15,
+    "renderTypeName" : "number",
+    "tableColumnId" : 155199493,
+    "cachedContents" : {
+      "non_null" : "853038",
+      "largest" : "2",
+      "null" : "5012",
+      "top" : [ {
+        "item" : "0",
+        "count" : "551478"
+      }, {
+        "item" : "1",
+        "count" : "266052"
+      }, {
+        "item" : "2",
+        "count" : "35508"
+      } ],
+      "smallest" : "0",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586320,
+    "name" : "CONVERSION_EXCEPTION_FLAG",
+    "dataTypeName" : "number",
+    "description" : "Conversion Exception Flag",
+    "fieldName" : "conversion_exception_flag",
+    "position" : 16,
+    "renderTypeName" : "number",
+    "tableColumnId" : 155199494,
+    "cachedContents" : {
+      "non_null" : "590999",
+      "largest" : "9",
+      "null" : "267051",
+      "top" : [ {
+        "item" : "0",
+        "count" : "588541"
+      }, {
+        "item" : "1",
+        "count" : "2443"
+      }, {
+        "item" : "9",
+        "count" : "11"
+      }, {
+        "item" : "3",
+        "count" : "4"
+      } ],
+      "smallest" : "0",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  }, {
+    "id" : 600586321,
+    "name" : "VALUE_REFLECTED_OUT_FLAG",
+    "dataTypeName" : "number",
+    "description" : "This flag identifies those lots whose assessed value has been transferred to another lot.",
+    "fieldName" : "value_reflected_out_flag",
+    "position" : 17,
+    "renderTypeName" : "number",
+    "tableColumnId" : 155199495,
+    "cachedContents" : {
+      "non_null" : "839921",
+      "largest" : "7",
+      "null" : "18129",
+      "top" : [ {
+        "item" : "0",
+        "count" : "836576"
+      }, {
+        "item" : "1",
+        "count" : "2080"
+      }, {
+        "item" : "2",
+        "count" : "949"
+      }, {
+        "item" : "3",
+        "count" : "306"
+      }, {
+        "item" : "7",
+        "count" : "6"
+      }, {
+        "item" : "5",
+        "count" : "3"
+      }, {
+        "item" : "4",
+        "count" : "1"
+      } ],
+      "smallest" : "0",
+      "count" : "858050",
+      "cardinality" : "858050"
+    },
+    "format" : { }
+  } ],
+  "grants" : [ {
+    "inherited" : false,
+    "type" : "viewer",
+    "flags" : [ "public" ]
+  } ],
+  "metadata" : {
+    "attachments" : [ {
+      "filename" : "DOF-DigitalTaxMap-Relational-Data-Dictionary.xlsx",
+      "assetId" : "e044ecb0-689c-498c-a7de-432a54cb8c9a",
+      "name" : "DOF-DigitalTaxMap-Relational-Data-Dictionary.xlsx"
+    } ],
+    "custom_fields" : {
+      "Data Collection" : {
+        "Data Collection" : "Department of Finance Digital Tax Map"
+      },
+      "Update" : {
+        "Automation" : "Yes",
+        "Update Frequency Details" : "DOF Tax Map Unit (TMU) makes daily edits to the Tax Map that can be observed on DOF's Property Information Portal. Note: The timing of map record updates for a given Tax Map Item may not correspond to updates in related DOF/NYC data systems not maintained by DOF Tax Map Unit (e.g., Exemptions or Buildings information, respectively)",
+        "Update Frequency" : "Weekly",
+        "Data Change Frequency" : "Daily"
+      },
+      "Dataset Information" : {
+        "Agency" : "Department of Finance (DOF)"
+      }
+    },
+    "arcgis_connection" : {
+      "url" : "https://services6.arcgis.com/yG5s3afENB5iO9fj/arcgis/rest/services/Digital_Tax_Map_VIEW/FeatureServer/5"
+    },
+    "rowLabel" : "Tax Lot",
+    "availableDisplayTypes" : [ "table", "fatrow", "page" ]
+  },
+  "owner" : {
+    "id" : "5fuc-pqz2",
+    "displayName" : "NYC OpenData",
+    "profileImageUrlLarge" : "/api/users/5fuc-pqz2/profile_images/LARGE",
+    "profileImageUrlMedium" : "/api/users/5fuc-pqz2/profile_images/THUMB",
+    "profileImageUrlSmall" : "/api/users/5fuc-pqz2/profile_images/TINY",
+    "screenName" : "NYC OpenData",
+    "type" : "interactive",
+    "flags" : [ "acceptedEula", "mayBeStoriesCoOwner" ]
+  },
+  "query" : { },
+  "rights" : [ "read" ],
+  "tableAuthor" : {
+    "id" : "5fuc-pqz2",
+    "displayName" : "NYC OpenData",
+    "profileImageUrlLarge" : "/api/users/5fuc-pqz2/profile_images/LARGE",
+    "profileImageUrlMedium" : "/api/users/5fuc-pqz2/profile_images/THUMB",
+    "profileImageUrlSmall" : "/api/users/5fuc-pqz2/profile_images/TINY",
+    "screenName" : "NYC OpenData",
+    "type" : "interactive",
+    "flags" : [ "acceptedEula", "mayBeStoriesCoOwner" ]
+  },
+  "tags" : [ "dtm_tax_lot_polygon", "tax lots" ],
+  "flags" : [ "default", "ownerMayBeContacted", "restorable", "restorePossibleForType" ]
+}

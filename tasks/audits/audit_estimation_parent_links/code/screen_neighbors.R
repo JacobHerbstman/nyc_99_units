@@ -4,6 +4,7 @@
 library(arrow)
 library(dplyr)
 library(readr)
+source("../../../shared/code/write_data_report.R")
 args <- commandArgs(trailingOnly = TRUE)
 if (interactive()) args <- c(as.character(near_metres), as.character(near_days))
 stopifnot(length(args) == 2)
@@ -14,18 +15,20 @@ stopifnot(is.finite(near_metres), near_metres > 0, !is.na(near_days), near_days 
 parents <- read_parquet("../input/parent_opportunity_panel.parquet") |>
   filter(included_ab, parent_total_units >= 50, composition_eligible)
 membership <- read_parquet("../input/symmetric_parent_membership.parquet")
-hdb <- read_parquet("../input/dcp_housing_database_project_level_raw_25q4.parquet")
+hdb_historical <- read_parquet("../input/dcp_housing_database_project_level_raw_23q4.parquet") |>
+  mutate(classaprop = as.numeric(classaprop))
 dob <- read_parquet("../input/dob_now_new_building_initial_filings.parquet")
 historical <- read_parquet("../input/historical_parent_filing_link_fields.parquet")
-stopifnot(!anyDuplicated(hdb$job_number), !anyDuplicated(dob$job_number),
+stopifnot(!anyDuplicated(hdb_historical$job_number),
+  !anyDuplicated(dob$job_number),
   !anyDuplicated(membership[c("sample", "root_job_id")]), !anyDuplicated(historical$job_number))
 pool <- bind_rows(
-  hdb |> filter(job_type == "New Building", classaprop > 0) |>
-    transmute(sample = "historical", root_job_id = job_number, date = as.Date(datefiled),
+  hdb_historical |> filter(job_type == "New Building", classaprop > 0) |>
+    transmute(sample = "historical", source_vintage = "HDB 23Q4", root_job_id = job_number, date = as.Date(datefiled),
       address = paste(addressnum, addressst), units = classaprop, bbl = as.character(bbl),
       latitude = as.numeric(latitude), longitude = as.numeric(longitude), description = job_desc, owner = NA_character_, applicant = NA_character_),
   dob |> filter(proposed_dwelling_units > 0) |>
-    transmute(sample = "post_policy", root_job_id = job_number, date = filing_date,
+    transmute(sample = "post_policy", source_vintage = "DOB July 2026", root_job_id = job_number, date = filing_date,
       address, units = proposed_dwelling_units, bbl = filing_bbl, latitude, longitude,
       description = job_description, owner = NA_character_,
       applicant = paste(applicant_first_name, applicant_last_name))) |>
@@ -37,7 +40,7 @@ pool <- bind_rows(
     dob_owner = toupper(trimws(paste(coalesce(owner_business_name, ""), coalesce(owner_first_name, ""), coalesce(owner_last_name, ""))))),
     by = "root_job_id", relationship = "many-to-one") |>
   mutate(dob_owner = if_else(dob_owner %in% c("", "PR", "PRIVATE", "NOT APPLICABLE"), NA_character_, dob_owner),
-    owner = coalesce(dob_owner, historical_owner))
+    owner = if_else(sample == "historical", historical_owner, dob_owner))
 anchors <- membership |> semi_join(parents, by = "parent_id") |>
   select(sample, root_job_id, parent_id, additive_component) |>
   left_join(pool |> select(-parent_id), by = c("sample", "root_job_id"), relationship = "one-to-one")
@@ -59,7 +62,7 @@ for (i in seq_len(nrow(anchors))) {
   if (!any(keep)) next
   candidates <- candidates[keep, ]
   matches[[length(matches) + 1]] <- candidates |>
-    transmute(sample, neighbor_parent = parent_id, parent_id = a$parent_id, anchor_job = a$root_job_id,
+    transmute(sample, source_vintage, neighbor_parent = parent_id, parent_id = a$parent_id, anchor_job = a$root_job_id,
       anchor_address = a$address, anchor_date = a$date, anchor_owner = a$owner,
       neighbor_job = root_job_id,
       neighbor_address = address, neighbor_date = date, neighbor_units = units,
@@ -107,7 +110,7 @@ neighbors <- neighbors |>
   left_join(rejections, by = c("parent_id", "neighbor_job"), relationship = "one-to-one") |>
   mutate(review_decision = if_else(!is.na(manual_note), "Rejected in manual source (see qualification)", review_decision),
     review_note = coalesce(manual_note, review_note)) |> select(-manual_note)
-write_csv(neighbors, "../output/nearby_filings.csv", na = "")
+SaveData(neighbors, c("sample", "parent_id", "neighbor_job"), "../output/nearby_filings.csv")
 cat("Estimation parents:", nrow(parents), "; anchor filings:", nrow(anchors),
   "; anchors missing coordinates:", sum(!complete.cases(anchors[c("latitude", "longitude")])),
   "; nearby parent-filing pairs:", nrow(neighbors), "\n")

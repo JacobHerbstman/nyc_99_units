@@ -1,0 +1,12 @@
+Rows: 639
+Columns: 6
+Key fields: vintage, bbl
+Saved-file MD5: 16364fd7907892759c86ffae3e5aa515
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+vintage | character | nonmissing | 639 | distinct | 23
+bbl | character | nonmissing | 639 | distinct | 29
+recorded_area_sqft | numeric | nonmissing | 639 | distinct | 62 min/median/mean/max 0/18242/41196.01/389978
+source_valid | logical | nonmissing | 639 | distinct | 1
+geometry_area_sqft | numeric | nonmissing | 639 | distinct | 161 min/median/mean/max 1354.799/18252.56/37834.86/390297.8
+wkt | character | nonmissing | 639 | distinct | 161

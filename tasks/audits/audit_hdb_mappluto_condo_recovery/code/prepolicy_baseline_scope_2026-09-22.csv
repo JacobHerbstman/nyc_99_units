@@ -1,0 +1,865 @@
+sample,parent_id,unresolved,status
+historical,historical__121204801,FALSE,Supported by available parcel and filing checks
+historical,historical__121204874,FALSE,Supported by available parcel and filing checks
+historical,historical__121204892,FALSE,Supported by available parcel and filing checks
+historical,historical__121205203,FALSE,Supported by available parcel and filing checks
+historical,historical__121205221,FALSE,Supported by available parcel and filing checks
+historical,historical__121205356,FALSE,Supported by available parcel and filing checks
+historical,historical__121205445,FALSE,Supported by available parcel and filing checks
+historical,historical__121205454,FALSE,Supported by available parcel and filing checks
+historical,historical__121205524,FALSE,Supported by available parcel and filing checks
+historical,historical__121205597,FALSE,Supported by available parcel and filing checks
+historical,historical__121205640,FALSE,Supported by available parcel and filing checks
+historical,historical__121205686,FALSE,Supported by available parcel and filing checks
+historical,historical__121206140,FALSE,Supported by available parcel and filing checks
+historical,historical__121206337,FALSE,Supported by available parcel and filing checks
+historical,historical__121206417,FALSE,Supported by available parcel and filing checks
+historical,historical__121206499,FALSE,Supported by available parcel and filing checks
+historical,historical__121206685,FALSE,Supported by available parcel and filing checks
+historical,historical__121206818,FALSE,Supported by available parcel and filing checks
+historical,historical__121207014,FALSE,Supported by available parcel and filing checks
+historical,historical__121207292,FALSE,Supported by available parcel and filing checks
+historical,historical__121207309,FALSE,Supported by available parcel and filing checks
+historical,historical__121207354,TRUE,Source or reference-date disagreement
+historical,historical__121207504,FALSE,Supported by available parcel and filing checks
+historical,historical__121207764,FALSE,Supported by available parcel and filing checks
+historical,historical__121207942,TRUE,Partial earlier parcels require allocation
+historical,historical__121208077,FALSE,Supported by available parcel and filing checks
+historical,historical__121208095,FALSE,Supported by available parcel and filing checks
+historical,historical__121208905,FALSE,Supported by available parcel and filing checks
+historical,historical__121209138,FALSE,Supported by available parcel and filing checks
+historical,historical__121209174,FALSE,Supported by available parcel and filing checks
+historical,historical__121209281,FALSE,Supported by available parcel and filing checks
+historical,historical__121209361,FALSE,Supported by available parcel and filing checks
+historical,historical__121209502,FALSE,Supported by available parcel and filing checks
+historical,historical__121209575,FALSE,Supported by available parcel and filing checks
+historical,historical__123692334,FALSE,Supported by available parcel and filing checks
+historical,historical__123740336,FALSE,Supported by available parcel and filing checks
+historical,historical__123756015,FALSE,Supported by available parcel and filing checks
+historical,historical__123777305,FALSE,Supported by available parcel and filing checks
+historical,historical__210178966,FALSE,Supported by available parcel and filing checks
+historical,historical__210179215,FALSE,Supported by available parcel and filing checks
+historical,historical__210179242,TRUE,Source or reference-date disagreement
+historical,historical__210179279,FALSE,Supported by available parcel and filing checks
+historical,historical__210179493,FALSE,Supported by available parcel and filing checks
+historical,historical__210179518,FALSE,Supported by available parcel and filing checks
+historical,historical__210179616,FALSE,Supported by available parcel and filing checks
+historical,historical__210179634,FALSE,Supported by available parcel and filing checks
+historical,historical__210179705,FALSE,Supported by available parcel and filing checks
+historical,historical__210179732,FALSE,Supported by available parcel and filing checks
+historical,historical__210179803,FALSE,Supported by available parcel and filing checks
+historical,historical__210179821,FALSE,Supported by available parcel and filing checks
+historical,historical__210179830,FALSE,Supported by available parcel and filing checks
+historical,historical__210179965,FALSE,Supported by available parcel and filing checks
+historical,historical__210179974,FALSE,Supported by available parcel and filing checks
+historical,historical__210179983,FALSE,Supported by available parcel and filing checks
+historical,historical__210180105,TRUE,Shared earlier land or other filing
+historical,historical__210180178,TRUE,Partial earlier parcels require allocation
+historical,historical__210180221,FALSE,Supported by available parcel and filing checks
+historical,historical__210180258,FALSE,Supported by available parcel and filing checks
+historical,historical__210180294,FALSE,Supported by available parcel and filing checks
+historical,historical__210180356,FALSE,Supported by available parcel and filing checks
+historical,historical__210180365,FALSE,Supported by available parcel and filing checks
+historical,historical__210180533,FALSE,Supported by available parcel and filing checks
+historical,historical__210180604,TRUE,Partial earlier parcels require allocation
+historical,historical__210180819,FALSE,Supported by available parcel and filing checks
+historical,historical__210180864,FALSE,Supported by available parcel and filing checks
+historical,historical__210180891,FALSE,Supported by available parcel and filing checks
+historical,historical__210181060,FALSE,Supported by available parcel and filing checks
+historical,historical__210181079,FALSE,Supported by available parcel and filing checks
+historical,historical__210181131,FALSE,Supported by available parcel and filing checks
+historical,historical__210181202,FALSE,Supported by available parcel and filing checks
+historical,historical__210181248,FALSE,Supported by available parcel and filing checks
+historical,historical__210181337,FALSE,Supported by available parcel and filing checks
+historical,historical__210181373,FALSE,Supported by available parcel and filing checks
+historical,historical__210181382,TRUE,Shared earlier land or other filing
+historical,historical__210181747,FALSE,Supported by available parcel and filing checks
+historical,historical__210181925,FALSE,Supported by available parcel and filing checks
+historical,historical__210182041,FALSE,Supported by available parcel and filing checks
+historical,historical__210182069,FALSE,Supported by available parcel and filing checks
+historical,historical__210182112,FALSE,Supported by available parcel and filing checks
+historical,historical__210182283,FALSE,Supported by available parcel and filing checks
+historical,historical__210182372,FALSE,Supported by available parcel and filing checks
+historical,historical__210182407,FALSE,Supported by available parcel and filing checks
+historical,historical__220212543,FALSE,Supported by available parcel and filing checks
+historical,historical__220212918,FALSE,Supported by available parcel and filing checks
+historical,historical__220517698,FALSE,Supported by available parcel and filing checks
+historical,historical__220671075,FALSE,Supported by available parcel and filing checks
+historical,historical__220689048,FALSE,Supported by available parcel and filing checks
+historical,historical__220689921,TRUE,Shared earlier land or other filing
+historical,historical__220693961,FALSE,Supported by available parcel and filing checks
+historical,historical__220694602,FALSE,Supported by available parcel and filing checks
+historical,historical__220694700,TRUE,Partial earlier parcels require allocation
+historical,historical__220694719,FALSE,Supported by available parcel and filing checks
+historical,historical__220696432,FALSE,Supported by available parcel and filing checks
+historical,historical__220696717,FALSE,Supported by available parcel and filing checks
+historical,historical__220696851,TRUE,Shared earlier land or other filing
+historical,historical__220700873,FALSE,Supported by available parcel and filing checks
+historical,historical__220704744,FALSE,Supported by available parcel and filing checks
+historical,historical__220704753,FALSE,Supported by available parcel and filing checks
+historical,historical__220706369,FALSE,Supported by available parcel and filing checks
+historical,historical__220707929,FALSE,Supported by available parcel and filing checks
+historical,historical__220708241,FALSE,Supported by available parcel and filing checks
+historical,historical__220708401,FALSE,Supported by available parcel and filing checks
+historical,historical__220708848,FALSE,Supported by available parcel and filing checks
+historical,historical__220716964,FALSE,Supported by available parcel and filing checks
+historical,historical__220723732,FALSE,Supported by available parcel and filing checks
+historical,historical__220723741,TRUE,Shared earlier land or other filing
+historical,historical__220727462,FALSE,Supported by available parcel and filing checks
+historical,historical__220728096,FALSE,Supported by available parcel and filing checks
+historical,historical__220732946,FALSE,Supported by available parcel and filing checks
+historical,historical__240274528,FALSE,Supported by available parcel and filing checks
+historical,historical__240275796,FALSE,Supported by available parcel and filing checks
+historical,historical__240278828,FALSE,Supported by available parcel and filing checks
+historical,historical__240284553,FALSE,Supported by available parcel and filing checks
+historical,historical__240285865,FALSE,Supported by available parcel and filing checks
+historical,historical__240288755,FALSE,Supported by available parcel and filing checks
+historical,historical__240293339,FALSE,Supported by available parcel and filing checks
+historical,historical__240294686,FALSE,Supported by available parcel and filing checks
+historical,historical__240296657,FALSE,Supported by available parcel and filing checks
+historical,historical__240298968,FALSE,Supported by available parcel and filing checks
+historical,historical__240301017,FALSE,Supported by available parcel and filing checks
+historical,historical__240301552,FALSE,Supported by available parcel and filing checks
+historical,historical__240301721,FALSE,Supported by available parcel and filing checks
+historical,historical__240301794,FALSE,Supported by available parcel and filing checks
+historical,historical__321385611,FALSE,Supported by available parcel and filing checks
+historical,historical__321385844,FALSE,Supported by available parcel and filing checks
+historical,historical__321385862,FALSE,Supported by available parcel and filing checks
+historical,historical__321385880,FALSE,Supported by available parcel and filing checks
+historical,historical__321386059,FALSE,Supported by available parcel and filing checks
+historical,historical__321386077,TRUE,Partial earlier parcels require allocation
+historical,historical__321387021,FALSE,Supported by available parcel and filing checks
+historical,historical__321387263,FALSE,Supported by available parcel and filing checks
+historical,historical__321387290,TRUE,Partial earlier parcels require allocation
+historical,historical__321387352,FALSE,Supported by available parcel and filing checks
+historical,historical__321387450,FALSE,Supported by available parcel and filing checks
+historical,historical__321387478,TRUE,Shared earlier land or other filing
+historical,historical__321387575,FALSE,Supported by available parcel and filing checks
+historical,historical__321387913,TRUE,Partial earlier parcels require allocation
+historical,historical__321570769,FALSE,Supported by available parcel and filing checks
+historical,historical__321588705,FALSE,Supported by available parcel and filing checks
+historical,historical__321588714,FALSE,Supported by available parcel and filing checks
+historical,historical__321589125,FALSE,Supported by available parcel and filing checks
+historical,historical__321589134,FALSE,Supported by available parcel and filing checks
+historical,historical__321589704,FALSE,Supported by available parcel and filing checks
+historical,historical__321589713,FALSE,Supported by available parcel and filing checks
+historical,historical__321589722,FALSE,Supported by available parcel and filing checks
+historical,historical__321589884,FALSE,Supported by available parcel and filing checks
+historical,historical__321590113,FALSE,Supported by available parcel and filing checks
+historical,historical__321590293,TRUE,Shared earlier land or other filing
+historical,historical__321590328,FALSE,Supported by available parcel and filing checks
+historical,historical__321590346,TRUE,Partial earlier parcels require allocation
+historical,historical__321590382,FALSE,Supported by available parcel and filing checks
+historical,historical__321590532,TRUE,Partial earlier parcels require allocation
+historical,historical__321592157,FALSE,Supported by available parcel and filing checks
+historical,historical__321592200,TRUE,Filing lot list differs from mapped site
+historical,historical__321592308,FALSE,Supported by available parcel and filing checks
+historical,historical__321592344,FALSE,Supported by available parcel and filing checks
+historical,historical__321592576,FALSE,Supported by available parcel and filing checks
+historical,historical__321592709,TRUE,Partial earlier parcels require allocation
+historical,historical__321592718,FALSE,Supported by available parcel and filing checks
+historical,historical__321592763,FALSE,Supported by available parcel and filing checks
+historical,historical__321592790,FALSE,Supported by available parcel and filing checks
+historical,historical__321592825,TRUE,Shared earlier land or other filing
+historical,historical__321593101,FALSE,Supported by available parcel and filing checks
+historical,historical__321593986,FALSE,Supported by available parcel and filing checks
+historical,historical__321594137,FALSE,Supported by available parcel and filing checks
+historical,historical__321594155,TRUE,Other filing in transaction envelope
+historical,historical__321594226,FALSE,Supported by available parcel and filing checks
+historical,historical__321594422,TRUE,Partial earlier parcels require allocation
+historical,historical__321594672,FALSE,Supported by available parcel and filing checks
+historical,historical__321594832,FALSE,Supported by available parcel and filing checks
+historical,historical__321595083,FALSE,Supported by available parcel and filing checks
+historical,historical__321595092,FALSE,Supported by available parcel and filing checks
+historical,historical__321595145,FALSE,Supported by available parcel and filing checks
+historical,historical__321595403,FALSE,Supported by available parcel and filing checks
+historical,historical__321595608,FALSE,Supported by available parcel and filing checks
+historical,historical__321595653,FALSE,Supported by available parcel and filing checks
+historical,historical__321595733,TRUE,Partial earlier parcels require allocation
+historical,historical__321595751,FALSE,Supported by available parcel and filing checks
+historical,historical__321595797,FALSE,Supported by available parcel and filing checks
+historical,historical__321596484,FALSE,Supported by available parcel and filing checks
+historical,historical__321596536,FALSE,Supported by available parcel and filing checks
+historical,historical__321596625,FALSE,Supported by available parcel and filing checks
+historical,historical__321597009,FALSE,Supported by available parcel and filing checks
+historical,historical__321597606,FALSE,Supported by available parcel and filing checks
+historical,historical__321597688,FALSE,Supported by available parcel and filing checks
+historical,historical__321597777,FALSE,Supported by available parcel and filing checks
+historical,historical__321597795,FALSE,Supported by available parcel and filing checks
+historical,historical__321598008,FALSE,Supported by available parcel and filing checks
+historical,historical__321598277,FALSE,Supported by available parcel and filing checks
+historical,historical__321598348,FALSE,Supported by available parcel and filing checks
+historical,historical__321598400,TRUE,Partial earlier parcels require allocation
+historical,historical__321598883,TRUE,Partial earlier parcels require allocation
+historical,historical__321599105,FALSE,Supported by available parcel and filing checks
+historical,historical__321599132,FALSE,Supported by available parcel and filing checks
+historical,historical__321599141,FALSE,Supported by available parcel and filing checks
+historical,historical__321599150,FALSE,Supported by available parcel and filing checks
+historical,historical__321599212,FALSE,Supported by available parcel and filing checks
+historical,historical__321600139,FALSE,Supported by available parcel and filing checks
+historical,historical__321600362,TRUE,Shared earlier land or other filing
+historical,historical__321600380,TRUE,Shared earlier land or other filing
+historical,historical__321600530,TRUE,Shared earlier land or other filing
+historical,historical__321601012,FALSE,Supported by available parcel and filing checks
+historical,historical__321923549,FALSE,Supported by available parcel and filing checks
+historical,historical__321929776,FALSE,Supported by available parcel and filing checks
+historical,historical__321939676,FALSE,Supported by available parcel and filing checks
+historical,historical__321941182,FALSE,Supported by available parcel and filing checks
+historical,historical__321954364,TRUE,Partial earlier parcels require allocation
+historical,historical__321992475,FALSE,Supported by available parcel and filing checks
+historical,historical__322002818,FALSE,Supported by available parcel and filing checks
+historical,historical__322085417,FALSE,Supported by available parcel and filing checks
+historical,historical__340751813,FALSE,Supported by available parcel and filing checks
+historical,historical__340752714,FALSE,Supported by available parcel and filing checks
+historical,historical__340765602,FALSE,Supported by available parcel and filing checks
+historical,historical__340769332,FALSE,Supported by available parcel and filing checks
+historical,historical__340797141,FALSE,Supported by available parcel and filing checks
+historical,historical__340802073,FALSE,Supported by available parcel and filing checks
+historical,historical__420665499,FALSE,Supported by available parcel and filing checks
+historical,historical__420665541,FALSE,Supported by available parcel and filing checks
+historical,historical__420665667,FALSE,Supported by available parcel and filing checks
+historical,historical__420665845,FALSE,Supported by available parcel and filing checks
+historical,historical__420666014,FALSE,Supported by available parcel and filing checks
+historical,historical__420666032,FALSE,Supported by available parcel and filing checks
+historical,historical__420666087,FALSE,Supported by available parcel and filing checks
+historical,historical__420666176,TRUE,Shared earlier land or other filing
+historical,historical__420666210,TRUE,Shared earlier land or other filing
+historical,historical__420666283,TRUE,Partial earlier parcels require allocation
+historical,historical__420666773,FALSE,Supported by available parcel and filing checks
+historical,historical__420667004,FALSE,Supported by available parcel and filing checks
+historical,historical__420667068,FALSE,Supported by available parcel and filing checks
+historical,historical__420667120,TRUE,Shared earlier land or other filing
+historical,historical__420667264,FALSE,Supported by available parcel and filing checks
+historical,historical__420667488,TRUE,Shared earlier land or other filing
+historical,historical__421133026,FALSE,Supported by available parcel and filing checks
+historical,historical__421133115,FALSE,Supported by available parcel and filing checks
+historical,historical__421133151,FALSE,Supported by available parcel and filing checks
+historical,historical__421133160,TRUE,Incomplete earlier map or area
+historical,historical__421133179,TRUE,Incomplete earlier map or area
+historical,historical__421133213,FALSE,Supported by available parcel and filing checks
+historical,historical__421133222,FALSE,Supported by available parcel and filing checks
+historical,historical__421133302,TRUE,Shared earlier land or other filing
+historical,historical__421133320,FALSE,Supported by available parcel and filing checks
+historical,historical__421133419,FALSE,Supported by available parcel and filing checks
+historical,historical__421133464,FALSE,Supported by available parcel and filing checks
+historical,historical__421133623,FALSE,Supported by available parcel and filing checks
+historical,historical__421133632,FALSE,Supported by available parcel and filing checks
+historical,historical__421133794,FALSE,Supported by available parcel and filing checks
+historical,historical__421133865,FALSE,Supported by available parcel and filing checks
+historical,historical__421133883,FALSE,Supported by available parcel and filing checks
+historical,historical__421133972,FALSE,Supported by available parcel and filing checks
+historical,historical__421134132,FALSE,Supported by available parcel and filing checks
+historical,historical__421134178,TRUE,Shared earlier land or other filing
+historical,historical__421134187,TRUE,Shared earlier land or other filing
+historical,historical__421694857,FALSE,Supported by available parcel and filing checks
+historical,historical__421728973,FALSE,Supported by available parcel and filing checks
+historical,historical__421861845,FALSE,Supported by available parcel and filing checks
+historical,historical__421928953,FALSE,Supported by available parcel and filing checks
+historical,historical__440597481,FALSE,Supported by available parcel and filing checks
+historical,historical__440639203,FALSE,Supported by available parcel and filing checks
+historical,historical__510113654,FALSE,Supported by available parcel and filing checks
+historical,historical__510115670,TRUE,Partial earlier parcels require allocation
+historical,historical__B00509455,TRUE,Shared earlier land or other filing
+historical,historical__B00520132,FALSE,Supported by available parcel and filing checks
+historical,historical__B00529604,FALSE,Supported by available parcel and filing checks
+historical,historical__B00539478,FALSE,Supported by available parcel and filing checks
+historical,historical__B00560232,FALSE,Supported by available parcel and filing checks
+historical,historical__B00560420,TRUE,Partial earlier parcels require allocation
+historical,historical__B00561184,FALSE,Supported by available parcel and filing checks
+historical,historical__B00564411,FALSE,Supported by available parcel and filing checks
+historical,historical__B00565465,FALSE,Supported by available parcel and filing checks
+historical,historical__B00568816,FALSE,Supported by available parcel and filing checks
+historical,historical__B00571785,FALSE,Supported by available parcel and filing checks
+historical,historical__B00577160,FALSE,Supported by available parcel and filing checks
+historical,historical__B00580365,FALSE,Supported by available parcel and filing checks
+historical,historical__B00587387,TRUE,Partial earlier parcels require allocation
+historical,historical__B00588575,TRUE,Shared earlier land or other filing
+historical,historical__B00588594,TRUE,Incomplete earlier map or area
+historical,historical__B00591118,FALSE,Supported by available parcel and filing checks
+historical,historical__B00591681,FALSE,Supported by available parcel and filing checks
+historical,historical__B00593338,FALSE,Supported by available parcel and filing checks
+historical,historical__B00594970,FALSE,Supported by available parcel and filing checks
+historical,historical__B00600120,FALSE,Supported by available parcel and filing checks
+historical,historical__B00600959,TRUE,Shared earlier land or other filing
+historical,historical__B00601179,TRUE,Partial earlier parcels require allocation
+historical,historical__B00604543,FALSE,Supported by available parcel and filing checks
+historical,historical__B00606335,FALSE,Supported by available parcel and filing checks
+historical,historical__B00608472,TRUE,Source or reference-date disagreement
+historical,historical__B00610324,FALSE,Supported by available parcel and filing checks
+historical,historical__B00611166,FALSE,Supported by available parcel and filing checks
+historical,historical__B00612352,FALSE,Supported by available parcel and filing checks
+historical,historical__B00614012,FALSE,Supported by available parcel and filing checks
+historical,historical__B00614338,FALSE,Supported by available parcel and filing checks
+historical,historical__B00614702,FALSE,Supported by available parcel and filing checks
+historical,historical__B00616358,FALSE,Supported by available parcel and filing checks
+historical,historical__B00620031,FALSE,Supported by available parcel and filing checks
+historical,historical__B00621061,FALSE,Supported by available parcel and filing checks
+historical,historical__B00621076,FALSE,Supported by available parcel and filing checks
+historical,historical__B00621504,FALSE,Supported by available parcel and filing checks
+historical,historical__B00621533,TRUE,Partial earlier parcels require allocation
+historical,historical__B00622668,FALSE,Supported by available parcel and filing checks
+historical,historical__B00624645,FALSE,Supported by available parcel and filing checks
+historical,historical__B00625252,FALSE,Supported by available parcel and filing checks
+historical,historical__B00627782,FALSE,Supported by available parcel and filing checks
+historical,historical__B00628878,FALSE,Supported by available parcel and filing checks
+historical,historical__B00632806,FALSE,Supported by available parcel and filing checks
+historical,historical__B00635730,FALSE,Supported by available parcel and filing checks
+historical,historical__B00637594,FALSE,Supported by available parcel and filing checks
+historical,historical__B00640248,FALSE,Supported by available parcel and filing checks
+historical,historical__B00640761,FALSE,Supported by available parcel and filing checks
+historical,historical__B00645411,FALSE,Supported by available parcel and filing checks
+historical,historical__B00645685,TRUE,Partial earlier parcels require allocation
+historical,historical__B00646589,FALSE,Supported by available parcel and filing checks
+historical,historical__B00648034,FALSE,Supported by available parcel and filing checks
+historical,historical__B00648659,FALSE,Supported by available parcel and filing checks
+historical,historical__B00651570,FALSE,Supported by available parcel and filing checks
+historical,historical__B00652243,FALSE,Supported by available parcel and filing checks
+historical,historical__B00653212,TRUE,Partial earlier parcels require allocation
+historical,historical__B00653276,FALSE,Supported by available parcel and filing checks
+historical,historical__B00653960,FALSE,Supported by available parcel and filing checks
+historical,historical__B00655003,FALSE,Supported by available parcel and filing checks
+historical,historical__B00655818,FALSE,Supported by available parcel and filing checks
+historical,historical__B00656247,TRUE,Partial earlier parcels require allocation
+historical,historical__B00663906,FALSE,Supported by available parcel and filing checks
+historical,historical__B00664091,FALSE,Supported by available parcel and filing checks
+historical,historical__B00664860,FALSE,Supported by available parcel and filing checks
+historical,historical__B00665500,TRUE,Shared earlier land or other filing
+historical,historical__B00665570,TRUE,Shared earlier land or other filing
+historical,historical__B00668047,FALSE,Supported by available parcel and filing checks
+historical,historical__B00668695,FALSE,Supported by available parcel and filing checks
+historical,historical__B00670629,FALSE,Supported by available parcel and filing checks
+historical,historical__B00672674,FALSE,Supported by available parcel and filing checks
+historical,historical__B00673634,FALSE,Supported by available parcel and filing checks
+historical,historical__B00673635,FALSE,Supported by available parcel and filing checks
+historical,historical__B00678425,FALSE,Supported by available parcel and filing checks
+historical,historical__B00680247,FALSE,Supported by available parcel and filing checks
+historical,historical__B00680413,FALSE,Supported by available parcel and filing checks
+historical,historical__B00680820,TRUE,Shared earlier land or other filing
+historical,historical__B00680917,FALSE,Supported by available parcel and filing checks
+historical,historical__B00681143,FALSE,Supported by available parcel and filing checks
+historical,historical__B00683623,FALSE,Supported by available parcel and filing checks
+historical,historical__B00684074,FALSE,Supported by available parcel and filing checks
+historical,historical__B00684789,FALSE,Supported by available parcel and filing checks
+historical,historical__B00692002,FALSE,Supported by available parcel and filing checks
+historical,historical__B00692303,FALSE,Supported by available parcel and filing checks
+historical,historical__B00693828,FALSE,Supported by available parcel and filing checks
+historical,historical__B00696389,TRUE,Partial earlier parcels require allocation
+historical,historical__B00698115,FALSE,Supported by available parcel and filing checks
+historical,historical__B00699404,FALSE,Supported by available parcel and filing checks
+historical,historical__B00700725,FALSE,Supported by available parcel and filing checks
+historical,historical__B00702705,FALSE,Supported by available parcel and filing checks
+historical,historical__B00706931,FALSE,Supported by available parcel and filing checks
+historical,historical__B00709512,FALSE,Supported by available parcel and filing checks
+historical,historical__B00712795,FALSE,Supported by available parcel and filing checks
+historical,historical__B00715375,FALSE,Supported by available parcel and filing checks
+historical,historical__B00727869,FALSE,Supported by available parcel and filing checks
+historical,historical__B00734382,FALSE,Supported by available parcel and filing checks
+historical,historical__B00736115,FALSE,Supported by available parcel and filing checks
+historical,historical__B00738723,FALSE,Supported by available parcel and filing checks
+historical,historical__B00740310,FALSE,Supported by available parcel and filing checks
+historical,historical__B00754062,FALSE,Supported by available parcel and filing checks
+historical,historical__B00755555,FALSE,Supported by available parcel and filing checks
+historical,historical__B00757866,FALSE,Supported by available parcel and filing checks
+historical,historical__B00781447,TRUE,Shared earlier land or other filing
+historical,historical__B00789072,TRUE,Partial earlier parcels require allocation
+historical,historical__B00789554,FALSE,Supported by available parcel and filing checks
+historical,historical__B08015349,FALSE,Supported by available parcel and filing checks
+historical,historical__B08021996,TRUE,Partial earlier parcels require allocation
+historical,historical__M00499952,FALSE,Supported by available parcel and filing checks
+historical,historical__M00522293,FALSE,Supported by available parcel and filing checks
+historical,historical__M00537657,FALSE,Supported by available parcel and filing checks
+historical,historical__M00542354,FALSE,Supported by available parcel and filing checks
+historical,historical__M00547165,FALSE,Supported by available parcel and filing checks
+historical,historical__M00558120,FALSE,Supported by available parcel and filing checks
+historical,historical__M00574359,FALSE,Supported by available parcel and filing checks
+historical,historical__M00578593,FALSE,Supported by available parcel and filing checks
+historical,historical__M00580473,FALSE,Supported by available parcel and filing checks
+historical,historical__M00599489,FALSE,Supported by available parcel and filing checks
+historical,historical__M00600672,FALSE,Supported by available parcel and filing checks
+historical,historical__M00611352,FALSE,Supported by available parcel and filing checks
+historical,historical__M00614697,FALSE,Supported by available parcel and filing checks
+historical,historical__M00625489,FALSE,Supported by available parcel and filing checks
+historical,historical__M00628716,FALSE,Supported by available parcel and filing checks
+historical,historical__M00628781,FALSE,Supported by available parcel and filing checks
+historical,historical__M00629412,FALSE,Supported by available parcel and filing checks
+historical,historical__M00630979,FALSE,Supported by available parcel and filing checks
+historical,historical__M00632762,FALSE,Supported by available parcel and filing checks
+historical,historical__M00641741,FALSE,Supported by available parcel and filing checks
+historical,historical__M00643592,FALSE,Supported by available parcel and filing checks
+historical,historical__M00647624,TRUE,Partial earlier parcels require allocation
+historical,historical__M00648391,FALSE,Supported by available parcel and filing checks
+historical,historical__M00665110,FALSE,Supported by available parcel and filing checks
+historical,historical__M00665956,FALSE,Supported by available parcel and filing checks
+historical,historical__M00666173,FALSE,Supported by available parcel and filing checks
+historical,historical__M00666777,FALSE,Supported by available parcel and filing checks
+historical,historical__M00671589,FALSE,Supported by available parcel and filing checks
+historical,historical__M00672872,FALSE,Supported by available parcel and filing checks
+historical,historical__M00675715,FALSE,Supported by available parcel and filing checks
+historical,historical__M00683925,FALSE,Supported by available parcel and filing checks
+historical,historical__M00686955,TRUE,Partial earlier parcels require allocation
+historical,historical__M00688136,FALSE,Supported by available parcel and filing checks
+historical,historical__M00694696,FALSE,Supported by available parcel and filing checks
+historical,historical__M00696323,FALSE,Supported by available parcel and filing checks
+historical,historical__M00718070,FALSE,Supported by available parcel and filing checks
+historical,historical__M00749928,FALSE,Supported by available parcel and filing checks
+historical,historical__M00771041,FALSE,Supported by available parcel and filing checks
+historical,historical__M00775662,FALSE,Supported by available parcel and filing checks
+historical,historical__M00785688,FALSE,Supported by available parcel and filing checks
+historical,historical__M00798756,FALSE,Supported by available parcel and filing checks
+historical,historical__M08010721,FALSE,Supported by available parcel and filing checks
+historical,historical__M08011197,FALSE,Supported by available parcel and filing checks
+historical,historical__M08022114,FALSE,Supported by available parcel and filing checks
+historical,historical__M08022866,TRUE,Partial earlier parcels require allocation
+historical,historical__M08028552,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00479380,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00482934,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00484597,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00490821,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00498832,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00501883,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00528155,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00528973,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00533905,TRUE,Shared earlier land or other filing
+historical,historical__Q00540608,TRUE,Partial earlier parcels require allocation
+historical,historical__Q00548195,TRUE,Shared earlier land or other filing
+historical,historical__Q00555969,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00557681,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00564746,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00568756,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00577373,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00582731,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00584570,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00599457,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00607526,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00608144,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00612960,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00617404,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00623509,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00627197,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00636484,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00638678,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00641359,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00646536,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00646746,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00649207,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00650506,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00657653,TRUE,Shared earlier land or other filing
+historical,historical__Q00657656,TRUE,Shared earlier land or other filing
+historical,historical__Q00659801,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00660436,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00665096,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00665670,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00674206,TRUE,Partial earlier parcels require allocation
+historical,historical__Q00674762,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00682330,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00682720,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00683000,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00683048,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00687999,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00702943,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00710146,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00711760,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00716326,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00718151,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00718735,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00721236,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00721898,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00738212,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00740418,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00761543,TRUE,Missing later parcel map
+historical,historical__Q00783360,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00785605,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00791713,FALSE,Supported by available parcel and filing checks
+historical,historical__Q00793435,FALSE,Supported by available parcel and filing checks
+historical,historical__Q08012514,FALSE,Supported by available parcel and filing checks
+historical,historical__Q08025120,FALSE,Supported by available parcel and filing checks
+historical,historical__Q08026754,TRUE,Shared earlier land or other filing
+historical,historical__Q08031880,FALSE,Supported by available parcel and filing checks
+historical,historical__Q08032504,FALSE,Supported by available parcel and filing checks
+historical,historical__S00563710,TRUE,Partial earlier parcels require allocation
+historical,historical__S00661600,FALSE,Supported by available parcel and filing checks
+historical,historical__X00489843,FALSE,Supported by available parcel and filing checks
+historical,historical__X00493694,FALSE,Supported by available parcel and filing checks
+historical,historical__X00493806,FALSE,Supported by available parcel and filing checks
+historical,historical__X00515857,FALSE,Supported by available parcel and filing checks
+historical,historical__X00521651,FALSE,Supported by available parcel and filing checks
+historical,historical__X00526919,FALSE,Supported by available parcel and filing checks
+historical,historical__X00538598,FALSE,Supported by available parcel and filing checks
+historical,historical__X00541811,FALSE,Supported by available parcel and filing checks
+historical,historical__X00544328,FALSE,Supported by available parcel and filing checks
+historical,historical__X00546413,FALSE,Supported by available parcel and filing checks
+historical,historical__X00552335,FALSE,Supported by available parcel and filing checks
+historical,historical__X00554868,TRUE,Partial earlier parcels require allocation
+historical,historical__X00561795,FALSE,Supported by available parcel and filing checks
+historical,historical__X00562360,TRUE,Partial earlier parcels require allocation
+historical,historical__X00586599,FALSE,Supported by available parcel and filing checks
+historical,historical__X00587608,TRUE,Partial earlier parcels require allocation
+historical,historical__X00588660,FALSE,Supported by available parcel and filing checks
+historical,historical__X00599800,FALSE,Supported by available parcel and filing checks
+historical,historical__X00602987,TRUE,Shared earlier land or other filing
+historical,historical__X00619862,TRUE,Partial earlier parcels require allocation
+historical,historical__X00622829,FALSE,Supported by available parcel and filing checks
+historical,historical__X00627045,FALSE,Supported by available parcel and filing checks
+historical,historical__X00628306,FALSE,Supported by available parcel and filing checks
+historical,historical__X00633905,FALSE,Supported by available parcel and filing checks
+historical,historical__X00634103,FALSE,Supported by available parcel and filing checks
+historical,historical__X00634339,FALSE,Supported by available parcel and filing checks
+historical,historical__X00636463,FALSE,Supported by available parcel and filing checks
+historical,historical__X00640159,FALSE,Supported by available parcel and filing checks
+historical,historical__X00640964,FALSE,Supported by available parcel and filing checks
+historical,historical__X00643054,FALSE,Supported by available parcel and filing checks
+historical,historical__X00643715,FALSE,Supported by available parcel and filing checks
+historical,historical__X00643959,TRUE,Partial earlier parcels require allocation
+historical,historical__X00648530,FALSE,Supported by available parcel and filing checks
+historical,historical__X00649440,FALSE,Supported by available parcel and filing checks
+historical,historical__X00652159,FALSE,Supported by available parcel and filing checks
+historical,historical__X00657730,FALSE,Supported by available parcel and filing checks
+historical,historical__X00666215,FALSE,Supported by available parcel and filing checks
+historical,historical__X00678791,FALSE,Supported by available parcel and filing checks
+historical,historical__X00678814,FALSE,Supported by available parcel and filing checks
+historical,historical__X00679772,FALSE,Supported by available parcel and filing checks
+historical,historical__X00682437,TRUE,Missing later parcel map
+historical,historical__X00685698,FALSE,Supported by available parcel and filing checks
+historical,historical__X00687757,TRUE,Partial earlier parcels require allocation
+historical,historical__X00692593,FALSE,Supported by available parcel and filing checks
+historical,historical__X00693416,FALSE,Supported by available parcel and filing checks
+historical,historical__X00693446,FALSE,Supported by available parcel and filing checks
+historical,historical__X00694049,FALSE,Supported by available parcel and filing checks
+historical,historical__X00695344,TRUE,Partial earlier parcels require allocation
+historical,historical__X00695405,FALSE,Supported by available parcel and filing checks
+historical,historical__X00696576,TRUE,Partial earlier parcels require allocation
+historical,historical__X00702588,TRUE,Partial earlier parcels require allocation
+historical,historical__X00705496,TRUE,Partial earlier parcels require allocation
+historical,historical__X00706075,FALSE,Supported by available parcel and filing checks
+historical,historical__X00707697,FALSE,Supported by available parcel and filing checks
+historical,historical__X00709422,FALSE,Supported by available parcel and filing checks
+historical,historical__X00710266,FALSE,Supported by available parcel and filing checks
+historical,historical__X00716620,FALSE,Supported by available parcel and filing checks
+historical,historical__X00718144,FALSE,Supported by available parcel and filing checks
+historical,historical__X00718663,FALSE,Supported by available parcel and filing checks
+historical,historical__X00719684,FALSE,Supported by available parcel and filing checks
+historical,historical__X00727101,FALSE,Supported by available parcel and filing checks
+historical,historical__X00729880,FALSE,Supported by available parcel and filing checks
+historical,historical__X00735128,FALSE,Supported by available parcel and filing checks
+historical,historical__X00741218,FALSE,Supported by available parcel and filing checks
+historical,historical__X00750809,FALSE,Supported by available parcel and filing checks
+historical,historical__X00757318,FALSE,Supported by available parcel and filing checks
+historical,historical__X00787559,FALSE,Supported by available parcel and filing checks
+historical,historical__X00791429,FALSE,Supported by available parcel and filing checks
+historical,historical__X08006238,FALSE,Supported by available parcel and filing checks
+historical,historical__X08006985,FALSE,Supported by available parcel and filing checks
+historical,historical__X08011125,FALSE,Supported by available parcel and filing checks
+historical,historical__X08011205,FALSE,Supported by available parcel and filing checks
+historical,historical__X08028724,TRUE,Shared earlier land or other filing
+historical,historical__X08043433,TRUE,Shared earlier land or other filing
+historical,historical__X08045113,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B00738795-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01019417-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01151476-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01166776-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01167646-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01169429-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01170890-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01172199-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01174267-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01176928-I1,TRUE,Partial earlier parcels require allocation
+post_policy,post_policy__B01192946-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01196476-I1,TRUE,Partial earlier parcels require allocation
+post_policy,post_policy__B01203284-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01204032-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01206874-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01208799-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01225073-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01225983-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01229088-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01234480-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01246023-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01246098-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01249173-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01249710-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01252041-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01253556-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01255387-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01256572-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01268437-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01268544-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01271705-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01271979-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01276224-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01278364-I1,TRUE,Missing later parcel map
+post_policy,post_policy__B01278555-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01280400-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01283545-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01297622-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01297629-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01297948-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01305637-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01312761-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01315432-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01316595-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01318629-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01320823-I1,TRUE,Shared earlier land or other filing
+post_policy,post_policy__B01320997-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01322526-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01325937-I1,TRUE,Missing later parcel map
+post_policy,post_policy__B01325938-I1,TRUE,Parent membership review or implementation pending
+post_policy,post_policy__B01327122-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01327155-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01327164-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01327363-I1,TRUE,Shared earlier land or other filing
+post_policy,post_policy__B01328056-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01328440-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01330190-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01331189-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01332121-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01332608-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01339874-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01341355-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01342709-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01348174-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01348242-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01348392-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01348890-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01349788-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01350570-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01352178-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01352714-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01354779-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01357632-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01358527-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01362967-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01367848-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01373413-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01373493-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01373634-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01374856-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01375530-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01376426-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01376613-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01377452-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01379089-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01379434-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01379437-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01381870-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01390326-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01391270-I1,TRUE,Shared earlier land or other filing
+post_policy,post_policy__B01399120-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01400199-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01408961-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01409426-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01415308-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__B01422332-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01153465-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01155663-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01189399-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01231645-I1,TRUE,Source or reference-date disagreement
+post_policy,post_policy__M01241552-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01243425-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01257465-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01268347-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01270610-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01273621-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01274493-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01280065-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01301888-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01305839-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01306253-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01318466-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01323220-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01325392-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01335408-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01335998-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01339025-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01352841-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01361353-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01363005-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01363035-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01370073-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01370578-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01372322-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01373193-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01376293-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01377138-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01382130-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01393124-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__M01400243-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01025398-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01111758-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01117795-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01150703-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01150733-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01157077-I1,TRUE,Partial earlier parcels require allocation
+post_policy,post_policy__Q01177691-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01183635-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01189789-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01196791-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01197853-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01203592-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01206649-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01207697-I1,TRUE,Missing later parcel map
+post_policy,post_policy__Q01223823-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01226562-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01228195-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01228656-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01233524-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01234060-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01242193-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01243880-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01246536-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01254595-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01261008-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01261189-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01263805-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01274353-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01275550-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01275800-I1,TRUE,Missing later parcel map
+post_policy,post_policy__Q01278129-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01283772-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01288509-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01289631-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01289649-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01297449-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01301298-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01311038-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01314166-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01317360-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01331303-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01332495-I1,TRUE,Source or reference-date disagreement
+post_policy,post_policy__Q01332573-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01334547-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01335532-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01337462-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01338971-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01339840-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01348692-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01350371-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01351121-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01358193-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01359877-I1,TRUE,Other filing in transaction envelope
+post_policy,post_policy__Q01360550-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01366543-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01367014-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01372263-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01375903-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01376570-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01377260-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01386972-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01388823-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01389162-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01395583-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01412354-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01415856-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__Q01421621-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__S01328926-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__S01330466-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X00932163-I1,TRUE,Partial earlier parcels require allocation
+post_policy,post_policy__X00945951-I1,TRUE,Partial earlier parcels require allocation
+post_policy,post_policy__X01059040-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01089171-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01129499-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01150556-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01150557-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01150558-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01157279-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01166460-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01169727-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01171565-I1,TRUE,Source or reference-date disagreement
+post_policy,post_policy__X01177042-I1,TRUE,Partial earlier parcels require allocation
+post_policy,post_policy__X01178424-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01186318-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01187721-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01190590-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01193962-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01194154-I1,TRUE,Partial earlier parcels require allocation
+post_policy,post_policy__X01194388-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01197447-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01199827-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01201390-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01201502-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01202004-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01202216-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01206249-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01207746-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01212075-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01213692-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01219259-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01220923-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01221313-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01222893-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01223342-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01225221-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01229428-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01233373-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01235438-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01238419-I1,TRUE,Partial earlier parcels require allocation
+post_policy,post_policy__X01239762-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01250288-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01250398-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01250967-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01252512-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01252547-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01252589-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01252694-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01252745-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01253814-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01255412-I1,TRUE,Missing later parcel map
+post_policy,post_policy__X01257696-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01261535-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01262505-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01265022-I1,TRUE,Partial earlier parcels require allocation
+post_policy,post_policy__X01270754-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01273997-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01275600-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01276512-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01293675-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01294705-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01297411-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01298827-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01298990-I1,TRUE,Other filing in transaction envelope
+post_policy,post_policy__X01306345-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01306444-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01321206-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01323307-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01323712-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01330109-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01337054-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01338717-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01341100-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01342626-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01345266-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01346560-I1,TRUE,Shared earlier land or other filing
+post_policy,post_policy__X01347911-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01350003-I1,TRUE,Partial earlier parcels require allocation
+post_policy,post_policy__X01351386-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01352893-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01353032-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01353589-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01354549-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01357581-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01363016-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01368451-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01374198-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01375075-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01376382-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01377488-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01378792-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01379161-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01380303-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01380511-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01380721-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01380790-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01380803-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01384861-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01386026-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01387133-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01392564-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01393299-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01399986-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01401011-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01408506-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01408773-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01410192-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01415890-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01416342-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01417499-I1,FALSE,Supported by available parcel and filing checks
+post_policy,post_policy__X01418945-I1,FALSE,Supported by available parcel and filing checks

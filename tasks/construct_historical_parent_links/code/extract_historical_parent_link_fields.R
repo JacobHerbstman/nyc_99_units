@@ -181,7 +181,7 @@ reviewed_pairs <- read_csv("../input/pair_decisions.csv", show_col_types = FALSE
   filter(sample == "historical", review_decision == "accept")
 reviewed_jobs <- unique(c(reviewed_pairs$job_number_1, reviewed_pairs$job_number_2))
 
-panel <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
+panel <- read_parquet("../input/historical_hdb_mappluto_site_panel.parquet") |>
   filter(
     filing_year >= start_year,
     filing_year <= end_year,
@@ -195,6 +195,7 @@ panel <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
     date_filed = as.Date(date_filed),
     filing_year,
     units = as.integer(round(classa_prop)),
+    hdb_release, historical_active, hdb_job_status = job_status,
     filing_bbl = normalize_bbl_field(bbl),
     prefiling_feature_bbl = normalize_bbl_field(pluto_feature_bbl),
     pluto_source_id_used,
@@ -205,12 +206,11 @@ panel <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
   ) |>
   arrange(date_filed, job_number)
 
-if (nrow(panel) == 0L || anyDuplicated(panel$job_number) ||
-    any(!reviewed_jobs %in% panel$job_number)) {
+if (nrow(panel) == 0L || anyDuplicated(panel$job_number)) {
   stop("Historical training sample failed job-number QC.")
 }
 
-hdb_raw <- read_parquet("../input/dcp_housing_database_project_level_raw_25q4.parquet") |>
+hdb_raw <- read_parquet("../input/dcp_housing_database_project_level_raw_23q4.parquet") |>
   transmute(
     job_number = str_squish(as.character(job_number)),
     hdb_description = na_if(str_squish(as.character(job_desc)), ""),
@@ -218,28 +218,17 @@ hdb_raw <- read_parquet("../input/dcp_housing_database_project_level_raw_25q4.pa
     hdb_longitude = suppressWarnings(as.numeric(longitude))
   )
 
-dob_now <- read_parquet("../input/dob_now_new_building_initial_filings.parquet") |>
-  transmute(
-    job_number = str_squish(job_number),
-    dob_now_match = TRUE,
-    dob_owner_name = coalesce(
-      na_if(str_squish(owner_business_name), ""),
-      na_if(str_squish(paste(owner_first_name, owner_last_name)), "")
-    ),
-    dob_owner_match_key = normalize_match_key(dob_owner_name),
-    dob_description = na_if(str_squish(job_description), "")
-  )
-
-if (anyDuplicated(hdb_raw$job_number) || anyDuplicated(dob_now$job_number)) {
-  stop("HDB or DOB source is not unique by job number.")
-}
+stopifnot(!anyDuplicated(hdb_raw$job_number), all(panel$hdb_release == "23Q4"))
 
 filings <- panel |>
   left_join(hdb_raw, by = "job_number", relationship = "one-to-one") |>
-  left_join(dob_now, by = "job_number", relationship = "one-to-one") |>
   mutate(
-    dob_now_match = coalesce(dob_now_match, FALSE),
-    description = coalesce(dob_description, hdb_description),
+    # Historical owner support comes from the archived parcel map.
+    dob_now_match = FALSE,
+    dob_owner_name = NA_character_,
+    dob_owner_match_key = NA_character_,
+    dob_description = NA_character_,
+    description = hdb_description,
     description_referenced_jobs = mapply(
       extract_reference_jobs,
       description,

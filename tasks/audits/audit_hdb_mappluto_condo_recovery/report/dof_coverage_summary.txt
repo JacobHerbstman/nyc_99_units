@@ -1,0 +1,10 @@
+Rows: 18
+Columns: 4
+Key fields: sample, composition_eligible, reason
+Saved-file MD5: 9291a5a2ddc50b21a6b5d0492f457d9f
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 18 | distinct | 2
+composition_eligible | logical | nonmissing | 18 | distinct | 2
+reason | character | nonmissing | 18 | distinct | 7
+parents | numeric | nonmissing | 18 | distinct | 10 min/median/mean/max 1/4/51.83333/481

@@ -1,0 +1,15 @@
+Rows: 20
+Columns: 9
+Key fields: parent_id, archive_bbl
+Saved-file MD5: 22a0f31a939f3fa17c7a054a169a1655
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parent_id | character | nonmissing | 20 | distinct | 5
+archive_bbl | numeric | nonmissing | 20 | distinct | 20 min/median/mean/max 2022600000/3003880000/3051113000/4097950000
+interpretation | character | nonmissing | 20 | distinct | 3
+source_url | character | nonmissing | 20 | distinct | 7
+source_detail | character | nonmissing | 20 | distinct | 7
+archive_address | character | nonmissing | 20 | distinct | 20
+lot_area_sqft | numeric | nonmissing | 20 | distinct | 17 min/median/mean/max 108/8175/12564.85/46692
+lotfront | numeric | nonmissing | 20 | distinct | 14 min/median/mean/max 0/75/88.9555/399.92
+lotdepth | numeric | nonmissing | 20 | distinct | 14 min/median/mean/max 0/103.26/124.9045/218

@@ -1,0 +1,24 @@
+Rows: 0
+Columns: 18
+Key fields: sample, parent_id, root_job_id
+Saved-file MD5: d44f732c78d8c91480f68e320d0ccd87
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 0 | distinct | 0
+parent_id | character | nonmissing | 0 | distinct | 0
+root_job_id | character | nonmissing | 0 | distinct | 0
+address | character | nonmissing | 0 | distinct | 0
+date_filed | character | nonmissing | 0 | distinct | 0
+constituent_units | character | nonmissing | 0 | distinct | 0
+parent_total_units | character | nonmissing | 0 | distinct | 0
+exposure_status | character | nonmissing | 0 | distinct | 0
+unit_source | character | nonmissing | 0 | distinct | 0
+dob_i1_units | character | nonmissing | 0 | distinct | 0
+hdb_classa_units | character | nonmissing | 0 | distinct | 0
+hdb_hotel_rooms | character | nonmissing | 0 | distinct | 0
+hdb_other_class_b | character | nonmissing | 0 | distinct | 0
+hdb_description | character | nonmissing | 0 | distinct | 0
+hdb_status | character | nonmissing | 0 | distinct | 0
+hdb_version | character | nonmissing | 0 | distinct | 0
+unit_difference | character | nonmissing | 0 | distinct | 0
+zero_class_a | character | nonmissing | 0 | distinct | 0

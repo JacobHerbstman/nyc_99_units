@@ -51,7 +51,7 @@ if (
   stop("Symmetric parent-cohort arguments are not internally consistent.")
 }
 
-assign_components <- function(rows, links) {
+assign_components <- function(rows, links, max_days) {
   rows <- rows |>
     arrange(date_filed, job_number) |>
     mutate(row_id = row_number())
@@ -66,9 +66,10 @@ assign_components <- function(rows, links) {
   for (link_row in seq_len(nrow(links))) {
     left_component <- component[left_index[link_row]]
     right_component <- component[right_index[link_row]]
-    merged_component <- min(left_component, right_component)
-    component[component %in% c(left_component, right_component)] <-
-      merged_component
+    merging <- component %in% c(left_component, right_component)
+    # Pairwise links can form a chain longer than the parent observation window.
+    if (as.integer(max(rows$date_filed[merging]) - min(rows$date_filed[merging])) > max_days) next
+    component[merging] <- min(left_component, right_component)
   }
 
   rows |>
@@ -95,12 +96,22 @@ stopifnot(!anyNA(pair_decisions),
   !anyDuplicated(data.frame(sample = pair_decisions$sample,
     first = pmin(pair_decisions$job_number_1, pair_decisions$job_number_2),
     second = pmax(pair_decisions$job_number_1, pair_decisions$job_number_2))))
-historical_link_reviews <- pair_decisions |> filter(sample == "historical") |> select(-sample, -review_date)
+# A reviewed link applies only when both proposals exist in that sample's source.
+# Missing or sub-six-unit historical proposals are recorded in the coverage output.
+historical_link_reviews <- pair_decisions |>
+  filter(sample == "historical", job_number_1 %in% historical_rows$job_number,
+    job_number_2 %in% historical_rows$job_number) |>
+  select(-sample, -review_date)
 post_link_reviews <- pair_decisions |> filter(sample == "post_policy") |> select(-sample, -review_date)
 post_parent_reviews <- read_csv("../input/post_parent_reviews.csv", show_col_types = FALSE,
   col_types = cols(.default = col_character()))
 post_filing_roles <- read_csv("../input/post_parent_filing_roles.csv", show_col_types = FALSE,
   col_types = cols(.default = col_character()))
+historical_filing_roles <- read_csv("../input/historical_filing_roles.csv", show_col_types = FALSE,
+  col_types = cols(.default = col_character()))
+stopifnot(!anyDuplicated(historical_filing_roles$job_number),
+  all(historical_filing_roles$job_number %in% historical_rows$job_number),
+  all(historical_filing_roles$filing_role %in% c("nonresidential_filing", "superseded_alternative")))
 unit_decisions <- read_csv("../input/unit_decisions.csv", show_col_types = FALSE,
   col_types = cols(.default = col_character(), reviewed_units = col_integer()))
 stopifnot(!anyNA(unit_decisions),
@@ -127,21 +138,13 @@ mappluto_files <- mappluto_inventory |>
   ) |>
   select(raw_path)
 
-hdb_post_jobs <- read_parquet("../input/hdb_mappluto_site_panel.parquet") |>
-  select(
-    job_number, filing_year, classa_prop,
-    classa_prop_integer, primary_leakage_safe_sample, lotarea
-  ) |>
-  filter(
-    primary_leakage_safe_sample,
-    classa_prop_integer,
-    classa_prop >= 6,
-    !is.na(lotarea),
-    lotarea > 0,
-    filing_year >= post_comparison_start_year,
-    filing_year <= post_cohort_year
-  ) |>
-  mutate(hdb_units = as.integer(round(classa_prop)))
+# Unit priority is independent of sample size and land-data coverage.
+# A recorded zero is zero Class A dwellings, not a missing HDB observation.
+hdb_post_jobs <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet") |>
+  select(job_number, hdb_units = classa_prop)
+stopifnot(all(is.na(hdb_post_jobs$hdb_units) |
+  (hdb_post_jobs$hdb_units >= 0 & hdb_post_jobs$hdb_units == round(hdb_post_jobs$hdb_units))))
+hdb_post_jobs <- hdb_post_jobs |> mutate(hdb_units = as.integer(hdb_units))
 
 if (
   nrow(historical_rows) == 0L ||
@@ -496,7 +499,8 @@ automatic_post_membership <- assign_components(
     transmute(job_number, date_filed = filing_date),
   post_pairs |>
     filter(automatic_link) |>
-    select(job_number_1, job_number_2)
+    select(job_number_1, job_number_2),
+  Inf # Provisional groups identify the saved post-policy review records.
 ) |>
   group_by(component) |>
   mutate(
@@ -629,6 +633,8 @@ links <- bind_rows(
   arrange(sample, date_filed_1, job_number_1, job_number_2)
 
 historical_member_rows <- historical_rows |>
+  left_join(historical_filing_roles |> select(job_number, filing_role, replacement_job_number),
+    by = "job_number", relationship = "one-to-one") |>
   transmute(
     sample = "historical",
     root_job_id = job_number,
@@ -639,9 +645,10 @@ historical_member_rows <- historical_rows |>
     hdb_priority_units = units,
     dob_i1_units = NA_integer_,
     unit_source = "hdb",
-    filing_role = "additive_component",
-    additive_component = TRUE,
-    replacement_job_number = NA_character_,
+    hdb_release, historical_active, hdb_job_status,
+    filing_role = coalesce(filing_role, "additive_component"),
+    additive_component = filing_role == "additive_component",
+    replacement_job_number,
     filing_bbl,
     site_linkage_bbl = filing_bbl
   ) |>
@@ -681,6 +688,9 @@ post_member_rows <- post_rows |>
     hdb_priority_units,
     dob_i1_units,
     unit_source,
+    hdb_release = if_else(unit_source == "hdb", "25Q4", NA_character_),
+    historical_active = NA,
+    hdb_job_status = NA_character_,
     filing_role,
     additive_component,
     replacement_job_number,
@@ -692,12 +702,16 @@ post_member_rows <- post_rows |>
 historical_membership <- assign_components(
   historical_member_rows,
   historical_links |>
-    select(job_number_1, job_number_2)
+    arrange(desc(reviewed_accept), date_filed_1, date_filed_2) |>
+    select(job_number_1, job_number_2),
+  max_filing_days
 )
 post_membership <- assign_components(
   post_member_rows,
   post_links |>
-    select(job_number_1, job_number_2)
+    arrange(desc(reviewed_accept), date_filed_1, date_filed_2) |>
+    select(job_number_1, job_number_2),
+  max_filing_days
 )
 
 post_filing_role_qc <- post_membership |>
@@ -725,6 +739,11 @@ if (
 }
 
 membership <- bind_rows(historical_membership, post_membership)
+# The candidate tables retain the evidence for links spanning separate windows.
+member_keys <- paste(membership$sample, membership$job_number)
+links <- links |>
+  filter(membership$component[match(paste(sample, job_number_1), member_keys)] ==
+    membership$component[match(paste(sample, job_number_2), member_keys)])
 
 # A withdrawn application and its unique subsequent filing describe one building.
 dob_filings <- read_parquet("../input/dob_now_new_building_initial_filings.parquet") |>
@@ -743,7 +762,10 @@ refiling_fields <- membership |>
   left_join(dob_filings |> select(-dob_i1_units),
     by = "root_job_id", relationship = "many-to-one")
 replacement_index <- rep(NA_integer_, nrow(membership))
-for (i in which(refiling_fields$filing_status == "Filing Withdrawn" &
+# Post-policy replacements require the observed withdrawal event and matching
+# DOB owner/applicant identifiers. Historical roles use the archived source below.
+for (i in which(refiling_fields$sample == "post_policy" &
+    refiling_fields$filing_status == "Filing Withdrawn" &
     !is.na(refiling_fields$withdrawal_date) &
     str_detect(refiling_fields$bin, "^[1-5][0-9]{6}$") &
     !refiling_fields$owner %in% c("", "PR", "PRIVATE", "NOT APPLICABLE") &
@@ -758,9 +780,43 @@ for (i in which(refiling_fields$filing_status == "Filing Withdrawn" &
   if (length(candidates) > 1L) stop("Multiple refiling candidates for ", membership$job_number[i])
   if (length(candidates) == 1L) replacement_index[i] <- candidates
 }
+
+# At the historical snapshot, one nonwithdrawn proposal can replace earlier
+# withdrawn versions of the same building. Require the same archived BIN, BBL,
+# exact address, and a single surviving application within the one-year window.
+# Several withdrawn versions may share that successor. No withdrawal date is imputed.
+archived_identifiers <- read_parquet("../input/dcp_housing_database_project_level_23q4.parquet") |>
+  select(job_number, hdb_bin = bin, hdb_address = address)
+archived_buildings <- membership |>
+  filter(sample == "historical") |>
+  left_join(archived_identifiers, by = "job_number", relationship = "one-to-one") |>
+  filter(str_detect(hdb_bin, "^[1-5][0-9]{6}$"), !is.na(filing_bbl),
+    !is.na(hdb_address), hdb_address != "") |>
+  group_by(component, hdb_bin, filing_bbl, hdb_address) |>
+  filter(n() > 1L, sum(hdb_job_status != "9. Withdrawn") == 1L) |>
+  mutate(replacement_job = job_number[hdb_job_status != "9. Withdrawn"],
+    replacement_date = date_filed[hdb_job_status != "9. Withdrawn"]) |>
+  filter(replacement_date == max(date_filed),
+    max(date_filed) - min(date_filed) <= max_filing_days,
+    hdb_job_status == "9. Withdrawn", date_filed < replacement_date) |>
+  ungroup()
+archived_original <- match(archived_buildings$job_number, membership$job_number[membership$sample == "historical"])
+historical_index <- which(membership$sample == "historical")
+archived_original <- historical_index[archived_original]
+archived_replacement <- historical_index[match(archived_buildings$replacement_job,
+  membership$job_number[historical_index])]
+stopifnot(!anyNA(archived_original), !anyNA(archived_replacement))
+replacement_index[archived_original] <- archived_replacement
+manual_original <- which(membership$sample == "historical" &
+  membership$filing_role == "superseded_alternative")
+manual_replacement <- historical_index[match(membership$replacement_job_number[manual_original],
+  membership$job_number[historical_index])]
+stopifnot(!anyNA(manual_replacement))
+replacement_index[manual_original] <- manual_replacement
+
 original_index <- which(!is.na(replacement_index))
 new_index <- replacement_index[original_index]
-stopifnot(!anyDuplicated(new_index),
+stopifnot(!anyDuplicated(new_index[membership$sample[original_index] == "post_policy"]),
   all(membership$sample[original_index] == membership$sample[new_index]),
   all(membership$component[original_index] == membership$component[new_index]),
   all(membership$additive_component[new_index]))
@@ -773,7 +829,14 @@ membership$refiling_date <- as.Date(NA)
 membership$refiled[c(original_index, new_index)] <- TRUE
 membership$refiling_date[original_index] <- membership$date_filed[new_index]
 membership$refiling_date[new_index] <- membership$date_filed[new_index]
-membership$original_filing_date[new_index] <- membership$date_filed[original_index]
+for (j in unique(new_index)) {
+  membership$original_filing_date[j] <- min(membership$date_filed[original_index[new_index == j]])
+}
+membership$refiling_basis <- NA_character_
+membership$refiling_basis[c(original_index, new_index)] <- if_else(
+  membership$sample[c(original_index, new_index)] == "historical",
+  "archived_same_building_alternatives", "dated_dob_withdrawal_and_refiling")
+membership$refiling_basis[c(manual_original, manual_replacement)] <- "reviewed_archived_alternative"
 membership$filing_role[original_index] <- "superseded_refiling"
 membership$additive_component[original_index] <- FALSE
 membership$replacement_job_number[original_index] <- membership$job_number[new_index]
@@ -781,6 +844,11 @@ stopifnot(all(membership$refiled == !is.na(membership$refiling_date)),
   all(membership$refiling_date[membership$refiled] > membership$original_filing_date[membership$refiled]))
 
 membership <- membership |>
+  mutate(
+    filing_role = if_else(additive_component & units == 0L,
+      "zero_class_a", filing_role),
+    additive_component = additive_component & units > 0L
+  ) |>
   left_join(unit_decisions |> select(sample, root_job_id,
     documented_units = reviewed_units, documented_unit_definition = unit_definition,
     documented_unit_source_date = source_date, documented_unit_source = review_source),
@@ -873,8 +941,10 @@ if (
     anyDuplicated(membership[c("sample", "job_number")]) ||
     nrow(membership) != nrow(historical_rows) + nrow(post_rows) ||
     any(is.na(membership$geometry_available)) ||
-    any(membership$parent_observed_filings < 1L) ||
-    any(membership$parent_observed_units < 1L) ||
+    any(membership$units < 0L) ||
+    any(membership$additive_component & membership$units == 0L) ||
+    any((membership$parent_observed_filings == 0L) !=
+      (membership$parent_observed_units == 0L)) ||
     any(membership$parent_span_days > max_filing_days) ||
     any(membership$analysis_status == "unclassified")
 ) {
@@ -887,12 +957,17 @@ reviewed_components <- pair_decisions |>
     by = c("sample", "job_number_1"), relationship = "many-to-one") |>
   left_join(membership |> select(sample, job_number_2 = job_number, parent_2 = parent_id),
     by = c("sample", "job_number_2"), relationship = "many-to-one")
-stopifnot(!anyNA(reviewed_components$parent_1), !anyNA(reviewed_components$parent_2),
-  all((reviewed_components$parent_1 == reviewed_components$parent_2) ==
-    (reviewed_components$review_decision == "accept")),
+reviewed_components <- reviewed_components |>
+  mutate(applies_to_source = !is.na(parent_1) & !is.na(parent_2))
+stopifnot(all(reviewed_components$applies_to_source[reviewed_components$sample == "post_policy"]),
+  all((reviewed_components$parent_1[reviewed_components$applies_to_source] ==
+    reviewed_components$parent_2[reviewed_components$applies_to_source]) ==
+    (reviewed_components$review_decision[reviewed_components$applies_to_source] == "accept")),
   nrow(anti_join(unit_decisions, membership, by = c("sample", "root_job_id"))) == 0L,
   all(membership$units == membership$hdb_priority_units))
 
+SaveData(reviewed_components, c("sample", "job_number_1", "job_number_2"),
+  "../output/pair_decision_coverage.csv")
 SaveData(membership, c("sample", "job_number"), "../output/symmetric_parent_membership.parquet")
 SaveData(links, NULL, "../output/symmetric_parent_links.parquet")
 

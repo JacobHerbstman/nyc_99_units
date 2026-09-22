@@ -1,0 +1,2 @@
+filename,source_url,extract_date,bytes,sha256
+godwin_companion.geojson,https://services6.arcgis.com/yG5s3afENB5iO9fj/ArcGIS/rest/services/DTM_ETL_DAILY_view/FeatureServer/0/query?f=geojson&where=BBL%3D%272057000088%27&outFields=BBL%2CLOT%2CBLOCK%2CBORO%2CShape__Area&returnGeometry=true&outSR=2263,2026-09-21,581,da6f517b3c420354f8b31219362996b3411ca825191b79a10db3aeba54ea1e90

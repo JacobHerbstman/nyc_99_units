@@ -1,0 +1,13 @@
+Rows: 3
+Columns: 7
+Key fields: origin_range
+Saved-file MD5: 41fa39e8ee11abdd7d0a84a89c59a441
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+origin_range | character | nonmissing | 3 | distinct | 3
+parent_equivalents | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 12.73922/30.83939/103.3333/266.4214
+counterfactual_units | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 3457.924/16023.48/15642.64/27446.52
+predicted_units | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 3457.676/16016.54/15477.59/26958.57
+unit_reduction | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 0.248218/6.947718/165.0516/487.9588
+shrinking_parent_equivalents | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 0.1041278/0.5955648/12.06508/35.49554
+exits_from_301plus | numeric | nonmissing | 3 | distinct | 2 min/median/mean/max 0/0/0.1160848/0.3482544

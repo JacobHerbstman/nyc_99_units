@@ -43,18 +43,25 @@ parent is converted into verified splitting by assumption.
 
 ## Composition-adjusted benchmark
 
-The reweighted benchmark uses feature-complete 2019-2022 parents and positive
-exponential calibration (`survey::calibrate(..., calfun = "raking")`) to match
-the post sample on predetermined log lot area, residential FAR, built FAR,
-multi-lot status, and borough. Project unit count and eventual 485-x option are
-never used to construct weights.
+The reweighted benchmark selects rental parents with at least 50 units and
+`composition_eligible = TRUE`: every source filing has a matched parcel with
+positive area, and additive filings have distinct nonmissing building
+identifiers. Building identifiers come from DOB initial filings with Housing
+Database fallback. The selected sample has 561 historical and 312 post-period
+parents in the current source snapshots. Bond Street remains ineligible because
+two additive filings share a DOB building identifier.
 
-The task retains capacity, slack, lot-count, zoning-family, and prior-use fields
-in the analytical panel, but does not impose all of those moments in the main
-calibration. The richer exact moment vector failed positive-weight
-overlap/convergence. The code therefore reports the feasible prespecified
-moment set and does not merge categories, switch estimators, or silently fall
-back to a propensity score.
+The benchmark uses the eligible 2019-2022 parents and positive
+exponential calibration (`survey::calibrate(..., calfun = "raking")`) to match
+the post sample on log lot area, residential FAR, built FAR, and borough.
+
+The model takes each parent's total land footprint as given. The developer
+chooses units and organization within it; the reweighted historical joint
+distribution supplies ordinary size and organization, including ordinary
+multiple-constituent parents. The parcel attributes used in weighting come
+from archival releases, aggregated over the observed parent's linked lots.
+Land area sums those lots; FAR measures use their area weights. Treating this
+footprint as available under both policy regimes is a maintained assumption.
 
 The primary reweighted histogram preserves exact historical heaping. It is not
 smoothed. Local excess and cumulative-deficit calculations are reported at 99
@@ -88,5 +95,13 @@ values are generated from the current result tables before LaTeX compilation.
 annualized and normalized filing sizes, separate pre/post one-unit histograms
 with common axes, 50+ and 6+ filing-size CDFs, normalized parent totals, the
 composition-adjusted benchmark, and two views of repeated-99 configurations.
+
+`plot_annual_split_shares.R` produces `output/annual_split_shares.csv` and
+the annual chart in PDF and PNG. Each eligible 50-plus rental parent counts
+once, in its original first-filing year. The two series show multiple
+constituent filings and multiple matched archival tax lots. The tax-lot measure
+does not date legal subdivision events. The chart leaves 2023–2024 outside
+the comparison sample and identifies the partial 2026 cohort and shorter
+post-period follow-up.
 
 Refiling dates are separate from original proposal dates. In the constituent panel, `date_filed` is the original filing date, `record_filing_date` is the retained application's actual filing date, and `refiled`/`refiling_date` record an automatically detected replacement. Only the replacement's units are additive. The parent panel keeps the original `cohort_date`, sets `refiled` when any constituent refiled, and records the earliest qualifying refiling date across its constituents (missing otherwise). This correction uses observed replacement units and does not claim to recover the original design's unit choice.

@@ -8,10 +8,10 @@ filing_count <- nrow(filings)
 dob <- read_parquet("../input/dob_now_new_building_initial_filings.parquet") |>
   select(root_job_id = job_number, latitude, longitude) |>
   mutate(sample = "post_policy", coordinate_source = "DOB NOW initial filing")
-hdb <- read_parquet("../input/dcp_housing_database_project_level_raw_25q4.parquet") |>
+hdb <- read_parquet("../input/dcp_housing_database_project_level_raw_23q4.parquet") |>
   transmute(root_job_id = job_number, latitude = as.numeric(latitude),
             longitude = as.numeric(longitude), sample = "historical",
-            coordinate_source = "DCP Housing Database 25Q4")
+            coordinate_source = "DCP Housing Database 23Q4")
 coordinates <- bind_rows(hdb, dob)
 stopifnot(!anyDuplicated(filings[c("sample", "root_job_id")]),
           !anyNA(filings$root_job_id), !anyNA(filings$borough_name),

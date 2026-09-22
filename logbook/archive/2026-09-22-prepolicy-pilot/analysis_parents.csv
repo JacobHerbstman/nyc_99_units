@@ -1,0 +1,865 @@
+sample,parent_id,cohort_date,source_end_date,parent_total_units,n_components,sorted_component_vector,component_addresses,splitting_verification_status,right_window_observed,lot_area_sqft,residential_far,built_far,borough,multi_lot_indicator,weight
+historical,historical__121204801,2019-02-15,2023-12-29,50,1,50,540 6 AVENUE,not_applicable_single_component,TRUE,4275,7.52,3.95,Manhattan,0,0.0018847875387301314
+historical,historical__121204874,2019-02-28,2023-12-29,277,1,277,606 WEST 30 STREET,not_applicable_single_component,TRUE,14812,10,1.08,Manhattan,0,6.718715510645551e-4
+historical,historical__121204892,2019-03-06,2023-12-29,63,1,63,310 EAST 86 STREET,not_applicable_single_component,TRUE,1788,10,2.63,Manhattan,0,0.0012960110522903016
+historical,historical__121205203,2019-04-26,2023-12-29,71,1,71,181 EAST 101 STREET,not_applicable_single_component,TRUE,8092,6,2.99,Manhattan,0,0.0016448954048407024
+historical,historical__121205221,2019-05-02,2023-12-29,144,1,144,200 EAST 34 STREET,not_applicable_single_component,TRUE,5604,10,3.4399999999999995,Manhattan,0,0.0012570844147896175
+historical,historical__121205356,2019-05-28,2023-12-29,86,1,86,200 EAST 83 STREET,not_applicable_single_component,TRUE,1773,10,3.28,Manhattan,0,0.001475078142509238
+historical,historical__121205445,2019-06-07,2023-12-29,164,1,164,37 HILLSIDE AVENUE,not_applicable_single_component,TRUE,20375,3.44,0.26,Manhattan,0,0.0010771429606115364
+historical,historical__121205454,2019-06-07,2023-12-29,496,1,496,451 10 AVENUE,not_applicable_single_component,TRUE,17275,10,0,Manhattan,0,5.294148475322708e-4
+historical,historical__121205524,2019-06-21,2023-12-29,160,1,160,88 EAST 127 STREET,not_applicable_single_component,TRUE,1415,0,0,Manhattan,0,0.0022859594202875285
+historical,historical__121205597,2019-06-24,2023-12-29,164,1,164,300 EAST 103 STREET,not_applicable_single_component,TRUE,2592,6,4.52,Manhattan,0,0.002686890165493765
+historical,historical__121205640,2019-06-27,2023-12-29,229,1,229,509 3 AVENUE,not_applicable_single_component,TRUE,4933,10,2.96,Manhattan,0,0.001168209891667309
+historical,historical__121205686,2019-06-28,2023-12-29,133,1,133,339 EAST 33 STREET,not_applicable_single_component,TRUE,1975,10,2.02,Manhattan,0,0.0011304372681911485
+historical,historical__121206140,2019-09-16,2023-12-29,480,1,480,241 WEST 28 STREET,not_applicable_single_component,TRUE,9885,10,0,Manhattan,0,5.809308005434073e-4
+historical,historical__121206337,2019-10-02,2023-12-29,52,1,52,232 EAST BROADWAY,not_applicable_single_component,TRUE,5225,6.02,8.44,Manhattan,0,0.005164100586270332
+historical,historical__121206417,2019-10-10,2023-12-29,51,1,51,15 WEST 118 STREET,not_applicable_single_component,TRUE,5164,3.44,0,Manhattan,0,0.0012858575888682767
+historical,historical__121206499,2019-10-24,2023-12-29,108,1,108,202 EAST 23 STREET,not_applicable_single_component,TRUE,2500,10,2.8,Manhattan,0,0.0012674614657891036
+historical,historical__121206685,2019-12-04,2023-12-29,142,1,142,600 WEST 125 STREET,not_applicable_single_component,TRUE,18100,6.02,0.19,Manhattan,0,8.271310691773273e-4
+historical,historical__121206818,2019-12-20,2023-12-29,97,1,97,1975 MADISON AVENUE,not_applicable_single_component,TRUE,13168,3.44,0.96,Manhattan,0,0.0013294825362823517
+historical,historical__121207014,2020-01-27,2023-12-29,131,1,131,2555 BROADWAY,not_applicable_single_component,TRUE,12588,10,2.25,Manhattan,0,8.691913302400444e-4
+historical,historical__121207292,2020-03-06,2023-12-29,495,2,378+117,55 SUFFOLK STREET;64 NORFOLK STREET,suggestive_separate_components,TRUE,32395,6.02,0,Manhattan,1,7.232216691563931e-4
+historical,historical__121207309,2020-03-09,2023-12-29,330,1,330,312 WEST 43 STREET,not_applicable_single_component,TRUE,15975,10,3.91,Manhattan,0,0.001158482796508688
+historical,historical__121207354,2020-03-23,2023-12-29,81,1,81,2686 BROADWAY,not_applicable_single_component,TRUE,3531,7.52,4.33,Manhattan,0,0.002096903711603584
+historical,historical__121207504,2020-04-08,2023-12-29,614,1,614,180 EAST 125 STREET,not_applicable_single_component,TRUE,42540,6.02,1.1950230228974719,Manhattan,1,8.745932135673521e-4
+historical,historical__121207764,2020-04-24,2023-12-29,232,1,232,77 EAST 118 STREET,not_applicable_single_component,TRUE,17642,10,0,Manhattan,0,5.275667914396388e-4
+historical,historical__121207942,2020-05-06,2023-12-29,160,1,160,162 EAST 36 STREET,not_applicable_single_component,TRUE,2469,10,2.4,Manhattan,0,0.0011738758922675322
+historical,historical__121208077,2020-05-08,2023-12-29,75,1,75,270 EAST 2 STREET,not_applicable_single_component,TRUE,8162,6.02,2.13,Manhattan,0,0.0013837160177171863
+historical,historical__121208095,2020-05-08,2023-12-29,97,1,97,18 WEST 55 STREET,not_applicable_single_component,TRUE,2312,8,3.98,Manhattan,0,0.001997177107695452
+historical,historical__121208905,2020-11-10,2023-12-29,59,1,59,26 SHERMAN AVENUE,not_applicable_single_component,TRUE,10000,3.44,0.93,Manhattan,0,0.0013835593840319834
+historical,historical__121209138,2020-12-24,2023-12-29,88,1,88,4778 BROADWAY,not_applicable_single_component,TRUE,11800,6.02,0.37,Manhattan,0,9.201878073479354e-4
+historical,historical__121209174,2020-12-28,2023-12-29,92,1,92,4560 BROADWAY,not_applicable_single_component,TRUE,15450,3.44,0,Manhattan,0,0.0010715772554666244
+historical,historical__121209281,2021-01-22,2023-12-29,453,1,453,550 10 AVENUE,not_applicable_single_component,TRUE,15939,10,6.2,Manhattan,0,0.0018193974773902683
+historical,historical__121209361,2021-02-10,2023-12-29,54,1,54,350 EAST 18 STREET,not_applicable_single_component,TRUE,1840,7.52,0,Manhattan,0,9.96094135388093e-4
+historical,historical__121209502,2021-03-16,2023-12-29,171,1,171,270 WEST 96 STREET,not_applicable_single_component,TRUE,5034,10,0,Manhattan,0,6.499400334328081e-4
+historical,historical__121209575,2021-07-20,2023-12-29,92,1,92,39 WEST 128 STREET,not_applicable_single_component,TRUE,12490,3.44,1.45,Manhattan,0,0.0014771124024026926
+historical,historical__123692334,2019-08-12,2023-12-29,58,1,58,115 EAST 55 STREET,not_applicable_single_component,TRUE,1883,10,2.35,Manhattan,0,0.001215959407544335
+historical,historical__123740336,2019-11-12,2023-12-29,113,1,113,212 EAST 125 STREET,not_applicable_single_component,TRUE,2523,6.02,2.56,Manhattan,0,0.0018308027512011407
+historical,historical__123756015,2019-03-06,2023-12-29,65,1,65,609 SECOND AVENUE,not_applicable_single_component,TRUE,1469,7.52,0,Manhattan,0,0.0010341130313446445
+historical,historical__123777305,2019-06-28,2023-12-29,59,1,59,63 PITT STREET,not_applicable_single_component,TRUE,2517,6,4,Manhattan,0,0.0024372097452681324
+historical,historical__210178966,2019-01-07,2023-12-29,107,1,107,972 WASHINGTON AVENUE,not_applicable_single_component,TRUE,10790,3.44,0.8299999999999998,Bronx,0,0.002417519088091688
+historical,historical__210179215,2019-03-15,2023-12-29,80,1,80,880 EAST 147 STREET,not_applicable_single_component,TRUE,5300,5,0.29,Bronx,0,0.002077946063065225
+historical,historical__210179242,2019-03-19,2023-12-29,153,1,153,656 EAST 176 STREET,not_applicable_single_component,TRUE,13337,0,0,Bronx,0,0.0028406601683818645
+historical,historical__210179279,2019-03-26,2023-12-29,82,1,82,872 BRONX PARK SOUTH,not_applicable_single_component,TRUE,3189,3.44,0,Bronx,0,0.0025143867814566025
+historical,historical__210179493,2019-04-24,2023-12-29,55,1,55,2395 PALISADE AVENUE,not_applicable_single_component,TRUE,6500,3,1.52,Bronx,0,0.003155011676204102
+historical,historical__210179518,2019-04-29,2023-12-29,148,1,148,3401 3 AVENUE,not_applicable_single_component,TRUE,4855,3.44,0.43,Bronx,0,0.0025518129902295625
+historical,historical__210179616,2019-05-21,2023-12-29,119,1,119,1973 DALY AVENUE,not_applicable_single_component,TRUE,1110,5,0,Bronx,0,0.0025454689488667325
+historical,historical__210179634,2019-05-29,2023-12-29,116,1,116,1544 SHAKESPEARE AVENUE,not_applicable_single_component,TRUE,2500,3.44,0,Bronx,0,0.0026182848469152647
+historical,historical__210179705,2019-02-19,2023-12-29,245,1,245,1169 RIVER AVENUE,not_applicable_single_component,TRUE,24165,7.52,0.67,Bronx,0,0.0013365803193576286
+historical,historical__210179732,2019-06-20,2023-12-29,188,1,188,2850 WEBSTER AVENUE,not_applicable_single_component,TRUE,15635,4.2,1,Bronx,0,0.002170570552989757
+historical,historical__210179803,2019-06-27,2023-12-29,221,1,221,1701 PURDY STREET,not_applicable_single_component,TRUE,32350,2.43,0,Bronx,0,0.001900907643402177
+historical,historical__210179821,2019-06-28,2023-12-29,116,1,116,2880 JEROME AVENUE,not_applicable_single_component,TRUE,10962,6.02,0,Bronx,0,0.0015630349033811056
+historical,historical__210179830,2019-07-01,2023-12-29,133,1,133,750 EAST 134 STREET,not_applicable_single_component,TRUE,11081,0,0.08,Bronx,0,0.0029761113850401877
+historical,historical__210179965,2019-07-25,2023-12-29,163,1,163,261 EAST 202 STREET,not_applicable_single_component,TRUE,2242,6.02,0,Bronx,0,0.0020352646312176035
+historical,historical__210179974,2019-07-25,2023-12-29,160,1,160,270 EAST 203 STREET,not_applicable_single_component,TRUE,2250,6.02,1.56,Bronx,0,0.002765655479400255
+historical,historical__210179983,2019-07-25,2023-12-29,85,1,85,2064 GRAND CONCOURSE,not_applicable_single_component,TRUE,6854,6.02,1.5,Bronx,0,0.0022708890187107585
+historical,historical__210180105,2019-09-10,2023-12-29,265,1,265,1017 OLMSTEAD AVENUE,not_applicable_single_component,TRUE,60979,1.25,0.17,Bronx,0,0.002001426276220779
+historical,historical__210180178,2019-09-25,2023-12-29,134,1,134,1883 CROTONA AVENUE,not_applicable_single_component,TRUE,2740,3.44,0.5,Bronx,0,0.0028455235189681367
+historical,historical__210180221,2019-09-26,2023-12-29,218,1,218,50 WILLIS AVENUE,not_applicable_single_component,TRUE,29530,6.02,0,Bronx,0,0.001325498626826449
+historical,historical__210180258,2019-10-03,2023-12-29,93,1,93,4519 WHITE PLAINS ROAD,not_applicable_single_component,TRUE,15800,2.43,0.49,Bronx,0,0.0023585319307313658
+historical,historical__210180294,2019-10-10,2023-12-29,251,1,251,714 EAST 241 STREET,not_applicable_single_component,TRUE,24123,0,0.25,Bronx,0,0.00270390196986194
+historical,historical__210180356,2019-10-21,2023-12-29,85,1,85,3069 VILLA AVENUE,not_applicable_single_component,TRUE,12500,6.02,0,Bronx,0,0.0015292686852458014
+historical,historical__210180365,2019-10-21,2023-12-29,72,1,72,1210 SIMPSON STREET,not_applicable_single_component,TRUE,2500,3.44,0,Bronx,0,0.0026182848469152647
+historical,historical__210180533,2019-12-26,2023-12-29,264,2,141+123,227 EAST 134 STREET;2455 3 AVENUE,suggestive_separate_components,TRUE,24880,6.019999999999999,0.5859726688102894,Bronx,1,0.0015306590752579433
+historical,historical__210180604,2020-01-17,2023-12-29,101,1,101,3054 VILLA AVENUE,not_applicable_single_component,TRUE,44717,6.02,0.19999999999999998,Bronx,0,0.0012867963909816292
+historical,historical__210180819,2020-02-13,2023-12-29,570,2,326+244,1600 GRAND AVENUE;1600 MACOMBS ROAD,suggestive_separate_components,TRUE,70063,5.856133194410744,1.1471104577308993,Bronx,1,0.001463960676214373
+historical,historical__210180864,2020-02-25,2023-12-29,279,1,279,2082 BOSTON ROAD,not_applicable_single_component,TRUE,76664,6.02,2.62,Bronx,0,0.0018947874701918598
+historical,historical__210180891,2020-02-26,2023-12-29,118,1,118,1746 ANDREWS AVENUE SOUTH,not_applicable_single_component,TRUE,15280,3.44,0,Bronx,0,0.0019374979542549943
+historical,historical__210181060,2020-03-27,2023-12-29,155,1,155,299 EAST 161 STREET,not_applicable_single_component,TRUE,3650,6.02,1.1,Bronx,0,0.0023307824636683546
+historical,historical__210181079,2020-03-27,2023-12-29,205,1,205,1001 THIERIOT AVENUE,not_applicable_single_component,TRUE,12613,1.25,0,Bronx,0,0.0025155738502611784
+historical,historical__210181131,2020-04-07,2023-12-29,51,1,51,2069 HONEYWELL AVENUE,not_applicable_single_component,TRUE,4073,3.44,0.62,Bronx,0,0.0027276473552591755
+historical,historical__210181202,2020-04-21,2023-12-29,200,1,200,2413 THIRD AVENUE,not_applicable_single_component,TRUE,24700,6.02,1.6,Bronx,0,0.0018712757428107143
+historical,historical__210181248,2020-04-22,2023-12-29,66,1,66,1559 BOONE AVENUE,not_applicable_single_component,TRUE,10000,3,1,Bronx,0,0.002650955002345339
+historical,historical__210181337,2020-05-05,2023-12-29,154,1,154,1940 TURNBULL AVENUE,not_applicable_single_component,TRUE,12776,6.02,0,Bronx,0,0.001523723115509331
+historical,historical__210181373,2020-05-07,2023-12-29,150,1,150,1323 BOSTON ROAD,not_applicable_single_component,TRUE,13950,2.43,1,Bronx,0,0.0026623236970584126
+historical,historical__210181382,2020-05-07,2023-12-29,117,1,117,1841 SEWARD AVENUE,not_applicable_single_component,TRUE,679000,2.43,1.5,Bronx,0,0.001539428428368956
+historical,historical__210181747,2020-07-09,2023-12-29,102,1,102,2520 JEROME AVENUE,not_applicable_single_component,TRUE,17775,6.02,0.20534458509142053,Bronx,0,0.0015018074142069484
+historical,historical__210181925,2020-09-08,2023-12-29,74,1,74,16 WADE SQUARE,not_applicable_single_component,TRUE,2001,3.44,0.68,Bronx,0,0.0031064530002146125
+historical,historical__210182041,2020-10-05,2023-12-29,154,1,154,334 EAST 176 STREET,not_applicable_single_component,TRUE,2003,3.44,0,Bronx,0,0.00271661977121667
+historical,historical__210182069,2020-10-13,2023-12-29,710,1,710,355 EXTERIOR STREET,not_applicable_single_component,TRUE,120272,3.44,0.2648164161234535,Bronx,1,0.0014482470484151668
+historical,historical__210182112,2020-10-27,2023-12-29,55,1,55,21 MT HOPE PLACE,not_applicable_single_component,TRUE,3125,6.02,1.09,Bronx,0,0.0023870691390678505
+historical,historical__210182283,2020-12-03,2023-12-29,61,1,61,2351 WALTON AVENUE,not_applicable_single_component,TRUE,4750,6.02,0,Bronx,0,0.0017963196006108928
+historical,historical__210182372,2021-01-21,2023-12-29,182,1,182,1340 BLONDELL AVENUE,not_applicable_single_component,TRUE,45090,4,0.12000000000000001,Bronx,0,0.0015627117240497783
+historical,historical__210182407,2021-01-26,2023-12-29,52,1,52,390 EAST MOSHOLU PARKWAY SOUTH,not_applicable_single_component,TRUE,6340,6.02,1.6100000000000003,Bronx,0,0.0023509113363897045
+historical,historical__220212543,2021-03-01,2023-12-29,73,1,73,2702 CRESTON AVENUE,not_applicable_single_component,TRUE,1485,6.02,0.87,Bronx,0,0.0025870002270352082
+historical,historical__220212918,2022-11-02,2023-12-29,251,1,251,484 EAST 178 STREET,not_applicable_single_component,TRUE,22381,4.2,0,Bronx,0,0.0016792906741663577
+historical,historical__220517698,2020-03-09,2023-12-29,82,1,82,4435 WHITE PLAINS ROAD,not_applicable_single_component,TRUE,18008,2.43,0,Bronx,0,0.0020954629802604594
+historical,historical__220671075,2019-03-01,2023-12-29,165,1,165,4720 THIRD AVENUE,not_applicable_single_component,TRUE,16865,5,1.12,Bronx,0,0.0020183951583260286
+historical,historical__220689048,2019-07-30,2023-12-29,54,1,54,2070 HONEYWELL AVENUE,not_applicable_single_component,TRUE,4963,3.4400000000000004,0.38,Bronx,0,0.002517576570270408
+historical,historical__220689921,2019-02-12,2023-12-29,215,1,215,276 GRAND CONCOURSE,not_applicable_single_component,TRUE,31900,6.02,0.29,Bronx,0,0.0013855028192566478
+historical,historical__220693961,2019-03-19,2023-12-29,53,1,53,2500 BARKER AVENUE,not_applicable_single_component,TRUE,5000,2.43,0,Bronx,0,0.0025932763342958656
+historical,historical__220694602,2019-04-09,2023-12-29,66,1,66,722 EAST 216 STREET,not_applicable_single_component,TRUE,5544,4,0.73,Bronx,0,0.0024972932249717923
+historical,historical__220694700,2019-03-28,2023-12-29,59,1,59,4427 WHITE PLAINS ROAD,not_applicable_single_component,TRUE,15040,2.43,0.72,Bronx,0,0.0024881471638065022
+historical,historical__220694719,2019-03-28,2023-12-29,57,1,57,2468 TIEBOUT AVENUE,not_applicable_single_component,TRUE,11300,3.44,0,Bronx,0,0.002037227735177214
+historical,historical__220696432,2019-04-05,2023-12-29,66,1,66,3162 VILLA AVENUE,not_applicable_single_component,TRUE,1600,6.02,0.64,Bronx,0,0.0024419401309435334
+historical,historical__220696717,2019-05-07,2023-12-29,64,1,64,2724 HEATH AVENUE,not_applicable_single_component,TRUE,14863,2.43,0,Bronx,0,0.0021634463564121804
+historical,historical__220696851,2019-03-28,2023-12-29,301,2,151+150,310 GRAND CONCOURSE;322 GRAND CONCOURSE,suggestive_separate_components,TRUE,24027,6.019999999999999,0.33523452782286595,Bronx,1,0.0014653852766589555
+historical,historical__220700873,2019-06-05,2023-12-29,562,1,562,1580 STORY AVENUE,not_applicable_single_component,TRUE,203910,2.43,0,Bronx,0,0.0013994570264167475
+historical,historical__220704744,2020-03-05,2023-12-29,105,1,105,1073 SUMMIT AVENUE,not_applicable_single_component,TRUE,3750,3.44,0,Bronx,0,0.002447515474109983
+historical,historical__220704753,2020-05-26,2023-12-29,72,1,72,305 EAST 165 STREET,not_applicable_single_component,TRUE,9742,3.4399999999999995,0,Bronx,0,0.002088127798952659
+historical,historical__220706369,2019-06-27,2023-12-29,50,1,50,1353 CASTLE HILL AVENUE,not_applicable_single_component,TRUE,10300,2.43,0,Bronx,0,0.002299531504822457
+historical,historical__220707929,2019-06-26,2023-12-29,124,1,124,286 RIDER AVENUE,not_applicable_single_component,TRUE,21078,4,0.98,Bronx,0,0.0021007464754802543
+historical,historical__220708241,2019-06-24,2023-12-29,56,1,56,2104 RYER AVENUE,not_applicable_single_component,TRUE,5156,3.44,0.68,Bronx,0,0.002653915581534955
+historical,historical__220708401,2019-06-26,2023-12-29,88,1,88,1760 BOONE AVENUE,not_applicable_single_component,TRUE,2276,4,0,Bronx,0,0.0025081036943191705
+historical,historical__220708848,2019-06-27,2023-12-29,53,1,53,1731 WEST FARMS ROAD,not_applicable_single_component,TRUE,9723,5,0.67,Bronx,0,0.0020244276463916946
+historical,historical__220716964,2019-12-11,2023-12-29,113,1,113,2495 SEDGWICK AVENUE,not_applicable_single_component,TRUE,5517,2.43,0,Bronx,0,0.0025511764047765105
+historical,historical__220723732,2020-01-22,2023-12-29,55,1,55,101 BRUCKNER BOULEVARD,not_applicable_single_component,TRUE,12500,3,0,Bronx,0,0.0020977183043406006
+historical,historical__220723741,2020-02-20,2023-12-29,52,1,52,554 TRINITY AVENUE,not_applicable_single_component,TRUE,10709,3.44,0.83,Bronx,0,0.002420551191045447
+historical,historical__220727462,2020-03-05,2023-12-29,131,1,131,2047 RYER AVENUE,not_applicable_single_component,TRUE,11747,6.019999999999999,0,Bronx,0,0.0015451556008587916
+historical,historical__220728096,2020-03-13,2023-12-29,54,1,54,140 WEST FORDHAM ROAD,not_applicable_single_component,TRUE,9500,3.44,0.05,Bronx,0,0.002117634643989852
+historical,historical__220732946,2020-05-20,2023-12-29,65,1,65,6375 BROADWAY,not_applicable_single_component,TRUE,35525,2.43,1.86,Bronx,0,0.002699557359594037
+historical,historical__240274528,2020-06-08,2023-12-29,76,2,38+38,2423 BARKER AVENUE;2428 BRONX PARK EAST,suggestive_separate_components,TRUE,9069,3.44,0.28891608777152944,Bronx,1,0.0022368706410795546
+historical,historical__240275796,2020-06-18,2023-12-29,90,1,90,6327 BROADWAY,not_applicable_single_component,TRUE,5000,2.43,0,Bronx,0,0.0025932763342958656
+historical,historical__240278828,2020-07-17,2023-12-29,73,1,73,4750 WHITE PLAINS ROAD,not_applicable_single_component,TRUE,5074,3,1.26,Bronx,0,0.0031235909640914645
+historical,historical__240284553,2020-09-01,2023-12-29,50,1,50,2441 CROTONA AVENUE,not_applicable_single_component,TRUE,12557,2.43,0.08,Bronx,0,0.0022603131701047705
+historical,historical__240285865,2020-09-14,2023-12-29,56,1,56,661 MANIDA STREET,not_applicable_single_component,TRUE,7500,2.43,0.28,Bronx,0,0.0025615753451124863
+historical,historical__240288755,2020-09-29,2023-12-29,111,1,111,2072 ANTHONY AVENUE,not_applicable_single_component,TRUE,2690,6.02,0.84,Bronx,0,0.0023297524567807083
+historical,historical__240293339,2020-11-06,2023-12-29,59,1,59,2528 GRAND AVENUE,not_applicable_single_component,TRUE,5000,2.43,0.59,Bronx,0,0.0029128251294932087
+historical,historical__240294686,2020-11-17,2023-12-29,51,1,51,113 EAST 184 STREET,not_applicable_single_component,TRUE,5863,6.019999999999999,0,Bronx,0,0.0017345049332182913
+historical,historical__240296657,2020-12-07,2023-12-29,110,1,110,1245 EDWARD L GRANT HIGHWAY,not_applicable_single_component,TRUE,10350,7.52,0.89,Bronx,0,0.001607191972719208
+historical,historical__240298968,2020-12-24,2023-12-29,70,1,70,3184 WEBSTER AVENUE,not_applicable_single_component,TRUE,8708,4.2,0.17,Bronx,0,0.00203170538644137
+historical,historical__240301017,2021-02-10,2023-12-29,61,1,61,1616 CROSBY AVENUE,not_applicable_single_component,TRUE,5945,3.44,0.4,Bronx,0,0.002452736420046823
+historical,historical__240301552,2021-02-23,2023-12-29,88,1,88,189 EAST 205 STREET,not_applicable_single_component,TRUE,3495,6.02,0.7,Bronx,0,0.0021698144732544234
+historical,historical__240301721,2021-02-25,2023-12-29,67,1,67,2076 WALTON AVENUE,not_applicable_single_component,TRUE,2536,6.02,0.8,Bronx,0,0.0023342493727322184
+historical,historical__240301794,2021-02-26,2023-12-29,64,1,64,173 EAST 205 STREET,not_applicable_single_component,TRUE,5000,6.02,0,Bronx,0,0.0017810581513181965
+historical,historical__321385611,2019-01-07,2023-12-29,68,1,68,643 DEGRAW STREET,not_applicable_single_component,TRUE,1043,6,0,Brooklyn,0,0.0014821497971589741
+historical,historical__321385844,2019-01-17,2023-12-29,53,1,53,6020 3 AVENUE,not_applicable_single_component,TRUE,7046,2,0.19,Brooklyn,0,0.001701931808246008
+historical,historical__321385862,2019-01-17,2023-12-29,94,1,94,15 MONTIETH STREET,not_applicable_single_component,TRUE,1833,3,0,Brooklyn,0,0.001847195309761447
+historical,historical__321385880,2019-01-18,2023-12-29,50,1,50,108 DOWNING STREET,not_applicable_single_component,TRUE,985,4,0,Brooklyn,0,0.0018447107720970133
+historical,historical__321386059,2019-01-29,2023-12-29,316,2,160+156,561 EMERALD STREET;583 EMERALD STREET,suggestive_separate_components,TRUE,39700,3.3350125944584383,0,Brooklyn,1,0.0010693365469683998
+historical,historical__321386077,2019-01-30,2023-12-29,52,1,52,169 JOHNSON AVENUE,not_applicable_single_component,TRUE,7500,2.43,0,Brooklyn,0,0.0015510843499261565
+historical,historical__321387021,2019-03-15,2023-12-29,745,3,335+302+108,1 EAGLE STREET;227 WEST STREET;27 EAGLE STREET,unable_to_verify,TRUE,106018,6.02,0,Brooklyn,1,6.856744744313739e-4
+historical,historical__321387263,2019-03-27,2023-12-29,139,1,139,485 VAN SINDEREN AVENUE,not_applicable_single_component,TRUE,25790,0,0.85,Brooklyn,0,0.0019255850766823157
+historical,historical__321387290,2019-03-28,2023-12-29,136,1,136,2377 PACIFIC STREET,not_applicable_single_component,TRUE,22300,2.43,0.54,Brooklyn,0,0.0014391425024463296
+historical,historical__321387352,2019-04-01,2023-12-29,121,1,121,200 MONTAGUE STREET,not_applicable_single_component,TRUE,10000,10,4.6,Brooklyn,0,0.0016567084178098605
+historical,historical__321387450,2019-04-03,2023-12-29,236,1,236,1911 ATLANTIC AVENUE,not_applicable_single_component,TRUE,1550,4.2,1.37,Brooklyn,0,0.002194162542002465
+historical,historical__321387478,2019-04-08,2023-12-29,264,1,264,545 VANDERBILT AVENUE,not_applicable_single_component,TRUE,10520,4,0.28,Brooklyn,0,0.0013145637848675123
+historical,historical__321387575,2019-04-11,2023-12-29,70,1,70,1510 GATES AVENUE,not_applicable_single_component,TRUE,12500,2.43,0.79,Brooklyn,0,0.0016645818792534264
+historical,historical__321387913,2019-05-02,2023-12-29,52,1,52,1 SULLIVAN PLACE,not_applicable_single_component,TRUE,3057,6,0,Brooklyn,0,0.0012393909987005478
+historical,historical__321570769,2020-04-23,2023-12-29,81,1,81,150 NOLL STREET,not_applicable_single_component,TRUE,2500,2.43,0,Brooklyn,0,0.0018620910800895957
+historical,historical__321588705,2020-02-12,2023-12-29,120,1,120,126 SANDFORD STREET,not_applicable_single_component,TRUE,1500,4.2,1,Brooklyn,0,0.002051113330301244
+historical,historical__321588714,2020-02-13,2023-12-29,50,1,50,219 LENOX ROAD,not_applicable_single_component,TRUE,10000,3.44,0.35,Brooklyn,0,0.001425227100399559
+historical,historical__321589125,2020-03-04,2023-12-29,57,1,57,1038 BROADWAY,not_applicable_single_component,TRUE,8102,4,0.43,Brooklyn,0,0.0014140964908291253
+historical,historical__321589134,2020-03-04,2023-12-29,376,1,376,2938 WEST 16 STREET,not_applicable_single_component,TRUE,47643,5,0,Brooklyn,0,8.714903306456787e-4
+historical,historical__321589704,2020-04-03,2023-12-29,374,1,374,35 COMMERCIAL STREET,not_applicable_single_component,TRUE,44599,2.43,0,Brooklyn,0,0.0011530350062500317
+historical,historical__321589713,2020-04-03,2023-12-29,121,1,121,491 HERKIMER STREET,not_applicable_single_component,TRUE,1667,3,0,Brooklyn,0,0.0018765951677207756
+historical,historical__321589722,2020-04-03,2023-12-29,57,1,57,171 NORTH 1 STREET,not_applicable_single_component,TRUE,13867,3,1,Brooklyn,0,0.0016064333295216224
+historical,historical__321589884,2020-04-07,2023-12-29,58,1,58,68 GOLD STREET,not_applicable_single_component,TRUE,19991,2,0,Brooklyn,0,0.0013783369065937937
+historical,historical__321590113,2020-04-20,2023-12-29,569,1,569,180 ASHLAND PLACE,not_applicable_single_component,TRUE,16600,10,3.73,Brooklyn,0,0.001282972558464068
+historical,historical__321590293,2020-04-28,2023-12-29,71,1,71,282 HINSDALE STREET,not_applicable_single_component,TRUE,95000,3,1.3,Brooklyn,0,0.0012373825695726952
+historical,historical__321590328,2020-04-29,2023-12-29,175,1,175,1010 PACIFIC STREET,not_applicable_single_component,TRUE,23119,4,1,Brooklyn,0,0.00132887913337285
+historical,historical__321590346,2020-04-29,2023-12-29,143,1,143,130 HOPE STREET,not_applicable_single_component,TRUE,20000,3,0,Brooklyn,0,0.001241284754114843
+historical,historical__321590382,2020-05-01,2023-12-29,62,1,62,402 MOTHER GASTON BOULEVARD,not_applicable_single_component,TRUE,7500,2.43,0,Brooklyn,0,0.0015510843499261565
+historical,historical__321590532,2020-05-05,2023-12-29,682,1,682,698 ATLANTIC AVENUE,not_applicable_single_component,TRUE,122384,0,0,Brooklyn,0,0.0012570862426775071
+historical,historical__321592157,2020-06-18,2023-12-29,233,1,233,1108 MYRTLE AVENUE,not_applicable_single_component,TRUE,5000,4,0.5,Brooklyn,0,0.0015535869341602169
+historical,historical__321592200,2020-06-25,2023-12-29,229,1,229,111 WILLOUGHBY STREET,not_applicable_single_component,TRUE,3760,10,1.28,Brooklyn,0,0.001013758135272219
+historical,historical__321592308,2020-07-01,2023-12-29,80,1,80,33 FRANKLIN STREET,not_applicable_single_component,TRUE,18537,2,1,Brooklyn,0,0.0016995953664565551
+historical,historical__321592344,2020-07-06,2023-12-29,171,1,171,1634 FLATBUSH AVENUE,not_applicable_single_component,TRUE,17985,6.02,0.06,Brooklyn,0,9.319911399106414e-4
+historical,historical__321592576,2020-07-24,2023-12-29,50,1,50,21 GARDEN STREET,not_applicable_single_component,TRUE,7800,3,1.39,Brooklyn,0,0.0019089224851254658
+historical,historical__321592709,2020-08-07,2023-12-29,55,1,55,1042 PRESIDENT STREET,not_applicable_single_component,TRUE,3917,2.43,0,Brooklyn,0,0.0017280722328509679
+historical,historical__321592718,2020-08-11,2023-12-29,123,1,123,402 METROPOLITAN AVENUE,not_applicable_single_component,TRUE,17586,3,0.19,Brooklyn,0,0.0013164835436254637
+historical,historical__321592763,2020-08-13,2023-12-29,103,1,103,161 EMERSON PLACE,not_applicable_single_component,TRUE,10000,2.43,2.5,Brooklyn,0,0.002419302419433593
+historical,historical__321592790,2020-08-13,2023-12-29,98,1,98,1499 BEDFORD AVENUE,not_applicable_single_component,TRUE,15804,4.2,1.27,Brooklyn,0,0.0014620752693185115
+historical,historical__321592825,2020-08-17,2023-12-29,184,1,184,273 SNEDIKER AVENUE,not_applicable_single_component,TRUE,95000,3,1.3,Brooklyn,0,0.0012373825695726952
+historical,historical__321593101,2019-05-15,2023-12-29,104,1,104,142 SOUTH PORTLAND AVENUE,not_applicable_single_component,TRUE,12000,6,0.78,Brooklyn,0,0.0011511639763456
+historical,historical__321593986,2019-06-26,2023-12-29,569,1,569,54 CROWN STREET,not_applicable_single_component,TRUE,55385,3,0,Brooklyn,1,0.001047822762498137
+historical,historical__321594137,2019-06-27,2023-12-29,320,1,320,268 BARBEY STREET,not_applicable_single_component,TRUE,43648,5.4,1.75,Brooklyn,0,0.0011970021632983707
+historical,historical__321594155,2019-06-27,2023-12-29,66,1,66,255 LORIMER STREET,not_applicable_single_component,TRUE,3925,3.44,0.61,Brooklyn,0,0.001752608243656112
+historical,historical__321594226,2019-06-28,2023-12-29,135,1,135,437 EUCLID AVENUE,not_applicable_single_component,TRUE,13500,4,0,Brooklyn,0,0.0011934768432260475
+historical,historical__321594422,2019-07-16,2023-12-29,116,1,116,154 CLARKSON AVENUE,not_applicable_single_component,TRUE,4000,3.44,0.71,Brooklyn,0,0.001781849234177972
+historical,historical__321594672,2019-07-26,2023-12-29,127,1,127,1601 DEKALB AVENUE,not_applicable_single_component,TRUE,20000,4,0,Brooklyn,0,0.0011179438045754787
+historical,historical__321594832,2019-08-12,2023-12-29,160,1,160,535 EAST 98 STREET,not_applicable_single_component,TRUE,33000,2.43,0,Brooklyn,0,0.0012122772107391686
+historical,historical__321595083,2019-10-03,2023-12-29,58,1,58,610 EAST 40 STREET,not_applicable_single_component,TRUE,20000,0.9,0.42,Brooklyn,0,0.0016797480178170731
+historical,historical__321595092,2019-10-04,2023-12-29,174,1,174,461 CHESTER STREET,not_applicable_single_component,TRUE,37500,2.43,0,Brooklyn,0,0.0011867713527903795
+historical,historical__321595145,2019-10-05,2023-12-29,441,1,441,90 FLATBUSH AVENUE,not_applicable_single_component,TRUE,12603,10,3.168273998205505,Brooklyn,1,0.001202459341170838
+historical,historical__321595403,2019-10-21,2023-12-29,798,1,798,595 DEAN STREET,not_applicable_single_component,TRUE,116535,0,0,Brooklyn,1,0.0012673684393684729
+historical,historical__321595608,2019-10-29,2023-12-29,174,3,77+58+39,269 WALLABOUT STREET;34 UNION AVENUE;58 UNION AVENUE,suggestive_separate_components,TRUE,39323,5.032832629217758,0,Brooklyn,1,8.966755580399915e-4
+historical,historical__321595653,2019-11-01,2023-12-29,53,1,53,2343 NOSTRAND AVENUE,not_applicable_single_component,TRUE,12075,2.43,0.6,Brooklyn,0,0.0016126958363115143
+historical,historical__321595733,2019-11-08,2023-12-29,69,1,69,280 MEEKER AVENUE,not_applicable_single_component,TRUE,8546,2.7,0,Brooklyn,0,0.0014754742668673985
+historical,historical__321595751,2019-11-08,2023-12-29,76,1,76,815 FLATBUSH AVENUE,not_applicable_single_component,TRUE,11816,4,1.5599999999999998,Brooklyn,0,0.0016591040587430042
+historical,historical__321595797,2019-11-12,2023-12-29,90,1,90,58 VANDERBILT AVENUE,not_applicable_single_component,TRUE,12808,4.2,0,Brooklyn,0,0.0011790304978893825
+historical,historical__321596484,2019-12-20,2023-12-29,165,1,165,220 CLARKSON AVENUE,not_applicable_single_component,TRUE,27000,3.44,1.6,Brooklyn,0,0.0015454275762644093
+historical,historical__321596536,2019-12-20,2023-12-29,157,1,157,381 CHESTER STREET,not_applicable_single_component,TRUE,22025,3.44,0,Brooklyn,0,0.0011665554278999307
+historical,historical__321596625,2019-12-30,2023-12-29,50,1,50,2039 OCEAN AVENUE,not_applicable_single_component,TRUE,4400,4,0.65,Brooklyn,0,0.0016345593268942968
+historical,historical__321597009,2019-08-22,2023-12-29,58,1,58,410 WARWICK STREET,not_applicable_single_component,TRUE,5000,4,0.16,Brooklyn,0,0.0014529600716982759
+historical,historical__321597606,2019-09-09,2023-12-29,208,1,208,589 CHRISTOPHER AVENUE,not_applicable_single_component,TRUE,36833,4.2,0,Brooklyn,0,9.890414519374807e-4
+historical,historical__321597688,2019-09-11,2023-12-29,75,1,75,1120 SAINT JOHNS PLACE,not_applicable_single_component,TRUE,13958,2.43,0.10000000000000002,Brooklyn,0,0.0014266454577679284
+historical,historical__321597777,2019-09-16,2023-12-29,240,1,240,12 HALSEY STREET,not_applicable_single_component,TRUE,37700,4.2,0,Brooklyn,0,9.852211518736479e-4
+historical,historical__321597795,2019-09-16,2023-12-29,124,1,124,957 ATLANTIC AVENUE,not_applicable_single_component,TRUE,19635,4,0.11,Brooklyn,0,0.0011459334721883859
+historical,historical__321598008,2020-08-31,2023-12-29,69,1,69,2718 CHURCH AVENUE,not_applicable_single_component,TRUE,3751,2.43,1.28,Brooklyn,0,0.0022396230979017167
+historical,historical__321598277,2020-09-24,2023-12-29,67,1,67,170 FREEMAN STREET,not_applicable_single_component,TRUE,2500,4,1.35,Brooklyn,0,0.0020611724014372597
+historical,historical__321598348,2020-10-01,2023-12-29,143,1,143,375 DEAN STREET,not_applicable_single_component,TRUE,18000,6.02,1.39,Brooklyn,0,0.0012109132474142326
+historical,historical__321598400,2020-10-07,2023-12-29,350,1,350,499 PRESIDENT STREET,not_applicable_single_component,TRUE,12800,0,1,Brooklyn,0,0.0022284413002985107
+historical,historical__321598883,2020-11-17,2023-12-29,66,1,66,393 WEIRFIELD STREET,not_applicable_single_component,TRUE,3050,2.43,0.39,Brooklyn,0,0.0019453342987273451
+historical,historical__321599105,2020-12-01,2023-12-29,55,1,55,74 NORTH 1 STREET,not_applicable_single_component,TRUE,15810,3,1.02,Brooklyn,0,0.0015779757019636464
+historical,historical__321599132,2020-12-01,2023-12-29,69,1,69,979 PACIFIC STREET,not_applicable_single_component,TRUE,10000,4.2,0,Brooklyn,0,0.001228580850182141
+historical,historical__321599141,2020-12-02,2023-12-29,463,2,324+139,2925 WEST 16 STREET;2940 WEST 15 STREET,unable_to_verify,TRUE,56242,5,0,Brooklyn,0,8.477653514099412e-4
+historical,historical__321599150,2020-12-02,2023-12-29,72,1,72,1366 EAST NEW YORK AVENUE,not_applicable_single_component,TRUE,16269,2.43,0.19,Brooklyn,0,0.0014156182947407318
+historical,historical__321599212,2020-12-08,2023-12-29,174,1,174,203 NEWPORT STREET,not_applicable_single_component,TRUE,46000,0,0.74,Brooklyn,0,0.0017113976779766934
+historical,historical__321600139,2021-02-17,2023-12-29,58,1,58,103 LIBERTY AVENUE,not_applicable_single_component,TRUE,5000,4,0,Brooklyn,0,0.0014078879407709408
+historical,historical__321600362,2021-04-27,2023-12-29,107,1,107,2224 CROPSEY AVENUE,not_applicable_single_component,TRUE,7574,2.43,0,Brooklyn,0,0.0015485531845229198
+historical,historical__321600380,2021-04-29,2023-12-29,52,1,52,12 ROCKWELL PLACE,not_applicable_single_component,TRUE,62472,10,0,Brooklyn,0,4.936613297587601e-4
+historical,historical__321600530,2021-07-20,2023-12-29,124,1,124,20 VITAL AVENUE,not_applicable_single_component,TRUE,1227637,0.5,0.36,Brooklyn,0,8.727015049959497e-4
+historical,historical__321601012,2022-05-23,2023-12-29,216,1,216,326 ROCKAWAY AVENUE,not_applicable_single_component,TRUE,5000,2.43,0.45,Brooklyn,0,0.0018130825830434659
+historical,historical__321923549,2019-02-06,2023-12-29,50,1,50,621 EAST 21 STREET,not_applicable_single_component,TRUE,4350,4,0.78,Brooklyn,0,0.0016801414946418325
+historical,historical__321929776,2019-03-15,2023-12-29,51,1,51,2 KINGS PLACE,not_applicable_single_component,TRUE,11867,4,0,Brooklyn,0,0.001219348866978047
+historical,historical__321939676,2019-04-02,2023-12-29,68,1,68,2817 ATLANTIC AVENUE,not_applicable_single_component,TRUE,6658,6,1.99,Brooklyn,0,0.0016113544840839179
+historical,historical__321941182,2019-10-08,2023-12-29,66,1,66,1882 BROADWAY,not_applicable_single_component,TRUE,9650,2.43,0.25,Brooklyn,0,0.0015624650223238139
+historical,historical__321954364,2019-04-10,2023-12-29,51,1,51,4919 4 AVENUE,not_applicable_single_component,TRUE,10000,4,0.65,Brooklyn,0,0.0014259087817040865
+historical,historical__321992475,2019-05-08,2023-12-29,54,1,54,1229 EASTERN PARKWAY,not_applicable_single_component,TRUE,4823,2.43,0,Brooklyn,0,0.0016692853310930642
+historical,historical__322002818,2019-10-29,2023-12-29,247,1,247,85 4 AVENUE,not_applicable_single_component,TRUE,4930,6,1.9900000000000002,Brooklyn,0,0.0016939409122933096
+historical,historical__322085417,2020-05-08,2023-12-29,59,1,59,99 GRANITE STREET,not_applicable_single_component,TRUE,8200,2.43,0,Brooklyn,0,0.0015282317441736493
+historical,historical__340751813,2020-08-03,2023-12-29,103,1,103,406 REMSEN AVENUE,not_applicable_single_component,TRUE,17464,2.43,0.49000000000000005,Brooklyn,0,0.0014841785588549947
+historical,historical__340752714,2020-08-05,2023-12-29,61,1,61,125 KINGS HIGHWAY,not_applicable_single_component,TRUE,9816,4,0.14,Brooklyn,0,0.0012936314033798828
+historical,historical__340765602,2020-09-14,2023-12-29,231,1,231,2700 ATLANTIC AVENUE,not_applicable_single_component,TRUE,10460,6.02,1,Brooklyn,0,0.0012273490798741426
+historical,historical__340769332,2020-09-24,2023-12-29,53,1,53,203 NORTH 11 STREET,not_applicable_single_component,TRUE,10000,3,1,Brooklyn,0,0.0016962131321988777
+historical,historical__340797141,2020-12-16,2023-12-29,79,1,79,52 4 AVENUE,not_applicable_single_component,TRUE,2000,6.02,1.02,Brooklyn,0,0.001622542604867663
+historical,historical__340802073,2021-01-12,2023-12-29,74,1,74,1775 CONEY ISLAND AVENUE,not_applicable_single_component,TRUE,15000,4,0.12,Brooklyn,0,0.0012007892141490972
+historical,historical__420665499,2019-04-12,2023-12-29,99,1,99,26-24 4 STREET,not_applicable_single_component,TRUE,20575,2.43,0.97,Queens,0,0.002413974798218843
+historical,historical__420665541,2019-04-15,2023-12-29,315,1,315,92-27 160 STREET,not_applicable_single_component,TRUE,7117,7.52,0.01,Queens,0,0.0013994658522808287
+historical,historical__420665667,2019-04-24,2023-12-29,164,1,164,27-01 JACKSON AVENUE,not_applicable_single_component,TRUE,9195,8,0,Queens,0,0.0012728694828045832
+historical,historical__420665845,2019-06-01,2023-12-29,478,2,295+183,46-09 69 STREET;46-10 70 STREET,suggestive_separate_components,TRUE,71862,5,0.3357268097186274,Queens,1,0.0013222681359313863
+historical,historical__420666014,2019-06-22,2023-12-29,65,2,33+32,37-24 30 STREET;37-28 30 STREET,suggestive_separate_components,TRUE,16040,3,1.2384850374064837,Queens,1,0.0024990662883722556
+historical,historical__420666032,2019-06-24,2023-12-29,103,1,103,29-17 40 AVENUE,not_applicable_single_component,TRUE,14000,5,1.43,Queens,0,0.0021531932077925387
+historical,historical__420666087,2019-07-05,2023-12-29,101,1,101,188-11 HILLSIDE AVENUE,not_applicable_single_component,TRUE,25224,3,0.74,Queens,0,0.0021010450847506186
+historical,historical__420666176,2019-08-07,2023-12-29,605,1,605,92-33 GUY R BREWER BOULEVARD,not_applicable_single_component,TRUE,45080,7.52,0.72,Queens,0,0.0011839614708083267
+historical,historical__420666210,2019-02-07,2023-12-29,80,1,80,1018 BEACH 20 STREET,not_applicable_single_component,TRUE,6550,2.43,0,Queens,0,0.002412417177737064
+historical,historical__420666283,2019-09-27,2023-12-29,364,1,364,72-01 QUEENS BOULEVARD,not_applicable_single_component,TRUE,22800,5,0.75,Queens,0,0.001736547963593283
+historical,historical__420666773,2020-01-02,2023-12-29,60,1,60,1711 HANCOCK STREET,not_applicable_single_component,TRUE,11050,3,1.27,Queens,0,0.002675436271886125
+historical,historical__420667004,2020-02-13,2023-12-29,117,1,117,20-50 NAMEOKE AVENUE,not_applicable_single_component,TRUE,17812,2.43,0.85,Queens,0,0.0024148273812201115
+historical,historical__420667068,2020-03-02,2023-12-29,157,1,157,27-05 THOMSON AVENUE,not_applicable_single_component,TRUE,11610,7.52,0.99,Queens,0,0.0015647066235106569
+historical,historical__420667120,2020-03-09,2023-12-29,314,1,314,23-14 45 AVENUE,not_applicable_single_component,TRUE,1300,10,1.85,Queens,0,0.0020580055209206537
+historical,historical__420667264,2020-04-02,2023-12-29,92,1,92,19-19 CORNAGA AVENUE,not_applicable_single_component,TRUE,5856,2.43,0.6,Queens,0,0.002766077292316403
+historical,historical__420667488,2020-05-08,2023-12-29,538,3,354+129+55,1605 VILLAGE LANE;1607 VILLAGE LANE;1626 VILLAGE LANE,unable_to_verify,TRUE,17568,3.44,0,Queens,0,0.001841924735198888
+historical,historical__421133026,2020-07-10,2023-12-29,99,2,64+35,22-51 45 STREET;22-54 46 STREET,suggestive_separate_components,TRUE,30008,3,1,Queens,1,0.0021484655626731503
+historical,historical__421133115,2020-08-13,2023-12-29,117,1,117,95-08 147 PLACE,not_applicable_single_component,TRUE,2500,5,1,Queens,0,0.0026348650842794204
+historical,historical__421133151,2020-08-17,2023-12-29,614,1,614,166-20 90 AVENUE,not_applicable_single_component,TRUE,99500,5,0,Queens,0,0.0011724518589398766
+historical,historical__421133160,2020-08-18,2023-12-29,51,1,51,31-61 VERNON BOULEVARD,not_applicable_single_component,TRUE,6174,4,1,Queens,0,0.0025170936207530824
+historical,historical__421133179,2020-08-18,2023-12-29,51,1,51,11-24 31 DRIVE,not_applicable_single_component,TRUE,5400,4,1,Queens,0,0.0025738070382142235
+historical,historical__421133213,2020-09-04,2023-12-29,51,1,51,27-20 42 ROAD,not_applicable_single_component,TRUE,7915,5,0.76,Queens,0,0.0020747883494673784
+historical,historical__421133222,2020-09-08,2023-12-29,165,1,165,26-25 4 STREET,not_applicable_single_component,TRUE,37565,2.43,0.82,Queens,0,0.00212037823631447
+historical,historical__421133302,2020-09-25,2023-12-29,237,1,237,51-19 BEACH CHANNEL DRIVE,not_applicable_single_component,TRUE,389978,3.44,0,Queens,0,0.0010998212907067755
+historical,historical__421133320,2020-10-15,2023-12-29,60,1,60,26-41 3 STREET,not_applicable_single_component,TRUE,14614,2.43,0.62,Queens,0,0.0023851138728905943
+historical,historical__421133419,2020-11-13,2023-12-29,223,1,223,153-10 88 AVENUE,not_applicable_single_component,TRUE,6250,4,0,Queens,0,0.0020629114399717025
+historical,historical__421133464,2020-11-18,2023-12-29,175,1,175,143-58 38 AVENUE,not_applicable_single_component,TRUE,43800,2.43,0.79,Queens,0,0.002054725422818613
+historical,historical__421133623,2020-12-14,2023-12-29,301,1,301,43-10 QUEENS STREET,not_applicable_single_component,TRUE,2500,7.52,0.95,Queens,0,0.002004213518071341
+historical,historical__421133632,2020-12-14,2023-12-29,1386,2,811+575,2-20 MALT DRIVE;2-21 MALT DRIVE,suggestive_separate_components,TRUE,374464,5,0.554009571013502,Queens,1,0.0010489086419195933
+historical,historical__421133794,2021-01-27,2023-12-29,94,1,94,71-82 PARSONS BOULEVARD,not_applicable_single_component,TRUE,16000,2.43,0,Queens,0,0.0020793698077871603
+historical,historical__421133865,2021-02-22,2023-12-29,55,1,55,82-77 116 STREET,not_applicable_single_component,TRUE,5063,4,0,Queens,0,0.0021364674129474848
+historical,historical__421133883,2021-02-25,2023-12-29,50,1,50,28-08 38 AVENUE,not_applicable_single_component,TRUE,13250,3,0,Queens,0,0.0020213826579001722
+historical,historical__421133972,2021-04-26,2023-12-29,81,1,81,88-36 139 STREET,not_applicable_single_component,TRUE,15028,3,0.01,Queens,0,0.001983386707952802
+historical,historical__421134132,2022-02-16,2023-12-29,185,1,185,50-25 BARNETT AVENUE,not_applicable_single_component,TRUE,60000,0,0,Queens,0,0.002152251414967873
+historical,historical__421134178,2022-03-22,2023-12-29,133,1,133,1523 VILLAGE LANE,not_applicable_single_component,TRUE,20483,3.4400000000000004,0,Queens,0,0.0017954843512620906
+historical,historical__421134187,2022-03-22,2023-12-29,252,1,252,1518 VILLAGE LANE,not_applicable_single_component,TRUE,15610,3.44,0,Queens,0,0.0018784882223646523
+historical,historical__421694857,2019-08-12,2023-12-29,800,1,800,71-12 PARK AVENUE,not_applicable_single_component,TRUE,65599,2.43,0,Queens,0,0.0016443750772157939
+historical,historical__421728973,2019-06-24,2023-12-29,60,1,60,101-19 ROCKAWAY BEACH BOULEVARD,not_applicable_single_component,TRUE,12800,2,0.73,Queens,0,0.0026063732526600348
+historical,historical__421861845,2020-06-05,2023-12-29,54,1,54,44-36 DOUGLASTON PARKWAY,not_applicable_single_component,TRUE,15589,3,0.1,Queens,0,0.0020065863757254034
+historical,historical__421928953,2019-01-29,2023-12-29,133,1,133,1607 WOODBINE STREET,not_applicable_single_component,TRUE,10000,2.43,0,Queens,0,0.0022484619653649956
+historical,historical__440597481,2020-06-08,2023-12-29,76,1,76,40-22 61 STREET,not_applicable_single_component,TRUE,7350,3,0.37,Queens,0,0.0023981052309861987
+historical,historical__440639203,2020-10-19,2023-12-29,64,1,64,37-34 33 STREET,not_applicable_single_component,TRUE,16143,3,0.72,Queens,0,0.002254066766517173
+historical,historical__510113654,2019-07-07,2023-12-29,53,1,53,38 BAY STREET,not_applicable_single_component,TRUE,5000,2.43,0.33,Staten Island,0,0.0021329870434950394
+historical,historical__510115670,2020-05-05,2023-12-29,270,1,270,475 BAY STREET,not_applicable_single_component,TRUE,53422,2.43,0,Staten Island,0,0.001347835527124358
+historical,historical__B00509455,2021-04-28,2023-12-29,120,1,120,11 GERRY STREET,not_applicable_single_component,TRUE,111040,4.2,0,Brooklyn,0,8.23182558760563e-4
+historical,historical__B00520132,2021-09-16,2023-12-29,375,1,375,11 OCEAN PARKWAY,not_applicable_single_component,TRUE,17988,0,0,Brooklyn,0,0.0017293597761152983
+historical,historical__B00529604,2021-06-08,2023-12-29,55,1,55,2508 FOSTER AVENUE,not_applicable_single_component,TRUE,1360,4,1.41,Brooklyn,0,0.002307956047756244
+historical,historical__B00539478,2021-06-22,2023-12-29,834,1,834,18 INDIA STREET,not_applicable_single_component,TRUE,220768,6.02,0.47,Brooklyn,0,6.657787716761028e-4
+historical,historical__B00560232,2021-08-05,2023-12-29,87,1,87,380 CHESTER STREET,not_applicable_single_component,TRUE,12000,3.44,0,Brooklyn,0,0.0012905523975674526
+historical,historical__B00560420,2021-08-05,2023-12-29,91,1,91,366 BRISTOL STREET,not_applicable_single_component,TRUE,2517,3.44,0,Brooklyn,0,0.0016734216266683214
+historical,historical__B00561184,2021-10-12,2023-12-29,77,1,77,2905 WEST 17 STREET,not_applicable_single_component,TRUE,5890,4,0,Brooklyn,0,0.001370041142531368
+historical,historical__B00564411,2021-08-30,2023-12-29,163,1,163,570 FULTON STREET,not_applicable_single_component,TRUE,7192,10,3.67,Brooklyn,0,0.001457171113784862
+historical,historical__B00565465,2021-08-09,2023-12-29,231,1,231,69 ADAMS STREET,not_applicable_single_component,TRUE,17564,9,2.34,Brooklyn,0,0.0010732411214218103
+historical,historical__B00568816,2021-11-09,2023-12-29,109,1,109,305 CHESTER STREET,not_applicable_single_component,TRUE,25123,3.44,0,Brooklyn,0,0.0011412951746647706
+historical,historical__B00571785,2021-08-27,2023-12-29,557,1,557,567 FULTON STREET,not_applicable_single_component,TRUE,279,10,0,Brooklyn,0,0.0012143595765697532
+historical,historical__B00577160,2021-08-23,2023-12-29,63,1,63,151 CARLTON AVENUE,not_applicable_single_component,TRUE,8258,4,0.89,Brooklyn,0,0.001543289365764281
+historical,historical__B00580365,2021-09-23,2023-12-29,187,1,187,201 25 STREET,not_applicable_single_component,TRUE,15017,0,0.32,Brooklyn,0,0.0018980066524735058
+historical,historical__B00587387,2021-12-13,2023-12-29,311,1,311,89 MASPETH AVENUE,not_applicable_single_component,TRUE,146105,2.43,0.67,Brooklyn,0,0.0010800105769627928
+historical,historical__B00588575,2021-09-20,2023-12-29,63,1,63,2605 SNYDER AVENUE,not_applicable_single_component,TRUE,4487,2.43,0,Brooklyn,0,0.0016894575097159447
+historical,historical__B00588594,2021-09-21,2023-12-29,314,1,314,17 HANOVER PLACE,not_applicable_single_component,TRUE,9380,10,4,Brooklyn,0,0.0014878150952381411
+historical,historical__B00591118,2021-09-24,2023-12-29,158,1,158,307 BOND STREET,not_applicable_single_component,TRUE,28500,0,0.35,Brooklyn,0,0.0017162361979519438
+historical,historical__B00591681,2022-06-16,2023-12-29,132,1,132,69 QUAY STREET,not_applicable_single_component,TRUE,16500,3,1.42,Brooklyn,0,0.001695228681300479
+historical,historical__B00593338,2021-10-15,2023-12-29,197,1,197,380 FOURTH AVENUE,not_applicable_single_component,TRUE,20000,0,0.9,Brooklyn,0,0.0020286504073323422
+historical,historical__B00594970,2021-11-15,2023-12-29,123,1,123,365 SHEPHERD AVENUE,not_applicable_single_component,TRUE,5000,3,0.46,Brooklyn,0,0.001711455495113035
+historical,historical__B00600120,2021-11-17,2023-12-29,363,1,363,370 FULTON STREET,not_applicable_single_component,TRUE,8699,10,3.22,Brooklyn,0,0.0012920421346400781
+historical,historical__B00600959,2021-10-28,2023-12-29,255,1,255,540 DEGRAW STREET,not_applicable_single_component,TRUE,40000,0,1.03,Brooklyn,0,0.0018546104274490627
+historical,historical__B00601179,2021-10-14,2023-12-29,205,1,205,329 10 STREET,not_applicable_single_component,TRUE,69029,2,2.4,Brooklyn,0,0.0017993441858369515
+historical,historical__B00604543,2021-10-26,2023-12-29,381,1,381,16 DUPONT STREET,not_applicable_single_component,TRUE,20901,6.02,0,Brooklyn,1,8.98306914577847e-4
+historical,historical__B00606335,2021-10-19,2023-12-29,456,1,456,1057 ATLANTIC AVENUE,not_applicable_single_component,TRUE,5720,0,1.8,Brooklyn,0,0.00298275820976469
+historical,historical__B00608472,2021-10-21,2023-12-29,181,2,100+81,612 CROWN STREET;630 CROWN STREET,suggestive_separate_components,TRUE,56218,3.4400000000000004,0.20048205201181118,Brooklyn,1,0.0010383863631786353
+historical,historical__B00610324,2021-10-28,2023-12-29,64,1,64,360 SHEPHERD AVENUE,not_applicable_single_component,TRUE,10000,3,1,Brooklyn,0,0.0016962131321988777
+historical,historical__B00611166,2021-11-18,2023-12-29,668,2,348+320,310 NEVINS STREET;340 NEVINS STREET,suggestive_separate_components,TRUE,102070,0,0.25,Brooklyn,0,0.001361009023634642
+historical,historical__B00612352,2021-11-04,2023-12-29,344,1,344,500 DEGRAW STREET,not_applicable_single_component,TRUE,47500,0,0.23,Brooklyn,0,0.0015396074603724668
+historical,historical__B00614012,2021-10-22,2023-12-29,66,1,66,467 LOGAN STREET,not_applicable_single_component,TRUE,7200,4,1,Brooklyn,0,0.0016134690206486926
+historical,historical__B00614338,2021-10-29,2023-12-29,360,1,360,424 CARROLL STREET,not_applicable_single_component,TRUE,39153,0,0,Brooklyn,0,0.001519490015642069
+historical,historical__B00614702,2021-10-28,2023-12-29,50,1,50,236 BERRY STREET,not_applicable_single_component,TRUE,5058,3,0.52,Brooklyn,0,0.0017284806710798103
+historical,historical__B00616358,2021-11-04,2023-12-29,173,1,173,504 SACKETT STREET,not_applicable_single_component,TRUE,8978,0,1,Brooklyn,0,0.00236386670085963
+historical,historical__B00620031,2021-11-09,2023-12-29,57,1,57,1730 BEDFORD AVENUE,not_applicable_single_component,TRUE,28000,0,0.89,Brooklyn,0,0.001914452397261471
+historical,historical__B00621061,2021-11-16,2023-12-29,260,1,260,251 DOUGLASS STREET,not_applicable_single_component,TRUE,2500,0,1,Brooklyn,0,0.002924037109063771
+historical,historical__B00621076,2021-11-16,2023-12-29,224,1,224,240 3RD AVENUE,not_applicable_single_component,TRUE,30100,0,1,Brooklyn,0,0.0019329866553616753
+historical,historical__B00621504,2021-12-01,2023-12-29,274,1,274,200 DOUGLASS STREET,not_applicable_single_component,TRUE,7850,0,1,Brooklyn,0,0.002417254626435733
+historical,historical__B00621533,2021-11-15,2023-12-29,132,1,132,130 2 STREET,not_applicable_single_component,TRUE,9175,0,0.17,Brooklyn,0,0.0020001425953092692
+historical,historical__B00622668,2021-11-12,2023-12-29,328,1,328,975 NOSTRAND AVENUE,not_applicable_single_component,TRUE,61621,3.44,0.26,Brooklyn,0,0.0010347145056631313
+historical,historical__B00624645,2021-11-04,2023-12-29,63,1,63,2777 ATLANTIC AVENUE,not_applicable_single_component,TRUE,2128,6.02,1.76,Brooklyn,0,0.0018578490769818909
+historical,historical__B00625252,2021-11-16,2023-12-29,916,3,513+333+70,463 SMITH STREET;475 SMITH STREET;477 SMITH STREET,unable_to_verify,TRUE,165840,0,0,Brooklyn,0,0.0011951261667566375
+historical,historical__B00627782,2021-12-02,2023-12-29,105,1,105,96 ST EDWARDS STREET,not_applicable_single_component,TRUE,24000,2.43,0.6,Brooklyn,0,0.0014385617604277107
+historical,historical__B00628878,2021-11-15,2023-12-29,66,1,66,288 4 AVENUE,not_applicable_single_component,TRUE,5870,0,1,Brooklyn,0,0.0025369976353907197
+historical,historical__B00632806,2021-11-22,2023-12-29,188,1,188,336 DOUGLASS STREET,not_applicable_single_component,TRUE,13480,0,0.09,Brooklyn,0,0.001846821988371437
+historical,historical__B00635730,2021-12-29,2023-12-29,119,1,119,2258 FULTON STREET,not_applicable_single_component,TRUE,15000,4.2,1,Brooklyn,0,0.0013984509486467999
+historical,historical__B00637594,2021-12-08,2023-12-29,193,1,193,655 UNION STREET,not_applicable_single_component,TRUE,19000,0,0.02,Brooklyn,0,0.0017204496717971715
+historical,historical__B00640248,2021-12-10,2023-12-29,83,1,83,161 LENOX ROAD,not_applicable_single_component,TRUE,8400,3.44,0,Brooklyn,0,0.001369438107152937
+historical,historical__B00640761,2021-12-08,2023-12-29,301,1,301,148 2 STREET,not_applicable_single_component,TRUE,7092,0,0.56,Brooklyn,0,0.002254357980343248
+historical,historical__B00645411,2021-12-30,2023-12-29,295,1,295,55 WILLOUGHBY STREET,not_applicable_single_component,TRUE,10681,10,2.54,Brooklyn,0,0.0010921561176710478
+historical,historical__B00645685,2021-12-14,2023-12-29,133,1,133,544 CARROLL STREET,not_applicable_single_component,TRUE,3757,0,1,Brooklyn,0,0.0027324782180405847
+historical,historical__B00646589,2021-12-22,2023-12-29,189,1,189,2971 SHELL ROAD,not_applicable_single_component,TRUE,53978,2.43,0,Brooklyn,0,0.0011170023637156676
+historical,historical__B00648034,2022-01-05,2023-12-29,322,1,322,548 UTICA AVENUE,not_applicable_single_component,TRUE,62820,2.43,0,Brooklyn,0,0.0010891689786552393
+historical,historical__B00648659,2022-01-13,2023-12-29,128,1,128,435 CONEY ISLAND AVENUE,not_applicable_single_component,TRUE,19566,4,1,Brooklyn,0,0.0013662803345443546
+historical,historical__B00651570,2021-12-30,2023-12-29,218,1,218,218 FRONT STREET,not_applicable_single_component,TRUE,49200,3,0.85,Brooklyn,0,0.0012634179145781083
+historical,historical__B00652243,2021-12-22,2023-12-29,60,1,60,2715 FULTON STREET,not_applicable_single_component,TRUE,1875,4,0.73,Brooklyn,0,0.0019136621462791416
+historical,historical__B00653212,2022-01-19,2023-12-29,139,1,139,60 CEDAR STREET,not_applicable_single_component,TRUE,45837,2.43,2.87,Brooklyn,0,0.002019992646262885
+historical,historical__B00653276,2022-01-04,2023-12-29,294,1,294,99 FLEET PLACE,not_applicable_single_component,TRUE,20073,10,1,Brooklyn,0,7.260775812348725e-4
+historical,historical__B00653960,2022-02-03,2023-12-29,185,1,185,597 GRAND STREET,not_applicable_single_component,TRUE,27500,4,0.31,Brooklyn,0,0.0011270163075843122
+historical,historical__B00655003,2022-02-02,2023-12-29,174,1,174,19 ROCKWELL PLACE,not_applicable_single_component,TRUE,10068,10,2.91,Brooklyn,0,0.001186321623290274
+historical,historical__B00655818,2022-02-07,2023-12-29,100,1,100,733 LINCOLN PLACE,not_applicable_single_component,TRUE,32360,2,0.33,Brooklyn,0,0.0013576486991144273
+historical,historical__B00656247,2022-01-27,2023-12-29,147,1,147,263 PROSPECT AVENUE,not_applicable_single_component,TRUE,2758,2,0.52,Brooklyn,0,0.0021228924893546245
+historical,historical__B00663906,2022-02-17,2023-12-29,233,1,233,97 GLENMORE AVENUE,not_applicable_single_component,TRUE,2500,2.43,0,Brooklyn,0,0.0018620910800895957
+historical,historical__B00664091,2022-02-16,2023-12-29,73,1,73,131 CONCORD STREET,not_applicable_single_component,TRUE,6900,6.02,1.11,Brooklyn,0,0.0013441016826298583
+historical,historical__B00664860,2022-02-04,2023-12-29,324,1,324,89 DE KALB AVENUE,not_applicable_single_component,TRUE,28650,2.43,0,Brooklyn,0,0.001241119468150238
+historical,historical__B00665500,2022-01-25,2023-12-29,270,1,270,265 LORIMER STREET,not_applicable_single_component,TRUE,45129,3.4400000000000004,0,Brooklyn,0,0.0010353402448847364
+historical,historical__B00665570,2022-02-04,2023-12-29,300,1,300,565 SACKETT STREET,not_applicable_single_component,TRUE,38500,0,0.18,Brooklyn,0,0.0015787347110479677
+historical,historical__B00668047,2022-03-03,2023-12-29,82,1,82,33 4 STREET,not_applicable_single_component,TRUE,15578,0,1,Brooklyn,0,0.0021568100704760632
+historical,historical__B00668695,2022-02-02,2023-12-29,136,1,136,9 BUSHWICK AVENUE,not_applicable_single_component,TRUE,5000,0,0,Brooklyn,0,0.0021398034333348975
+historical,historical__B00670629,2022-01-31,2023-12-29,54,1,54,786 LIBERTY AVENUE,not_applicable_single_component,TRUE,4000,3,0,Brooklyn,0,0.0016223321799793595
+historical,historical__B00672674,2022-02-14,2023-12-29,89,1,89,1889 ATLANTIC AVENUE,not_applicable_single_component,TRUE,9280,4.2,0.04,Brooklyn,0,0.0012537856288180997
+historical,historical__B00673634,2022-02-14,2023-12-29,70,1,70,237 MCGUINNESS BOULEVARD,not_applicable_single_component,TRUE,13675,4,0.06,Brooklyn,0,0.001205079354212162
+historical,historical__B00673635,2022-02-18,2023-12-29,183,1,183,2886 ATLANTIC AVENUE,not_applicable_single_component,TRUE,18111,6.02,0.09,Brooklyn,0,9.364260436356554e-4
+historical,historical__B00678425,2022-02-11,2023-12-29,92,1,92,556 BALTIC STREET,not_applicable_single_component,TRUE,11800,0,0.2,Brooklyn,0,0.0019295222178988469
+historical,historical__B00680247,2022-02-21,2023-12-29,80,1,80,213 THIRD AVENUE,not_applicable_single_component,TRUE,7770,0,0,Brooklyn,0,0.0019885085153623343
+historical,historical__B00680413,2022-02-28,2023-12-29,52,1,52,128 LIVONIA AVENUE,not_applicable_single_component,TRUE,1867,2.43,0,Brooklyn,0,0.0019547554005859592
+historical,historical__B00680820,2022-02-15,2023-12-29,110,1,110,77 KOSCIUSZKO STREET,not_applicable_single_component,TRUE,47600,4,0,Brooklyn,0,9.677858131181516e-4
+historical,historical__B00680917,2022-03-01,2023-12-29,1071,1,1071,175 3 STREET,not_applicable_single_component,TRUE,69080,0,0.09,Brooklyn,0,0.0014072720755889385
+historical,historical__B00681143,2022-03-04,2023-12-29,328,1,328,329 CLARKSON AVENUE,not_applicable_single_component,TRUE,54756,0,0.82,Brooklyn,0,0.0016889078604756193
+historical,historical__B00683623,2022-02-27,2023-12-29,229,1,229,2683 ATLANTIC AVENUE,not_applicable_single_component,TRUE,5017,6.02,1.79,Brooklyn,0,0.0016203860896862666
+historical,historical__B00684074,2022-02-25,2023-12-29,60,1,60,705 FRANKLIN AVENUE,not_applicable_single_component,TRUE,10250,4,0.78,Brooklyn,0,0.0014568923151275052
+historical,historical__B00684789,2022-03-06,2023-12-29,240,1,240,953 DEAN STREET,not_applicable_single_component,TRUE,2118,4,1,Brooklyn,0,0.001977680269326915
+historical,historical__B00692002,2022-03-09,2023-12-29,168,1,168,240 4 AVENUE,not_applicable_single_component,TRUE,2400,0,0,Brooklyn,0,0.002417669789709313
+historical,historical__B00692303,2022-03-10,2023-12-29,183,1,183,232 4 AVENUE,not_applicable_single_component,TRUE,2240,0,0,Brooklyn,0,0.0024455758596773933
+historical,historical__B00693828,2022-03-11,2023-12-29,66,1,66,14 RALPH AVENUE,not_applicable_single_component,TRUE,13188,4,2.39,Brooklyn,0,0.0019183669679622962
+historical,historical__B00696389,2022-03-29,2023-12-29,297,2,213+84,1832 FULTON STREET;1864 FULTON STREET,unable_to_verify,TRUE,40000,4.2,7,Brooklyn,0,0.0038725784259837975
+historical,historical__B00698115,2022-03-21,2023-12-29,877,4,354+296+132+95,158 LOTT STREET;2201 BEVERLY ROAD;2363 BEDFORD AVENUE;2366 BEDFORD AVENUE,suggestive_separate_components,TRUE,177520.78999999998,2.43,0.08419295565325054,Brooklyn,1,9.316463911463281e-4
+historical,historical__B00699404,2022-03-16,2023-12-29,110,1,110,2667 FULTON STREET,not_applicable_single_component,TRUE,10000,4,0,Brooklyn,0,0.001254567495562276
+historical,historical__B00700725,2022-04-07,2023-12-29,54,1,54,203 SUTTER AVENUE,not_applicable_single_component,TRUE,12292,2.43,4.63,Brooklyn,0,0.003556080262175257
+historical,historical__B00702705,2022-03-28,2023-12-29,76,1,76,827 STERLING PLACE,not_applicable_single_component,TRUE,17891,3,1.89,Brooklyn,0,0.0018347743775714057
+historical,historical__B00706931,2022-03-28,2023-12-29,72,1,72,545 CONEY ISLAND AVENUE,not_applicable_single_component,TRUE,5910,3,0.36,Brooklyn,0,0.0016320473296992672
+historical,historical__B00709512,2022-04-27,2023-12-29,150,1,150,2745 ATLANTIC AVENUE,not_applicable_single_component,TRUE,2750,6.02,1.82,Brooklyn,0,0.0018014344248979527
+historical,historical__B00712795,2022-04-14,2023-12-29,258,1,258,880 ATLANTIC AVENUE,not_applicable_single_component,TRUE,18000,0,0.74,Brooklyn,0,0.0020004745627661778
+historical,historical__B00715375,2022-04-14,2023-12-29,259,1,259,1042 ATLANTIC AVENUE,not_applicable_single_component,TRUE,12000,0,0.33,Brooklyn,0,0.001974036384740743
+historical,historical__B00727869,2022-05-04,2023-12-29,82,1,82,224 3 AVENUE,not_applicable_single_component,TRUE,8469,0,1,Brooklyn,0,0.0023869281267971613
+historical,historical__B00734382,2022-06-13,2023-12-29,50,1,50,180 PENNSYLVANIA AVENUE,not_applicable_single_component,TRUE,2500,4,0.24,Brooklyn,0,0.0016564202564985097
+historical,historical__B00736115,2022-05-13,2023-12-29,55,1,55,88 SCHERMERHORN STREET,not_applicable_single_component,TRUE,3333,10,3.1700000000000004,Brooklyn,0,0.001500734407840973
+historical,historical__B00738723,2022-05-17,2023-12-29,159,1,159,540 ATLANTIC AVENUE,not_applicable_single_component,TRUE,28357,4,2.71,Brooklyn,0,0.0017988589779572325
+historical,historical__B00740310,2022-05-23,2023-12-29,74,1,74,2900 NOSTRAND AVENUE,not_applicable_single_component,TRUE,11000,0.5,0.46,Brooklyn,0,0.0019500009027556954
+historical,historical__B00754062,2022-06-13,2023-12-29,497,1,497,6202 8 AVENUE,not_applicable_single_component,TRUE,160700,2.43,0,Brooklyn,0,9.316251531613867e-4
+historical,historical__B00755555,2022-07-29,2023-12-29,200,1,200,114 SNEDIKER AVENUE,not_applicable_single_component,TRUE,30854,0,0.93,Brooklyn,0,0.0018986900039773965
+historical,historical__B00757866,2022-08-30,2023-12-29,75,1,75,633 NEW YORK AVENUE,not_applicable_single_component,TRUE,28558,2.43,0.07,Brooklyn,0,0.001259022197764571
+historical,historical__B00781447,2022-09-28,2023-12-29,99,1,99,370 LIVINGSTON STREET,not_applicable_single_component,TRUE,13937,10,2.46,Brooklyn,0,0.0010285367941242768
+historical,historical__B00789072,2022-10-12,2023-12-29,56,1,56,119 ERASMUS STREET,not_applicable_single_component,TRUE,14865,2.43,0.4,Brooklyn,0,0.0014977124946004062
+historical,historical__B00789554,2022-08-10,2023-12-29,76,1,76,428 EAST 9 STREET,not_applicable_single_component,TRUE,5000,3,0.53,Brooklyn,0,0.0017352140525395791
+historical,historical__B08015349,2022-10-28,2023-12-29,202,1,202,3027 WEST 21 STREET,not_applicable_single_component,TRUE,28137,4.2,0,Brooklyn,0,0.0010343554024419058
+historical,historical__B08021996,2022-10-21,2023-12-29,184,1,184,890 ERSKINE STREET,not_applicable_single_component,TRUE,1282062,0,0,Brooklyn,0,8.504820167568756e-4
+historical,historical__M00499952,2021-07-08,2023-12-29,190,1,190,278 8 AVENUE,not_applicable_single_component,TRUE,19750,7.52,2,Manhattan,0,9.952058935025715e-4
+historical,historical__M00522293,2021-07-28,2023-12-29,666,1,666,259 CLINTON STREET,not_applicable_single_component,TRUE,20177,10,0,Manhattan,0,5.1591508609122e-4
+historical,historical__M00537657,2021-06-22,2023-12-29,222,1,222,2035 5 AVENUE,not_applicable_single_component,TRUE,16986,10,3.41,Manhattan,0,0.0010391758616738848
+historical,historical__M00542354,2021-06-24,2023-12-29,101,1,101,185 EAST 109 STREET,not_applicable_single_component,TRUE,5785,7.52,2.54,Manhattan,0,0.0013577074093104047
+historical,historical__M00547165,2021-07-16,2023-12-29,128,1,128,250 EAST 83 STREET,not_applicable_single_component,TRUE,10386,10,3.16,Manhattan,0,0.0010736016620185097
+historical,historical__M00558120,2021-09-07,2023-12-29,1313,1,1313,265 SOUTH STREET,not_applicable_single_component,TRUE,41479,10,0,Manhattan,1,4.5763344938603456e-4
+historical,historical__M00574359,2021-10-01,2023-12-29,70,1,70,300 EAST 83 STREET,not_applicable_single_component,TRUE,2100,10,4.73,Manhattan,0,0.0019081511336945937
+historical,historical__M00578593,2021-09-08,2023-12-29,60,1,60,5055 BROADWAY,not_applicable_single_component,TRUE,7500,4.2,0,Manhattan,0,0.0011160658498036247
+historical,historical__M00580473,2021-08-31,2023-12-29,158,1,158,509 WEST 48 STREET,not_applicable_single_component,TRUE,21924,6.02,0,Manhattan,0,7.717491319396059e-4
+historical,historical__M00599489,2021-10-14,2023-12-29,698,2,474+224,405 WEST 206 STREET;407 WEST 206 STREET,suggestive_separate_components,TRUE,79933,6.395014074287215,0.4274946517708581,Manhattan,1,6.50945643868181e-4
+historical,historical__M00600672,2021-10-27,2023-12-29,188,1,188,335 8 AVENUE,not_applicable_single_component,TRUE,40261,6.02,1.3915700057127245,Manhattan,0,9.174776049436041e-4
+historical,historical__M00611352,2021-10-22,2023-12-29,194,1,194,300 EAST 50 STREET,not_applicable_single_component,TRUE,4640,10,2.93,Manhattan,0,0.0011732171352575043
+historical,historical__M00614697,2021-11-03,2023-12-29,220,1,220,1393 YORK AVENUE,not_applicable_single_component,TRUE,12771,10,1.64,Manhattan,0,7.689470026114917e-4
+historical,historical__M00625489,2021-11-17,2023-12-29,453,1,453,1647 1 AVENUE,not_applicable_single_component,TRUE,1875,10,0,Manhattan,0,7.659837176280962e-4
+historical,historical__M00628716,2021-11-29,2023-12-29,222,1,222,4660 BROADWAY,not_applicable_single_component,TRUE,47175,3.44,1.59,Manhattan,0,0.0012172618116092204
+historical,historical__M00628781,2021-11-11,2023-12-29,120,1,120,636 WEST 158 STREET,not_applicable_single_component,TRUE,1867,6.019999999999999,1.74,Manhattan,0,0.0016377816079739223
+historical,historical__M00629412,2021-11-23,2023-12-29,57,1,57,1717 PARK AVENUE,not_applicable_single_component,TRUE,1296,10,0,Manhattan,0,8.145171663167934e-4
+historical,historical__M00630979,2022-01-12,2023-12-29,138,1,138,250 WEST 49 STREET,not_applicable_single_component,TRUE,8034,10,7.17,Manhattan,0,0.0024682447178746483
+historical,historical__M00632762,2021-12-08,2023-12-29,399,1,399,250 WATER STREET,not_applicable_single_component,TRUE,47880,6.02,0,Manhattan,0,6.777149834507766e-4
+historical,historical__M00641741,2021-12-17,2023-12-29,490,1,490,1440 AMSTERDAM AVENUE,not_applicable_single_component,TRUE,24990,3.4400000000000004,0,Manhattan,1,9.892018199753618e-4
+historical,historical__M00643592,2021-12-15,2023-12-29,311,1,311,100 WEST 37 STREET,not_applicable_single_component,TRUE,2991,10,0,Manhattan,0,7.087331990439042e-4
+historical,historical__M00647624,2021-12-23,2023-12-29,158,1,158,280 EAST HOUSTON STREET,not_applicable_single_component,TRUE,33650,6.02,4.03,Manhattan,0,0.0015893934493750432
+historical,historical__M00648391,2022-01-24,2023-12-29,146,1,146,1487 FIRST AVENUE,not_applicable_single_component,TRUE,2550,10,3.11,Manhattan,0,0.0013428268709161097
+historical,historical__M00665110,2022-01-24,2023-12-29,50,1,50,242 EAST 71 STREET,not_applicable_single_component,TRUE,2812,10,3.98,Manhattan,0,0.001568086464477675
+historical,historical__M00665956,2022-03-23,2023-12-29,121,1,121,12 EAST 37 STREET,not_applicable_single_component,TRUE,5036,10,3.28,Manhattan,0,0.0012399358107233764
+historical,historical__M00666173,2022-01-26,2023-12-29,120,1,120,260 WEST 126 STREET,not_applicable_single_component,TRUE,12490,6.019999999999999,0.6,Manhattan,0,9.537709896319129e-4
+historical,historical__M00666777,2022-01-28,2023-12-29,273,1,273,3880 9 AVENUE,not_applicable_single_component,TRUE,27450,6.02,0.08,Manhattan,0,7.552316344537621e-4
+historical,historical__M00671589,2022-03-21,2023-12-29,180,1,180,35 WEST 125 STREET,not_applicable_single_component,TRUE,9992,10,1.71,Manhattan,0,8.121034928684734e-4
+historical,historical__M00672872,2022-02-16,2023-12-29,157,1,157,255 EAST 39 STREET,not_applicable_single_component,TRUE,3320,10,1.99,Manhattan,0,0.001030761990396344
+historical,historical__M00675715,2022-05-06,2023-12-29,60,1,60,429 SECOND AVENUE,not_applicable_single_component,TRUE,2394,7.519999999999999,3.02,Manhattan,0,0.001728231506650621
+historical,historical__M00683925,2022-03-04,2023-12-29,108,1,108,1026 THIRD AVENUE,not_applicable_single_component,TRUE,1700,10,3.26,Manhattan,0,0.001479591100956497
+historical,historical__M00686955,2022-02-28,2023-12-29,52,1,52,280 WEST 132 STREET,not_applicable_single_component,TRUE,19983,3.4400000000000004,3,Manhattan,0,0.0018537130545581582
+historical,historical__M00688136,2022-03-06,2023-12-29,209,1,209,205 EAST 110 STREET,not_applicable_single_component,TRUE,5500,7.52,1,Manhattan,0,0.0010109555057412221
+historical,historical__M00694696,2022-03-11,2023-12-29,64,1,64,746 EAST 5 STREET,not_applicable_single_component,TRUE,2116,4,0,Manhattan,0,0.0014066720348932132
+historical,historical__M00696323,2022-05-25,2023-12-29,104,1,104,261 WEST 24 STREET,not_applicable_single_component,TRUE,8986,6.02,1.9600000000000002,Manhattan,0,0.0013169155766311943
+historical,historical__M00718070,2022-11-08,2023-12-29,59,1,59,2535 FREDERICK DOUGLASS BOULEVARD,not_applicable_single_component,TRUE,9992,3.4399999999999995,0,Manhattan,0,0.0011521476131739882
+historical,historical__M00749928,2022-06-15,2023-12-29,204,1,204,567 3 AVENUE,not_applicable_single_component,TRUE,2590,10,3.5900000000000003,Manhattan,0,0.0014721511073225331
+historical,historical__M00771041,2022-09-20,2023-12-29,121,2,63+58,489 9 AVENUE;501 9 AVENUE,suggestive_separate_components,TRUE,3648,6.02,0,Manhattan,1,0.0010400026166831066
+historical,historical__M00775662,2022-10-20,2023-12-29,164,1,164,524 FORT WASHINGTON AVENUE,not_applicable_single_component,TRUE,8890,3.44,2.79,Manhattan,0,0.0020351320863481186
+historical,historical__M00785688,2022-11-02,2023-12-29,52,1,52,252 EAST 72 STREET,not_applicable_single_component,TRUE,6068,10,4.42,Manhattan,0,0.001504672486419548
+historical,historical__M00798756,2022-09-08,2023-12-29,62,1,62,255 EAST 77 STREET,not_applicable_single_component,TRUE,10900,10,3.23,Manhattan,0,0.0010797943729659858
+historical,historical__M08010721,2022-10-04,2023-12-29,193,1,193,1725 AMSTERDAM AVENUE,not_applicable_single_component,TRUE,41360,3,1.43,Manhattan,0,0.0012624099689422315
+historical,historical__M08011197,2022-10-27,2023-12-29,68,1,68,525 AVENUE OF THE AMERICAS,not_applicable_single_component,TRUE,1240,7.52,3.76,Manhattan,0,0.002230602651343886
+historical,historical__M08022114,2022-10-31,2023-12-29,99,1,99,130 LAFAYETTE STREET,not_applicable_single_component,TRUE,6295,10,2.97,Manhattan,0,0.0011239917536999345
+historical,historical__M08022866,2022-10-27,2023-12-29,112,1,112,364 WEST 54 STREET,not_applicable_single_component,TRUE,85000,6.02,2.32,Manhattan,0,9.728028766940788e-4
+historical,historical__M08028552,2022-10-31,2023-12-29,341,1,341,105 EAST 118 STREET,not_applicable_single_component,TRUE,2288,10,0,Manhattan,0,7.410345313445612e-4
+historical,historical__Q00479380,2021-04-10,2023-12-29,71,1,71,11-58 46 ROAD,not_applicable_single_component,TRUE,10000,5,1.25,Queens,0,0.0021978295213401586
+historical,historical__Q00482934,2021-10-14,2023-12-29,51,1,51,153-33 89 AVENUE,not_applicable_single_component,TRUE,5750,4,0,Queens,0,0.0020917231582866015
+historical,historical__Q00484597,2021-03-15,2023-12-29,80,1,80,23-81 31 STREET,not_applicable_single_component,TRUE,13503,2.43,0,Queens,0,0.0021388949704364184
+historical,historical__Q00490821,2021-03-23,2023-12-29,51,1,51,81-07 KEW GARDENS ROAD,not_applicable_single_component,TRUE,7816,3.44,0,Queens,0,0.002107564098878406
+historical,historical__Q00498832,2021-04-14,2023-12-29,51,1,51,134-53 MAPLE AVENUE,not_applicable_single_component,TRUE,19168,2.43,0,Queens,0,0.0020178135628977543
+historical,historical__Q00501883,2021-04-29,2023-12-29,122,1,122,45-19 DAVIS STREET,not_applicable_single_component,TRUE,7500,5,0.95,Queens,0,0.0021732822430868097
+historical,historical__Q00528155,2021-06-04,2023-12-29,164,1,164,94-18 34 AVENUE,not_applicable_single_component,TRUE,46326,3,0.41,Queens,0,0.0017794780613813014
+historical,historical__Q00528973,2021-06-15,2023-12-29,763,1,763,42-06 ORCHARD STREET,not_applicable_single_component,TRUE,82400,7.52,2.4460922330097086,Queens,1,0.0015045495183644126
+historical,historical__Q00533905,2021-12-02,2023-12-29,56,1,56,21-04 30 DRIVE,not_applicable_single_component,TRUE,10000,4,0.18,Queens,0,0.0019766194391435308
+historical,historical__Q00540608,2021-07-23,2023-12-29,147,1,147,18-26 REDFERN AVENUE,not_applicable_single_component,TRUE,10500,2.43,0.13,Queens,0,0.0022881284904510764
+historical,historical__Q00548195,2021-07-15,2023-12-29,240,1,240,23-10 42 ROAD,not_applicable_single_component,TRUE,20425,7.52,0.15,Queens,0,0.0012071877214719692
+historical,historical__Q00555969,2021-08-11,2023-12-29,93,1,93,25-06 42 ROAD,not_applicable_single_component,TRUE,2125,5,0,Queens,0,0.0022231259439290715
+historical,historical__Q00557681,2021-08-23,2023-12-29,417,1,417,41-46 27 STREET,not_applicable_single_component,TRUE,25000,7.52,2.16,Queens,0,0.0017341986662149293
+historical,historical__Q00564746,2021-08-19,2023-12-29,499,1,499,2-33 50 AVENUE,not_applicable_single_component,TRUE,76000,6.02,1.26,Queens,0,0.0014124471654838357
+historical,historical__Q00568756,2021-08-12,2023-12-29,68,1,68,172-02 HILLSIDE AVENUE,not_applicable_single_component,TRUE,7220,5,0,Queens,0,0.0018138718026553804
+historical,historical__Q00577373,2021-09-10,2023-12-29,63,1,63,37-42 30 STREET,not_applicable_single_component,TRUE,10600,3,0.75,Queens,0,0.0024317559551536192
+historical,historical__Q00582731,2021-12-09,2023-12-29,82,1,82,27-09 44 DRIVE,not_applicable_single_component,TRUE,4700,7.52,1.94,Queens,0,0.0021929033950458853
+historical,historical__Q00584570,2021-09-03,2023-12-29,120,1,120,85-01 68 ROAD,not_applicable_single_component,TRUE,26152,0.75,0.68,Queens,0,0.002611914534168953
+historical,historical__Q00599457,2021-10-19,2023-12-29,354,1,354,34-35 44 STREET,not_applicable_single_component,TRUE,17423,5,0.6,Queens,0,0.0017631421078471825
+historical,historical__Q00607526,2021-12-14,2023-12-29,170,1,170,98-81 QUEENS BOULEVARD,not_applicable_single_component,TRUE,6531,3.44,1,Queens,0,0.002644181439948728
+historical,historical__Q00608144,2021-12-09,2023-12-29,363,1,363,26-38 JACKSON AVENUE,not_applicable_single_component,TRUE,10000,7.52,0.96,Queens,0,0.0015945980217580728
+historical,historical__Q00612960,2021-11-16,2023-12-29,99,1,99,43-42 43 STREET,not_applicable_single_component,TRUE,17106,4,0.94,Queens,0,0.002099651120506966
+historical,historical__Q00617404,2021-12-10,2023-12-29,110,1,110,31-06 24 ROAD,not_applicable_single_component,TRUE,8700,2.43,0.38,Queens,0,0.0024799866180223373
+historical,historical__Q00623509,2021-11-08,2023-12-29,88,1,88,92-62 QUEENS BOULEVARD,not_applicable_single_component,TRUE,12290,3.44,0,Queens,0,0.0019547143734152273
+historical,historical__Q00627197,2021-12-27,2023-12-29,78,1,78,63-68 AUSTIN STREET,not_applicable_single_component,TRUE,13725,0.75,0,Queens,0,0.0025431374905859816
+historical,historical__Q00636484,2021-12-15,2023-12-29,55,1,55,43-12 50 STREET,not_applicable_single_component,TRUE,10450,4,1.91,Queens,0,0.00275879012107269
+historical,historical__Q00638678,2021-12-01,2023-12-29,92,1,92,31-90 29 STREET,not_applicable_single_component,TRUE,10000,3,1,Queens,0,0.0025793671381189923
+historical,historical__Q00641359,2022-05-27,2023-12-29,173,1,173,97-10 SUTPHIN BOULEVARD,not_applicable_single_component,TRUE,15000,5,0.44,Queens,0,0.0017515367475322429
+historical,historical__Q00646536,2021-12-15,2023-12-29,50,1,50,39-26 30 STREET,not_applicable_single_component,TRUE,7500,5,0.99,Queens,0,0.0021904711080532944
+historical,historical__Q00646746,2022-01-13,2023-12-29,576,4,240+138+108+90,25-02 9 STREET;4-34 26 AVENUE;4-42 26 AVENUE;8-11 26 AVENUE,suggestive_separate_components,TRUE,134853,4.516236197934047,0.22027770980252573,Queens,1,0.0012245056221128483
+historical,historical__Q00649207,2022-01-13,2023-12-29,87,1,87,43-15 52 STREET,not_applicable_single_component,TRUE,2000,4,0,Queens,0,0.002493418250988665
+historical,historical__Q00650506,2021-12-22,2023-12-29,165,1,165,35-10 12 STREET,not_applicable_single_component,TRUE,24523,3,0.42,Queens,0,0.00198198462523167
+historical,historical__Q00657653,2022-02-08,2023-12-29,524,1,524,94-15 SUTPHIN BOULEVARD,not_applicable_single_component,TRUE,60138,10,0,Queens,0,7.554618879027646e-4
+historical,historical__Q00657656,2022-02-08,2023-12-29,521,1,521,147-35 95 AVENUE,not_applicable_single_component,TRUE,60138,10,0,Queens,0,7.554618879027646e-4
+historical,historical__Q00659801,2022-02-11,2023-12-29,53,1,53,83-07 QUEENS BOULEVARD,not_applicable_single_component,TRUE,13418,2.43,1,Queens,0,0.0026072374895071524
+historical,historical__Q00660436,2022-02-03,2023-12-29,137,1,137,2-24 26 AVENUE,not_applicable_single_component,TRUE,2450,2.43,0,Queens,0,0.002841143285717796
+historical,historical__Q00665096,2022-01-21,2023-12-29,59,1,59,87-57 150 STREET,not_applicable_single_component,TRUE,11677,4,0.06,Queens,0,0.0018813033161895368
+historical,historical__Q00665670,2022-02-16,2023-12-29,68,1,68,11-27 FOAM PLACE,not_applicable_single_component,TRUE,10176,2.43,0,Queens,0,0.002241946024632064
+historical,historical__Q00674206,2022-02-11,2023-12-29,310,1,310,45-11 23 STREET,not_applicable_single_component,TRUE,17820,10,0,Queens,0,9.248717032236165e-4
+historical,historical__Q00674762,2022-06-23,2023-12-29,117,1,117,24-01 QUEENS PLAZA NORTH,not_applicable_single_component,TRUE,6900,7.52,0.87,Queens,0,0.0016663234582297635
+historical,historical__Q00682330,2022-03-04,2023-12-29,190,1,190,29-24 40 AVENUE,not_applicable_single_component,TRUE,11760,5,1.65,Queens,0,0.0023147082268569707
+historical,historical__Q00682720,2022-03-17,2023-12-29,52,1,52,95-25 WALTHAM STREET,not_applicable_single_component,TRUE,2500,7.52,0.68,Queens,0,0.0019004198265730942
+historical,historical__Q00683000,2022-05-13,2023-12-29,262,2,140+122,39-08 JANET PLACE;39-18 JANET PLACE,suggestive_separate_components,TRUE,76439,2.43,0,Queens,1,0.001603071126588972
+historical,historical__Q00683048,2022-03-11,2023-12-29,64,1,64,38-38 32 STREET,not_applicable_single_component,TRUE,8800,5,0,Queens,0,0.0017551337254721488
+historical,historical__Q00687999,2022-03-02,2023-12-29,299,1,299,11-20 BROADWAY,not_applicable_single_component,TRUE,22760,1.25,0.65,Queens,0,0.0025217560350431233
+historical,historical__Q00702943,2022-11-01,2023-12-29,1754,3,687+583+484,25-20 3 STREET;25-49 3 STREET;3-09 26 AVENUE,unable_to_verify,TRUE,139128,0,0,Queens,0,0.0018712603799546032
+historical,historical__Q00710146,2022-04-01,2023-12-29,56,1,56,42-38 27 STREET,not_applicable_single_component,TRUE,4460,5,1.21,Queens,0,0.0024940381525287957
+historical,historical__Q00711760,2022-04-13,2023-12-29,60,1,60,43-25 52 STREET,not_applicable_single_component,TRUE,5000,4,2,Queens,0,0.0031744662540967067
+historical,historical__Q00716326,2022-04-26,2023-12-29,188,1,188,148 BEACH 116 STREET,not_applicable_single_component,TRUE,3200,4,0,Queens,0,0.002305904529031982
+historical,historical__Q00718151,2022-04-14,2023-12-29,63,1,63,45-07 45 STREET,not_applicable_single_component,TRUE,13035,4,0,Queens,0,0.001825487756151653
+historical,historical__Q00718735,2022-04-14,2023-12-29,69,1,69,148-15 89 AVENUE,not_applicable_single_component,TRUE,13675,4,0,Queens,0,0.0018109909948539839
+historical,historical__Q00721236,2022-04-21,2023-12-29,227,1,227,89-26 162 STREET,not_applicable_single_component,TRUE,18385,5,1.68,Queens,0,0.0021616357137056
+historical,historical__Q00721898,2022-04-21,2023-12-29,126,1,126,89-25 162 STREET,not_applicable_single_component,TRUE,14277,5,0.04,Queens,0,0.0016322024917580272
+historical,historical__Q00738212,2022-11-03,2023-12-29,121,1,121,141-46 NORTHERN BOULEVARD,not_applicable_single_component,TRUE,56900,2.43,0.12,Queens,0,0.0017240209435844625
+historical,historical__Q00740418,2022-07-11,2023-12-29,122,1,122,6014 BEACH CHANNEL DRIVE,not_applicable_single_component,TRUE,32939,2,0,Queens,0,0.0019289122266695435
+historical,historical__Q00761543,2022-09-20,2023-12-29,83,1,83,4-44 BEACH 67 STREET,not_applicable_single_component,TRUE,4000,2.43,0,Queens,0,0.002618664430899916
+historical,historical__Q00783360,2022-09-22,2023-12-29,100,1,100,133-09 37 AVENUE,not_applicable_single_component,TRUE,24221,2.43,1.07,Queens,0,0.0023960754826496656
+historical,historical__Q00785605,2022-08-08,2023-12-29,115,1,115,11-36 45 ROAD,not_applicable_single_component,TRUE,34500,3,1.62,Queens,0,0.0023718252997389838
+historical,historical__Q00791713,2022-10-04,2023-12-29,57,1,57,13-04 NAMEOKE AVENUE,not_applicable_single_component,TRUE,10450,2.43,0.5,Queens,0,0.002463049651157706
+historical,historical__Q00793435,2022-09-26,2023-12-29,66,1,66,11-50 45 ROAD,not_applicable_single_component,TRUE,6675,3,0.9,Queens,0,0.0027049601334184297
+historical,historical__Q08012514,2022-10-25,2023-12-29,106,1,106,32-10 111 STREET,not_applicable_single_component,TRUE,20497,3,0,Queens,0,0.0018798833507198108
+historical,historical__Q08025120,2022-10-26,2023-12-29,236,1,236,21-12 30 ROAD,not_applicable_single_component,TRUE,58700,5,0.52,Queens,0,0.0014180657684365967
+historical,historical__Q08026754,2022-10-29,2023-12-29,135,1,135,138-32 NORTHERN BOULEVARD,not_applicable_single_component,TRUE,43313,2.43,0.32,Queens,0,0.001876549844796411
+historical,historical__Q08031880,2022-11-03,2023-12-29,82,1,82,141 BEACH 67 STREET,not_applicable_single_component,TRUE,109424,2.43,0,Queens,0,0.0015102089649565965
+historical,historical__Q08032504,2022-11-03,2023-12-29,881,2,534+347,126-43 39 AVENUE;126-55 39 AVENUE,suggestive_separate_components,TRUE,135609,3.44,0,Queens,1,0.0013110883931409041
+historical,historical__S00563710,2021-07-30,2023-12-29,74,1,74,5 STUYVESANT PLACE,not_applicable_single_component,TRUE,30210,2.43,0.61,Staten Island,0,0.0016710694907429173
+historical,historical__S00661600,2022-02-01,2023-12-29,799,3,393+280+126,172 RICHMOND TERRACE;178 RICHMOND TERRACE;8 STUYVESANT PLACE,unable_to_verify,TRUE,66470,2.43,0,Staten Island,1,0.0012997208418517798
+historical,historical__X00489843,2021-04-24,2023-12-29,59,1,59,3082 VILLA AVENUE,not_applicable_single_component,TRUE,2264,6.02,0.69,Bronx,0,0.0023277405292092303
+historical,historical__X00493694,2021-04-27,2023-12-29,50,1,50,1751 MONROE AVENUE,not_applicable_single_component,TRUE,5225,6.02,0.49,Bronx,0,0.0019471991487892343
+historical,historical__X00493806,2021-04-27,2023-12-29,56,1,56,2250 AQUEDUCT AVENUE,not_applicable_single_component,TRUE,3034,3.4399999999999995,0,Bronx,0,0.002535312857822783
+historical,historical__X00515857,2021-05-12,2023-12-29,154,2,94+60,2180 WALTON AVENUE;2183 MORRIS AVENUE,suggestive_separate_components,TRUE,4642,6.02,0.7032529082292115,Bronx,1,0.0020710844715549266
+historical,historical__X00521651,2021-12-13,2023-12-29,55,1,55,769 EAST 232 STREET,not_applicable_single_component,TRUE,4883,3,0,Bronx,0,0.002452742843614625
+historical,historical__X00526919,2021-06-02,2023-12-29,365,1,365,40 BRUCKNER BOULEVARD,not_applicable_single_component,TRUE,75284,6.02,0.73,Bronx,0,0.0013098202598514658
+historical,historical__X00538598,2021-06-21,2023-12-29,59,1,59,2026 HONEYWELL AVENUE,not_applicable_single_component,TRUE,2463,3.44,1.02,Bronx,0,0.00320877820995142
+historical,historical__X00541811,2021-06-30,2023-12-29,73,1,73,1420 STEBBINS AVENUE,not_applicable_single_component,TRUE,4613,3.44,0,Bronx,0,0.0023646266607658963
+historical,historical__X00544328,2021-06-22,2023-12-29,59,1,59,1771 WEEKS AVENUE,not_applicable_single_component,TRUE,6637,6.02,0,Bronx,0,0.0016990950715313196
+historical,historical__X00546413,2021-12-02,2023-12-29,99,1,99,19 EAST 198 STREET,not_applicable_single_component,TRUE,4241,6.02,0.75,Bronx,0,0.002121891030903396
+historical,historical__X00552335,2021-09-14,2023-12-29,96,1,96,1220 SPOFFORD AVENUE,not_applicable_single_component,TRUE,5000,2.43,1.23,Bronx,0,0.003304127333584155
+historical,historical__X00554868,2021-07-09,2023-12-29,101,1,101,2136 HONEYWELL AVENUE,not_applicable_single_component,TRUE,1686,3.44,1.95,Bronx,0,0.004104575951404899
+historical,historical__X00561795,2021-08-09,2023-12-29,405,2,283+122,261 GRAND CONCOURSE;315 GRAND CONCOURSE,suggestive_separate_components,TRUE,37661.3,6.02,1.2337067493687153,Bronx,1,0.0016230550808297647
+historical,historical__X00562360,2021-07-28,2023-12-29,134,1,134,739 EAST GUNHILL ROAD,not_applicable_single_component,TRUE,10458,4,0,Bronx,0,0.00194617026431516
+historical,historical__X00586599,2021-09-17,2023-12-29,62,1,62,2895 VALENTINE AVENUE,not_applicable_single_component,TRUE,3500,6.02,0.95,Bronx,0,0.0022787834738967837
+historical,historical__X00587608,2021-09-09,2023-12-29,163,1,163,453 EAST 166 STREET,not_applicable_single_component,TRUE,1858,3.44,0,Bronx,0,0.0027507902847001796
+historical,historical__X00588660,2021-09-15,2023-12-29,200,1,200,586 GERARD AVENUE,not_applicable_single_component,TRUE,31200,4,0.97,Bronx,0,0.001964201278343509
+historical,historical__X00599800,2021-09-28,2023-12-29,92,1,92,4180 CARPENTER AVENUE,not_applicable_single_component,TRUE,6790,3,0,Bronx,0,0.0023218523684654818
+historical,historical__X00602987,2021-11-08,2023-12-29,483,1,483,330 WEST FORDHAM ROAD,not_applicable_single_component,TRUE,162200,3.44,0,Bronx,0,0.0013079344864595618
+historical,historical__X00619862,2021-11-09,2023-12-29,218,1,218,1010 WASHINGTON AVENUE,not_applicable_single_component,TRUE,2625,3.44,0,Bronx,0,0.0025971211741656675
+historical,historical__X00622829,2021-11-04,2023-12-29,51,1,51,2187 RYER AVENUE,not_applicable_single_component,TRUE,5766,6.02,0.65,Bronx,0,0.0019768715223085157
+historical,historical__X00627045,2021-11-16,2023-12-29,236,1,236,188 EAST 135 STREET,not_applicable_single_component,TRUE,25000,3.44,0.26,Bronx,0,0.0018789427947821186
+historical,historical__X00628306,2021-11-19,2023-12-29,78,1,78,130 EAST 177 STREET,not_applicable_single_component,TRUE,3125,6.02,0,Bronx,0,0.0019258919199196941
+historical,historical__X00633905,2021-12-01,2023-12-29,115,1,115,170 WEST 225 STREET,not_applicable_single_component,TRUE,2500,3.44,0.94,Manhattan,0,0.0017458272551181073
+historical,historical__X00634103,2022-04-05,2023-12-29,90,1,90,1763 WEST FARMS ROAD,not_applicable_single_component,TRUE,12536,5,0.97,Bronx,0,0.002058758520017146
+historical,historical__X00634339,2021-12-08,2023-12-29,128,1,128,1824 ANTHONY AVENUE,not_applicable_single_component,TRUE,5247,3.44,0.28,Bronx,0,0.0024457340605905354
+historical,historical__X00636463,2021-12-06,2023-12-29,54,1,54,2680 CRESTON AVENUE,not_applicable_single_component,TRUE,3023,6.02,0.54,Bronx,0,0.0021538630502095334
+historical,historical__X00640159,2021-12-10,2023-12-29,90,1,90,2481 CROTONA AVENUE,not_applicable_single_component,TRUE,11160,4.2,0.07,Bronx,0,0.001911545082541381
+historical,historical__X00640964,2022-01-10,2023-12-29,84,1,84,1015 EAST GUNHILL ROAD,not_applicable_single_component,TRUE,19000,3,0.46,Bronx,0,0.002142125636952083
+historical,historical__X00643054,2021-12-14,2023-12-29,81,1,81,2829 VALENTINE AVENUE,not_applicable_single_component,TRUE,1458,6.02,2.1,Bronx,0,0.003306206815287107
+historical,historical__X00643715,2021-12-22,2023-12-29,448,1,448,138 BRUCKNER BOULEVARD,not_applicable_single_component,TRUE,35000,6.02,1.13,Bronx,0,0.0016097444319969826
+historical,historical__X00643959,2021-12-14,2023-12-29,177,1,177,3264 WESTCHESTER AVENUE,not_applicable_single_component,TRUE,61278,3.44,0.86,Bronx,0,0.0018216572987401578
+historical,historical__X00648530,2022-01-13,2023-12-29,452,1,452,120 EAST 144 STREET,not_applicable_single_component,TRUE,44541,6.0200000000000005,1.8600000000000003,Bronx,0,0.001785594059142228
+historical,historical__X00649440,2022-01-26,2023-12-29,69,1,69,2976 3 AVENUE,not_applicable_single_component,TRUE,4250,3.44,3,Bronx,0,0.004328010321670672
+historical,historical__X00652159,2022-02-03,2023-12-29,55,1,55,66 EAST 177 STREET,not_applicable_single_component,TRUE,6250,6.02,0.7,Bronx,0,0.0019698461722487113
+historical,historical__X00657730,2022-01-19,2023-12-29,89,1,89,91 BRUCKNER BOULEVARD,not_applicable_single_component,TRUE,14500,3,1,Bronx,0,0.0024920687091588042
+historical,historical__X00666215,2022-01-30,2023-12-29,50,1,50,2311 WHITE PLAINS ROAD,not_applicable_single_component,TRUE,12069,2.43,0.4,Bronx,0,0.002423278428919421
+historical,historical__X00678791,2022-02-14,2023-12-29,55,1,55,533 CONCORD AVENUE,not_applicable_single_component,TRUE,5075,3.44,1.34,Bronx,0,0.003030289213975005
+historical,historical__X00678814,2022-02-17,2023-12-29,53,1,53,1840 HARRISON AVENUE,not_applicable_single_component,TRUE,10362,3.44,0.4699999999999999,Bronx,0,0.002267259737845955
+historical,historical__X00679772,2022-02-22,2023-12-29,54,1,54,2081 ANTHONY AVENUE,not_applicable_single_component,TRUE,4322,6.02,0.58,Bronx,0,0.0020455748998495036
+historical,historical__X00682437,2022-02-23,2023-12-29,104,1,104,439 EAST 165 STREET,not_applicable_single_component,TRUE,4026,3.44,0,Bronx,0,0.002418772541368657
+historical,historical__X00685698,2022-03-07,2023-12-29,99,1,99,1405 VYSE AVENUE,not_applicable_single_component,TRUE,2606,3.44,0,Bronx,0,0.002600261382312206
+historical,historical__X00687757,2022-03-03,2023-12-29,59,1,59,1166 FOX STREET,not_applicable_single_component,TRUE,2500,3.44,0,Bronx,0,0.0026182848469152647
+historical,historical__X00692593,2022-04-20,2023-12-29,83,1,83,733 CROTONA PARK NORTH,not_applicable_single_component,TRUE,4717,3.44,0.35,Bronx,0,0.002523999207487091
+historical,historical__X00693416,2022-03-15,2023-12-29,68,1,68,1688 WEEKS AVENUE,not_applicable_single_component,TRUE,2850,6.02,1.08,Bronx,0,0.0024191578335910806
+historical,historical__X00693446,2022-03-10,2023-12-29,79,1,79,1039 EAST GUN HILL ROAD,not_applicable_single_component,TRUE,18000,3,0.46,Bronx,0,0.002161478107590337
+historical,historical__X00694049,2022-03-14,2023-12-29,90,1,90,1258 SHAKESPEARE AVENUE,not_applicable_single_component,TRUE,2561,3.44,0.84,Bronx,0,0.0030769802606511088
+historical,historical__X00695344,2022-03-23,2023-12-29,126,1,126,671 TINTON AVENUE,not_applicable_single_component,TRUE,64645,2.43,0.84,Bronx,0,0.001998930744609247
+historical,historical__X00695405,2022-03-13,2023-12-29,71,1,71,978 SUMMIT AVENUE,not_applicable_single_component,TRUE,14250,3.44,0.93,Bronx,0,0.0023541294285910493
+historical,historical__X00696576,2022-03-22,2023-12-29,100,1,100,806 EAST 170 STREET,not_applicable_single_component,TRUE,3175,3.44,0,Bronx,0,0.0025162276492161255
+historical,historical__X00702588,2022-05-17,2023-12-29,79,1,79,2070 CHATTERTON AVENUE,not_applicable_single_component,TRUE,60979,4,0.17,Bronx,0,0.0015008874145571026
+historical,historical__X00705496,2022-04-14,2023-12-29,111,1,111,2123 GLEBE AVENUE,not_applicable_single_component,TRUE,22790,2.43,1.14,Bronx,0,0.0025221825498763467
+historical,historical__X00706075,2022-03-29,2023-12-29,52,1,52,2067 ANTHONY AVENUE,not_applicable_single_component,TRUE,1667,6.0200000000000005,0.78,Bronx,0,0.0024931385337745304
+historical,historical__X00707697,2022-03-30,2023-12-29,93,1,93,2077 RYER AVENUE,not_applicable_single_component,TRUE,2310,6.02,1.9300000000000002,Bronx,0,0.002961725488734601
+historical,historical__X00709422,2022-04-08,2023-12-29,127,1,127,3547 WEBSTER AVENUE,not_applicable_single_component,TRUE,15000,3.44,2,Bronx,0,0.0028816897064047305
+historical,historical__X00710266,2022-04-06,2023-12-29,59,1,59,2135 COLONIAL AVENUE,not_applicable_single_component,TRUE,4900,3.44,0.9,Bronx,0,0.0027950125246721724
+historical,historical__X00716620,2022-06-22,2023-12-29,87,1,87,1111 FOX STREET,not_applicable_single_component,TRUE,6821,3.4399999999999995,0,Bronx,0,0.002215679268841798
+historical,historical__X00718144,2022-04-14,2023-12-29,81,1,81,53 EAST 177 STREET,not_applicable_single_component,TRUE,7500,6.02,0,Bronx,0,0.001664894249675227
+historical,historical__X00718663,2022-04-15,2023-12-29,153,1,153,3273 3 AVENUE,not_applicable_single_component,TRUE,8716,3.44,0.56,Bronx,0,0.002375177782459885
+historical,historical__X00719684,2022-04-15,2023-12-29,51,1,51,729 EAST 216 STREET,not_applicable_single_component,TRUE,2854,4,0.64,Bronx,0,0.0027399297838622215
+historical,historical__X00727101,2022-06-10,2023-12-29,79,1,79,1405 BOSTON ROAD,not_applicable_single_component,TRUE,6480,2.43,0,Bronx,0,0.002483806780972771
+historical,historical__X00729880,2022-05-04,2023-12-29,247,1,247,1351 JEROME AVENUE,not_applicable_single_component,TRUE,22885,6.02,2.46,Bronx,0,0.002244974591801345
+historical,historical__X00735128,2022-05-16,2023-12-29,110,1,110,1985 JEROME AVENUE,not_applicable_single_component,TRUE,10834,6.02,0,Bronx,0,0.001566091683295739
+historical,historical__X00741218,2022-06-10,2023-12-29,53,1,53,1896 UNIVERSITY AVENUE,not_applicable_single_component,TRUE,4507,3.44,0.45,Bronx,0,0.002593777279753887
+historical,historical__X00750809,2022-08-30,2023-12-29,75,1,75,130 EAST 165 STREET,not_applicable_single_component,TRUE,7746,6.02,0,Bronx,0,0.0016559802765015491
+historical,historical__X00757318,2022-07-21,2023-12-29,340,1,340,160 VAN CORTLANDT PARK SOUTH,not_applicable_single_component,TRUE,56048,3.44,0.30402512132457893,Bronx,1,0.0016571287293909171
+historical,historical__X00787559,2022-08-22,2023-12-29,115,1,115,1940 JEROME AVENUE,not_applicable_single_component,TRUE,5852,6.0200000000000005,1,Bronx,0,0.0021127404466673317
+historical,historical__X00791429,2022-09-20,2023-12-29,109,1,109,3118 WEBSTER AVENUE,not_applicable_single_component,TRUE,13806,4.2,0,Bronx,0,0.0018198116808573496
+historical,historical__X08006238,2022-10-27,2023-12-29,70,1,70,1465 BRYANT AVENUE,not_applicable_single_component,TRUE,8500,3.44,1.17,Bronx,0,0.0026895850732495457
+historical,historical__X08006985,2022-10-24,2023-12-29,279,1,279,2868 WEBSTER AVENUE,not_applicable_single_component,TRUE,38583,4.2,0.57,Bronx,0,0.0017160821163730024
+historical,historical__X08011125,2022-10-07,2023-12-29,50,1,50,1970 CROTONA AVENUE,not_applicable_single_component,TRUE,2426,3.4400000000000004,0.58,Bronx,0,0.002949835489335718
+historical,historical__X08011205,2022-11-04,2023-12-29,97,1,97,105 WEST TREMONT AVENUE,not_applicable_single_component,TRUE,14320,3.4399999999999995,0.5,Bronx,0,0.002161206718913973
+historical,historical__X08028724,2022-10-31,2023-12-29,195,1,195,261 WALTON AVENUE,not_applicable_single_component,TRUE,27454,6.02,1.6,Bronx,0,0.0018386591513633048
+historical,historical__X08043433,2022-12-15,2023-12-29,136,1,136,3041 WEBSTER AVENUE,not_applicable_single_component,TRUE,15140,4.2,2,Bronx,0,0.002657253495915256
+historical,historical__X08045113,2022-11-30,2023-12-29,55,1,55,3217 WESTCHESTER AVENUE,not_applicable_single_component,TRUE,10920,3.4400000000000004,0.56,Bronx,0,0.002287759135768527
+post_policy,post_policy__B00738795-I1,2025-03-06,2026-07-08,1023,3,526+287+210,209 WEST STREET;21 FREEMAN STREET;37 FREEMAN STREET,unable_to_verify,TRUE,241425,2.43,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01019417-I1,2025-01-14,2026-07-08,521,1,521,376 SCHERMERHORN STREET,not_applicable_single_component,TRUE,16462,10,2.4,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01151476-I1,2025-03-27,2026-07-08,55,1,55,104 MONTGOMERY STREET,not_applicable_single_component,TRUE,6224,6.02,1.99,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01166776-I1,2025-02-04,2026-07-08,86,1,86,281 MARCUS GARVEY BOULEVARD,not_applicable_single_component,TRUE,87000,3,2.17,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01167646-I1,2025-02-04,2026-07-08,69,1,69,311 MARCUS GARVEY BOULEVARD,not_applicable_single_component,TRUE,83000,3,2.16,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01169429-I1,2025-06-12,2026-07-08,80,1,80,1445 FULTON STREET,not_applicable_single_component,TRUE,1952,4.2,1.55,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01170890-I1,2025-02-10,2026-07-08,75,1,75,343 HIMROD STREET,not_applicable_single_component,TRUE,16500,2.43,0.06,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01172199-I1,2025-02-19,2026-07-08,367,4,99+99+99+70,265 WYCKOFF STREET;270 BERGEN STREET;280 BERGEN STREET;290 BERGEN STREET,verified_separate_485x_units,TRUE,46692,4,1.06,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01174267-I1,2025-01-31,2026-07-08,56,1,56,62 NORTH 1 STREET,not_applicable_single_component,TRUE,10000,3,1.04,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01176928-I1,2025-04-03,2026-07-08,273,2,142+131,20 SOUTH STREET;915 ERSKINE STREET,unable_to_verify,TRUE,821806,0.5,0.54,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01192946-I1,2025-06-27,2026-07-08,53,1,53,219 HARMAN STREET,not_applicable_single_component,TRUE,9330,2.43,1.31,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01196476-I1,2025-03-20,2026-07-08,213,1,213,570 ELDERT LANE,not_applicable_single_component,TRUE,49397,1.25,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01203284-I1,2025-06-25,2026-07-08,79,1,79,200 ASHFORD STREET,not_applicable_single_component,TRUE,7670,6.02,1.96,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01204032-I1,2025-04-04,2026-07-08,59,1,59,460 BUSHWICK AVENUE,not_applicable_single_component,TRUE,10600,3,0.15,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01206874-I1,2025-04-08,2026-07-08,99,1,99,285 NORTH 8 STREET,not_applicable_single_component,TRUE,7237.85,2.43,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01208799-I1,2025-04-10,2026-07-08,99,1,99,138 OSBORN STREET,not_applicable_single_component,TRUE,2500,2.43,1,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01225073-I1,2025-08-06,2026-07-08,122,1,122,1278 WILLOUGHBY AVENUE,not_applicable_single_component,FALSE,2500,0,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01225983-I1,2025-05-23,2026-07-08,198,2,99+99,229 SHEPHERD AVENUE;240 HIGHLAND PLACE,suggestive_separate_components,TRUE,20653,6.02,0.21,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01229088-I1,2025-12-05,2026-07-08,50,1,50,500 3 AVENUE,not_applicable_single_component,FALSE,1600,4,2.8,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01234480-I1,2025-07-11,2026-07-08,50,1,50,1935 BEDFORD AVENUE,not_applicable_single_component,FALSE,9947,2.43,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01246023-I1,2025-06-27,2026-07-08,99,1,99,1305 ROCKAWAY PARKWAY,not_applicable_single_component,TRUE,5400,2,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01246098-I1,2025-06-30,2026-07-08,51,1,51,2100 UNION STREET,not_applicable_single_component,TRUE,10000,2.43,1,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01249173-I1,2025-07-15,2026-07-08,99,1,99,67 4 AVENUE,not_applicable_single_component,FALSE,1745,6.02,2.04,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01249710-I1,2026-01-13,2026-07-08,99,1,99,918 ATLANTIC AVENUE,not_applicable_single_component,FALSE,8282,0,0.94,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01252041-I1,2025-07-14,2026-07-08,74,1,74,1060 PACIFIC STREET,not_applicable_single_component,FALSE,12870,0,0.93,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01253556-I1,2025-07-22,2026-07-08,53,1,53,2221 65 STREET,not_applicable_single_component,FALSE,4000,3,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01255387-I1,2025-08-07,2026-07-08,99,1,99,444 CARROLL STREET,not_applicable_single_component,FALSE,28292,2,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01256572-I1,2025-07-21,2026-07-08,198,2,99+99,2433 ATLANTIC AVENUE;28 HAVENS PLACE,unable_to_verify,FALSE,17533,4.2,1.14,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01268437-I1,2025-09-02,2026-07-08,198,2,99+99,230 CLARKSON AVENUE;234 CLARKSON AVENUE,unable_to_verify,FALSE,30000,3.44,0.8,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01268544-I1,2025-08-14,2026-07-08,99,1,99,2978 OCEAN PARKWAY,not_applicable_single_component,FALSE,20000,2.43,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01271705-I1,2025-08-19,2026-07-08,97,1,97,331 MAPLE STREET,not_applicable_single_component,FALSE,59600,2.43,0.38,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01271979-I1,2025-09-02,2026-07-08,187,1,187,819 GRAND STREET,not_applicable_single_component,FALSE,4800,4,2.78,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01276224-I1,2025-12-19,2026-07-08,158,1,158,245 DUFFIELD STREET,not_applicable_single_component,FALSE,8330,10,3,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01278364-I1,2025-09-18,2026-07-08,125,2,86+39,241 THIRD AVENUE;610 SACKETT STREET,suggestive_separate_components,FALSE,32996,4,1.205,Brooklyn,1,0.0032258064516129032
+post_policy,post_policy__B01278555-I1,2025-09-18,2026-07-08,123,1,123,516 BERGEN STREET,not_applicable_single_component,FALSE,17051,2,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01280400-I1,2025-09-17,2026-07-08,68,1,68,19 CLAY STREET,not_applicable_single_component,FALSE,10330,2.43,1.02,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01283545-I1,2025-09-16,2026-07-08,55,1,55,172 MONTROSE AVENUE,not_applicable_single_component,FALSE,17000,2.43,1,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01297622-I1,2025-10-06,2026-07-08,198,2,99+99,937 EAST 108 STREET;951 EAST 108 STREET,suggestive_separate_components,FALSE,44200,1.25,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01297629-I1,2025-10-06,2026-07-08,85,1,85,2916 ATLANTIC AVENUE,not_applicable_single_component,FALSE,6455,6.02,1.01,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01297948-I1,2025-11-04,2026-07-08,50,1,50,1385 SUTTER AVENUE,not_applicable_single_component,FALSE,3600,3,0.49,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01305637-I1,2025-10-31,2026-07-08,130,2,65+65,2730 ATLANTIC AVENUE;2734 ATLANTIC AVENUE,suggestive_separate_components,FALSE,5062,6.02,0.8398814697747925,Brooklyn,1,0.0032258064516129032
+post_policy,post_policy__B01312761-I1,2025-11-07,2026-07-08,1060,2,792+268,10 NOBLE STREET;41 OAK STREET,suggestive_separate_components,FALSE,173834,2.43,0.008628921844978543,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01315432-I1,2026-01-22,2026-07-08,85,1,85,246 7 STREET,not_applicable_single_component,FALSE,1575,6.02,1,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01316595-I1,2025-12-04,2026-07-08,396,4,99+99+99+99,54 SULLIVAN PLACE;62 SULLIVAN PLACE;73 EMPIRE BOULEVARD;99 EMPIRE BOULEVARD,suggestive_separate_components,FALSE,38118,0,0.21,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01318629-I1,2025-12-12,2026-07-08,402,1,402,567 SCHENECTADY AVENUE,not_applicable_single_component,FALSE,105382,2.43,2.145138642550273,Brooklyn,1,0.0032258064516129032
+post_policy,post_policy__B01320823-I1,2025-11-20,2026-07-08,99,1,99,21 CHARLES PLACE,not_applicable_single_component,FALSE,12590,2.43,0.08737092930897537,Brooklyn,1,0.0032258064516129032
+post_policy,post_policy__B01320997-I1,2025-12-16,2026-07-08,51,1,51,557 THIRD AVENUE,not_applicable_single_component,FALSE,5277,3,0.85,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01322526-I1,2026-03-31,2026-07-08,55,1,55,10 HOWARD AVENUE,not_applicable_single_component,FALSE,8650,4,2.06,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01325937-I1,2025-12-17,2026-07-08,259,1,259,964 FRANKLIN AVENUE,not_applicable_single_component,FALSE,13109,3,0.99,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01325938-I1,2026-01-08,2026-07-08,117,1,117,970 FRANKLIN AVENUE,not_applicable_single_component,FALSE,58431,3,0.01,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01327122-I1,2025-12-19,2026-07-08,153,1,153,89 VISITATION PLACE,not_applicable_single_component,FALSE,11533,2.43,1.24,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01327155-I1,2025-12-19,2026-07-08,84,1,84,9 DWIGHT STREET,not_applicable_single_component,FALSE,7424,2.43,1.64,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01327164-I1,2025-12-19,2026-07-08,60,1,60,92 COFFEY STREET,not_applicable_single_component,FALSE,4600,2.43,0.96,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01327363-I1,2025-12-11,2026-07-08,99,1,99,159 BROADWAY,not_applicable_single_component,FALSE,9262,2.43,12.1,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01328056-I1,2026-02-03,2026-07-08,99,1,99,55 SMITH STREET,not_applicable_single_component,FALSE,13587,10,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01328440-I1,2025-12-04,2026-07-08,114,2,86+28,670 THOMAS BOYLAND STREET;688 THOMAS S BOYLAND STREET,suggestive_separate_components,FALSE,20000,2.43,1,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01330190-I1,2025-12-30,2026-07-08,141,1,141,1138 PACIFIC STREET,not_applicable_single_component,FALSE,7800,3,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01331189-I1,2025-12-18,2026-07-08,53,1,53,673 FULTON STREET,not_applicable_single_component,FALSE,3745,4,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01332121-I1,2026-03-25,2026-07-08,327,1,327,105 DINSMORE PLACE,not_applicable_single_component,FALSE,6700,4,0.86,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01332608-I1,2026-01-05,2026-07-08,59,1,59,940 ATLANTIC AVENUE,not_applicable_single_component,FALSE,2000,0,1.47,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01339874-I1,2026-01-08,2026-07-08,70,1,70,554 METROPOLITAN AVENUE,not_applicable_single_component,FALSE,2736,4,1.78,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01341355-I1,2026-01-01,2026-07-08,80,1,80,1027 DEAN STREET,not_applicable_single_component,FALSE,6360,0,1,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01342709-I1,2026-02-26,2026-07-08,95,1,95,2501 FULTON STREET,not_applicable_single_component,FALSE,12697,0,0.9199999999999999,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01348174-I1,2026-01-27,2026-07-08,77,1,77,1111 MYRTLE AVENUE,not_applicable_single_component,FALSE,25000,4,1,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01348242-I1,2026-01-21,2026-07-08,94,1,94,469 TROY AVENUE,not_applicable_single_component,FALSE,5250,2.43,0.26,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01348392-I1,2026-01-23,2026-07-08,73,1,73,2411 EAST 2 STREET,not_applicable_single_component,FALSE,6000,0.75,0.92,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01348890-I1,2026-03-31,2026-07-08,197,2,99+98,1150 BROADWAY;1164 BROADWAY,suggestive_separate_components,FALSE,27042,4,0.5453013830337993,Brooklyn,1,0.0032258064516129032
+post_policy,post_policy__B01349788-I1,2026-01-23,2026-07-08,55,1,55,159 NEWPORT STREET,not_applicable_single_component,FALSE,2000,2.43,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01350570-I1,2026-02-17,2026-07-08,99,1,99,64 MESEROLE STREET,not_applicable_single_component,FALSE,15000,2.43,1.85,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01352178-I1,2026-05-20,2026-07-08,165,1,165,129 OSBORN STREET,not_applicable_single_component,FALSE,2500,2.43,0.56,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01352714-I1,2026-01-30,2026-07-08,78,1,78,622 OCEAN AVENUE,not_applicable_single_component,FALSE,6250,4,0.67,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01354779-I1,2026-03-18,2026-07-08,63,1,63,990 LINCOLN AVENUE,not_applicable_single_component,FALSE,6855,0.75,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01357632-I1,2026-02-10,2026-07-08,56,1,56,11 CORNELIA STREET,not_applicable_single_component,FALSE,2000,2.43,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01358527-I1,2026-02-20,2026-07-08,69,1,69,503 GRAND AVENUE,not_applicable_single_component,FALSE,2000,0,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01362967-I1,2026-03-09,2026-07-08,70,1,70,2863 ATLANTIC AVENUE,not_applicable_single_component,FALSE,4914,6.02,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01367848-I1,2026-05-20,2026-07-08,65,1,65,245 ST JOHNS PLACE,not_applicable_single_component,FALSE,5965,4,1,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01373413-I1,2026-03-23,2026-07-08,71,1,71,1084 PACIFIC STREET,not_applicable_single_component,FALSE,12380,0,0.4099999999999999,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01373493-I1,2026-06-01,2026-07-08,71,1,71,138 NEW JERSEY AVENUE,not_applicable_single_component,FALSE,5000,4,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01373634-I1,2026-03-23,2026-07-08,96,1,96,609 CLASSON AVENUE,not_applicable_single_component,FALSE,7286,0,1.14,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01374856-I1,2026-03-24,2026-07-08,51,1,51,4115 HUBBARD PLACE,not_applicable_single_component,FALSE,24157,1.25,0.09000000000000001,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01375530-I1,2026-04-21,2026-07-08,98,1,98,2080 EAST 15 STREET,not_applicable_single_component,FALSE,16600,1.25,0.56,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01376426-I1,2026-03-26,2026-07-08,85,1,85,703 LEXINGTON AVENUE,not_applicable_single_component,FALSE,7500,2,1.5,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01376613-I1,2026-03-31,2026-07-08,73,1,73,893 DEAN STREET,not_applicable_single_component,FALSE,4244,0,1,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01377452-I1,2026-04-01,2026-07-08,157,1,157,141 VAN SICLEN AVENUE,not_applicable_single_component,FALSE,35662,6.02,0.79,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01379089-I1,2026-05-04,2026-07-08,55,1,55,877 GRAND STREET,not_applicable_single_component,FALSE,1875,4,1.48,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01379434-I1,2026-03-30,2026-07-08,75,1,75,120 COURT STREET,not_applicable_single_component,FALSE,6000,6.02,1.89,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01379437-I1,2026-03-29,2026-07-08,75,1,75,387 BUSHWICK AVENUE,not_applicable_single_component,FALSE,3400,2.43,1.47,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01381870-I1,2026-04-14,2026-07-08,59,1,59,2124 AVENUE P,not_applicable_single_component,FALSE,4000,4,0.48,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01390326-I1,2026-04-29,2026-07-08,228,3,82+82+64,1070 PACIFIC STREET;971 DEAN STREET;985 DEAN STREET,unable_to_verify,FALSE,37620,0,0.83,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01391270-I1,2026-05-06,2026-07-08,60,1,60,111 GROVE STREET,not_applicable_single_component,FALSE,5000,2.43,0.27,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01399120-I1,2026-05-21,2026-07-08,85,1,85,604 UNION STREET,not_applicable_single_component,FALSE,8518,4,1,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01400199-I1,2026-06-04,2026-07-08,224,1,224,530 UTICA AVENUE,not_applicable_single_component,FALSE,16675,0,0.02,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01408961-I1,2026-06-10,2026-07-08,198,2,99+99,1029 ATLANTIC AVENUE;1035 ATLANTIC AVENUE,suggestive_separate_components,FALSE,15704,0,0.9898509933774834,Brooklyn,1,0.0032258064516129032
+post_policy,post_policy__B01409426-I1,2026-06-25,2026-07-08,99,1,99,294 4 AVENUE,not_applicable_single_component,FALSE,16435,2,0.67,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01415308-I1,2026-06-12,2026-07-08,76,1,76,161 VERMONT STREET,not_applicable_single_component,FALSE,1943,6.02,1.5,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__B01422332-I1,2026-07-02,2026-07-08,147,1,147,130 ST FELIX STREET,not_applicable_single_component,FALSE,12519,10,0,Brooklyn,0,0.0032258064516129032
+post_policy,post_policy__M01153465-I1,2025-12-11,2026-07-08,570,2,350+220,730 EAST 13 STREET;743 EAST 12 STREET,suggestive_separate_components,FALSE,60505,3.4399999999999995,0.19,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01155663-I1,2025-01-02,2026-07-08,190,1,190,3816 9 AVENUE,not_applicable_single_component,TRUE,19983,6.02,1,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01189399-I1,2025-03-28,2026-07-08,66,1,66,185 EAST 80 STREET,not_applicable_single_component,TRUE,3000,10,3.15,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01231645-I1,2025-10-10,2026-07-08,276,1,276,473 WEST 165 STREET,not_applicable_single_component,FALSE,1825,3.44,1.34,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01241552-I1,2025-06-16,2026-07-08,113,1,113,16 WEST 45 STREET,not_applicable_single_component,TRUE,9239,10,2.03,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01243425-I1,2025-07-03,2026-07-08,77,1,77,59 FRANKLIN STREET,not_applicable_single_component,TRUE,9555,10,5.04,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01257465-I1,2025-08-06,2026-07-08,83,1,83,500 WEST 218 STREET,not_applicable_single_component,FALSE,5225,4.2,0.47,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01268347-I1,2025-09-16,2026-07-08,278,1,278,273 WEST 22 STREET,not_applicable_single_component,FALSE,19256,4,5.06,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01270610-I1,2025-08-21,2026-07-08,85,1,85,251 EAST 121 STREET,not_applicable_single_component,FALSE,1395,7.52,0,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01273621-I1,2025-09-10,2026-07-08,54,1,54,47 EAST 30 STREET,not_applicable_single_component,FALSE,2067,10,2.57,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01274493-I1,2025-09-12,2026-07-08,84,1,84,16 CONVENT AVENUE,not_applicable_single_component,FALSE,7632,4,0,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01280065-I1,2026-01-01,2026-07-08,72,1,72,270 WEST 135 STREET,not_applicable_single_component,FALSE,2898,3.4399999999999995,0.55,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01301888-I1,2025-12-02,2026-07-08,86,1,86,515 WEST 43 STREET,not_applicable_single_component,FALSE,10050,7.52,3.23,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01305839-I1,2025-11-05,2026-07-08,197,2,99+98,335 WEST 25 STREET;345 WEST 25 STREET,suggestive_separate_components,FALSE,17282,6.019999999999999,2.2999976854530724,Manhattan,1,0.0032258064516129032
+post_policy,post_policy__M01306253-I1,2026-03-24,2026-07-08,99,1,99,140 FULTON STREET,not_applicable_single_component,FALSE,5612,10,0,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01318466-I1,2025-11-25,2026-07-08,96,1,96,11 EAST 115 STREET,not_applicable_single_component,FALSE,13624,3.44,0,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01323220-I1,2025-12-18,2026-07-08,51,1,51,420 WEST 45 STREET,not_applicable_single_component,FALSE,10042,6.02,5.89,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01325392-I1,2025-12-29,2026-07-08,86,1,86,207 EAST 84 STREET,not_applicable_single_component,FALSE,7807,10,3.74,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01335408-I1,2025-12-30,2026-07-08,88,1,88,56 GREAT JONES STREET,not_applicable_single_component,FALSE,1557,10,0.74,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01335998-I1,2025-12-19,2026-07-08,86,1,86,442 EAST 119 STREET,not_applicable_single_component,FALSE,10849,3,1.08,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01339025-I1,2026-03-28,2026-07-08,88,1,88,2132 8 AVENUE,not_applicable_single_component,FALSE,2500,6.02,0,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01352841-I1,2026-03-11,2026-07-08,62,1,62,515 WEST 27 STREET,not_applicable_single_component,FALSE,2469,7.519999999999999,1,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01361353-I1,2026-03-17,2026-07-08,70,1,70,301 EAST 71 STREET,not_applicable_single_component,FALSE,2038,10,3.63,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01363005-I1,2026-03-06,2026-07-08,211,1,211,101 EAST 110 STREET,not_applicable_single_component,FALSE,25691,3.44,2.7999999999999994,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01363035-I1,2026-03-17,2026-07-08,481,1,481,484 8 AVENUE,not_applicable_single_component,FALSE,3505,10,0,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01370073-I1,2026-03-26,2026-07-08,141,1,141,250 EAST 56 STREET,not_applicable_single_component,FALSE,2500,10,4,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01370578-I1,2026-03-20,2026-07-08,456,1,456,460 10 AVENUE,not_applicable_single_component,FALSE,12333,10,0,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01372322-I1,2026-03-27,2026-07-08,95,1,95,28 WEST 37 STREET,not_applicable_single_component,FALSE,4758,0,2.16,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01373193-I1,2026-03-26,2026-07-08,69,1,69,122 EAST 11 STREET,not_applicable_single_component,FALSE,3935,6.02,2.39,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01376293-I1,2026-03-27,2026-07-08,95,1,95,339 5 AVENUE,not_applicable_single_component,FALSE,5628,10,0,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01377138-I1,2026-03-25,2026-07-08,120,1,120,50 CLIFF STREET,not_applicable_single_component,FALSE,6172,10,0,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01382130-I1,2026-04-21,2026-07-08,430,1,430,80 WEST 67 STREET,not_applicable_single_component,FALSE,15075,10,8.88,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__M01393124-I1,2026-04-28,2026-07-08,171,2,99+72,4388 BROADWAY;673 WEST 187 STREET,suggestive_separate_components,FALSE,10064,3.4400000000000004,0,Manhattan,1,0.0032258064516129032
+post_policy,post_policy__M01400243-I1,2026-05-15,2026-07-08,50,1,50,317 BROADWAY,not_applicable_single_component,FALSE,2639,10,2.91,Manhattan,0,0.0032258064516129032
+post_policy,post_policy__Q01025398-I1,2025-08-06,2026-07-08,706,1,706,61-06 JUNCTION BOULEVARD,not_applicable_single_component,FALSE,139558,6.02,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01111758-I1,2025-11-18,2026-07-08,53,1,53,9-20 MAIN AVENUE,not_applicable_single_component,FALSE,13375,3,0.8,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01117795-I1,2025-06-20,2026-07-08,59,1,59,165 BEACH 115 STREET,not_applicable_single_component,TRUE,8000,4,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01150703-I1,2025-01-02,2026-07-08,89,1,89,34-16 38 STREET,not_applicable_single_component,TRUE,5175,3,0.45,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01150733-I1,2025-01-16,2026-07-08,89,1,89,89-61 162 STREET,not_applicable_single_component,TRUE,10320,5,1.26,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01157077-I1,2025-01-28,2026-07-08,89,1,89,726 BAY 32 STREET,not_applicable_single_component,TRUE,58700,3,1.89,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01177691-I1,2025-02-11,2026-07-08,230,3,99+74+57,137 BEACH 30 STREET;139 BEACH 29 STREET;147 BEACH 30 STREET,suggestive_separate_components,TRUE,47365.13,1.25,0,Queens,1,0.0032258064516129032
+post_policy,post_policy__Q01183635-I1,2025-03-07,2026-07-08,57,1,57,129-13 METROPOLITAN AVENUE,not_applicable_single_component,TRUE,6368,2.43,0.12,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01189789-I1,2025-03-25,2026-07-08,154,2,98+56,159-02 HILLSIDE AVENUE;87-77 PARSONS BOULEVARD,suggestive_separate_components,TRUE,19886,4,0.7755813134868752,Queens,1,0.0032258064516129032
+post_policy,post_policy__Q01196791-I1,2025-04-14,2026-07-08,310,1,310,220-28 JAMAICA AVENUE,not_applicable_single_component,TRUE,60610,0.5,0.44,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01197853-I1,2025-05-20,2026-07-08,99,1,99,122-21 14 AVENUE,not_applicable_single_component,TRUE,15580,0.75,0.31,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01203592-I1,2025-10-22,2026-07-08,84,1,84,147-39 94 AVENUE,not_applicable_single_component,FALSE,5000,10,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01206649-I1,2025-04-11,2026-07-08,185,2,93+92,18-11 CORNAGA AVENUE;1825 CORNAGA AVENUE,suggestive_separate_components,TRUE,19802,2.43,0.7945662054337945,Queens,1,0.0032258064516129032
+post_policy,post_policy__Q01207697-I1,2025-04-10,2026-07-08,86,2,57+29,2-65 WATJEAN COURT;272 SEAGIRT BOULEVARD,verified_separate_485x_units,TRUE,26524,1.25,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01223823-I1,2025-10-06,2026-07-08,99,1,99,97-27 57 AVENUE,not_applicable_single_component,FALSE,34173,3,0.67,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01226562-I1,2025-06-11,2026-07-08,94,1,94,185-19 HILLSIDE AVENUE,not_applicable_single_component,TRUE,16000,4,0.11,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01228195-I1,2025-09-03,2026-07-08,479,1,479,54-09 100 STREET,not_applicable_single_component,FALSE,127000,2.43,2.1,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01228656-I1,2025-05-21,2026-07-08,55,1,55,38-20 32 STREET,not_applicable_single_component,TRUE,6840,5,1.46,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01233524-I1,2025-08-11,2026-07-08,213,1,213,159-31 90 AVENUE,not_applicable_single_component,FALSE,24238,5,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01234060-I1,2025-06-03,2026-07-08,53,1,53,143-22 84 ROAD,not_applicable_single_component,TRUE,8052,3,0.13,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01242193-I1,2025-06-24,2026-07-08,124,1,124,30-17 12 STREET,not_applicable_single_component,TRUE,17350,2,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01243880-I1,2025-07-11,2026-07-08,591,6,99+99+99+99+99+96,89-01 165 STREET;89-25 165 STREET;89-35 165 STREET;89-39 165 STREET;89-49 165 STREET;89-53 165 STREET,unable_to_verify,FALSE,39349.5,5,1.0252352569757806,Queens,1,0.0032258064516129032
+post_policy,post_policy__Q01246536-I1,2025-07-09,2026-07-08,56,1,56,123-12 SUTPHIN BOULEVARD,not_applicable_single_component,FALSE,25235,0.5,0.14,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01254595-I1,2025-10-06,2026-07-08,429,2,330+99,35-42 41 STREET;35-53 41 STREET,suggestive_separate_components,FALSE,39003,3.6382585954926543,1.0114606568725482,Queens,1,0.0032258064516129032
+post_policy,post_policy__Q01261008-I1,2025-08-04,2026-07-08,253,3,87+84+82,32-08 38 AVENUE;38-11 32 STREET;38-12 33 STREET,suggestive_separate_components,FALSE,31691,4.6708844782430345,1.261477391057398,Queens,1,0.0032258064516129032
+post_policy,post_policy__Q01261189-I1,2025-07-30,2026-07-08,133,2,73+60,210 BEACH 28 STREET;224 BEACH 28 STREET,suggestive_separate_components,FALSE,52380,1.25,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01263805-I1,2025-08-12,2026-07-08,387,1,387,23-07 43 AVENUE,not_applicable_single_component,FALSE,33950,7.52,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01274353-I1,2025-10-23,2026-07-08,50,1,50,148-15 ARCHER AVENUE,not_applicable_single_component,FALSE,6348,7.52,1.85,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01275550-I1,2025-11-18,2026-07-08,300,1,300,332 BEACH 52 STREET,not_applicable_single_component,FALSE,44270,3.44,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01275800-I1,2025-08-29,2026-07-08,560,1,560,35-10 STEINWAY STREET,not_applicable_single_component,FALSE,75335,0,0.43,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01278129-I1,2025-09-02,2026-07-08,177,2,89+88,94-09 148 STREET;94-11 148 STREET,suggestive_separate_components,FALSE,10000,10,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01283772-I1,2025-09-16,2026-07-08,176,2,90+86,54-03 QUEENS BOULEVARD;54-11 QUEENS BOULEVARD,suggestive_separate_components,FALSE,10000,5,0.84,Queens,1,0.0032258064516129032
+post_policy,post_policy__Q01288509-I1,2025-10-06,2026-07-08,50,1,50,27-30 21 STREET,not_applicable_single_component,FALSE,5000,5,0.4,Queens,1,0.0032258064516129032
+post_policy,post_policy__Q01289631-I1,2025-12-12,2026-07-08,227,1,227,161-10 HILLSIDE AVENUE,not_applicable_single_component,FALSE,22682,4,0.01,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01289649-I1,2025-12-12,2026-07-08,173,1,173,161-09 HILLSIDE AVENUE,not_applicable_single_component,FALSE,10000,4,0.08,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01297449-I1,2026-03-11,2026-07-08,99,1,99,99-17 DITMARS BOULEVARD,not_applicable_single_component,FALSE,6460,2.43,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01301298-I1,2025-10-17,2026-07-08,56,1,56,135-11 HILLSIDE AVENUE,not_applicable_single_component,FALSE,12000,2.43,0.58,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01311038-I1,2026-03-27,2026-07-08,121,1,121,9-16 27 AVENUE,not_applicable_single_component,FALSE,36000,1.35,0.64,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01314166-I1,2025-11-10,2026-07-08,56,1,56,23-08 JACKSON AVENUE,not_applicable_single_component,FALSE,6020,5,2.96,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01317360-I1,2025-11-26,2026-07-08,133,2,70+63,133-39 RUBY STREET;133-40 EMERALD STREET,suggestive_separate_components,FALSE,18555,0.75,0,Queens,1,0.0032258064516129032
+post_policy,post_policy__Q01331303-I1,2025-12-30,2026-07-08,139,2,74+65,32-73 STEINWAY STREET;32-75 STEINWAY STREET,unable_to_verify,FALSE,28975,3,1.81,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01332495-I1,2025-12-17,2026-07-08,147,1,147,5-20 46 ROAD,not_applicable_single_component,FALSE,7493,0,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01332573-I1,2025-12-28,2026-07-08,74,1,74,465 BEACH 62 STREET,not_applicable_single_component,FALSE,36000,0.75,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01334547-I1,2025-12-18,2026-07-08,56,1,56,43-35 57 STREET,not_applicable_single_component,FALSE,6426,5,0.53,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01335532-I1,2025-12-18,2026-07-08,72,1,72,11-35 31 DRIVE,not_applicable_single_component,FALSE,9850,4,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01337462-I1,2025-12-26,2026-07-08,62,1,62,910 ONDERDONK AVENUE,not_applicable_single_component,FALSE,9310,3,1.411559993947647,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01338971-I1,2025-12-29,2026-07-08,289,3,99+98+92,54-08 MYRTLE AVENUE;54-16 MYRTLE AVENUE;7-45 WYCKOFF AVENUE,suggestive_separate_components,FALSE,18500,2.43,0.7189189189189189,Queens,1,0.0032258064516129032
+post_policy,post_policy__Q01339840-I1,2026-01-02,2026-07-08,55,1,55,503 BEACH 72 STREET,not_applicable_single_component,FALSE,10000,0.75,0.19,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01348692-I1,2026-02-03,2026-07-08,88,1,88,50-02 SKILLMAN AVENUE,not_applicable_single_component,FALSE,23800,4,0.78,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01350371-I1,2026-02-05,2026-07-08,79,1,79,106-03 SUTPHIN BOULEVARD,not_applicable_single_component,FALSE,8000,3,0.94,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01351121-I1,2026-01-26,2026-07-08,79,1,79,95-28 147 PLACE,not_applicable_single_component,FALSE,2500,5,0.65,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01358193-I1,2026-03-02,2026-07-08,181,1,181,40-16 76 STREET,not_applicable_single_component,FALSE,8000,2.43,2.98,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01359877-I1,2026-03-05,2026-07-08,83,1,83,25-60 31 STREET,not_applicable_single_component,FALSE,7500,2.43,1.67,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01360550-I1,2026-05-04,2026-07-08,62,1,62,30-75 21 STREET,not_applicable_single_component,FALSE,10000,4,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01366543-I1,2026-03-25,2026-07-08,71,1,71,218-08 101 AVENUE,not_applicable_single_component,FALSE,6710,0.5,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01367014-I1,2026-04-06,2026-07-08,285,1,285,164-02 JAMAICA AVENUE,not_applicable_single_component,FALSE,13460,6.02,1.41,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01372263-I1,2026-03-27,2026-07-08,54,1,54,170-15 89 AVENUE,not_applicable_single_component,FALSE,5000,3,0.32,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01375903-I1,2026-03-27,2026-07-08,93,1,93,138-50 QUEENS BOULEVARD,not_applicable_single_component,FALSE,20000,3,1.6,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01376570-I1,2026-03-26,2026-07-08,108,1,108,179-11 JAMAICA AVENUE,not_applicable_single_component,FALSE,14128,3,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01377260-I1,2026-05-18,2026-07-08,74,1,74,143-24 94 AVENUE,not_applicable_single_component,FALSE,7000,5,0.46,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01386972-I1,2026-04-20,2026-07-08,99,1,99,21-01 CORNAGA AVENUE,not_applicable_single_component,FALSE,6722,1.25,0,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01388823-I1,2026-05-12,2026-07-08,198,2,99+99,35-43 37 STREET;37-09 36 AVENUE,suggestive_separate_components,FALSE,13454,0,0.754046380258659,Queens,1,0.0032258064516129032
+post_policy,post_policy__Q01389162-I1,2026-05-18,2026-07-08,91,1,91,70-20 QUEENS BOULEVARD,not_applicable_single_component,FALSE,7600,5,0.19,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01395583-I1,2026-05-11,2026-07-08,68,1,68,29-12 HOYT AVENUE SOUTH,not_applicable_single_component,FALSE,2000,2.43,0.74,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01412354-I1,2026-06-11,2026-07-08,99,1,99,35-25 STEINWAY STREET,not_applicable_single_component,FALSE,17932,0,1.02,Queens,0,0.0032258064516129032
+post_policy,post_policy__Q01415856-I1,2026-06-16,2026-07-08,108,2,58+50,116-14 GROSVENOR LANE;116-18 GROSVENOR LANE,suggestive_separate_components,FALSE,9422,4,0.6721439184886435,Queens,1,0.0032258064516129032
+post_policy,post_policy__Q01421621-I1,2026-07-06,2026-07-08,60,1,60,133-34 36 ROAD,not_applicable_single_component,FALSE,15875,2.43,1.94,Queens,0,0.0032258064516129032
+post_policy,post_policy__S01328926-I1,2025-12-08,2026-07-08,148,2,74+74,181 CANAL STREET;191 CANAL STREET,unable_to_verify,FALSE,39940,2,0,Staten Island,0,0.0032258064516129032
+post_policy,post_policy__S01330466-I1,2025-12-23,2026-07-08,89,1,89,84 PROSPECT STREET,not_applicable_single_component,FALSE,6300,2.43,0,Staten Island,0,0.0032258064516129032
+post_policy,post_policy__X00932163-I1,2026-03-25,2026-07-08,329,1,329,360 WEST FORDHAM ROAD,not_applicable_single_component,FALSE,162200,3.44,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X00945951-I1,2025-10-22,2026-07-08,347,1,347,310 EAST 161 STREET,not_applicable_single_component,FALSE,54172,6.0200000000000005,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01059040-I1,2025-01-07,2026-07-08,213,1,213,1545 JEROME AVENUE,not_applicable_single_component,TRUE,14000,4,0.79,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01089171-I1,2025-04-23,2026-07-08,56,1,56,21 EAST 198 STREET,not_applicable_single_component,TRUE,3240,6.02,0.99,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01129499-I1,2025-03-20,2026-07-08,68,1,68,2873 VALENTINE AVENUE,not_applicable_single_component,TRUE,3500,6.02,1.12,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01150556-I1,2025-03-27,2026-07-08,113,2,57+56,1006 EAST 173 STREET;1563 BOONE AVENUE,suggestive_separate_components,TRUE,20000,3,1.35,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01150557-I1,2025-04-11,2026-07-08,76,1,76,101 EAST KINGSBRIDGE ROAD,not_applicable_single_component,TRUE,5928,6.02,0.95,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01150558-I1,2025-03-27,2026-07-08,80,1,80,1660 BOONE AVENUE,not_applicable_single_component,TRUE,10906,4,2.05,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01157279-I1,2025-01-14,2026-07-08,213,1,213,720 THIERIOT AVENUE,not_applicable_single_component,TRUE,53725,2.43,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01166460-I1,2025-03-13,2026-07-08,78,1,78,10 VAN CORTLANDT AVENUE EAST,not_applicable_single_component,TRUE,7998,6.02,1.5,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01169727-I1,2025-01-27,2026-07-08,53,1,53,1376 INWOOD AVENUE,not_applicable_single_component,TRUE,2500,6.02,1.48,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01171565-I1,2025-03-10,2026-07-08,69,1,69,543 EAST 181 STREET,not_applicable_single_component,TRUE,7831,6.02,0,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01177042-I1,2025-03-03,2026-07-08,53,1,53,354 EAST 194 STREET,not_applicable_single_component,TRUE,6523,3,0.24,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01178424-I1,2025-04-24,2026-07-08,144,2,76+68,1777 WEST FARMS ROAD;1779 WEST FARMS ROAD,suggestive_separate_components,TRUE,21082,5,0.4573171425860924,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01186318-I1,2025-03-10,2026-07-08,77,1,77,1677 EASTBURN AVENUE,not_applicable_single_component,TRUE,2375,6.02,0.84,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01187721-I1,2025-03-04,2026-07-08,58,1,58,3771 WHITE PLAINS ROAD,not_applicable_single_component,TRUE,2680,2.43,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01190590-I1,2025-07-18,2026-07-08,93,1,93,299 EAST BURNSIDE AVENUE,not_applicable_single_component,FALSE,7860,3.4399999999999995,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01193962-I1,2025-06-25,2026-07-08,60,1,60,1822 CROTONA AVENUE,not_applicable_single_component,TRUE,3000,3.44,1.31,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01194154-I1,2025-03-17,2026-07-08,55,1,55,3006 WILLIAMSBRIDGE ROAD,not_applicable_single_component,TRUE,7300,2.43,0.4,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01194388-I1,2025-04-01,2026-07-08,57,1,57,1794 CLINTON AVENUE,not_applicable_single_component,TRUE,4592,3.44,0.32,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01197447-I1,2025-05-08,2026-07-08,99,1,99,216 EAST 201 STREET,not_applicable_single_component,TRUE,2250,6.02,1.1,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01199827-I1,2025-03-24,2026-07-08,51,1,51,449 JACKSON AVENUE,not_applicable_single_component,TRUE,3775,3.44,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01201390-I1,2025-03-31,2026-07-08,164,2,99+65,220 KIMBERLY PLACE;3008 GODWIN TERRACE,suggestive_separate_components,TRUE,18441,2.43,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01201502-I1,2025-05-15,2026-07-08,83,1,83,581 EAST 161 STREET,not_applicable_single_component,TRUE,2500,3.44,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01202004-I1,2025-03-31,2026-07-08,128,2,72+56,2106 CROTONA AVENUE;2110 CROTONA AVENUE,suggestive_separate_components,TRUE,7656,3.44,0.8066666666666666,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01202216-I1,2025-03-28,2026-07-08,64,1,64,1692 WEEKS AVENUE,not_applicable_single_component,TRUE,2850,6.02,1.08,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01206249-I1,2025-06-10,2026-07-08,76,1,76,2075 HONEYWELL AVENUE,not_applicable_single_component,TRUE,4218,3.44,0.56,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01207746-I1,2025-04-10,2026-07-08,92,1,92,1408 CROMWELL AVENUE,not_applicable_single_component,TRUE,8669,6.02,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01212075-I1,2025-04-30,2026-07-08,99,1,99,2748 JEROME AVENUE,not_applicable_single_component,TRUE,10000,6.02,1,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01213692-I1,2025-04-25,2026-07-08,54,1,54,2260 MORRIS AVENUE,not_applicable_single_component,TRUE,6098,6.02,1,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01219259-I1,2025-09-19,2026-07-08,304,1,304,350 GRAND CONCOURSE,not_applicable_single_component,FALSE,31100,6.02,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01220923-I1,2025-05-12,2026-07-08,98,1,98,852 EAST 176 STREET,not_applicable_single_component,TRUE,4078,3.44,0.59,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01221313-I1,2025-05-07,2026-07-08,52,1,52,1066 UNIVERSITY AVENUE,not_applicable_single_component,TRUE,2588,3.44,1.39,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01222893-I1,2025-05-16,2026-07-08,198,2,99+99,23 MOUNT HOPE PLACE;29 MT HOPE PLACE,suggestive_separate_components,TRUE,6250,6.02,1.2,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01223342-I1,2025-07-31,2026-07-08,297,3,99+99+99,4121 THIRD AVENUE;4133 THIRD AVENUE;4137 THIRD AVENUE,suggestive_separate_components,FALSE,19555,5,0.8690043467143953,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01225221-I1,2025-05-15,2026-07-08,73,1,73,1718 CROTONA PARK EAST,not_applicable_single_component,TRUE,6704,3.44,0.67,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01229428-I1,2025-06-06,2026-07-08,340,1,340,1674 BOONE AVENUE,not_applicable_single_component,TRUE,10658,5,1.59,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01233373-I1,2025-06-01,2026-07-08,198,2,99+99,940 WOODYCREST AVENUE;942 WOODYCREST AVENUE,verified_separate_485x_units,TRUE,11327,3.44,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01235438-I1,2025-06-18,2026-07-08,96,1,96,2760 MORRIS AVENUE,not_applicable_single_component,TRUE,2572,6.02,0.84,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01238419-I1,2025-06-10,2026-07-08,64,1,64,4212 PARK AVENUE,not_applicable_single_component,TRUE,9024,5,1.29,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01239762-I1,2025-06-16,2026-07-08,132,2,71+61,2095 ANTHONY AVENUE;2097 ANTHONY AVENUE,suggestive_separate_components,TRUE,14882,6.02,1,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01250288-I1,2025-07-07,2026-07-08,99,1,99,2484 ELM PLACE,not_applicable_single_component,TRUE,2006,3.44,0.94,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01250398-I1,2025-07-14,2026-07-08,255,3,94+84+77,2054 WALTON AVENUE;2060 WALTON AVENUE;57 EAST BURNSIDE AVENUE,suggestive_separate_components,FALSE,23000,6.02,0.9130434782608695,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01250967-I1,2025-07-11,2026-07-08,53,1,53,916 HOME STREET,not_applicable_single_component,FALSE,3299,3.44,0.57,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01252512-I1,2025-07-15,2026-07-08,112,2,56+56,338 GRAND CONCOURSE;344 GRAND CONCOURSE,suggestive_separate_components,FALSE,10892,6.02,0.5947227322805729,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01252547-I1,2025-07-08,2026-07-08,99,1,99,2258 MORRIS AVENUE,not_applicable_single_component,TRUE,3060,6.019999999999999,1.12,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01252589-I1,2025-07-09,2026-07-08,99,1,99,22 MT HOPE PLACE,not_applicable_single_component,FALSE,3125,6.02,0.98,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01252694-I1,2025-07-08,2026-07-08,84,1,84,2745 CRESTON AVENUE,not_applicable_single_component,TRUE,1654,6.02,0.89,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01252745-I1,2025-07-08,2026-07-08,99,1,99,623 EAST 178 STREET,not_applicable_single_component,TRUE,7287,3.44,1.1867709619871003,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01253814-I1,2025-07-13,2026-07-08,99,1,99,266 EAST 202 STREET,not_applicable_single_component,FALSE,2500,6.02,1.36,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01255412-I1,2025-07-24,2026-07-08,168,2,84+84,112 EAST 167 STREET;120 EAST 167 STREET,suggestive_separate_components,FALSE,16086,6.02,0.58,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01257696-I1,2025-08-11,2026-07-08,50,1,50,2419 CROTONA AVENUE,not_applicable_single_component,FALSE,2013,2.43,1.71,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01261535-I1,2025-10-07,2026-07-08,160,1,160,525 WALES AVENUE,not_applicable_single_component,FALSE,24300,3.44,0.49,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01262505-I1,2025-07-31,2026-07-08,55,1,55,2320 BELMONT AVENUE,not_applicable_single_component,FALSE,2500,3.44,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01265022-I1,2025-08-25,2026-07-08,298,2,207+91,1920 TURNBULL AVENUE;1933 LAFAYETTE AVENUE,suggestive_separate_components,FALSE,145120,6.02,2.7639949696802644,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01270754-I1,2026-02-12,2026-07-08,59,1,59,480 ROSEDALE AVENUE,not_applicable_single_component,FALSE,24800,1.25,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01273997-I1,2025-08-22,2026-07-08,80,1,80,280 EAST 203 STREET,not_applicable_single_component,FALSE,2442,6.02,0.76,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01275600-I1,2026-02-05,2026-07-08,99,1,99,2508 BATHGATE AVENUE,not_applicable_single_component,FALSE,8275,4.2,1,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01276512-I1,2025-11-04,2026-07-08,54,1,54,913 PIERCE AVENUE,not_applicable_single_component,FALSE,6264,0.75,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01293675-I1,2025-10-06,2026-07-08,293,1,293,1140 RIVER AVENUE,not_applicable_single_component,FALSE,17272,6.02,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01294705-I1,2025-10-05,2026-07-08,99,1,99,114 BRUCKNER BOULEVARD,not_applicable_single_component,FALSE,9500,6.02,0.16,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01297411-I1,2025-10-05,2026-07-08,64,1,64,3377 EASTCHESTER ROAD,not_applicable_single_component,FALSE,10001,1.25,0.33,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01298827-I1,2025-10-08,2026-07-08,55,1,55,2258 HUGHES AVENUE,not_applicable_single_component,FALSE,5025,3.44,0.33,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01298990-I1,2025-11-21,2026-07-08,510,1,510,2768 WEBSTER AVENUE,not_applicable_single_component,FALSE,42234,4.2,0.18,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01306345-I1,2025-11-10,2026-07-08,99,1,99,610 EAST 226 STREET,not_applicable_single_component,FALSE,3150,3.44,0.73,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01306444-I1,2025-12-10,2026-07-08,74,1,74,1481 BOSTON ROAD,not_applicable_single_component,FALSE,2512,3.4400000000000004,0.46,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01321206-I1,2025-11-24,2026-07-08,63,1,63,2323 VALENTINE AVENUE,not_applicable_single_component,FALSE,5000,6.02,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01323307-I1,2026-01-20,2026-07-08,483,1,483,2560 BOSTON ROAD,not_applicable_single_component,FALSE,47000,3.44,0.29,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01323712-I1,2025-11-24,2026-07-08,53,1,53,176 EAST 206 STREET,not_applicable_single_component,FALSE,3000,6.02,1.5,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01330109-I1,2025-12-16,2026-07-08,183,1,183,110 EAST 138 STREET,not_applicable_single_component,FALSE,29142,3.44,1.04,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01337054-I1,2025-12-29,2026-07-08,69,1,69,390 EAST 197 STREET,not_applicable_single_component,FALSE,5196,4.2,0.72,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01338717-I1,2026-04-27,2026-07-08,297,3,99+99+99,122 BRUCKNER BOULEVARD;20 BROOK AVENUE;521 EAST 132 STREET,suggestive_separate_components,FALSE,28700,6.02,0.6918815331010453,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01341100-I1,2026-01-05,2026-07-08,99,1,99,800 BRADY AVENUE,not_applicable_single_component,FALSE,12075,3.44,1.94,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01342626-I1,2026-01-08,2026-07-08,99,1,99,2786 WEBSTER AVENUE,not_applicable_single_component,FALSE,5400,4.2,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01345266-I1,2026-01-13,2026-07-08,82,1,82,3305 COUNTRY CLUB ROAD,not_applicable_single_component,FALSE,58000,0.5,0.53,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01346560-I1,2026-01-19,2026-07-08,70,1,70,2660 KINGSBRIDGE TERRACE,not_applicable_single_component,FALSE,12617,2.43,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01347911-I1,2026-03-19,2026-07-08,68,1,68,1682 WEEKS AVENUE,not_applicable_single_component,FALSE,2375,6.02,0.6,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01350003-I1,2026-03-23,2026-07-08,214,1,214,3116 THIRD AVENUE,not_applicable_single_component,FALSE,6644,6.02,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01351386-I1,2026-02-04,2026-07-08,60,1,60,950 LEGGETT AVENUE,not_applicable_single_component,FALSE,5375,3.44,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01352893-I1,2026-02-02,2026-07-08,89,1,89,311 EAST 148 STREET,not_applicable_single_component,FALSE,7721,3.44,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01353032-I1,2026-02-02,2026-07-08,80,1,80,3069 BARKER AVENUE,not_applicable_single_component,FALSE,4254,3.44,0.74,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01353589-I1,2026-03-27,2026-07-08,71,1,71,1640 ANTHONY AVENUE,not_applicable_single_component,FALSE,5174,3.4400000000000004,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01354549-I1,2026-02-04,2026-07-08,60,1,60,3070 WILLIAMSBRIDGE ROAD,not_applicable_single_component,FALSE,8100,2.43,0.27,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01357581-I1,2026-03-11,2026-07-08,99,1,99,3411 IRWIN AVENUE,not_applicable_single_component,FALSE,175000,2.43,1.97,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01363016-I1,2026-03-29,2026-07-08,62,1,62,1135 CLAY AVENUE,not_applicable_single_component,FALSE,4876,3.44,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01368451-I1,2026-03-16,2026-07-08,195,2,98+97,489 EAST 152 STREET;633 BERGEN AVENUE,suggestive_separate_components,FALSE,8612,3.44,0.2516256386437529,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01374198-I1,2026-03-26,2026-07-08,220,1,220,4541 FURMAN AVENUE,not_applicable_single_component,FALSE,24850,4.2,1,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01375075-I1,2026-03-27,2026-07-08,106,1,106,626 PELHAM PARKWAY SOUTH,not_applicable_single_component,FALSE,10017,3.4399999999999995,1.38,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01376382-I1,2026-03-26,2026-07-08,135,1,135,3041 WEBSTER AVENUE,not_applicable_single_component,FALSE,15140,4.2,2,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01377488-I1,2026-03-27,2026-07-08,159,2,83+76,1746 PILGRIM AVENUE;2890 BUHRE AVENUE,suggestive_separate_components,FALSE,21543,3.44,1.3778596295780532,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01378792-I1,2026-04-28,2026-07-08,53,1,53,1965 CLINTON AVENUE,not_applicable_single_component,FALSE,2500,3.44,1.06,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01379161-I1,2026-03-29,2026-07-08,99,1,99,175 ECHO PLACE,not_applicable_single_component,FALSE,10895,6.02,1.2,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01380303-I1,2026-04-01,2026-07-08,97,1,97,3374 BOSTON ROAD,not_applicable_single_component,FALSE,16860,2.43,1.23,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01380511-I1,2026-03-31,2026-07-08,99,1,99,2819 CRESTON AVENUE,not_applicable_single_component,FALSE,2506,6.02,0.9,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01380721-I1,2026-03-31,2026-07-08,161,2,81+80,1119 EDISON AVENUE;2923 BRUCKNER BOULEVARD,suggestive_separate_components,FALSE,6423,3,0,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01380790-I1,2026-03-31,2026-07-08,60,1,60,3367 WILSON AVENUE,not_applicable_single_component,FALSE,12705,2.43,0.88,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01380803-I1,2026-03-31,2026-07-08,99,1,99,2640 MORRIS AVENUE,not_applicable_single_component,FALSE,1748,6.02,1.1,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01384861-I1,2026-04-22,2026-07-08,68,1,68,497 EAST 166 STREET,not_applicable_single_component,FALSE,9312,3.44,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01386026-I1,2026-04-20,2026-07-08,52,1,52,2609 MARION AVENUE,not_applicable_single_component,FALSE,7988,3,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01387133-I1,2026-04-23,2026-07-08,198,2,99+99,1526 GRAND CONCOURSE;1557 SHERIDAN AVENUE,suggestive_separate_components,FALSE,29902,6.02,2.7042338305130094,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01392564-I1,2026-05-29,2026-07-08,99,1,99,2805 MORRIS AVENUE,not_applicable_single_component,FALSE,4182,6.02,0.68,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01393299-I1,2026-05-20,2026-07-08,63,1,63,2868 JEROME AVENUE,not_applicable_single_component,FALSE,5665,6.02,0.81,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01399986-I1,2026-05-12,2026-07-08,99,1,99,1917 MORRIS AVENUE,not_applicable_single_component,FALSE,6750,6.02,0,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01401011-I1,2026-05-14,2026-07-08,69,1,69,201 EAST 198 STREET,not_applicable_single_component,FALSE,2204,6.02,1.47,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01408506-I1,2026-06-12,2026-07-08,80,1,80,220 EAST 179 STREET,not_applicable_single_component,FALSE,1919,6.02,1.06,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01408773-I1,2026-06-02,2026-07-08,92,1,92,2257 MORRIS AVENUE,not_applicable_single_component,FALSE,2600,6.02,0.87,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01410192-I1,2026-06-24,2026-07-08,80,1,80,895 REV JAMES A POLITE AVENUE,not_applicable_single_component,FALSE,10961,3.4399999999999995,1.73,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01415890-I1,2026-06-26,2026-07-08,74,1,74,78 WEST 180 STREET,not_applicable_single_component,FALSE,4867,3.44,0.43,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01416342-I1,2026-06-15,2026-07-08,99,1,99,2112 COLONIAL AVENUE,not_applicable_single_component,FALSE,3742,3.44,0.5599999999999999,Bronx,0,0.0032258064516129032
+post_policy,post_policy__X01417499-I1,2026-06-17,2026-07-08,127,2,99+28,1489 BOSTON ROAD;1495 BOSTON ROAD,suggestive_separate_components,FALSE,4655,3.44,0.4926917293233083,Bronx,1,0.0032258064516129032
+post_policy,post_policy__X01418945-I1,2026-06-18,2026-07-08,92,1,92,457 WILLIS AVENUE,not_applicable_single_component,FALSE,16120,2.43,0.69,Bronx,0,0.0032258064516129032

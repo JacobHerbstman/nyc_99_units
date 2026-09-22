@@ -1,0 +1,24 @@
+Rows: 572
+Columns: 18
+Key fields: kappa, sigma_org
+Saved-file MD5: 6dcc4a3e2af0ed34d78862101751dd7f
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+kappa | numeric | nonmissing | 572 | distinct | 26 min/median/mean/max 0/0.0925/0.1385577/1
+sigma_org | numeric | nonmissing | 572 | distinct | 22 min/median/mean/max 0.0025/0.85/1.365568/10
+objective | numeric | nonmissing | 572 | distinct | 545 min/median/mean/max 0.00783381/0.01443991/0.01869759/0.04085737
+objective_J1 | numeric | nonmissing | 572 | distinct | 545 min/median/mean/max 0.003805295/0.007858984/0.01001802/0.02461426
+objective_J2 | numeric | nonmissing | 572 | distinct | 532 min/median/mean/max 0.001156748/0.00200212/0.001949589/0.002868531
+objective_J3plus | numeric | nonmissing | 572 | distinct | 544 min/median/mean/max 0.0002590897/0.002007892/0.00672999/0.02184672
+mean_units | numeric | nonmissing | 572 | distinct | 544 min/median/mean/max 154.8143/163.3641/163.272/164.3365
+share_99 | numeric | nonmissing | 572 | distinct | 374 min/median/mean/max 0.01667941/0.09305599/0.08834392/0.2529804
+share_J2 | numeric | nonmissing | 572 | distinct | 536 min/median/mean/max 0.07401556/0.08155093/0.08277266/0.09752126
+share_J3plus | numeric | nonmissing | 572 | distinct | 544 min/median/mean/max 0.01557617/0.1345002/0.1798869/0.4060145
+share_99x2 | numeric | nonmissing | 572 | distinct | 496 min/median/mean/max 0/0.001072538/0.001710417/0.01329653
+counterfactual_units | numeric | nonmissing | 572 | distinct | 1 min/median/mean/max 50944.31/50944.31/50944.31/50944.31
+observed_units | numeric | nonmissing | 572 | distinct | 1 min/median/mean/max 42341/42341/42341/42341
+predicted_units | numeric | nonmissing | 572 | distinct | 544 min/median/mean/max 47992.42/50642.87/50614.31/50944.31
+model_difference | numeric | nonmissing | 572 | distinct | 544 min/median/mean/max 4.365575e-11/301.4419/329.997/2951.888
+direct_difference | numeric | nonmissing | 572 | distinct | 1 min/median/mean/max 8603.312/8603.312/8603.312/8603.312
+rank | numeric | nonmissing | 572 | distinct | 572 min/median/mean/max 1/286.5/286.5/572
+objective_gap | numeric | nonmissing | 572 | distinct | 545 min/median/mean/max 0/0.006606102/0.01086378/0.03302356

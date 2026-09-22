@@ -20,8 +20,8 @@ include ../../shared/code/generic.make
 	../input/pair_decisions.csv $(foreach v,$(EARLY_MAPPLUTO_RELEASES),../input/mappluto_$(v).zip) \
 	$(foreach v,$(MAPPLUTO_RELEASES),../input/nyc_mappluto_$(v)_arc_shp.zip) \
 	$(foreach v,$(PLUTO_RELEASES),../input/nyc_pluto_$(v).zip) ../../shared/code/source_pipeline_utils.R \
-	../input/hdb_mappluto_site_panel.parquet ../input/dcp_housing_database_project_level_raw_25q4.parquet \
-	../input/dob_now_new_building_initial_filings.parquet ../input/mappluto_files.csv \
+	../input/historical_hdb_mappluto_site_panel.parquet ../input/dcp_housing_database_project_level_raw_23q4.parquet \
+	../input/mappluto_files.csv \
 	../../shared/code/write_data_report.R | $(OOPR)
 	$(R) $< 2010 2023 6
 
@@ -34,16 +34,12 @@ include ../../shared/code/generic.make
 	../input/mappluto_files.csv ../../shared/code/write_data_report.R | $(OOPR)
 	$(R) $< 2010 2023 365 30
 
-../input/hdb_mappluto_site_panel.parquet: \
-	../../build_hdb_mappluto_site_panel/output/hdb_mappluto_site_panel.parquet | ../input
+../input/historical_hdb_mappluto_site_panel.parquet: \
+	../../build_hdb_mappluto_site_panel/output/historical_hdb_mappluto_site_panel.parquet | ../input
 	ln -sf $< $@
 
-../input/dcp_housing_database_project_level_raw_25q4.parquet: \
-	../../stage_dcp_housing_database/output/dcp_housing_database_project_level_raw_25q4.parquet | ../input
-	ln -sf $< $@
-
-../input/dob_now_new_building_initial_filings.parquet: \
-	../../stage_dob_now_new_building_filings/output/dob_now_new_building_initial_filings.parquet | ../input
+../input/dcp_housing_database_project_level_raw_23q4.parquet: \
+	../../stage_dcp_housing_database/output/dcp_housing_database_project_level_raw_23q4.parquet | ../input
 	ln -sf $< $@
 
 ../input/mappluto_files.csv: ../../fetch_mappluto_archive/output/mappluto_files.csv | ../input

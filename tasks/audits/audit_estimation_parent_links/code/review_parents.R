@@ -2,6 +2,7 @@
 library(arrow)
 library(dplyr)
 library(readr)
+source("../../../shared/code/write_data_report.R")
 
 parents <- read_parquet("../input/parent_opportunity_panel.parquet") |>
   filter(included_ab, parent_total_units >= 50, composition_eligible, n_components > 1) |>
@@ -10,30 +11,62 @@ stopifnot(nrow(parents) > 0, !anyDuplicated(parents$parent_id))
 membership <- read_parquet("../input/symmetric_parent_membership.parquet")
 members <- membership |> semi_join(parents, by = "parent_id")
 stopifnot(!anyDuplicated(members[c("sample", "root_job_id")]))
-hdb <- read_parquet("../input/dcp_housing_database_project_level_raw_25q4.parquet")
+hdb_historical <- read_parquet("../input/dcp_housing_database_project_level_raw_23q4.parquet") |>
+  select(job_number, addressnum, addressst, classaprop, datelstupd, job_desc, latitude, longitude) |>
+  mutate(across(c(classaprop, latitude, longitude), as.numeric),
+    datelstupd = as.Date(datelstupd), sample = "historical", source_hdb_release = "23Q4")
+hdb_post <- read_parquet("../input/dcp_housing_database_project_level_raw_25q4.parquet") |>
+  select(job_number, addressnum, addressst, classaprop, datelstupd, job_desc, latitude, longitude) |>
+  mutate(across(c(classaprop, latitude, longitude), as.numeric),
+    datelstupd = as.Date(datelstupd), sample = "post_policy", source_hdb_release = "25Q4")
+hdb <- bind_rows(hdb_historical, hdb_post)
 dob <- read_parquet("../input/dob_now_new_building_initial_filings.parquet")
 history <- read_parquet("../input/dob_now_new_building_filings.parquet")
 historical <- read_parquet("../input/historical_parent_filing_link_fields.parquet")
 links <- read_parquet("../input/symmetric_parent_links.parquet")
+# Preserve the scope of each old review when the source change adds or removes filings.
+baseline <- read_csv("../input/prepolicy_baseline_filings_2026-09-22.csv",
+  show_col_types = FALSE, col_types = cols(root_job_id = col_character()))
+baseline_jobs <- baseline |> group_by(parent_id) |>
+  summarise(baseline_jobs = paste(sort(root_job_id), collapse = ";"), .groups = "drop")
+current_jobs <- membership |> filter(additive_component) |> group_by(parent_id) |>
+  summarise(current_jobs = paste(sort(root_job_id), collapse = ";"), .groups = "drop")
 evidence <- read_csv("parent_evidence.csv", show_col_types = FALSE) |>
   rename(original_parent_id = parent_id) |>
-  mutate(job_number = sub("^.*__", "", original_parent_id)) |>
-  left_join(membership |> select(job_number, parent_id), by = "job_number", relationship = "many-to-one")
-stopifnot(!anyNA(evidence$parent_id))
+  mutate(sample = sub("__.*$", "", original_parent_id),
+    root_job_id = sub("-I1$", "", sub("^.*__", "", original_parent_id))) |>
+  left_join(membership |> select(sample, root_job_id, parent_id),
+    by = c("sample", "root_job_id"), relationship = "many-to-one") |>
+  left_join(baseline |> select(sample, root_job_id, baseline_parent_id = parent_id),
+    by = c("sample", "root_job_id"), relationship = "many-to-one") |>
+  left_join(baseline_jobs, by = c("baseline_parent_id" = "parent_id"), relationship = "many-to-one") |>
+  left_join(current_jobs, by = "parent_id", relationship = "many-to-one") |>
+  mutate(review_scope = case_when(!parent_id %in% parents$parent_id ~ "Outside current multi-parent sample",
+    is.na(baseline_jobs) ~ "No dated filing-set comparison",
+    baseline_jobs != current_jobs ~ "Filing set changed; prior evidence is partial",
+    TRUE ~ "Filing set unchanged since dated baseline"))
+stopifnot(!anyDuplicated(evidence$original_parent_id))
+SaveData(evidence, "original_parent_id", "../output/parent_review_coverage.csv")
 evidence <- evidence |> semi_join(parents, by = "parent_id") |>
-  arrange(original_parent_id) |>
-  group_by(parent_id) |>
-  summarise(across(c(verdict, finding, limitation, sources),
+  arrange(original_parent_id) |> group_by(parent_id) |>
+  summarise(across(c(review_scope, verdict, finding, limitation, sources),
     ~ paste(unique(.x), collapse = " | ")), .groups = "drop")
+evidence <- parents |> select(parent_id) |>
+  left_join(evidence, by = "parent_id", relationship = "one-to-one") |>
+  mutate(review_scope = coalesce(review_scope, "No individual review in this evidence table"),
+    verdict = coalesce(verdict, "Unreviewed"),
+    finding = coalesce(finding, "Current membership comes from the production linking rules."),
+    limitation = coalesce(limitation, "Common development and complete site boundaries require review."),
+    sources = coalesce(sources, "Archived administrative records below"))
 neighbors <- read_csv("../output/nearby_filings.csv", show_col_types = FALSE)
-stopifnot(!anyDuplicated(hdb$job_number), !anyDuplicated(dob$job_number),
-          !anyDuplicated(historical$job_number), !anyDuplicated(evidence$parent_id),
-          setequal(parents$parent_id, evidence$parent_id))
+stopifnot(!anyDuplicated(hdb[c("sample", "job_number")]), !anyDuplicated(dob$job_number),
+  !anyDuplicated(historical$job_number), !anyDuplicated(evidence$parent_id),
+  setequal(parents$parent_id, evidence$parent_id))
 
 filings <- members |>
-  left_join(hdb |> transmute(root_job_id = job_number, hdb_address = paste(addressnum, addressst),
+  left_join(hdb |> transmute(sample, root_job_id = job_number, source_hdb_release, hdb_address = paste(addressnum, addressst),
     hdb_units = classaprop, hdb_date_updated = datelstupd, hdb_description = job_desc,
-    hdb_latitude = latitude, hdb_longitude = longitude), by = "root_job_id", relationship = "many-to-one") |>
+    hdb_latitude = latitude, hdb_longitude = longitude), by = c("sample", "root_job_id"), relationship = "many-to-one") |>
   left_join(dob |> transmute(root_job_id = job_number, dob_address = address,
     dob_initial_units = proposed_dwelling_units, dob_status = filing_status,
     dob_status_date = current_status_date, dob_bin = bin, dob_floor_area = total_construction_floor_area,
@@ -44,23 +77,24 @@ filings <- members |>
   left_join(historical |> transmute(root_job_id = job_number, historical_owner = pluto_owner_name,
     historical_description = description), by = "root_job_id", relationship = "many-to-one") |>
   mutate(address = if_else(sample == "historical", hdb_address, coalesce(dob_address, hdb_address)),
-    latitude = coalesce(dob_latitude, hdb_latitude), longitude = coalesce(dob_longitude, hdb_longitude)) |>
+    latitude = if_else(sample == "historical", hdb_latitude, coalesce(dob_latitude, hdb_latitude)),
+    longitude = if_else(sample == "historical", hdb_longitude, coalesce(dob_longitude, hdb_longitude))) |>
   arrange(parent_id, date_filed, root_job_id)
 totals <- filings |> filter(additive_component) |> group_by(parent_id) |>
   summarise(total = sum(units), count = n(), .groups = "drop")
 check <- left_join(parents, totals, by = "parent_id", relationship = "one-to-one")
 stopifnot(all(check$total == check$parent_total_units), all(check$count == check$n_components))
-write_csv(filings, "../output/parent_constituents.csv", na = "")
+SaveData(filings, c("sample", "root_job_id"), "../output/parent_constituents.csv")
 
 lines <- c(paste0("# Current ", nrow(parents), " multi-constituent estimation parents: evidence and outstanding questions"), "",
-  "Reviewed against saved HDB 25Q4 and DOB July 2026 records. Public-source review updated September 10, 2026.", "",
-  "A supported connection does not establish the correct decision-date unit count, complete project boundary, or common legal wage assessment. The manual source task applies the documented decisions in production. Written reviews below are mapped through filing IDs; when old parents merge, their evidence is combined explicitly. Updated decisions and remaining questions are documented in report/ten_case_deep_review.md.", "")
+  "Historical outcomes use HDB 23Q4; post-period outcomes use HDB 25Q4 with DOB fallback. July 2026 DOB fields are retrospective comparison evidence. Individual findings record their public-source review dates.", "",
+  "A supported connection does not establish the correct decision-date unit count, complete project boundary, or common legal wage assessment. The manual source task applies the documented decisions in production. Written reviews below are mapped through filing IDs. The scope label compares additive filing sets with the dated September 22 baseline. A changed set keeps the old findings as partial evidence, and newly entering parents remain unreviewed in this table. An unchanged set alone does not establish that every boundary or unit question is settled. Updated decisions and remaining questions are documented in report/ten_case_deep_review.md.", "")
 refilings <- read_csv("../output/refilings.csv", show_col_types = FALSE)
-lines <- c(lines, "## Automatic refiling correction", "",
+lines <- c(lines, "## Refiling corrections", "",
   paste0("The full membership file contains ", nrow(refilings),
-    " automatically detected replacement pairs. Counting only their replacement filings removes ",
+    " replacement pairs, including documented archived alternatives. Counting only their replacement filings removes ",
     sum(refilings$original_units), " duplicate units. Original proposal dates are retained; refiling dates are recorded separately."), "",
-  "The rule requires the same recorded building identifier, owner and applicant, with one non-withdrawn replacement filed after withdrawal. Ambiguous matches or matches spanning existing parents stop the build. The original review findings below predate this correction where they discuss withdrawn duplicates.", "",
+  "Historical automatic matches require the same archived BIN, lot and exact address, with one later nonwithdrawn application within the parent window. One documented historical alternative is applied from the manual source. The archive supplies withdrawal status, not its date. Post-period automatic matches require matching building, owner and applicant and a replacement filed after the observed withdrawal date. The original review findings below predate this correction where they discuss withdrawn duplicates.", "",
   "| Address | Original filing date | Refiling date | Original units removed | Replacement units retained |",
   "|---|---|---|---:|---:|")
 for (j in seq_len(nrow(refilings))) lines <- c(lines, paste0("| ", refilings$address[j],
@@ -84,9 +118,10 @@ for (i in seq_len(nrow(parents))) {
   l <- links |> filter(sample == p$sample, job_number_1 %in% f$job_number, job_number_2 %in% f$job_number)
   lines <- c(lines, paste0("## ", i, ". ", p$component_addresses), "",
     paste0("**", p$sorted_component_vector, " = ", p$parent_total_units, " units**; anchor ", p$cohort_date, ". `", p$parent_id, "`."), "",
-    paste0("**Review: ", e$verdict, ".** ", e$finding), "", paste0("Remaining question: ", e$limitation), "",
+    paste0("**Evidence scope: ", e$review_scope, ".**"), "",
+    paste0("**Prior finding: ", e$verdict, ".** ", e$finding), "", paste0("Remaining question: ", e$limitation), "",
     paste0("Evidence sources: ", e$sources), "",
-    "| Filing | Date | Address | Panel units | HDB | DOB I1 | Role |",
+    "| Filing | Date | Address | Panel units | Period HDB | July 2026 DOB I1 | Role |",
     "|---|---|---|---:|---:|---:|---|")
   for (j in seq_len(nrow(f))) {
     lines <- c(lines, paste0("| ", paste(c(f$root_job_id[j], as.character(f$date_filed[j]),
@@ -98,7 +133,7 @@ for (i in seq_len(nrow(parents))) {
       "; historical parcel owner: ", f$historical_owner[j], "; applicant: ", f$dob_applicant[j],
       ". Filing lot: ", f$filing_bbl[j], "; linkage lot: ", f$site_linkage_bbl[j], "."),
       paste0("  DOB status: ", f$dob_status[j], " as of ", f$dob_status_date[j], "; BIN ", f$dob_bin[j], "."),
-      paste0("  Description: ", coalesce(f$dob_description[j], f$historical_description[j], f$hdb_description[j]), "."))
+      paste0("  Description: ", if (p$sample == "historical") f$hdb_description[j] else coalesce(f$dob_description[j], f$hdb_description[j]), "."))
   }
   lines <- c(lines, "", "Recorded internal links:", "")
   for (j in seq_len(nrow(l))) lines <- c(lines, paste0("- ", l$job_number_1[j], " / ", l$job_number_2[j],

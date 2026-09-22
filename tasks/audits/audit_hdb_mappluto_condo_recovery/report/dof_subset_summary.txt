@@ -1,0 +1,18 @@
+Rows: 3
+Columns: 12
+Key fields: group
+Saved-file MD5: 94f1d6348c9eccca6853dc9d576d7abd
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+group | character | nonmissing | 3 | distinct | 3
+n | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 2/8/6.666667/10
+decreases | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 1/5/4/6
+increases | numeric | nonmissing | 3 | distinct | 2 min/median/mean/max 0/3/2/3
+mean_production_sqft | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 42247/50153.7/58060.4/81780.5
+mean_comparison_sqft | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 22684.25/33345.5/44006.75/75990.5
+mean_change_sqft | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max -19562.75/-16808.2/-14053.65/-5790
+change_in_mean_pct | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max -46.30565/-33.51338/-28.96632/-7.079927
+median_change_pct | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max -36.87318/-15.86465/-18.90921/-3.989802
+mean_change_pct | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max -3.989802/56.53154/41.4012/71.66188
+mean_absolute_change_sqft | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 5790/23000.8/18698.1/27303.5
+median_absolute_change_pct | numeric | nonmissing | 3 | distinct | 3 min/median/mean/max 3.989802/55.35814/40.79322/63.03171

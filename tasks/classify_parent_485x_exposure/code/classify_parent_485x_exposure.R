@@ -10,6 +10,8 @@ suppressPackageStartupMessages({
 source("../../shared/code/source_pipeline_utils.R")
 source("../../shared/code/write_data_report.R")
 
+historical_evidence_cutoff <- as.Date("2024-01-12")
+
 universe <- read_csv(
   "../output/parent_485x_exposure_universe.csv",
   show_col_types = FALSE,
@@ -29,6 +31,17 @@ ag_matches <- read_csv(
   show_col_types = FALSE,
   guess_max = Inf,
   na = c("", "NA")
+)
+
+historical_ag_supplement <- bind_rows(
+  read_csv(
+    "../input/historical_ag_query_supplement_2019_2022.csv",
+    show_col_types = FALSE, guess_max = Inf, na = c("", "NA")
+  ),
+  read_csv(
+    "../input/historical_ag_query_supplement_2023_companions.csv",
+    show_col_types = FALSE, guess_max = Inf, na = c("", "NA")
+  )
 )
 
 hpd_links <- read_csv(
@@ -54,11 +67,8 @@ valid_confidence <- c("high", "medium", "low")
 
 if (
   anyDuplicated(universe[c("sample", "root_job_id")]) ||
-    anyDuplicated(ag_search_audit[c("parent_id", "root_job_id")]) ||
-    anyDuplicated(
-      ag_matches[c("parent_id", "root_job_id", "plan_id")]
-    ) ||
     anyDuplicated(manual_reviews$parent_id) ||
+    any(!manual_reviews$parent_id %in% universe$parent_id) ||
     any(!manual_reviews$exposure_status %in% valid_statuses) ||
     any(!manual_reviews$confidence %in% valid_confidence)
 ) {
@@ -68,10 +78,49 @@ if (
 # Search evidence belongs to a filing and its queried address, not an old parent ID.
 current_queries <- universe |> select(sample, root_job_id, search_query = ag_search_query, parent_id)
 stopifnot(!anyDuplicated(current_queries[c("sample", "root_job_id", "search_query")]))
+
+supplement_counts <- historical_ag_supplement |>
+  group_by(sample, root_job_id, search_query) |>
+  summarise(
+    recorded_count = first(returned_plan_count),
+    recorded_count_values = n_distinct(returned_plan_count),
+    returned_rows = sum(!is.na(plan_id)),
+    http_status_values = n_distinct(search_http_status),
+    .groups = "drop"
+  )
+if (
+  anyNA(historical_ag_supplement[c("sample", "root_job_id", "search_query",
+    "search_http_status", "returned_plan_count")]) ||
+    any(historical_ag_supplement$sample != "historical") ||
+    any(historical_ag_supplement$search_http_status != 200L) ||
+    anyDuplicated(historical_ag_supplement[
+      c("sample", "root_job_id", "search_query", "plan_id")
+    ]) ||
+    any(supplement_counts$recorded_count_values != 1L) ||
+    any(supplement_counts$http_status_values != 1L) ||
+    any(supplement_counts$recorded_count != supplement_counts$returned_rows)
+) {
+  stop("The dated historical AG supplement failed query or plan-count QC.")
+}
+
 ag_search_audit <- ag_search_audit |>
   mutate(sample = sub("__.*$", "", parent_id)) |> select(-parent_id)
 ag_matches <- ag_matches |>
   mutate(sample = sub("__.*$", "", parent_id)) |> select(-parent_id)
+
+ag_search_audit <- bind_rows(
+  ag_search_audit,
+  historical_ag_supplement |>
+    select(all_of(names(ag_search_audit))) |>
+    distinct()
+)
+ag_matches <- bind_rows(
+  ag_matches,
+  historical_ag_supplement |>
+    filter(!is.na(plan_id)) |>
+    select(all_of(names(ag_matches)))
+)
+
 stopifnot(!anyDuplicated(ag_search_audit[c("sample", "root_job_id", "search_query")]),
   !anyDuplicated(ag_matches[c("sample", "root_job_id", "search_query", "plan_id")]))
 ag_search_audit <- ag_search_audit |>
@@ -140,8 +189,8 @@ ag_search_parent <- ag_search_audit |>
 ag_parent_evidence <- ag_matches |>
   inner_join(
     parent_universe |>
-      select(parent_id, cohort_date),
-    by = "parent_id",
+      select(parent_id, sample, cohort_date),
+    by = c("parent_id", "sample"),
     relationship = "many-to-one"
   ) |>
   mutate(
@@ -151,6 +200,8 @@ ag_parent_evidence <- ag_matches |>
     proposal_relevant_plan =
       exact_address_phrase_match &
       construction_type == "NEW" &
+      (sample == "post_policy" |
+        (!is.na(submitted_date) & submitted_date <= historical_evidence_cutoff)) &
       years_from_proposal >= -2 &
       years_from_proposal <= 5,
     plan_prefix = str_sub(str_to_upper(plan_id), 1L, 2L),
@@ -168,7 +219,8 @@ ag_parent_evidence <- ag_matches |>
     ag_accepted_offering_plan = any(
       market_homeownership_evidence &
         plan_prefix == "CD" &
-        !is.na(accepted_date)
+        !is.na(accepted_date) &
+        (sample == "post_policy" | accepted_date <= historical_evidence_cutoff)
     ),
     ag_cps1_market_test = any(
       market_homeownership_evidence & plan_prefix == "CP"
@@ -202,6 +254,7 @@ if (anyDuplicated(latest_hpd_by_job$root_job_id)) {
 }
 
 hpd_parent_evidence <- universe |>
+  filter(sample == "post_policy") |>
   select(parent_id, root_job_id) |>
   left_join(
     latest_hpd_by_job,
@@ -256,7 +309,8 @@ parent_evidence <- parent_universe |>
     ag_all_queries_succeeded = coalesce(ag_all_queries_succeeded, FALSE),
     ag_screen_complete =
       ag_queries == ag_queryable_components &
-      (ag_queries == 0L | ag_all_queries_succeeded),
+      (ag_queries == 0L | ag_all_queries_succeeded) &
+      (sample == "post_policy" | ag_queryable_components == component_filings),
     hpd_registered_components = coalesce(hpd_registered_components, 0L),
     manhattan_parent = boroughs == "Manhattan",
     conflicting_hpd_options = hpd_option_ab & hpd_option_d
@@ -312,6 +366,8 @@ parent_exposure <- parent_evidence |>
       hpd_option_d & manhattan_parent ~ "Option D registration conflicts with Manhattan eligibility rule",
       hpd_option_d ~ "Matched HPD 485-x Option D registration",
       hpd_other_option ~ "Matched HPD registration does not establish A/B or D exposure",
+      hotel_project & sample == "historical" ~
+        "23Q4 Housing Database description identifies a hotel project",
       hotel_project ~ "DOB or HDB description identifies a hotel project",
       ag_market_homeownership & manhattan_parent ~ "Matched Manhattan condominium offering or market-testing record",
       ag_market_homeownership ~ "Matched outer-borough condominium offering or market-testing record",
@@ -325,10 +381,19 @@ parent_exposure <- parent_evidence |>
       !is.na(manual_evidence_source) ~ manual_evidence_source,
       conflicting_hpd_options | hpd_option_ab | hpd_option_d |
         hpd_other_option ~ "HPD 485-x registration",
+      hotel_project & sample == "historical" ~
+        "23Q4 Housing Database filing description",
       hotel_project ~ "DOB or DCP Housing Database description",
       ag_market_homeownership ~ "NYS Attorney General Real Estate Finance Database",
+      (nycha_owner | government_owner | missing_ownership) &
+        sample == "historical" ~
+        "23Q4 Housing Database ownership and archived MapPLUTO owner",
       nycha_owner | government_owner | missing_ownership ~ "DOB and DCP Housing Database ownership",
+      !ag_screen_complete & sample == "historical" ~
+        "23Q4 Housing Database and archived MapPLUTO; incomplete AG screen",
       !ag_screen_complete ~ "DOB and DCP Housing Database; incomplete Attorney General screen",
+      sample == "historical" ~
+        "23Q4 Housing Database and archived MapPLUTO; dated AG screen",
       TRUE ~ "DOB and DCP Housing Database; negative HPD and AG screen"
     ),
     source_url = case_when(

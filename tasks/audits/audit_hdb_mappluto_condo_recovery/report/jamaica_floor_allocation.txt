@@ -1,0 +1,21 @@
+Rows: 8
+Columns: 15
+Key fields: bbl
+Saved-file MD5: 88231926963543be56c52c6b1f4f0e73
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+bbl | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 4097950000/4097950000/4097950000/4097950000
+plan_ground | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 3775/5263.5/7068/19012
+plan_other | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0/536.5/1627.125/5577
+included_ground_share | numeric | nonmissing | 8 | distinct | 4 min/median/mean/max 0/0.8303571/0.632705/0.8857143
+included_other_share | numeric | nonmissing | 8 | distinct | 4 min/median/mean/max 0/0/0.1810543/0.7647059
+other_share_low | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 0/0/0/0
+other_share_high | numeric | nonmissing | 8 | distinct | 3 min/median/mean/max 0/0/0.3135895/1
+basis | character | nonmissing | 8 | distinct | 7
+bldgarea | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 4451/6760/8726.625/21637
+lotarea | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 5544/9555.5/13942.5/40635
+plan_floor | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 4451/6870/8695.125/21764
+included_share | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0/0.8001155/0.6097295/0.8857143
+included_frozen_floor | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0/5181.112/5042.812/14058.28
+mezzanine_low_floor | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0/5059.247/4959.828/14058.28
+mezzanine_high_floor | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0/5251.584/5091.959/14058.28

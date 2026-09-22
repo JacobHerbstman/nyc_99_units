@@ -1,0 +1,12 @@
+Rows: 7
+Columns: 6
+Key fields: sample, geometry_pattern
+Saved-file MD5: 2c3c1a3a02b0ece938bffa3c1881dfd7
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 7 | distinct | 2
+geometry_pattern | character | nonmissing | 7 | distinct | 5
+parents | numeric | nonmissing | 7 | distinct | 6 min/median/mean/max 3/13/22.57143/86
+additional_source_reviews | numeric | nonmissing | 7 | distinct | 6 min/median/mean/max 1/4/4.714286/9
+area_comparisons | numeric | nonmissing | 7 | distinct | 3 min/median/mean/max 0/0/4.857143/18
+median_candidate_change_pct | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 3.657441/3.954646/3.954646/4.25185

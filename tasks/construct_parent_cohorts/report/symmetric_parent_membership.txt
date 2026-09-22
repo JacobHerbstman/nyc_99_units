@@ -1,52 +1,56 @@
-Rows: 8054
-Columns: 46
+Rows: 9602
+Columns: 50
 Key fields: sample, job_number
-Saved-file MD5: 6e423361d409b1dbe2eed0733f6e61cb
+Saved-file MD5: d27bcd732f5044c010c3ff4f778ab7b8
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 8054 | distinct | 2
-root_job_id | character | nonmissing | 8054 | distinct | 7323
-job_number | character | nonmissing | 8054 | distinct | 8054
-date_filed | Date | nonmissing | 8054 | distinct | 3095
-filing_year | integer | nonmissing | 8054 | distinct | 17 min/median/mean/max 2010/2019/2018.823/2026
-units | integer | nonmissing | 8054 | distinct | 437 min/median/mean/max 6/20/56.01055/1313
-hdb_priority_units | integer | nonmissing | 8054 | distinct | 437 min/median/mean/max 6/20/56.01055/1313
-dob_i1_units | numeric | nonmissing | 3228 | distinct | 312 min/median/mean/max 4/29/67.39126/1803
-unit_source | character | nonmissing | 8054 | distinct | 2
-filing_role | character | nonmissing | 8054 | distinct | 3
-additive_component | logical | nonmissing | 8054 | distinct | 2
-replacement_job_number | character | nonmissing | 15 | distinct | 14
-filing_bbl | character | nonmissing | 8054 | distinct | 7221
-site_linkage_bbl | character | nonmissing | 8054 | distinct | 7154
-geometry_available | logical | nonmissing | 8054 | distinct | 2
-component | integer | nonmissing | 8054 | distinct | 5730 min/median/mean/max 1/2013/2455.896/5918
-original_filing_date | Date | nonmissing | 8054 | distinct | 3094
-refiled | logical | nonmissing | 8054 | distinct | 2
-refiling_date | Date | nonmissing | 24 | distinct | 10
+sample | character | nonmissing | 9602 | distinct | 2
+root_job_id | character | nonmissing | 9602 | distinct | 8798
+job_number | character | nonmissing | 9602 | distinct | 9602
+date_filed | Date | nonmissing | 9602 | distinct | 3305
+filing_year | integer | nonmissing | 9602 | distinct | 17 min/median/mean/max 2010/2018/2018.496/2026
+units | integer | nonmissing | 9602 | distinct | 449 min/median/mean/max 0/18/51.0829/1313
+hdb_priority_units | integer | nonmissing | 9602 | distinct | 449 min/median/mean/max 0/18/51.0829/1313
+dob_i1_units | numeric | nonmissing | 3361 | distinct | 318 min/median/mean/max 0/29/67.22404/1803
+unit_source | character | nonmissing | 9602 | distinct | 2
+hdb_release | character | nonmissing | 9128 | distinct | 2
+historical_active | logical | nonmissing | 7466 | distinct | 2
+hdb_job_status | character | nonmissing | 7466 | distinct | 5
+filing_role | character | nonmissing | 9602 | distinct | 5
+additive_component | logical | nonmissing | 9602 | distinct | 2
+replacement_job_number | character | nonmissing | 112 | distinct | 106
+filing_bbl | character | nonmissing | 9602 | distinct | 7872
+site_linkage_bbl | character | nonmissing | 9602 | distinct | 7828
+geometry_available | logical | nonmissing | 9602 | distinct | 2
+component | integer | nonmissing | 9602 | distinct | 6974 min/median/mean/max 1/2650.5/3134.23/7466
+original_filing_date | Date | nonmissing | 9602 | distinct | 3293
+refiled | logical | nonmissing | 9602 | distinct | 2
+refiling_date | Date | nonmissing | 213 | distinct | 97
+refiling_basis | character | nonmissing | 213 | distinct | 3
 documented_units | integer | nonmissing | 6 | distinct | 4 min/median/mean/max 28/99/106.5/228
 documented_unit_definition | character | nonmissing | 6 | distinct | 1
 documented_unit_source_date | character | nonmissing | 6 | distinct | 3
 documented_unit_source | character | nonmissing | 6 | distinct | 3
-parent_anchor_job | character | nonmissing | 8054 | distinct | 7577
-parent_id | character | nonmissing | 8054 | distinct | 7577
-cohort_date | Date | nonmissing | 8054 | distinct | 3061
-cohort_year | integer | nonmissing | 8054 | distinct | 17 min/median/mean/max 2010/2019/2018.819/2026
-parent_last_filing_date | Date | nonmissing | 8054 | distinct | 3063
-parent_span_days | integer | nonmissing | 8054 | distinct | 80 min/median/mean/max 0/0/2.799603/353
-parent_source_filings | integer | nonmissing | 8054 | distinct | 9 min/median/mean/max 1/1/1.207847/20
-parent_observed_filings | integer | nonmissing | 8054 | distinct | 9 min/median/mean/max 1/1/1.203253/20
-parent_source_units | integer | nonmissing | 8054 | distinct | 449 min/median/mean/max 6/22/67.31388/1754
-parent_source_units_dob_i1 | numeric | nonmissing | 3227 | distinct | 333 min/median/mean/max 4/32/88.57732/2697
-parent_observed_units | integer | nonmissing | 8054 | distinct | 449 min/median/mean/max 6/22/67.07214/1754
-parent_observed_units_dob_i1 | numeric | nonmissing | 3227 | distinct | 332 min/median/mean/max 4/32/87.97397/2697
-parent_source_exact_99_filings | integer | nonmissing | 8054 | distinct | 7 min/median/mean/max 0/0/0.03563447/7
-parent_exact_99_filings | integer | nonmissing | 8054 | distinct | 7 min/median/mean/max 0/0/0.03563447/7
-parent_source_exact_99_filings_dob_i1 | integer | nonmissing | 3227 | distinct | 7 min/median/mean/max 0/0/0.08428881/7
-parent_exact_99_filings_dob_i1 | integer | nonmissing | 3227 | distinct | 7 min/median/mean/max 0/0/0.08428881/7
-member_order | integer | nonmissing | 8054 | distinct | 20 min/median/mean/max 1/1/1.103924/20
-source_start_date | Date | nonmissing | 8054 | distinct | 2
-source_end_date | Date | nonmissing | 8054 | distinct | 2
-left_window_observed | logical | nonmissing | 8054 | distinct | 2
-right_window_observed | logical | nonmissing | 8054 | distinct | 2
-full_window_observed | logical | nonmissing | 8054 | distinct | 2
-analysis_status | character | nonmissing | 8054 | distinct | 9
+parent_anchor_job | character | nonmissing | 9602 | distinct | 8771
+parent_id | character | nonmissing | 9602 | distinct | 8771
+cohort_date | Date | nonmissing | 9602 | distinct | 3246
+cohort_year | integer | nonmissing | 9602 | distinct | 17 min/median/mean/max 2010/2018/2018.486/2026
+parent_last_filing_date | Date | nonmissing | 9602 | distinct | 3252
+parent_span_days | integer | nonmissing | 9602 | distinct | 166 min/median/mean/max 0/0/7.14195/358
+parent_source_filings | integer | nonmissing | 9602 | distinct | 10 min/median/mean/max 1/1/1.285357/21
+parent_observed_filings | integer | nonmissing | 9602 | distinct | 11 min/median/mean/max 0/1/1.253905/20
+parent_source_units | integer | nonmissing | 9602 | distinct | 473 min/median/mean/max 0/21/63.75161/1754
+parent_source_units_dob_i1 | numeric | nonmissing | 3339 | distinct | 338 min/median/mean/max 3/31/90.49146/2697
+parent_observed_units | integer | nonmissing | 9602 | distinct | 470 min/median/mean/max 0/21/62.91231/1754
+parent_observed_units_dob_i1 | numeric | nonmissing | 3365 | distinct | 335 min/median/mean/max 0/30/88.33462/2697
+parent_source_exact_99_filings | integer | nonmissing | 9602 | distinct | 7 min/median/mean/max 0/0/0.02916059/7
+parent_exact_99_filings | integer | nonmissing | 9602 | distinct | 7 min/median/mean/max 0/0/0.02916059/7
+parent_source_exact_99_filings_dob_i1 | integer | nonmissing | 3339 | distinct | 7 min/median/mean/max 0/0/0.08265948/7
+parent_exact_99_filings_dob_i1 | integer | nonmissing | 3365 | distinct | 7 min/median/mean/max 0/0/0.0820208/7
+member_order | integer | nonmissing | 9602 | distinct | 21 min/median/mean/max 1/1/1.142679/21
+source_start_date | Date | nonmissing | 9602 | distinct | 2
+source_end_date | Date | nonmissing | 9602 | distinct | 2
+left_window_observed | logical | nonmissing | 9602 | distinct | 2
+right_window_observed | logical | nonmissing | 9602 | distinct | 2
+full_window_observed | logical | nonmissing | 9602 | distinct | 2
+analysis_status | character | nonmissing | 9602 | distinct | 9

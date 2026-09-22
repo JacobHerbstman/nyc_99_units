@@ -4,8 +4,8 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-calibration_formula <- ~ log_lot_area_z + residential_far_z +
-  built_far_z + multi_lot_indicator + borough
+# Match parcel characteristics and borough; lot assembly is a potential response.
+calibration_formula <- ~ log_lot_area_z + residential_far_z + built_far_z + borough
 
 prepare_calibration_data <- function(historical, target) {
   continuous_variables <- c(

@@ -1,37 +1,40 @@
-Rows: 5918
-Columns: 31
+Rows: 7466
+Columns: 34
 Key fields: job_number
-Saved-file MD5: 55e8f1259c928393ade0963cb7e46b8c
+Saved-file MD5: 8af10ba6930bc3c613c4c2ba489be1a0
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-job_number | character | nonmissing | 5918 | distinct | 5918
-date_filed | Date | nonmissing | 5918 | distinct | 2536
-filing_year | integer | nonmissing | 5918 | distinct | 14 min/median/mean/max 2010/2017/2016.954/2023
-units | integer | nonmissing | 5918 | distinct | 412 min/median/mean/max 6/17/54.04495/1313
-filing_bbl | character | nonmissing | 5918 | distinct | 5822
-prefiling_feature_bbl | character | nonmissing | 5918 | distinct | 5528
-pluto_source_id_used | character | nonmissing | 5918 | distinct | 2
-pluto_version_used | character | nonmissing | 5918 | distinct | 40
-pluto_safe_available_date | Date | nonmissing | 5918 | distinct | 40
-appbbl_recovery_used | logical | nonmissing | 5918 | distinct | 2
-appbbl_future_appdate_used_for_linkage | logical | nonmissing | 5918 | distinct | 2
-hdb_description | character | nonmissing | 2207 | distinct | 1962
-hdb_latitude | numeric | nonmissing | 5918 | distinct | 5892 min/median/mean/max 40.55182/40.7138/40.72935/40.90686
-hdb_longitude | numeric | nonmissing | 5918 | distinct | 5893 min/median/mean/max -74.15622/-73.93323/-73.92663/-73.72049
-dob_now_match | logical | nonmissing | 5918 | distinct | 2
-dob_owner_name | character | nonmissing | 1092 | distinct | 607
-dob_owner_match_key | character | nonmissing | 1084 | distinct | 605
-dob_description | character | nonmissing | 1092 | distinct | 995
-description | character | nonmissing | 2207 | distinct | 1965
-description_referenced_jobs | character | nonmissing | 88 | distinct | 87
-description_project_code | character | nonmissing | 1 | distinct | 1
-pluto_owner_type | character | nonmissing | 4085 | distinct | 7
-pluto_owner_name | character | nonmissing | 5875 | distinct | 5119
-pluto_owner_match_key | character | nonmissing | 5875 | distinct | 5099
-prefiling_xcoord | numeric | nonmissing | 5776 | distinct | 5066 min/median/mean/max 0/1002317/1003391/1061929
-prefiling_ycoord | numeric | nonmissing | 5776 | distinct | 5247 min/median/mean/max 0/199281.5/204630.3/269697
-archived_appbbl | character | nonmissing | 636 | distinct | 486
-archived_appdate | Date | nonmissing | 636 | distinct | 453
-prefiling_plutomapid | character | nonmissing | 5917 | distinct | 2
-archived_lot_history_group | character | nonmissing | 5918 | distinct | 5490
-archived_appdate_after_filing | logical | nonmissing | 5918 | distinct | 1
+job_number | character | nonmissing | 7466 | distinct | 7466
+date_filed | Date | nonmissing | 7466 | distinct | 2757
+filing_year | integer | nonmissing | 7466 | distinct | 14 min/median/mean/max 2010/2017/2016.922/2023
+units | integer | nonmissing | 7466 | distinct | 424 min/median/mean/max 6/15/48.74766/1313
+hdb_release | character | nonmissing | 7466 | distinct | 1
+historical_active | logical | nonmissing | 7466 | distinct | 2
+hdb_job_status | character | nonmissing | 7466 | distinct | 5
+filing_bbl | character | nonmissing | 7466 | distinct | 6641
+prefiling_feature_bbl | character | nonmissing | 7466 | distinct | 6347
+pluto_source_id_used | character | nonmissing | 7466 | distinct | 2
+pluto_version_used | character | nonmissing | 7466 | distinct | 40
+pluto_safe_available_date | Date | nonmissing | 7466 | distinct | 40
+appbbl_recovery_used | logical | nonmissing | 7466 | distinct | 2
+appbbl_future_appdate_used_for_linkage | logical | nonmissing | 7466 | distinct | 2
+hdb_description | character | nonmissing | 3383 | distinct | 2883
+hdb_latitude | numeric | nonmissing | 7466 | distinct | 6817 min/median/mean/max 40.50993/40.71198/40.72729/40.90685
+hdb_longitude | numeric | nonmissing | 7466 | distinct | 6817 min/median/mean/max -74.24722/-73.93326/-73.92643/-73.72048
+dob_now_match | logical | nonmissing | 7466 | distinct | 1
+dob_owner_name | character | nonmissing | 0 | distinct | 0
+dob_owner_match_key | character | nonmissing | 0 | distinct | 0
+dob_description | character | nonmissing | 0 | distinct | 0
+description | character | nonmissing | 3383 | distinct | 2883
+description_referenced_jobs | character | nonmissing | 142 | distinct | 136
+description_project_code | character | nonmissing | 0 | distinct | 0
+pluto_owner_type | character | nonmissing | 5181 | distinct | 7
+pluto_owner_name | character | nonmissing | 7416 | distinct | 6147
+pluto_owner_match_key | character | nonmissing | 7416 | distinct | 6121
+prefiling_xcoord | numeric | nonmissing | 7290 | distinct | 5850 min/median/mean/max 0/1002323/1003521/1061929
+prefiling_ycoord | numeric | nonmissing | 7290 | distinct | 6080 min/median/mean/max 0/198578.5/203886.5/269697
+archived_appbbl | character | nonmissing | 785 | distinct | 562
+archived_appdate | Date | nonmissing | 785 | distinct | 522
+prefiling_plutomapid | character | nonmissing | 7465 | distinct | 2
+archived_lot_history_group | character | nonmissing | 7466 | distinct | 6307
+archived_appdate_after_filing | logical | nonmissing | 7466 | distinct | 1

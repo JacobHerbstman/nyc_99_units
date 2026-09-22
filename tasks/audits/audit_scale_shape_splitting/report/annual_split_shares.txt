@@ -1,0 +1,15 @@
+Rows: 6
+Columns: 9
+Key fields: cohort_year
+Saved-file MD5: b687c6cf7a054fd3a43e97be27c718c6
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 6 | distinct | 2
+cohort_year | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 2019/2021.5/2022.167/2026
+parents | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 125/148.5/150.8333/185
+multiple_constituent_parents | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 8/10.5/15.33333/40
+multi_lot_parents | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 8/11.5/12.83333/23
+full_followup_parents | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0/131/112.1667/173
+multiple_constituent_share | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.05625/0.07646243/0.09663087/0.2162162
+multi_lot_share | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.0625/0.08136787/0.08359335/0.1243243
+full_followup_share | numeric | nonmissing | 6 | distinct | 3 min/median/mean/max 0/1/0.7369369/1

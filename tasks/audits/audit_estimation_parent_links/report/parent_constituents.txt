@@ -1,74 +1,79 @@
-Rows: 155
-Columns: 68
+Rows: 226
+Columns: 73
 Key fields: sample, root_job_id
-Saved-file MD5: 8d57bd622c59a265bc660f7d679095c1
+Saved-file MD5: 8305fb39233497e55920da77089a1eb2
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 155 | distinct | 2
-root_job_id | character | nonmissing | 155 | distinct | 155
-job_number | character | nonmissing | 155 | distinct | 155
-date_filed | Date | nonmissing | 155 | distinct | 96
-filing_year | numeric | nonmissing | 155 | distinct | 6 min/median/mean/max 2019/2025/2023.755/2026
-units | numeric | nonmissing | 155 | distinct | 84 min/median/mean/max 27/98/143.4903/811
-hdb_priority_units | numeric | nonmissing | 155 | distinct | 84 min/median/mean/max 27/98/143.4903/811
-dob_i1_units | numeric | nonmissing | 132 | distinct | 67 min/median/mean/max 27/98/150.303/899
-unit_source | character | nonmissing | 155 | distinct | 2
-filing_role | character | nonmissing | 155 | distinct | 2
-additive_component | logical | nonmissing | 155 | distinct | 2
+sample | character | nonmissing | 226 | distinct | 2
+root_job_id | character | nonmissing | 226 | distinct | 226
+job_number | character | nonmissing | 226 | distinct | 226
+date_filed | Date | nonmissing | 226 | distinct | 137
+filing_year | numeric | nonmissing | 226 | distinct | 7 min/median/mean/max 2019/2025/2023.181/2026
+units | numeric | nonmissing | 226 | distinct | 116 min/median/mean/max 8/98/133.1681/811
+hdb_priority_units | numeric | nonmissing | 226 | distinct | 116 min/median/mean/max 8/98/133.1681/811
+dob_i1_units | numeric | nonmissing | 182 | distinct | 90 min/median/mean/max 3/98/143.456/899
+unit_source | character | nonmissing | 226 | distinct | 2
+hdb_release | character | nonmissing | 194 | distinct | 2
+historical_active | logical | nonmissing | 104 | distinct | 2
+hdb_job_status | character | nonmissing | 104 | distinct | 5
+filing_role | character | nonmissing | 226 | distinct | 2
+additive_component | logical | nonmissing | 226 | distinct | 2
 replacement_job_number | character | nonmissing | 2 | distinct | 2
-filing_bbl | numeric | nonmissing | 155 | distinct | 133 min/median/mean/max 1003820000/3024720000/3071517000/5005270000
-site_linkage_bbl | numeric | nonmissing | 155 | distinct | 126 min/median/mean/max 1003820000/3024720000/3071517000/5005270000
-geometry_available | logical | nonmissing | 155 | distinct | 2
-component | numeric | nonmissing | 155 | distinct | 66 min/median/mean/max 1140/1898/2659.484/5660
-original_filing_date | Date | nonmissing | 155 | distinct | 95
-refiled | logical | nonmissing | 155 | distinct | 2
+filing_bbl | numeric | nonmissing | 226 | distinct | 191 min/median/mean/max 1003468000/3022494000/3089302000/5028660000
+site_linkage_bbl | numeric | nonmissing | 226 | distinct | 177 min/median/mean/max 1003468000/3022494000/3089302000/5028660000
+geometry_available | logical | nonmissing | 226 | distinct | 2
+component | numeric | nonmissing | 226 | distinct | 92 min/median/mean/max 1140/2024/3679.173/7191
+original_filing_date | Date | nonmissing | 226 | distinct | 136
+refiled | logical | nonmissing | 226 | distinct | 2
 refiling_date | Date | nonmissing | 4 | distinct | 1
+refiling_basis | character | nonmissing | 4 | distinct | 1
 documented_units | numeric | nonmissing | 6 | distinct | 4 min/median/mean/max 28/99/106.5/228
 documented_unit_definition | character | nonmissing | 6 | distinct | 1
 documented_unit_source_date | character | nonmissing | 6 | distinct | 3
 documented_unit_source | character | nonmissing | 6 | distinct | 3
-parent_anchor_job | character | nonmissing | 155 | distinct | 66
-parent_id | character | nonmissing | 155 | distinct | 66
-cohort_date | Date | nonmissing | 155 | distinct | 64
-cohort_year | numeric | nonmissing | 155 | distinct | 6 min/median/mean/max 2019/2025/2023.703/2026
-parent_last_filing_date | Date | nonmissing | 155 | distinct | 64
-parent_span_days | numeric | nonmissing | 155 | distinct | 25 min/median/mean/max 0/0/28.12258/337
-parent_source_filings | numeric | nonmissing | 155 | distinct | 4 min/median/mean/max 2/2/2.56129/6
-parent_observed_filings | numeric | nonmissing | 155 | distinct | 4 min/median/mean/max 2/2/2.509677/6
-parent_source_units | numeric | nonmissing | 155 | distinct | 58 min/median/mean/max 65/228/367.5806/1754
-parent_source_units_dob_i1 | numeric | nonmissing | 132 | distinct | 48 min/median/mean/max 86/198/397.5303/2697
-parent_observed_units | numeric | nonmissing | 155 | distinct | 57 min/median/mean/max 65/198/362.5226/1754
-parent_observed_units_dob_i1 | numeric | nonmissing | 132 | distinct | 47 min/median/mean/max 86/198/391.5909/2697
-parent_source_exact_99_filings | numeric | nonmissing | 155 | distinct | 5 min/median/mean/max 0/0/0.6322581/5
-parent_exact_99_filings | numeric | nonmissing | 155 | distinct | 5 min/median/mean/max 0/0/0.6322581/5
-parent_source_exact_99_filings_dob_i1 | numeric | nonmissing | 132 | distinct | 5 min/median/mean/max 0/0/0.6742424/5
-parent_exact_99_filings_dob_i1 | numeric | nonmissing | 132 | distinct | 5 min/median/mean/max 0/0/0.6742424/5
-member_order | numeric | nonmissing | 155 | distinct | 6 min/median/mean/max 1/2/1.780645/6
-source_start_date | Date | nonmissing | 155 | distinct | 2
-source_end_date | Date | nonmissing | 155 | distinct | 2
-left_window_observed | logical | nonmissing | 155 | distinct | 1
-right_window_observed | logical | nonmissing | 155 | distinct | 2
-full_window_observed | logical | nonmissing | 155 | distinct | 2
-analysis_status | character | nonmissing | 155 | distinct | 4
-hdb_address | character | nonmissing | 123 | distinct | 123
-hdb_units | numeric | nonmissing | 123 | distinct | 79 min/median/mean/max 0/99/157.3333/811
-hdb_date_updated | Date | nonmissing | 123 | distinct | 84
-hdb_description | character | nonmissing | 100 | distinct | 84
-hdb_latitude | numeric | nonmissing | 123 | distinct | 116 min/median/mean/max 40.57599/40.73416/40.73054/40.86372
-hdb_longitude | numeric | nonmissing | 123 | distinct | 116 min/median/mean/max -74.07938/-73.92025/-73.90764/-73.75023
-dob_address | character | nonmissing | 132 | distinct | 130
-dob_initial_units | numeric | nonmissing | 132 | distinct | 67 min/median/mean/max 27/98/150.303/899
-dob_status | character | nonmissing | 132 | distinct | 7
-dob_status_date | Date | nonmissing | 132 | distinct | 80
-dob_bin | numeric | nonmissing | 132 | distinct | 130 min/median/mean/max 1004565/3429321/3286516/5862959
-dob_floor_area | numeric | nonmissing | 132 | distinct | 126 min/median/mean/max 16976.8/75542.6/130242.1/807803
-dob_owner | character | nonmissing | 132 | distinct | 52
-dob_applicant | character | nonmissing | 132 | distinct | 29
-dob_description | character | nonmissing | 132 | distinct | 108
-dob_latitude | numeric | nonmissing | 129 | distinct | 126 min/median/mean/max 40.5934/40.74223/40.74151/40.86318
-dob_longitude | numeric | nonmissing | 129 | distinct | 126 min/median/mean/max -74.07916/-73.91518/-73.90463/-73.75031
-historical_owner | character | nonmissing | 52 | distinct | 30
-historical_description | character | nonmissing | 29 | distinct | 26
-address | character | nonmissing | 155 | distinct | 153
-latitude | numeric | nonmissing | 154 | distinct | 150 min/median/mean/max 40.57599/40.73491/40.73781/40.86318
-longitude | numeric | nonmissing | 154 | distinct | 150 min/median/mean/max -74.07916/-73.91888/-73.90572/-73.75031
+parent_anchor_job | character | nonmissing | 226 | distinct | 92
+parent_id | character | nonmissing | 226 | distinct | 92
+cohort_date | Date | nonmissing | 226 | distinct | 86
+cohort_year | numeric | nonmissing | 226 | distinct | 6 min/median/mean/max 2019/2025/2023.128/2026
+parent_last_filing_date | Date | nonmissing | 226 | distinct | 87
+parent_span_days | numeric | nonmissing | 226 | distinct | 36 min/median/mean/max 0/1.5/30.78761/337
+parent_source_filings | numeric | nonmissing | 226 | distinct | 6 min/median/mean/max 2/2/2.840708/8
+parent_observed_filings | numeric | nonmissing | 226 | distinct | 6 min/median/mean/max 2/2/2.80531/8
+parent_source_units | numeric | nonmissing | 226 | distinct | 79 min/median/mean/max 64/228/348.1239/1452
+parent_source_units_dob_i1 | numeric | nonmissing | 182 | distinct | 63 min/median/mean/max 15/213/388.9121/2697
+parent_observed_units | numeric | nonmissing | 226 | distinct | 78 min/median/mean/max 64/198/344.6549/1452
+parent_observed_units_dob_i1 | numeric | nonmissing | 182 | distinct | 62 min/median/mean/max 15/198/384.6044/2697
+parent_source_exact_99_filings | numeric | nonmissing | 226 | distinct | 6 min/median/mean/max 0/0/0.5752212/5
+parent_exact_99_filings | numeric | nonmissing | 226 | distinct | 6 min/median/mean/max 0/0/0.5752212/5
+parent_source_exact_99_filings_dob_i1 | numeric | nonmissing | 182 | distinct | 6 min/median/mean/max 0/0/0.6868132/5
+parent_exact_99_filings_dob_i1 | numeric | nonmissing | 182 | distinct | 6 min/median/mean/max 0/0/0.6868132/5
+member_order | numeric | nonmissing | 226 | distinct | 8 min/median/mean/max 1/2/1.920354/8
+source_start_date | Date | nonmissing | 226 | distinct | 2
+source_end_date | Date | nonmissing | 226 | distinct | 2
+left_window_observed | logical | nonmissing | 226 | distinct | 1
+right_window_observed | logical | nonmissing | 226 | distinct | 2
+full_window_observed | logical | nonmissing | 226 | distinct | 2
+analysis_status | character | nonmissing | 226 | distinct | 4
+source_hdb_release | character | nonmissing | 194 | distinct | 2
+hdb_address | character | nonmissing | 194 | distinct | 193
+hdb_units | numeric | nonmissing | 194 | distinct | 111 min/median/mean/max 8/99/140.3814/811
+hdb_date_updated | Date | nonmissing | 194 | distinct | 127
+hdb_description | character | nonmissing | 155 | distinct | 130
+hdb_latitude | numeric | nonmissing | 194 | distinct | 174 min/median/mean/max 40.57607/40.70684/40.72325/40.8777
+hdb_longitude | numeric | nonmissing | 194 | distinct | 174 min/median/mean/max -74.07938/-73.92874/-73.91938/-73.75023
+dob_address | character | nonmissing | 182 | distinct | 178
+dob_initial_units | numeric | nonmissing | 182 | distinct | 90 min/median/mean/max 3/98/143.456/899
+dob_status | character | nonmissing | 182 | distinct | 7
+dob_status_date | Date | nonmissing | 182 | distinct | 111
+dob_bin | numeric | nonmissing | 182 | distinct | 178 min/median/mean/max 1004565/3429366/3306761/5862959
+dob_floor_area | numeric | nonmissing | 182 | distinct | 175 min/median/mean/max 4018/77289.5/126214.8/807803
+dob_owner | character | nonmissing | 182 | distinct | 75
+dob_applicant | character | nonmissing | 182 | distinct | 40
+dob_description | character | nonmissing | 182 | distinct | 148
+dob_latitude | numeric | nonmissing | 178 | distinct | 172 min/median/mean/max 40.5934/40.70736/40.73329/40.87796
+dob_longitude | numeric | nonmissing | 178 | distinct | 169 min/median/mean/max -74.07916/-73.92039/-73.91054/-73.75031
+historical_owner | character | nonmissing | 104 | distinct | 57
+historical_description | character | nonmissing | 65 | distinct | 58
+address | character | nonmissing | 226 | distinct | 223
+latitude | numeric | nonmissing | 225 | distinct | 212 min/median/mean/max 40.57607/40.70739/40.72923/40.87796
+longitude | numeric | nonmissing | 225 | distinct | 212 min/median/mean/max -74.07938/-73.92478/-73.91646/-73.75031

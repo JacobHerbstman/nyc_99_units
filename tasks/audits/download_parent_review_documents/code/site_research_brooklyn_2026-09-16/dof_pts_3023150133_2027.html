@@ -1,0 +1,846 @@
+<!DOCTYPE HTML>
+<html lang='en-US' XMLNS:MPC><head runat='server'>
+	                            <title>NYC Finance</title>
+                                <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+                                <meta http-equiv='X-UA-Compatible' content='IE=9' />
+	                            <meta http-equiv='Keywords' content='CAMA, Assessment Administration, Tax'>
+	                            <meta http-equiv='Description' content='iasWorld'>
+	                            <meta name='Copyright' content='Tyler Technologies Inc, Akanda Solutions, LLC'> 
+                                <meta name='format-detection' content='telephone=no'>
+                                <link rel='icon' href='https://a836-pts-access.nyc.gov/CARE/images/custom/nyc_favicon.ico' type='image/x-icon'>
+                                <link rel='shortcut icon' href='https://a836-pts-access.nyc.gov/CARE/images/custom/nyc_favicon.ico' type='image/x-icon'>
+                                <meta http-equiv='pragma' content='no-cache'>
+                            
+                                <script>!function(e){var n="https://s.go-mpulse.net/boomerang/";if("False"=="True")e.BOOMR_config=e.BOOMR_config||{},e.BOOMR_config.PageParams=e.BOOMR_config.PageParams||{},e.BOOMR_config.PageParams.pci=!0,n="https://s2.go-mpulse.net/boomerang/";if(window.BOOMR_API_key="Q6N6W-AJSYM-MUV73-L8HRT-ALWQH",function(){function e(){if(!i){var e=document.createElement("script");e.id="boomr-scr-as",e.src=window.BOOMR.url,e.async=!0,o.parentNode.appendChild(e),i=!0}}function t(e){i=!0;var n,t,a,r,d=document,O=window;if(window.BOOMR.snippetMethod=e?"if":"i",t=function(e,n){var t=d.createElement("script");t.id=n||"boomr-if-as",t.src=window.BOOMR.url,BOOMR_lstart=(new Date).getTime(),e=e||d.body,e.appendChild(t)},!window.addEventListener&&window.attachEvent&&navigator.userAgent.match(/MSIE [67]\./))return window.BOOMR.snippetMethod="s",void t(o.parentNode,"boomr-async");a=document.createElement("IFRAME"),a.src="about:blank",a.title="",a.role="presentation",a.loading="eager",r=(a.frameElement||a).style,r.width=0,r.height=0,r.border=0,r.display="none",o.parentNode.appendChild(a);try{O=a.contentWindow,d=O.document.open()}catch(_){n=document.domain,a.src="javascript:var d=document.open();d.domain='"+n+"';void(0);",O=a.contentWindow,d=O.document.open()}if(n)d._boomrl=function(){this.domain=n,t()},d.write("<bo"+"dy onload='document._boomrl();'>");else if(O._boomrl=function(){t()},O.addEventListener)O.addEventListener("load",O._boomrl,!1);else if(O.attachEvent)O.attachEvent("onload",O._boomrl);d.close()}function a(e){window.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(!window.BOOMR||!window.BOOMR.version&&!window.BOOMR.snippetExecuted){window.BOOMR=window.BOOMR||{},window.BOOMR.snippetStart=(new Date).getTime(),window.BOOMR.snippetExecuted=!0,window.BOOMR.snippetVersion=12,window.BOOMR.url=n+"Q6N6W-AJSYM-MUV73-L8HRT-ALWQH";var o=document.currentScript||document.getElementsByTagName("script")[0],i=!1,r=document.createElement("link");if(r.relList&&"function"==typeof r.relList.supports&&r.relList.supports("preload")&&"as"in r)window.BOOMR.snippetMethod="p",r.href=window.BOOMR.url,r.rel="preload",r.as="script",r.addEventListener("load",e),r.addEventListener("error",function(){t(!0)}),setTimeout(function(){if(!i)t(!0)},3e3),BOOMR_lstart=(new Date).getTime(),o.parentNode.appendChild(r);else t(!1);if(window.addEventListener)window.addEventListener("load",a,!1);else if(window.attachEvent)window.attachEvent("onload",a)}}(),"".length>0)if(e&&"performance"in e&&e.performance&&"function"==typeof e.performance.setResourceTimingBufferSize)e.performance.setResourceTimingBufferSize();!function(){if(BOOMR=e.BOOMR||{},BOOMR.plugins=BOOMR.plugins||{},!BOOMR.plugins.AK){var n=""=="true"?1:0,t="",a="qcd4ywaxzvm3m2vlcnhq-f-d8e83a2dc-clientnsv4-s.akamaihd.net",o="false"=="true"?2:1,i={"ak.v":"41","ak.cp":"1775616","ak.ai":parseInt("1156038",10),"ak.ol":"0","ak.cr":6,"ak.ipv":4,"ak.proto":"h2","ak.rid":"a337347","ak.r":38938,"ak.a2":n,"ak.m":"dscb","ak.n":"essl","ak.cport":6350,"ak.gh":"23.55.170.162","ak.quicv":"","ak.tlsv":"tls1.3","ak.0rtt":"","ak.0rtt.ed":"","ak.csrc":"-","ak.acc":"","ak.t":"1789596495","ak.ak":"hOBiQwZUYzCg5VSAfCLimQ==JtJod/5PN+iLUUYeyGKlJBtT4elcBdiHgT80fKtZpBfiJqLEfHyEc0ELCCnIAyCzQvkYFu1+HPgYralZkZdR1umtxMYx1g4YUi8GoO7+mwQl1wVYvTRH1ObG4VdVWDIvq8kLyemxMELLg4SUSbxP7CbMHPnFqzISmzemAfoCiSATek9sJ05YCNOQadrZTUwMBkB2dIuW1MgiTJ002Df2sjLF2L/hhQUiYjb9FN+zTXWZT+jjP+wR99llG/PtX/8GKWQTD00vyelOC37jwKDi1X7Kwt4i0W7dhFePPHkXskHUuZfBxnWEG6XtJcodNmIcu+ty1Bpdh8mxdf9ljL9sktynI5eqHQ+yXIMMvuueDTVswMENYC+EX5a21qKLxCLZhHf0xR/zKMQCFJbWV0ZbqaBlEyDRx/Z5RMFFvl6X+Yg=","ak.pv":"4","ak.dpoabenc":"","ak.tf":o};if(""!==t)i["ak.ruds"]=t;var r={i:!1,av:function(n){var t="http.initiator";if(n&&(!n[t]||"spa_hard"===n[t]))i["ak.feo"]=void 0!==e.aFeoApplied?1:0,BOOMR.addVar(i)},rv:function(){var e=["ak.cport","ak.cr","ak.csrc","ak.gh","ak.ipv","ak.m","ak.n","ak.ol","ak.proto","ak.quicv","ak.tlsv","ak.0rtt","ak.0rtt.ed","ak.r","ak.acc","ak.t","ak.tf"];BOOMR.removeVar(e)}};BOOMR.plugins.AK={akVars:i,akDNSPreFetchDomain:a,init:function(){if(!r.i){var e=BOOMR.subscribe;e("before_beacon",r.av,null,null),e("onbeacon",r.rv,null,null),r.i=!0}return this},is_complete:function(){return!0}}}}()}(window);</script></head><link rel='stylesheet' href='https://a836-pts-access.nyc.gov/CARE/styles/font-awesome.min.css' type='text/css'><link rel='stylesheet' href='https://a836-pts-access.nyc.gov/CARE/styles/styles.css' type='text/css'><link rel='stylesheet' href='https://a836-pts-access.nyc.gov/CARE/styles/custom/override-NYC.css' type='text/css'><body id='thebody' class='normalpage' ><div id='pagewrapper'><div id='divSMaint' style='display:none;border-bottom:2px solid red;width:780'><table role='presentation' cellpadding='0' cellspacing='0' width=780><tr id='trSMaint' class='MessageBar' style='height:21px;vertical-align:middle;'><td id='tdSMaint'>&nbsp;The System is currently unavailable due to maintenance.  Please check again later.</td><td id='tdTimer' align='right'></td><td align="right" valign="middle" onmouseout="ChangeImage('out')" onmouseover="ChangeImage('over')"><img id="CloseMsgBar" src="../images/icons/Set1/closeicon-normal.gif" height="14px" alt="Hide Bar" style="vertical-align:middle; border:solid 1px white; cursor:pointer" onclick="HideBar()"  />&nbsp;</td></tr></table></div><script type='text/javascript' language='javascript'>function HideBar() { document.getElementById('divSMaint').style.display='none';SoapInvokeService(WS_ACCESS_MANAGER, 'HideBar', null, false)}function ChangeImage(el) { var img = document.getElementById('CloseMsgBar'); if (el == 'out') img.src = img.src.replace('closeicon-mouseover.gif', 'closeicon-normal.gif');  else img.src = img.src.replace('closeicon-normal.gif', 'closeicon-mouseover.gif'); }</script><input type='hidden' id='hdDefHelp' value='0'><input type='hidden' id='hdThisFile' value='datalets/datalet.aspx'><div id='outerheader'><div id='middleheader'>
+
+<header>
+    <div id='header'>
+        <div class='sitelogocontainer'>
+            <a href="http://www1.nyc.gov/site/finance/index.page" id="aIASWLink" tabindex="1" target="_blank" title="Click&#32;here&#32;to&#32;visit&#32;home&#32;page"><div class="sitelogo"></div></a>
+        </div>
+        <div class="HeaderSiteTitle"></div>
+        <div id='rightsection' class='HeaderLinks'>
+            <span id="RoleValue" class="HeaderLinks">
+                    </span><span id="lbRole"></span>
+            
+            <span id="lbHelp"><a class="Headerlinks Help" href="javascript:showHelp('')"
+                class='HeaderLinks' tabindex="1">
+                <img src='../images/common/icons/050.png' alt='Help' /></a> &nbsp;&nbsp; </span>
+            
+        </div>
+    </div>
+</header>
+
+<nav>
+       <div id='topmenu'><ul><li id='pd_Parent' aria-haspopup='listbox' role='combobox' class='unsel' onmouseover='menuOver_pd("pd_189", event, this)' onkeydown='menuOver_pd_OnArrowDown("pd_189", event, this)' onmouseout='menuOut("pd_189", event, this)' onfocus='menuOver_pd("pd_189", event, this)' onfocusout='menuOut("pd_189", event, this)'><a href='../forms/externallink.aspx?mode=http://www1.nyc.gov/site/finance/index.page'  aria-label='.. This list item has submenu. Click down arrow to open it.' target='' tabindex='1'><span>.<span style='font-size: 7'></span></span></a></li><li class='sel'><a href='../search/commonsearch.aspx?mode=address' target='' tabindex='1'><span>Property Information</span></a></li><li class='unsel'><a href='../forms/externallink.aspx?mode=https://www.nyc.gov/site/finance/property/property-tax-benefits.page' target='_blank' tabindex='1'><span>Apply for Exemptions</span></a></li><li class='unsel'><a href='../forms/externallink.aspx?mode=http://www1.nyc.gov/site/finance/about/contact-us.page' target='_blank' tabindex='1'><span>Get Help</span></a></li></ul></div>
+       <div id='secondarytopmenu'><ul><li class='unsel'><a href='../search/commonsearch.aspx?mode=address' target='' tabindex='1'><span>Property Address Search</span></a></li><li class='unsel'><a href='../search/commonsearch.aspx?mode=persprop' target='' tabindex='1'><span>&nbsp&nbsp&nbsp&nbsp&nbsp BBL Search &nbsp &nbsp &nbsp&nbsp&nbsp</span></a></li><li class='unsel'><a href='../search/commonsearch.aspx?mode=realprop' target='' tabindex='1'><span>&nbsp&nbsp&nbsp&nbsp&nbsp REUC Search &nbsp&nbsp&nbsp&nbsp&nbsp</span></a></li></ul></div>
+   </nav>
+<script language='Javascript' src='../Script/Menu.js'></script>
+<div role='listbox' id='pd_189' class='PullDownMenuLayer combo-menu' style='visibility:hidden; position: absolute; width:50; top:0; left:0' onmouseover='bMenuOn=true' onmouseout='menuOut(this.id)' onfocus='bMenuOn=true' onfocusout='menuOut(this.id)'>
+<div role='listbox' class='PullDownMenuItem'><a role='listbox' tabindex='-1' class='PullDownMenuItem' onclick='location="../forms/externallink.aspx?mode=http://www1.nyc.gov/site/finance/index.page"' onmouseover='this.className="MenuRowHL"' 
+onmouseout='menuLinkOut(this); this.className="PullDownMenuItem"' onfocus='this.className="MenuRowHL"' 
+onfocusout='menuLinkOut(this); this.className="PullDownMenuItem"' 
+onmousedown='this.className="MenuRowClicked"' id='pd_189item' title=''>&nbsp;&nbsp;&nbsp;</a></div></div>
+<script type="text/javascript" src="../script/soap.js?250814053718"></script>
+<script type="text/javascript" src="../script/Common.js?250814053718"></script>
+<script type="text/javascript">
+
+    function HeaderClick(link) {
+        var par = window.parent;
+        if (par == window) return true;
+        var op = par.opener;
+        if (op == null) return true;
+        if (op.HeaderClick == null) return true;
+        var id = link.id;
+        var el = op.document.getElementById(id);
+        if (el == null) return true;
+        if (!confirm("This command will close the current window.\nDo you want to proceed?")) return false;
+
+        if (document.createEvent) {
+            var evt = document.createEvent('MouseEvents');
+            evt.initEvent('click', true, false);
+            el.dispatchEvent(evt);
+        } else if (typeof el.onclick == 'function') {
+            el.click();
+        }
+
+        par.close();
+        op.focus();
+        return false;
+    }
+
+    function SetMyHome(url) {
+        var DLG_SETMYHOME = "center:yes; dialogHeight:180px; dialogWidth:240px; help:no; resizable:no; status:no; title:no";
+        window.showModalDialog('../Forms/SetMyHome.aspx?url=' + url, null, DLG_SETMYHOME);
+    }
+
+
+    function ShowSimpleHelp(url) {
+        var DLG_POPUP = "scrollbar= yes, height=600, Width=800, resizable=yes, status=no, titlebar=no";
+        if (url.indexOf("?") > 0) {
+            url += "&";
+        } else {
+            url += "?";
+        }
+        window.open(url, null, DLG_POPUP);
+    }
+
+    function ViewCompleted() {
+        var url = "../Maintain/ReportSpool.aspx?simple=1&runningJobs=0&batchJobs=2";
+        window.open(url, "Reports", "status=1, toolbar=0, height=650px, width=1000px, resizable=1, scrollbars=yes");
+    }
+
+    function PopupWindow2(url) {
+        var DLG_POPUP = "dialogLeft:0; dialogTop: 0; edge: sunken; scroll: yes; center:yes; dialogHeight:750; dialogWidth:1028; help:no; resizable:yes; status:no; title:no";
+        if (url.indexOf("?") > 0) {
+            url += "&";
+        } else {
+            url += "?";
+        }
+        url += "frameset=1";
+        window.showModalDialog(url, null, DLG_POPUP);
+    }
+
+    var gLastPopup = parseInt(Math.random() * 10);
+
+    function PopupWindow(url, noToolbar, name) {
+        var win = null;
+
+        if (name == null)
+            name = "";
+        else
+            name = name.replace(' ', "");
+
+        if (win == null) {
+            if (name == null || name.length == 0) name = "popup" + (gLastPopup++ % 10);
+            var params;
+            if (noToolbar) {
+                params = "fullscreen=no, titlebar=no, location=no, menubar=no, toolbar=no, resizable=yes, scrollbars=yes, status=yes, titlebar=yes";
+            } else {
+                params = null;
+            }
+            win = window.open(url, name, params);
+        }
+        return win;
+    }
+
+    function setRole(val, form) {
+        var url = window.location.href;
+        url = url.replace("#", "");
+        var i = url.indexOf("&");
+        if (i != -1) {
+            url = url.substr(0, i);
+        }
+        var pars = SoapBuildInputParam("SelectedRole", val);
+        pars += SoapBuildInputParam("URL", url);
+        var res = SoapInvokeService(WS_PUBLIC, "AssignSelectedRole", pars);
+        if (res == -1) {
+            location.href = "../Main/Home.aspx";
+        }
+        else {
+            location.reload();
+        }
+    }
+</script>
+</div></div><div id='wrapper' class='center'><div id='sidemenu' valign='top' class='columns' style='width:200; '><nav><div class='contentpanel'><div id='sidemenu'><ul class='navigation'><li class='unsel'><a href='../datalets/datalet.aspx?mode=profileall2&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>Property Info</span></a></li><li class='unsel'><a href='../datalets/datalet_input.aspx?mode=account_balance&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>Account Balance</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=acc_hist_summ&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>Account History</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=pa_pymts_hist&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>Payment History</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=pa_ref_hist&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>Refund History</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=nopv&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>Notices of Property Value</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=soa_docs&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>Property Tax Bills</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=benefits_pers&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>Benefits - Prop. Owners</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=benefits_comm&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>Benefits - Business & Construction</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=benefits_gov_nonprofit&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>Benefits - Gov & Non-Prof</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_parent&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>Market Values & Assessments</span></a></li><li class='sel'><a href='../datalets/datalet.aspx?mode=asmt_fin_2027&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2026-2027 Final</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_tent_2027&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2026-2027 Tentative</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_fin_2026&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2025-2026 Final</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_tent_2026&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2025-2026 Tentative</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_fin_2025&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2024-2025 Final</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_tent_2025&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2024-2025 Tentative</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_fin_2024&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2023-2024 Final</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_tent_2024&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2023-2024 Tentative</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_fin_2023&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2022-2023 Final</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_tent_2023&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2022-2023 Tentative</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_fin_2022&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2021-2022 Final</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_tent_2022&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2021-2022 Tentative</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_fin_2021&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2020-2021 Final</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_tent_2021&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2020-2021 Tentative</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_fin_2020&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp 2019-2020 Final</span></a></li><li class='unsel'><a href='../datalets/datalet.aspx?mode=asmt_hist&amp;UseSearch=no&amp;pin=3023150133&amp;jur=65&amp;taxyr=2027&amp;LMparent=20' target=''><span>&nbsp &nbsp &nbsp Prior Years</span></a></li></ul></div></div></nav></div><section><div id='bodyarea' >
+
+<script>
+var bOnLoad = false;
+</script>
+ <script type="text/javascript" src="../script/jquery-3.5.1.js"></script>
+ <script type="text/javascript" src="../script/jquery-migrate-3.3.1.js"></script>
+<style>
+    .holder { /*width:400px;*/ position:relative; }
+    .columns { float: none !important; }
+</style>
+
+<main> 
+<form name="frmMain" method="POST" action="./datalet.aspx?mode=asmt_fin_2027&amp;UseSearch=no&amp;jur=65&amp;taxyr=2027&amp;LMparent=20&amp;pin=3023150133" id="frmMain" style="position:relative;&#32;top:-5px;">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="OTDSJnN/P0/XyVBFc/CJPG9RNLP5W4iwMmv5LsoJF+M6EwSZi0QGAimGKXZdJXYhxdddDaOc3ntFTteZtWGhEvUGQguIo0wLsq+0j08oqydLil0yxOVvbZRVrg5lNEH6EfVEK8EW6R5ks0+2txOoiATfhEN1xka0oxizx2WhUAt4cWnBcw0mhjNvrY065xmoCXwxC6VZFyGhwP7Nb5tBgFal8DYNbI7FEyyEh4I1hflIllw/hJj5EIhQUv5o+o8+Q6EAfiLFOrXuCS44MAZrhcE1s+CmrCcUARrUHMfwpzTDRML7NXV5/9g8myODclYg+PM422sklCXdTDlsCQF818WScf6Sb3NF/C6FokWmVNAgL2dn/XUf7cePOk4ahdssLg4z8aVKp9vXGiVqQMdNgclPTtKVjU0mIDTGDwGAX21r6iYwd1EG4cwtjXqfzzIAR6XZhCoK9VhYCZ+tTjZJeg==" />
+
+  <div style='position:relative; top: 5px;' class='columns'>
+  <div class='contentpanel'><div style="min-width:500px; min-height:450px;max-width:1600px;   vertical-align:top;">
+	 <!--Container for datalet-->  
+  <table style="vertical-align:top;" width=600px cellpadding="2" cellspacing="2">
+		<tr>
+			<td valign="top" width="80%">
+				<table border="0" cellpadding="0" cellspacing="0" width="100%" class="WidgetBar" align="center">
+					<tr id="datalet_header_row" tabindex="0">
+						<td>
+							<h1><?xml version="1.0" encoding="utf-16"?><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr class="DataletHeaderTop" height="1"><td class="DataletHeaderBottom" width="50%" align="left" valign="top" colspan="2">279 NORTH 8TH STREET</td><td class="DataletHeaderBottom" width="50%" align="right" valign="top" colspan="2">Borough: BROOKLYN</td></tr><tr class="DataletHeaderTop" height="1"><td class="DataletHeaderBottom" width="50%" align="left" valign="top" colspan="2"></td><td class="DataletHeaderBottom" width="50%" align="right" valign="top" colspan="2">Block: 2315 Lot: 133</td></tr><tr height="1" class="BannerTabs"><td colspan="4" height="1" valign="top" width="100%"></td></tr><tr><td colspan="4" height="10" valign="top" width="100%"></td></tr></table>
+</h1>
+						</td>
+					</tr> 
+					<tr>
+						<td>
+                            <div class="holder">
+						    	<table align=center _width='100%' border='0' cellPadding=0 cellSpacing=0><tr><td align=center><br><b>-- No Data --</b></td></tr></table>
+
+
+                            </div>
+						</td>
+					</tr>					
+					<tr>
+						<td align="center">
+							<div class="holder">
+                                
+                            </div>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">
+                            <div class="holder">
+							    
+                            </div>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">
+                            <div class="holder">
+							    
+                            </div>
+						</td>
+					</tr>
+					
+				</table>
+			</td>
+		
+		</tr>
+	</table>
+	
+</div></div>
+    </div>
+
+  <!--Column for Side Widget-->
+  
+        <div style='position:relative; top: 5px;' class='columns'>
+				<div class='contentpanel'><div style="align: left; vertical-align:top; width:160px; overflow:hidden;">
+	 <!--Container Right hand panel-->  
+                    <table border="0" cellpadding="0" cellspacing="0" class="WidgetBar" align="center">
+					<tr id="trTaxYear">
+		<td class="DataletHeader" align="right">
+							
+<!-- record navigator: start -->
+
+
+<script type="text/javascript">
+    (function (window) {
+        if (!Tyler) { var Tyler = {}; }
+        Tyler.SyncWindow = function (paramCallback) {
+            var m_isEnabled = ("False" == "True");
+            var m_winRef = null;
+            var m_paramCallback = paramCallback;
+            var m_winName = "SyncWindow_" + "a836ptsaccessnycgovCARE";
+            var m_url = "../Forms/SyncWindow.aspx";
+            var m_lastQueryString = "";
+            var me = this;
+
+            this.IsEnabled = function () {
+                /// <summary>returns true if SyncWindow feature is enabled, false otherwise</summary>
+                /// <returns>boolean</returns>
+                return m_isEnabled;
+            }
+
+            this.SetCallback = function (callback) {
+                /// <summary>Sets the parameter callback function to be called by the SyncWindow.Open method</summary>
+                /// <returns>void</returns>
+                m_paramCallback = callback;
+            }
+
+            this.Open = function () {
+                /// <summary>(re)loads the SyncWindow window by passing a URL to it containing qeurystring parameters
+                /// built using the parameter callback function</summary>
+                /// <returns>void</returns>
+                if (m_isEnabled) {
+                    var parms = null;
+                    if (m_paramCallback) parms = m_paramCallback();
+                    if (parms != null) {
+                        var qs = "";
+                        for (var key in parms) {
+                            if (qs.length > 0) qs += "&";
+                            qs += key + "=" + parms[key];
+                        }
+                        if ("#" + qs != m_lastQueryString) {
+                            m_winRef = window.open(m_url + "#" + qs, m_winName);
+                        }
+                    }
+                }
+            }
+
+            this.Listen = function (el, evt) {
+                /// <summary>Registers the SyncWindow object as a listener of an event</summary>
+                /// <param name='el'>HTML element</param>
+                /// <param name='evt'>string event name</param>
+                /// <returns>void</returns>
+                if (el.addEventListener) {
+                    el.addEventListener(evt, this.Open);
+                }
+                else {
+                    el.attachEvent("on" + evt, this.Open);
+                }
+            }
+
+            this.GetBrowserWindowRef = function () {
+                /// <summary>Returns a browser window refernce for the window that was created by the SyncWindow object</summary>
+                /// <returns>browser window ref</returns>
+                return m_winRef;
+            }
+        }
+        
+        window.SyncWindow = new Tyler.SyncWindow();
+    }) (window);
+</script>
+
+
+
+
+<input name="DTLNavigator$idx" type="hidden" id="DTLNavigator_idx" value="1" />
+<table class="WidgetBar" cellspacing="0" cellpadding="0" width="130" border="0">
+
+    <tr align="middle">
+        <td nowrap align="middle" width="130">
+            <h5 class="SideBarHeading" style="margin: 1px;"  tabindex="2">Record Navigator</h5>
+            <table cellspacing="1" cellpadding="1" width="100%" align="center" border="0">
+                <tr valign="middle">
+                   
+                    <td valign="middle" align="middle" nowrap="noWrap" style="white-space:nowrap; width: 25px; vertical-align: middle;">
+                        <nav aria-label="Navigate to first or previous record area" tabindex="2">
+                        
+                        
+                        </nav>
+                    </td>
+                    <td width="100%" valign="middle" align="center">
+                        <input name="DTLNavigator$txtFromTo" type="text" id="DTLNavigator_txtFromTo" style="font-size:&#32;11px;&#32;color:&#32;#3d6599;&#32;width:&#32;100%;&#32;border-top-style:&#32;groove;&#32;border-right-style:&#32;groove;&#32;border-left-style:&#32;groove;&#32;border-bottom-style:&#32;groove;&#32;border-bottom-width:&#32;1px;&#32;border-top-width:&#32;1px;&#32;border-right-width:&#32;1px;&#32;border-left-width:&#32;1px;&#32;border-bottom-color:&#32;#3d6599;&#32;border-top-color:&#32;#3d6599;&#32;border-right-color:&#32;#3d6599;&#32;border-left-color:&#32;#3d6599;&#32;height:&#32;100%;&#32;background-color:&#32;white;&#32;text-align:&#32;center;&#32;vertical-align:&#32;top;" readonly="READONLY" aria-label="Record&#32;number" tabindex="2" value="1&#32;of&#32;1" />
+                    </td>
+                    <td valign="middle" align="middle" nowrap="noWrap" style="white-space:nowrap; width: 25px; vertical-align: middle;"><nav aria-label="Navigate to next or last record area">&nbsp;&nbsp;
+                        </nav>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+
+    
+    
+
+    <tr style="height: 6px;">
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            <hr />
+        </td>
+    </tr>
+    <tr align="left" style="height: 25px;">
+        <td class="SideBarHeading" style="height: 8px; text-align: left;">Actions</td>
+        <br />
+    </tr>
+    <tr align="left">
+        <td></td>
+    </tr>
+
+
+    
+    <tr valign="middle">
+        
+    </tr>
+    
+    <tr valign="middle">
+        
+    </tr>
+    
+    <tr>
+        <td id="DTLNavigator_lbPrintAll" align="left">
+            <a href="javascript:PrintDatalet('all')">
+                <image alt="Show all data in a printer friendly version" border="no"
+                    onclick="PrintDatalet()" src="../images/new/print.png" alt="Print">
+                    <font class="SideBarTabs" valign="middle" ><span style="vertical-align:top;" >Printable Summary</span></font></image>
+            </a>
+        </td>
+		
+    </tr>
+    
+    <tr>
+        <td id="DTLNavigator_lbPrintThis" valign="middle" align="left">
+            <a href="javascript:PrintDatalet()">
+                <image alt="Show this page in a printer friendly version" border="no" onclick="PrintDatalet()" alt="Print" src="../images/new/print.png">
+                    <font class="SideBarTabs"><span style="vertical-align:top;" >Printable Version</span></font></image>
+            </a>
+        </td>
+		
+    </tr>
+    
+
+    <!--new workflow stuff starts here-->
+    
+    <tr>
+        <td>
+            
+        </td>
+    </tr>
+    <tr align="left">
+        <td align="left">
+            
+        </td>
+    </tr>
+    
+    <tr>
+        <td>
+            <hr />
+        </td>
+    </tr>
+    <tr align="left" style="height: 25px;">
+        <td class="SideBarHeading" style="height: 8px; text-align: left;">
+            <div id="DTLNavigator_divExtraLinksLabel">More Info</div>
+        </td>
+        <br />
+    </tr>
+    <tr>
+        <td valign="middle" align="left">
+            <div id="DTLNavigator_dvAnyLinks"><html>
+
+<head>
+<style type="text/css">
+.auto-style1 {
+	color: #333333;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+}
+</style>
+
+                                <script>!function(e){var n="https://s.go-mpulse.net/boomerang/";if("False"=="True")e.BOOMR_config=e.BOOMR_config||{},e.BOOMR_config.PageParams=e.BOOMR_config.PageParams||{},e.BOOMR_config.PageParams.pci=!0,n="https://s2.go-mpulse.net/boomerang/";if(window.BOOMR_API_key="Q6N6W-AJSYM-MUV73-L8HRT-ALWQH",function(){function e(){if(!i){var e=document.createElement("script");e.id="boomr-scr-as",e.src=window.BOOMR.url,e.async=!0,o.parentNode.appendChild(e),i=!0}}function t(e){i=!0;var n,t,a,r,d=document,O=window;if(window.BOOMR.snippetMethod=e?"if":"i",t=function(e,n){var t=d.createElement("script");t.id=n||"boomr-if-as",t.src=window.BOOMR.url,BOOMR_lstart=(new Date).getTime(),e=e||d.body,e.appendChild(t)},!window.addEventListener&&window.attachEvent&&navigator.userAgent.match(/MSIE [67]\./))return window.BOOMR.snippetMethod="s",void t(o.parentNode,"boomr-async");a=document.createElement("IFRAME"),a.src="about:blank",a.title="",a.role="presentation",a.loading="eager",r=(a.frameElement||a).style,r.width=0,r.height=0,r.border=0,r.display="none",o.parentNode.appendChild(a);try{O=a.contentWindow,d=O.document.open()}catch(_){n=document.domain,a.src="javascript:var d=document.open();d.domain='"+n+"';void(0);",O=a.contentWindow,d=O.document.open()}if(n)d._boomrl=function(){this.domain=n,t()},d.write("<bo"+"dy onload='document._boomrl();'>");else if(O._boomrl=function(){t()},O.addEventListener)O.addEventListener("load",O._boomrl,!1);else if(O.attachEvent)O.attachEvent("onload",O._boomrl);d.close()}function a(e){window.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(!window.BOOMR||!window.BOOMR.version&&!window.BOOMR.snippetExecuted){window.BOOMR=window.BOOMR||{},window.BOOMR.snippetStart=(new Date).getTime(),window.BOOMR.snippetExecuted=!0,window.BOOMR.snippetVersion=12,window.BOOMR.url=n+"Q6N6W-AJSYM-MUV73-L8HRT-ALWQH";var o=document.currentScript||document.getElementsByTagName("script")[0],i=!1,r=document.createElement("link");if(r.relList&&"function"==typeof r.relList.supports&&r.relList.supports("preload")&&"as"in r)window.BOOMR.snippetMethod="p",r.href=window.BOOMR.url,r.rel="preload",r.as="script",r.addEventListener("load",e),r.addEventListener("error",function(){t(!0)}),setTimeout(function(){if(!i)t(!0)},3e3),BOOMR_lstart=(new Date).getTime(),o.parentNode.appendChild(r);else t(!1);if(window.addEventListener)window.addEventListener("load",a,!1);else if(window.attachEvent)window.attachEvent("onload",a)}}(),"".length>0)if(e&&"performance"in e&&e.performance&&"function"==typeof e.performance.setResourceTimingBufferSize)e.performance.setResourceTimingBufferSize();!function(){if(BOOMR=e.BOOMR||{},BOOMR.plugins=BOOMR.plugins||{},!BOOMR.plugins.AK){var n=""=="true"?1:0,t="",a="qcd4ywaxzvm3m2vlcnhq-f-d8e83a2dc-clientnsv4-s.akamaihd.net",o="false"=="true"?2:1,i={"ak.v":"41","ak.cp":"1775616","ak.ai":parseInt("1156038",10),"ak.ol":"0","ak.cr":6,"ak.ipv":4,"ak.proto":"h2","ak.rid":"a337347","ak.r":38938,"ak.a2":n,"ak.m":"dscb","ak.n":"essl","ak.cport":6350,"ak.gh":"23.55.170.162","ak.quicv":"","ak.tlsv":"tls1.3","ak.0rtt":"","ak.0rtt.ed":"","ak.csrc":"-","ak.acc":"","ak.t":"1789596495","ak.ak":"hOBiQwZUYzCg5VSAfCLimQ==JtJod/5PN+iLUUYeyGKlJBtT4elcBdiHgT80fKtZpBfiJqLEfHyEc0ELCCnIAyCzQvkYFu1+HPgYralZkZdR1umtxMYx1g4YUi8GoO7+mwQl1wVYvTRH1ObG4VdVWDIvq8kLyemxMELLg4SUSbxP7CbMHPnFqzISmzemAfoCiSATek9sJ05YCNOQadrZTUwMBkB2dIuW1MgiTJ002Df2sjLF2L/hhQUiYjb9FN+zTXWZT+jjP+wR99llG/PtX/8GKWQTD00vyelOC37jwKDi1X7Kwt4i0W7dhFePPHkXskHUuZfBxnWEG6XtJcodNmIcu+ty1Bpdh8mxdf9ljL9sktynI5eqHQ+yXIMMvuueDTVswMENYC+EX5a21qKLxCLZhHf0xR/zKMQCFJbWV0ZbqaBlEyDRx/Z5RMFFvl6X+Yg=","ak.pv":"4","ak.dpoabenc":"","ak.tf":o};if(""!==t)i["ak.ruds"]=t;var r={i:!1,av:function(n){var t="http.initiator";if(n&&(!n[t]||"spa_hard"===n[t]))i["ak.feo"]=void 0!==e.aFeoApplied?1:0,BOOMR.addVar(i)},rv:function(){var e=["ak.cport","ak.cr","ak.csrc","ak.gh","ak.ipv","ak.m","ak.n","ak.ol","ak.proto","ak.quicv","ak.tlsv","ak.0rtt","ak.0rtt.ed","ak.r","ak.acc","ak.t","ak.tf"];BOOMR.removeVar(e)}};BOOMR.plugins.AK={akVars:i,akDNSPreFetchDomain:a,init:function(){if(!r.i){var e=BOOMR.subscribe;e("before_beacon",r.av,null,null),e("onbeacon",r.rv,null,null),r.i=!0}return this},is_complete:function(){return!0}}}}()}(window);</script></head>
+
+<body>
+
+
+
+<a href="https://www.nyc.gov/site/finance/property/pts-faq.page" target ="_blank">
+<span class="auto-style1"><u>FAQ</U></span></a>
+
+<br>
+<br>
+</body>
+</html>
+</div>
+        </td>
+    </tr>
+    
+
+</table>
+<input name="DTLNavigator$hdRecCount" type="hidden" id="DTLNavigator_hdRecCount" value="0" />
+<input type="hidden" id="hdXPin" name="hdXPin" value="3023150133" />
+<input type="hidden" id="hdXJur" name="hdXJur" value="65" />
+<input type="hidden" id="hdXTaxYr" name="hdXTaxYr" value="" />
+<input name="DTLNavigator$hdTaxYear" type="hidden" id="DTLNavigator_hdTaxYear" />
+<input type="hidden" id="hdXUserName" name="hdXUserName" value="Default" />
+
+<script> 
+
+ var customReportBuilderRows= 0;
+ var bImplementsAjaxRecordNavigator = false;
+ var hasCustomReportBuilder = false;
+   
+    function OpenContactUs(id) {
+    var parid = document.getElementById("hdXPin").value;
+    var jur = document.getElementById("hdXJur").value;
+    var taxyr = document.getElementById("hdXTaxYr").value;
+    var ddtaxyr = document.getElementById("ddTaxYear");
+    if (ddtaxyr != null) {
+        taxyr = ddtaxyr.value;
+    }
+
+    var url = 'http://server.domain.com//contactus/#/contact/'+id + '/' + jur + "/" + parid + "/" + taxyr+ "/";
+
+
+    window.open(url,"_blank");
+}
+
+
+function CheckSyncWindow() {
+    if (window.SyncWindow.IsEnabled()) {
+        window.SyncWindow.SetCallback(GetSyncWindowParams);
+        window.SyncWindow.Open();
+        if (bImplementsAjaxRecordNavigator) {
+            el = document.getElementById("DTLNavigator_imageFirst");
+            if (el!=null) window.SyncWindow.Listen(el, "click");
+            el = document.getElementById("DTLNavigator_imagePrevious");
+            if (el!=null) window.SyncWindow.Listen(el, "click");
+            el = document.getElementById("DTLNavigator_imageNext");
+            if (el!=null) window.SyncWindow.Listen(el, "click");
+            el = document.getElementById("DTLNavigator_imageLast");
+            if (el!=null) window.SyncWindow.Listen(el, "click");
+
+        }
+    }
+}
+
+function GetSyncWindowParams() {
+    //debugger;
+    var sPinVal = document.getElementById("hdXPin").value;
+    if (sPinVal != "") {
+        var sUserNameVal = document.getElementById("hdXUserName").value;
+        var sJurVal = document.getElementById("hdXJur").value;
+        var sTaxYearVal = document.getElementById("hdXTaxYr").value;
+        var parms = {
+            "USERNAME": sUserNameVal,
+            "JUR": sJurVal,
+            "PARID": sPinVal,
+            "TAXYR": sTaxYearVal
+        };
+        return parms;
+    }
+    else {
+        return null;
+    }
+}
+
+//window.attachEvent("onload", CheckSyncWindow);
+
+function OpenIMEdit(param) {
+    var url = "../Maintain/SelectTransForEdit.aspx?frameset=1&" + param;
+    var dlg = "center:yes; dialogHeight:500px; dialogWidth:500px; help:no; resizable:yes; status:no; title:no";
+    var iMUrl = window.showModalDialog(url, null, dlg);
+    if (iMUrl != null) {
+        var name = "iMaintainTransaction";
+        var s = "location=no, resizable=yes, status=yes, menubar=no"
+        window.open(iMUrl, name, s);
+    }
+}
+
+function EditThis() {
+    var parid = document.getElementById("hdXPin").value;
+    var jur = document.getElementById("hdXJur").value;
+    var taxyr = document.getElementById("hdXTaxYr").value;
+    var ddtaxyr = document.getElementById("DTLNavigator_ddTaxYear");
+    if (ddtaxyr != null) {
+        taxyr = ddtaxyr.value;
+    }
+
+    OpenIMEdit("pin=" + parid + "&jur=" + jur + "&taxyr=" + taxyr);
+}
+function CreateWorkflow() {
+  var WS_WF = "../ActivityCenter/Services/WF.asmx";
+
+  var pars = SoapBuildInputParam("recordCount", 1);
+  var ret = SoapInvokeService(WS_WF, "CanUserCreateWorkflow", pars, false);
+  if (ret) {
+      ret = ret.replace("[br]", "\n");
+      ret = ret.replace("[br]", "\n");
+      ret = ret.replace("[br][br]", "\n\n");
+      alert(ret);
+      return;  // user is not allowed to create workflow
+  }
+
+  var parid = document.getElementById("hdXPin").value;
+  var jur = document.getElementById("hdXJur").value;
+  var taxyr = document.getElementById("hdXTaxYr").value;
+  var ddtaxyr = document.getElementById("ddTaxYear");
+  if (ddtaxyr != null) {
+      taxyr = ddtaxyr.value;
+  }
+  //var url = "../activitycenter/eventpublisher/publishevents.aspx?parid=" + parid + "&jur=" + jur + "&taxyear=" + taxyr;
+  var url = "../activitycenter/eventpublisher/publishevents.aspx?parid=" + jur + ":" + parid + ":" + taxyr;
+  var dlg = "center:yes; dialogHeight:800px; dialogWidth:500px; help:no; resizable:no; status:no; title:no; scroll:off;";
+  window.showModalDialog(url, null, dlg);
+}
+//scripts for Action Links **********************************
+function NBHDSearch(pin) {
+  var url = "../Search/NbhdSearch.aspx?pin=" + pin + "&fromDL=yes";
+  url += "&idx=" + sIdx + "&sIndex=" + sIndex;
+  //	alert(url);
+  document.frmMain.hdSkip.value = 1;
+  document.location.href = url;
+}
+function ProximitySearch(pin) {
+    var url = "../Search/proximitysearch.aspx?pin=" + pin + "&fromDL=yes";
+    url += "&idx=" + sIdx + "&sIndex=" + sIndex;    
+    document.frmMain.hdSkip.value = 1;
+    document.location.href = url;
+}
+function PrintDatalet(val) {
+  var doc = document.frmMain;
+  var url = '../Datalets/PrintDatalet.aspx?pin=' + doc.hdPin.value +
+		'&gsp=' + doc.hdMode.value + '&taxyear=' + doc.hdTaxYear.value +
+		'&jur=' + doc.hdJur.value + '&ownseq=' + doc.hdOwnSeq.value +
+		'&card=' + doc.hdCard.value + '&roll=' + roll +
+		'&State=' + doc.hdMask.value + '&item=' + doc.hdItem.value +
+		'&items=' + doc.hdItems.value + '&all=' + val + "&ranks=" + ranks;
+  window.open(url, 'Print', "location=no, scrollbars=yes, menubar=yes, resizable=yes, width=900");
+}
+
+function CreateComparables() {
+    var url = "../Forms/Comparables.aspx?showSearch=1&sIndex=" + sIndex + "&idx=" + sIdx;
+    window.location.href = url;
+}
+
+$(document).ready(function () {
+
+    if(hasCustomReportBuilder)
+    {
+        getLeftMenuLinks();
+    }       
+});    
+
+function getLeftMenuLinks(){    
+    
+    var links = [];
+    if($('#sidemenu')){
+        
+        $('#sidemenu').find('a').each(function() {
+        
+            var href = $(this).attr('href');
+            var dataletLabel = $(this).find('span').text();        
+            if(href.indexOf('datalet.aspx') != -1)
+            {
+                var stringArray  = href.split("=");
+                var idx = stringArray[1].indexOf('&');
+                if(idx != -1)
+                {
+                    var dataletName = stringArray[1].substr(0, idx);
+                    links.push({ Name: dataletName, Label: dataletLabel, Position: 0})                  
+                }
+            }
+        
+            if(href.indexOf('photoview.aspx' ) != -1 || href.indexOf('photoviewfixed.aspx') != -1){
+                links.push({ Name: "PHOTO", Label: dataletLabel })   
+            }
+            if(href.indexOf('map.aspx') != -1){
+                links.push({ Name: "MAP", Label: dataletLabel })   
+            }
+            if(href.indexOf('sketchframe.aspx') != -1){
+                links.push({ Name: "SKETCH", Label: dataletLabel })   
+            }
+            if(href.indexOf('pictometryipa.aspx') != -1){
+                links.push({ Name: "PICTOMETRY", Label: dataletLabel })   
+            }
+        });
+    
+        customReportBuilderRows = links.length;
+ 
+        var request = $.ajax({
+            dataType: "json",
+            url: "../api/printformdata/links",
+            method: "POST",
+            data: { '': links },
+            //success: openCustomReportBuilderWindow()        
+        });
+    }    
+}
+
+function openCustomReportBuilderWindow(){
+
+    var doc = document.frmMain;   
+
+    var url = '../Datalets/CustomReportBuilder/printForm.html?pin=' + doc.hdPin.value +
+          '&gsp=' + doc.hdMode.value + '&taxyear=' + doc.hdTaxYear.value +
+          '&jur=' + doc.hdJur.value + '&ownseq=' + doc.hdOwnSeq.value +
+          '&card=' + doc.hdCard.value + '&roll=' + roll +
+          '&State=' + doc.hdMask.value + '&item=' + doc.hdItem.value +
+          '&items=' + doc.hdItems.value + '&all=' + "" + "&ranks=" + ranks;  
+    
+    var windowHeight = customReportBuilderRows*25 + 200;
+    
+    var options = "location=no, scrollbars=yes, menubar=yes, resizable=yes, width=500, height="+ windowHeight;
+
+    window.open(url, 'CustomReportBuilder', options);
+}
+
+//END Action Links ******************************************
+
+</script>
+
+
+<!-- record navigator: end -->
+
+						</td>
+	</tr>
+					     
+				    </table>
+               
+</div></div>
+        </div>
+<input name="hdIDX" type="hidden" id="hdIDX" />
+	<input name="hdPin" type="hidden" id="hdPin" value="3023150133" />
+    <input name="hdItemKey" type="hidden" id="hdItemKey" />
+	<input name="hdTaxYear" type="hidden" id="hdTaxYear" value="2027" />
+	<input name="hdJur" type="hidden" id="hdJur" value="65" />
+	<input name="hdOwnSeq" type="hidden" id="hdOwnSeq" value="0" />
+	<input name="hdMode" type="hidden" id="hdMode" value="ASMT_FIN_2027" />
+	<input name="hdCard" type="hidden" id="hdCard" value="1" />
+	<input name="hdRoll" type="hidden" id="hdRoll" />
+	<input name="hdItem" type="hidden" id="hdItem" value="1" />
+	<input name="hdItems" type="hidden" id="hdItems" value="-1" />
+	<input name="hdMask" type="hidden" id="hdMask" value="1" />
+	<input name="hdsIndex" type="hidden" id="hdsIndex" value="-1" />
+	<input type="hidden" id="hdSkip" name="hdSkip">
+
+</form>
+</main>
+
+<script >
+//    alert("onload");
+    //window.attachEvent("onload", WindowOnLoad);
+    //window.addEventListener("onload", WindowOnLoad);
+    window.onload=function(){
+        
+        var skip = document.frmMain.hdSkip;
+        if (skip != null && skip.value == "1") {
+            frmMain.submit();
+        }
+	
+        //added for map
+        //alert(bOnLoad);
+        if (bOnLoad) body_onload();
+        if (newPinFromMap) updateFrmPinParam();
+    };
+        
+</script>
+
+<script>
+
+var gPin = "3023150133";
+var thisURL = "https://a836-pts-access.nyc.gov/care/datalets/datalet.aspx?mode=asmt_fin_2027&UseSearch=no&jur=65&taxyr=2027&LMparent=20&pin=3023150133";
+var sIndex	= "-1";
+var sIdx	= "1";
+var ranks	= "Datalet";
+var DLG_EMAIL = "center:yes; dialogHeight:300px; dialogWidth:600px; help:no; resizable:no; status:no; title:no";
+var roll = "";
+var newPinFromMap = false;
+
+function showReport(el)
+{
+	var report = document.getElementById("Reports_currentrecs");
+	var val = trim(report.value);
+	if (val.length == 0)
+	{
+		alert("Please select report");
+		return;
+	}
+	var url = "../Reports/ReportAV2.aspx?Pin=" + gPin + "&Report=" + val;
+	window.open(url, 'w1', 'width=800, height=600');
+}
+
+function OpenIRIncident(id)
+{
+	var url = '../Respond/IncidentDetail.aspx?id=' + id + '&mode=link';
+	
+		var s;
+		s = "fullscreen=no, titlebar=no, location=no, menubar=no, toolbar=no, resizable=yes, scrollbars=yes, status=yes, titlebar=yes"; 
+		return window.open(url, 'OpenIRIncident', s);
+}
+
+window.focus();
+
+</script>
+
+
+</div></section></div></div><footer><div id='footerarea' ><div id='footercontent' ><div id="dvFooter" style="clear:both;&#32;text-align:center;">
+<head>
+
+<style type="text/css">
+.auto-style1 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.auto-style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+}
+.auto-style3 {
+	font-size: medium;
+}
+.auto-style5 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: xx-small;
+	text-align: left;
+	margin-top: 0px;
+	color:#ffffff;
+}
+.auto-style6 {
+	text-align: left;
+}
+.auto-style8 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+	text-align: left;
+}
+.auto-style9 {
+	border-width: 0px;
+}
+
+a:link {
+    color: #ffffff !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+</style>
+
+
+                                <script>!function(e){var n="https://s.go-mpulse.net/boomerang/";if("False"=="True")e.BOOMR_config=e.BOOMR_config||{},e.BOOMR_config.PageParams=e.BOOMR_config.PageParams||{},e.BOOMR_config.PageParams.pci=!0,n="https://s2.go-mpulse.net/boomerang/";if(window.BOOMR_API_key="Q6N6W-AJSYM-MUV73-L8HRT-ALWQH",function(){function e(){if(!i){var e=document.createElement("script");e.id="boomr-scr-as",e.src=window.BOOMR.url,e.async=!0,o.parentNode.appendChild(e),i=!0}}function t(e){i=!0;var n,t,a,r,d=document,O=window;if(window.BOOMR.snippetMethod=e?"if":"i",t=function(e,n){var t=d.createElement("script");t.id=n||"boomr-if-as",t.src=window.BOOMR.url,BOOMR_lstart=(new Date).getTime(),e=e||d.body,e.appendChild(t)},!window.addEventListener&&window.attachEvent&&navigator.userAgent.match(/MSIE [67]\./))return window.BOOMR.snippetMethod="s",void t(o.parentNode,"boomr-async");a=document.createElement("IFRAME"),a.src="about:blank",a.title="",a.role="presentation",a.loading="eager",r=(a.frameElement||a).style,r.width=0,r.height=0,r.border=0,r.display="none",o.parentNode.appendChild(a);try{O=a.contentWindow,d=O.document.open()}catch(_){n=document.domain,a.src="javascript:var d=document.open();d.domain='"+n+"';void(0);",O=a.contentWindow,d=O.document.open()}if(n)d._boomrl=function(){this.domain=n,t()},d.write("<bo"+"dy onload='document._boomrl();'>");else if(O._boomrl=function(){t()},O.addEventListener)O.addEventListener("load",O._boomrl,!1);else if(O.attachEvent)O.attachEvent("onload",O._boomrl);d.close()}function a(e){window.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(!window.BOOMR||!window.BOOMR.version&&!window.BOOMR.snippetExecuted){window.BOOMR=window.BOOMR||{},window.BOOMR.snippetStart=(new Date).getTime(),window.BOOMR.snippetExecuted=!0,window.BOOMR.snippetVersion=12,window.BOOMR.url=n+"Q6N6W-AJSYM-MUV73-L8HRT-ALWQH";var o=document.currentScript||document.getElementsByTagName("script")[0],i=!1,r=document.createElement("link");if(r.relList&&"function"==typeof r.relList.supports&&r.relList.supports("preload")&&"as"in r)window.BOOMR.snippetMethod="p",r.href=window.BOOMR.url,r.rel="preload",r.as="script",r.addEventListener("load",e),r.addEventListener("error",function(){t(!0)}),setTimeout(function(){if(!i)t(!0)},3e3),BOOMR_lstart=(new Date).getTime(),o.parentNode.appendChild(r);else t(!1);if(window.addEventListener)window.addEventListener("load",a,!1);else if(window.attachEvent)window.attachEvent("onload",a)}}(),"".length>0)if(e&&"performance"in e&&e.performance&&"function"==typeof e.performance.setResourceTimingBufferSize)e.performance.setResourceTimingBufferSize();!function(){if(BOOMR=e.BOOMR||{},BOOMR.plugins=BOOMR.plugins||{},!BOOMR.plugins.AK){var n=""=="true"?1:0,t="",a="qcd4ywaxzvm3m2vlcnhq-f-d8e83a2dc-clientnsv4-s.akamaihd.net",o="false"=="true"?2:1,i={"ak.v":"41","ak.cp":"1775616","ak.ai":parseInt("1156038",10),"ak.ol":"0","ak.cr":6,"ak.ipv":4,"ak.proto":"h2","ak.rid":"a337347","ak.r":38938,"ak.a2":n,"ak.m":"dscb","ak.n":"essl","ak.cport":6350,"ak.gh":"23.55.170.162","ak.quicv":"","ak.tlsv":"tls1.3","ak.0rtt":"","ak.0rtt.ed":"","ak.csrc":"-","ak.acc":"","ak.t":"1789596495","ak.ak":"hOBiQwZUYzCg5VSAfCLimQ==JtJod/5PN+iLUUYeyGKlJBtT4elcBdiHgT80fKtZpBfiJqLEfHyEc0ELCCnIAyCzQvkYFu1+HPgYralZkZdR1umtxMYx1g4YUi8GoO7+mwQl1wVYvTRH1ObG4VdVWDIvq8kLyemxMELLg4SUSbxP7CbMHPnFqzISmzemAfoCiSATek9sJ05YCNOQadrZTUwMBkB2dIuW1MgiTJ002Df2sjLF2L/hhQUiYjb9FN+zTXWZT+jjP+wR99llG/PtX/8GKWQTD00vyelOC37jwKDi1X7Kwt4i0W7dhFePPHkXskHUuZfBxnWEG6XtJcodNmIcu+ty1Bpdh8mxdf9ljL9sktynI5eqHQ+yXIMMvuueDTVswMENYC+EX5a21qKLxCLZhHf0xR/zKMQCFJbWV0ZbqaBlEyDRx/Z5RMFFvl6X+Yg=","ak.pv":"4","ak.dpoabenc":"","ak.tf":o};if(""!==t)i["ak.ruds"]=t;var r={i:!1,av:function(n){var t="http.initiator";if(n&&(!n[t]||"spa_hard"===n[t]))i["ak.feo"]=void 0!==e.aFeoApplied?1:0,BOOMR.addVar(i)},rv:function(){var e=["ak.cport","ak.cr","ak.csrc","ak.gh","ak.ipv","ak.m","ak.n","ak.ol","ak.proto","ak.quicv","ak.tlsv","ak.0rtt","ak.0rtt.ed","ak.r","ak.acc","ak.t","ak.tf"];BOOMR.removeVar(e)}};BOOMR.plugins.AK={akVars:i,akDNSPreFetchDomain:a,init:function(){if(!r.i){var e=BOOMR.subscribe;e("before_beacon",r.av,null,null),e("onbeacon",r.rv,null,null),r.i=!0}return this},is_complete:function(){return!0}}}}()}(window);</script></head>
+
+<table style="width: 1127px; height: 184px;" cellpadding="12" cellspacing="1" align="center">
+	<tr>
+		<td style="width: 1484px; " class="auto-style8">
+			<span class="auto-style2">
+			<a href="https://www1.nyc.gov/nyc-resources/agencies.page"><strong>
+			Directory of City Agencies</strong></a></span><strong><br class="auto-style3">
+			<br class="auto-style3"><span class="auto-style3">
+			<a href="https://a858-nycnotify.nyc.gov/notifynyc/">Notify NYC</a></span><br class="auto-style2">
+				</strong><br class="auto-style3"><span class="auto-style3">
+			<strong>
+			<a href="https://www1.nyc.gov/connect/mobile-applications.page">NYC 
+			Mobile Apps</a></strong></span><br></td>
+		<td style="width: 1121px; " class="auto-style6">
+			<span class="auto-style14"><span class="auto-style2"><strong>
+			<a href="https://www1.nyc.gov/home/contact-us.page">Contact NYC 
+			Government</a><br><br><a href="https://a856-citystore.nyc.gov/">
+			CityStore</a></strong></span></span><span class="auto-style12"><span class="auto-style2"><strong><br>
+			<br><a href="https://www1.nyc.gov/nyc-resources/nyc-maps.page">Maps</a></strong></span></span><br></td>
+		<td style="width: 560px; " class="auto-style8">
+			<strong>
+			<a href="https://a127-ess.nyc.gov/psp/prdess/?cmd=login&amp;languageCd=ENG&amp;">
+			City Employees</a><br><br>
+			<a href="https://www1.nyc.gov/connect/social-media.page">Stay 
+			Connected</a><br><br>
+			<a href="https://www1.nyc.gov/nyc-resources/resident-toolkit.page">
+			Resident Toolkit</a></strong><br></td>
+		<td style="width: 172px; " class="auto-style6">
+		<span class="auto-style1"><span class="auto-style3">
+		<img alt="NYC Logo" height="32" src="https://www1.nyc.gov/assets/home/images/global/nyc_white.png" width="93" style="float: left"><div class="auto-style6">
+		</div>
+		<br><br></span>
+		<p class="auto-style5" style="height: 40px; width: 179px">City of New York. 2022<br>All Rights Reserved,<br>
+		NYC is a trademark and service mark of the City of New York<br>
+		<a href="https://www1.nyc.gov/home/privacy-policy.page">Privacy Policy.</a>&nbsp;&nbsp;
+		<a href="https://www1.nyc.gov/home/terms-of-use.page">Terms of Use.</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="https://www1.nyc.gov/site/mopd/index.page">
+		<img class="auto-style9" height="25" src="https://www1.nyc.gov/assets/home/images/global/accessibility_icon.svg" width="20"></a></p>
+		</span></td>
+
+		<td style="width: 368px; ">
+		
+		<form class="form-search" method="get" action="https://www1.nyc.gov/home/search/index.page" style="height: 60px; width: 122px">
+<input placeholder="Search" class="input-search placeholder" name="search-terms" type="text"><button class="ico-search">Search</button>
+			
+			<br><br>
+			
+</form>
+		</td>
+
+	</tr>
+	</table>
+
+
+</div>
+<script>
+var tmpLate = "../images/cur_template";
+function getTmpLate(par)
+{
+	return tmpLate + par;
+}
+</script>
+
+
+</div></div></footer></body><script language=JavaScript>window.setTimeout("window.location.replace('../forms/htmlframe.aspx?mode=content/home.htm')", 3590000);</script></html>

@@ -11,7 +11,7 @@ include ../../shared/code/generic.make
 
 ../output/geographic_filings.parquet: construct_geographic_filings.R ../input/constituent_filing_panel.parquet \
 	../input/dob_now_new_building_initial_filings.parquet \
-	../input/dcp_housing_database_project_level_raw_25q4.parquet ../input/borough_boundaries_2026-09-08.geojson \
+	../input/dcp_housing_database_project_level_raw_23q4.parquet ../input/borough_boundaries_2026-09-08.geojson \
 	Makefile ../../shared/code/write_data_report.R | $(OOPR)
 	$(R) $<
 
@@ -35,8 +35,8 @@ include ../../shared/code/generic.make
 	../../stage_dob_now_new_building_filings/output/dob_now_new_building_initial_filings.parquet | ../input
 	ln -sf $< $@
 
-../input/dcp_housing_database_project_level_raw_25q4.parquet: \
-	../../stage_dcp_housing_database/output/dcp_housing_database_project_level_raw_25q4.parquet | ../input
+../input/dcp_housing_database_project_level_raw_23q4.parquet: \
+	../../stage_dcp_housing_database/output/dcp_housing_database_project_level_raw_23q4.parquet | ../input
 	ln -sf $< $@
 
 ../input/borough_boundaries_2026-09-08.geojson: \

@@ -1,0 +1,17 @@
+feature,vertex,x,y
+northeast_corner,1,1332,450
+northwest_corner,1,230,450
+power_plant,1,1020,921
+power_plant,2,1305,921
+power_plant,3,1305,1055
+power_plant,4,1290,1055
+power_plant,5,1290,1148
+power_plant,6,997,1148
+power_plant,7,997,964
+power_plant,8,1020,964
+power_plant,9,1020,921
+mezzanine_bay,1,997,921
+mezzanine_bay,2,1108,921
+mezzanine_bay,3,1108,1148
+mezzanine_bay,4,997,1148
+mezzanine_bay,5,997,921

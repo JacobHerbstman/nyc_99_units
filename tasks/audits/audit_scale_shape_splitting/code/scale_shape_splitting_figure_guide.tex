@@ -100,7 +100,7 @@ Missing mass above 99 & The cumulative deficit from 100 through 149 is \DeficitO
 \addlinespace
 Splitting evidence & Among those 198-unit parents, \VerifiedOneNinetyEight{} is verified as separate 485-x units, \SuggestiveOneNinetyEight{} are suggestive of separate components, and \UnresolvedOneNinetyEight{} remain unresolved. The vector alone is not proof of legal or tax separation. \\
 \addlinespace
-Composition adjustment & Positive exponential weights compare \CalibrationHistoricalParents{} historical parents with \CalibrationPostParents{} post parents using predetermined site traits. Effective historical sample size is \CalibrationESS{}; weights range from \MinimumCalibrationWeight{} to \MaximumCalibrationWeight{}. \\
+Composition adjustment & Positive exponential weights compare \CalibrationHistoricalParents{} historical parents with \CalibrationPostParents{} post parents using archival parcel characteristics and borough. Effective historical sample size is \CalibrationESS{}; weights range from \MinimumCalibrationWeight{} to \MaximumCalibrationWeight{}. \\
 \addlinespace
 Inference & \SuccessfulBootstraps{} of \RequestedBootstraps{} bootstrap recalibrations succeeded. Historical-window and forward-placebo checks are reported in the separate counterfactual audit. \\
 \bottomrule
@@ -187,13 +187,13 @@ calculations are informative; the global identity is not.
 \FigurePage
   {13. Composition-adjusted constituent counts}
   {../output/pdf/reweighted_constituent_count_distribution.pdf}
-  {Historical parents are reweighted to the post mix of predetermined lot size, FAR, multi-lot status, and borough before comparing the number of constituents.}
+  {Historical parents are reweighted to match post-period log lot area, residential FAR, built FAR, and borough before comparing the number of constituents. Parcel attributes are aggregated over observed parent boundaries.}
   {The single-component share falls from \HistoricalSingleShare{} percent in the reweighted benchmark to \PostSingleShare{} percent post-policy. Thus, observable site composition does not explain the increase in multi-component parents. Remaining unobserved compositional change is still possible.}
 
 \FigurePage
   {14. Composition-adjusted no-notch benchmark}
   {../output/pdf/reweighted_parent_counterfactual_50_300.pdf}
-  {The blue line transports the exact 2019-2022 parent-size distribution to the post mix of predetermined site traits using positive exponential weights. The red line is observed post-policy.}
+  {The blue line reweights the exact 2019-2022 parent-size distribution to match post-period log lot area, residential FAR, built FAR, and borough. The red line is observed post-policy.}
   {Reweighting leaves a large 99-unit excess, a deficit over much of 100-149, and a 198-unit excess. These are shape differences after observable site composition is balanced. The benchmark is more credible than a raw normalized comparison, but it is not a full causal design if unobserved market composition changed.}
 
 \FigurePage

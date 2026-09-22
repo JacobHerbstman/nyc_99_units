@@ -1,0 +1,22 @@
+Rows: 13
+Columns: 16
+Key fields: parent_id
+Saved-file MD5: 868c41568df2a3acff47cc7c8b75748b
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parent_id | character | nonmissing | 13 | distinct | 13
+component_addresses | character | nonmissing | 13 | distinct | 13
+parent_total_units | numeric | nonmissing | 13 | distinct | 13 min/median/mean/max 80/264/322.0769/798
+production_area_sqft | numeric | nonmissing | 13 | distinct | 13 min/median/mean/max 3531/32395/66305.69/389978
+original_bbls | character | nonmissing | 12 | distinct | 12
+original_lot_count | numeric | nonmissing | 12 | distinct | 4 min/median/mean/max 1/3/3.083333/9
+reference_vintages | numeric | nonmissing | 12 | distinct | 2 min/median/mean/max 1/1/1.083333/2
+original_missing_lots | numeric | nonmissing | 12 | distinct | 3 min/median/mean/max 0/0/0.4166667/3
+original_recorded_sqft | numeric | nonmissing | 9 | distinct | 9 min/median/mean/max 7520/30008/77169.33/389978
+later_recorded_sqft | numeric | nonmissing | 12 | distinct | 11 min/median/mean/max 7604/31200.5/58960.17/345255
+later_geometry_sqft | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 8089.43/31697.27/58444.96/336880.6
+old_bbls | character | nonmissing | 12 | distinct | 12
+old_recorded_sqft | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 10789/43634/125577.8/660560
+geometry_pattern | character | nonmissing | 12 | distinct | 2
+original_area_vs_production_pct | numeric | nonmissing | 9 | distinct | 7 min/median/mean/max -43.7714/31.16718/132.8611/737.7557
+original_lots_match_spatial_lots | logical | nonmissing | 12 | distinct | 2

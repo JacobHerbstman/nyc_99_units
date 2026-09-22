@@ -1,0 +1,90 @@
+\clearpage
+\section*{2026-09-15: Parcel measurements need dated boundaries and an explicit land definition}
+\textit{Agent-drafted research entry.}
+
+All ten provisional area comparisons from the twelve-parent review match
+DOF's final assessment roll for fiscal 2026/27. Printed map dimensions also
+reproduce the areas to within 0.1\% for seven of those parents. Purdy,
+Weirfield, and Lorimer remain supported by administrative records without an
+independent survey calculation. DOF and PLUTO share underlying geography and
+area sources, so their agreement alone does not validate the measurements.
+
+Sackett's later parcels can be measured directly. The deed in the March 2026
+NYSDEC amendment describes lot 17 as a $265\times100$ rectangle, less a
+$10\times10$ notch, plus a $10\times100$ access strip: 27,400 square feet.
+Lot 47 is $125\times100=12,500$ square feet. Their combined area is 39,900.
+The removed neighboring lot 16 measures 8,600 square feet on the DOF map,
+although the FY2027 assessment incorrectly records 12,500. Using the map
+dimensions conserves the predecessor's 48,500 square feet; summing the three
+assessment entries would add 3,900 square feet incorrectly. A 2022 property
+attachment also contains a title survey measuring an earlier lot 17 at
+38,499.76 square feet. These dated boundaries alone do not establish the land available at the
+original February 2022 decision. The panel's 300-unit measure is an
+administrative observation, not proof of an unchanged 2022 proposal.
+
+Noble/Oak's missing lot 10 is explained by a proposed subdivision. The city
+notice for the June 9, 2026 Brooklyn CB1 meeting explicitly describes tentative
+division of lot 1 into lots 1 and 10, containing the two proposed buildings.
+It reports a 173,834-square-foot site. The full DOF tax-lot polygon measures
+about 297,134 square feet, near its 299,214-square-foot assessment area;
+MapPLUTO's shoreline-clipped polygon measures about 172,691. Spatial metadata
+confirms that the supplied PLUTO layer removes water area. Thus the geometry
+difference largely reflects a different land definition. The documented
+onshore site is the relevant candidate for physical development land; it is
+not interchangeable with the full tax-lot area or a calculation of zoning
+floor-area entitlements. The child-lot areas require the filed subdivision plan.
+
+\textit{Manual follow-up on Sackett and Noble/Oak.} The live DOB record for
+B00665570-I1 reports a 48,500-square-foot zoning lot and 300 units. Its
+August 2025 recorded zoning declaration, CRFN 2025000213962, explicitly
+includes tentative lots 16, 17, and 47. This explains why the later
+39,900-square-foot sale/cleanup boundary need not equal the zoning site.
+The live DOB text instead lists 17, 47, and 41; this discrepancy is retained.
+A move from the production area's 38,500 to the zoning site's 48,500 would
+add 10,000 square feet (26.0\%), but the original decision-date footprint
+still needs the dated site plan. DOB lists a ZD1 with a January 20, 2022
+creation date, but its contents were not retrievable in this review.
+The live I1 record, modified June 2026, is not an immutable 2022 snapshot.
+
+Noble's earlier shoreline-clipped polygon measures about 126,049 square feet,
+versus 172,691 in the later PLUTO map. The March 2025 DOF event cites the
+July 2024 deed and an October 2024 survey. Manual review of the predecessor
+May 2001 deed, reel 5169/page 1555 (Schedule A on image page 3), establishes
+boundaries at the centers of Noble, West, and Oak Streets. The 2024 deed,
+CRFN 2024000204975, identifies the same premises and includes the seller's
+abutting-street rights. Those rights predate 485-x, so the map expansion is
+not itself evidence of new post-policy land acquisition. However, the 2024
+detailed description starts at West Street's western edge, with east--west
+lengths 30 feet shorter than the later map annotations. The cited survey
+and filed site plan must reconcile that boundary before the baseline area
+is finalized. The 2019 cleanup boundary is a separate two-block site.
+
+The model input should measure the whole parent site's land before its
+organization decision, counting that land once. The current pipeline uses
+earlier filing-specific PLUTO vintages for historical parents and fixed
+PLUTO 23v3\_1 for post-policy parents. Later child lots, cleanup boundaries,
+water area, and zoning rights cannot be substituted silently for that input.
+The manual review establishes better candidates and the specific remaining
+boundary questions; it does not finalize either baseline replacement.
+
+The assessment history makes update lags visible. Chatterton retains 60,979
+square feet in FY2026 and changes to 21,133 in FY2027; Fox changes from 2,500
+to 10,015 between FY2023 and FY2024. A matching BBL must therefore be paired
+with the correct dated boundaries. The frozen public query contains 236
+tentative and final records, with 119 final records retained for review. Its
+latest underlying extract is May 15, 2026, rather than the September retrieval
+date. No production areas, weights, or model fits are replaced in this audit;
+the ten provisional comparison means are unchanged.
+
+\small
+\textit{Reproduction.} Run \texttt{make dof-subset-review}. The existing
+\path{tasks/audits/audit_hdb_mappluto_condo_recovery/} task writes assessment
+history, sixteen lot checks, and the waterfront comparison. Its report
+\path{report/dof_area_validation.md} supplies sources, formulas, and the
+remaining boundary questions. The acquisition audit preserves raw API
+responses, query definitions, field documentation, and checksummed downloads
+of the additional city/state documents. The source notes in
+\path{code/dof_subset_validation_2026-09-15/manual_portal_review.md} under
+that acquisition task record exact ACRIS/DOB navigation, documents, pages,
+and access limitations. SaveData writes reports as side effects.
+\normalsize

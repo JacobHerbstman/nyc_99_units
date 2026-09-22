@@ -129,6 +129,7 @@ parent_dates <- membership |>
     refiling_date = if (any(refiled)) min(refiling_date[refiled]) else as.Date(NA),
     refiled = any(refiled),
     cohort_year = first(cohort_year),
+    historical_all_source_active = if (first(sample) == "historical") all(historical_active) else NA,
     parent_total_units_stored = first(parent_observed_units),
     full_window_observed = first(full_window_observed),
     left_window_observed = first(left_window_observed),
@@ -201,8 +202,8 @@ constituents <- membership |>
     relationship = "one-to-one"
   ) |>
   left_join(
-    hpd_component,
-    by = "root_job_id",
+    hpd_component |> mutate(sample = "post_policy"),
+    by = c("sample", "root_job_id"),
     relationship = "many-to-one"
   )
 
@@ -231,6 +232,8 @@ constituents <- constituents |>
 parent_components <- constituents |>
   group_by(sample, parent_id) |>
   summarise(
+    hdb_releases = paste(sort(unique(na.omit(hdb_release))), collapse = ";"),
+    historical_all_active = if (first(sample) == "historical") all(historical_active) else NA,
     constituent_total_units = sum(units),
     n_components = n(),
     max_component_units = max(units),
@@ -301,11 +304,14 @@ features <- bind_rows(historical_features, post_features) |>
     feature_units = units,
     feature_complete,
     composition_eligible,
+    reviewed_distinct_buildings,
+    site_feature_method = feature_methods,
     number_unique_lots = feature_lots,
     lot_area_sqft = lotarea,
     residential_far = residfar,
     broad_zoning_far,
     built_far = builtfar,
+    built_floor_area_estimated,
     borough = str_squish(as.character(borough)),
     zoning_category = str_squish(as.character(zone_detail)),
     prior_site_use = str_squish(as.character(prior_site_use))
@@ -405,6 +411,7 @@ parent_panel <- parent_dates |>
     right_window_observed,
     full_window_observed,
     parent_total_units,
+    hdb_releases, historical_all_active, historical_all_source_active,
     constituent_total_units,
     n_components,
     max_component_units,
@@ -446,15 +453,18 @@ parent_panel <- parent_dates |>
     feature_units,
     feature_complete,
     composition_eligible,
+    reviewed_distinct_buildings,
     number_unique_lots,
     multi_lot_indicator,
     lot_area_sqft,
+    site_feature_method,
     log_lot_area,
     residential_far,
     broad_zoning_far,
     built_far,
     residential_capacity_sqft,
     built_floor_area_sqft,
+    built_floor_area_estimated,
     redevelopment_slack_sqft,
     zero_residential_capacity,
     zero_redevelopment_slack,
@@ -485,6 +495,7 @@ constituent_panel <- constituents |>
     root_job_id,
     constituent_rank,
     constituent_units = units,
+    hdb_release, historical_active, hdb_job_status, refiling_basis,
     parent_constituent_weight,
     date_filed = original_filing_date,
     record_filing_date = date_filed,

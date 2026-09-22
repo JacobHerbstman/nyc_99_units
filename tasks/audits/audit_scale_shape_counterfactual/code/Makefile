@@ -19,6 +19,8 @@ all: ../output/parent_panel_qc.csv \
 	../output/temporal_window_sensitivity.csv \
 	../output/historical_forward_placebos.pdf
 
+include ../../../shared/code/generic.make
+
 ../output/parent_panel_qc.csv: audit_scale_shape_panels.R Makefile \
 	../../../shared/code/source_pipeline_utils.R ../input/parent_opportunity_panel.parquet \
 	../input/constituent_filing_panel.parquet \
@@ -44,9 +46,10 @@ all: ../output/parent_panel_qc.csv \
 
 ../output/exploratory_q_theta.csv: audit_shape_counterfactual.R Makefile \
 	../../../shared/code/source_pipeline_utils.R ../../../shared/code/scale_shape_helpers.R \
+	../../../shared/code/write_data_report.R \
 	../input/parent_opportunity_panel.parquet ../input/reweighted_counterfactual_distributions.csv \
 	../input/local_excess_deficit_moments.csv \
-	../../../shared/code/shell_functions.make ../../../shared/code/shell_functions.sh | ../output
+	../../../shared/code/shell_functions.make ../../../shared/code/shell_functions.sh | $(OOPR)
 	$(R) $< $(MINIMUM_UNITS) $(EXACT_PLOT_MAXIMUM) $(POOLED_TAIL_START)
 
 ../output/placebo_distributions.csv \
@@ -109,5 +112,3 @@ check-audit_scale_shape_splitting:
 
 check-analyze_parent_unit_distribution:
 	$(MAKE) -C ../../analyze_parent_unit_distribution/code all ../output/parent_unit_distribution_annualized_50_300.csv ../output/parent_unit_distribution_normalized_density_50_300_ab.csv
-
-include ../../../shared/code/generic.make

@@ -38,7 +38,9 @@ if (
 
 membership <- read_parquet("../input/symmetric_parent_membership.parquet")
 
-hdb <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet")
+historical_hdb <- read_parquet("../input/dcp_housing_database_project_level_23q4.parquet")
+
+post_hdb <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet")
 
 dob <- read_parquet("../input/dob_now_new_building_initial_filings.parquet")
 
@@ -46,7 +48,12 @@ historical_fields <- read_parquet("../input/historical_parent_filing_link_fields
 
 if (
   anyDuplicated(membership[c("sample", "root_job_id")]) ||
-    anyDuplicated(hdb$job_number) ||
+    anyNA(historical_hdb$release) ||
+    any(historical_hdb$release != "23Q4") ||
+    anyNA(post_hdb$release) ||
+    any(post_hdb$release != "25Q4") ||
+    anyDuplicated(historical_hdb$job_number) ||
+    anyDuplicated(post_hdb$job_number) ||
     anyDuplicated(dob$job_number) ||
     anyDuplicated(historical_fields$job_number)
 ) {
@@ -69,16 +76,29 @@ parent_membership <- membership |>
     parent_observed_units >= min_units
   )
 
-hdb_fields <- hdb |>
+historical_hdb_fields <- historical_hdb |>
   transmute(
+    sample = "historical",
     root_job_id = job_number,
     hdb_address = str_squish(address),
     hdb_borough_name = str_squish(borough_name),
     hdb_ownership = str_squish(ownership)
   )
 
+post_hdb_fields <- post_hdb |>
+  transmute(
+    sample = "post_policy",
+    root_job_id = job_number,
+    hdb_address = str_squish(address),
+    hdb_borough_name = str_squish(borough_name),
+    hdb_ownership = str_squish(ownership)
+  )
+
+hdb_fields <- bind_rows(historical_hdb_fields, post_hdb_fields)
+
 dob_fields <- dob |>
   transmute(
+    sample = "post_policy",
     root_job_id = job_number,
     dob_address = str_squish(address),
     dob_borough_name = str_squish(borough_name),
@@ -97,20 +117,32 @@ dob_fields <- dob |>
 
 historical_job_fields <- historical_fields |>
   transmute(
+    sample = "historical",
     root_job_id = job_number,
-    historical_owner_name = str_squish(coalesce(
-      dob_owner_name,
-      pluto_owner_name
-    )),
+    historical_owner_name = str_squish(pluto_owner_name),
     historical_job_description = str_squish(description)
   )
 
+missing_historical_hdb <- parent_membership |>
+  filter(sample == "historical") |>
+  distinct(root_job_id) |>
+  anti_join(historical_hdb_fields, by = "root_job_id")
+
+missing_historical_fields <- parent_membership |>
+  filter(sample == "historical") |>
+  distinct(root_job_id) |>
+  anti_join(historical_job_fields, by = "root_job_id")
+
+if (nrow(missing_historical_hdb) > 0L || nrow(missing_historical_fields) > 0L) {
+  stop("Historical exposure members are missing from 23Q4 HDB or archived link fields.")
+}
+
 exposure_universe <- parent_membership |>
-  left_join(hdb_fields, by = "root_job_id", relationship = "many-to-one") |>
-  left_join(dob_fields, by = "root_job_id", relationship = "many-to-one") |>
+  left_join(hdb_fields, by = c("sample", "root_job_id"), relationship = "many-to-one") |>
+  left_join(dob_fields, by = c("sample", "root_job_id"), relationship = "many-to-one") |>
   left_join(
     historical_job_fields,
-    by = "root_job_id",
+    by = c("sample", "root_job_id"),
     relationship = "many-to-one"
   ) |>
   transmute(
@@ -123,13 +155,22 @@ exposure_universe <- parent_membership |>
     parent_total_units = parent_observed_units,
     component_units = units,
     filing_bbl,
-    address = coalesce(dob_address, hdb_address),
-    borough_name = coalesce(dob_borough_name, hdb_borough_name),
-    ownership_type = coalesce(dob_owner_type, hdb_ownership),
-    owner_name = coalesce(dob_owner_name, historical_owner_name),
-    job_description = coalesce(
-      dob_job_description,
-      historical_job_description
+    address = if_else(
+      sample == "historical", hdb_address, coalesce(dob_address, hdb_address)
+    ),
+    borough_name = if_else(
+      sample == "historical", hdb_borough_name,
+      coalesce(dob_borough_name, hdb_borough_name)
+    ),
+    ownership_type = if_else(
+      sample == "historical", hdb_ownership,
+      coalesce(dob_owner_type, hdb_ownership)
+    ),
+    owner_name = if_else(
+      sample == "historical", historical_owner_name, dob_owner_name
+    ),
+    job_description = if_else(
+      sample == "historical", historical_job_description, dob_job_description
     ),
     ag_search_query = str_squish(address)
   ) |>

@@ -1,0 +1,10 @@
+Rows: 324207
+Columns: 4
+Key fields: filing_bbl, base_bbl
+Saved-file MD5: 125088b16701166e40d981d725d1efaf
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+filing_bbl | character | nonmissing | 324207 | distinct | 321203
+base_bbl | character | nonmissing | 324207 | distinct | 12373
+link_sources | character | nonmissing | 324207 | distinct | 6
+valid_bbl | logical | nonmissing | 324207 | distinct | 2

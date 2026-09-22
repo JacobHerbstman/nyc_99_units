@@ -1,0 +1,24 @@
+Rows: 12236
+Columns: 18
+Key fields: OBJECTID
+Saved-file MD5: f5bccef8ae409a41d39cbc3d8e86d049
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+OBJECTID | integer | nonmissing | 12236 | distinct | 12236 min/median/mean/max 1/6118.5/6118.5/12236
+CONDO_BASE_BORO | character | nonmissing | 12236 | distinct | 5
+CONDO_BASE_BLOCK | integer | nonmissing | 12236 | distinct | 3859 min/median/mean/max 1/1926/2919.984/16238
+CONDO_BASE_LOT | integer | nonmissing | 12236 | distinct | 347 min/median/mean/max 0/31/47.93388/9030
+CONDO_BASE_BBL | character | nonmissing | 12236 | distinct | 12149
+CONDO_BASE_BBL_KEY | character | nonmissing | 12236 | distinct | 12172
+CONDO_KEY | integer | nonmissing | 12236 | distinct | 10983 min/median/mean/max 100001/302035.5/262988.9/501942
+CONDO_NUMBER | integer | nonmissing | 12236 | distinct | 5992 min/median/mean/max 1/1745/2184.724/9613
+CONDO_NAME | character | nonmissing | 7456 | distinct | 6757
+CONDO_BILLING_BBL | character | nonmissing | 12204 | distinct | 11057
+CINC_PARENT_FLAG | character | nonmissing | 89 | distinct | 2
+CINC_CONDO_PARENT | character | nonmissing | 90 | distinct | 45
+CINC_UNIT_PARENT | character | nonmissing | 90 | distinct | 56
+CINC_GEN | integer | nonmissing | 12236 | distinct | 2 min/median/mean/max 1/1/1.004495/2
+CREATED_USER | character | nonmissing | 2959 | distinct | 25
+CREATED_DATE | numeric | nonmissing | 2958 | distinct | 1098 min/median/mean/max -2.209162e+12/9.4392e+11/1.148818e+12/1.789068e+12
+LAST_EDITED_USER | character | nonmissing | 3147 | distinct | 25
+LAST_EDITED_DATE | numeric | nonmissing | 3147 | distinct | 1300 min/median/mean/max -2.209162e+12/1.30585e+12/1.361219e+12/1.789068e+12

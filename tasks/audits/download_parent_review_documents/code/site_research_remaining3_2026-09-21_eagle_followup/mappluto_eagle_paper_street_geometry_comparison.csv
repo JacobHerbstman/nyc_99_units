@@ -1,0 +1,3 @@
+"comparison","area_a_sf","area_b_sf","topologically_equal","symmetric_difference_sf","hausdorff_distance_ft"
+"19v1_to_20v1",103390.866584137,103390.866584137,TRUE,0,0
+"19v1_to_20v5",103390.866584137,103390.861854341,FALSE,0.0549919295153019,0.000180396767755714

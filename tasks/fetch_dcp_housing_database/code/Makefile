@@ -7,6 +7,7 @@ include ../../shared/code/generic.make
 ../output/dcp_housing_database_files.csv: source_files.csv Makefile \
 	../output/dcp_housing_database_project_level_20260501_housing_project_level_archive.json \
 	../output/dcp_housing_database_project_level_20260501_housing_project_level_content_api.json \
+	../output/dcp_housing_database_project_level_23Q4_nychousingdb_23q4_csv.zip \
 	../output/dcp_housing_database_project_level_25Q4_Housing_Database_Data_Dictionary.xlsx \
 	../output/dcp_housing_database_project_level_25Q4_nychdb_25q4_csv.zip ../../shared/code/copy_data.R \
 	../../shared/code/write_data_report.R | $(OOPR)
@@ -34,3 +35,8 @@ include ../../shared/code/generic.make
 	curl --fail --location --retry 3 'https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/housing-database/housing-project-level/nychdb_25q4_csv.zip' -o $@.download
 	printf '%s  %s\n' 76f16a63535ea661700afd2440f143e718f9ffa4e8685de6e166c4ea208cada2 $@.download | shasum -a 256 -c -
 	mv $@.download $@
+
+../output/dcp_housing_database_project_level_23Q4_nychousingdb_23q4_csv.zip: Makefile | ../output ../temp
+	curl --fail --location --retry 3 'https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/housing-database/nychousingdb_23q4_csv.zip' -o ../temp/nychousingdb_23q4_csv.zip
+	printf '%s  %s\n' ba204b240053f2477241d46eb9f4f4b11a15907484009e21264914c8cff1d45e ../temp/nychousingdb_23q4_csv.zip | shasum -a 256 -c -
+	mv ../temp/nychousingdb_23q4_csv.zip $@

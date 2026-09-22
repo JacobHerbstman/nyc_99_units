@@ -1,0 +1,20 @@
+Rows: 6
+Columns: 14
+Key fields: scenario
+Saved-file MD5: 030c5662795504d60a16a51d51b22cbb
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+scenario | character | nonmissing | 6 | distinct | 6
+historical_parents | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max 477/595/575.3333/595
+post_parents | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max 279/310/304.8333/310
+effective_sample_size | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 415.2467/527.6413/506.2262/595
+maximum_weight_share | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.001680672/0.004459479/0.004527653/0.008331441
+historical_share_exact_99 | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.004595123/0.005248977/0.005355624/0.00662245
+post_share_exact_99 | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max 0.1193548/0.1193548/0.1203704/0.125448
+excess_at_99 | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.1139786/0.1142151/0.1150147/0.1188256
+excess_at_198 | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max 0.02903226/0.02903226/0.02956989/0.03225806
+cumulative_deficit_100_149 | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.05842375/0.07481606/0.07395977/0.08176255
+historical_share_multi_component | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.04225984/0.05152468/0.052183/0.06722689
+post_share_multi_component | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max 0.1648746/0.1677419/0.167264/0.1677419
+historical_mean_units | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 124.9642/148.1569/149.1938/173.3546
+post_mean_units | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max 131.7168/136.5839/135.7727/136.5839

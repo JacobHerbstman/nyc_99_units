@@ -1,0 +1,15 @@
+Rows: 864
+Columns: 9
+Key fields: old_parent_id
+Saved-file MD5: 2041d51ff8e53c8932911e7748a47387
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 864 | distinct | 2
+old_parent_id | character | nonmissing | 864 | distinct | 864
+old_unresolved | logical | nonmissing | 864 | distinct | 2
+old_status | character | nonmissing | 864 | distinct | 9
+current_parent_ids | character | nonmissing | 863 | distinct | 862
+current_parents_in_scope | numeric | nonmissing | 864 | distinct | 2 min/median/mean/max 0/1/0.9618056/1
+membership_changed | logical | nonmissing | 864 | distinct | 2
+current_unresolved_parents | numeric | nonmissing | 864 | distinct | 2 min/median/mean/max 0/0/0.1400463/1
+transition | character | nonmissing | 864 | distinct | 4

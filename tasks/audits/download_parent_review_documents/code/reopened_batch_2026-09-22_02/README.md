@@ -1,0 +1,14 @@
+# Carroll/Union reopened review sources (22 September 2026)
+
+These are unchanged public source PDFs downloaded into `../../temp/reopened_02/` for case 02. The PDF page numbers below are physical PDF pages, starting at 1. They support the [case memo](../../../audit_hdb_mappluto_condo_recovery/report/reopened_batch_2026-09-22/case_02_carroll.md). This folder is acquisition metadata, not a production input or an automatic source refresh.
+
+| File in `temp/reopened_02` | Source URL | Bytes | SHA-256 | Relevant pages |
+| --- | --- | ---: | --- | --- |
+| `dec_c224350_application_2022.pdf` | https://extapps.dec.ny.gov/data/DecDocs/C224350/Application.BCP.C224350.2022-01-13.Complete%20Application.pdf | 13,761,213 | `5f0448ddfc4e7bb630aa104baa5aee593691a620dcf40b0123b3479e144f5009` | 1, 6, 80–84; especially lot/site plan 81 and floor-area table 84. Application submitted Dec. 2, 2021, revised Jan. 11, 2022; enclosed architect drawings dated June 4, 2021. |
+| `dec_c224350_consent_order_2024.pdf` | https://extapps.dec.ny.gov/data/DecDocs/C224350/Consent%20Order.BCP.C224350.2024-04-01.318_Nevins_Street.pdf | 5,124,294 | `4f8b0fb82cd2bd25629bcd02c9824d8a99e65172fe182df9f57887ccae88d9df` | 1 ¶3 identifies Lot 1 and Lot 10 collectively as the site. Scan inspected visually. |
+| `esd_gowanus_gpp_2024.pdf` | https://esd.ny.gov/sites/default/files/media/document/Gowanus-Neighborhood-Development-Proposed-General-Project-Plan.pdf | 514,558 | `2dfdf136946be89ac0fce078d9d14b46f6a23ddb7c19da93f9bf76fc22393525` | 5, table rows 10 and 11, each part of Block 439 Lot 1. |
+| `esd_gowanus_technical_memo_2024.pdf` | https://esd.ny.gov/sites/default/files/media/document/Item-VA-Exhibit%203-Gowanus-ESD-Technical-Memorandum.pdf | 55,031,275 | `aa0591e62cd73fbed4385b497891a908aa1b3b46905e24c2d671a9db836580e3` | 120, DOB ZD1 dated Feb. 2, 2023, with both job identifiers on one plan. |
+
+The sources were retrieved September 22, 2026 with direct public HTTPS requests and verified locally by `pdfinfo` and `shasum -a 256`. The temporary files are deliberately not represented as committed downloaded source artifacts. Repeating the request later could return different bytes; use these hashes to identify this review's originals.
+
+Other frozen inputs inspected: `build_hdb_mappluto_site_panel/output/historical_hdb_mappluto_site_panel.parquet` (two HDB23Q4 jobs linked to 21v1), `audit_hdb_mappluto_condo_recovery/output/dof_events.parquet` (transaction 104899), and the archived `fetch_mappluto_archive/output/nyc_pluto_25v4_csv.zip` (current Lots 1 and 10). These are existing project records, so they were not copied here. Transaction 104899 cites ACRIS deed CRFN `2022000038736`; that deed itself was not inspected. The 2021 architectural drawing inside the 2022 DEC application is the dated development-site evidence. DEC's cleanup designation is corroborating context, not the sole development-boundary basis.

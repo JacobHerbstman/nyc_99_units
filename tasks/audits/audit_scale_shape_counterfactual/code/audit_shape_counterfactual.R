@@ -15,6 +15,7 @@ suppressPackageStartupMessages({
 
 source("../../../shared/code/source_pipeline_utils.R")
 source("../../../shared/code/scale_shape_helpers.R")
+source("../../../shared/code/write_data_report.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -325,12 +326,14 @@ placebo_figure <- placebo_distributions |>
   theme_minimal(base_size = 10.5) +
   theme(legend.position = "top", panel.grid.minor = element_blank())
 
-write_csv_atomic(exploratory_q_theta, "../output/exploratory_q_theta.csv")
-write_csv_atomic(placebo_distributions, "../output/placebo_distributions.csv")
-write_csv_atomic(placebo_performance, "../output/placebo_performance.csv")
-write_csv_atomic(leave_one_pre_year_out, "../output/leave_one_pre_year_out.csv")
-write_csv_atomic(
+SaveData(exploratory_q_theta, "outcome", "../output/exploratory_q_theta.csv")
+SaveData(placebo_distributions, c("placebo", "series", "unit_bin_order"),
+         "../output/placebo_distributions.csv")
+SaveData(placebo_performance, "placebo", "../output/placebo_performance.csv")
+SaveData(leave_one_pre_year_out, "excluded_historical_year", "../output/leave_one_pre_year_out.csv")
+SaveData(
   temporal_window_sensitivity,
+  c("historical_window", "moment"),
   "../output/temporal_window_sensitivity.csv"
 )
 

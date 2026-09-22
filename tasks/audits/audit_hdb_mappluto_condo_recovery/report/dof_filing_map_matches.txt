@@ -1,0 +1,45 @@
+Rows: 30
+Columns: 39
+Key fields: parent_id
+Saved-file MD5: df53d52d4d02b991fdc869945f8f3eee
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parent_id | character | nonmissing | 30 | distinct | 30
+sample | character | nonmissing | 30 | distinct | 2
+component_addresses | character | nonmissing | 30 | distinct | 30
+parent_total_units | numeric | nonmissing | 30 | distinct | 29 min/median/mean/max 50/208/265.9333/1060
+requested_lots | numeric | nonmissing | 30 | distinct | 5 min/median/mean/max 1/1/1.533333/6
+reference_vintage | character | nonmissing | 30 | distinct | 11
+production_area_sqft | numeric | nonmissing | 30 | distinct | 30 min/median/mean/max 2625/24762/53769.06/389978
+source_scope_review | logical | nonmissing | 30 | distinct | 2
+current_map_complete | logical | nonmissing | 30 | distinct | 2
+current_geometry_sqft | numeric | nonmissing | 24 | distinct | 24 min/median/mean/max 8089.43/30371.56/56313.02/336880.6
+cohort_date | Date | nonmissing | 30 | distinct | 30
+parent_last_filing_date | Date | nonmissing | 30 | distinct | 30
+selected_vintage | character | nonmissing | 16 | distinct | 10
+selected_map_date | Date | nonmissing | 16 | distinct | 10
+days_from_filing | numeric | nonmissing | 16 | distinct | 15 min/median/mean/max -648/-10/-49.375/66
+mapped_bbls | character | nonmissing | 16 | distinct | 16
+reference_map_date | Date | nonmissing | 30 | distinct | 11
+prior_vintage | character | nonmissing | 15 | distinct | 10
+prior_map_date | Date | nonmissing | 15 | distinct | 10
+prior_days_from_filing | numeric | nonmissing | 15 | distinct | 14 min/median/mean/max -648/-26/-80.86667/-3
+following_vintage | character | nonmissing | 15 | distinct | 9
+following_map_date | Date | nonmissing | 15 | distinct | 9
+following_days_from_filing | numeric | nonmissing | 15 | distinct | 15 min/median/mean/max 3/42/74.66667/204
+complete_releases | numeric | nonmissing | 30 | distinct | 4 min/median/mean/max 0/12/11.53333/23
+most_lots_mapped | numeric | nonmissing | 30 | distinct | 4 min/median/mean/max 0/1/0.9666667/6
+later_physical_changes | numeric | nonmissing | 16 | distinct | 6 min/median/mean/max 1/1.5/2.1875/6
+later_transactions | character | nonmissing | 16 | distinct | 16
+filing_geometry_sqft | numeric | nonmissing | 16 | distinct | 16 min/median/mean/max 1354.8/10565.4/62989.5/390297.8
+filing_recorded_sqft | numeric | nonmissing | 15 | distinct | 15 min/median/mean/max 1198/10500/49604.13/389978
+reference_lots | numeric | nonmissing | 30 | distinct | 6 min/median/mean/max 1/2/2.666667/24
+missing_reference_lots | numeric | nonmissing | 30 | distinct | 4 min/median/mean/max 0/0.5/0.6333333/3
+reference_geometry_sqft | numeric | nonmissing | 23 | distinct | 23 min/median/mean/max 1354.8/30004.09/71194.6/441391.6
+overlap_sqft | numeric | nonmissing | 16 | distinct | 16 min/median/mean/max 1354.8/9456.331/62850.87/390297.8
+filing_outside_reference_share | numeric | nonmissing | 15 | distinct | 15 min/median/mean/max -2.983169e-12/1.40099e-12/0.0124601/0.1868998
+reference_outside_filing_share | numeric | nonmissing | 15 | distinct | 15 min/median/mean/max -7.398526e-13/6.573815e-07/0.2865156/0.8791087
+map_availability | character | nonmissing | 30 | distinct | 3
+boundary_comparison | character | nonmissing | 30 | distinct | 2
+filing_geometry_vs_production_pct | numeric | nonmissing | 16 | distinct | 16 min/median/mean/max -89.25018/1.648978/28.06262/614.8879
+filing_recorded_vs_production_pct | numeric | nonmissing | 15 | distinct | 4 min/median/mean/max -90.49433/0/-12.45892/0
