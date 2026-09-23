@@ -28,7 +28,7 @@ figure <- ggplot() + geom_sf(data = boroughs, fill = "#F1F0EB", color = "#B7B8B5
        caption = paste0("Mapped filings: pre ", coverage$mapped[coverage$sample == "historical"], "/", coverage$total[coverage$sample == "historical"],
                         "; post ", coverage$mapped[coverage$sample == "post_policy"], "/", coverage$total[coverage$sample == "post_policy"],
                         ". Coincident points overlap; counts are not annualized.\n",
-                        "Sources: DCP Housing Database 25Q4 (pre); DOB NOW initial filings (post); NYC DCP borough boundaries, Sep 8, 2026 extract.\n",
+                        "Sources: DCP Housing Database 23Q4 (pre); DOB NOW initial filings (post); NYC DCP borough boundaries, Sep 8, 2026 extract.\n",
                         "Larger-parent membership describes linked filings and does not by itself establish policy-induced splitting.")) +
   theme_void(base_size = 11) +
   theme(legend.position = "top", plot.title = element_text(face = "bold"),
