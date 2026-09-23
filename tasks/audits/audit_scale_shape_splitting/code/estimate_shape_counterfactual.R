@@ -1,7 +1,4 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/audits/audit_scale_shape_splitting/code")
-# minimum_units <- 50L
-# exact_plot_maximum <- 300L
-# pooled_tail_start <- 301L
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -16,25 +13,12 @@ suppressPackageStartupMessages({
 
 source("../../../shared/code/source_pipeline_utils.R")
 source("../../../shared/code/scale_shape_helpers.R")
+source("../../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(minimum_units), as.character(exact_plot_maximum), as.character(pooled_tail_start))
-
-if (length(args) != 3L) {
-  stop("Expected minimum units, exact-plot maximum, and pooled-tail start.")
-}
-
-minimum_units <- as.integer(args[1])
-exact_plot_maximum <- as.integer(args[2])
-pooled_tail_start <- as.integer(args[3])
-
-if (
-  any(is.na(c(minimum_units, exact_plot_maximum, pooled_tail_start))) ||
-    minimum_units >= exact_plot_maximum ||
-    pooled_tail_start != exact_plot_maximum + 1L
-) {
-  stop("Counterfactual support arguments are not internally consistent.")
-}
+# Benchmark support: parents with 50-300 units in one-unit bins, plus a pooled 301+ bin.
+minimum_units <- 50L
+exact_plot_maximum <- 300L
+pooled_tail_start <- 301L
 
 parents <- read_parquet("../input/parent_opportunity_panel.parquet") |>
   as.data.frame() |>
@@ -448,33 +432,15 @@ reweighted_constituent_count_figure <- ggplot(
   theme_minimal(base_size = 11) +
   theme(legend.position = "top", panel.grid.minor = element_blank())
 
-write_csv_atomic(calibration_weights, "../output/calibration_weights.csv")
-write_csv_atomic(balance_diagnostics, "../output/calibration_balance.csv")
-write_csv_atomic(calibration_summary, "../output/calibration_summary.csv")
-write_csv_atomic(
-  counterfactual_distributions,
-  "../output/reweighted_counterfactual_distributions.csv"
-)
-write_csv_atomic(
-  scale_shape_count_decomposition,
-  "../output/scale_shape_count_decomposition.csv"
-)
-write_csv_atomic(
-  parent_share_difference,
-  "../output/parent_share_difference.csv"
-)
-write_csv_atomic(
-  local_excess_deficit_moments,
-  "../output/local_excess_deficit_moments.csv"
-)
-write_csv_atomic(
-  reweighted_constituent_count_distribution,
-  "../output/reweighted_constituent_count_distribution.csv"
-)
-write_csv_atomic(
-  cumulative_99_diagnostics,
-  "../output/cumulative_99_diagnostics.csv"
-)
+SaveData(calibration_weights, c("sample", "parent_id"), "../output/calibration_weights.csv")
+SaveData(balance_diagnostics, c("balance_moment"), "../output/calibration_balance.csv")
+SaveData(calibration_summary, NULL, "../output/calibration_summary.csv")
+SaveData(counterfactual_distributions, c("outcome", "series", "unit_bin_order"), "../output/reweighted_counterfactual_distributions.csv")
+SaveData(scale_shape_count_decomposition, NULL, "../output/scale_shape_count_decomposition.csv")
+SaveData(parent_share_difference, c("unit_bin_order"), "../output/parent_share_difference.csv")
+SaveData(local_excess_deficit_moments, c("outcome", "moment"), "../output/local_excess_deficit_moments.csv")
+SaveData(reweighted_constituent_count_distribution, c("series", "n_components"), "../output/reweighted_constituent_count_distribution.csv")
+SaveData(cumulative_99_diagnostics, c("unit_bin_order"), "../output/cumulative_99_diagnostics.csv")
 
 save_pdf(
   counterfactual_figure,

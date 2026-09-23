@@ -1,8 +1,4 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/audits/audit_scale_shape_splitting/code")
-# exact_plot_minimum <- 50L
-# exact_plot_maximum <- 300L
-# preferred_minimum <- 50L
-# pooled_tail_start <- 301L
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -15,35 +11,13 @@ suppressPackageStartupMessages({
 })
 
 source("../../../shared/code/source_pipeline_utils.R")
+source("../../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(exact_plot_minimum), as.character(exact_plot_maximum), as.character(preferred_minimum), as.character(pooled_tail_start))
-
-if (length(args) != 4L) {
-  stop(
-    "Expected exact-plot minimum/maximum, preferred minimum, and pooled-tail ",
-    "start."
-  )
-}
-
-exact_plot_minimum <- as.integer(args[1])
-exact_plot_maximum <- as.integer(args[2])
-preferred_minimum <- as.integer(args[3])
-pooled_tail_start <- as.integer(args[4])
-
-if (
-  any(is.na(c(
-    exact_plot_minimum,
-    exact_plot_maximum,
-    preferred_minimum,
-    pooled_tail_start
-  ))) ||
-    exact_plot_minimum >= exact_plot_maximum ||
-    preferred_minimum != exact_plot_minimum ||
-    pooled_tail_start != exact_plot_maximum + 1L
-) {
-  stop("Descriptive scale-shape arguments are not internally consistent.")
-}
+# Exact plots cover 50-300 units; the preferred shape sample starts at 50 with a pooled 301+ bin.
+exact_plot_minimum <- 50L
+exact_plot_maximum <- 300L
+preferred_minimum <- 50L
+pooled_tail_start <- 301L
 
 parents <- read_parquet(
   "../input/parent_opportunity_panel.parquet"
@@ -610,38 +584,14 @@ historical_year_figure <- historical_year_distribution |>
   theme_minimal(base_size = 11) +
   theme(legend.position = "top", panel.grid.minor = element_blank())
 
-write_csv_atomic(
-  sample_exposure_summary,
-  "../output/sample_exposure_summary.csv"
-)
-write_csv_atomic(
-  outcome_distribution_50_300,
-  "../output/outcome_distribution_50_300.csv"
-)
-write_csv_atomic(
-  scale_shape_decomposition,
-  "../output/scale_shape_decomposition.csv"
-)
-write_csv_atomic(
-  exact_threshold_shares,
-  "../output/exact_threshold_shares.csv"
-)
-write_csv_atomic(
-  exact_198_vector_decomposition,
-  "../output/exact_198_vector_decomposition.csv"
-)
-write_csv_atomic(
-  parent_99xk_summary,
-  "../output/parent_99xk_summary.csv"
-)
-write_csv_atomic(
-  parent_response_categories,
-  "../output/parent_response_categories.csv"
-)
-write_csv_atomic(
-  constituent_count_distribution,
-  "../output/constituent_count_distribution.csv"
-)
+SaveData(sample_exposure_summary, c("sample_scope", "period"), "../output/sample_exposure_summary.csv")
+SaveData(outcome_distribution_50_300, c("outcome", "period", "unit_count"), "../output/outcome_distribution_50_300.csv")
+SaveData(scale_shape_decomposition, c("range_label"), "../output/scale_shape_decomposition.csv")
+SaveData(exact_threshold_shares, c("period", "parent_total_units"), "../output/exact_threshold_shares.csv")
+SaveData(exact_198_vector_decomposition, NULL, "../output/exact_198_vector_decomposition.csv")
+SaveData(parent_99xk_summary, c("period", "pattern"), "../output/parent_99xk_summary.csv")
+SaveData(parent_response_categories, c("period", "response_category"), "../output/parent_response_categories.csv")
+SaveData(constituent_count_distribution, c("period", "n_components"), "../output/constituent_count_distribution.csv")
 
 make_outcome_figure(
   "Largest constituent",
