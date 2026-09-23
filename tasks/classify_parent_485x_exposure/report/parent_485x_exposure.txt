@@ -1,7 +1,7 @@
 Rows: 7858
 Columns: 37
 Key fields: sample, parent_id
-Saved-file MD5: 72b89e5e116abf9d39330e0d966c3c54
+Saved-file MD5: fc4320febbf4bba10aace32034cb1816
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 7858 | distinct | 2
@@ -23,7 +23,7 @@ confidence | character | nonmissing | 7858 | distinct | 3
 classification_reason | character | nonmissing | 7858 | distinct | 14
 evidence_source | character | nonmissing | 7858 | distinct | 12
 source_url | character | nonmissing | 848 | distinct | 670
-review_date | Date | nonmissing | 7858 | distinct | 1
+review_date | Date | nonmissing | 3 | distinct | 1
 government_owner | logical | nonmissing | 7858 | distinct | 2
 nycha_owner | logical | nonmissing | 7858 | distinct | 2
 hotel_project | logical | nonmissing | 7858 | distinct | 2
