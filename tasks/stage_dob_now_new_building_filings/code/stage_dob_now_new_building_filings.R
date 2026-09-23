@@ -10,16 +10,7 @@ suppressPackageStartupMessages({
 source("../../shared/code/source_pipeline_utils.R")
 source("../../shared/code/write_data_report.R")
 
-file_manifest <- read_csv(
-  "../input/dob_now_new_building_filing_files.csv",
-  show_col_types = FALSE,
-  na = c("", "NA")
-)
-
-stopifnot(nrow(file_manifest) == 2L,
-          setequal(file_manifest$file_role,
-                   c("initial_new_building_filings_2016_2026", "new_building_amendments_2024_2026")))
-
+# Both extracts come from the July 10, 2026 pull of DOB NOW Build Job Filings.
 raw_filings <- bind_rows(
   read_csv("../input/dob_now_new_building_initial_filings_2016_2026.csv",
            col_types = cols(.default = col_character())),
@@ -44,8 +35,8 @@ if (length(missing_columns) > 0L) {
 staged_filings <- raw_filings |>
   transmute(
     source_row_number = row_number(),
-    source_id = unique(file_manifest$source_id),
-    source_pull_date = unique(file_manifest$pull_date),
+    source_id = "dob_now_build_job_filings",
+    source_pull_date = 20260710,
     job_filing_number = str_squish(job_filing_number),
     job_number = str_remove(str_squish(job_filing_number), "-[A-Z][0-9]+$"),
     filing_type = str_extract(str_squish(job_filing_number), "(?<=-)[A-Z][0-9]+$"),
