@@ -36,7 +36,7 @@ include ../../../shared/code/generic.make
 	../input/dcp_housing_database_project_level_raw_23q4.parquet \
 	../input/dcp_housing_database_project_level_raw_25q4.parquet \
 	../input/dob_now_new_building_initial_filings.parquet ../input/dob_now_new_building_filings.parquet \
-	../input/prepolicy_baseline_filings_2026-09-22.csv | $(OOPR)
+	prepolicy_baseline_filings_2026-09-22.csv | $(OOPR)
 	$(R) $<
 
 ../output/nearby_filings.csv: screen_neighbors.R Makefile ../../../shared/code/write_data_report.R \
@@ -75,7 +75,7 @@ include ../../../shared/code/generic.make
 ../input/nyc_mappluto_23v3_1_arc_shp.zip: ../../../fetch_mappluto_archive/output/nyc_mappluto_23v3_1_arc_shp.zip | ../input
 	ln -sf $< $@
 
-../input/4121_third_rawp_2025-10-01.pdf: ../../download_parent_review_documents/output/4121_third_rawp_2025-10-01.pdf | ../input
+../input/4121_third_rawp_2025-10-01.pdf: ../../parent_review_documents/output/4121_third_rawp_2025-10-01.pdf | ../input
 	ln -sf $< $@
 
 ../input/pair_decisions.csv: ../../../parent_opportunities_manual/output/pair_decisions.csv | ../input
@@ -90,5 +90,3 @@ include ../../../shared/code/generic.make
 ../input/dcp_housing_database_project_level_23q4.parquet: ../../../stage_dcp_housing_database/output/dcp_housing_database_project_level_23q4.parquet | ../input
 	ln -sf $< $@
 
-../input/prepolicy_baseline_filings_2026-09-22.csv: ../../audit_hdb_mappluto_condo_recovery/code/prepolicy_baseline_filings_2026-09-22.csv | ../input
-	ln -sf $< $@

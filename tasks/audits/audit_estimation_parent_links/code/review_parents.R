@@ -25,7 +25,7 @@ history <- read_parquet("../input/dob_now_new_building_filings.parquet")
 historical <- read_parquet("../input/historical_parent_filing_link_fields.parquet")
 links <- read_parquet("../input/symmetric_parent_links.parquet")
 # Preserve the scope of each old review when the source change adds or removes filings.
-baseline <- read_csv("../input/prepolicy_baseline_filings_2026-09-22.csv",
+baseline <- read_csv("prepolicy_baseline_filings_2026-09-22.csv",
   show_col_types = FALSE, col_types = cols(root_job_id = col_character()))
 baseline_jobs <- baseline |> group_by(parent_id) |>
   summarise(baseline_jobs = paste(sort(root_job_id), collapse = ";"), .groups = "drop")

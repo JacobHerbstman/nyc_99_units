@@ -5,7 +5,7 @@ comparison. The sample is the reweighting benchmark in
 `audit_scale_shape_splitting`: adopted rental parents with at least 50 units and
 `composition_eligible`, 595 historical and 310 post-period parents. Boundary
 flags and the alternative earlier-parcel areas come from `parent_site_scope.csv`
-in `audit_hdb_mappluto_condo_recovery`.
+in `audit_parent_site_boundaries`.
 
 Each scenario recalibrates the historical weights on the same moments (log lot
 area, residential FAR, built FAR, borough) and reports the exact-99 and exact-198

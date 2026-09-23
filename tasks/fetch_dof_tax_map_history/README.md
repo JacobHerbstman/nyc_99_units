@@ -69,6 +69,6 @@ historical polygons. The map index links to DOF's dated PDFs. An application
 tracker entry records a proposed or processed request; its dates and status
 are distinct from the completed tax-map transaction.
 
-The first consumer is `audits/audit_hdb_mappluto_condo_recovery`. Its candidate
+The first consumer is `audits/audit_parent_site_boundaries`. Its candidate
 parcel sets and remaining review cases are audit outputs. Production parent
 characteristics and weighting remain provisional while those cases are resolved.
