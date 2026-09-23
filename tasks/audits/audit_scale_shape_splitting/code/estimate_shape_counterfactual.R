@@ -265,9 +265,7 @@ scale_shape_count_decomposition <- counterfactual_distributions |>
   )
 
 save_pdf <- function(figure, out_path, width = 11, height = 5.8) {
-  temporary_pdf <- tempfile(fileext = ".pdf")
-  ggsave(temporary_pdf, figure, width = width, height = height, bg = "white")
-  publish_file(temporary_pdf, out_path)
+  ggsave(out_path, figure, width = width, height = height, bg = "white")
 }
 
 plot_distribution <- counterfactual_distributions |>

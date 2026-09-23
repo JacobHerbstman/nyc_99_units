@@ -321,8 +321,6 @@ SaveData(
   "../output/temporal_window_sensitivity.csv"
 )
 
-temporary_pdf <- tempfile(fileext = ".pdf")
-ggsave(temporary_pdf, placebo_figure, width = 11, height = 8, bg = "white")
-publish_file(temporary_pdf, "../output/historical_forward_placebos.pdf")
+ggsave("../output/historical_forward_placebos.pdf", placebo_figure, width = 11, height = 8, bg = "white")
 
 cat("Wrote counterfactual robustness audits to ../output\n")

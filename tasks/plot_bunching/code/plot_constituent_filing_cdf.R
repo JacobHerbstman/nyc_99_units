@@ -199,15 +199,11 @@ figure <- ggplot(
     strip.text = element_text(size = 11, face = "bold", hjust = 0)
   )
 
-temp_path <- tempfile(fileext = ".pdf")
-ggsave(temp_path, figure, width = 11, height = 8.5, bg = "white")
-publish_file(
-  temp_path,
-  if (plot_minimum == 50L) {
-    "../output/pdf/constituent_filing_cdf.pdf"
-  } else {
-    paste0("../output/pdf/constituent_filing_cdf_", plot_minimum, "_plus.pdf")
-  }
-)
+output_path <- if (plot_minimum == 50L) {
+  "../output/pdf/constituent_filing_cdf.pdf"
+} else {
+  paste0("../output/pdf/constituent_filing_cdf_", plot_minimum, "_plus.pdf")
+}
+ggsave(output_path, figure, width = 11, height = 8.5, bg = "white")
 
 cat("Wrote the constituent filing-size CDF to ../output/pdf\n")

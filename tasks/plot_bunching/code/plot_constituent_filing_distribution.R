@@ -197,14 +197,9 @@ if (plot_style == "histogram") {
   figure <- figure + geom_line(linewidth = 0.9)
 }
 
-temp_path <- tempfile(fileext = ".pdf")
 ggsave(
-  temp_path, figure, width = 11,
+  output_path, figure, width = 11,
   height = ifelse(plot_style == "histogram", 8.5, 6.1), bg = "white"
-)
-publish_file(
-  temp_path,
-  output_path
 )
 
 cat("Wrote the constituent filing-size distribution to ../output/pdf\n")
