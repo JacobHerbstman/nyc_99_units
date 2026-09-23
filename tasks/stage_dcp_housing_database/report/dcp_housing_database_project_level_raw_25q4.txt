@@ -1,7 +1,9 @@
 Rows: 81708
 Columns: 66
-Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: b453e1c1c597359c66cf51ed2a8601bd
+Key fields: job_number
+Saved-file MD5: 01c21c3e2ec51ea7f40bdb506ef22e5a
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
 source_id | character | nonmissing | 81708 | distinct | 1
 vintage | character | nonmissing | 81708 | distinct | 1
 source_raw_path | character | nonmissing | 81708 | distinct | 1
@@ -21,7 +23,7 @@ otherbinit | numeric | nonmissing | 32944 | distinct | 115 min/median/mean/max 0
 otherbprop | numeric | nonmissing | 17298 | distinct | 138 min/median/mean/max 0/0/1.379003/1395
 units_co | numeric | nonmissing | 55598 | distinct | 575 min/median/mean/max 0/2/15.27643/3491
 boro | numeric | nonmissing | 81708 | distinct | 5 min/median/mean/max 1/3/3.322172/5
-bin | numeric | nonmissing | 81708 | distinct | 71408 min/median/mean/max 1e+06/3427318/3516139/5870041
+bin | character | nonmissing | 81708 | distinct | 71408
 bbl | numeric | nonmissing | 81708 | distinct | 68190 min/median/mean/max 1000010000/3076335000/3368551000/5080500000
 addressnum | character | nonmissing | 81708 | distinct | 15659
 addressst | character | nonmissing | 81708 | distinct | 5606

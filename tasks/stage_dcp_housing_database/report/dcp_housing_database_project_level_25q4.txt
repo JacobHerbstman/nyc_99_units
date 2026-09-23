@@ -1,7 +1,9 @@
 Rows: 81708
 Columns: 29
-Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: 5ceccd744cd2174ba3ffaa413d1a074a
+Key fields: job_number
+Saved-file MD5: ed1aa1abb3d226ce31d322bab6a1d336
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
 source_id | character | nonmissing | 81708 | distinct | 1
 release | character | nonmissing | 81708 | distinct | 1
 job_number | character | nonmissing | 81708 | distinct | 81708

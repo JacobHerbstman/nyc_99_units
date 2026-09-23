@@ -90,9 +90,11 @@ SaveData(staged_23q4, "job_number", "../output/dcp_housing_database_project_leve
 # 25Q4: post-policy units.
 source_raw_path_25q4 <- "../../../data_raw/dcp_housing_database_project_level/25Q4/nychdb_25q4_csv.zip"
 
+# Building identifiers are text: guessed as numbers, the DOB placeholder BINs
+# 1000000-5000000 would be written as "1e+06".
 raw_25q4 <- read_csv(
   unz("../input/nychdb_25q4_csv.zip", "HousingDB_post2010.csv"),
-  show_col_types = FALSE,
+  col_types = cols(BIN = col_character(), .default = col_guess()),
   guess_max = 50000
 )
 names(raw_25q4) <- normalize_names(names(raw_25q4))
@@ -104,7 +106,7 @@ raw_25q4 <- raw_25q4 |>
     source_raw_path = source_raw_path_25q4
   ) |>
   select(source_id, vintage, source_raw_path, everything())
-SaveData(raw_25q4, NULL, "../output/dcp_housing_database_project_level_raw_25q4.parquet")
+SaveData(raw_25q4, "job_number", "../output/dcp_housing_database_project_level_raw_25q4.parquet")
 
 staged_25q4 <- stage_release(raw_25q4, "25Q4", source_raw_path_25q4)
-SaveData(staged_25q4, NULL, "../output/dcp_housing_database_project_level_25q4.parquet")
+SaveData(staged_25q4, "job_number", "../output/dcp_housing_database_project_level_25q4.parquet")
