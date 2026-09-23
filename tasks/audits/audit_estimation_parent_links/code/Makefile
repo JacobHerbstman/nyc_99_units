@@ -89,4 +89,3 @@ include ../../../shared/code/generic.make
 
 ../input/dcp_housing_database_project_level_23q4.parquet: ../../../stage_dcp_housing_database/output/dcp_housing_database_project_level_23q4.parquet | ../input
 	ln -sf $< $@
-

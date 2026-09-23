@@ -3,4 +3,3 @@ SHELL := bash
 .NOTPARALLEL:
 
 R := @. $(dir $(lastword $(MAKEFILE_LIST)))shell_functions.sh; run_r
-
