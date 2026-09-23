@@ -1,0 +1,239 @@
+\clearpage
+\section*{September 21, 2026: Applying land decisions and approved earlier-floor estimates}
+\textit{Agent-drafted research entry.}
+
+The documentary review of parent boundaries (see the September 20 entry)
+produced adopted ground areas. This entry records how those decisions enter
+the production panels and how the earlier building floor on each reviewed
+site is measured. Earlier floor matters because built FAR, the floor area of
+buildings already standing on the site divided by its ground, is one of the
+calibration moments behind the reweighted historical comparison. Six parents
+carry an explicitly approved floor estimate; GO Broome carries a documented
+zero; Wallabout carries a mapped allocation of its ground to earlier parcels.
+None of these corrections changes a housing unit count, a filing date, a
+refiling field or a parent membership. This entry replaces the September 21
+entries on implementing the reviewed parents, the remaining three sites, the
+five mergers and land diligence, and the five floor choices, together with
+the GO Broome floor paragraph of the September 22 boundary batch and the
+Wallabout paragraph of the September 22 Livingston follow-up.
+
+\paragraph{How an adopted decision enters production.}
+Each decision is a row of
+\path{tasks/parent_opportunities_manual/output/site_lot_decisions.csv}, a
+committed hand-researched table that no script edits. A row names one parent,
+the constituent DOB jobs it was reviewed for
+(\texttt{expected\_component\_jobs}), the named pre-filing MapPLUTO release
+(\texttt{reference\_vintage}), the earlier parcels (\texttt{reference\_bbls})
+and their recorded area in that release, the adopted ground
+(\texttt{development\_area\_sqft}), the earlier building floor to remove
+(\texttt{excluded\_building\_area\_sqft}), the measurement basis, and the
+estimate flag. The site-characteristics producer
+(\path{tasks/build_parent_site_characteristics}) stops if the listed jobs
+differ from the parent's current constituents, if the recorded area differs
+from the named release, or if the removed floor exceeds the parcels' recorded
+floor. A review therefore applies only to the filing set it covered.
+
+Residential and broad FAR always come from the earlier parcels in the named
+release, never from the later successor lot. Several earlier parcels may share
+one row only when they have identical residential and broad FAR; the producer
+checks that equality, so no internal area split is invented. At 355 Exterior
+the four contributing lots all have residential FAR 3.44 and broad FAR 6.5 and
+form one row. Starhill's two old lots have residential FAR 6.02 and 3.44, so
+they are separate rows and the parent's FAR is the area-weighted 5.85613.
+Floor on a retained neighboring building is removed from earlier floor.
+
+\paragraph{Earlier floor is allocated separately from ground.}
+The two areas in a row are independent. Built FAR for a row is the recorded
+floor of its earlier parcels, less the removed floor, divided by the adopted
+ground. A partly included parcel can therefore keep all of its floor when the
+building stands on the included part, or lose all of it when the building
+stands on retained land. At Bedford Square the housing parent includes part of
+the Sears parcel, but the full 175,875-square-foot Sears building stays on
+the retained parcel; only the east auto-center's 14,946 square feet remain,
+for existing FAR 0.08419 on 177,520.79 square feet. At Starhill the included
+44.5-by-100-foot strip of old lot 162 (4,450 square feet) carries none of
+that lot's 33,750-square-foot building, while old lot 134's 80,370 square feet
+stay, giving existing FAR 1.14711 on 70,063 square feet. Motto's reference
+parcels hold 83,936 square feet of floor, of which 69,357 lie on retained lot
+37, leaving 14,579. At 355 Exterior the neighboring old-lot-38 building's
+25,962 square feet are removed, leaving 31,850 (existing FAR 0.264816). At
+Amsterdam, Casa Celina, DeKalb/LIU and Penn South the retained campus parcel
+reproduces the entire earlier floor after subdivision, so all of it is
+removed.
+
+\paragraph{The six approved floor estimates.}
+For six parents no document measures the partition of an earlier building
+across the development boundary. Jacob approved Flatbush's estimate on
+September 21 and the other five on September 21--22, each as a flagged
+estimate or later administrative proxy. Their rows set
+\texttt{built\_floor\_area\_estimated = TRUE}, and the canonical parent panel
+carries the flag. Where the estimate is built from a proxy rather than from the
+recorded floor, the removed amount is an accounting residual, not a measured
+floor on retained land.
+
+\begin{center}
+\small
+\begin{tabular}{llrrrr}
+\hline
+Parent & Sample & Units & Ground (sq ft) & Earlier floor (sq ft) & Built FAR \\
+\hline
+Flatbush tower & Hist. & 441 & 12,603 & 39,929.757 & 3.168274 \\
+East 125th Street & Hist. & 614 & 42,540 & 50,836.28 & 1.195023 \\
+St.~James/Jerome & Hist. & 102 & 17,775 & 3,650 & 0.205345 \\
+Onderdonk & Post & 62 & 9,310 & 13,141.62 & 1.411560 \\
+Jamaica/165th Street & Post & 591 & 39,349.50 & 40,342.49 & 1.02523 \\
+Kingsbrook/Schenectady & Post & 402 & 105,382 & 226,059.00 & 2.14514 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textit{Flatbush.} The tower's NYCIDA ground lease gives 12,603 square feet,
+replacing a 1,198-square-foot parcel match. Earlier lots 23 and 24 lie wholly
+inside and contribute their 2,450 and 15,640 square feet of floor in full. The
+tower covers 61.3821\% of old lot 18's mapped ground, and the same share of
+that lot's 35,580 square feet of floor is included, giving 39,929.757 and
+removing 13,740.243. The February 2018 environmental review describes and
+photographs a three-story building on lot 18, which supports a roughly uniform
+height. It does not measure the partition; equal floor density across lot 18
+is the assumption.
+
+\textit{East 125th Street.} The 2021 OER work plan identifies the
+42,540-square-foot site as parts of old lots 20 and 27. Each old lot's frozen
+20v1 floor is multiplied by its own geometric overlap share:
+$64{,}363\times0.49187+20{,}860\times0.91936=50{,}836.28$, with full-precision
+shares in the calculation. Floor is assumed uniform within each old parcel.
+The site was vacant by 2021, but that does not date the demolition relative
+to the April 2020 filing, so zero is not adopted.
+
+\textit{St.~James/Jerome.} The recorded deed and lease bound 17,775 square
+feet. The 20v3 frozen record has 13,000 square feet of floor on the undivided
+parcel. In 21v3 and 22v1, before the new building appears, the housing parcel
+records 3,650 and the retained church 7,650. The adopted value is the
+housing parcel's later administrative 3,650. Housing plus church is 1,700
+below the frozen total, and whether that reflects a correction or a physical
+change is unresolved. The removed 9,350 is the residual $13{,}000-3{,}650$.
+Subtracting the church instead would have assigned 5,350.
+
+\textit{Onderdonk.} A recorded agreement identifies developer lot 30 with
+9,309.60 surveyed square feet (administrative 9,310) out of the
+13,218-square-foot predecessor. Frozen 2023 floor of 18,658 is allocated by
+land share: $18{,}658\times9{,}310/13{,}218=13{,}141.62$. The old building had
+two stories, and later one-story DOF records cannot locate the missing second
+story, so this is weaker than Flatbush's uniform-height evidence.
+
+\textit{Jamaica/165th Street.} The 2026 recorded declaration separates the
+39,349.50-square-foot residential parcel from the MTA terminal. The 2024
+condominium plans locate each earlier building's shop floors, rear
+mezzanines, second story and roof stair. For each old parcel, its share of
+above-cellar plan area inside the boundary is applied to its frozen 2023
+administrative floor. The two shops outside the drawings, old lots 98 and 99,
+use their recorded 70- and 80-foot building depths. Six old parcels contribute
+housing ground, with 88,365 square feet of ground and 52,593 of floor; old lots
+89 and 94 (23,175 ground, 17,220 floor) are wholly outside and are counted
+only in the eight-parcel audit inventory. Approximate footprints, scaled
+mezzanine depths, and a similar spatial share for unmeasured cellar floor are
+assumptions. Placing all three mezzanines outside or inside gives 39,678.62
+to 40,735.68.
+
+\textit{Kingsbrook/Schenectady.} A recorded agreement assigns 92,709 square
+feet to Phase~I and 12,673 to its parking. HCR's corrected 2018 schedule gives
+214,280 gross square feet, including basements, for the Leviton, Masin,
+Blumberg and LeFrak pavilions. The June 2025 environmental assessment records
+an 11,600-square-foot power plant with a cellar. A tracing of the July 2021
+survey places 47.9165\% of its footprint inside Phase~I, or 5,558.31 square
+feet per floor. The estimate adds that amount for the ground floor and again
+for a cellar assumed to follow the footprint, plus 662.37 for half of the
+labeled mezzanine bay (1,324.74 if fully covered):
+$214{,}280+2\times5{,}558.31+662.37=226{,}059.00$. The half-bay is a midpoint
+imputation. Omitting or filling the bay gives 225,396.63 to 226,721.37;
+excluding all cellars gives 185,255.69. HCR gross area is a documented
+substitute whose comparability with PLUTO's building area is unproved. The
+removed 362,539.00 is the residual from the frozen 588,598 campus total, not a
+measured retained-campus floor.
+
+\paragraph{GO Broome and Wallabout.}
+MapPLUTO 19v2 records 4,600 square feet of floor on GO Broome's two
+development lots. City Planning dates complete demolition of the synagogue
+to June 2019, before the November 2019 reference snapshot and the March 2020
+filing, and the DEIS reports zero existing floor. On September 22, following
+Jacob's instruction, the row removes the stale 4,600 as an explicit
+source-error correction, giving zero earlier floor on the unchanged 32,395
+square feet. Because the zero is documented, not imputed, the row is not
+flagged as an estimate.
+
+Wallabout's three cohort buildings occupy 39,323 square feet under the 2023
+appraisal and the DOF map, separate from the earlier 251 Wallabout
+development. Current successor lots are overlaid on the common pre-filing
+18v2\_1 parcels, and each successor's recorded area is distributed by its
+mapped overlap shares: 2,507.69 on old lot 37, 18,342.52 on old lot 41 and
+18,472.79 on old lot 122. Old lot 23 contributes nothing, and the later lot
+37 is a different parcel from the earlier one. All three old parcels record
+zero floor. Parent ground falls from 68,805 to 39,323 square feet and
+residential FAR rises from about 4.70 to 5.03. The ground total is
+administrative; its split across zoning parcels is an approximate mapped
+allocation. The source entries do not record a separate approval by Jacob for
+this allocation.
+
+\paragraph{Effect on the weighted comparison.}
+These corrections move the reweighted historical exact-99 share by thousandths
+of a percentage point and the weighted mean parent size by a few tenths of a
+unit at most. The sensitivities hold outcomes, the calibration moments
+and all other parents fixed, and were computed on the 554-historical,
+310-post-policy sample of that date. For Flatbush on the corrected 12,603
+square feet:
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\hline
+Lot 18 floor included & Built FAR & Weighted exact-99 share & Weighted mean units \\
+\hline
+None & 1.43537 & 1.355248\% & 151.3958 \\
+Adopted 61.38\% & 3.16827 & 1.354308\% & 151.4872 \\
+All & 4.25851 & 1.353476\% & 151.5662 \\
+\hline
+\end{tabular}
+\end{center}
+\noindent The none-versus-all range is 0.001772 percentage points and 0.1704
+units. The former 1,198-square-foot match gave 1.354249\% and 151.7519 units.
+
+For the other five, each site's earlier floor was varied from zero to its full
+frozen old total, one parent at a time (Jamaica's upper end uses the 52,593 on
+its six contributing parcels). The ranges in the exact-99 share are 0.000495
+percentage points (East 125th), 0.000558 (St.~James), 0.000740 (Jamaica),
+0.001111 (Onderdonk) and 0.003030 (Kingsbrook). Applying all five adopted
+estimates together moved the share from 1.354308\% to 1.353533\% and the mean
+from 151.4872 to 151.4686 units. The September 22 batch that set GO Broome's
+floor to zero and applied five boundary corrections moved them to 1.3537427\%
+and 151.3559; Wallabout alone then moved the share to 1.3536772\%. These are
+stress tests, not confidence intervals or joint bounds, and small effects on
+these summaries neither validate a particular estimate nor establish that a
+future structural model is insensitive to them.
+
+\paragraph{Panel and sample transitions.}
+Merging Bedford Square's four filings and Starhill's two reduced historical
+parents from 1,818 to 1,814. Merging Godwin/Kimberly, GO Broome, Woodside,
+Motto and Elara reduced historical parents to 1,811 and post-policy parents
+from 909 to 907, with housing totals unchanged at 129,335 and 61,319 units.
+The weighting sample fell from 557 historical and 312 post-policy parents to
+554 and 310 through those five mergers alone; the floor estimates, GO Broome
+and Wallabout left it unchanged. The September 22 pre-adoption source rule
+later rebuilt the historical panel from the 23Q4 Housing Database and changed
+the sample to 595 historical and 310 post-period parents. The
+floor-specific sensitivities above have not been recomputed on that sample.
+The manual table now has 63 rows for 43 parents, of which
+six carry the estimate flag.
+
+\textit{Reproduction note.} Production reads only
+\path{tasks/parent_opportunities_manual/output/site_lot_decisions.csv} and the
+archived MapPLUTO releases; root \texttt{make data} rebuilds the panels, and
+no main task depends on an audit. The Jamaica and Kingsbrook calculations
+(\path{measure_remaining_floors.R}) and the Wallabout allocation
+(\path{measure_wallabout_allocation.R}) are in
+\path{tasks/audits/audit_parent_site_boundaries/code/} and run under root
+\texttt{make site-boundaries}. The Flatbush and five-floor sensitivity scripts
+and the memos \path{five_floor_decisions.md} and
+\path{flatbush_floor_review.md}, with document pages and links, were removed
+from the working tree; they are preserved at tag
+\texttt{pre-cleanup-2026-09-22} under
+\path{tasks/audits/audit_hdb_mappluto_condo_recovery/}.

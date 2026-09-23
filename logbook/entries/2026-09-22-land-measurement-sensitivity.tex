@@ -1,0 +1,86 @@
+\clearpage
+\section*{September 22, 2026: Land measurement barely moves the bunching comparison}
+\textit{Agent-drafted research entry.}
+
+The parcel-boundary review had flagged about 150 weighting-sample parents for
+case-by-case documentary research. Before continuing it, we asked whether land
+measurement can change the reweighted comparison at all. The answer is that
+it cannot change the bunching findings. The rule used to measure land does
+matter for the size of historical projects, and the automatic correction the
+audit offers applies unevenly across the two periods.
+
+\paragraph{The test.} The benchmark sample is unchanged: 595
+historical and 310 post-period rental parents with at least 50 units.
+Each scenario recalibrates the historical weights on the same four moments
+(log lot area, residential FAR, built FAR, borough). Units, filings and
+membership never change. The scenarios are: no weighting; production land;
+dropping every flagged parent from both periods; replacing lot area with the
+audit's earlier-parcel area for parents that pass the boundary screen; and
+halving or doubling every flagged parent's land while holding earlier
+building floor fixed.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrr}
+\hline
+Scenario & Excess at 99 & Excess at 198 & Deficit 100--149 & Hist.\ multi-filing & Hist.\ mean units \\
+\hline
+Unweighted & 11.4 & 2.9 & 7.9 & 6.7\% & 173 \\
+Production & 11.4 & 2.9 & 7.5 & 5.3\% & 149 \\
+Drop all flagged parents & 11.8 & 3.2 & 8.2 & 4.3\% & 146 \\
+Earlier-parcel areas & 11.5 & 2.9 & 5.9 & 4.2\% & 124 \\
+Flagged land halved & 11.4 & 2.9 & 7.5 & 5.7\% & 154 \\
+Flagged land doubled & 11.4 & 2.9 & 7.5 & 5.0\% & 146 \\
+\hline
+\end{tabular}
+\end{center}
+
+Excesses and deficits are percentage points of the normalized parent-size
+distribution; the post-period multi-filing share is 16.8 percent and
+the post-period mean 137 units. The bootstrap percentile intervals
+for the production benchmark are 8.0--14.9 points for the excess at
+99 and 3.3--12.4 for the 100--149 deficit.
+
+\paragraph{What it shows.} The excess at 99 and at 198 is the same under every
+land definition, including no weighting at all; there are no 198-unit
+historical parents in any scenario. Misstating every flagged parent's land by
+a factor of two moves the excess at 99 by less than 0.02 points and
+mean size by about five units, so the remaining per-parent queue
+cannot change the headline.
+
+The earlier-parcel scenario is different. It lowers the historical mean from
+149 to 124 units, below the post-period mean, and the
+100--149 deficit from 7.5 to 5.9 points. That rule enlarges
+194 of 595 historical sites but only 33 of 310 post-period
+sites. The reason is timing, not measurement quality: developers typically
+file under the one tax lot that survives a later merger, and in 91
+percent of the enlarged historical cases DOF recorded that merger after the
+filing, typically about a year later. 589 Fulton Street is an example: filed in
+August 2021 on lot 14, a 279-square-foot sliver in the January 2021 map, with
+the nine-lot merger recorded in June 2022; the site is 27,542 square feet.
+Post-period filings from 2025--2026 have mostly not yet had their mergers
+recorded. Applying the rule therefore makes historical sites look larger than
+comparable recent sites, and the weights move away from large historical
+projects. The production measure, the filing lot in the pre-filing map, uses
+the same method in both periods, and the smallest quarter of sites by land per
+unit looks alike across periods (below 52 and 53 square feet
+per unit); that does not establish that its errors balance.
+
+\paragraph{Where this leaves the review.} The per-parent research batches were
+not continued, and the September 22 cleanup retired their download rules and
+memos (tag \texttt{pre-cleanup-2026-09-22} keeps them). Whether any case-level
+review resumes is Jacob's decision. Adopted decisions remain in
+\path{parent_opportunities_manual}; the automatic screen and candidate areas
+remain in \path{audit_parent_site_boundaries}. Claude recommends treating the
+open question as a rule rather than a list of cases: measure site land the
+same way in both periods, for example by counting a DOF merger only if it was
+recorded within a fixed window after filing, and add a check for implausible
+land per unit. It matters for the size and housing-forgone questions, not for
+the bunching.
+
+\textit{Reproduction note.} Root \texttt{make land-sensitivity} runs
+\path{tasks/audits/audit_land_measurement_sensitivity}, which reads the
+canonical parent panel, the boundary screen and the saved benchmark weights,
+and checks that its production scenario reproduces those weights. The merger
+timing comes from \path{parent_site_scope.csv} and the DOF transaction dates in
+\path{audit_parent_site_boundaries/output/dof_events.parquet}.
