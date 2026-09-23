@@ -10,8 +10,8 @@ include ../../shared/code/generic.make
 	$(R) $< 100
 
 ../output/hpd_485x_registrations.parquet: stage_hpd_485x_registrations.R \
-	../../shared/code/source_pipeline_utils.R ../input/hpd_485x_registration_files.csv Makefile \
-	../input/hpd_485x_registrations.csv ../input/hpd_485x_registrations_metadata.json \
+	../../shared/code/source_pipeline_utils.R Makefile \
+	../input/hpd_485x_registrations.csv \
 	../../shared/code/write_data_report.R | $(OOPR)
 	$(R) $<
 
@@ -19,15 +19,6 @@ include ../../shared/code/generic.make
 	../../stage_dob_now_new_building_filings/output/dob_now_new_building_initial_filings.parquet | ../input
 	ln -sf $< $@
 
-../input/hpd_485x_registration_files.csv: \
-	../../fetch_hpd_485x_registrations/output/hpd_485x_registration_files.csv | ../input
-	ln -sf $< $@
-
 ../input/hpd_485x_registrations.csv: \
 	../../fetch_hpd_485x_registrations/output/hpd_485x_registrations_20260820_hpd_485x_registrations.csv | ../input
-	ln -sf $< $@
-
-../input/hpd_485x_registrations_metadata.json: \
-	../../fetch_hpd_485x_registrations/output/hpd_485x_registrations_20260820_hpd_485x_registrations_metadata.json \
-	| ../input
 	ln -sf $< $@
