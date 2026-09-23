@@ -5,9 +5,8 @@ Department of Finance tax-map service and its application tracker. It provides
 the administrative records used by the parent-footprint audit. No credentials
 are needed.
 
-Run `make fetch_dof_tax_map_history` from the project root. Run
-`make dof-parcel-audit` to prepare the main data and trace all parents meeting
-the estimation size and policy-sample rules.
+Run `make fetch_dof_tax_map_history` from the project root; `make site-boundaries`
+builds it together with the audit that reads it.
 
 | Output table | DOF source | Rows in this snapshot |
 | --- | --- | ---: |
@@ -69,6 +68,5 @@ historical polygons. The map index links to DOF's dated PDFs. An application
 tracker entry records a proposed or processed request; its dates and status
 are distinct from the completed tax-map transaction.
 
-The first consumer is `audits/audit_parent_site_boundaries`. Its candidate
-parcel sets and remaining review cases are audit outputs. Production parent
-characteristics and weighting remain provisional while those cases are resolved.
+Its only consumer is `audits/audit_parent_site_boundaries`; no production task
+reads these tables.
