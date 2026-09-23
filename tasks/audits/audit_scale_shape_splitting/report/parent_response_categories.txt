@@ -1,7 +1,7 @@
 Rows: 12
 Columns: 16
 Key fields: period, response_category
-Saved-file MD5: d3e05cb9c9fe21f338902b2e4dd90eef
+Saved-file MD5: 42fac9a8174ea8e1b696f92feac454d2
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 period | character | nonmissing | 12 | distinct | 2
@@ -14,9 +14,9 @@ parents_with_total_at_least_100 | numeric | nonmissing | 12 | distinct | 8 min/m
 mean_parent_total | numeric | nonmissing | 12 | distinct | 11 min/median/mean/max 26.30545/184.2593/217.1783/605.375
 median_parent_total | numeric | nonmissing | 12 | distinct | 11 min/median/mean/max 17/168.75/189.7083/500
 mean_largest_constituent | numeric | nonmissing | 12 | distinct | 9 min/median/mean/max 18.48101/99/142.0436/359.875
-mean_lot_area_sqft | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 5504.169/22565.03/45883.46/235451.1
-mean_residential_capacity_sqft | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 14945.61/66636.94/121412.6/459469.2
-mean_redevelopment_slack_sqft | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 11064.08/53666.24/88680.81/285559.8
+mean_lot_area_sqft | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 5946.283/22708.5/46526.62/235451.1
+mean_residential_capacity_sqft | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 16360.6/66813.13/123264.4/459469.2
+mean_redevelopment_slack_sqft | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 12244.33/53829.02/90281.09/285559.8
 category_total_ge_100 | numeric | nonmissing | 12 | distinct | 8 min/median/mean/max 0/8.5/37.33333/284
 all_parents_total_ge_100 | numeric | nonmissing | 12 | distinct | 2 min/median/mean/max 121/121/206.8333/327
 share_conditional_parent_total_ge_100 | numeric | nonmissing | 12 | distinct | 9 min/median/mean/max 0/0.04681932/0.1666667/0.8685015

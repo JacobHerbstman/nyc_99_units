@@ -1,7 +1,7 @@
 Rows: 167
 Columns: 40
 Key fields: parent_id, vintage
-Saved-file MD5: c4248d3242796ca86691811589be5955
+Saved-file MD5: 8d1a0c7112746ac23a35eb971f7b13e4
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 parent_id | character | nonmissing | 167 | distinct | 158
@@ -17,7 +17,7 @@ sample | character | nonmissing | 167 | distinct | 2
 component_addresses | character | nonmissing | 167 | distinct | 158
 parent_total_units | numeric | nonmissing | 167 | distinct | 122 min/median/mean/max 50/177/257.1916/1386
 n_components | numeric | nonmissing | 167 | distinct | 6 min/median/mean/max 1/1/1.48503/8
-production_area_sqft | numeric | nonmissing | 167 | distinct | 151 min/median/mean/max 1300/25000/65736.21/1227637
+production_area_sqft | numeric | nonmissing | 167 | distinct | 151 min/median/mean/max 1360/25000/66229.66/1227637
 reason | character | nonmissing | 167 | distinct | 6
 mixed_vintages | logical | nonmissing | 167 | distinct | 2
 condo_scope_review | logical | nonmissing | 167 | distinct | 2
@@ -41,6 +41,6 @@ geometry_pattern | character | nonmissing | 167 | distinct | 4
 source_scope_review | logical | nonmissing | 167 | distinct | 2
 old_recorded_difference_pct | numeric | nonmissing | 161 | distinct | 156 min/median/mean/max -49.04172/-1.519463/1.350244/131.23
 later_recorded_difference_pct | numeric | nonmissing | 154 | distinct | 144 min/median/mean/max -85.18071/-1.564943/-1.063328/100.6877
-later_vs_production_pct | numeric | nonmissing | 154 | distinct | 144 min/median/mean/max -96.69678/1.328774/54.80352/840.7446
+later_vs_production_pct | numeric | nonmissing | 154 | distinct | 144 min/median/mean/max -96.69678/1.04495/46.17608/840.7446
 whole_lot_candidate_sqft | numeric | nonmissing | 46 | distinct | 42 min/median/mean/max 2045.672/31697.27/55626.07/323036.1
-candidate_vs_production_pct | numeric | nonmissing | 46 | distinct | 42 min/median/mean/max -49.75344/4.507043/70.42683/743.7677
+candidate_vs_production_pct | numeric | nonmissing | 46 | distinct | 42 min/median/mean/max -71.54906/4.507043/68.82223/743.7677

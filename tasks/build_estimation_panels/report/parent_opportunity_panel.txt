@@ -1,7 +1,7 @@
 Rows: 3080
-Columns: 77
+Columns: 80
 Key fields: sample, parent_id
-Saved-file MD5: 8ca905baafc55a49caf27086302c8c50
+Saved-file MD5: 144f8f6995ad231b348bf6c1ac7c264c
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 3080 | distinct | 2
@@ -64,18 +64,21 @@ feature_units | integer | nonmissing | 3080 | distinct | 360 min/median/mean/max
 feature_complete | logical | nonmissing | 3080 | distinct | 2
 composition_eligible | logical | nonmissing | 3080 | distinct | 2
 reviewed_distinct_buildings | logical | nonmissing | 3080 | distinct | 2
-number_unique_lots | integer | nonmissing | 3059 | distinct | 7 min/median/mean/max 1/1/1.050343/7
-multi_lot_indicator | integer | nonmissing | 3059 | distinct | 2 min/median/mean/max 0/0/0.03595946/1
-lot_area_sqft | numeric | nonmissing | 3058 | distinct | 1668 min/median/mean/max 279/4290.5/28946.19/1601432
+number_unique_lots | integer | nonmissing | 3059 | distinct | 10 min/median/mean/max 1/1/1.201046/11
+multi_lot_indicator | integer | nonmissing | 3059 | distinct | 2 min/median/mean/max 0/0/0.11932/1
+lot_area_sqft | numeric | nonmissing | 3058 | distinct | 1714 min/median/mean/max 279/4895.5/29509.79/1601432
 site_feature_method | character | nonmissing | 3080 | distinct | 8
-log_lot_area | numeric | nonmissing | 3058 | distinct | 1668 min/median/mean/max 5.631212/8.364156/8.644729/14.28641
-residential_far | numeric | nonmissing | 3059 | distinct | 42 min/median/mean/max 0/3/3.312566/10
-broad_zoning_far | numeric | nonmissing | 3059 | distinct | 31 min/median/mean/max 0/4.8/4.464233/15
-built_far | numeric | nonmissing | 3059 | distinct | 458 min/median/mean/max 0/0.49/0.6966288/21.38
-residential_capacity_sqft | numeric | nonmissing | 3058 | distinct | 1953 min/median/mean/max 0/11494.5/36931.01/2761126
-built_floor_area_sqft | numeric | nonmissing | 3058 | distinct | 1690 min/median/mean/max 0/1925/9578.152/1113541
+log_lot_area | numeric | nonmissing | 3058 | distinct | 1714 min/median/mean/max 5.631212/8.496071/8.71979/14.28641
+residential_far | numeric | nonmissing | 3059 | distinct | 56 min/median/mean/max 0/3/3.310348/10
+broad_zoning_far | numeric | nonmissing | 3059 | distinct | 43 min/median/mean/max 0/4.8/4.462873/15
+built_far | numeric | nonmissing | 3059 | distinct | 598 min/median/mean/max 0/0.49/0.6901913/21.38
+residential_capacity_sqft | numeric | nonmissing | 3058 | distinct | 1995 min/median/mean/max 0/12213/38748.09/2761126
+built_floor_area_sqft | numeric | nonmissing | 3058 | distinct | 1732 min/median/mean/max 0/2032.07/9914.287/1113541
 built_floor_area_estimated | logical | nonmissing | 3080 | distinct | 2
-redevelopment_slack_sqft | numeric | nonmissing | 3058 | distinct | 2387 min/median/mean/max 0/9157.725/28145.1/1664863
+merged_lots_added | integer | nonmissing | 3080 | distinct | 10 min/median/mean/max 0/0/0.1496753/10
+merger_window_complete | logical | nonmissing | 3080 | distinct | 2
+implausible_site | logical | nonmissing | 3080 | distinct | 2
+redevelopment_slack_sqft | numeric | nonmissing | 3058 | distinct | 2428 min/median/mean/max 0/9817.63/29645.43/1664863
 zero_residential_capacity | integer | nonmissing | 3058 | distinct | 2 min/median/mean/max 0/0/0.04185742/1
 zero_redevelopment_slack | integer | nonmissing | 3058 | distinct | 2 min/median/mean/max 0/0/0.05657292/1
 borough | character | nonmissing | 3059 | distinct | 5

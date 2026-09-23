@@ -131,3 +131,41 @@ parents, rather than further case-by-case research.
 
 \textit{Reproduction note.} The window and screen scenarios are in
 \path{land_measurement_sensitivity.R}; root \texttt{make land-sensitivity}.
+
+\subsection*{September 23: the 180-day merger rule in production}
+
+Jacob chose the 180-day window and asked that estimation keep as many
+observations as possible. Production land now adds, for every filing whose
+reference is a citywide MapPLUTO release, the lots DOF merged into that filing
+lot after the reference map and no more than 180 days after the parent's first
+filing, using their area, FARs and existing floor from the same release. Only
+lot mergers with one surviving lot count. The rule lives in
+\path{build_parent_site_characteristics}, reading DOF lot actions from
+\path{fetch_dof_tax_map_history}; no audit output enters production. In the
+weighting sample it adds lots to 63 historical and 37 post-period parents. Units,
+filings and membership are unchanged, and the constituent panel is identical.
+
+Nothing is dropped. The 81 post-period parents filed less than 180 days before
+the DOF snapshot keep \texttt{merger\_window\_complete = FALSE}, and 47
+historical and 21 post-period parents carry \texttt{implausible\_site}; seven of
+the latter are exact-99 parents.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrrr}
+\hline
+Scenario & Hist. & Post & Excess at 99 & Deficit 100--149 & Hist.\ mean & Post mean \\
+\hline
+Production (180-day rule) & 595 & 310 & 11.4 & 7.3 & 146 & 137 \\
+Complete 180-day windows only & 595 & 229 & 11.2 & 8.0 & 150 & 142 \\
+Without implausible sites & 548 & 289 & 9.8 & 5.9 & 135 & 136 \\
+\hline
+\end{tabular}
+\end{center}
+
+The benchmark effective sample size is 527; the bootstrap interval for the
+excess at 99 is 7.9--14.9 points and for the 100--149 deficit 3.0--12.1. The
+excess at 99 holds without the parents lacking a full window and without the
+implausible sites, though removing the latter lowers it to 9.8 because it
+drops seven post-period 99-unit parents. The deficit just above 100 is more
+sensitive to which parents enter.

@@ -51,6 +51,9 @@ assessment needs its own evidence.
   rental parents with at least 50 units.
 - `site_feature_method = reviewed_parcel_allocation` marks land characteristics
   taken from `parent_opportunities_manual/output/site_lot_decisions.csv`.
+- `merged_lots_added`, `merger_window_complete` and `implausible_site` come from
+  the 180-day merger rule and site check in `build_parent_site_characteristics`.
+  They are for sensitivity analysis and exclude no parent.
 - `built_floor_area_estimated` marks parents whose earlier building floor uses
   an approved estimate. It is for sensitivity analysis and does not exclude the
   parent.

@@ -1,11 +1,11 @@
 Rows: 6
 Columns: 5
 Key fields: historical_window, moment
-Saved-file MD5: 44512aa78f927e954f1f98ecb99cad0d
+Saved-file MD5: 41614aaa80bf13f6d9aeae5591a04578
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 historical_window | character | nonmissing | 6 | distinct | 2
 historical_parents | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max 333/464/464/595
-effective_sample_size | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max 285.3261/408.7384/408.7384/532.1507
+effective_sample_size | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max 282.2029/404.455/404.455/526.7071
 moment | character | nonmissing | 6 | distinct | 3
-estimate | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 0.02903226/0.07205099/0.07212216/0.1164571
+estimate | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 0.02903226/0.07186574/0.07204881/0.1163839
