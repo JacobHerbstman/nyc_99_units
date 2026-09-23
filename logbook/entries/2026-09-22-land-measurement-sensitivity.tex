@@ -84,3 +84,50 @@ canonical parent panel, the boundary screen and the saved benchmark weights,
 and checks that its production scenario reproduces those weights. The merger
 timing comes from \path{parent_site_scope.csv} and the DOF transaction dates in
 \path{audit_parent_site_boundaries/output/dof_events.parquet}.
+
+\subsection*{September 23 follow-up: symmetric merger windows and implausible sites}
+
+Jacob approved testing the land rule symmetrically before changing production.
+Two windows count the earlier-parcel area only when every DOF change on the
+parent's lots was recorded within 180 or 365 days after filing, in both
+periods, and keep only post-period parents observed for the full window (229
+and 115 of 310). Each is compared with production land on the same sample.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrr}
+\hline
+Scenario & Post parents & Excess at 99 & Deficit 100--149 & Hist.\ mean & Post mean \\
+\hline
+Production, 180-day sample & 229 & 11.2 & 8.2 & 153 & 142 \\
+Mergers within 180 days & 229 & 11.2 & 8.0 & 149 & 142 \\
+Production, 365-day sample & 115 & 11.7 & 8.5 & 154 & 145 \\
+Mergers within 365 days & 115 & 11.7 & 8.4 & 149 & 145 \\
+\hline
+\end{tabular}
+\end{center}
+
+Applied the same way in both periods, the merger correction lowers the
+weighted historical mean by four to five units and the 100--149 deficit by at
+most 0.2 points, and leaves the excess at 99 unchanged. The 25-unit drop in the
+one-sided correction was therefore an artifact of recording time, not evidence
+that the production measure is biased between periods. The production measure
+stands. A 365-day window catches only about half the historical mergers, so
+these windows bound, rather than eliminate, the remaining undercount.
+
+A symmetric screen flags sites whose permitted residential floor (lot area
+times the larger of residential and broad FAR) is under 150 square feet per
+proposed unit: 62 of 595 historical and 25 of 310 post-period parents, similar
+shares. The flagged set is not neutral in outcome, however. It contains 7 of the
+37 post-period parents at exactly 99 units (19 percent, against 7 percent of
+other post-period parents) and none of the three historical ones; an example is
+67 4th Avenue, 99 units on 1,745 square feet. Dropping these parents lowers the
+excess at 99 to 9.9 points, still inside the bootstrap interval, but that is a
+selection on the outcome, not a correction. The finding matters for any model
+that uses a parent's own land: recorded land is most often a fragment for the
+99-unit filings that identify the notch response. Claude recommends carrying
+the implausible-site flag into estimation and checking results without those
+parents, rather than further case-by-case research.
+
+\textit{Reproduction note.} The window and screen scenarios are in
+\path{land_measurement_sensitivity.R}; root \texttt{make land-sensitivity}.

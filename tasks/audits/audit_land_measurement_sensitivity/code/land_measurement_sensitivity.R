@@ -29,7 +29,8 @@ site_scope <- read_csv(
   transmute(
     parent_id,
     boundary_flagged = as.logical(unresolved),
-    candidate_area_sqft = as.numeric(candidate_area_sqft)
+    candidate_area_sqft = as.numeric(candidate_area_sqft),
+    last_dof_change = as.Date(last_change)
   )
 
 stopifnot(
@@ -56,6 +57,34 @@ rescale_flagged_land <- function(data, factor) {
     )
 }
 
+# Symmetric merger windows. DOF often records a lot merger months after the
+# filing, and the DOF snapshot ends September 15, 2026, so recent filings have
+# had less time for mergers to appear. Each window counts the earlier-parcel
+# area only when every DOF change on the parent's lots was recorded within that
+# many days after filing, in both periods, and keeps only post-period parents
+# observed for the full window. The matching production scenario uses the same
+# sample, separating the land effect from the sample restriction.
+dof_snapshot_date <- as.Date("2026-09-15")
+
+window_sample <- function(data, days) {
+  data |> filter(sample == "historical" | as.Date(cohort_date) + days <= dof_snapshot_date)
+}
+
+window_land <- function(data, days) {
+  window_sample(data, days) |>
+    mutate(
+      merger_in_window = !is.na(last_dof_change) & last_dof_change <= as.Date(cohort_date) + days,
+      lot_area_sqft = if_else(merger_in_window, coalesce(candidate_area_sqft, lot_area_sqft), lot_area_sqft),
+      log_lot_area = log(lot_area_sqft)
+    )
+}
+
+# Sites whose permitted residential floor is under 150 square feet per proposed
+# unit cannot hold the proposal even with a doubled FAR: the recorded land is
+# almost certainly a fragment. The same cutoff applies in both periods.
+parents <- parents |>
+  mutate(implausible_site = lot_area_sqft * pmax(residential_far, broad_zoning_far) / parent_total_units < 150)
+
 scenarios <- list(
   production = parents,
   drop_flagged_parents = parents |> filter(!boundary_flagged),
@@ -65,7 +94,12 @@ scenarios <- list(
       log_lot_area = log(lot_area_sqft)
     ),
   flagged_land_halved = rescale_flagged_land(parents, 0.5),
-  flagged_land_doubled = rescale_flagged_land(parents, 2)
+  flagged_land_doubled = rescale_flagged_land(parents, 2),
+  drop_implausible_sites = parents |> filter(!implausible_site),
+  production_180_day_sample = window_sample(parents, 180),
+  mergers_within_180_days = window_land(parents, 180),
+  production_365_day_sample = window_sample(parents, 365),
+  mergers_within_365_days = window_land(parents, 365)
 )
 
 summarise_scenario <- function(data, scenario, weighted = TRUE) {

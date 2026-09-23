@@ -20,6 +20,16 @@ parent units:
 - `flagged_land_halved`, `flagged_land_doubled`: rescales flagged parents' lot
   area, holding earlier building floor fixed so built FAR moves inversely.
 
+- `drop_implausible_sites`: removes parents, in both periods, whose permitted
+  residential floor (lot area times the larger of residential and broad FAR)
+  is under 150 square feet per proposed unit.
+- `mergers_within_180_days`, `mergers_within_365_days`: use the earlier-parcel
+  area only when every DOF change on the parent's lots was recorded within that
+  many days after filing, in both periods, and keep only post-period parents
+  observed for the full window before the September 15, 2026 DOF snapshot.
+  `production_180_day_sample` and `production_365_day_sample` use production
+  land on the same samples.
+
 Housing units, filings, and membership are unchanged in every scenario. Run
 `make` in `code/` after building the main panels and both source audits.
 The output is `output/land_measurement_sensitivity.csv`.
