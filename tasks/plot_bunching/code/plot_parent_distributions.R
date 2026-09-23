@@ -57,15 +57,7 @@ period_colors <- c("#4C78A8", "#E45756")
 names(period_colors) <- period_levels
 
 save_pdf <- function(figure, out_path, width = 11, height = 5.8) {
-  temp_path <- tempfile(fileext = ".pdf")
-  ggsave(
-    temp_path,
-    figure,
-    width = width,
-    height = height,
-    bg = "white"
-  )
-  publish_file(temp_path, out_path)
+  ggsave(out_path, figure, width = width, height = height, bg = "white")
 }
 
 parents_ab <- parents |>

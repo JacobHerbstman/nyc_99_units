@@ -1,0 +1,12 @@
+Rows: 48
+Columns: 6
+Key fields: parent_id
+Saved-file MD5: b30db0acfadbb366d8fe74471058e421
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parent_id | character | nonmissing | 48 | distinct | 48
+reviewed_component_jobs | character | nonmissing | 48 | distinct | 48
+reference_vintage | character | nonmissing | 48 | distinct | 13
+component_job_numbers | character | nonmissing | 47 | distinct | 47
+vintages | character | nonmissing | 46 | distinct | 17
+applicability | character | nonmissing | 48 | distinct | 4

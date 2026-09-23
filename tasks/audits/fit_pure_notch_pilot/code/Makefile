@@ -88,5 +88,5 @@ include ../../../shared/code/generic.make
 	ln -sf $< $@
 
 ../input/pluto_26v2.json ../input/acris_legals.json ../input/acris_master.json: \
-	../input/%: ../../download_parent_review_documents/code/stack_parcels_2026-09-14/% | ../input
+	../input/%: ../../parent_review_documents/output/stack_parcels_2026-09-14/% | ../input
 	ln -sf $< $@

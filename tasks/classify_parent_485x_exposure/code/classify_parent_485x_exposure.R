@@ -402,10 +402,8 @@ parent_exposure <- parent_evidence |>
       ag_market_homeownership ~ ag_market_source_urls,
       TRUE ~ NA_character_
     ),
-    review_date = as.Date(coalesce(
-      as.character(manual_review_date),
-      "2026-08-26"
-    )),
+    # Only manual reviews have a review date; automatic rows stay missing.
+    review_date = as.Date(manual_review_date),
     included_ab = exposure_status == "exposed_ab",
     included_ab_plus_d = exposure_status %in% c(
       "exposed_ab",

@@ -11,23 +11,7 @@ suppressPackageStartupMessages({
 source("../../shared/code/source_pipeline_utils.R")
 source("../../shared/code/write_data_report.R")
 
-file_manifest <- read_csv(
-  "../input/hpd_485x_registration_files.csv",
-  show_col_types = FALSE,
-  na = c("", "NA")
-)
-
-registration_file <- file_manifest |>
-  filter(file_role == "building_registration_submissions")
-
-if (nrow(registration_file) != 1L) {
-  stop("Expected one available HPD 485-x registration extract.")
-}
-
-if (compute_sha256("../input/hpd_485x_registrations.csv") != registration_file$sha256) {
-  stop("HPD 485-x registration file does not match the fetch manifest checksum.")
-}
-
+# August 20, 2026 snapshot published by fetch_hpd_485x_registrations.
 registrations <- read_csv(
   "../input/hpd_485x_registrations.csv",
   show_col_types = FALSE,
@@ -35,14 +19,12 @@ registrations <- read_csv(
   na = c("", "NA")
 )
 
-if (nrow(registrations) != registration_file$row_count) {
-  stop("HPD 485-x registration row count does not match the fetch manifest.")
-}
+stopifnot(nrow(registrations) == 312L)
 
 staged_registrations <- registrations |>
   transmute(
-    source_id = registration_file$source_id,
-    source_pull_date = registration_file$pull_date,
+    source_id = "hpd_485x_registrations",
+    source_pull_date = 20260820,
     response_number = suppressWarnings(as.integer(no)),
     form_submission_timestamp = ymd_hms(form_submission_date, tz = "America/New_York"),
     reported_property_address = str_squish(reported_property_address),

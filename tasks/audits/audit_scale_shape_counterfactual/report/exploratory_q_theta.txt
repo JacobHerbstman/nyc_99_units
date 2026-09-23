@@ -1,17 +1,17 @@
 Rows: 1
 Columns: 11
 Key fields: outcome
-Saved-file MD5: e61eb568434e16687bac5d57b96e0f55
+Saved-file MD5: a4639b56efffcc95808d87f0823b6136
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 outcome | character | nonmissing | 1 | distinct | 1
-q_crossing | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 124/124/124/124
-target_excess_at_99 | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.1100027/0.1100027/0.1100027/0.1100027
-counterfactual_mass_100_to_q_minus_1 | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.111488/0.111488/0.111488/0.111488
+q_crossing | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 134/134/134/134
+target_excess_at_99 | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.1141094/0.1141094/0.1141094/0.1141094
+counterfactual_mass_100_to_q_minus_1 | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.1256053/0.1256053/0.1256053/0.1256053
 q_found_below_150 | logical | nonmissing | 1 | distinct | 1
-theta_grid_upper | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 135/135/135/135
-theta | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 1.08871/1.08871/1.08871/1.08871
-compression_target_post_mass | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.04113924/0.04113924/0.04113924/0.04113924
-compression_counterfactual_mass | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.04209877/0.04209877/0.04209877/0.04209877
-compression_absolute_gap | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.0009595339/0.0009595339/0.0009595339/0.0009595339
+theta_grid_upper | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 149/149/149/149
+theta | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 1.11194/1.11194/1.11194/1.11194
+compression_target_post_mass | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.06451613/0.06451613/0.06451613/0.06451613
+compression_counterfactual_mass | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.03973886/0.03973886/0.03973886/0.03973886
+compression_absolute_gap | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.02477726/0.02477726/0.02477726/0.02477726
 interpretation | character | nonmissing | 1 | distinct | 1

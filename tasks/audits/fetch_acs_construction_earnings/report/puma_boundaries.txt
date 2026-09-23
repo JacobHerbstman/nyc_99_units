@@ -1,9 +1,0 @@
-Rows: 55
-Columns: 3
-Key fields: puma
-Saved-file MD5: 2917d2d8e9739e6f7958dca6fb5088f3
-Rows missing a key field: 0
-Repeated keys beyond the first row: 0
-puma | character | nonmissing | 55 | distinct | 55
-shape_leng | character | nonmissing | 55 | distinct | 55
-shape_area | character | nonmissing | 55 | distinct | 55

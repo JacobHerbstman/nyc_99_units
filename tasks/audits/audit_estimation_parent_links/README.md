@@ -10,7 +10,7 @@ The current complete-characteristic, A/B, 50-plus-unit casebook contains 92 mult
 
 `trace_companions.R` checks the seven originally accepted companions against the period-appropriate linkage fields and geometry coverage, and verifies their shared-parent membership. The Third Avenue PNG renders October 2025 RAWP page 77. The original detailed investigation remains in `report/ten_case_deep_review.md`.
 
-Public PDFs are acquired by `download_parent_review_documents`; analysis builds perform no live searches. After preparing upstream data through root Make, run Make from `code/`. The local Makefile lists actual products and input symlinks. SaveData produces data reports as side effects; reports and execution logs are not targets. The root logbook build prepares the upstream data and compiles the research record.
+Public PDFs are acquired by `parent_review_documents`; analysis builds perform no live searches. After preparing upstream data through root Make, run Make from `code/`. The local Makefile lists actual products and input symlinks. SaveData produces data reports as side effects; reports and execution logs are not targets. The root logbook build prepares the upstream data and compiles the research record.
 
 ## Earlier review results
 

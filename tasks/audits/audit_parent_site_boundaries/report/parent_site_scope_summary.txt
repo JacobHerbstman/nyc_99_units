@@ -1,0 +1,13 @@
+Rows: 21
+Columns: 7
+Key fields: sample, prior_unresolved, unresolved, status
+Saved-file MD5: 808f17aae5088234bea402f1973b004d
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 21 | distinct | 2
+prior_unresolved | logical | nonmissing | 21 | distinct | 2
+unresolved | logical | nonmissing | 21 | distinct | 2
+status | character | nonmissing | 21 | distinct | 9
+parents | numeric | nonmissing | 21 | distinct | 13 min/median/mean/max 1/8/43.09524/445
+parent_units | numeric | nonmissing | 21 | distinct | 21 min/median/mean/max 66/1129/6927.952/66147
+exact_99_parents | numeric | nonmissing | 21 | distinct | 4 min/median/mean/max 0/0/2.904762/44

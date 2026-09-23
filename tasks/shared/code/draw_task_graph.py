@@ -11,7 +11,7 @@ edges = set()
 tasks = set()
 for makefile in sorted(Path('tasks').glob('*/code/Makefile')):
     task = makefile.parents[1].name
-    if task in {'shared', 'setup_environment', 'source_registry'}:
+    if task in {'shared', 'setup_environment'}:
         continue
     tasks.add(task)
     text = makefile.read_text().replace('\\\n', ' ')

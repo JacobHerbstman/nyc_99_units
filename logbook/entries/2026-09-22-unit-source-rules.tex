@@ -1,0 +1,230 @@
+\clearpage
+\section*{September 22, 2026: Which source supplies each filing's units}
+\textit{Agent-drafted research entry.}
+
+Until this correction, historical proposals filed in 2019--2022 were selected
+by their initial DOB filing date but took their proposed Class~A units, lots
+and building identifiers from Housing Database release 25Q4, published after
+485-x took effect. A design amended after adoption therefore entered the
+pre-policy distribution with its later unit count. The clearest case is 370
+Livingston Street, job \texttt{B00781447}, first filed on September 28, 2022.
+The official 23Q4 archive records it at 144 units; 25Q4 records 99. A recorded
+declaration, document 2026010400010003, physical page~16, reproduces an April
+2025 HPD application for the same job with 99 units and intended 485-x
+Option~B treatment. The 99 in the historical panel was a post-policy design,
+not a pre-policy choice. These sources do not date the amendment or establish
+why it was made.
+
+The problem was not limited to Livingston. A diagnostic that held panel
+membership fixed and compared each historical constituent with the 23Q4 files
+matched 1,902 of 1,904 constituents; 225 had different unit counts, affecting
+218 parents. In the then 554-parent historical weighting sample, 109 of 592
+constituents differed, affecting 106 parents. Four of the six historical
+filings at exactly 99 units had other counts in 23Q4: Livingston 144,
+Lafayette 104, East 198th Street 64 and Vyse Avenue 54. The other two were 99
+in both releases. Differences between releases may reflect amendments or
+administrative corrections; they are not estimates of a policy response. They
+showed that the historical comparison needed a single dated source recorded
+before adoption.
+
+\paragraph{The unit rule now.}
+Unit counts come from administrative sources according to filing period:
+
+\begin{center}
+\small
+\begin{tabular}{p{0.22\textwidth}p{0.70\textwidth}}
+\hline
+Filings & Unit source \\
+\hline
+Historical, 2019--2022 &
+Inactive-inclusive 23Q4 Housing Database archive: Class~A units, filing date,
+lot, building identifier (BIN), description and ownership category. Archived
+status and membership in the active/completed file are kept as separate
+fields. A filing missing from 23Q4 is not filled from a later release. \\
+Post-policy, January 1, 2025--July 8, 2026 &
+25Q4 Housing Database Class~A units; DOB initial-filing units only when the
+Housing Database count is missing. \\
+Both periods &
+A recorded zero stays zero. Documentary unit schedules and the July 2026 DOB
+counts are comparison fields and never override the selected count. \\
+\hline
+\end{tabular}
+\end{center}
+
+Jacob selected the inactive-inclusive archive, which keeps every recorded
+proposal together with its status. The archive's latest DOB update is January
+12, 2024. It therefore records designs as they stood before 485-x adoption,
+including any amendments made after the initial filing.
+
+The zero rule came from a separate error found during site review. Metropolitan
+Park, \texttt{Q01274555}, had entered both residential panels and the
+reweighting sample with 1,000 units. DCP's 25Q4 file records zero Class~A units
+and 1,000 hotel rooms, and the state-filed casino application confirms the
+hotel count. Cohort construction had filtered Housing Database records on the
+six-unit minimum and land-data availability before choosing a unit source, so
+the recorded zero became a missing match and the positive DOB count was used
+instead. The initial DOB description said ``gaming facility,'' so the separate
+hotel keyword check did not catch it. The producer now reads Class~A units
+from the unfiltered staged Housing Database table, and a final check requires
+the selected units to equal that priority count. Zero-Class-A filings remain
+in membership with their DOB counts, links and filing and refiling dates, but
+contribute no residential units. The rule does not treat community-facility
+beds as apartments or substitute an outside documentary count.
+
+That correction removed four entirely zero-Class-A parents from the
+post-period sample: Metropolitan Park, Mermaid, Meserole and Jamaica. On
+September 20, before the historical source change, the 50-plus-unit
+post-period reweighting sample fell from 316 to 312 parents and from 43,807
+to 42,341 units, and parents above 300 units fell from 25 to 24. One Bronx parent became 69 rather than 69+27 units,
+and a separate filing changed from 81 to 80. The effect was in the upper tail
+and in the calibration composition. At that time the post-period sample still
+had 39 parents at exactly 99 and nine 99+99 pairs.
+
+\paragraph{Withdrawn alternatives and reviewed filing roles.}
+Keeping inactive records means that a withdrawn application and its
+replacement can both appear. An earlier withdrawn application counts as an
+alternative, not an additional building, when a valid archived BIN, the same
+lot and the exact address identify one later non-withdrawn application within
+365 days. Several withdrawn versions may share one successor. In the canonical
+historical cohorts this rule excludes 34 earlier applications carrying 734
+units from additive totals. The records keep the original filing date, the
+successor's filing date and \texttt{refiling\_basis}; the archive gives no
+withdrawal date, and none is inferred. Other inactive proposals remain
+additive constituents.
+
+Two committed decisions in \path{parent_opportunities_manual/output/historical_filing_roles.csv}
+cover cases the rule cannot:
+
+\begin{center}
+\small
+\begin{tabular}{llp{0.24\textwidth}rp{0.30\textwidth}}
+\hline
+Job & Address & Role & 23Q4 units & Basis \\
+\hline
+\texttt{B00775071} & 773 Neptune & Nonresidential filing & 189 &
+23Q4 describes a one-story house of worship; the later DOB initial record
+classifies it as a school with zero dwellings. \\
+\texttt{M00536051} & 504 West 49th & Withdrawn alternative to \texttt{M00580473} & 158 &
+Same lot and program as the permitted 158-unit 509 West 48th filing; HPD's
+March 2022 environmental assessment describes one western housing building. \\
+\hline
+\end{tabular}
+\end{center}
+
+773 Neptune's 189 units remain as source evidence but add nothing to the
+residential total. The separate residential job \texttt{B00646589} has another
+BIN and lot. The West 49th filing, dated July 29, 2021, has a different BIN and
+address from its successor, dated August 31, 2021, so the automatic rule does
+not apply. The environmental assessment does not name either application, so
+the link is a documented inference. The earlier date anchors the parent, and
+the reviewed 21,924-square-foot allocation is unchanged. Together with the
+automatic rule, 35 filings with 892 recorded units are now
+superseded source filings.
+
+\paragraph{BIN collisions.}
+Distinct building identifiers among additive filings are part of the
+composition-eligibility requirement for reweighting. Bedford Square has four
+documented buildings, but the archive gives two of them the same BIN. The
+saved official DOB initial records give all four distinct valid BINs, and the
+complete filing set matches the reviewed production land allocation. A general
+rule now admits a historical parent when both forms of corroboration hold; the
+archived collision is kept and \texttt{reviewed\_distinct\_buildings} marks the
+parent. Bedford is the only historical parent that qualifies. Its four
+buildings, 877 units and 177,520.79 square feet remain in the weighting sample.
+
+\paragraph{Exposure.}
+The historical ownership and description screen also reads 23Q4. Attorney
+General offering-plan searches cover every historical parent, but only plans
+with dated submissions before the reference snapshot inform the
+classification. These are 2026 searches of dated records, not an archived
+2023 search. The supplement adds 652 exact job and address queries and one
+cross-year query for the Livingston companion. A missing search is kept
+distinct from a confirmed zero result. HPD 485-x registrations describe
+post-policy projects only.
+
+\paragraph{Resulting panels.}
+The 23Q4 archive contains 2,432 new-building filings with at least six units
+filed in 2019--2022: 2,166 active/completed-file records and 266 others. The
+existing requirement of a positive-area parcel match before filing leaves 42
+outside the historical linkage universe. Seven join parents anchored before
+2019, and 36 remain in membership as nonadditive source filings. The other
+2,347 additive filings, plus the 2023 Livingston companion inside its parent's
+365-day window, are the canonical constituents.
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\hline
+Panel & Parents & Additive constituents & Units \\
+\hline
+Historical, 25Q4 rule (before) & 1,811 & 1,904 & 129,335 \\
+Historical, 23Q4 rule (current) & 2,173 & 2,348 & 141,632 \\
+Post-policy (unchanged) & 907 & 1,005 & 61,319 \\
+\hline
+\end{tabular}
+\end{center}
+
+Of the new historical parents, 206 include an inactive additive constituent;
+another 25 have only active additive constituents but an inactive earlier
+application. The flags \texttt{historical\_all\_active} and
+\texttt{historical\_all\_source\_active} record these two definitions. The
+post-policy dates, memberships, exposure, composition eligibility and land
+covariates were verified unchanged.
+
+Livingston is now one parent with 144+105=249 units. The 23Q4 file records 372
+Livingston, job \texttt{B00814498}, at 105 units, filed 120 days after 370.
+Both archived filings share lot~16 and refer to the neighboring building under
+a separate application. The earlier linkage used 25Q4 lots~22 and~16 and missed
+the link; the later 99-unit design no longer enters the historical outcome.
+
+\paragraph{Effect on the headline comparison.}
+Historical constituent filings at exactly 99 units fall from six to
+two. The reweighting balances log land area, residential FAR, built FAR
+and borough across 595 historical and 310 post-period parents with at
+least 50 units. When the source rule changed, the weighted historical share of
+parents totaling exactly 99 units fell from 1.3537\% to 0.5261\%, against
+11.9355\% in the post period. The rebuilt outputs now give
+0.5245\% and 11.9355\%. This parent-total share includes one
+historical parent whose smaller constituents sum to 99, so it differs from the
+count of individual 99-unit filings. The historical effective sample size is
+532.15, the maximum absolute balance error is
+$1.48\times10^{-9}$, and 495 of 499 bootstrap draws calibrate,
+with four failures recorded. These remain descriptive comparisons while
+parcel boundaries are under review.
+
+\paragraph{Consequences for the boundary queue.}
+The source change altered historical membership, so the old parcel-review
+queue was reconciled with the new sample. Of the 111 cases previously queued,
+103 remain flagged; two of them now belong to one parent, giving 102 distinct
+parents. The other eight left the weighting sample without being classified as
+resolved, and the source correction cleared none of the old cases. At the time
+of the change, 29 newly entering parents and 21 previously supported parents
+were flagged as well, for 152 in total. After the later boundary decisions the
+screen flags 145 of the 905 weighting parents
+(116 historical and 29 post-period). The flags
+identify coverage and allocation questions, not established measurement
+errors. Documentary land reviews keep the filing sets they were made for. The
+two Jamaica/Sutphin reviews cover separate filing sets that now form one
+mechanically linked parent, so their separate allocations do not establish the
+merged parent's boundary. West 48th is outside the weighting sample.
+
+\paragraph{Remaining timing concern.}
+The 23Q4 archive is a pre-adoption snapshot, not a record of each design as
+first filed. Its counts reflect designs as of early 2024 and may include
+amendments made after the initial 2019--2022 filing. Livingston's 144 and 105
+are the counts recorded before adoption; the sources do not show that they
+were the September 2022 counts. The rule removes post-adoption redesigns from
+the historical distribution but does not recover original filings. A
+filing-level history would be needed to separate the two.
+
+\textit{Reproduction note.} Root \texttt{make data} rebuilds the panels and
+\texttt{make reweighting} the weighting results in
+\path{tasks/audits/audit_scale_shape_splitting/output}. The 23Q4 archive is a
+checksum-pinned download in \path{tasks/fetch_dcp_housing_database}. Unit
+selection is in \path{tasks/construct_parent_cohorts}, and reviewed roles are
+in \path{tasks/parent_opportunities_manual}. The release comparison, the DOB
+fallback listing, the check of the rebuilt panels against the dated pre-change
+tables, and the queue reconciliation were one-time audits in
+\path{tasks/audits/audit_hdb_mappluto_condo_recovery}, preserved at tag
+\texttt{pre-cleanup-2026-09-22}. The earlier pilot's exhibits use the old
+historical rule and are frozen in the logbook archive.

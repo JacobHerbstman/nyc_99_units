@@ -1,42 +1,43 @@
 include ../../shared/code/shell_functions.make
 
+FILES := ../output/dcp_housing_database_project_level_20260501_housing_project_level_archive.json \
+	../output/dcp_housing_database_project_level_20260501_housing_project_level_content_api.json \
+	../output/dcp_housing_database_project_level_23Q4_nychousingdb_23q4_csv.zip \
+	../output/dcp_housing_database_project_level_25Q4_Housing_Database_Data_Dictionary.xlsx \
+	../output/dcp_housing_database_project_level_25Q4_nychdb_25q4_csv.zip
+
 all: ../output/dcp_housing_database_files.csv
 
 include ../../shared/code/generic.make
 
-../output/dcp_housing_database_files.csv: source_files.csv Makefile \
-	../output/dcp_housing_database_project_level_20260501_housing_project_level_archive.json \
-	../output/dcp_housing_database_project_level_20260501_housing_project_level_content_api.json \
-	../output/dcp_housing_database_project_level_23Q4_nychousingdb_23q4_csv.zip \
-	../output/dcp_housing_database_project_level_25Q4_Housing_Database_Data_Dictionary.xlsx \
-	../output/dcp_housing_database_project_level_25Q4_nychdb_25q4_csv.zip ../../shared/code/copy_data.R \
-	../../shared/code/write_data_report.R | $(OOPR)
+# checksums.sha256 records the bytes of every published file. Files are fetched
+# or copied only when missing; editing the ledger re-verifies all of them here.
+../output/dcp_housing_database_files.csv: source_files.csv checksums.sha256 $(FILES) \
+	../../shared/code/copy_data.R ../../shared/code/write_data_report.R | $(OOPR)
+	shasum -a 256 --quiet -c checksums.sha256
 	$(R) ../../shared/code/copy_data.R $< $@ source_id vintage file_role
 
 ../output/dcp_housing_database_project_level_20260501_housing_project_level_archive.json: \
-	../../../data_raw/dcp_housing_database_project_level/20260501/housing_project_level_archive.json Makefile | \
-	../output
-	printf '%s  %s\n' d8440f4325edf85fd3d31ee08f8b6f23be91f824bce7643761e979ac8a626337 $< | shasum -a 256 -c -
+	../../../data_raw/dcp_housing_database_project_level/20260501/housing_project_level_archive.json | ../output
+	awk '$$2 == "$@" { print $$1 "  $<" }' checksums.sha256 | shasum -a 256 -c -
 	cp $< $@
 
 ../output/dcp_housing_database_project_level_20260501_housing_project_level_content_api.json: \
-	../../../data_raw/dcp_housing_database_project_level/20260501/housing_project_level_content_api.json Makefile | \
-	../output
-	printf '%s  %s\n' c279ff2f123e97a08f86f3f8d53605346c0838ab38a760e08dd809b33d416a18 $< | shasum -a 256 -c -
+	../../../data_raw/dcp_housing_database_project_level/20260501/housing_project_level_content_api.json | ../output
+	awk '$$2 == "$@" { print $$1 "  $<" }' checksums.sha256 | shasum -a 256 -c -
 	cp $< $@
 
 ../output/dcp_housing_database_project_level_25Q4_Housing_Database_Data_Dictionary.xlsx: \
-	../../../data_raw/dcp_housing_database_project_level/25Q4/Housing_Database_Data_Dictionary.xlsx Makefile | \
-	../output
-	printf '%s  %s\n' fb77519cf5a6f52b0d5fa27ade4a6f7df0d9f192d791b50080d73653fe189947 $< | shasum -a 256 -c -
+	../../../data_raw/dcp_housing_database_project_level/25Q4/Housing_Database_Data_Dictionary.xlsx | ../output
+	awk '$$2 == "$@" { print $$1 "  $<" }' checksums.sha256 | shasum -a 256 -c -
 	cp $< $@
 
-../output/dcp_housing_database_project_level_25Q4_nychdb_25q4_csv.zip: Makefile | ../output
-	curl --fail --location --retry 3 'https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/housing-database/housing-project-level/nychdb_25q4_csv.zip' -o $@.download
-	printf '%s  %s\n' 76f16a63535ea661700afd2440f143e718f9ffa4e8685de6e166c4ea208cada2 $@.download | shasum -a 256 -c -
-	mv $@.download $@
+../output/dcp_housing_database_project_level_25Q4_nychdb_25q4_csv.zip: \
+	../../../data_raw/dcp_housing_database_project_level/25Q4/nychdb_25q4_csv.zip | ../output
+	awk '$$2 == "$@" { print $$1 "  $<" }' checksums.sha256 | shasum -a 256 -c -
+	cp $< $@
 
-../output/dcp_housing_database_project_level_23Q4_nychousingdb_23q4_csv.zip: Makefile | ../output ../temp
-	curl --fail --location --retry 3 'https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/housing-database/nychousingdb_23q4_csv.zip' -o ../temp/nychousingdb_23q4_csv.zip
-	printf '%s  %s\n' ba204b240053f2477241d46eb9f4f4b11a15907484009e21264914c8cff1d45e ../temp/nychousingdb_23q4_csv.zip | shasum -a 256 -c -
-	mv ../temp/nychousingdb_23q4_csv.zip $@
+../output/dcp_housing_database_project_level_23Q4_nychousingdb_23q4_csv.zip: | ../output ../temp
+	curl --fail --location --retry 3 'https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/housing-database/nychousingdb_23q4_csv.zip' -o ../temp/$(@F)
+	awk '$$2 == "$@" { print $$1 "  ../temp/$(@F)" }' checksums.sha256 | shasum -a 256 -c -
+	mv ../temp/$(@F) $@

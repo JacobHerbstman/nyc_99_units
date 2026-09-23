@@ -153,11 +153,6 @@ for (row in seq_len(nrow(table_shares))) {
   ))
 }
 
-temporary_tex <- tempfile(fileext = ".tex")
-writeLines(latex_lines, temporary_tex)
-publish_file(
-  temporary_tex,
-  "../temp/scale_shape_splitting_figure_guide_values.tex"
-)
+writeLines(latex_lines, "../output/figure_guide_values.tex")
 
 cat("Wrote dynamic values for the figure guide.\n")

@@ -1,28 +1,21 @@
 # Audit tasks
 
-Audit tasks contain validation, sensitivity analysis, manual-review ledgers,
-and exploratory outcomes that are not headline production results. Each task
-still has an explicit Makefile and should run from its `code/` folder, after
-building the main pipeline with root `make`.
+Audits hold validation, sensitivity analysis, and exploratory work that the
+main pipeline does not depend on. Build the main pipeline with root `make`
+before running an audit from its `code/` folder or through its root target.
 
-The retained audits cover:
+| Audit | Purpose |
+|---|---|
+| `audit_scale_shape_splitting` | Reweighted historical benchmark, bootstrap, and the values used in `framework_writeup.tex` |
+| `audit_scale_shape_counterfactual` | Pre-policy holdout checks of that benchmark |
+| `audit_land_measurement_sensitivity` | Whether land-measurement choices move the reweighted comparison |
+| `fit_pure_notch_pilot` | Exploratory structural fit of the joint size-and-organization model |
+| `audit_parent_site_boundaries` | Automatic parcel-boundary screen and the calculations behind adopted land decisions |
+| `audit_estimation_parent_links` | Evidence tables and casebook for reviewed parent links |
+| `parent_review_documents` | Committed captures and checksum lists for the documents behind manual decisions |
+| `fetch_nys_ag_offering_plan_matches` | Attorney General offering-plan queries used by the exposure classification |
 
-- source and identifier checks for DCP HDB, DOB NOW, and MapPLUTO;
-- historical and post-policy parent-linkage checks;
-- exposure classification and threshold sensitivities;
-- exploratory reweighting, decomposition, and bootstrap calculations;
-- ACS, QCEW, and LODES wage comparisons;
-- the right-censored condo-tenure branch.
-
-No main task depends on an audit task. Adopted parent-link decisions live in
-`parent_opportunities_manual`; exposure decisions live in
-`classify_parent_485x_exposure/code/parent_exposure_manual_reviews.csv`.
-HPD registration links and exposure classifications also have main tasks.
-
-From `tasks/audits/<task>/code`, production outputs use paths like
-`../../../<task>/output/<file>`. Sibling audit outputs use
-`../../<task>/output/<file>`. Audit Makefiles include `../../../shared/code/generic.make`.
-
-The older parcel-prediction, structural no-notch, ACRIS/DOF, and land-price
-experiments were removed from the active tree. Git commit `1374dda` preserves
-their final pre-cleanup state.
+Adopted decisions live in production tasks: parent links, filing roles, and
+land allocations in `parent_opportunities_manual`; exposure reviews in
+`classify_parent_485x_exposure`. Earlier audits were removed from the tree;
+tag `pre-cleanup-2026-09-22` preserves them.

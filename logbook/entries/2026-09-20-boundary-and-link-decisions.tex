@@ -1,0 +1,279 @@
+\clearpage
+\section*{September 20, 2026: Development-ground rules, parent mergers, and adopted site areas}
+\textit{Agent-drafted research entry.}
+
+From September 16 to 22 we read recorded deeds, zoning declarations, ground
+leases, agency site plans and city tax maps for parents whose land the
+automatic parcel match could not confirm. The review asked two questions.
+Which physical ground did each development occupy, and which separately filed
+buildings form one economic parent? It began with the post-policy parents that
+contain an exact-99 filing and then turned to large historical parents.
+GPT-5.6 Sol agents gathered documents in bounded groups; the supervisor read
+the decisive original pages before accepting any finding. Two early agent
+proposals to set land from later map polygons were rejected, and a Broadway
+zoning drawing known only from a search-index extract was not treated as
+evidence. The supervisor-exported ACRIS PDFs have no text layer. A two-page
+local OCR test recovered the needed passages, but the proposed Jev reading
+pilot was not run, and no machine classification entered any decision.
+
+This entry records the rules used, the links accepted or left open, and the
+adopted ground for every reviewed parent. It replaces the September 16 and 20
+site-review entries and the boundary parts of the September 20 and 22 batch
+entries. Unit-source findings from those batches are recorded separately.
+
+\paragraph{What counts as development ground.}
+The framework holds the observed economic-parent boundary fixed across
+regimes and measures historical characteristics inside it. Development ground
+is the physical land under the parent's buildings plus documented common land
+such as courtyards and accessory parking. Earlier floor is the building floor
+area recorded on that ground in the named pre-filing MapPLUTO release; it
+enters existing built FAR. Five rules governed the adjudication.
+
+First, development rights, zoning lots and retained buildings are not
+development ground. At Ocean Parkway the church conveyed 64,000 square feet of
+residential development rights. Those rights permit more floor space but add
+no land. The adopted ground is the recorded 200-by-100-foot rectangle, 20,000
+square feet, carved from the church's 57,000-square-foot old lot 25; the
+church's building and its retained 40,000 square feet are excluded. Production
+had carried 3,000 square feet because the same tax-lot identifier described a
+different parcel in the reference map. Zoning lots are often much larger than
+the ground: GO Broome's zoning lot is 51,884 square feet against 32,395 of
+ground, and Beach 30th's City Planning plan describes a
+63,346.60-square-foot zoning lot for two buildings that includes parcels with
+other live filings. Easements and
+access rights add no ground either, including Broadway's adjacent lot 28 and
+East 108th Street's retained lot 342, which provides parking and access. Floor
+on a retained neighboring building is removed from earlier floor; at Bedford
+Square this is the 175,875-square-foot Sears building.
+
+Second, a ground lease contributes the ground it assigns, not the lessor's
+whole parcel. Casa Celina's executed June 2021 lease (ACRIS 2021063001174002,
+PDF p.~9) bounds approximately 12,613.61 square feet: a
+13,046.67-square-foot chord polygon less a 433.06-square-foot circular
+segment. The adopted successor area of 12,613 replaces a 344,900-square-foot
+campus value. A later NYCHA budget document says 9,400 square feet without a
+corresponding boundary; that discrepancy is recorded, and the executed lease
+governs. Penn South's lease bounds a 247-by-163-foot parcel inside a
+393,100-square-foot campus. North 8th Street's 99-unit ground lease covers lot
+133 and leaves the church on the neighboring parcels. The Flatbush tower's
+ground lease replaces a 1,198-square-foot source lot.
+
+Third, later documents can reconstruct a boundary, but they do not prove
+ownership or the boundary at filing. The framework does not require proof that
+the same subdivision or ownership existed on the reference date. The
+\texttt{area\_basis} field records which measurement is used. Starhill's
+combined ground is a later administrative measurement of the boundary drawn in
+its March 2022 declaration, not a February 2020 survey. The 1580 Story Avenue
+declaration establishes observed ground, not title at the June 2019 filing.
+Zoning and FAR always come from the named pre-filing release, and several
+earlier parcels share one decision row only when they share both FAR measures.
+
+Fourth, a later vacant parcel does not establish earlier vacancy. Casa
+Celina's later vacant-land code follows site preparation, so its archived
+prior-use category stays; De Kalb keeps its old public-facility category.
+Dated evidence can still correct the archive. City Planning dates complete
+demolition at GO Broome to June 2019, before the November 2019 reference
+snapshot. Following Jacob's instruction on September 22, the stale
+4,600-square-foot archived floor is deducted as a documented source
+correction, leaving zero earlier floor. Its ground and archived prior-use
+category are unchanged.
+
+Fifth, a documentary review applies only to the filing set it covered. Each
+row of \path{site_lot_decisions.csv} lists its \texttt{expected\_component\_jobs},
+and the producer checks them against current membership. Charles Place's
+agreement assigns complete earlier lots 7 and 71 to the development, but it
+does not adjudicate the older filing \texttt{321590541}. Broadway's
+9,262-square-foot building parcel likewise leaves its older hotel/residential
+filing open. Shepherd/Highland keeps its full 20,653-square-foot earlier
+parcel; a 21-unit filing on lot 148 in September 2026 falls after the July 8
+cutoff and adds no units to the observed 198-unit pair. At Jamaica/165th
+Street, recorded instrument 2026051400252004 separates six residential parcels
+totaling 39,349.50 square feet from the 72,982-square-foot MTA terminal. It
+does not print DOB job numbers, so its match to the six saved filings is
+collective. Housing Database Class~A counts remain the unit measure
+throughout, and an economic parent is not thereby a verified legal
+wage-assessment unit.
+
+\paragraph{Accepted parent mergers.}
+The review accepted seven developments as single economic parents. All seven
+are now applied through \path{pair_decisions.csv} and
+\path{site_lot_decisions.csv}. Each constituent keeps its administrative units,
+original filing date and refiling fields.
+\begin{itemize}
+\item \textit{Bedford Square} (historical): 2201 Beverly, 2366 Bedford, 2363
+Bedford and 158 Lott, filed within 31 days, $296+354+132+95=877$ units. DEC's
+remedial investigation describes one four-building redevelopment of the
+former Sears parcels, and the developer identifies the four addresses as
+buildings A--D. The merger reduces the parent count by three. Ground is the
+two surveyed west housing lots (43,413.10 and 73,457.69 square feet) plus the
+whole earlier east lot counted once (60,650). Later east areas sum to 60,726;
+the 76-square-foot vintage difference is kept as a comparison.
+\item \textit{Starhill} (historical): 244- and 326-unit filings five days apart
+in February 2020, 570 units. The developer and architect describe one campus.
+The March 2022 declaration defines and partitions the combined ground and
+excludes retained lots 129 and 162. Later financing phases do not split the
+filing-cohort decision.
+\item \textit{Godwin/Kimberly} (post-policy): $99+65=164$ units, both filed
+March 31, 2025 with the same owner and architect. On September 16 the link was
+not adopted: the automatic rule rejects their shared parcel history because
+its recorded change postdates filing, and the documents then read did not
+allocate the ground between the buildings. The July 2026 agreement then assigned the two buildings to lots 79 and
+88 and the existing commercial building to retained lot 78, and the link was
+accepted on September 20. Ground is $12,541+5,900=18,441$ square feet. Old lot
+78's 17,670-square-foot attribute conflicts with its roughly
+28,483-square-foot mapped extent, so it is not allocated proportionally.
+\item \textit{GO Broome} (historical): the Suffolk and Norfolk buildings, 35 days
+apart, $378+117=495$ units. City Planning identifies one development site with a
+shared courtyard on old lots 37 and 75; neighboring lots 1 and 95 are retained.
+\item \textit{Woodside} (historical): two filings 13 days apart, 478 units. DEC
+names both addresses, one owner and the planned merger of six earlier lots,
+whose archival areas sum exactly to the official two-building site.
+\item \textit{Motto} (historical): two filings, 264 units. A recorded easement
+names both jobs on common developer parcel 38/39/155, matching a June 2019
+site plan made before filing. Retained lot 37 is excluded, along with its
+building floor.
+\item \textit{Elara} (post-policy): $330+99=429$ units filed one day apart in
+October 2025. The recorded joint loan names both borrowers, all three parcels
+and both exact jobs, and records joint acquisition financing before filing.
+\end{itemize}
+
+\paragraph{Relationships rejected or left open.}
+Three possible changes to membership were not made. Rockaway Village's three same-day
+filings remain one parent; separate financing phases alone do not justify a
+split. Fifteen earlier two-family filings at Beach 29/30 have no first permits
+and match fifteen retained narrow parcels with their own 30-unit allocation.
+They do not imply shared apartment ground; only their documented land
+conflicts are cleared, and the filings are preserved. At East 178th Street
+only replacement job \texttt{X01273665-I1} is additive; the earlier proposal's
+lot 87 lies outside the recorded developer parcel.
+
+The membership review table carries three unresolved pairs.
+\textit{Franklin} (\texttt{B01325937-I1}, \texttt{B01325938-I1}) has 259- and
+117-unit filings by one developer 22 days apart. A recorded declaration
+redraws both lots 63 and 66, and neither parent boundary can be accepted until
+the two buildings are shown to be one development or separate decisions.
+\textit{Sutphin/95th Avenue} (\texttt{Q00657653}, \texttt{Q00657656}) are
+same-day filings with one DOB owner and architect on a prefiling partition of
+one 60,138-square-foot lot. Their complete building lots of 30,071 and 30,067
+square feet are settled, but the applicant describes neighboring projects, so
+both parent IDs are kept pending direct joint-development evidence. At
+\textit{1580 Story Avenue}, archived filings \texttt{220700873} and
+\texttt{X00756455} each propose 562 units on the same site. The records do not
+show whether they are alternatives or phases; neither is merged or deleted.
+
+Other open questions concern ground or filing roles rather than links. Charles
+Place's and Broadway's older filings are unresolved. Rockaway III/IV's deed
+conveys condominium interests in land shared by several phases, and the
+ownership percentages do not measure each phase's physical ground. At 310/322
+Grand Concourse the ground evidence is stronger, but the allocation of earlier
+zoning or floor is not settled. Atlantic's 52,000-square-foot candidate lacked
+a job-specific boundary when last reviewed on September 20.
+
+\paragraph{Adopted development ground.}
+The table is built from
+\path{tasks/parent_opportunities_manual/output/site_lot_decisions.csv}, which
+is the authority for these values. Ground is the sum of
+\texttt{development\_area\_sqft} over each parent's rows. Numbers quoted in the
+prose above illustrate the rules; the CSV governs any difference.
+
+\begin{center}
+\footnotesize
+\begin{tabular}{llrll}
+\hline
+Parent & Sample & Ground (sq ft) & Earlier floor & Ground basis \\
+\hline
+16 Dupont Street & Hist. & 20,901 & none recorded & Recorded legal area \\
+1580 Story Avenue & Hist. & 203,910 & none recorded & Successor area; recorded boundary \\
+261/315 Grand Concourse & Hist. & 37,661.3 & kept in full & Recorded survey \\
+265 South Street & Hist. & 41,479 & retained excluded & Agency lot reconfiguration \\
+270 East 203rd Street & Hist. & 20,000 & kept in full & Archival area \\
+355 Exterior Street & Hist. & 120,272 & retained excluded & Successor area; exact-job site plan \\
+484 East 178th Street & Hist. & 40,104 & none recorded & Archival area \\
+524 Fort Washington Avenue & Hist. & 45,971 & kept in full & Archival area \\
+Amsterdam (1440) & Hist. & 24,990 & retained excluded & Successor area; agency land transfer \\
+Bedford Square & Hist. & 177,520.79 & retained excluded & Recorded legal and archival areas \\
+Casa Celina (Thieriot) & Hist. & 12,613 & retained excluded & Successor area; ground lease \\
+Crown Street & Hist. & 55,385 & none recorded & Successor area; exact-job declaration \\
+De Kalb Avenue & Hist. & 28,650 & retained excluded & Successor area; development agreement \\
+Dean Street (B12/B13) & Hist. & 116,535 & none recorded & Archival area \\
+Eagle/West (Site D) & Hist. & 106,018 & none recorded & Recorded survey, reconciled \\
+East 125th Street & Hist. & 42,540 & approved estimate & Agency site; survey \\
+Flatbush tower & Hist. & 12,603 & approved estimate & Agency ground lease \\
+GO Broome & Hist. & 32,395 & archive corrected to zero & Archival area \\
+Motto & Hist. & 24,880 & retained excluded & Successor area; prefiling site plan \\
+Orchard Street & Hist. & 82,400 & kept in full & Archival area \\
+Penn South & Hist. & 40,261 & retained excluded & Successor area; ground lease \\
+Shell Road & Hist. & 53,978 & none recorded & Successor area; legal dimensions \\
+St.~James/Jerome & Hist. & 17,775 & approved proxy & Successor area; deed and lease \\
+Starhill & Hist. & 70,063 & retained excluded & Later area in recorded boundary \\
+Van Cortlandt Park South & Hist. & 56,048 & kept in full & Recorded deed area \\
+Wallabout/Union & Hist. & 39,323 & none recorded & Successor areas; mapped allocation \\
+West 48th Street & Hist. & 21,924 & none recorded & Successor area; agency site \\
+Willets Phase I & Hist. & 135,609 & none recorded & Recorded survey \\
+Woodside & Hist. & 71,862 & kept in full & Archival area equal to agency site \\
+27-30 21st Street & Post & 5,000 & kept in full & Archival area \\
+910 Onderdonk Avenue & Post & 9,310 & approved estimate & Successor area; recorded area chart \\
+Beach 29/30 & Post & 47,365.13 & none recorded & Recorded development schedule \\
+Charles Place & Post & 12,590 & kept in full & Archival area \\
+East 108th Street & Post & 44,200 & retained excluded & Recorded legal dimensions \\
+East 178th Street & Post & 7,287 & kept in full & Archival area \\
+Elara & Post & 39,003 & kept in full & Archival area \\
+Godwin/Kimberly & Post & 18,441 & retained excluded & Successor area; legal dimensions \\
+Jamaica/165th Street & Post & 39,349.5 & approved estimate & Recorded legal area \\
+Kingsbrook/Schenectady & Post & 105,382 & approved estimate & Recorded legal area \\
+Noble/Oak & Post & 173,834 & kept in full & City-stated site area \\
+North 8th Street & Post & 7,237.85 & retained excluded & Computed from legal courses \\
+Ocean Parkway & Post & 20,000 & retained excluded & Recorded legal dimensions \\
+Walton/Burnside & Post & 23,000 & kept in full & Archival area \\
+\hline
+\end{tabular}
+\end{center}
+\noindent \textit{Earlier floor.} ``None recorded'' means the reference
+parcels carry zero building floor. ``Kept in full'' keeps all recorded floor on
+the reference parcels. ``Retained excluded'' removes the floor on retained
+neighboring buildings (\texttt{excluded\_building\_area\_sqft}). ``Approved
+estimate'' and ``approved proxy'' mark the six parents with
+\texttt{built\_floor\_area\_estimated = TRUE}; the CSV records that Jacob
+approved each flagged allocation or later administrative proxy, and the
+excluded amount there is an accounting residual rather than a measured
+retained floor. \textit{Ground basis} paraphrases \texttt{area\_basis}.
+``Archival area'' is the recorded lot area in the named pre-filing release;
+``successor area'' is the later administrative area of the documented
+successor parcel.
+
+Several reviewed boundaries needed no production row because the automatic
+area was already correct. Sullivan/Empire's March 2026 declaration (ACRIS
+2026030900544002, p.~3) partitions old Brooklyn block 1306 lot 28 into the four
+tentative lots of its four 99-unit filings, confirming the 38,118-square-foot
+production area; the rounded diagram area of 38,119 agrees. Shepherd/Highland,
+Broadway and Sutphin/95th are likewise recorded only in the audit's
+document-review table.
+
+\paragraph{Remaining flags and the end of per-parent review.}
+A parent is flagged when the automatic parcel and filing checks cannot confirm
+its land or filing coverage. A flag is an open question, not a confirmed
+error, and never removes a parent from the production panels. On September 16
+the screen flagged 160 of the 877 weighting-eligible parents. It now flags
+145 of 905 (116 historical and 29 post-policy). The two
+counts are not a like-for-like reduction: the mergers changed the parent count,
+and the September 22 historical-source rule changed the historical sample. On
+September 22 the per-parent research batches were not continued after a
+land-measurement sensitivity test
+(\path{tasks/audits/audit_land_measurement_sensitivity}) showed that the
+remaining flagged parents do not move the headline comparison. That test is
+described in its own entry.
+
+\textit{Reproduction note.} The adopted decisions are
+\path{tasks/parent_opportunities_manual/output/site_lot_decisions.csv} and
+\path{pair_decisions.csv}, read by \texttt{build\_parent\_site\_characteristics}
+and \texttt{construct\_parent\_cohorts}; root \texttt{make data} rebuilds the
+panels. Accepted and open links are in
+\path{tasks/audits/audit_parent_site_boundaries/code/parent_site_membership_review.csv},
+and reviewed boundaries not needing a production row are in
+\path{parent_site_document_review.csv} beside it. The flag counts come from
+that audit's \path{output/parent_site_scope_summary.csv}. The documentary
+evidence is kept under \path{tasks/audits/parent_review_documents}: each dated
+batch folder in \path{output/} holds the committed captures, notes and a
+\texttt{sources.sha256} checksum list. The PDFs themselves are outside Git in
+\path{data_raw/parent_review_documents/}, and the checksum lists record their
+bytes.

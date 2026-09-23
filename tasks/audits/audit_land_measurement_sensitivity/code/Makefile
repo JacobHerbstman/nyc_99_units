@@ -13,7 +13,7 @@ include ../../../shared/code/generic.make
 ../input/parent_opportunity_panel.parquet: ../../../build_estimation_panels/output/parent_opportunity_panel.parquet | ../input
 	ln -sf $< $@
 
-../input/parent_site_scope.csv: ../../audit_hdb_mappluto_condo_recovery/output/parent_site_scope.csv | ../input
+../input/parent_site_scope.csv: ../../audit_parent_site_boundaries/output/parent_site_scope.csv | ../input
 	ln -sf $< $@
 
 ../input/calibration_weights.csv: ../../audit_scale_shape_splitting/output/calibration_weights.csv | ../input

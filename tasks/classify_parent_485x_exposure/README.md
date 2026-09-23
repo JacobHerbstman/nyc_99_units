@@ -69,4 +69,4 @@ classification uses only dated pre-adoption plan evidence as specified above.
 The current manual exposure overrides cover three post-policy parents; any
 future historical override needs separately documented dated evidence.
 
-The task first assembles the parent exposure universe from membership and recorded administrative sources, then classifies it. `parent_485x_exposure_universe.csv` remains available to the final panel and audits. The assembly no longer has a separate task folder.
+The task first assembles the parent exposure universe from membership and recorded administrative sources (`parent_485x_exposure_universe.csv`), then classifies it.

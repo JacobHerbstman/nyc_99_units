@@ -47,9 +47,8 @@ The reweighted benchmark selects rental parents with at least 50 units and
 `composition_eligible = TRUE`: every source filing has a matched parcel with
 positive area, and additive filings have distinct nonmissing building
 identifiers. Building identifiers come from DOB initial filings with Housing
-Database fallback. The selected sample has 561 historical and 312 post-period
-parents in the current source snapshots. Bond Street remains ineligible because
-two additive filings share a DOB building identifier.
+Database fallback. `output/calibration_summary.csv` records the selected sample
+sizes and the composition-ineligible exclusions.
 
 The benchmark uses the eligible 2019-2022 parents and positive
 exponential calibration (`survey::calibrate(..., calfun = "raking")`) to match
@@ -75,11 +74,9 @@ nonparametric bootstrap. Calibration weights are re-estimated in every
 successful bootstrap replication. Failed positive-weight calibrations are
 recorded rather than replaced by another method.
 
-Panel QC, the 190--205 parent listing, support and historical-window checks,
-forward pre-policy placebos, leave-one-pre-year-out estimates, and exploratory
-q and theta moments are maintained separately in
-`tasks/audits/audit_scale_shape_counterfactual`. They are not dependencies of
-the production task or its figure guide.
+Forward pre-policy placebos, leave-one-pre-year-out estimates, historical-window
+checks and exploratory q and theta moments live in
+`tasks/audits/audit_scale_shape_counterfactual`.
 
 Run the complete task from `code/` with:
 
@@ -89,9 +86,10 @@ make
 
 The reader-facing compilation of all figures and their interpretations is
 written to `output/pdf/scale_shape_splitting_figure_guide.pdf`. Its headline
-values are generated from the current result tables before LaTeX compilation.
+values, which `framework_writeup.tex` also reads, are written from the result
+tables to `output/figure_guide_values.tex`.
 
-`output/pdf/main_project_plots.pdf` is the nine-page figures-only meeting packet:
+`output/pdf/meeting_packet.pdf` is the nine-page figures-only meeting packet:
 annualized and normalized filing sizes, separate pre/post one-unit histograms
 with common axes, 50+ and 6+ filing-size CDFs, normalized parent totals, the
 composition-adjusted benchmark, and two views of repeated-99 configurations.

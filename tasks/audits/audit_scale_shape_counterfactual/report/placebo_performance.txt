@@ -1,16 +1,16 @@
 Rows: 2
 Columns: 10
 Key fields: placebo
-Saved-file MD5: a3dcdc8c8b1fe0af3b6bd7318d8357c0
+Saved-file MD5: 907fb8fb348268f53b3cd2ec3c6007ac
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-total_variation_distance | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.4634842/0.4653641/0.4653641/0.467244
-maximum_absolute_cdf_difference | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.06216922/0.08613853/0.08613853/0.1101078
+total_variation_distance | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.4738186/0.4752142/0.4752142/0.4766098
+maximum_absolute_cdf_difference | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.07096103/0.0968116/0.0968116/0.1226622
 placebo | character | nonmissing | 2 | distinct | 2
-historical_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 239/315.5/315.5/392
-target_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 153/161/161/169
-effective_sample_size | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 224.2996/293.0048/293.0048/361.71
-predicted_share_99 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.01224865/0.01307076/0.01307076/0.01389288
-actual_share_99 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.0130719/0.01541169/0.01541169/0.01775148
+historical_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 262/342/342/422
+target_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 160/166.5/166.5/173
+effective_sample_size | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 249.4357/330.3369/330.3369/411.238
+predicted_share_99 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.009210799/0.009271026/0.009271026/0.009331254
+actual_share_99 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0/0.003125/0.003125/0.00625
 predicted_share_198 | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 0/0/0/0
 actual_share_198 | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 0/0/0/0

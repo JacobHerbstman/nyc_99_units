@@ -132,11 +132,6 @@ figure <- ggplot(
   theme_minimal(base_size = 11) +
   theme(legend.position = "top", panel.grid.minor = element_blank())
 
-temp_path <- tempfile(fileext = ".pdf")
-ggsave(temp_path, figure, width = 11, height = 7.2, bg = "white")
-publish_file(
-  temp_path,
-  "../output/pdf/parents_with_99_unit_constituents.pdf"
-)
+ggsave("../output/pdf/parents_with_99_unit_constituents.pdf", figure, width = 11, height = 7.2, bg = "white")
 
 cat("Wrote the 99-containing parent-vector figure to ../output/pdf\n")

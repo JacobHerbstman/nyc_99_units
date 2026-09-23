@@ -1,9 +1,4 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/audits/audit_scale_shape_splitting/code")
-# minimum_units <- 50L
-# exact_plot_maximum <- 300L
-# pooled_tail_start <- 301L
-# bootstrap_replications <- 499L
-# random_seed <- 48599L
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -14,38 +9,15 @@ suppressPackageStartupMessages({
 })
 
 source("../../../shared/code/source_pipeline_utils.R")
+source("../../../shared/code/write_data_report.R")
 source("../../../shared/code/scale_shape_helpers.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-if (interactive()) args <- c(as.character(minimum_units), as.character(exact_plot_maximum), as.character(pooled_tail_start), as.character(bootstrap_replications), as.character(random_seed))
-
-if (length(args) != 5L) {
-  stop(
-    "Expected minimum units, exact-plot maximum, pooled-tail start, ",
-    "bootstrap replications, and random seed."
-  )
-}
-
-minimum_units <- as.integer(args[1])
-exact_plot_maximum <- as.integer(args[2])
-pooled_tail_start <- as.integer(args[3])
-bootstrap_replications <- as.integer(args[4])
-random_seed <- as.integer(args[5])
-
-if (
-  any(is.na(c(
-    minimum_units,
-    exact_plot_maximum,
-    pooled_tail_start,
-    bootstrap_replications,
-    random_seed
-  ))) ||
-    minimum_units >= exact_plot_maximum ||
-    pooled_tail_start != exact_plot_maximum + 1L ||
-    bootstrap_replications < 99L
-) {
-  stop("Bootstrap arguments are not internally consistent.")
-}
+# Benchmark support as in estimate_shape_counterfactual.R; parent-level bootstrap.
+minimum_units <- 50L
+exact_plot_maximum <- 300L
+pooled_tail_start <- 301L
+bootstrap_replications <- 499L
+random_seed <- 48599L
 
 parents <- read_parquet("../input/parent_opportunity_panel.parquet") |>
   as.data.frame() |>
@@ -356,18 +328,9 @@ bootstrap_run_summary <- bootstrap_status |>
     random_seed = random_seed
   )
 
-write_csv_atomic(
-  bind_rows(point_statistics, bootstrap_draws),
-  "../output/bootstrap_draws.csv"
-)
-write_csv_atomic(
-  bootstrap_intervals,
-  "../output/bootstrap_intervals.csv"
-)
-write_csv_atomic(
-  bootstrap_run_summary,
-  "../output/bootstrap_run_summary.csv"
-)
+SaveData(bind_rows(point_statistics, bootstrap_draws), c("replication", "statistic"), "../output/bootstrap_draws.csv")
+SaveData(bootstrap_intervals, c("statistic"), "../output/bootstrap_intervals.csv")
+SaveData(bootstrap_run_summary, NULL, "../output/bootstrap_run_summary.csv")
 
 cat(
   "Wrote parent-level bootstrap inference with ",

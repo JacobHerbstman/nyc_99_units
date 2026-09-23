@@ -1,11 +1,11 @@
 Rows: 1008
 Columns: 5
 Key fields: placebo, series, unit_bin_order
-Saved-file MD5: 1ae3078d7938f2ae38f4c5a2848b6907
+Saved-file MD5: 361b2ff800125d0657c744f472f8d485
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 unit_bin_order | numeric | nonmissing | 1008 | distinct | 252 min/median/mean/max 50/175.5/175.5/301
-weighted_count | numeric | nonmissing | 1008 | distinct | 260 min/median/mean/max 0/0/0.6388889/31
-share | numeric | nonmissing | 1008 | distinct | 264 min/median/mean/max 0/0/0.003968254/0.2026144
+weighted_count | numeric | nonmissing | 1008 | distinct | 266 min/median/mean/max 0/0/0.6607143/36
+share | numeric | nonmissing | 1008 | distinct | 271 min/median/mean/max 0/0/0.003968254/0.225
 series | character | nonmissing | 1008 | distinct | 2
 placebo | character | nonmissing | 1008 | distinct | 2

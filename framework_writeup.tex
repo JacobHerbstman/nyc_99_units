@@ -23,7 +23,7 @@
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \setlength{\headheight}{14pt}
-\input{tasks/audits/audit_scale_shape_splitting/temp/scale_shape_splitting_figure_guide_values.tex}
+\input{tasks/audits/audit_scale_shape_splitting/output/figure_guide_values.tex}
 \title{\vspace{-1.25cm}\textbf{Project Size and Splitting\\under New York City's 485-x Program}}
 \author{Jacob Herbstman}
 \date{September 2026}
@@ -177,16 +177,16 @@ The central empirical challenge is separating policy responses from changes in t
 \label{app:data}
 
 \subsection{Linking proposals into parent projects}
-Historical proposals come from the DCP Housing Database; recent proposals come from DOB NOW new-building filings. The parent construction links filings within 365 days of the first filing using parcel and site identifiers, historical lot links, explicit project references, and corroborated adjacency. It applies the same window rule across periods. Reviewed links and filing roles are recorded separately. A superseded alternative design remains a source proposal but does not add its units to the parent total.
+Historical proposals come from the inactive-inclusive 23Q4 release of the DCP Housing Database, which records designs as of January 2024 and keeps withdrawn and stalled proposals with their status. Recent proposals come from DOB NOW new-building filings, with units from the 25Q4 Housing Database and DOB counts only where the Housing Database is missing. The parent construction links filings within 365 days of the first filing using parcel and site identifiers, historical lot links, explicit project references, and corroborated adjacency. It applies the same window rule across periods. Reviewed links and filing roles are recorded separately. A superseded alternative design remains a source proposal but does not add its units to the parent total.
 
 The main comparison uses 2019--2022 and January 1, 2025--July 8, 2026. Historical parents have complete linkage windows; recent parents enter with complete left-side coverage but can lack a full year of follow-up. Later companion filings can therefore change recent totals and organization. Comparisons with a common follow-up horizon are necessary to assess this difference in observation time.
 
 The exposure screen identifies plausible taxable rental opportunities under affordability Options A and B. This is a classification of potential exposure, not confirmed program enrollment; those option names are distinct from geographic Zones A and B. Registrations provide positive evidence, while tenure and ownership records help identify developments outside the relevant rental choice. Unresolved legal separation remains a scenario for the structural analysis rather than a confirmed exemption.
 
 \subsection{Reweighting and sample support}
-The descriptive parent population begins at six units. The preferred shape comparison begins at 50 parent units and retains all larger parents in its denominator. The reweighted comparison requires complete parcel characteristics. Historical parcel attributes use lagged MapPLUTO releases; recent attributes use release 23v3.1. Positive calibration weights match log lot area, residential floor-area ratio, built floor-area ratio, and borough. Constituent organization within the given parent site is a modeled policy response.
+The descriptive parent population begins at six units. The preferred shape comparison begins at 50 parent units and retains all larger parents in its denominator. The reweighted comparison requires complete parcel characteristics and distinct building identifiers among a parent's filings. Historical parcel attributes use lagged MapPLUTO releases; recent attributes use release 23v3.1. Documented parcel allocations replace the matched lots for reviewed parents, and six parents carry an approved estimate of earlier building floor. Positive calibration weights match log lot area, residential floor-area ratio, built floor-area ratio, and borough. Constituent organization within the given parent site is a modeled policy response.
 
-The complete-characteristic sample contains \CalibrationHistoricalParents{} historical and \CalibrationPostParents{} recent parents. Its weighted historical effective sample size is \CalibrationESS{}. Bootstrap inference re-estimates the weights in each draw and records failed calibrations. Table~\ref{tab:evidence} reports local differences in normalized shares, not counts of projects known to have moved from one size to another.
+The comparison sample contains \CalibrationHistoricalParents{} historical and \CalibrationPostParents{} recent parents. Its weighted historical effective sample size is \CalibrationESS{}. Bootstrap inference re-estimates the weights in each draw and records failed calibrations. Table~\ref{tab:evidence} reports local differences in normalized shares, not counts of projects known to have moved from one size to another.
 
 Exact totals are retained in the underlying parent panel even when figures pool the upper tail. Both quantity formulas use the same target sample and weights. Broadening the sample below 50 requires recomputing that comparison; the existing shape weights should not be applied as though they represented every filing opportunity.
 

@@ -60,3 +60,7 @@ Rplots.pdf
 # Hand-researched parent decisions are committed source data.
 !tasks/parent_opportunities_manual/output/
 !tasks/parent_opportunities_manual/output/*.csv
+
+# Committed evidence captures; the PDFs themselves live in data_raw/.
+!tasks/audits/parent_review_documents/output/
+tasks/audits/parent_review_documents/output/*.pdf

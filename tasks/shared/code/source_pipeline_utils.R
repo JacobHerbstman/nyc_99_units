@@ -142,35 +142,6 @@ parse_mixed_date <- function(x, latest_date = as.Date("2027-09-09")) {
   out
 }
 
-safe_min_date <- function(x) {
-  if (all(is.na(x))) {
-    return(NA_character_)
-  }
-
-  as.character(min(x, na.rm = TRUE))
-}
-
-safe_max_date <- function(x) {
-  if (all(is.na(x))) {
-    return(NA_character_)
-  }
-
-  as.character(max(x, na.rm = TRUE))
-}
-
-compute_sha256 <- function(path) {
-  if (!file.exists(path)) {
-    return(NA_character_)
-  }
-
-  out <- system2("shasum", c("-a", "256", path), stdout = TRUE, stderr = FALSE)
-  if (length(out) == 0) {
-    return(NA_character_)
-  }
-
-  str_split_fixed(out[1], "\\s+", 2)[1, 1]
-}
-
 publish_file <- function(temp_path, out_path) {
   if (!file.rename(temp_path, out_path)) stop("Could not publish output: ", out_path)
   invisible(TRUE)
@@ -179,12 +150,6 @@ publish_file <- function(temp_path, out_path) {
 write_csv_atomic <- function(df, out_path) {
   temp_path <- tempfile(tmpdir = dirname(out_path), fileext = ".csv")
   write_csv(df, temp_path, na = "")
-  publish_file(temp_path, out_path)
-}
-
-write_parquet_atomic <- function(df, out_path) {
-  temp_path <- tempfile(tmpdir = dirname(out_path), fileext = ".parquet")
-  write_parquet(df, temp_path)
   publish_file(temp_path, out_path)
 }
 

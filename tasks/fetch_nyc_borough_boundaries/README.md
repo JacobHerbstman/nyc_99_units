@@ -1,13 +1,11 @@
 # NYC borough outlines
 
-Downloads the NYC Department of City Planning borough boundaries (water excluded)
-from NYC Open Data, dataset `gthc-hcne`. The September 8, 2026 extract is preserved
-in the dated output; the API URL is mutable, so refreshing this vintage is a
-deliberate source change. The recipe enforces the recorded checksum before publication. The analysis validates the five borough geometries.
+Publishes the DCP borough boundaries (water excluded) from NYC Open Data,
+dataset [`gthc-hcne`](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/gthc-hcne),
+as extracted on September 8, 2026.
 
-Source: https://data.cityofnewyork.us/City-Government/Borough-Boundaries/gthc-hcne
-
-Run `make` in `code/`. An unchanged build reuses the local snapshot. A partial
-download is never published as the final output.
-
-Snapshot SHA-256: `7aa44d9fb611f2f518a226ff994a6516a261a8ce982ccf1e7b37d663687f443c`.
+The API is mutable, so the source of record is the capture in
+`data_raw/nyc_borough_boundaries/2026-09-08/`. The API is queried only when that
+capture is missing, and the download must match the checksum in
+`code/checksums.sha256` before it is saved. `copy_boundaries.R` checks the five
+borough geometries, writes the data report, and copies the capture to `output/`.

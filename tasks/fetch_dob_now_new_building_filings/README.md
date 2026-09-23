@@ -1,14 +1,15 @@
-# Fetch DOB NOW initial New Building filings
+# Fetch DOB NOW New Building filings
 
-This task downloads a frozen, source-level extract from the official DOB NOW
-Build Job Application Filings dataset. The extract contains initial (`-I1`)
-New Building filings dated 2016--2025 and the filing, site, unit-count, and
-construction-area fields needed by the developer-response audit.
+Publishes a frozen extract of the DOB NOW Build Job Application Filings dataset,
+pulled July 10, 2026, and writes an inventory,
+`output/dob_now_new_building_filing_files.csv`:
 
-The raw CSV is stored under
-`data_raw/dob_now_build_job_filings/<pull_date>/`. The task output is a manifest
-that records the raw path, query URL, row count, and download status.
+- initial (`-I1`) New Building filings, 2016–2026 (9,193 rows);
+- New Building amendments, 2024–2026 (28,681 rows).
 
-## Recorded source vintage
-
-`code/source_files.csv` records the exact source release used in this study. The Makefile owns each received file, checks its SHA-256, and exposes it through `output/`. Versioned public archives have direct download recipes. Mutable API responses and metadata require the original dated capture at the literal `data_raw/` prerequisite: the agency does not provide a historical query endpoint. A missing capture fails the build; it is never replaced silently with current data. Source refreshes require deliberately updating the capture, ledger, and checksum together. The original `raw_path` column remains provenance metadata; consumers read local input links.
+Both are captures in `data_raw/dob_now_build_job_filings/20260710/`. The API is
+mutable, so the capture is the source of record: a missing capture fails the
+build. `code/checksums.sha256` records the bytes of each published file and
+`code/source_files.csv` records row counts and query URLs. Files are copied
+only when missing; the inventory rule re-verifies them whenever the ledger
+changes.

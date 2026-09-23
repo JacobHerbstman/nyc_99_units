@@ -1,7 +1,4 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/audits/audit_scale_shape_counterfactual/code")
-# minimum_units <- 50L
-# exact_plot_maximum <- 300L
-# pooled_tail_start <- 301L
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -17,23 +14,10 @@ source("../../../shared/code/source_pipeline_utils.R")
 source("../../../shared/code/scale_shape_helpers.R")
 source("../../../shared/code/write_data_report.R")
 
-args <- commandArgs(trailingOnly = TRUE)
-
-if (length(args) != 3L) {
-  stop("Expected minimum units, exact-plot maximum, and pooled-tail start.")
-}
-
-minimum_units <- as.integer(args[1])
-exact_plot_maximum <- as.integer(args[2])
-pooled_tail_start <- as.integer(args[3])
-
-if (
-  any(is.na(c(minimum_units, exact_plot_maximum, pooled_tail_start))) ||
-    minimum_units >= exact_plot_maximum ||
-    pooled_tail_start != exact_plot_maximum + 1L
-) {
-  stop("Counterfactual-audit support arguments are inconsistent.")
-}
+# Same support as the reweighted benchmark in audit_scale_shape_splitting.
+minimum_units <- 50L
+exact_plot_maximum <- 300L
+pooled_tail_start <- 301L
 
 parents <- read_parquet("../input/parent_opportunity_panel.parquet") |>
   as.data.frame() |>
@@ -337,8 +321,6 @@ SaveData(
   "../output/temporal_window_sensitivity.csv"
 )
 
-temporary_pdf <- tempfile(fileext = ".pdf")
-ggsave(temporary_pdf, placebo_figure, width = 11, height = 8, bg = "white")
-publish_file(temporary_pdf, "../output/historical_forward_placebos.pdf")
+ggsave("../output/historical_forward_placebos.pdf", placebo_figure, width = 11, height = 8, bg = "white")
 
 cat("Wrote counterfactual robustness audits to ../output\n")
