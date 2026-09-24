@@ -291,15 +291,19 @@ archived_original <- historical_index[match(archived$job_number, historical_jobs
 archived_replacement <- historical_index[match(archived$replacement_job, historical_jobs)]
 stopifnot(!anyNA(archived_original), !anyNA(archived_replacement))
 replacement[archived_original] <- archived_replacement
-# Reviewed historical alternatives (historical_filing_roles.csv).
-manual_original <- which(membership$sample == "historical" & membership$filing_role == "superseded_alternative")
-manual_replacement <- historical_index[match(membership$replacement_job_number[manual_original], historical_jobs)]
+# Automatic DOB refilings pair one withdrawn filing with one replacement.
+stopifnot(!anyDuplicated(replacement[!is.na(replacement) & membership$sample == "post_policy"]))
+# Reviewed superseded designs (historical_filing_roles.csv and
+# post_parent_filing_roles.csv) are refilings in both periods.
+manual_original <- which(membership$filing_role == "superseded_alternative")
+manual_replacement <- match(paste(membership$sample[manual_original],
+  membership$replacement_job_number[manual_original]), member_keys)
 stopifnot(!anyNA(manual_replacement))
 replacement[manual_original] <- manual_replacement
 
 original <- which(!is.na(replacement))
 new <- replacement[original]
-stopifnot(!anyDuplicated(new[membership$sample[original] == "post_policy"]),
+stopifnot(
   all(membership$sample[original] == membership$sample[new]),
   all(membership$component[original] == membership$component[new]), all(membership$additive_component[new]),
   all(is.na(membership$replacement_job_number[original]) |
@@ -314,7 +318,9 @@ for (j in unique(new)) membership$original_filing_date[j] <- min(membership$date
 membership$refiling_basis <- NA_character_
 membership$refiling_basis[c(original, new)] <- if_else(membership$sample[c(original, new)] == "historical",
   "archived_same_building_alternatives", "dated_dob_withdrawal_and_refiling")
-membership$refiling_basis[c(manual_original, manual_replacement)] <- "reviewed_archived_alternative"
+membership$refiling_basis[c(manual_original, manual_replacement)] <- if_else(
+  membership$sample[c(manual_original, manual_replacement)] == "historical", "reviewed_archived_alternative",
+  "reviewed_dob_alternative")
 membership$filing_role[original] <- "superseded_refiling"
 membership$additive_component[original] <- FALSE
 membership$replacement_job_number[original] <- membership$job_number[new]

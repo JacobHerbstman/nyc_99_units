@@ -1,18 +1,18 @@
 Rows: 168
 Columns: 12
 Key fields: identity_rule, space_rule, max_days, sample
-Saved-file MD5: 256ec8b15b80e96feb212eb70fa6c991
+Saved-file MD5: c23b63649bca343b6f648a724bbbb79e
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 identity_rule | character | nonmissing | 168 | distinct | 7
 space_rule | character | nonmissing | 168 | distinct | 6
 max_days | numeric | nonmissing | 168 | distinct | 2 min/median/mean/max 90/227.5/227.5/365
-expected_chance_links | numeric | nonmissing | 168 | distinct | 99 min/median/mean/max 0.01416667/0.625/2.685119/83.72917
+expected_chance_links | numeric | nonmissing | 168 | distinct | 99 min/median/mean/max 0.01416667/0.625/2.684861/83.72917
 sample | character | nonmissing | 168 | distinct | 2
-new_links | numeric | nonmissing | 168 | distinct | 43 min/median/mean/max 0/2/37.42262/797
-new_parent_pairs | numeric | nonmissing | 168 | distinct | 35 min/median/mean/max 0/2/21.94643/470
+new_links | numeric | nonmissing | 168 | distinct | 44 min/median/mean/max 0/2/37.45238/797
+new_parent_pairs | numeric | nonmissing | 168 | distinct | 36 min/median/mean/max 0/2/21.97619/470
 new_links_dof_confirmed | numeric | nonmissing | 168 | distinct | 10 min/median/mean/max 0/0/1.791667/20
-new_links_same_applicant | numeric | nonmissing | 168 | distinct | 33 min/median/mean/max 0/1/35.38095/797
+new_links_same_applicant | numeric | nonmissing | 168 | distinct | 33 min/median/mean/max 0/1/35.41071/797
 existing_cross_lot_links | numeric | nonmissing | 168 | distinct | 2 min/median/mean/max 310/909/909/1508
-existing_cross_lot_found | numeric | nonmissing | 168 | distinct | 142 min/median/mean/max 116/390/571.6488/1398
-ring_matches | numeric | nonmissing | 168 | distinct | 25 min/median/mean/max 17/112/371.7857/4019
+existing_cross_lot_found | numeric | nonmissing | 168 | distinct | 144 min/median/mean/max 117/390.5/572.1131/1398
+ring_matches | numeric | nonmissing | 168 | distinct | 25 min/median/mean/max 17/112/371.75/4019

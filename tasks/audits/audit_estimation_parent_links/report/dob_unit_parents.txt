@@ -1,27 +1,27 @@
-Rows: 2928
+Rows: 2933
 Columns: 21
 Key fields: sample, parent_id
-Saved-file MD5: b1e7c9ab43a20dd2d8a623e507e04cfb
+Saved-file MD5: 7393adb2f9c2ba291d12457606dbe497
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 2928 | distinct | 2
-parent_id | character | nonmissing | 2928 | distinct | 2928
-current_total | numeric | nonmissing | 2928 | distinct | 364 min/median/mean/max 6/26/69.17794/1452
-current_vector | character | nonmissing | 2928 | distinct | 504
-n_components | numeric | nonmissing | 2928 | distinct | 9 min/median/mean/max 1/1/1.143784/14
-dob_components | numeric | nonmissing | 2928 | distinct | 8 min/median/mean/max 0/1/0.6806694/7
-dob_complete | logical | nonmissing | 2928 | distinct | 2
-dob_total | numeric | nonmissing | 1735 | distinct | 308 min/median/mean/max 3/32/82.2513/2697
-available_dob_total | numeric | nonmissing | 2928 | distinct | 367 min/median/mean/max 3/26/72.28791/2697
-available_dob_vector | character | nonmissing | 2928 | distinct | 515
-current_99x2 | logical | nonmissing | 2928 | distinct | 2
-available_dob_99x2 | logical | nonmissing | 2928 | distinct | 2
-current_99x3 | logical | nonmissing | 2928 | distinct | 2
-available_dob_99x3 | logical | nonmissing | 2928 | distinct | 2
-parent_total_units | numeric | nonmissing | 2928 | distinct | 364 min/median/mean/max 6/26/69.17794/1452
-included_ab | logical | nonmissing | 2928 | distinct | 2
-composition_eligible | logical | nonmissing | 2928 | distinct | 2
-cohort_date | Date | nonmissing | 2928 | distinct | 1191
-borough | character | nonmissing | 2912 | distinct | 5
-component_addresses | character | nonmissing | 2928 | distinct | 2858
-available_dob_change | numeric | nonmissing | 2928 | distinct | 92 min/median/mean/max -200/0/3.109973/1781
+sample | character | nonmissing | 2933 | distinct | 2
+parent_id | character | nonmissing | 2933 | distinct | 2933
+current_total | numeric | nonmissing | 2933 | distinct | 365 min/median/mean/max 6/26/69.56836/1758
+current_vector | character | nonmissing | 2933 | distinct | 505
+n_components | numeric | nonmissing | 2933 | distinct | 9 min/median/mean/max 1/1/1.14388/14
+dob_components | numeric | nonmissing | 2933 | distinct | 8 min/median/mean/max 0/1/0.6815547/7
+dob_complete | logical | nonmissing | 2933 | distinct | 2
+dob_total | numeric | nonmissing | 1740 | distinct | 310 min/median/mean/max 2/32/82.86494/2697
+available_dob_total | numeric | nonmissing | 2933 | distinct | 369 min/median/mean/max 2/26/72.66894/2697
+available_dob_vector | character | nonmissing | 2933 | distinct | 517
+current_99x2 | logical | nonmissing | 2933 | distinct | 2
+available_dob_99x2 | logical | nonmissing | 2933 | distinct | 2
+current_99x3 | logical | nonmissing | 2933 | distinct | 2
+available_dob_99x3 | logical | nonmissing | 2933 | distinct | 2
+parent_total_units | numeric | nonmissing | 2933 | distinct | 365 min/median/mean/max 6/26/69.56836/1758
+included_ab | logical | nonmissing | 2933 | distinct | 2
+composition_eligible | logical | nonmissing | 2933 | distinct | 2
+cohort_date | Date | nonmissing | 2933 | distinct | 1193
+borough | character | nonmissing | 2917 | distinct | 5
+component_addresses | character | nonmissing | 2933 | distinct | 2863
+available_dob_change | numeric | nonmissing | 2933 | distinct | 92 min/median/mean/max -200/0/3.10058/1781

@@ -1,16 +1,16 @@
-Rows: 421
+Rows: 419
 Columns: 10
 Key fields: parent_id, vintage, bbl
-Saved-file MD5: fe251d393605e4be5c33e898837cc87b
+Saved-file MD5: 537f16a80a5784a177bdbe77c5246050
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-parent_id | character | nonmissing | 421 | distinct | 157
-vintage | character | nonmissing | 421 | distinct | 17
-bbl | character | nonmissing | 421 | distinct | 358
-old_geometry_sqft | numeric | nonmissing | 421 | distinct | 391 min/median/mean/max 23.21656/9050.836/35853.46/1235772
-old_recorded_sqft | numeric | nonmissing | 421 | distinct | 302 min/median/mean/max 21/9360/38790.7/1227637
-overlap_sqft | numeric | nonmissing | 421 | distinct | 393 min/median/mean/max 20.12211/6230.362/19697.6/641256.4
-later_geometry_sqft | numeric | nonmissing | 421 | distinct | 155 min/median/mean/max 2045.673/22716.54/57381.55/641256.5
-old_share | numeric | nonmissing | 421 | distinct | 393 min/median/mean/max 0.004324968/0.9999972/0.8041118/1
-site_share | numeric | nonmissing | 421 | distinct | 393 min/median/mean/max 0.0003687713/0.3097533/0.4243762/1
-material | logical | nonmissing | 421 | distinct | 2
+parent_id | character | nonmissing | 419 | distinct | 156
+vintage | character | nonmissing | 419 | distinct | 17
+bbl | character | nonmissing | 419 | distinct | 356
+old_geometry_sqft | numeric | nonmissing | 419 | distinct | 389 min/median/mean/max 23.21656/9069.99/36005.4/1235772
+old_recorded_sqft | numeric | nonmissing | 419 | distinct | 300 min/median/mean/max 21/9375/38957.17/1227637
+overlap_sqft | numeric | nonmissing | 419 | distinct | 391 min/median/mean/max 20.12211/6249.513/19772.42/641256.4
+later_geometry_sqft | numeric | nonmissing | 419 | distinct | 154 min/median/mean/max 2045.673/22716.54/57616.61/641256.5
+old_share | numeric | nonmissing | 419 | distinct | 391 min/median/mean/max 0.004324968/0.9999971/0.8031768/1
+site_share | numeric | nonmissing | 419 | distinct | 391 min/median/mean/max 0.0003687713/0.3096098/0.4240414/1
+material | logical | nonmissing | 419 | distinct | 2

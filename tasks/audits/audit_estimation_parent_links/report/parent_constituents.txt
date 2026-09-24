@@ -1,7 +1,7 @@
 Rows: 333
 Columns: 58
 Key fields: sample, root_job_id
-Saved-file MD5: 991f1dd6540a796b69e85f9061e31799
+Saved-file MD5: 532f5e4e627ee825668371e1780aa444
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 333 | distinct | 2
@@ -15,17 +15,17 @@ unit_source | character | nonmissing | 333 | distinct | 2
 hdb_release | character | nonmissing | 292 | distinct | 2
 historical_active | logical | nonmissing | 185 | distinct | 2
 hdb_job_status | character | nonmissing | 185 | distinct | 5
-filing_role | character | nonmissing | 333 | distinct | 3
+filing_role | character | nonmissing | 333 | distinct | 2
 replacement_job_number | character | nonmissing | 4 | distinct | 3
 filing_bbl | numeric | nonmissing | 333 | distinct | 294 min/median/mean/max 1003468000/3020200000/3020062000/5028660000
 site_linkage_bbl | numeric | nonmissing | 333 | distinct | 280 min/median/mean/max 1003468000/3020200000/3020062000/5028660000
 additive_component | logical | nonmissing | 333 | distinct | 2
-component | numeric | nonmissing | 333 | distinct | 135 min/median/mean/max 1125/4973/4107.658/7202
+component | numeric | nonmissing | 333 | distinct | 135 min/median/mean/max 1109/4973/4099.354/7202
 dob_i1_units | numeric | nonmissing | 255 | distinct | 124 min/median/mean/max 3/92/127.8941/899
 original_filing_date | Date | nonmissing | 333 | distinct | 202
 refiled | logical | nonmissing | 333 | distinct | 2
-refiling_date | Date | nonmissing | 4 | distinct | 1
-refiling_basis | character | nonmissing | 4 | distinct | 1
+refiling_date | Date | nonmissing | 7 | distinct | 2
+refiling_basis | character | nonmissing | 7 | distinct | 2
 documented_units | numeric | nonmissing | 6 | distinct | 4 min/median/mean/max 28/99/106.5/228
 documented_unit_source | character | nonmissing | 6 | distinct | 3
 parent_id | character | nonmissing | 333 | distinct | 135

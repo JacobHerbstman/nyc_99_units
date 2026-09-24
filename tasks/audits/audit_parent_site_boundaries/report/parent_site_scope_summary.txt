@@ -1,7 +1,7 @@
 Rows: 23
 Columns: 7
 Key fields: sample, prior_unresolved, unresolved, status
-Saved-file MD5: 89e60dd380a88ac61cdc2a026d436944
+Saved-file MD5: 61403481a287061cd44255b233d80fa4
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 23 | distinct | 2

@@ -1,21 +1,21 @@
-Rows: 1873
+Rows: 1858
 Columns: 15
 Key fields: parent_id
-Saved-file MD5: 4d6c289d9bf459a8a28c2fc03106a28b
+Saved-file MD5: 654dc2f5d1b8653f2d27c32cdf6e08a5
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 1873 | distinct | 1
-parent_id | character | nonmissing | 1873 | distinct | 1873
-units | integer | nonmissing | 1873 | distinct | 290 min/median/mean/max 0/28/67.20502/1754
-composition_eligible | logical | nonmissing | 1873 | distinct | 2
-feature_methods | character | nonmissing | 1873 | distinct | 8
-feature_lots | integer | nonmissing | 1850 | distinct | 6 min/median/mean/max 1/1/1.168649/6
-lotarea | numeric | nonmissing | 1850 | distinct | 1236 min/median/mean/max 0/5000/17989.63/2747985
-residfar | numeric | nonmissing | 1848 | distinct | 46 min/median/mean/max 0/3/3.418652/10
-builtfar | numeric | nonmissing | 1848 | distinct | 501 min/median/mean/max 0/0.49/0.8661537/18.12
-built_floor_area_estimated | logical | nonmissing | 1873 | distinct | 2
-merged_lots_added | integer | nonmissing | 1873 | distinct | 6 min/median/mean/max 0/0/0.09556861/5
-merger_window_complete | logical | nonmissing | 1873 | distinct | 2
-implausible_site | logical | nonmissing | 1870 | distinct | 2
-borough | character | nonmissing | 1850 | distinct | 5
-community_district | character | nonmissing | 1850 | distinct | 61
+sample | character | nonmissing | 1858 | distinct | 1
+parent_id | character | nonmissing | 1858 | distinct | 1858
+units | integer | nonmissing | 1858 | distinct | 290 min/median/mean/max 6/28/69.12809/1758
+composition_eligible | logical | nonmissing | 1858 | distinct | 2
+feature_methods | character | nonmissing | 1858 | distinct | 8
+feature_lots | integer | nonmissing | 1835 | distinct | 6 min/median/mean/max 1/1/1.168392/6
+lotarea | numeric | nonmissing | 1835 | distinct | 1224 min/median/mean/max 0/5000/16459.59/1440422
+residfar | numeric | nonmissing | 1833 | distinct | 46 min/median/mean/max 0/3/3.418548/10
+builtfar | numeric | nonmissing | 1833 | distinct | 494 min/median/mean/max 0/0.49/0.8582461/18.12
+built_floor_area_estimated | logical | nonmissing | 1858 | distinct | 2
+merged_lots_added | integer | nonmissing | 1858 | distinct | 6 min/median/mean/max 0/0/0.09472551/5
+merger_window_complete | logical | nonmissing | 1858 | distinct | 2
+implausible_site | logical | nonmissing | 1856 | distinct | 2
+borough | character | nonmissing | 1835 | distinct | 5
+community_district | character | nonmissing | 1835 | distinct | 59

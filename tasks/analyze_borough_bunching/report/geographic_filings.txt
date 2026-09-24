@@ -1,7 +1,7 @@
 Rows: 3076
 Columns: 28
 Key fields: sample, root_job_id
-Saved-file MD5: 2660c7275e3b585b281fbccee8586ab5
+Saved-file MD5: 497bc69d35200de56420f4199f5a46ed
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 3076 | distinct | 2
@@ -10,10 +10,10 @@ root_job_id | character | nonmissing | 3076 | distinct | 3076
 constituent_units | integer | nonmissing | 3076 | distinct | 331 min/median/mean/max 6/26/61.00325/1313
 parent_constituent_weight | numeric | nonmissing | 3076 | distinct | 8 min/median/mean/max 0.125/1/0.8758127/1
 record_filing_date | Date | nonmissing | 3076 | distinct | 1172
-date_filed | Date | nonmissing | 3076 | distinct | 1175
+date_filed | Date | nonmissing | 3076 | distinct | 1174
 refiled | logical | nonmissing | 3076 | distinct | 2
-refiling_date | Date | nonmissing | 39 | distinct | 36
-refiling_basis | character | nonmissing | 39 | distinct | 2
+refiling_date | Date | nonmissing | 41 | distinct | 38
+refiling_basis | character | nonmissing | 41 | distinct | 3
 filing_bbl | character | nonmissing | 3076 | distinct | 2866
 address | character | nonmissing | 3076 | distinct | 2975
 borough_name | character | nonmissing | 3076 | distinct | 5

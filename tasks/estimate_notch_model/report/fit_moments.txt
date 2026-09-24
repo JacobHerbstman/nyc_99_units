@@ -1,11 +1,11 @@
 Rows: 50
 Columns: 5
 Key fields: specification, moment
-Saved-file MD5: 864c4a28f4cbeedfcf3e02b8dbf6a113
+Saved-file MD5: 1a6a233cc6e885ffbfeb74c67c7ef35c
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 specification | character | nonmissing | 50 | distinct | 10
 moment | character | nonmissing | 50 | distinct | 5
 observed | numeric | nonmissing | 50 | distinct | 18 min/median/mean/max 0.01503759/0.1294964/22.68175/139.5
-benchmark | numeric | nonmissing | 50 | distinct | 21 min/median/mean/max 0/0.01864708/24.26985/170.932
-fitted | numeric | nonmissing | 50 | distinct | 50 min/median/mean/max 0/0.1245561/23.99267/168.9724
+benchmark | numeric | nonmissing | 50 | distinct | 21 min/median/mean/max 0/0.01864708/24.26917/170.932
+fitted | numeric | nonmissing | 50 | distinct | 50 min/median/mean/max 0/0.1245561/23.99197/168.9724

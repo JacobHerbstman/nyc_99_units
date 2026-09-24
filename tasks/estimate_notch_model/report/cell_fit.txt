@@ -1,7 +1,7 @@
 Rows: 423
 Columns: 7
 Key fields: specification, cell
-Saved-file MD5: 77c28037b92fbbe729c2d17e643119d6
+Saved-file MD5: d14c3905f93a706dedae2e7dc7f5e575
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 specification | character | nonmissing | 423 | distinct | 10
@@ -9,5 +9,5 @@ cell | numeric | nonmissing | 423 | distinct | 45 min/median/mean/max 1/23/22.56
 buildings | character | nonmissing | 423 | distinct | 3
 size_bin | character | nonmissing | 423 | distinct | 15
 observed | numeric | nonmissing | 423 | distinct | 46 min/median/mean/max 0/0.003597122/0.02364066/0.5150376
-benchmark | numeric | nonmissing | 423 | distinct | 128 min/median/mean/max 0/0.002185458/0.02364066/0.5138823
-fitted | numeric | nonmissing | 423 | distinct | 270 min/median/mean/max 0/0.00407718/0.02364066/0.5039312
+benchmark | numeric | nonmissing | 423 | distinct | 128 min/median/mean/max 0/0.002185458/0.02364066/0.514135
+fitted | numeric | nonmissing | 423 | distinct | 270 min/median/mean/max 0/0.00407718/0.02364066/0.5041893

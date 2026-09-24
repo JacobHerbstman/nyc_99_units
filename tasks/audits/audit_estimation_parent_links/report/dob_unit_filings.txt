@@ -1,32 +1,32 @@
-Rows: 3349
+Rows: 3355
 Columns: 26
 Key fields: sample, root_job_id
-Saved-file MD5: 63d314cc2fefa7bacd7830af362719f6
+Saved-file MD5: c1a52b5c939b55795057b64c1b31a101
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 3349 | distinct | 2
-parent_id | character | nonmissing | 3349 | distinct | 2928
-root_job_id | character | nonmissing | 3349 | distinct | 3349
-date_filed | Date | nonmissing | 3349 | distinct | 1219
-original_filing_date | Date | nonmissing | 3349 | distinct | 1221
-refiled | logical | nonmissing | 3349 | distinct | 2
-refiling_date | Date | nonmissing | 41 | distinct | 38
-current_units | numeric | nonmissing | 3349 | distinct | 343 min/median/mean/max 6/25/60.48164/1313
-hdb_priority_units | numeric | nonmissing | 3349 | distinct | 343 min/median/mean/max 6/25/60.48164/1313
-unit_source | character | nonmissing | 3349 | distinct | 2
-included_ab | logical | nonmissing | 3349 | distinct | 2
-composition_eligible | logical | nonmissing | 3349 | distinct | 2
-dob_address | character | nonmissing | 1993 | distinct | 1974
-dob_i1_units | numeric | nonmissing | 1993 | distinct | 293 min/median/mean/max 2/33/71.858/1803
-dob_status_date | Date | nonmissing | 1993 | distinct | 625
-dob_stories | numeric | nonmissing | 1993 | distinct | 52 min/median/mean/max 2/7/9.103864/86
-dob_floor_area | numeric | nonmissing | 1993 | distinct | 1947 min/median/mean/max 1/31242.4/69815.1/1654440
-hdb_release | character | nonmissing | 2969 | distinct | 2
-hdb_address | character | nonmissing | 2969 | distinct | 2883
-hdb_units | numeric | nonmissing | 2969 | distinct | 333 min/median/mean/max 6/23/60.24621/1313
-hdb_update_date | Date | nonmissing | 2969 | distinct | 987
-hdb_stories | numeric | nonmissing | 1960 | distinct | 48 min/median/mean/max 2/6/7.787245/71
-address | character | nonmissing | 3349 | distinct | 3244
-dob_available | logical | nonmissing | 3349 | distinct | 2
-dob_change | numeric | nonmissing | 1993 | distinct | 96 min/median/mean/max -200/0/4.568991/829
-available_dob_units | numeric | nonmissing | 3349 | distinct | 350 min/median/mean/max 2/25/63.20066/1803
+sample | character | nonmissing | 3355 | distinct | 2
+parent_id | character | nonmissing | 3355 | distinct | 2933
+root_job_id | character | nonmissing | 3355 | distinct | 3355
+date_filed | Date | nonmissing | 3355 | distinct | 1220
+original_filing_date | Date | nonmissing | 3355 | distinct | 1221
+refiled | logical | nonmissing | 3355 | distinct | 2
+refiling_date | Date | nonmissing | 43 | distinct | 40
+current_units | numeric | nonmissing | 3355 | distinct | 344 min/median/mean/max 6/25/60.81788/1458
+hdb_priority_units | numeric | nonmissing | 3355 | distinct | 344 min/median/mean/max 6/25/60.81788/1458
+unit_source | character | nonmissing | 3355 | distinct | 2
+included_ab | logical | nonmissing | 3355 | distinct | 2
+composition_eligible | logical | nonmissing | 3355 | distinct | 2
+dob_address | character | nonmissing | 1999 | distinct | 1980
+dob_i1_units | numeric | nonmissing | 1999 | distinct | 294 min/median/mean/max 2/33/72.38219/1803
+dob_status_date | Date | nonmissing | 1999 | distinct | 625
+dob_stories | numeric | nonmissing | 1999 | distinct | 52 min/median/mean/max 2/7/9.122561/86
+dob_floor_area | numeric | nonmissing | 1999 | distinct | 1953 min/median/mean/max 1/30985.1/70302.58/1654440
+hdb_release | character | nonmissing | 2974 | distinct | 2
+hdb_address | character | nonmissing | 2974 | distinct | 2888
+hdb_units | numeric | nonmissing | 2974 | distinct | 333 min/median/mean/max 6/23/60.15602/1313
+hdb_update_date | Date | nonmissing | 2974 | distinct | 988
+hdb_stories | numeric | nonmissing | 1965 | distinct | 48 min/median/mean/max 2/6/7.778626/71
+address | character | nonmissing | 3355 | distinct | 3250
+dob_available | logical | nonmissing | 3355 | distinct | 2
+dob_change | numeric | nonmissing | 1999 | distinct | 96 min/median/mean/max -200/0/4.549275/829
+available_dob_units | numeric | nonmissing | 3355 | distinct | 351 min/median/mean/max 2/25/63.52846/1803

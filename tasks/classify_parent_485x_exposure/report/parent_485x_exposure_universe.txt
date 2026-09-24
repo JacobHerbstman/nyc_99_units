@@ -1,18 +1,18 @@
-Rows: 8622
+Rows: 8626
 Columns: 12
 Key fields: sample, root_job_id
-Saved-file MD5: 0190fc75037dd359339edce4f4974732
+Saved-file MD5: ee0d2dc1bf66b057388a305d0dff500e
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 8622 | distinct | 2
-parent_id | character | nonmissing | 8622 | distinct | 7438
-root_job_id | character | nonmissing | 8622 | distinct | 8622
-cohort_date | Date | nonmissing | 8622 | distinct | 3106
-cohort_year | numeric | nonmissing | 8622 | distinct | 16 min/median/mean/max 2011/2018/2018.237/2026
-parent_total_units | numeric | nonmissing | 8622 | distinct | 465 min/median/mean/max 6/22/67.74635/1871
-component_units | numeric | nonmissing | 8622 | distinct | 441 min/median/mean/max 0/17/50.34772/1313
-address | character | nonmissing | 8622 | distinct | 8028
-borough_name | character | nonmissing | 8622 | distinct | 5
-ownership_type | character | nonmissing | 8622 | distinct | 26
-owner_name | character | nonmissing | 8578 | distinct | 6656
-job_description | character | nonmissing | 4621 | distinct | 3946
+sample | character | nonmissing | 8626 | distinct | 2
+parent_id | character | nonmissing | 8626 | distinct | 7444
+root_job_id | character | nonmissing | 8626 | distinct | 8626
+cohort_date | Date | nonmissing | 8626 | distinct | 3109
+cohort_year | numeric | nonmissing | 8626 | distinct | 16 min/median/mean/max 2011/2018/2018.241/2026
+parent_total_units | numeric | nonmissing | 8626 | distinct | 466 min/median/mean/max 6/22/68.05112/1871
+component_units | numeric | nonmissing | 8626 | distinct | 440 min/median/mean/max 6/17/50.49745/1458
+address | character | nonmissing | 8626 | distinct | 8032
+borough_name | character | nonmissing | 8626 | distinct | 5
+ownership_type | character | nonmissing | 8626 | distinct | 26
+owner_name | character | nonmissing | 8582 | distinct | 6659
+job_description | character | nonmissing | 4625 | distinct | 3950

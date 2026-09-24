@@ -1,21 +1,21 @@
-Rows: 7438
+Rows: 7444
 Columns: 15
 Key fields: sample, parent_id
-Saved-file MD5: b4de8e0114c66b52a6dc2485d384cab9
+Saved-file MD5: 5c09335ca3aa47d473989f8ad495b1c0
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 7438 | distinct | 2
-parent_id | character | nonmissing | 7438 | distinct | 7438
-exposure_status | character | nonmissing | 7438 | distinct | 4
-included_ab | logical | nonmissing | 7438 | distinct | 2
-included_ab_plus_d | logical | nonmissing | 7438 | distinct | 2
-confidence | character | nonmissing | 7438 | distinct | 3
-classification_reason | character | nonmissing | 7438 | distinct | 14
-evidence_source | character | nonmissing | 7438 | distinct | 12
-source_url | character | nonmissing | 831 | distinct | 660
-government_owner | logical | nonmissing | 7438 | distinct | 2
-nycha_owner | logical | nonmissing | 7438 | distinct | 2
-hotel_project | logical | nonmissing | 7438 | distinct | 2
-ag_screen_complete | logical | nonmissing | 7438 | distinct | 2
-ag_market_plan_ids | character | nonmissing | 662 | distinct | 661
+sample | character | nonmissing | 7444 | distinct | 2
+parent_id | character | nonmissing | 7444 | distinct | 7444
+exposure_status | character | nonmissing | 7444 | distinct | 4
+included_ab | logical | nonmissing | 7444 | distinct | 2
+included_ab_plus_d | logical | nonmissing | 7444 | distinct | 2
+confidence | character | nonmissing | 7444 | distinct | 3
+classification_reason | character | nonmissing | 7444 | distinct | 14
+evidence_source | character | nonmissing | 7444 | distinct | 13
+source_url | character | nonmissing | 830 | distinct | 659
+government_owner | logical | nonmissing | 7444 | distinct | 2
+nycha_owner | logical | nonmissing | 7444 | distinct | 2
+hotel_project | logical | nonmissing | 7444 | distinct | 2
+ag_screen_complete | logical | nonmissing | 7444 | distinct | 2
+ag_market_plan_ids | character | nonmissing | 661 | distinct | 660
 hpd_options | character | nonmissing | 171 | distinct | 5

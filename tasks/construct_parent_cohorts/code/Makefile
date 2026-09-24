@@ -6,7 +6,8 @@ all: ../output/post_policy_filing_link_fields.parquet ../output/owner_proximity_
 include ../../shared/code/generic.make
 
 ../output/post_policy_filing_link_fields.parquet: construct_post_policy_parent_crosswalk.R \
-	../input/dob_now_new_building_initial_filings.parquet ../input/mappluto_appbbl_crosswalk.csv Makefile | $(OOPR)
+	../input/dob_now_new_building_initial_filings.parquet ../input/dcp_housing_database_project_level_25q4.parquet \
+	../input/mappluto_appbbl_crosswalk.csv Makefile | $(OOPR)
 	$(R) $<
 
 ../output/owner_proximity_links.parquet: construct_owner_proximity_links.R \

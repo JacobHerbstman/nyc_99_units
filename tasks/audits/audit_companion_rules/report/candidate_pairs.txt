@@ -1,25 +1,25 @@
-Rows: 12933
+Rows: 12938
 Columns: 19
 Key fields: sample, job_a, job_b
-Saved-file MD5: fca258cdf67cc35ab41f09c22bc5ba00
+Saved-file MD5: cf4c9b97de7b80cd7401ff0924d48e82
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 12933 | distinct | 2
-job_a | character | nonmissing | 12933 | distinct | 5141
-job_b | character | nonmissing | 12933 | distinct | 5115
-parent_a | character | nonmissing | 12933 | distinct | 4368
-parent_b | character | nonmissing | 12933 | distinct | 4370
-units_a | integer | nonmissing | 12933 | distinct | 348 min/median/mean/max 5/10/40.5469/1175
-units_b | integer | nonmissing | 12933 | distinct | 343 min/median/mean/max 5/10/40.55447/1313
-bbl_a | character | nonmissing | 12933 | distinct | 4478
-bbl_b | character | nonmissing | 12933 | distinct | 4436
-distance_metres | numeric | nonmissing | 12933 | distinct | 11767 min/median/mean/max 0/140.7186/135.6695/249.9848
-days_apart | numeric | nonmissing | 12933 | distinct | 366 min/median/mean/max 0/139/148.856/365
-first_date | Date | nonmissing | 12933 | distinct | 2428
-same_block | logical | nonmissing | 12933 | distinct | 2
-same_business | logical | nonmissing | 12933 | distinct | 2
-same_person | logical | nonmissing | 12933 | distinct | 2
-same_applicant | logical | nonmissing | 12933 | distinct | 2
-same_parent | logical | nonmissing | 12933 | distinct | 2
-cross_lot | logical | nonmissing | 12933 | distinct | 2
-dof_confirmed | logical | nonmissing | 12933 | distinct | 2
+sample | character | nonmissing | 12938 | distinct | 2
+job_a | character | nonmissing | 12938 | distinct | 5144
+job_b | character | nonmissing | 12938 | distinct | 5118
+parent_a | character | nonmissing | 12938 | distinct | 4371
+parent_b | character | nonmissing | 12938 | distinct | 4372
+units_a | integer | nonmissing | 12938 | distinct | 348 min/median/mean/max 6/10/40.7614/1458
+units_b | integer | nonmissing | 12938 | distinct | 343 min/median/mean/max 6/10/40.67205/1458
+bbl_a | character | nonmissing | 12938 | distinct | 4480
+bbl_b | character | nonmissing | 12938 | distinct | 4438
+distance_metres | numeric | nonmissing | 12938 | distinct | 11771 min/median/mean/max 0/140.7406/135.7009/249.9848
+days_apart | numeric | nonmissing | 12938 | distinct | 366 min/median/mean/max 0/139/148.8283/365
+first_date | Date | nonmissing | 12938 | distinct | 2427
+same_block | logical | nonmissing | 12938 | distinct | 2
+same_business | logical | nonmissing | 12938 | distinct | 2
+same_person | logical | nonmissing | 12938 | distinct | 2
+same_applicant | logical | nonmissing | 12938 | distinct | 2
+same_parent | logical | nonmissing | 12938 | distinct | 2
+cross_lot | logical | nonmissing | 12938 | distinct | 2
+dof_confirmed | logical | nonmissing | 12938 | distinct | 2

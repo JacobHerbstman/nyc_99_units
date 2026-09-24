@@ -1,19 +1,19 @@
 Rows: 4
 Columns: 13
 Key fields: sample_scope, period
-Saved-file MD5: 73a4cf2a8e8039eb9d410f9a96195098
+Saved-file MD5: 9b2dcd4d55756104a1746e0a3fdca139
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample_scope | character | nonmissing | 4 | distinct | 2
 period | character | nonmissing | 4 | distinct | 2
 exposure_years | numeric | nonmissing | 4 | distinct | 2 min/median/mean/max 1.516769/2.758385/2.758385/4
-parent_opportunities | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 842/1366/1405.5/2048
-annualized_opportunity_rate | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 463/533.5636/527.5769/580.1805
-total_parent_units | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 57597/95559.5/97549.75/141483
-annualized_parent_units | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 32512.25/36672.11/36529.92/40263.21
-multi_component_parents | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 90/140/145/210
-multi_component_share | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 0.1020518/0.1029741/0.1037221/0.1068884
+parent_opportunities | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 842/1368.5/1406.75/2048
+annualized_opportunity_rate | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 463/533.5636/528.4011/583.477
+total_parent_units | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 57597/96305/97922.5/141483
+annualized_parent_units | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 32512.25/36672.11/36775.67/41246.22
+multi_component_parents | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 90/140.5/145.25/210
+multi_component_share | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 0.1020518/0.1032469/0.1038585/0.1068884
 exact_99x2_parents | numeric | nonmissing | 4 | distinct | 2 min/median/mean/max 0/4.5/4.5/9
 exact_99x3_parents | numeric | nonmissing | 4 | distinct | 2 min/median/mean/max 0/1/1/2
-right_window_observed_parents | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 228/1047/1092.5/2048
+right_window_observed_parents | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 228/1048/1093/2048
 minimum_followup_days | numeric | nonmissing | 4 | distinct | 2 min/median/mean/max 0/184/184/368

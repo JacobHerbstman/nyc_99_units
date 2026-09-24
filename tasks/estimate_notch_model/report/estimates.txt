@@ -1,7 +1,7 @@
 Rows: 10
 Columns: 23
 Key fields: specification
-Saved-file MD5: cb7820e741b0ad66ca64f5918ff7c433
+Saved-file MD5: 5e256b8137b1a6395fb423e07184cb06
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 specification | character | nonmissing | 10 | distinct | 10
@@ -15,15 +15,15 @@ tau | numeric | nonmissing | 10 | distinct | 4 min/median/mean/max 0/0.05/0.046/
 compression | numeric | nonmissing | 10 | distinct | 6 min/median/mean/max 1/1.0452/1.04551/1.1
 gamma | numeric | nonmissing | 9 | distinct | 4 min/median/mean/max 1/1.5/1.555556/2
 sigma | numeric | nonmissing | 9 | distinct | 7 min/median/mean/max 0.1/0.2511886/0.309476/0.7943282
-objective | numeric | nonmissing | 10 | distinct | 10 min/median/mean/max 0.001758722/0.002799227/0.004004167/0.01010548
+objective | numeric | nonmissing | 10 | distinct | 10 min/median/mean/max 0.001764778/0.002799227/0.004004772/0.01010548
 near_optimal_points | numeric | nonmissing | 10 | distinct | 10 min/median/mean/max 15/44/148.6/984
 kappa_range | character | nonmissing | 10 | distinct | 8
 tau_range | character | nonmissing | 10 | distinct | 7
 gamma_range | character | nonmissing | 9 | distinct | 3
 sigma_range | character | nonmissing | 9 | distinct | 7
-units_lost_model | numeric | nonmissing | 10 | distinct | 10 min/median/mean/max 436.3902/1021.536/1066.94/2232.306
-units_lost_fixed_buildings | numeric | nonmissing | 10 | distinct | 9 min/median/mean/max 591.0295/1359.74/1327.069/2232.306
-units_preserved_by_splitting | numeric | nonmissing | 10 | distinct | 10 min/median/mean/max -3.637979e-12/266.4321/260.1291/485.2854
-direct_unit_gap | numeric | nonmissing | 10 | distinct | 5 min/median/mean/max -907.8002/854.2892/2409.519/9555.34
+units_lost_model | numeric | nonmissing | 10 | distinct | 10 min/median/mean/max 436.3902/1021.536/1066.868/2232.306
+units_lost_fixed_buildings | numeric | nonmissing | 10 | distinct | 9 min/median/mean/max 591.0295/1359.74/1326.947/2232.306
+units_preserved_by_splitting | numeric | nonmissing | 10 | distinct | 10 min/median/mean/max -3.637979e-12/266.4321/260.0794/484.7883
+direct_unit_gap | numeric | nonmissing | 10 | distinct | 5 min/median/mean/max -917.2151/854.2892/2408.578/9555.34
 historical_parents | numeric | nonmissing | 10 | distinct | 1 min/median/mean/max 588/588/588/588
 post_parents | numeric | nonmissing | 10 | distinct | 4 min/median/mean/max 167/278/270.9/304

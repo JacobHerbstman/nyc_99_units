@@ -1,55 +1,55 @@
-Rows: 2928
+Rows: 2933
 Columns: 49
 Key fields: sample, parent_id
-Saved-file MD5: e807480721dfca8d67b66a31208c899c
+Saved-file MD5: ed6128517af485701f49f6365a9c1e6e
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 2928 | distinct | 2
-period | character | nonmissing | 2928 | distinct | 2
-exposure_years | numeric | nonmissing | 2928 | distinct | 2 min/median/mean/max 1.516769/4/3.253674/4
-parent_id | character | nonmissing | 2928 | distinct | 2928
-cohort_date | Date | nonmissing | 2928 | distinct | 1191
-cohort_year | integer | nonmissing | 2928 | distinct | 6 min/median/mean/max 2019/2021/2021.909/2026
-refiled | logical | nonmissing | 2928 | distinct | 2
-refiling_date | Date | nonmissing | 39 | distinct | 38
-parent_last_filing_date | Date | nonmissing | 2928 | distinct | 1194
-observed_followup_days | integer | nonmissing | 2928 | distinct | 1150 min/median/mean/max 0/772.5/868.8583/1820
-left_window_observed | logical | nonmissing | 2928 | distinct | 1
-right_window_observed | logical | nonmissing | 2928 | distinct | 2
-full_window_observed | logical | nonmissing | 2928 | distinct | 2
-parent_total_units | integer | nonmissing | 2928 | distinct | 364 min/median/mean/max 6/26/69.17794/1452
-n_components | integer | nonmissing | 2928 | distinct | 9 min/median/mean/max 1/1/1.143784/14
-max_component_units | integer | nonmissing | 2928 | distinct | 326 min/median/mean/max 6/25/61.05123/1313
-second_component_units | integer | nonmissing | 301 | distinct | 112 min/median/mean/max 6/25/60.78738/575
+sample | character | nonmissing | 2933 | distinct | 2
+period | character | nonmissing | 2933 | distinct | 2
+exposure_years | numeric | nonmissing | 2933 | distinct | 2 min/median/mean/max 1.516769/4/3.250713/4
+parent_id | character | nonmissing | 2933 | distinct | 2933
+cohort_date | Date | nonmissing | 2933 | distinct | 1193
+cohort_year | integer | nonmissing | 2933 | distinct | 6 min/median/mean/max 2019/2021/2021.914/2026
+refiled | logical | nonmissing | 2933 | distinct | 2
+refiling_date | Date | nonmissing | 41 | distinct | 40
+parent_last_filing_date | Date | nonmissing | 2933 | distinct | 1195
+observed_followup_days | integer | nonmissing | 2933 | distinct | 1152 min/median/mean/max 0/772/867.9523/1820
+left_window_observed | logical | nonmissing | 2933 | distinct | 1
+right_window_observed | logical | nonmissing | 2933 | distinct | 2
+full_window_observed | logical | nonmissing | 2933 | distinct | 2
+parent_total_units | integer | nonmissing | 2933 | distinct | 365 min/median/mean/max 6/26/69.56836/1758
+n_components | integer | nonmissing | 2933 | distinct | 9 min/median/mean/max 1/1/1.14388/14
+max_component_units | integer | nonmissing | 2933 | distinct | 327 min/median/mean/max 6/25/61.35322/1458
+second_component_units | integer | nonmissing | 302 | distinct | 113 min/median/mean/max 6/25.5/61.57947/575
 third_component_units | integer | nonmissing | 64 | distinct | 37 min/median/mean/max 6/31/60.29688/484
-n_components_eq_99 | integer | nonmissing | 2928 | distinct | 7 min/median/mean/max 0/0/0.03278689/7
-single_component | logical | nonmissing | 2928 | distinct | 2
-multi_component | logical | nonmissing | 2928 | distinct | 2
-exact_99x2 | logical | nonmissing | 2928 | distinct | 2
-exact_99x3 | logical | nonmissing | 2928 | distinct | 2
-sorted_component_vector | character | nonmissing | 2928 | distinct | 504
-component_job_numbers | character | nonmissing | 2928 | distinct | 2928
-component_addresses | character | nonmissing | 2928 | distinct | 2858
-splitting_verification_status | character | nonmissing | 2928 | distinct | 4
-response_category | character | nonmissing | 2928 | distinct | 7
-exposure_status | character | nonmissing | 2928 | distinct | 4
-included_ab | logical | nonmissing | 2928 | distinct | 2
-included_ab_plus_d | logical | nonmissing | 2928 | distinct | 2
-confidence | character | nonmissing | 2928 | distinct | 3
-classification_reason | character | nonmissing | 2928 | distinct | 12
+n_components_eq_99 | integer | nonmissing | 2933 | distinct | 7 min/median/mean/max 0/0/0.03273099/7
+single_component | logical | nonmissing | 2933 | distinct | 2
+multi_component | logical | nonmissing | 2933 | distinct | 2
+exact_99x2 | logical | nonmissing | 2933 | distinct | 2
+exact_99x3 | logical | nonmissing | 2933 | distinct | 2
+sorted_component_vector | character | nonmissing | 2933 | distinct | 505
+component_job_numbers | character | nonmissing | 2933 | distinct | 2933
+component_addresses | character | nonmissing | 2933 | distinct | 2863
+splitting_verification_status | character | nonmissing | 2933 | distinct | 4
+response_category | character | nonmissing | 2933 | distinct | 7
+exposure_status | character | nonmissing | 2933 | distinct | 4
+included_ab | logical | nonmissing | 2933 | distinct | 2
+included_ab_plus_d | logical | nonmissing | 2933 | distinct | 2
+confidence | character | nonmissing | 2933 | distinct | 3
+classification_reason | character | nonmissing | 2933 | distinct | 12
 source_url | character | nonmissing | 195 | distinct | 123
-composition_eligible | logical | nonmissing | 2928 | distinct | 2
-site_feature_method | character | nonmissing | 2928 | distinct | 8
-number_unique_lots | integer | nonmissing | 2912 | distinct | 10 min/median/mean/max 1/1/1.239354/11
-lot_area_sqft | numeric | nonmissing | 2911 | distinct | 1699 min/median/mean/max 279/5000/23683.44/1601432
-log_lot_area | numeric | nonmissing | 2911 | distinct | 1699 min/median/mean/max 5.631212/8.517193/8.717797/14.28641
-residential_far | numeric | nonmissing | 2912 | distinct | 63 min/median/mean/max 0/3/3.336013/10
-built_far | numeric | nonmissing | 2912 | distinct | 631 min/median/mean/max 0/0.4996429/0.7007409/21.38
-residential_capacity_sqft | numeric | nonmissing | 2911 | distinct | 1966 min/median/mean/max 0/12872.48/40261.19/2761126
-redevelopment_slack_sqft | numeric | nonmissing | 2911 | distinct | 2384 min/median/mean/max 0/10092/30791.63/1664863
-built_floor_area_estimated | logical | nonmissing | 2928 | distinct | 2
-merged_lots_added | integer | nonmissing | 2928 | distinct | 10 min/median/mean/max 0/0/0.1567623/10
-merger_window_complete | logical | nonmissing | 2928 | distinct | 2
-implausible_site | logical | nonmissing | 2928 | distinct | 2
-borough | character | nonmissing | 2912 | distinct | 5
-community_district | character | nonmissing | 2912 | distinct | 60
+composition_eligible | logical | nonmissing | 2933 | distinct | 2
+site_feature_method | character | nonmissing | 2933 | distinct | 8
+number_unique_lots | integer | nonmissing | 2917 | distinct | 10 min/median/mean/max 1/1/1.238944/11
+lot_area_sqft | numeric | nonmissing | 2916 | distinct | 1700 min/median/mean/max 279/5000/23648.26/1601432
+log_lot_area | numeric | nonmissing | 2916 | distinct | 1700 min/median/mean/max 5.631212/8.517193/8.716386/14.28641
+residential_far | numeric | nonmissing | 2917 | distinct | 63 min/median/mean/max 0/3/3.333552/10
+built_far | numeric | nonmissing | 2917 | distinct | 631 min/median/mean/max 0/0.5/0.7002152/21.38
+residential_capacity_sqft | numeric | nonmissing | 2916 | distinct | 1967 min/median/mean/max 0/12847.41/40201.3/2761126
+redevelopment_slack_sqft | numeric | nonmissing | 2916 | distinct | 2387 min/median/mean/max 0/10082/30746.28/1664863
+built_floor_area_estimated | logical | nonmissing | 2933 | distinct | 2
+merged_lots_added | integer | nonmissing | 2933 | distinct | 10 min/median/mean/max 0/0/0.1564951/10
+merger_window_complete | logical | nonmissing | 2933 | distinct | 2
+implausible_site | logical | nonmissing | 2933 | distinct | 2
+borough | character | nonmissing | 2917 | distinct | 5
+community_district | character | nonmissing | 2917 | distinct | 60

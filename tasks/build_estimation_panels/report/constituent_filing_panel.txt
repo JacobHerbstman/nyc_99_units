@@ -1,30 +1,30 @@
-Rows: 3349
+Rows: 3355
 Columns: 24
 Key fields: sample, root_job_id
-Saved-file MD5: a6d061f94642c2a4c4a37a83af9c6717
+Saved-file MD5: e62eea59cbeb2f370d3794eeb954e044
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 3349 | distinct | 2
-parent_id | character | nonmissing | 3349 | distinct | 2928
-root_job_id | character | nonmissing | 3349 | distinct | 3349
-constituent_units | integer | nonmissing | 3349 | distinct | 343 min/median/mean/max 6/25/60.48164/1313
-parent_constituent_weight | numeric | nonmissing | 3349 | distinct | 9 min/median/mean/max 0.07142857/1/0.8742908/1
-record_filing_date | Date | nonmissing | 3349 | distinct | 1219
-date_filed | Date | nonmissing | 3349 | distinct | 1221
-refiled | logical | nonmissing | 3349 | distinct | 2
-refiling_date | Date | nonmissing | 41 | distinct | 38
-refiling_basis | character | nonmissing | 41 | distinct | 3
-filing_bbl | character | nonmissing | 3349 | distinct | 3128
-address | character | nonmissing | 3349 | distinct | 3244
-borough_name | character | nonmissing | 3349 | distinct | 5
-owner_name | character | nonmissing | 3348 | distinct | 2537
-period | character | nonmissing | 3349 | distinct | 2
-exposure_years | numeric | nonmissing | 3349 | distinct | 2 min/median/mean/max 1.516769/4/3.257774/4
-cohort_date | Date | nonmissing | 3349 | distinct | 1191
-cohort_year | integer | nonmissing | 3349 | distinct | 6 min/median/mean/max 2019/2021/2021.904/2026
-parent_total_units | integer | nonmissing | 3349 | distinct | 364 min/median/mean/max 6/29/84.95461/1452
-n_components | integer | nonmissing | 3349 | distinct | 9 min/median/mean/max 1/1/1.41266/14
-exact_99x2 | logical | nonmissing | 3349 | distinct | 2
-exact_99x3 | logical | nonmissing | 3349 | distinct | 2
-splitting_verification_status | character | nonmissing | 3349 | distinct | 4
-included_ab | logical | nonmissing | 3349 | distinct | 2
+sample | character | nonmissing | 3355 | distinct | 2
+parent_id | character | nonmissing | 3355 | distinct | 2933
+root_job_id | character | nonmissing | 3355 | distinct | 3355
+constituent_units | integer | nonmissing | 3355 | distinct | 344 min/median/mean/max 6/25/60.81788/1458
+parent_constituent_weight | numeric | nonmissing | 3355 | distinct | 9 min/median/mean/max 0.07142857/1/0.8742176/1
+record_filing_date | Date | nonmissing | 3355 | distinct | 1220
+date_filed | Date | nonmissing | 3355 | distinct | 1221
+refiled | logical | nonmissing | 3355 | distinct | 2
+refiling_date | Date | nonmissing | 43 | distinct | 40
+refiling_basis | character | nonmissing | 43 | distinct | 4
+filing_bbl | character | nonmissing | 3355 | distinct | 3134
+address | character | nonmissing | 3355 | distinct | 3250
+borough_name | character | nonmissing | 3355 | distinct | 5
+owner_name | character | nonmissing | 3354 | distinct | 2540
+period | character | nonmissing | 3355 | distinct | 2
+exposure_years | numeric | nonmissing | 3355 | distinct | 2 min/median/mean/max 1.516769/4/3.254661/4
+cohort_date | Date | nonmissing | 3355 | distinct | 1193
+cohort_year | integer | nonmissing | 3355 | distinct | 6 min/median/mean/max 2019/2021/2021.909/2026
+parent_total_units | integer | nonmissing | 3355 | distinct | 365 min/median/mean/max 6/29/85.77109/1758
+n_components | integer | nonmissing | 3355 | distinct | 9 min/median/mean/max 1/1/1.412519/14
+exact_99x2 | logical | nonmissing | 3355 | distinct | 2
+exact_99x3 | logical | nonmissing | 3355 | distinct | 2
+splitting_verification_status | character | nonmissing | 3355 | distinct | 4
+included_ab | logical | nonmissing | 3355 | distinct | 2
