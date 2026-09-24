@@ -32,7 +32,7 @@ The comparison is 2019–2022 versus January 1, 2025–July 8, 2026.
 | `make site-boundaries` | Parcel-boundary screen for the weighting sample |
 | `make land-sensitivity` | Whether land-measurement choices move the reweighted comparison |
 | `make parent-links` | Evidence casebook for reviewed parent links |
-| `make companion-rules` | Alternative same-owner linking rules and their hand review |
+| `make companion-rules` | Alternative same-owner linking rules, their hand review, and a stricter-rule check |
 | `make pure-notch-pilot` | Exploratory structural fit (runs estimation) |
 | `make framework-writeup`, `make logbook`, `make paper` | The documents, after the inputs they read |
 

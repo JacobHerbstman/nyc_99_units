@@ -28,6 +28,15 @@ historical ones, 20 at 150–250 m, and 20 matched only by architect. Each row
 has a judgement (`companion`, `likely companion`, `uncertain`, `separate`) and
 a reason.
 
+`strict_rule_sensitivity.R` checks the reweighted comparison under a stricter
+rule: a link supported only by a shared owner counts when the filings are
+within 60 m or filed within 30 days, where every reviewed link was a
+companion. Production parents split where the remaining links no longer
+connect their filings; each piece keeps its parent's site traits and
+classification, and the historical weights are recalibrated. Filings that
+production joined to parents anchored before the comparison window are not
+recovered. `strict_rule_splits.csv` lists the split weighting-sample parents.
+
 The adopted rule links two filings when their owner business or owner person
 matches and they are within 150 m or on the same tax block within 200 m, filed
 within 365 days. Run root `make companion-rules`.

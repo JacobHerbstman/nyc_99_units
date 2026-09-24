@@ -93,3 +93,43 @@ shorter window beyond 60 metres, is Jacob's decision.
 \path{construct_owner_proximity_links.R} in \path{construct_parent_cohorts};
 root \texttt{make data}. Root \texttt{make companion-rules} scores the
 alternative rules and simulates their parents against the production panel.
+
+\subsection*{September 24 follow-up: the rule stays, with a stricter check}
+
+Jacob kept the rule as adopted and asked for a stricter version as a
+sensitivity check. The strict version drops the links supported only by a
+shared owner unless the filings are within 60 metres or filed within 30 days,
+where every reviewed link was a companion. It removes 285 historical and 24
+recent links and splits 9 historical and 6 recent weighting-sample parents,
+among them Grun's 1973 Crotona Avenue and 623 East 178th Street and the 280
+Meeker Avenue and 680 Lorimer Street pair. Each piece keeps its parent's site
+traits and classification, pieces below 50 units leave the sample, and the
+historical weights are recalibrated.
+
+\begin{center}
+\small
+\begin{tabular}{lrr}
+\hline
+& Adopted rule & Strict owner links \\
+\hline
+Historical / post parents & 588 / 304 & 593 / 303 \\
+Excess at 99 & 11.3 & 11.7 \\
+Excess at 198 & 3.0 & 3.0 \\
+Deficit 100--149 & 7.6 & 7.8 \\
+Post exact-99 parents & 36 & 37 \\
+Post 99+99 parents & 9 & 9 \\
+Historical multi-building share (weighted) & 10.7\% & 9.6\% \\
+Post multi-building share & 20.7\% & 18.8\% \\
+\hline
+\end{tabular}
+\end{center}
+
+The bunching comparison does not depend on the links in dispute: the excess at
+99 moves by 0.4 points, well inside its bootstrap interval, and the 99+99 count
+is unchanged. The multi-building shares fall by one to two points in both
+periods. The check does not recover the nine filings that production joined
+to parents anchored before the comparison window.
+
+\textit{Reproduction note.} \path{strict_rule_sensitivity.R} in
+\path{audit_companion_rules}; root \texttt{make companion-rules}. The adopted
+row reproduces the benchmark weights' effective sample size and moments.
