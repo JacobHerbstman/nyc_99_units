@@ -25,17 +25,17 @@ sigma_grid <- exp(seq(log(0.001), log(10), length.out = 41))
 # specification changes one element; below_250 moves the cutoff, and
 # all_sizes_linear_cost is the September 24 first fit.
 specifications <- tribble(
-  ~specification,           ~maximum_units, ~variant,      ~weight,                 ~lambda, ~kink, ~gamma_free, ~assessment,
-  "main",                   300,            "all_filings", "weight_zoning_borough", 1,       TRUE,  TRUE,        "separate",
-  "below_250",              249,            "all_filings", "weight_zoning_borough", 1,       TRUE,  TRUE,        "separate",
-  "linear_splitting_cost",  300,            "all_filings", "weight_zoning_borough", 1,       TRUE,  FALSE,       "separate",
-  "all_sizes",              Inf,            "all_filings", "weight_zoning_borough", 1,       TRUE,  TRUE,        "separate",
-  "all_sizes_linear_cost",  Inf,            "all_filings", "weight_zoning_borough", 1,       TRUE,  FALSE,       "separate",
-  "lot_area_weights",       300,            "all_filings", "weight_with_lot_area",  1,       TRUE,  TRUE,        "separate",
-  "common_180_day_horizon", 300,            "horizon_180", "weight_zoning_borough", 1,       TRUE,  TRUE,        "separate",
-  "curvature_0.5",          300,            "all_filings", "weight_zoning_borough", 0.5,     TRUE,  TRUE,        "separate",
-  "curvature_2",            300,            "all_filings", "weight_zoning_borough", 2,       TRUE,  TRUE,        "separate",
-  "joint_assessment",       300,            "all_filings", "weight_zoning_borough", 1,       TRUE,  FALSE,       "joint"
+  ~specification,           ~maximum_units, ~variant,      ~weight,                 ~lambda, ~gamma_free, ~assessment,
+  "main",                   300,            "all_filings", "weight_zoning_borough", 1,       TRUE,        "separate",
+  "below_250",              249,            "all_filings", "weight_zoning_borough", 1,       TRUE,        "separate",
+  "linear_splitting_cost",  300,            "all_filings", "weight_zoning_borough", 1,       FALSE,       "separate",
+  "all_sizes",              Inf,            "all_filings", "weight_zoning_borough", 1,       TRUE,        "separate",
+  "all_sizes_linear_cost",  Inf,            "all_filings", "weight_zoning_borough", 1,       FALSE,       "separate",
+  "lot_area_weights",       300,            "all_filings", "weight_with_lot_area",  1,       TRUE,        "separate",
+  "common_180_day_horizon", 300,            "horizon_180", "weight_zoning_borough", 1,       TRUE,        "separate",
+  "curvature_0.5",          300,            "all_filings", "weight_zoning_borough", 0.5,     TRUE,        "separate",
+  "curvature_2",            300,            "all_filings", "weight_zoning_borough", 2,       TRUE,        "separate",
+  "joint_assessment",       300,            "all_filings", "weight_zoning_borough", 1,       FALSE,       "joint"
 )
 main_specification <- "main"
 
@@ -74,11 +74,10 @@ fit_specification <- function(spec) {
   unit_weight <- w * in_range / sum(w[in_range])
   benchmark_units <- post_parents * sum(unit_weight * x)
   candidates <- size_candidates(x, J0, spec$lambda, spec$assessment)
-  taus <- if (spec$kink) tau_grid else 0
   gammas <- if (spec$gamma_free) gamma_grid else 1
 
   results <- list()
-  for (tau in taus) for (kappa in kappa_grid) {
+  for (tau in tau_grid) for (kappa in kappa_grid) {
     burden <- burden_table(max(x), max(candidates$J), kappa, tau, spec$lambda, spec$assessment)
     sizes <- choose_sizes(candidates, burden)
     fixed_buildings <- sizes$m[sizes$J == J0[sizes$i]]
@@ -137,7 +136,11 @@ estimates <- best |>
     units_preserved_by_splitting = units_lost_fixed_buildings - units_lost_model,
     direct_unit_gap = sapply(fits[specification], `[[`, "direct_unit_gap"),
     historical_parents = sapply(fits[specification], `[[`, "historical_parents"),
-    post_parents = sapply(fits[specification], `[[`, "post_parents")) |>
+    post_parents = sapply(fits[specification], `[[`, "post_parents"),
+    # Under joint assessment splitting cannot lower the burden, so the
+    # splitting cost is not identified.
+    across(c(gamma, sigma), ~ if_else(assessment == "joint", NA_real_, .x)),
+    across(c(gamma_range, sigma_range), ~ if_else(assessment == "joint", NA_character_, .x))) |>
   select(specification, maximum_units, variant, weight, lambda, assessment, kappa, tau, compression,
     gamma, sigma, objective, near_optimal_points, kappa_range, tau_range, gamma_range, sigma_range,
     units_lost_model, units_lost_fixed_buildings, units_preserved_by_splitting,
@@ -184,10 +187,8 @@ main_grid_cells <- main$grid |>
   mutate(cell = rep(main$cells, nrow(main$grid)), share = as.vector(main$shares))
 
 print(estimates, width = Inf)
-SaveData(grid, c("specification", "kappa", "tau", "gamma", "sigma"), "../output/parameter_grid.parquet")
 SaveData(estimates, "specification", "../output/estimates.csv")
 SaveData(fit_moments, c("specification", "moment"), "../output/fit_moments.csv")
 SaveData(cell_fit, c("specification", "cell"), "../output/cell_fit.csv")
 SaveData(profiles, c("specification", "parameter", "value"), "../output/parameter_profiles.csv")
 SaveData(main_grid_cells, c("point", "cell"), "../output/main_grid_cells.parquet")
-SaveData(tibble(cell = main$cells, observed = main$observed), "cell", "../output/main_observed_cells.csv")

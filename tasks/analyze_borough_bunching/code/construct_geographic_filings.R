@@ -24,7 +24,6 @@ stopifnot(all(parents$boroughs == 1), all(parents$totals == 1), all(parents$reco
 filings <- filings |>
   left_join(coordinates, by = c("sample", "root_job_id"), relationship = "many-to-one") |>
   mutate(coordinate_status = case_when(
-    is.na(coordinate_source) ~ "unmatched source job",
     is.na(latitude) | is.na(longitude) ~ "missing coordinates",
     latitude < 40.45 | latitude > 40.95 | longitude < -74.3 | longitude > -73.65 ~ "outside NYC bounding box",
     TRUE ~ "pending borough check"))

@@ -1,22 +1,25 @@
 # Construct historical parent links
 
-This task builds leakage-safe filing-pair evidence for historical parent
-construction. The source universe begins in 2010 so a 365-day lookback can
-determine whether a 2011 filing is a parent anchor. It extracts
-owner, lot-history, coordinate, and explicit
-project-reference fields from the historical MapPLUTO snapshot available at
-each filing date. It then identifies filing pairs within one year and records
-the conservative link signals used by the parent construction.
+The evidence that two historical filings belong to one development.
 
-The task produces two analytical datasets: filing-level link fields and
-candidate filing pairs.
+`extract_historical_parent_link_fields.R` selects the historical linkage
+universe: 23Q4 Housing Database New Building filings from 2010 through 2023
+with at least six Class A units and a matched pre-filing parcel. 2010 filings
+let a 2011 filing be tested as a parent anchor. Filings in an accepted manual
+link (`parent_opportunities_manual/output/pair_decisions.csv`) stay in even
+without land data. Each filing gets its description, job references and MPP
+project codes, coordinates, and the owner and former lot recorded for its lot
+in its own pre-filing release. Owners come only from the archived parcel map;
+later DOB owners do not supply historical links.
 
-Accepted historical endpoints from `parent_opportunities_manual/output/pair_decisions.csv`
-remain in the filing universe even when land covariates fail their match. This
-restores observed companions without inventing geometry or land area. All ordinary
-filing-year and unit restrictions remain. The parent producer records which decisions have both endpoints in the selected
-source; applicable manual edges do not depend on automatic candidate discovery.
+`construct_historical_parent_pairs.R` takes every pair of filings within 365
+days and records: the same filing lot; a strict lot-history link (the same
+matched lot or archived former lot, without relying on a crosswalk recovery or
+a later lot change); a lot link that does rely on one; an explicit job
+reference or shared project code; the same owner within 100 m; and exact
+polygon touching. Touching is tested in the MapPLUTO shapefile of the earlier
+filing's release, among the lots of filings that used that release, and joins
+a pair when the filings are at most 30 days apart or other evidence supports
+it. The output keeps pairs within 250 m or with any of this evidence.
 
-This task also extracts exact filing-date parcel polygons and constructs adjacency pairs. The 2018 geometry provides the lookback for 2019 parent anchors. Adjacency is a link signal only under the documented corroboration rule.
-
-Historical units, filing BBLs, descriptions, and coordinates come from the complete 23Q4 Housing Database. Owner support comes from the archived parcel map selected before filing. Later DOB descriptions or owner fields do not supply historical mechanical links. Accepted manual companions can retain missing land covariates, but must still satisfy the historical source and residential-size conditions.
+Parent construction reads both outputs.

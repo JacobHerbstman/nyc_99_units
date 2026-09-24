@@ -1,18 +1,11 @@
 include ../../shared/code/shell_functions.make
 
-all: ../output/hpd_485x_registrations.parquet ../output/hpd_485x_registration_dob_links.csv
+all: ../output/hpd_485x_registration_dob_links.csv
 
 include ../../shared/code/generic.make
 
-../output/hpd_485x_registration_dob_links.csv: link_hpd_485x_registrations.R Makefile \
-	../output/hpd_485x_registrations.parquet ../input/dob_now_new_building_initial_filings.parquet \
-	../../shared/code/write_data_report.R | $(OOPR)
-	$(R) $< 100
-
-../output/hpd_485x_registrations.parquet: stage_hpd_485x_registrations.R \
-	../../shared/code/source_pipeline_utils.R Makefile \
-	../input/hpd_485x_registrations.csv \
-	../../shared/code/write_data_report.R | $(OOPR)
+../output/hpd_485x_registration_dob_links.csv: link_hpd_485x_registrations.R ../input/hpd_485x_registrations.csv \
+	../input/dob_now_new_building_initial_filings.parquet Makefile | $(OOPR)
 	$(R) $<
 
 ../input/dob_now_new_building_initial_filings.parquet: \

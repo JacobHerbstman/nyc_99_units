@@ -34,7 +34,7 @@ The comparison is 2019–2022 versus January 1, 2025–July 8, 2026.
 | `make land-sensitivity` | Whether land-measurement choices move the reweighted comparison |
 | `make parent-links` | Evidence casebook for reviewed parent links |
 | `make companion-rules` | Alternative same-owner linking rules, their hand review, and a stricter-rule check |
-| `make framework-writeup`, `make logbook`, `make paper` | The documents, after the inputs they read |
+| `make framework-writeup`, `make logbook` | The documents, after the inputs they read |
 
 The root Makefile orders the tasks; each task's Makefile decides what is stale.
 Task-local `make` in a `code/` folder uses the inputs already prepared, so run
@@ -57,7 +57,7 @@ Housing Database download from their official URLs if missing.
 
 | Work | Tasks |
 |---|---|
-| Acquire HDB, DOB, HPD, MapPLUTO, borough and DOF sources | `fetch_*` |
+| Acquire HDB, DOB, HPD, MapPLUTO, Attorney General, borough and DOF sources | `fetch_*` |
 | Load and normalize records and parcel releases | `stage_*` |
 | Attach parcel histories and build parents | `build_hdb_mappluto_site_panel`, `construct_historical_parent_links`, `construct_parent_cohorts` |
 | Committed decisions; HPD links; exposure | `parent_opportunities_manual`, `link_hpd_485x_registrations`, `classify_parent_485x_exposure` |

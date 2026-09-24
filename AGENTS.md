@@ -16,7 +16,7 @@ Do not use many-to-many joins in active code or suppress cardinality warnings. R
 
 - Root `make` builds the main plots and maps. `make data`, `make plots`, and `make maps` request narrower products and their dependencies.
 - Task-local `make` runs from `code/` against prepared inputs; it does not execute upstream tasks. Use the root entry point after upstream changes.
-- Root `make paper`, `make logbook`, and `make framework-writeup` prepare their inputs and compile the documents through their Makefiles. Document-local Makefiles use prepared inputs.
+- Root `make logbook` and `make framework-writeup` prepare their inputs and compile the documents through their Makefiles. Document-local Makefiles use prepared inputs.
 - Each kept audit has one root target (`reweighting`, `holdout-checks`, `site-boundaries`, `land-sensitivity`, `parent-links`, `companion-rules`); see `tasks/audits/README.md`.
 - No main data/figure task depends on an audit. The logbook and framework read selected audit outputs through their root targets.
 - Fetch rules download or copy a source only when it is missing and verify it against the task's `checksums.sha256`. Do not make a download depend on the Makefile or scripts.

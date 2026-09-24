@@ -14,8 +14,7 @@ include ../../shared/code/generic.make
 	../input/symmetric_parent_membership.parquet ../input/hdb_mappluto_site_panel.parquet \
 	../input/historical_hdb_mappluto_site_panel.parquet \
 	../input/dob_now_new_building_initial_filings.parquet ../input/site_lot_decisions.csv \
-	../input/dof_transaction_headers.parquet ../input/dof_lot_actions.parquet $(MAPPLUTO_INPUTS) \
-	../../shared/code/source_pipeline_utils.R ../../shared/code/write_data_report.R Makefile | $(OOPR)
+	../input/dof_transaction_headers.parquet ../input/dof_lot_actions.parquet $(MAPPLUTO_INPUTS) Makefile | $(OOPR)
 	$(R) $< $*
 
 ../input/symmetric_parent_membership.parquet: \

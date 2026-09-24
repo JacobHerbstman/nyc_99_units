@@ -11,7 +11,7 @@ registration reports fewer than 100 units. That flag is evidence of intended
 sub-100 treatment, not evidence of final HPD approval or a legal Eligible Site
 determination.
 
-Two scripts normalize the registrations and match them to DOB jobs, producing
-`hpd_485x_registrations.parquet` and `hpd_485x_registration_dob_links.csv`.
+`link_hpd_485x_registrations.R` reads the registrations, matches them to DOB
+jobs and writes `hpd_485x_registration_dob_links.csv`.
 Parent-level summaries and threshold interpretations belong downstream. The
 source snapshot comes from `fetch_hpd_485x_registrations`.

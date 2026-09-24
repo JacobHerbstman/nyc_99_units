@@ -1,12 +1,10 @@
 include tasks/shared/code/shell_functions.make
 
-.DEFAULT_GOAL := all
-
 TASKS := analyze_borough_bunching build_estimation_panels build_hdb_mappluto_site_panel \
 	build_parent_site_characteristics classify_parent_485x_exposure construct_historical_parent_links \
 	construct_parent_cohorts fetch_dcp_housing_database fetch_dob_now_new_building_filings \
 	fetch_hpd_485x_registrations fetch_mappluto_archive fetch_nyc_borough_boundaries fetch_dof_tax_map_history \
-	fetch_dob_bis_job_filings estimate_notch_model \
+	fetch_dob_bis_job_filings fetch_nys_ag_offering_plans estimate_notch_model \
 	link_hpd_485x_registrations parent_opportunities_manual plot_bunching stage_dcp_housing_database \
 	stage_dob_now_new_building_filings stage_mappluto_lots
 
@@ -52,7 +50,7 @@ build_parent_site_characteristics: build_hdb_mappluto_site_panel construct_paren
 	$(MAKE) -C tasks/build_parent_site_characteristics/code
 
 classify_parent_485x_exposure: construct_historical_parent_links construct_parent_cohorts link_hpd_485x_registrations \
-	stage_dcp_housing_database stage_dob_now_new_building_filings
+	stage_dcp_housing_database stage_dob_now_new_building_filings fetch_nys_ag_offering_plans
 	$(MAKE) -C tasks/classify_parent_485x_exposure/code
 
 estimate_notch_model: build_estimation_panels
@@ -81,6 +79,9 @@ fetch_dob_now_new_building_filings:
 fetch_hpd_485x_registrations:
 	$(MAKE) -C tasks/fetch_hpd_485x_registrations/code
 
+fetch_nys_ag_offering_plans:
+	$(MAKE) -C tasks/fetch_nys_ag_offering_plans/code
+
 fetch_mappluto_archive:
 	$(MAKE) -C tasks/fetch_mappluto_archive/code
 
@@ -108,9 +109,6 @@ stage_mappluto_lots: fetch_mappluto_archive
 setup-environment:
 	$(MAKE) -C tasks/setup_environment/code
 
-paper: all
-	$(MAKE) -C paper
-
 logbook: maps reweighting parent-links estimate
 	$(MAKE) -C logbook
 
@@ -127,4 +125,4 @@ task_graph.svg: tasks/shared/code/draw_task_graph.py Makefile \
 	python3 tasks/shared/code/draw_task_graph.py
 
 .PHONY: all data plots maps estimate reweighting holdout-checks site-boundaries land-sensitivity parent-links \
-	companion-rules paper logbook framework-writeup setup-environment $(TASKS)
+	companion-rules logbook framework-writeup setup-environment $(TASKS)

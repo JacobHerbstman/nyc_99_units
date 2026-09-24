@@ -1,0 +1,59 @@
+\clearpage
+\section*{September 24, 2026: Simplifying the path from raw data to the panels}
+\textit{Agent-drafted research entry.}
+
+Jacob asked how much code the path from raw sources to the estimation panels
+really needs. Every main task sits on that path, so none was removed, but most
+contained code for cases that never occur, per-row loops where a join does,
+outputs and columns nothing reads, and acquisition steps inside production
+tasks. The main pipeline fell from about 9,000 to about 4,750 lines of R,
+Python and Make, and 1.3 GB of intermediate MapPLUTO copies are gone.
+
+\paragraph{What changed.}
+\begin{itemize}
+\item MapPLUTO staging is one script per release; the raw copy of every
+release and two file indexes were read by nothing but the next script.
+\item The parcel panel assigns releases with one interval lookup instead of a
+per-filing loop, and drops dead branches: every filing already used a strictly
+pre-filing release, and the APPBBL crosswalk has one former lot per current
+lot. It writes the 32 columns that are read instead of 137.
+\item Historical link evidence is one pair table instead of separate candidate
+and adjacency tables that parent construction had to merge.
+\item Parent construction reads that table, builds recent links once, and
+writes membership and links without seventeen unread columns and an unread
+decision-coverage file. Its fixed settings are written in the script.
+\item The Attorney General captures moved to an acquisition task,
+\path{fetch_nys_ag_offering_plans}, with checksums and the query scripts as the
+documented recipe. The exposure task had verified and copied them itself, and
+the old query audit read the exposure task's own output.
+\item HPD staging and linking are one script; the panels keep the columns
+that are read plus refiling dates, coverage flags, land flags, community
+district and a few inspection fields (Jacob's choice).
+\item \path{paper/} and the archived August framework were removed; the
+pre-cleanup tag and history keep them.
+\end{itemize}
+
+\paragraph{Checks.} No research rule changed. Every MapPLUTO release is
+byte-identical, and every retained column of the parcel panels, historical
+and recent link fields, parent membership, links and owner links matches the
+earlier build exactly. The exposure universe and classification, site
+characteristics, HPD links and both panels match the committed data reports
+column by column (type, missing values, distinct values, range and mean).
+Checking caught two errors in the rewrite, both fixed before this entry:
+a summary that overwrote the refiling flag before using it, and a renamed
+column that took the wrong date. The model estimates are reproduced exactly;
+the joint-assessment row now reports no splitting cost, which that case cannot
+identify. Every audit reproduces its committed results.
+
+\paragraph{Open issues found, not changed.} Three rules would change results
+and are Jacob's decision, after the cleanup:
+\begin{itemize}
+\item Historical polygon adjacency is tested only among lots of filings that
+used the same parcel release as the earlier filing, so about 1,500 nearby pairs
+across releases were never tested. The error can only miss links.
+\item Recent filings enter the linkage universe on DOB unit counts (6 to
+1,000) and historical ones on Housing Database counts; seven recent filings
+with at least six Housing Database units are excluded.
+\item A manually marked superseded design moves its replacement's original
+filing date historically but not in the recent sample.
+\end{itemize}

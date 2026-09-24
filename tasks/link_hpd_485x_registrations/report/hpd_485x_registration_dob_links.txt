@@ -1,38 +1,21 @@
 Rows: 312
-Columns: 32
+Columns: 15
 Key fields: response_number
-Saved-file MD5: 717e4640225e4e0f61b4ff33653a68c4
+Saved-file MD5: b31248467594c2fb8e5ad832fddc962d
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 response_number | numeric | nonmissing | 312 | distinct | 312 min/median/mean/max 1/156.5/156.5/312
 form_submission_timestamp | POSIXct/POSIXt | nonmissing | 312 | distinct | 287
 registration_building_key | character | nonmissing | 312 | distinct | 297
-building_response_count | numeric | nonmissing | 312 | distinct | 3 min/median/mean/max 1/1/1.115385/4
 is_latest_building_response | logical | nonmissing | 312 | distinct | 2
 link_method | character | nonmissing | 312 | distinct | 6
 matched_dob_root_job_id | character | nonmissing | 268 | distinct | 255
 dob_now_root_job_id | character | nonmissing | 290 | distinct | 277
 dob_bis_job_number | numeric | nonmissing | 21 | distinct | 19 min/median/mean/max 121192700/321593200/308352100/421677500
 dob_bin | numeric | nonmissing | 312 | distinct | 297 min/median/mean/max 1026951/2821558/2832291/4625763
-reported_dob_permit_sequence | character | nonmissing | 312 | distinct | 298
 reported_property_address | character | nonmissing | 312 | distinct | 301
 reported_borough_name | character | nonmissing | 312 | distinct | 4
 reported_bbl | numeric | nonmissing | 312 | distinct | 299 min/median/mean/max 1002090000/2057350000/2650933000/4161880000
-presumed_bbl | numeric | nonmissing | 312 | distinct | 298 min/median/mean/max 1002090000/2529550000/2654109000/4161880000
 reported_units | numeric | nonmissing | 312 | distinct | 80 min/median/mean/max 3/23.5/38.67308/792
-reported_restricted_units | numeric | nonmissing | 312 | distinct | 27 min/median/mean/max 0/5/8.336538/267
 reported_affordability_option | character | nonmissing | 312 | distinct | 4
-reported_commencement_date | Date | nonmissing | 312 | distinct | 242
-reported_anticipated_completion_date | Date | nonmissing | 312 | distinct | 147
 intended_separate_sub100_treatment | logical | nonmissing | 312 | distinct | 2
-matched_dob_filing_number | character | nonmissing | 268 | distinct | 255
-matched_dob_filing_date | Date | nonmissing | 268 | distinct | 223
-matched_dob_bin | numeric | nonmissing | 268 | distinct | 255 min/median/mean/max 1050031/2816106/2829902/4625763
-matched_dob_filing_bbl | numeric | nonmissing | 268 | distinct | 255 min/median/mean/max 1002090000/2051735000/2632369000/4161880000
-matched_dob_reported_bbl | numeric | nonmissing | 245 | distinct | 228 min/median/mean/max 1002090000/2047620000/2635842000/4161880000
-matched_dob_address | character | nonmissing | 268 | distinct | 255
-matched_dob_units | numeric | nonmissing | 268 | distinct | 72 min/median/mean/max 1/24/40.10448/792
-matched_dob_first_permit_date | Date | nonmissing | 260 | distinct | 205
-root_job_matches | logical | nonmissing | 312 | distinct | 2
-bin_uniquely_matches | logical | nonmissing | 229 | distinct | 2
-root_and_bin_agree | logical | nonmissing | 272 | distinct | 2

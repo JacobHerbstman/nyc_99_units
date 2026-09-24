@@ -1,21 +1,18 @@
 Rows: 8622
-Columns: 15
+Columns: 12
 Key fields: sample, root_job_id
-Saved-file MD5: 2dbf04b741eeaf1688618673863b57fb
+Saved-file MD5: 29b561fee7dc3ceb8320c2c1810aa40e
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 8622 | distinct | 2
 parent_id | character | nonmissing | 8622 | distinct | 7442
 root_job_id | character | nonmissing | 8622 | distinct | 8622
-member_order | numeric | nonmissing | 8622 | distinct | 31 min/median/mean/max 1/1/1.269775/31
 cohort_date | Date | nonmissing | 8622 | distinct | 3107
 cohort_year | numeric | nonmissing | 8622 | distinct | 16 min/median/mean/max 2011/2018/2018.237/2026
 parent_total_units | numeric | nonmissing | 8622 | distinct | 465 min/median/mean/max 6/22/67.6894/1871
 component_units | numeric | nonmissing | 8622 | distinct | 441 min/median/mean/max 0/17/50.34772/1313
-filing_bbl | numeric | nonmissing | 8622 | distinct | 7649 min/median/mean/max 1000198000/3023674000/2824185000/5080470000
 address | character | nonmissing | 8622 | distinct | 8028
 borough_name | character | nonmissing | 8622 | distinct | 5
 ownership_type | character | nonmissing | 8622 | distinct | 26
 owner_name | character | nonmissing | 8578 | distinct | 6656
 job_description | character | nonmissing | 4621 | distinct | 3946
-ag_search_query | character | nonmissing | 8622 | distinct | 8028

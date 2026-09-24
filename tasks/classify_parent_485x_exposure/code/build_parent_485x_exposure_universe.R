@@ -1,197 +1,57 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/classify_parent_485x_exposure/code")
-# pre_start_year <- 2011L
-# pre_end_year <- 2022L
-# post_start_date_text <- "2023-01-01"
-# min_units <- 6L
 
 suppressPackageStartupMessages({
   library(arrow)
   library(dplyr)
-  library(readr)
   library(stringr)
-  library(tibble)
 })
-
-source("../../shared/code/source_pipeline_utils.R")
 source("../../shared/code/write_data_report.R")
 
-if (!interactive()) {
-  args <- commandArgs(trailingOnly = TRUE)
-  stopifnot(length(args) == 4L)
-  pre_start_year <- as.integer(args[1])
-  pre_end_year <- as.integer(args[2])
-  post_start_date_text <- args[3]
-  min_units <- as.integer(args[4])
-}
+# Filings of the parents to classify: fully observed 2011-2022 historical
+# parents and post-policy parents from 2023 on, with at least six units. Each
+# filing carries the address, ownership and description the rules use: 23Q4
+# Housing Database and archived owners historically, DOB NOW with Housing
+# Database fallback afterwards.
+membership <- read_parquet("../input/symmetric_parent_membership.parquet") |>
+  filter((sample == "historical" & full_window_observed & cohort_year >= 2011L & cohort_year <= 2022L) |
+    (sample == "post_policy" & left_window_observed & cohort_date >= as.Date("2023-01-01")),
+    parent_observed_units >= 6)
 
-post_start_date <- as.Date(post_start_date_text)
-
-if (
-  any(is.na(c(
-    pre_start_year, pre_end_year, post_start_date, min_units
-  ))) ||
-    pre_start_year > pre_end_year ||
-    min_units < 1L
-) {
-  stop("Exposure-universe arguments are not internally consistent.")
-}
-
-membership <- read_parquet("../input/symmetric_parent_membership.parquet")
-
-historical_hdb <- read_parquet("../input/dcp_housing_database_project_level_23q4.parquet")
-
-post_hdb <- read_parquet("../input/dcp_housing_database_project_level_25q4.parquet")
-
-dob <- read_parquet("../input/dob_now_new_building_initial_filings.parquet")
-
-historical_fields <- read_parquet("../input/historical_parent_filing_link_fields.parquet")
-
-if (
-  anyDuplicated(membership[c("sample", "root_job_id")]) ||
-    anyNA(historical_hdb$release) ||
-    any(historical_hdb$release != "23Q4") ||
-    anyNA(post_hdb$release) ||
-    any(post_hdb$release != "25Q4") ||
-    anyDuplicated(historical_hdb$job_number) ||
-    anyDuplicated(post_hdb$job_number) ||
-    anyDuplicated(dob$job_number) ||
-    anyDuplicated(historical_fields$job_number)
-) {
-  stop("An exposure-universe source is not unique by its expected job key.")
-}
-
-parent_membership <- membership |>
-  filter(
-    (
-      sample == "historical" &
-        full_window_observed &
-        cohort_year >= pre_start_year &
-        cohort_year <= pre_end_year
-    ) |
-      (
-        sample == "post_policy" &
-          left_window_observed &
-          cohort_date >= post_start_date
-    ),
-    parent_observed_units >= min_units
-  )
-
-historical_hdb_fields <- historical_hdb |>
-  transmute(
-    sample = "historical",
-    root_job_id = job_number,
-    hdb_address = str_squish(address),
-    hdb_borough_name = str_squish(borough_name),
-    hdb_ownership = str_squish(ownership)
-  )
-
-post_hdb_fields <- post_hdb |>
-  transmute(
-    sample = "post_policy",
-    root_job_id = job_number,
-    hdb_address = str_squish(address),
-    hdb_borough_name = str_squish(borough_name),
-    hdb_ownership = str_squish(ownership)
-  )
-
-hdb_fields <- bind_rows(historical_hdb_fields, post_hdb_fields)
-
-dob_fields <- dob |>
-  transmute(
-    sample = "post_policy",
-    root_job_id = job_number,
-    dob_address = str_squish(address),
-    dob_borough_name = str_squish(borough_name),
-    dob_owner_type = str_squish(owner_type),
+hdb <- bind_rows(
+  read_parquet("../input/dcp_housing_database_project_level_23q4.parquet") |> mutate(sample = "historical"),
+  read_parquet("../input/dcp_housing_database_project_level_25q4.parquet") |> mutate(sample = "post_policy")
+) |>
+  transmute(sample, root_job_id = job_number, hdb_address = str_squish(address),
+    hdb_borough_name = str_squish(borough_name), hdb_ownership = str_squish(ownership))
+dob <- read_parquet("../input/dob_now_new_building_initial_filings.parquet") |>
+  transmute(sample = "post_policy", root_job_id = job_number, dob_address = str_squish(address),
+    dob_borough_name = str_squish(borough_name), dob_owner_type = str_squish(owner_type),
     dob_owner_name = str_squish(case_when(
-      !is.na(owner_business_name) &
-        owner_business_name != "" &
-        str_to_upper(owner_business_name) != "NOT APPLICABLE" ~
-          owner_business_name,
-      !is.na(owner_first_name) | !is.na(owner_last_name) ~
-        str_squish(paste(owner_first_name, owner_last_name)),
-      TRUE ~ NA_character_
-    )),
-    dob_job_description = str_squish(job_description)
-  )
+      coalesce(owner_business_name, "") != "" & str_to_upper(owner_business_name) != "NOT APPLICABLE" ~
+        owner_business_name,
+      !is.na(owner_first_name) | !is.na(owner_last_name) ~ str_squish(paste(owner_first_name, owner_last_name)))),
+    dob_job_description = str_squish(job_description))
+historical <- read_parquet("../input/historical_parent_filing_link_fields.parquet") |>
+  transmute(sample = "historical", root_job_id = job_number, historical_owner_name = str_squish(pluto_owner_name),
+    historical_job_description = str_squish(description))
+stopifnot(!anyDuplicated(hdb[c("sample", "root_job_id")]), !anyDuplicated(dob$root_job_id),
+  all(membership$root_job_id[membership$sample == "historical"] %in%
+    intersect(hdb$root_job_id[hdb$sample == "historical"], historical$root_job_id)))
 
-historical_job_fields <- historical_fields |>
-  transmute(
-    sample = "historical",
-    root_job_id = job_number,
-    historical_owner_name = str_squish(pluto_owner_name),
-    historical_job_description = str_squish(description)
-  )
-
-missing_historical_hdb <- parent_membership |>
-  filter(sample == "historical") |>
-  distinct(root_job_id) |>
-  anti_join(historical_hdb_fields, by = "root_job_id")
-
-missing_historical_fields <- parent_membership |>
-  filter(sample == "historical") |>
-  distinct(root_job_id) |>
-  anti_join(historical_job_fields, by = "root_job_id")
-
-if (nrow(missing_historical_hdb) > 0L || nrow(missing_historical_fields) > 0L) {
-  stop("Historical exposure members are missing from 23Q4 HDB or archived link fields.")
-}
-
-exposure_universe <- parent_membership |>
-  left_join(hdb_fields, by = c("sample", "root_job_id"), relationship = "many-to-one") |>
-  left_join(dob_fields, by = c("sample", "root_job_id"), relationship = "many-to-one") |>
-  left_join(
-    historical_job_fields,
-    by = c("sample", "root_job_id"),
-    relationship = "many-to-one"
-  ) |>
-  transmute(
-    sample,
-    parent_id,
-    root_job_id,
-    member_order,
-    cohort_date,
-    cohort_year,
-    parent_total_units = parent_observed_units,
+universe <- membership |>
+  left_join(hdb, by = c("sample", "root_job_id"), relationship = "one-to-one") |>
+  left_join(dob, by = c("sample", "root_job_id"), relationship = "many-to-one") |>
+  left_join(historical, by = c("sample", "root_job_id"), relationship = "one-to-one") |>
+  mutate(historical_sample = sample == "historical") |>
+  transmute(sample, parent_id, root_job_id, cohort_date, cohort_year, parent_total_units = parent_observed_units,
     component_units = units,
-    filing_bbl,
-    address = if_else(
-      sample == "historical", hdb_address, coalesce(dob_address, hdb_address)
-    ),
-    borough_name = if_else(
-      sample == "historical", hdb_borough_name,
-      coalesce(dob_borough_name, hdb_borough_name)
-    ),
-    ownership_type = if_else(
-      sample == "historical", hdb_ownership,
-      coalesce(dob_owner_type, hdb_ownership)
-    ),
-    owner_name = if_else(
-      sample == "historical", historical_owner_name, dob_owner_name
-    ),
-    job_description = if_else(
-      sample == "historical", historical_job_description, dob_job_description
-    ),
-    ag_search_query = str_squish(address)
-  ) |>
-  arrange(sample, cohort_date, parent_id, member_order)
+    address = if_else(historical_sample, hdb_address, coalesce(dob_address, hdb_address)),
+    borough_name = if_else(historical_sample, hdb_borough_name, coalesce(dob_borough_name, hdb_borough_name)),
+    ownership_type = if_else(historical_sample, hdb_ownership, coalesce(dob_owner_type, hdb_ownership)),
+    owner_name = if_else(historical_sample, historical_owner_name, dob_owner_name),
+    job_description = if_else(historical_sample, historical_job_description, dob_job_description),
+    member_order) |>
+  arrange(sample, cohort_date, parent_id, member_order) |>
+  select(-member_order)
 
-if (
-  nrow(exposure_universe) == 0L ||
-    anyDuplicated(exposure_universe[c("sample", "root_job_id")]) ||
-    any(is.na(exposure_universe$parent_id)) ||
-    any(is.na(exposure_universe$parent_total_units))
-) {
-  stop("Final exposure universe failed row-level QC.")
-}
-
-SaveData(exposure_universe, c("sample", "root_job_id"), "../output/parent_485x_exposure_universe.csv")
-
-cat(
-  "Wrote ",
-  n_distinct(exposure_universe$parent_id),
-  " parents and ",
-  nrow(exposure_universe),
-  " component filings to ../output\n",
-  sep = ""
-)
+SaveData(universe, c("sample", "root_job_id"), "../output/parent_485x_exposure_universe.csv")

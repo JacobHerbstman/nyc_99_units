@@ -40,15 +40,17 @@ assessment needs its own evidence.
 
 ## Flags carried for analysis
 
-- `hdb_releases` records the unit source. `historical_all_active` describes
-  additive residential constituents; `historical_all_source_active` also covers
-  superseded and nonresidential source filings retained in membership.
 - `composition_eligible`: complete positive-area parcel matches and distinct
-  building identifiers among additive filings. `reviewed_distinct_buildings`
-  marks historical parents admitted despite an archived BIN collision because
-  a reviewed land allocation and distinct DOB BINs corroborate them. Flagged
-  parents stay in the panels; the reweighting audit selects on this flag among
-  rental parents with at least 50 units.
+  building identifiers among additive filings (a reviewed land allocation and
+  distinct DOB BINs can resolve an archived BIN collision). Flagged parents stay
+  in the panels; the reweighting sample selects on this flag among rental
+  parents with at least 50 units.
+- `exposure_status`, `confidence` and `classification_reason` come from
+  `classify_parent_485x_exposure`; `included_ab_plus_d` also admits Option D
+  homeownership opportunities.
+- `splitting_verification_status` records whether a multi-building parent's
+  constituents are verified separate 485-x registrations, share one, or sit on
+  distinct filing lots.
 - `site_feature_method = reviewed_parcel_allocation` marks land characteristics
   taken from `parent_opportunities_manual/output/site_lot_decisions.csv`.
 - `merged_lots_added`, `merger_window_complete` and `implausible_site` come from

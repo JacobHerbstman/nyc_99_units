@@ -1,0 +1,30 @@
+Rows: 673
+Columns: 26
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: d86044f723baa584275dd64c0afe2804
+source_pull_date | Date | nonmissing | 673 | distinct | 1
+sample | character | nonmissing | 673 | distinct | 1
+root_job_id | character | nonmissing | 673 | distinct | 652
+search_query | character | nonmissing | 673 | distinct | 612
+query_scope | character | nonmissing | 673 | distinct | 1
+search_http_status | numeric | nonmissing | 673 | distinct | 1 min/median/mean/max 200/200/200/200
+returned_plan_count | numeric | nonmissing | 673 | distinct | 5 min/median/mean/max 0/0/0.2362556/5
+search_source_url | character | nonmissing | 673 | distinct | 1
+result_name | character | nonmissing | 101 | distinct | 84
+result_address | character | nonmissing | 101 | distinct | 85
+result_type | character | nonmissing | 101 | distinct | 3
+plan_id | character | nonmissing | 101 | distinct | 93
+plan_name | character | nonmissing | 101 | distinct | 84
+plan_address | character | nonmissing | 101 | distinct | 83
+plan_borough | character | nonmissing | 101 | distinct | 6
+plan_type | character | nonmissing | 101 | distinct | 3
+construction_type | character | nonmissing | 101 | distinct | 3
+plan_units | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 7/15/91.8/383
+submitted_date | Date | nonmissing | 101 | distinct | 82
+accepted_date | Date | nonmissing | 82 | distinct | 67
+effective_date | Date | nonmissing | 29 | distinct | 29
+plan_action | character | nonmissing | 85 | distinct | 4
+plan_source_url | character | nonmissing | 101 | distinct | 93
+normalized_search_address | character | nonmissing | 101 | distinct | 73
+normalized_plan_address | character | nonmissing | 101 | distinct | 82
+exact_address_phrase_match | logical | nonmissing | 101 | distinct | 2

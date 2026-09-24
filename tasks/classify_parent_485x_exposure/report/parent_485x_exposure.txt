@@ -1,21 +1,11 @@
 Rows: 7442
-Columns: 37
+Columns: 15
 Key fields: sample, parent_id
-Saved-file MD5: eabb793a04a75f2ce9e4b237c69844e4
+Saved-file MD5: 460e8a6d94e49ab4d64a868bf2bea077
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 7442 | distinct | 2
 parent_id | character | nonmissing | 7442 | distinct | 7442
-cohort_date | Date | nonmissing | 7442 | distinct | 3107
-cohort_year | numeric | nonmissing | 7442 | distinct | 16 min/median/mean/max 2011/2018/2018.261/2026
-parent_total_units | numeric | nonmissing | 7442 | distinct | 465 min/median/mean/max 6/20/57.86684/1871
-component_filings | numeric | nonmissing | 7442 | distinct | 11 min/median/mean/max 1/1/1.15856/31
-ag_queryable_components | numeric | nonmissing | 7442 | distinct | 11 min/median/mean/max 1/1/1.15856/31
-component_jobs | character | nonmissing | 7442 | distinct | 7442
-addresses | character | nonmissing | 7442 | distinct | 7095
-boroughs | character | nonmissing | 7442 | distinct | 5
-ownership_types | character | nonmissing | 7442 | distinct | 49
-owner_names | character | nonmissing | 7416 | distinct | 6447
 exposure_status | character | nonmissing | 7442 | distinct | 4
 included_ab | logical | nonmissing | 7442 | distinct | 2
 included_ab_plus_d | logical | nonmissing | 7442 | distinct | 2
@@ -23,21 +13,9 @@ confidence | character | nonmissing | 7442 | distinct | 3
 classification_reason | character | nonmissing | 7442 | distinct | 14
 evidence_source | character | nonmissing | 7442 | distinct | 12
 source_url | character | nonmissing | 831 | distinct | 660
-review_date | Date | nonmissing | 3 | distinct | 1
 government_owner | logical | nonmissing | 7442 | distinct | 2
 nycha_owner | logical | nonmissing | 7442 | distinct | 2
 hotel_project | logical | nonmissing | 7442 | distinct | 2
-ag_queries | numeric | nonmissing | 7442 | distinct | 11 min/median/mean/max 0/1/1.018947/30
-ag_all_queries_succeeded | logical | nonmissing | 7442 | distinct | 2
 ag_screen_complete | logical | nonmissing | 7442 | distinct | 2
-ag_returned_plans | numeric | nonmissing | 7442 | distinct | 9 min/median/mean/max 0/0/0.2110992/15
-ag_market_homeownership | logical | nonmissing | 7442 | distinct | 2
-ag_offering_plan | logical | nonmissing | 7442 | distinct | 2
-ag_accepted_offering_plan | logical | nonmissing | 7442 | distinct | 2
-ag_cps1_market_test | logical | nonmissing | 7442 | distinct | 2
-ag_financing_condominium | logical | nonmissing | 7442 | distinct | 2
 ag_market_plan_ids | character | nonmissing | 662 | distinct | 661
-ag_financing_plan_ids | character | nonmissing | 243 | distinct | 241
-hpd_registered_components | numeric | nonmissing | 7442 | distinct | 6 min/median/mean/max 0/0/0.02579952/5
 hpd_options | character | nonmissing | 171 | distinct | 5
-manual_notes | character | nonmissing | 3 | distinct | 3

@@ -7,8 +7,6 @@ suppressPackageStartupMessages({
   library(scales)
 })
 
-source("../../shared/code/source_pipeline_utils.R")
-
 parents <- read_parquet("../input/parent_opportunity_panel.parquet")
 
 if (

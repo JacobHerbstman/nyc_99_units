@@ -12,8 +12,6 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-source("../../shared/code/source_pipeline_utils.R")
-
 if (!interactive()) {
   args <- commandArgs(trailingOnly = TRUE)
   stopifnot(length(args) == 4L)

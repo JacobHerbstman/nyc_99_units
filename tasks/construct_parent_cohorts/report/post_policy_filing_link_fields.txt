@@ -1,19 +1,17 @@
 Rows: 2136
-Columns: 15
+Columns: 13
 Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: cb4c21efecc36ea522d4f5a307cc9069
+Saved-file MD5: 01b32ae0e8df7841c00b368c95e41d2a
 root_job_id | character | nonmissing | 2136 | distinct | 2136
 job_number | character | nonmissing | 2136 | distinct | 2136
 filing_date | Date | nonmissing | 2136 | distinct | 889
 filing_year | integer | nonmissing | 2136 | distinct | 5 min/median/mean/max 2022/2024/2023.999/2026
 units | integer | nonmissing | 2136 | distinct | 270 min/median/mean/max 6/30/61.8544/1000
 filing_bbl | character | nonmissing | 2136 | distinct | 2067
-reported_bbl | character | nonmissing | 1983 | distinct | 1871
 site_linkage_bbl | character | nonmissing | 2136 | distinct | 2011
 owner_match_key | character | nonmissing | 2136 | distinct | 1084
 description_referenced_job_id | character | nonmissing | 60 | distinct | 57
 description_project_code | character | nonmissing | 14 | distinct | 6
 historical_appbbl | character | nonmissing | 298 | distinct | 267
-appbbl_date_min | Date | nonmissing | 258 | distinct | 190
 lot_history_group_bbl | character | nonmissing | 2136 | distinct | 1963
 appbbl_change_after_filing | logical | nonmissing | 2136 | distinct | 2

@@ -56,7 +56,7 @@ direct gap `P * (sum(w * x) - mean(m))`.
 estimate, at the same point with a linear splitting cost, and with a kink of
 0.2, and re-estimates each draw on the grid; the historical sample is held
 fixed. `plot_model_fit.R` draws the
-fit and the parameter profiles.
+fit.
 
 The 150-unit regime in geographic Zones A and B is not modeled, by decision
 for now.
@@ -67,9 +67,9 @@ for now.
 - `model_checks.csv`: numerical checks.
 - `estimates.csv`: best point, near-optimal ranges and unit quantities by specification.
 - `fit_moments.csv`, `cell_fit.csv`: observed, benchmark and fitted moments and cells.
-- `parameter_grid.parquet`, `parameter_profiles.csv`: every grid point and the profiles.
-- `main_grid_cells.parquet`, `main_observed_cells.csv`: main-grid predictions for recovery.
+- `parameter_profiles.csv`: the best objective at each value of each parameter.
+- `main_grid_cells.parquet`: main-grid predictions for recovery.
 - `recovery.csv`, `recovery_summary.csv`: simulated-data recovery.
-- `model_fit.png`, `parameter_profiles.png` (also in `pdf/`).
+- `pdf/model_fit.pdf`: the main fit.
 
 Run root `make estimate`; task-local `make` uses the prepared panels.

@@ -1,7 +1,7 @@
 Rows: 9602
-Columns: 50
+Columns: 35
 Key fields: sample, job_number
-Saved-file MD5: e32daf8ecd719cf41d3ebc88e213d727
+Saved-file MD5: 4f3846f36c7a168d3383163ce6fef67d
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 9602 | distinct | 2
@@ -11,44 +11,29 @@ date_filed | Date | nonmissing | 9602 | distinct | 3305
 filing_year | integer | nonmissing | 9602 | distinct | 17 min/median/mean/max 2010/2018/2018.496/2026
 units | integer | nonmissing | 9602 | distinct | 449 min/median/mean/max 0/18/51.0829/1313
 hdb_priority_units | integer | nonmissing | 9602 | distinct | 449 min/median/mean/max 0/18/51.0829/1313
-dob_i1_units | numeric | nonmissing | 3361 | distinct | 318 min/median/mean/max 0/29/67.22404/1803
 unit_source | character | nonmissing | 9602 | distinct | 2
 hdb_release | character | nonmissing | 9128 | distinct | 2
 historical_active | logical | nonmissing | 7466 | distinct | 2
 hdb_job_status | character | nonmissing | 7466 | distinct | 5
 filing_role | character | nonmissing | 9602 | distinct | 5
-additive_component | logical | nonmissing | 9602 | distinct | 2
 replacement_job_number | character | nonmissing | 112 | distinct | 106
 filing_bbl | character | nonmissing | 9602 | distinct | 7872
 site_linkage_bbl | character | nonmissing | 9602 | distinct | 7828
-geometry_available | logical | nonmissing | 9602 | distinct | 2
+additive_component | logical | nonmissing | 9602 | distinct | 2
 component | integer | nonmissing | 9602 | distinct | 6672 min/median/mean/max 1/2645/3128.122/7466
+dob_i1_units | numeric | nonmissing | 3361 | distinct | 318 min/median/mean/max 0/29/67.22404/1803
 original_filing_date | Date | nonmissing | 9602 | distinct | 3293
 refiled | logical | nonmissing | 9602 | distinct | 2
 refiling_date | Date | nonmissing | 213 | distinct | 97
 refiling_basis | character | nonmissing | 213 | distinct | 3
 documented_units | integer | nonmissing | 6 | distinct | 4 min/median/mean/max 28/99/106.5/228
-documented_unit_definition | character | nonmissing | 6 | distinct | 1
-documented_unit_source_date | character | nonmissing | 6 | distinct | 3
 documented_unit_source | character | nonmissing | 6 | distinct | 3
-parent_anchor_job | character | nonmissing | 9602 | distinct | 8313
 parent_id | character | nonmissing | 9602 | distinct | 8313
 cohort_date | Date | nonmissing | 9602 | distinct | 3219
 cohort_year | integer | nonmissing | 9602 | distinct | 17 min/median/mean/max 2010/2018/2018.476/2026
 parent_last_filing_date | Date | nonmissing | 9602 | distinct | 3213
-parent_span_days | integer | nonmissing | 9602 | distinct | 216 min/median/mean/max 0/0/14.07363/365
-parent_source_filings | integer | nonmissing | 9602 | distinct | 11 min/median/mean/max 1/1/1.516976/31
-parent_observed_filings | integer | nonmissing | 9602 | distinct | 12 min/median/mean/max 0/1/1.483441/30
-parent_source_units | integer | nonmissing | 9602 | distinct | 480 min/median/mean/max 0/23/70.17861/1871
-parent_source_units_dob_i1 | numeric | nonmissing | 3337 | distinct | 343 min/median/mean/max 3/33/98.35481/2697
 parent_observed_units | integer | nonmissing | 9602 | distinct | 478 min/median/mean/max 0/22/69.30067/1871
-parent_observed_units_dob_i1 | numeric | nonmissing | 3363 | distinct | 341 min/median/mean/max 0/32/96.09723/2697
-parent_source_exact_99_filings | integer | nonmissing | 9602 | distinct | 7 min/median/mean/max 0/0/0.02968132/7
-parent_exact_99_filings | integer | nonmissing | 9602 | distinct | 7 min/median/mean/max 0/0/0.02968132/7
-parent_source_exact_99_filings_dob_i1 | integer | nonmissing | 3337 | distinct | 7 min/median/mean/max 0/0/0.08480671/7
-parent_exact_99_filings_dob_i1 | integer | nonmissing | 3363 | distinct | 7 min/median/mean/max 0/0/0.08415106/7
 member_order | integer | nonmissing | 9602 | distinct | 31 min/median/mean/max 1/1/1.258488/31
-source_start_date | Date | nonmissing | 9602 | distinct | 2
 source_end_date | Date | nonmissing | 9602 | distinct | 2
 left_window_observed | logical | nonmissing | 9602 | distinct | 2
 right_window_observed | logical | nonmissing | 9602 | distinct | 2

@@ -1,7 +1,4 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/construct_historical_parent_links/code")
-# start_year <- 2010L
-# end_year <- 2023L
-# min_units <- 6L
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -11,345 +8,108 @@ suppressPackageStartupMessages({
   library(stringr)
   library(tibble)
 })
-
 source("../../shared/code/source_pipeline_utils.R")
 source("../../shared/code/write_data_report.R")
 
-if (!interactive()) {
-  args <- commandArgs(trailingOnly = TRUE)
-  stopifnot(length(args) == 3L)
-  start_year <- as.integer(args[1])
-  end_year <- as.integer(args[2])
-  min_units <- as.integer(args[3])
+# The historical linkage universe: Housing Database 23Q4 New Building filings
+# from 2010 through 2023 with at least six Class A units and a matched
+# pre-filing parcel. Filings in an accepted manual link are kept even without
+# land data, so a documented companion cannot drop out.
+accepted_jobs <- read_csv("../input/pair_decisions.csv", col_types = cols(.default = col_character())) |>
+  filter(sample == "historical", review_decision == "accept")
+accepted_jobs <- unique(c(accepted_jobs$job_number_1, accepted_jobs$job_number_2))
+
+filings <- read_parquet("../input/historical_hdb_mappluto_site_panel.parquet") |>
+  filter(filing_year >= 2010L, filing_year <= 2023L,
+    (primary_leakage_safe_sample & !is.na(lotarea) & lotarea > 0) | job_number %in% accepted_jobs,
+    classa_prop_integer, classa_prop >= 6) |>
+  transmute(job_number = str_squish(job_number), date_filed, filing_year, units = as.integer(round(classa_prop)),
+    hdb_release, historical_active, hdb_job_status = job_status, filing_bbl = normalize_bbl_field(bbl),
+    prefiling_feature_bbl = normalize_bbl_field(pluto_feature_bbl), pluto_source_id_used, pluto_version_used,
+    appbbl_recovery_used, appbbl_future_appdate_used_for_linkage) |>
+  arrange(date_filed, job_number)
+stopifnot(!anyDuplicated(filings$job_number), all(filings$hdb_release == "23Q4"))
+
+hdb <- read_parquet("../input/dcp_housing_database_project_level_raw_23q4.parquet") |>
+  transmute(job_number = str_squish(as.character(job_number)), description = na_if(str_squish(job_desc), ""),
+    hdb_latitude = as.numeric(latitude), hdb_longitude = as.numeric(longitude))
+stopifnot(!anyDuplicated(hdb$job_number))
+
+# Project references in the job description: other job numbers and MPP codes.
+referenced_jobs <- function(description, own_job) {
+  jobs <- str_remove(str_extract_all(str_to_upper(coalesce(description, "")),
+    "(?<![A-Z0-9])(?:[BMQRSX][0-9]{8}|[1-5][0-9]{8})(?:-I[0-9]+)?")[[1]], "-I[0-9]+$")
+  jobs <- sort(unique(jobs[jobs != own_job]))
+  if (length(jobs) == 0L) NA_character_ else paste(jobs, collapse = ";")
 }
+filings <- filings |>
+  left_join(hdb, by = "job_number", relationship = "one-to-one") |>
+  mutate(description_referenced_jobs = mapply(referenced_jobs, description, job_number, USE.NAMES = FALSE),
+    description_project_code = str_remove_all(str_extract(str_to_upper(description), "MPP\\s*[0-9]+"), "\\s"))
 
-if (
-  any(is.na(c(start_year, end_year, min_units))) ||
-    start_year > end_year ||
-    min_units < 1L
-) {
-  stop("Parent-link arguments are not internally consistent.")
-}
-
-normalize_match_key <- function(x) {
-  out <- str_squish(str_replace_all(str_to_upper(x), "[^A-Z0-9]+", " "))
-  out[out %in% c("", "NA", "N A", "NONE", "UNKNOWN")] <- NA_character_
-  out
-}
-
-extract_reference_jobs <- function(description, own_job) {
-  references <- str_extract_all(
-    str_to_upper(coalesce(description, "")),
-    "(?<![A-Z0-9])(?:[BMQRSX][0-9]{8}|[1-5][0-9]{8})(?:-I[0-9]+)?"
-  )[[1]]
-  references <- str_remove(references, "-I[0-9]+$")
-  references <- sort(unique(references[references != own_job]))
-  if (length(references) == 0L) NA_character_ else paste(references, collapse = ";")
-}
-
-read_pluto_link_fields <- function(raw_path, needed_bbls) {
-  archive_listing <- system2(
-    "unzip", c("-Z1", raw_path), stdout = TRUE, stderr = FALSE
-  )
-  table_entries <- archive_listing[
-    str_detect(str_to_lower(archive_listing), "[.](csv|txt)$") &
-      !str_detect(
-        str_to_lower(basename(archive_listing)),
-        "change|dictionary|readme|layout|lay|dates"
-      )
-  ]
-  dbf_entry <- archive_listing[
-    str_detect(str_to_lower(archive_listing), "mappluto[.]dbf$")
-  ][1]
-  shapefile_entry <- archive_listing[
-    str_to_lower(basename(archive_listing)) == "mappluto.shp"
-  ][1]
-
-  extraction_directory <- tempfile("historical_parent_pluto_")
-  dir.create(extraction_directory)
-  on.exit(unlink(extraction_directory, recursive = TRUE), add = TRUE)
-
-  if (length(table_entries) > 0L) {
-    unzip_status <- system2(
-      "unzip",
-      c("-oj", raw_path, table_entries, "-d", extraction_directory),
-      stdout = FALSE,
-      stderr = FALSE
-    )
-    if (!identical(unzip_status, 0L)) {
-      stop("Could not extract historical PLUTO tables from ", raw_path)
-    }
-    extracted_paths <- file.path(
-      extraction_directory, basename(table_entries)
-    )
-    raw_table <- bind_rows(lapply(extracted_paths, function(path) {
-      available_columns <- names(data.table::fread(
-        path,
-        nrows = 0L,
-        showProgress = FALSE
-      ))
-      selected_columns <- intersect(
-        c(
-          "Borough", "BoroCode", "Block", "Lot", "BBL", "OwnerType",
-          "OwnerName", "XCoord", "YCoord", "APPBBL", "APPDate",
-          "PLUTOMapID"
-        ),
-        available_columns
-      )
-      data.table::fread(
-        path,
-        select = selected_columns,
-        colClasses = "character",
-        fill = TRUE,
-        showProgress = FALSE
-      ) |>
+# Owner and former lot of each filing lot, from the filing's own pre-filing
+# release: PLUTO CSV tables through 18v1, the MapPLUTO shapefile afterwards. A
+# lot appearing twice in the release gets no owner.
+read_owner_fields <- function(zip_path, bbls) {
+  listing <- system2("unzip", c("-Z1", zip_path), stdout = TRUE)
+  tables <- listing[str_detect(str_to_lower(listing), "[.](csv|txt)$") &
+    !str_detect(str_to_lower(basename(listing)), "change|dictionary|readme|layout|lay|dates")]
+  if (length(tables) > 0L) {
+    unzip_dir <- tempfile("historical_parent_pluto_")
+    stopifnot(system2("unzip", c("-oj", zip_path, tables, "-d", unzip_dir), stdout = FALSE) == 0)
+    lots <- bind_rows(lapply(file.path(unzip_dir, basename(tables)), function(path) {
+      header <- names(data.table::fread(path, nrows = 0L, showProgress = FALSE))
+      data.table::fread(path, select = intersect(c("Borough", "BoroCode", "Block", "Lot", "BBL", "OwnerName",
+        "APPBBL"), header), colClasses = "character", fill = TRUE, showProgress = FALSE) |>
         as_tibble()
     }))
-  } else if (!is.na(dbf_entry) && nzchar(dbf_entry)) {
-    if (is.na(shapefile_entry) || !nzchar(shapefile_entry)) {
-      stop("MapPLUTO DBF has no matching shapefile in ", raw_path)
-    }
-    bbl_query <- paste(needed_bbls, collapse = ",")
-    raw_table <- st_read(
-      paste0("/vsizip/", raw_path, "/", shapefile_entry),
-      query = paste0(
-        "SELECT BBL, Borough, Block, Lot, OwnerType, OwnerName, ",
-        "XCoord, YCoord, APPBBL, APPDate, PLUTOMapID FROM MapPLUTO ",
-        "WHERE BBL IN (", bbl_query, ")"
-      ),
-      quiet = TRUE,
-      stringsAsFactors = FALSE
-    ) |>
+    unlink(unzip_dir, recursive = TRUE)
+  } else {
+    shapefile <- listing[str_to_lower(basename(listing)) == "mappluto.shp"]
+    stopifnot(length(shapefile) == 1L)
+    lots <- st_read(paste0("/vsizip/", zip_path, "/", shapefile), quiet = TRUE, stringsAsFactors = FALSE,
+      query = paste0("SELECT BBL, Borough, Block, Lot, OwnerName, APPBBL FROM MapPLUTO WHERE BBL IN (",
+        paste(bbls, collapse = ","), ")")) |>
       st_drop_geometry() |>
       as_tibble()
-  } else {
-    stop("No historical PLUTO table found in ", raw_path)
   }
-
-  names(raw_table) <- normalize_names(names(raw_table))
-  link_fields <- tibble(
-    bbl = pick_first_existing(raw_table, "bbl"),
-    borough = pick_first_existing(
-      raw_table, c("borough", "boro_code", "borocode")
-    ),
-    block = pick_first_existing(raw_table, "block"),
-    lot = pick_first_existing(raw_table, "lot"),
-    owner_type = pick_first_existing(raw_table, c("owner_type", "ownertype")),
-    owner_name = pick_first_existing(raw_table, c("owner_name", "ownername")),
-    xcoord = pick_first_existing(raw_table, "xcoord"),
-    ycoord = pick_first_existing(raw_table, "ycoord"),
-    appbbl = pick_first_existing(raw_table, "appbbl"),
-    appdate = pick_first_existing(raw_table, "appdate"),
-    plutomapid = pick_first_existing(raw_table, "plutomapid")
-  ) |>
-    mutate(
-      bbl = normalize_bbl_field(bbl),
-      appbbl = normalize_bbl_field(appbbl),
-      owner_name = na_if(str_squish(as.character(owner_name)), ""),
-      owner_match_key = normalize_match_key(owner_name),
-      xcoord = suppressWarnings(as.numeric(xcoord)),
-      ycoord = suppressWarnings(as.numeric(ycoord)),
-      appdate = parse_mixed_date(appdate)
-    )
-
-  missing_bbl <- is.na(link_fields$bbl)
-  link_fields$bbl[missing_bbl] <- build_bbl(
-    link_fields$borough,
-    link_fields$block,
-    link_fields$lot
-  )[missing_bbl]
-
-  duplicate_needed_bbls <- link_fields |>
-    filter(bbl %in% needed_bbls) |>
-    count(bbl, name = "raw_rows") |>
-    filter(raw_rows > 1L)
-
-  selected_fields <- link_fields |>
-    filter(bbl %in% needed_bbls) |>
-    anti_join(duplicate_needed_bbls, by = "bbl") |>
-    select(
-      bbl, owner_type, owner_name, owner_match_key,
-      xcoord, ycoord, appbbl, appdate, plutomapid
-    )
-
-  selected_fields
+  names(lots) <- normalize_names(names(lots))
+  tibble(bbl = pick_first_existing(lots, "bbl"), borough = pick_first_existing(lots, c("borough", "borocode")),
+    block = pick_first_existing(lots, "block"), lot = pick_first_existing(lots, "lot"),
+    owner_name = na_if(str_squish(pick_first_existing(lots, c("owner_name", "ownername"))), ""),
+    appbbl = normalize_bbl_field(pick_first_existing(lots, "appbbl"))) |>
+    mutate(bbl = coalesce(normalize_bbl_field(bbl), build_bbl(borough, block, lot))) |>
+    filter(bbl %in% bbls) |>
+    add_count(bbl) |>
+    filter(n == 1L) |>
+    select(bbl, owner_name, appbbl)
 }
 
-# A documented companion must not disappear because its land covariates are missing.
-reviewed_pairs <- read_csv("../input/pair_decisions.csv", show_col_types = FALSE,
-  col_types = cols(.default = col_character())) |>
-  filter(sample == "historical", review_decision == "accept")
-reviewed_jobs <- unique(c(reviewed_pairs$job_number_1, reviewed_pairs$job_number_2))
+releases <- read_csv("../input/mappluto_files.csv", col_types = cols(.default = col_character())) |>
+  filter((source_id == "dcp_pluto_archive" & file_role == "pluto_csv_zip") |
+    (source_id == "dcp_mappluto_archive" & file_role == "mappluto_shapefile_zip")) |>
+  select(pluto_source_id_used = source_id, pluto_version_used = vintage, raw_path) |>
+  semi_join(filings, by = c("pluto_source_id_used", "pluto_version_used"))
 
-panel <- read_parquet("../input/historical_hdb_mappluto_site_panel.parquet") |>
-  filter(
-    filing_year >= start_year,
-    filing_year <= end_year,
-    (primary_leakage_safe_sample & !is.na(lotarea) & lotarea > 0) |
-      job_number %in% reviewed_jobs,
-    classa_prop_integer,
-    classa_prop >= min_units
-  ) |>
-  transmute(
-    job_number = str_squish(job_number),
-    date_filed = as.Date(date_filed),
-    filing_year,
-    units = as.integer(round(classa_prop)),
-    hdb_release, historical_active, hdb_job_status = job_status,
-    filing_bbl = normalize_bbl_field(bbl),
-    prefiling_feature_bbl = normalize_bbl_field(pluto_feature_bbl),
-    pluto_source_id_used,
-    pluto_version_used,
-    pluto_safe_available_date = as.Date(pluto_safe_available_date_used),
-    appbbl_recovery_used,
-    appbbl_future_appdate_used_for_linkage
-  ) |>
-  arrange(date_filed, job_number)
-
-if (nrow(panel) == 0L || anyDuplicated(panel$job_number)) {
-  stop("Historical training sample failed job-number QC.")
-}
-
-hdb_raw <- read_parquet("../input/dcp_housing_database_project_level_raw_23q4.parquet") |>
-  transmute(
-    job_number = str_squish(as.character(job_number)),
-    hdb_description = na_if(str_squish(as.character(job_desc)), ""),
-    hdb_latitude = suppressWarnings(as.numeric(latitude)),
-    hdb_longitude = suppressWarnings(as.numeric(longitude))
-  )
-
-stopifnot(!anyDuplicated(hdb_raw$job_number), all(panel$hdb_release == "23Q4"))
-
-filings <- panel |>
-  left_join(hdb_raw, by = "job_number", relationship = "one-to-one") |>
-  mutate(
-    # Historical owner support comes from the archived parcel map.
-    dob_now_match = FALSE,
-    dob_owner_name = NA_character_,
-    dob_owner_match_key = NA_character_,
-    dob_description = NA_character_,
-    description = hdb_description,
-    description_referenced_jobs = mapply(
-      extract_reference_jobs,
-      description,
-      job_number,
-      USE.NAMES = FALSE
-    ),
-    description_project_code = str_remove_all(
-      str_extract(str_to_upper(description), "MPP\\s*[0-9]+"),
-      "\\s"
-    )
-  )
-
-mappluto_files <- read_csv(
-  "../input/mappluto_files.csv",
-  show_col_types = FALSE,
-  col_types = cols(.default = col_character())
-) |>
-  filter(
-    (source_id == "dcp_pluto_archive" & file_role == "pluto_csv_zip") |
-      (source_id == "dcp_mappluto_archive" &
-        file_role == "mappluto_shapefile_zip")
-  ) |>
-  transmute(
-    source_id,
-    vintage,
-    file_role,
-    raw_path
-  )
-
-if (anyDuplicated(mappluto_files[c("source_id", "vintage")])) {
-  stop("MapPLUTO file manifest is not unique by source and vintage.")
-}
-
-required_releases <- filings |>
-  distinct(
-    source_id = pluto_source_id_used,
-    vintage = pluto_version_used
-  ) |>
-  left_join(
-    mappluto_files,
-    by = c("source_id", "vintage"),
-    relationship = "one-to-one"
-  )
-
-if (any(is.na(required_releases$raw_path))) {
-  stop("At least one selected historical PLUTO release lacks a raw archive.")
-}
-
-pluto_job_fields <- list()
-
-for (release_row in seq_len(nrow(required_releases))) {
-  source_id_value <- required_releases$source_id[release_row]
-  vintage_value <- required_releases$vintage[release_row]
-  release_jobs <- filings |>
-    filter(
-      pluto_source_id_used == source_id_value,
-      pluto_version_used == vintage_value
-    )
-  needed_bbls <- unique(release_jobs$prefiling_feature_bbl)
-  needed_bbls <- needed_bbls[!is.na(needed_bbls)]
-
-  message(
-    "Reading parent-link fields from ", source_id_value, " ", vintage_value,
-    " for ", length(needed_bbls), " distinct filing lots."
-  )
-
-  release_extract <- read_pluto_link_fields(
-    file.path("../input", basename(required_releases$raw_path[release_row])), needed_bbls
-  )
-
-  pluto_job_fields[[release_row]] <- release_jobs |>
+owner_fields <- bind_rows(lapply(seq_len(nrow(releases)), function(k) {
+  release_filings <- filings |> semi_join(releases[k, ], by = c("pluto_source_id_used", "pluto_version_used"))
+  bbls <- unique(na.omit(release_filings$prefiling_feature_bbl))
+  release_filings |>
     select(job_number, prefiling_feature_bbl) |>
-    left_join(
-      release_extract,
-      by = c("prefiling_feature_bbl" = "bbl"),
-      relationship = "many-to-one"
-    ) |>
-    mutate(
-      pluto_source_id_used = source_id_value,
-      pluto_version_used = vintage_value
-    )
+    left_join(read_owner_fields(file.path("../input", basename(releases$raw_path[k])), bbls),
+      by = c("prefiling_feature_bbl" = "bbl"), relationship = "many-to-one") |>
+    select(job_number, pluto_owner_name = owner_name, archived_appbbl = appbbl)
+}))
+stopifnot(setequal(owner_fields$job_number, filings$job_number), !anyDuplicated(owner_fields$job_number))
+
+owner_key <- function(x) {
+  key <- str_squish(str_replace_all(str_to_upper(x), "[^A-Z0-9]+", " "))
+  key[key %in% c("", "NA", "N A", "NONE", "UNKNOWN")] <- NA_character_
+  key
 }
-
-pluto_job_fields <- bind_rows(pluto_job_fields) |>
-  rename(
-    pluto_owner_type = owner_type,
-    pluto_owner_name = owner_name,
-    pluto_owner_match_key = owner_match_key,
-    prefiling_xcoord = xcoord,
-    prefiling_ycoord = ycoord,
-    archived_appbbl = appbbl,
-    archived_appdate = appdate,
-    prefiling_plutomapid = plutomapid
-  )
-
-if (anyDuplicated(pluto_job_fields$job_number)) {
-  stop("Historical PLUTO field extraction is not unique by job number.")
-}
-
 filings <- filings |>
-  left_join(
-    pluto_job_fields |>
-      select(
-        job_number, pluto_owner_type, pluto_owner_name,
-        pluto_owner_match_key, prefiling_xcoord, prefiling_ycoord,
-        archived_appbbl, archived_appdate, prefiling_plutomapid
-      ),
-    by = "job_number",
-    relationship = "one-to-one"
-  ) |>
-  mutate(
-    archived_lot_history_group = coalesce(
-      archived_appbbl, prefiling_feature_bbl
-    ),
-    archived_appdate_after_filing =
-      !is.na(archived_appdate) & archived_appdate > date_filed
-  )
+  left_join(owner_fields, by = "job_number", relationship = "one-to-one") |>
+  mutate(pluto_owner_match_key = owner_key(pluto_owner_name),
+    archived_lot_history_group = coalesce(archived_appbbl, prefiling_feature_bbl))
 
-if (anyDuplicated(filings$job_number)) {
-  stop("Historical parent-link field extraction failed final QC.")
-}
-
-SaveData(filings, c("job_number"), "../output/historical_parent_filing_link_fields.parquet")
-cat("Wrote historical parent-link filing fields to ../output\n")
+SaveData(filings, "job_number", "../output/historical_parent_filing_link_fields.parquet")

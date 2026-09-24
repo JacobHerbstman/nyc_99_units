@@ -11,8 +11,10 @@ the same rules to historical and post-policy filings. Outputs:
 - `post_policy_filing_link_fields.parquet`: prepared DOB filing fields for the
   post-policy linkage, built first using the official APPBBL crosswalk from
   `build_hdb_mappluto_site_panel`.
-- `pair_decision_coverage.csv`: which committed pair decisions have both
-  endpoints in the selected source universe.
+
+Historical link evidence comes from `construct_historical_parent_links`;
+post-policy links are built here from the DOB fields and the 23v3.1 MapPLUTO
+shapefile.
 
 ## Parents
 
@@ -61,9 +63,8 @@ override selected units.
 
 A filing that belongs to a parent but describes a superseded design, or a
 nonresidential filing, stays in membership as a source proposal without
-entering additive units. The output therefore reports additive
-`parent_observed_*` measures and `parent_source_*` measures over every source
-filing. Roles come from:
+entering additive units; `parent_observed_units` sums the additive filings.
+Roles come from:
 
 - **Manual decisions:** `post_parent_filing_roles.csv` and `historical_filing_roles.csv`.
 - **Post-policy refilings (DOB):** a withdrawn filing with a valid seven-digit

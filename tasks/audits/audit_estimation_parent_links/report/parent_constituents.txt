@@ -1,7 +1,7 @@
 Rows: 333
-Columns: 73
+Columns: 58
 Key fields: sample, root_job_id
-Saved-file MD5: c16dd8d9030c9a46174ccfda68af90b8
+Saved-file MD5: 991f1dd6540a796b69e85f9061e31799
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 333 | distinct | 2
@@ -11,44 +11,29 @@ date_filed | Date | nonmissing | 333 | distinct | 203
 filing_year | numeric | nonmissing | 333 | distinct | 7 min/median/mean/max 2019/2022/2022.775/2026
 units | numeric | nonmissing | 333 | distinct | 160 min/median/mean/max 6/84/114.3544/811
 hdb_priority_units | numeric | nonmissing | 333 | distinct | 160 min/median/mean/max 6/84/114.3544/811
-dob_i1_units | numeric | nonmissing | 255 | distinct | 124 min/median/mean/max 3/92/127.8941/899
 unit_source | character | nonmissing | 333 | distinct | 2
 hdb_release | character | nonmissing | 292 | distinct | 2
 historical_active | logical | nonmissing | 185 | distinct | 2
 hdb_job_status | character | nonmissing | 185 | distinct | 5
 filing_role | character | nonmissing | 333 | distinct | 3
-additive_component | logical | nonmissing | 333 | distinct | 2
 replacement_job_number | character | nonmissing | 4 | distinct | 3
 filing_bbl | numeric | nonmissing | 333 | distinct | 294 min/median/mean/max 1003468000/3020200000/3020062000/5028660000
 site_linkage_bbl | numeric | nonmissing | 333 | distinct | 280 min/median/mean/max 1003468000/3020200000/3020062000/5028660000
-geometry_available | logical | nonmissing | 333 | distinct | 2
+additive_component | logical | nonmissing | 333 | distinct | 2
 component | numeric | nonmissing | 333 | distinct | 135 min/median/mean/max 1125/4973/4107.658/7202
+dob_i1_units | numeric | nonmissing | 255 | distinct | 124 min/median/mean/max 3/92/127.8941/899
 original_filing_date | Date | nonmissing | 333 | distinct | 202
 refiled | logical | nonmissing | 333 | distinct | 2
 refiling_date | Date | nonmissing | 4 | distinct | 1
 refiling_basis | character | nonmissing | 4 | distinct | 1
 documented_units | numeric | nonmissing | 6 | distinct | 4 min/median/mean/max 28/99/106.5/228
-documented_unit_definition | character | nonmissing | 6 | distinct | 1
-documented_unit_source_date | character | nonmissing | 6 | distinct | 3
 documented_unit_source | character | nonmissing | 6 | distinct | 3
-parent_anchor_job | character | nonmissing | 333 | distinct | 135
 parent_id | character | nonmissing | 333 | distinct | 135
 cohort_date | Date | nonmissing | 333 | distinct | 124
 cohort_year | numeric | nonmissing | 333 | distinct | 6 min/median/mean/max 2019/2022/2022.703/2026
 parent_last_filing_date | Date | nonmissing | 333 | distinct | 125
-parent_span_days | numeric | nonmissing | 333 | distinct | 64 min/median/mean/max 0/8/48.63363/365
-parent_source_filings | numeric | nonmissing | 333 | distinct | 6 min/median/mean/max 2/2/2.915916/8
-parent_observed_filings | numeric | nonmissing | 333 | distinct | 6 min/median/mean/max 2/2/2.867868/8
-parent_source_units | numeric | nonmissing | 333 | distinct | 113 min/median/mean/max 50/193/293.5255/1452
-parent_source_units_dob_i1 | numeric | nonmissing | 255 | distinct | 88 min/median/mean/max 15/198/338.4941/2697
 parent_observed_units | numeric | nonmissing | 333 | distinct | 113 min/median/mean/max 50/177/289.6096/1452
-parent_observed_units_dob_i1 | numeric | nonmissing | 255 | distinct | 88 min/median/mean/max 15/195/333.3804/2697
-parent_source_exact_99_filings | numeric | nonmissing | 333 | distinct | 6 min/median/mean/max 0/0/0.4024024/5
-parent_exact_99_filings | numeric | nonmissing | 333 | distinct | 6 min/median/mean/max 0/0/0.4024024/5
-parent_source_exact_99_filings_dob_i1 | numeric | nonmissing | 255 | distinct | 6 min/median/mean/max 0/0/0.5176471/5
-parent_exact_99_filings_dob_i1 | numeric | nonmissing | 255 | distinct | 6 min/median/mean/max 0/0/0.5176471/5
 member_order | numeric | nonmissing | 333 | distinct | 8 min/median/mean/max 1/2/1.957958/8
-source_start_date | Date | nonmissing | 333 | distinct | 2
 source_end_date | Date | nonmissing | 333 | distinct | 2
 left_window_observed | logical | nonmissing | 333 | distinct | 1
 right_window_observed | logical | nonmissing | 333 | distinct | 2

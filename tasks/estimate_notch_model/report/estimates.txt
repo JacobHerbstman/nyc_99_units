@@ -1,7 +1,7 @@
 Rows: 10
 Columns: 23
 Key fields: specification
-Saved-file MD5: cd6e4aa880b6595a3c0cbc5b1ee0ce3f
+Saved-file MD5: cb7820e741b0ad66ca64f5918ff7c433
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 specification | character | nonmissing | 10 | distinct | 10
@@ -13,14 +13,14 @@ assessment | character | nonmissing | 10 | distinct | 2
 kappa | numeric | nonmissing | 10 | distinct | 6 min/median/mean/max 0.04/0.1/0.137/0.4
 tau | numeric | nonmissing | 10 | distinct | 4 min/median/mean/max 0/0.05/0.046/0.1
 compression | numeric | nonmissing | 10 | distinct | 6 min/median/mean/max 1/1.0452/1.04551/1.1
-gamma | numeric | nonmissing | 10 | distinct | 4 min/median/mean/max 1/1.5/1.5/2
-sigma | numeric | nonmissing | 10 | distinct | 8 min/median/mean/max 0.001/0.2511886/0.2786284/0.7943282
+gamma | numeric | nonmissing | 9 | distinct | 4 min/median/mean/max 1/1.5/1.555556/2
+sigma | numeric | nonmissing | 9 | distinct | 7 min/median/mean/max 0.1/0.2511886/0.309476/0.7943282
 objective | numeric | nonmissing | 10 | distinct | 10 min/median/mean/max 0.001758722/0.002799227/0.004004167/0.01010548
 near_optimal_points | numeric | nonmissing | 10 | distinct | 10 min/median/mean/max 15/44/148.6/984
 kappa_range | character | nonmissing | 10 | distinct | 8
 tau_range | character | nonmissing | 10 | distinct | 7
-gamma_range | character | nonmissing | 10 | distinct | 3
-sigma_range | character | nonmissing | 10 | distinct | 8
+gamma_range | character | nonmissing | 9 | distinct | 3
+sigma_range | character | nonmissing | 9 | distinct | 7
 units_lost_model | numeric | nonmissing | 10 | distinct | 10 min/median/mean/max 436.3902/1021.536/1066.94/2232.306
 units_lost_fixed_buildings | numeric | nonmissing | 10 | distinct | 9 min/median/mean/max 591.0295/1359.74/1327.069/2232.306
 units_preserved_by_splitting | numeric | nonmissing | 10 | distinct | 10 min/median/mean/max -3.637979e-12/266.4321/260.1291/485.2854

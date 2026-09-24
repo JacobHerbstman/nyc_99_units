@@ -12,11 +12,10 @@ include ../../shared/code/generic.make
 ../output/geographic_filings.parquet: construct_geographic_filings.R ../input/constituent_filing_panel.parquet \
 	../input/dob_now_new_building_initial_filings.parquet \
 	../input/dcp_housing_database_project_level_raw_23q4.parquet ../input/borough_boundaries_2026-09-08.geojson \
-	Makefile ../../shared/code/write_data_report.R | $(OOPR)
+	Makefile | $(OOPR)
 	$(R) $<
 
-../output/borough_summary.csv: summarize_boroughs.R ../output/geographic_filings.parquet Makefile \
-	../../shared/code/write_data_report.R | $(OOPR)
+../output/borough_summary.csv: summarize_boroughs.R ../output/geographic_filings.parquet Makefile | $(OOPR)
 	$(R) $<
 
 ../output/borough_%.pdf: plot_boroughs.R ../output/geographic_filings.parquet ../output/borough_summary.csv \

@@ -13,7 +13,7 @@ cases <- tibble(
 )
 post <- read_parquet("../input/post_policy_filing_link_fields.parquet")
 historical <- read_parquet("../input/historical_parent_filing_link_fields.parquet")
-candidates <- read_parquet("../input/historical_parent_candidate_pairs.parquet")
+candidates <- read_parquet("../input/historical_parent_pairs.parquet")
 site <- read_parquet("../input/historical_hdb_mappluto_site_panel.parquet")
 membership <- read_parquet("../input/symmetric_parent_membership.parquet")
 stopifnot(!anyDuplicated(membership[c("sample", "root_job_id")]))

@@ -11,8 +11,6 @@ cell_fit <- read_csv("../output/cell_fit.csv", show_col_types = FALSE,
   filter(specification == "main", size_bin != "under 50")
 estimate <- read_csv("../output/estimates.csv", show_col_types = FALSE) |>
   filter(specification == "main")
-profiles <- read_csv("../output/parameter_profiles.csv", show_col_types = FALSE) |>
-  filter(specification == "main")
 
 bins <- unique(cell_fit$size_bin)
 plot_data <- cell_fit |>
@@ -45,24 +43,3 @@ figure <- ggplot(plot_data, aes(size_bin)) +
     plot.caption = element_text(hjust = 0, size = 8.5))
 
 ggsave("../output/pdf/model_fit.pdf", figure, width = 9, height = 8)
-ggsave("../output/model_fit.png", figure, width = 9, height = 8, dpi = 180, bg = "white")
-
-parameter_labels <- c(kappa = "Jump at 100 units", tau = "Kink above 100 units",
-  gamma = "Growth of splitting cost", sigma = "Mean splitting cost (log10)")
-profile_figure <- profiles |>
-  mutate(relative = objective / min(objective),
-    value = if_else(parameter == "sigma", log10(value), value),
-    parameter = factor(parameter_labels[parameter], levels = parameter_labels)) |>
-  ggplot(aes(value, relative)) +
-  geom_line(color = "#24689B") +
-  geom_point(color = "#24689B", size = 1.5) +
-  facet_wrap(~parameter, scales = "free_x", nrow = 1) +
-  coord_cartesian(ylim = c(1, 3)) +
-  labs(title = "How sharply the data pick out each parameter",
-    subtitle = "Best objective at each value, relative to the overall best (other parameters re-optimized)",
-    x = "Parameter value", y = "Objective relative to best") +
-  theme_minimal(base_size = 11) +
-  theme(panel.grid.minor = element_blank(), plot.title.position = "plot")
-
-ggsave("../output/pdf/parameter_profiles.pdf", profile_figure, width = 12, height = 3.8)
-ggsave("../output/parameter_profiles.png", profile_figure, width = 12, height = 3.8, dpi = 180, bg = "white")

@@ -1,7 +1,7 @@
 Rows: 7466
-Columns: 34
+Columns: 22
 Key fields: job_number
-Saved-file MD5: 8af10ba6930bc3c613c4c2ba489be1a0
+Saved-file MD5: be74ee2636d9d6a436e3579931eadd53
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 job_number | character | nonmissing | 7466 | distinct | 7466
@@ -15,26 +15,14 @@ filing_bbl | character | nonmissing | 7466 | distinct | 6641
 prefiling_feature_bbl | character | nonmissing | 7466 | distinct | 6347
 pluto_source_id_used | character | nonmissing | 7466 | distinct | 2
 pluto_version_used | character | nonmissing | 7466 | distinct | 40
-pluto_safe_available_date | Date | nonmissing | 7466 | distinct | 40
 appbbl_recovery_used | logical | nonmissing | 7466 | distinct | 2
 appbbl_future_appdate_used_for_linkage | logical | nonmissing | 7466 | distinct | 2
-hdb_description | character | nonmissing | 3383 | distinct | 2883
+description | character | nonmissing | 3383 | distinct | 2883
 hdb_latitude | numeric | nonmissing | 7466 | distinct | 6817 min/median/mean/max 40.50993/40.71198/40.72729/40.90685
 hdb_longitude | numeric | nonmissing | 7466 | distinct | 6817 min/median/mean/max -74.24722/-73.93326/-73.92643/-73.72048
-dob_now_match | logical | nonmissing | 7466 | distinct | 1
-dob_owner_name | character | nonmissing | 0 | distinct | 0
-dob_owner_match_key | character | nonmissing | 0 | distinct | 0
-dob_description | character | nonmissing | 0 | distinct | 0
-description | character | nonmissing | 3383 | distinct | 2883
 description_referenced_jobs | character | nonmissing | 142 | distinct | 136
 description_project_code | character | nonmissing | 0 | distinct | 0
-pluto_owner_type | character | nonmissing | 5181 | distinct | 7
 pluto_owner_name | character | nonmissing | 7416 | distinct | 6147
-pluto_owner_match_key | character | nonmissing | 7416 | distinct | 6121
-prefiling_xcoord | numeric | nonmissing | 7290 | distinct | 5850 min/median/mean/max 0/1002323/1003521/1061929
-prefiling_ycoord | numeric | nonmissing | 7290 | distinct | 6080 min/median/mean/max 0/198578.5/203886.5/269697
 archived_appbbl | character | nonmissing | 785 | distinct | 562
-archived_appdate | Date | nonmissing | 785 | distinct | 522
-prefiling_plutomapid | character | nonmissing | 7465 | distinct | 2
+pluto_owner_match_key | character | nonmissing | 7416 | distinct | 6121
 archived_lot_history_group | character | nonmissing | 7466 | distinct | 6307
-archived_appdate_after_filing | logical | nonmissing | 7466 | distinct | 1

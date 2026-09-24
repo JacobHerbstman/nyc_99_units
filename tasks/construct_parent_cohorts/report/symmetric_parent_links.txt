@@ -1,30 +1,12 @@
 Rows: 2334
-Columns: 26
+Columns: 8
 Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: 7fd00bbcc4badb8cfda9665214887e1a
+Saved-file MD5: 8a16362fea18faa3f28195d16e1009a9
 sample | character | nonmissing | 2334 | distinct | 2
 job_number_1 | character | nonmissing | 2334 | distinct | 1282
 job_number_2 | character | nonmissing | 2334 | distinct | 1282
-date_filed_1 | Date | nonmissing | 2334 | distinct | 825
-date_filed_2 | Date | nonmissing | 2334 | distinct | 822
 filing_days_apart | integer | nonmissing | 2334 | distinct | 242 min/median/mean/max 0/1/59.38903/365
-filing_bbl_1 | character | nonmissing | 2334 | distinct | 1084
-filing_bbl_2 | character | nonmissing | 2334 | distinct | 1087
-site_linkage_bbl_1 | character | nonmissing | 2334 | distinct | 1063
-site_linkage_bbl_2 | character | nonmissing | 2334 | distinct | 1057
-same_filing_bbl | logical | nonmissing | 2334 | distinct | 2
-same_site_linkage_bbl | logical | nonmissing | 2334 | distinct | 2
-strict_lot_history_link | logical | nonmissing | 2334 | distinct | 2
-later_lot_history_candidate | logical | nonmissing | 2334 | distinct | 2
-explicit_job_reference | logical | nonmissing | 2334 | distinct | 2
-same_project_code | logical | nonmissing | 2334 | distinct | 2
-same_owner_support | logical | nonmissing | 2334 | distinct | 2
-exact_polygon_touch | logical | nonmissing | 2334 | distinct | 2
-corroborated_exact_adjacency | logical | nonmissing | 2334 | distinct | 2
-reviewed_accept | logical | nonmissing | 2334 | distinct | 2
-reviewed_reject | logical | nonmissing | 2334 | distinct | 1
-review_basis | character | nonmissing | 19 | distinct | 16
-review_source | character | nonmissing | 19 | distinct | 15
-enhanced_link | logical | nonmissing | 2334 | distinct | 2
-same_owner_nearby | logical | nonmissing | 2334 | distinct | 2
 link_reason | character | nonmissing | 2334 | distinct | 33
+same_owner_nearby | logical | nonmissing | 2334 | distinct | 2
+review_basis | character | nonmissing | 19 | distinct | 16
+enhanced_link | logical | nonmissing | 2334 | distinct | 2

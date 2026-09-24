@@ -1,0 +1,19 @@
+Rows: 11608
+Columns: 13
+Key fields: job_number_1, job_number_2
+Saved-file MD5: c86d4712465ab8edb46c3e01b93647a0
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+job_number_1 | character | nonmissing | 11608 | distinct | 4322
+job_number_2 | character | nonmissing | 11608 | distinct | 4284
+filing_days_apart | integer | nonmissing | 11608 | distinct | 366 min/median/mean/max 0/145/152.1346/365
+same_filing_bbl | logical | nonmissing | 11608 | distinct | 2
+strict_lot_history_link | logical | nonmissing | 11608 | distinct | 2
+later_lot_history_candidate | logical | nonmissing | 11608 | distinct | 2
+explicit_job_reference | logical | nonmissing | 11608 | distinct | 2
+same_project_code | logical | nonmissing | 11608 | distinct | 1
+same_owner_support | logical | nonmissing | 11608 | distinct | 2
+high_confidence_prefiling_signal | logical | nonmissing | 11608 | distinct | 2
+owner_supported_candidate | logical | nonmissing | 11608 | distinct | 2
+exact_polygon_touch | logical | nonmissing | 11608 | distinct | 2
+corroborated_exact_adjacency | logical | nonmissing | 11608 | distinct | 2
