@@ -1,0 +1,16 @@
+Rows: 170
+Columns: 10
+Key fields: rule, sample
+Saved-file MD5: ab423c5a949c043ae1716644c11d9704
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 170 | distinct | 2
+rule | character | nonmissing | 170 | distinct | 85
+parents | numeric | nonmissing | 170 | distinct | 23 min/median/mean/max 317/464/463.9176/612
+merged_parents | numeric | nonmissing | 170 | distinct | 42 min/median/mean/max 0/16/17.44706/57
+multi_building_share | numeric | nonmissing | 170 | distinct | 109 min/median/mean/max 0.08415842/0.1831071/0.1704692/0.2933754
+three_plus_share | numeric | nonmissing | 170 | distinct | 79 min/median/mean/max 0.02475248/0.04843177/0.0451454/0.08832808
+exact_99_share | numeric | nonmissing | 170 | distinct | 30 min/median/mean/max 0.004901961/0.05139174/0.06005136/0.1176471
+exact_99x2 | numeric | nonmissing | 170 | distinct | 4 min/median/mean/max 0/3.5/4.382353/9
+repeated_99 | numeric | nonmissing | 170 | distinct | 2 min/median/mean/max 0/8/8/16
+exact_198_share | numeric | nonmissing | 170 | distinct | 17 min/median/mean/max 0/0.01104101/0.01359912/0.02821317

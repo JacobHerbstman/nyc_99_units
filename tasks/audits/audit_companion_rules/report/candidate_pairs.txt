@@ -1,0 +1,25 @@
+Rows: 12933
+Columns: 19
+Key fields: sample, job_a, job_b
+Saved-file MD5: 5bef37cd4d7ce1529f9ca1afaea3a7eb
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 12933 | distinct | 2
+job_a | character | nonmissing | 12933 | distinct | 5141
+job_b | character | nonmissing | 12933 | distinct | 5115
+parent_a | character | nonmissing | 12933 | distinct | 4678
+parent_b | character | nonmissing | 12933 | distinct | 4663
+units_a | integer | nonmissing | 12933 | distinct | 348 min/median/mean/max 5/10/40.5469/1175
+units_b | integer | nonmissing | 12933 | distinct | 343 min/median/mean/max 5/10/40.55447/1313
+bbl_a | character | nonmissing | 12933 | distinct | 4478
+bbl_b | character | nonmissing | 12933 | distinct | 4436
+distance_metres | numeric | nonmissing | 12933 | distinct | 11767 min/median/mean/max 0/140.7186/135.6695/249.9848
+days_apart | numeric | nonmissing | 12933 | distinct | 366 min/median/mean/max 0/139/148.856/365
+first_date | Date | nonmissing | 12933 | distinct | 2428
+same_block | logical | nonmissing | 12933 | distinct | 2
+same_business | logical | nonmissing | 12933 | distinct | 2
+same_person | logical | nonmissing | 12933 | distinct | 2
+same_applicant | logical | nonmissing | 12933 | distinct | 2
+same_parent | logical | nonmissing | 12933 | distinct | 2
+cross_lot | logical | nonmissing | 12933 | distinct | 2
+dof_confirmed | logical | nonmissing | 12933 | distinct | 2

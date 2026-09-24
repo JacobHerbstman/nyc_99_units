@@ -8,6 +8,7 @@ before running an audit from its `code/` folder or through its root target.
 |---|---|
 | `audit_scale_shape_splitting` | Reweighted historical benchmark, bootstrap, and the values used in `framework_writeup.tex` |
 | `audit_scale_shape_counterfactual` | Pre-policy holdout checks of that benchmark |
+| `audit_companion_rules` | Symmetric rules for linking companion filings across nearby lots, with a hand-validated sample |
 | `audit_land_measurement_sensitivity` | Whether land-measurement choices move the reweighted comparison |
 | `fit_pure_notch_pilot` | Exploratory structural fit of the joint size-and-organization model |
 | `audit_parent_site_boundaries` | Automatic parcel-boundary screen and the calculations behind adopted land decisions |

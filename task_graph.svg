@@ -135,15 +135,22 @@
 <path fill="none" stroke="#8196a8" d="M64.83,-365.62C70.6,-359.43 77.17,-352.38 83.24,-345.87"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="84.19,-347.42 86.31,-342.57 81.62,-345.03 84.19,-347.42"/>
 </g>
-<!-- fetch_dob_now_new_building_filings -->
+<!-- fetch_dob_bis_job_filings -->
 <g id="node11" class="node">
+<title>fetch_dob_bis_job_filings</title>
+<path fill="#edf3f8" stroke="#8196a8" d="M306.62,-463C306.62,-463 242.62,-463 242.62,-463 236.62,-463 230.62,-457 230.62,-451 230.62,-451 230.62,-439 230.62,-439 230.62,-433 236.62,-427 242.62,-427 242.62,-427 306.62,-427 306.62,-427 312.62,-427 318.62,-433 318.62,-439 318.62,-439 318.62,-451 318.62,-451 318.62,-457 312.62,-463 306.62,-463"/>
+<text xml:space="preserve" text-anchor="middle" x="274.62" y="-446.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch dob bis job</text>
+<text xml:space="preserve" text-anchor="middle" x="274.62" y="-435.5" font-family="Helvetica,sans-Serif" font-size="10.00">filings</text>
+</g>
+<!-- fetch_dob_now_new_building_filings -->
+<g id="node12" class="node">
 <title>fetch_dob_now_new_building_filings</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M371.88,-341C371.88,-341 297.38,-341 297.38,-341 291.38,-341 285.38,-335 285.38,-329 285.38,-329 285.38,-317 285.38,-317 285.38,-311 291.38,-305 297.38,-305 297.38,-305 371.88,-305 371.88,-305 377.88,-305 383.88,-311 383.88,-317 383.88,-317 383.88,-329 383.88,-329 383.88,-335 377.88,-341 371.88,-341"/>
 <text xml:space="preserve" text-anchor="middle" x="334.62" y="-324.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch dob now new</text>
 <text xml:space="preserve" text-anchor="middle" x="334.62" y="-313.5" font-family="Helvetica,sans-Serif" font-size="10.00">building filings</text>
 </g>
 <!-- stage_dob_now_new_building_filings -->
-<g id="node12" class="node">
+<g id="node13" class="node">
 <title>stage_dob_now_new_building_filings</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M373,-280C373,-280 296.25,-280 296.25,-280 290.25,-280 284.25,-274 284.25,-268 284.25,-268 284.25,-256 284.25,-256 284.25,-250 290.25,-244 296.25,-244 296.25,-244 373,-244 373,-244 379,-244 385,-250 385,-256 385,-256 385,-268 385,-268 385,-274 379,-280 373,-280"/>
 <text xml:space="preserve" text-anchor="middle" x="334.62" y="-263.75" font-family="Helvetica,sans-Serif" font-size="10.00">stage dob now new</text>
@@ -162,7 +169,7 @@
 <polygon fill="#8196a8" stroke="#8196a8" points="299.61,-222.88 294.85,-220.54 297.11,-225.33 299.61,-222.88"/>
 </g>
 <!-- link_hpd_485x_registrations -->
-<g id="node15" class="node">
+<g id="node16" class="node">
 <title>link_hpd_485x_registrations</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M410.5,-219C410.5,-219 360.75,-219 360.75,-219 354.75,-219 348.75,-213 348.75,-207 348.75,-207 348.75,-195 348.75,-195 348.75,-189 354.75,-183 360.75,-183 360.75,-183 410.5,-183 410.5,-183 416.5,-183 422.5,-189 422.5,-195 422.5,-195 422.5,-207 422.5,-207 422.5,-213 416.5,-219 410.5,-219"/>
 <text xml:space="preserve" text-anchor="middle" x="385.62" y="-202.75" font-family="Helvetica,sans-Serif" font-size="10.00">link hpd 485x</text>
@@ -175,7 +182,7 @@
 <polygon fill="#8196a8" stroke="#8196a8" points="367.59,-225.53 369.54,-220.61 364.95,-223.25 367.59,-225.53"/>
 </g>
 <!-- fetch_dof_tax_map_history -->
-<g id="node13" class="node">
+<g id="node14" class="node">
 <title>fetch_dof_tax_map_history</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M192.88,-219C192.88,-219 124.38,-219 124.38,-219 118.38,-219 112.38,-213 112.38,-207 112.38,-207 112.38,-195 112.38,-195 112.38,-189 118.38,-183 124.38,-183 124.38,-183 192.88,-183 192.88,-183 198.88,-183 204.88,-189 204.88,-195 204.88,-195 204.88,-207 204.88,-207 204.88,-213 198.88,-219 192.88,-219"/>
 <text xml:space="preserve" text-anchor="middle" x="158.62" y="-202.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch dof tax map</text>
@@ -188,7 +195,7 @@
 <polygon fill="#8196a8" stroke="#8196a8" points="200.74,-164.14 203.27,-159.48 198.39,-161.54 200.74,-164.14"/>
 </g>
 <!-- fetch_hpd_485x_registrations -->
-<g id="node14" class="node">
+<g id="node15" class="node">
 <title>fetch_hpd_485x_registrations</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M464.88,-280C464.88,-280 408.38,-280 408.38,-280 402.38,-280 396.38,-274 396.38,-268 396.38,-268 396.38,-256 396.38,-256 396.38,-250 402.38,-244 408.38,-244 408.38,-244 464.88,-244 464.88,-244 470.88,-244 476.88,-250 476.88,-256 476.88,-256 476.88,-268 476.88,-268 476.88,-274 470.88,-280 464.88,-280"/>
 <text xml:space="preserve" text-anchor="middle" x="436.62" y="-263.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch hpd 485x</text>
@@ -207,13 +214,13 @@
 <polygon fill="#8196a8" stroke="#8196a8" points="351.28,-161.93 346.55,-159.55 348.76,-164.36 351.28,-161.93"/>
 </g>
 <!-- fetch_mappluto_archive -->
-<g id="node16" class="node">
+<g id="node17" class="node">
 <title>fetch_mappluto_archive</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M207.12,-463C207.12,-463 116.12,-463 116.12,-463 110.12,-463 104.12,-457 104.12,-451 104.12,-451 104.12,-439 104.12,-439 104.12,-433 110.12,-427 116.12,-427 116.12,-427 207.12,-427 207.12,-427 213.12,-427 219.12,-433 219.12,-439 219.12,-439 219.12,-451 219.12,-451 219.12,-457 213.12,-463 207.12,-463"/>
 <text xml:space="preserve" text-anchor="middle" x="161.62" y="-441.12" font-family="Helvetica,sans-Serif" font-size="10.00">fetch mappluto archive</text>
 </g>
 <!-- stage_mappluto_lots -->
-<g id="node17" class="node">
+<g id="node18" class="node">
 <title>stage_mappluto_lots</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M198.38,-402C198.38,-402 120.88,-402 120.88,-402 114.88,-402 108.88,-396 108.88,-390 108.88,-390 108.88,-378 108.88,-378 108.88,-372 114.88,-366 120.88,-366 120.88,-366 198.38,-366 198.38,-366 204.38,-366 210.38,-372 210.38,-378 210.38,-378 210.38,-390 210.38,-390 210.38,-396 204.38,-402 198.38,-402"/>
 <text xml:space="preserve" text-anchor="middle" x="159.62" y="-380.12" font-family="Helvetica,sans-Serif" font-size="10.00">stage mappluto lots</text>
@@ -231,7 +238,7 @@
 <polygon fill="#8196a8" stroke="#8196a8" points="125.95,-344.98 121.24,-342.56 123.41,-347.39 125.95,-344.98"/>
 </g>
 <!-- fetch_nyc_borough_boundaries -->
-<g id="node18" class="node">
+<g id="node19" class="node">
 <title>fetch_nyc_borough_boundaries</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M195.62,-97C195.62,-97 125.62,-97 125.62,-97 119.62,-97 113.62,-91 113.62,-85 113.62,-85 113.62,-73 113.62,-73 113.62,-67 119.62,-61 125.62,-61 125.62,-61 195.62,-61 195.62,-61 201.62,-61 207.62,-67 207.62,-73 207.62,-73 207.62,-85 207.62,-85 207.62,-91 201.62,-97 195.62,-97"/>
 <text xml:space="preserve" text-anchor="middle" x="160.62" y="-80.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch nyc borough</text>
@@ -244,7 +251,7 @@
 <polygon fill="#8196a8" stroke="#8196a8" points="163.56,-43.03 161.98,-37.98 160.06,-42.91 163.56,-43.03"/>
 </g>
 <!-- parent_opportunities_manual -->
-<g id="node19" class="node">
+<g id="node20" class="node">
 <title>parent_opportunities_manual</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M262.38,-341C262.38,-341 184.88,-341 184.88,-341 178.88,-341 172.88,-335 172.88,-329 172.88,-329 172.88,-317 172.88,-317 172.88,-311 178.88,-305 184.88,-305 184.88,-305 262.38,-305 262.38,-305 268.38,-305 274.38,-311 274.38,-317 274.38,-317 274.38,-329 274.38,-329 274.38,-335 268.38,-341 262.38,-341"/>
 <text xml:space="preserve" text-anchor="middle" x="223.62" y="-324.75" font-family="Helvetica,sans-Serif" font-size="10.00">parent opportunities</text>
