@@ -316,6 +316,7 @@ features <- bind_rows(historical_features, post_features) |>
     merger_window_complete,
     implausible_site,
     borough = str_squish(as.character(borough)),
+    community_district,
     zoning_category = str_squish(as.character(zone_detail)),
     prior_site_use = str_squish(as.character(prior_site_use))
   )
@@ -475,6 +476,7 @@ parent_panel <- parent_dates |>
     zero_residential_capacity,
     zero_redevelopment_slack,
     borough,
+    community_district,
     zoning_category,
     prior_site_use
   )

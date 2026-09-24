@@ -1,46 +1,46 @@
-Rows: 167
+Rows: 184
 Columns: 40
 Key fields: parent_id, vintage
-Saved-file MD5: 8d1a0c7112746ac23a35eb971f7b13e4
+Saved-file MD5: d2324d5f92c1d84eeda93d57f9ffafb7
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-parent_id | character | nonmissing | 167 | distinct | 158
-vintage | character | nonmissing | 167 | distinct | 17
-old_lots | numeric | nonmissing | 167 | distinct | 11 min/median/mean/max 0/2/2.125749/18
-old_bbls | character | nonmissing | 161 | distinct | 150
-partial_old_lots | numeric | nonmissing | 167 | distinct | 6 min/median/mean/max 0/1/0.8083832/6
-old_recorded_sqft | numeric | nonmissing | 161 | distinct | 148 min/median/mean/max 2000/39602/95419.18/1227637
-covered_sqft | numeric | nonmissing | 167 | distinct | 157 min/median/mean/max 0/22141.1/44370.98/641256.4
-material_overlap_sqft | numeric | nonmissing | 167 | distinct | 157 min/median/mean/max 0/22141.1/44370.7/641256.4
-whole_old_geometry_sqft | numeric | nonmissing | 161 | distinct | 156 min/median/mean/max 2045.672/38640.6/88035.42/1235772
-sample | character | nonmissing | 167 | distinct | 2
-component_addresses | character | nonmissing | 167 | distinct | 158
-parent_total_units | numeric | nonmissing | 167 | distinct | 122 min/median/mean/max 50/177/257.1916/1386
-n_components | numeric | nonmissing | 167 | distinct | 6 min/median/mean/max 1/1/1.48503/8
-production_area_sqft | numeric | nonmissing | 167 | distinct | 151 min/median/mean/max 1360/25000/66229.66/1227637
-reason | character | nonmissing | 167 | distinct | 6
-mixed_vintages | logical | nonmissing | 167 | distinct | 2
-condo_scope_review | logical | nonmissing | 167 | distinct | 2
-source_bbl_disagreement | logical | nonmissing | 167 | distinct | 2
-unusual_change | logical | nonmissing | 167 | distinct | 2
-requested_lots | numeric | nonmissing | 167 | distinct | 6 min/median/mean/max 1/1/1.371257/8
-mapped_lots | numeric | nonmissing | 167 | distinct | 7 min/median/mean/max 0/1/1.275449/8
-missing_later_bbls | character | nonmissing | 13 | distinct | 13
-missing_lots_seen_earlier | numeric | nonmissing | 167 | distinct | 2 min/median/mean/max 0/0/0.005988024/1
-mapped_bbls | character | nonmissing | 161 | distinct | 151
-later_recorded_sqft | numeric | nonmissing | 154 | distinct | 140 min/median/mean/max 2000/24754/46867.4/634391
-base_requested_lots | numeric | nonmissing | 167 | distinct | 7 min/median/mean/max 1/1/1.39521/8
-base_mapped_lots | numeric | nonmissing | 167 | distinct | 7 min/median/mean/max 0/1/1.143713/8
-base_mapped_bbls | character | nonmissing | 143 | distinct | 134
-base_missing_bbls | character | nonmissing | 34 | distinct | 32
-later_geometry_sqft | numeric | nonmissing | 161 | distinct | 151 min/median/mean/max 2045.673/23253.68/46372.44/641256.5
-earlier_coverage_share | numeric | nonmissing | 161 | distinct | 156 min/median/mean/max 0.5586873/0.999999/0.9929217/1
-later_uncovered_share | numeric | nonmissing | 161 | distinct | 156 min/median/mean/max -4.449774e-13/1.014596e-06/0.0070836/0.4413127
-old_outside_share | numeric | nonmissing | 161 | distinct | 156 min/median/mean/max 1.728596e-10/0.2112061/0.2859206/0.9671852
-geometry_pattern | character | nonmissing | 167 | distinct | 4
-source_scope_review | logical | nonmissing | 167 | distinct | 2
-old_recorded_difference_pct | numeric | nonmissing | 161 | distinct | 156 min/median/mean/max -49.04172/-1.519463/1.350244/131.23
-later_recorded_difference_pct | numeric | nonmissing | 154 | distinct | 144 min/median/mean/max -85.18071/-1.564943/-1.063328/100.6877
-later_vs_production_pct | numeric | nonmissing | 154 | distinct | 144 min/median/mean/max -96.69678/1.04495/46.17608/840.7446
-whole_lot_candidate_sqft | numeric | nonmissing | 46 | distinct | 42 min/median/mean/max 2045.672/31697.27/55626.07/323036.1
-candidate_vs_production_pct | numeric | nonmissing | 46 | distinct | 42 min/median/mean/max -71.54906/4.507043/68.82223/743.7677
+parent_id | character | nonmissing | 184 | distinct | 162
+vintage | character | nonmissing | 184 | distinct | 17
+old_lots | numeric | nonmissing | 184 | distinct | 11 min/median/mean/max 0/2/2.277174/18
+old_bbls | character | nonmissing | 179 | distinct | 156
+partial_old_lots | numeric | nonmissing | 184 | distinct | 7 min/median/mean/max 0/1/0.8097826/7
+old_recorded_sqft | numeric | nonmissing | 179 | distinct | 152 min/median/mean/max 2000/36854/91187.95/1227637
+covered_sqft | numeric | nonmissing | 184 | distinct | 167 min/median/mean/max 0/22517.89/45068.97/641256.4
+material_overlap_sqft | numeric | nonmissing | 184 | distinct | 167 min/median/mean/max 0/22517.89/45068.72/641256.4
+whole_old_geometry_sqft | numeric | nonmissing | 179 | distinct | 166 min/median/mean/max 2045.672/38016.77/84278.5/1235772
+sample | character | nonmissing | 184 | distinct | 2
+component_addresses | character | nonmissing | 184 | distinct | 162
+parent_total_units | numeric | nonmissing | 184 | distinct | 126 min/median/mean/max 50/171/252.2935/1386
+n_components | numeric | nonmissing | 184 | distinct | 7 min/median/mean/max 1/1/1.717391/8
+production_area_sqft | numeric | nonmissing | 184 | distinct | 155 min/median/mean/max 1360/27587/66077.34/1227637
+reason | character | nonmissing | 184 | distinct | 6
+mixed_vintages | logical | nonmissing | 184 | distinct | 2
+condo_scope_review | logical | nonmissing | 184 | distinct | 2
+source_bbl_disagreement | logical | nonmissing | 184 | distinct | 2
+unusual_change | logical | nonmissing | 184 | distinct | 2
+requested_lots | numeric | nonmissing | 184 | distinct | 7 min/median/mean/max 1/1/1.608696/8
+mapped_lots | numeric | nonmissing | 184 | distinct | 8 min/median/mean/max 0/1/1.5/8
+missing_later_bbls | character | nonmissing | 17 | distinct | 15
+missing_lots_seen_earlier | numeric | nonmissing | 184 | distinct | 2 min/median/mean/max 0/0/0.02717391/1
+mapped_bbls | character | nonmissing | 179 | distinct | 155
+later_recorded_sqft | numeric | nonmissing | 167 | distinct | 143 min/median/mean/max 2000/22774/47252.99/634391
+base_requested_lots | numeric | nonmissing | 184 | distinct | 8 min/median/mean/max 1/1/1.630435/8
+base_mapped_lots | numeric | nonmissing | 184 | distinct | 8 min/median/mean/max 0/1/1.277174/8
+base_mapped_bbls | character | nonmissing | 160 | distinct | 139
+base_missing_bbls | character | nonmissing | 41 | distinct | 34
+later_geometry_sqft | numeric | nonmissing | 179 | distinct | 155 min/median/mean/max 2045.673/22797.37/46595.75/641256.5
+earlier_coverage_share | numeric | nonmissing | 179 | distinct | 166 min/median/mean/max 0.7299111/0.999999/0.9981139/1
+later_uncovered_share | numeric | nonmissing | 179 | distinct | 166 min/median/mean/max -4.449774e-13/1.032391e-06/0.001890887/0.2700889
+old_outside_share | numeric | nonmissing | 179 | distinct | 166 min/median/mean/max 1.728596e-10/0.1456385/0.2627738/0.9671852
+geometry_pattern | character | nonmissing | 184 | distinct | 4
+source_scope_review | logical | nonmissing | 184 | distinct | 2
+old_recorded_difference_pct | numeric | nonmissing | 179 | distinct | 166 min/median/mean/max -49.04172/-1.47923/1.708141/131.23
+later_recorded_difference_pct | numeric | nonmissing | 167 | distinct | 146 min/median/mean/max -85.18071/-1.595335/-1.122781/100.6877
+later_vs_production_pct | numeric | nonmissing | 167 | distinct | 146 min/median/mean/max -96.69678/1.219416/37.58788/840.7446
+whole_lot_candidate_sqft | numeric | nonmissing | 58 | distinct | 48 min/median/mean/max 2045.672/19557.48/53437.59/388503
+candidate_vs_production_pct | numeric | nonmissing | 58 | distinct | 48 min/median/mean/max -71.54906/3.120288/55.53385/743.7677

@@ -1,50 +1,50 @@
-Rows: 905
+Rows: 892
 Columns: 100
 Key fields: parent_id
-Saved-file MD5: 75d413f2f2557c25a5ba7a812a22e3e1
+Saved-file MD5: eb25a9e9629a93dd735a23d49f98defe
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-parent_id | character | nonmissing | 905 | distinct | 905
-sample | character | nonmissing | 905 | distinct | 2
-vintages | character | nonmissing | 905 | distinct | 27
-mixed_vintages | logical | nonmissing | 905 | distinct | 2
-recovered_with_dof | logical | nonmissing | 905 | distinct | 2
-condo_scope_review | logical | nonmissing | 905 | distinct | 2
-partial_change | logical | nonmissing | 905 | distinct | 2
-unusual_change | logical | nonmissing | 905 | distinct | 2
-source_bbl_disagreement | logical | nonmissing | 905 | distinct | 2
-unmatched_lots | numeric | nonmissing | 905 | distinct | 5 min/median/mean/max 0/0/0.06740331/5
-unmapped_filing_lots | numeric | nonmissing | 905 | distinct | 4 min/median/mean/max 0/0/0.02430939/3
-applied_transactions | character | nonmissing | 324 | distinct | 323
-partial_transactions | character | nonmissing | 139 | distinct | 132
-unusual_transactions | character | nonmissing | 10 | distinct | 10
-candidate_bbls | character | nonmissing | 905 | distinct | 887
-filing_bbls | character | nonmissing | 905 | distinct | 887
-hdb_bbls | character | nonmissing | 778 | distinct | 769
-dof_candidate_area_sqft | numeric | nonmissing | 852 | distinct | 715 min/median/mean/max 657/12839/25379.06/821806
-composition_eligible | logical | nonmissing | 905 | distinct | 1
-parent_total_units | numeric | nonmissing | 905 | distinct | 288 min/median/mean/max 50/99/160.7591/1452
-n_components | numeric | nonmissing | 905 | distinct | 7 min/median/mean/max 1/1/1.145856/8
-component_addresses | character | nonmissing | 905 | distinct | 897
-lot_area_sqft | numeric | nonmissing | 905 | distinct | 747 min/median/mean/max 279/11533/25561.42/1227637
-area_difference_sqft | numeric | nonmissing | 852 | distinct | 183 min/median/mean/max -91072/0/3094.821/367950
-reason | character | nonmissing | 905 | distinct | 7
-prior_unresolved | logical | nonmissing | 905 | distinct | 2
-application_ids | character | nonmissing | 495 | distinct | 482
-reference_map_ids | character | nonmissing | 905 | distinct | 807
-cohort_date | Date | nonmissing | 905 | distinct | 588
-parent_last_filing_date | Date | nonmissing | 905 | distinct | 597
-n_components_eq_99 | numeric | nonmissing | 905 | distinct | 6 min/median/mean/max 0/0/0.09171271/5
-component_job_numbers | character | nonmissing | 905 | distinct | 905
-reference_date | Date | nonmissing | 905 | distinct | 18
-mapped_later_complete | logical | nonmissing | 905 | distinct | 2
-earlier_map_complete | logical | nonmissing | 905 | distinct | 2
-whole_earlier_parcels | logical | nonmissing | 905 | distinct | 2
-old_area_sqft | numeric | nonmissing | 882 | distinct | 743 min/median/mean/max 1395/13943.5/31438.31/1227637
-old_lots | numeric | nonmissing | 896 | distinct | 16 min/median/mean/max 0/1/1.883929/18
-mapped_earlier_bbls | character | nonmissing | 877 | distinct | 858
-earlier_outside_share | numeric | nonmissing | 891 | distinct | 890 min/median/mean/max 1.728596e-10/1.638036e-06/0.05087729/0.9671852
-later_outside_share | numeric | nonmissing | 891 | distinct | 890 min/median/mean/max -4.449774e-13/1.293743e-06/0.001400464/0.4413127
+parent_id | character | nonmissing | 892 | distinct | 892
+sample | character | nonmissing | 892 | distinct | 2
+vintages | character | nonmissing | 892 | distinct | 32
+mixed_vintages | logical | nonmissing | 892 | distinct | 2
+recovered_with_dof | logical | nonmissing | 892 | distinct | 2
+condo_scope_review | logical | nonmissing | 892 | distinct | 2
+partial_change | logical | nonmissing | 892 | distinct | 2
+unusual_change | logical | nonmissing | 892 | distinct | 2
+source_bbl_disagreement | logical | nonmissing | 892 | distinct | 2
+unmatched_lots | numeric | nonmissing | 892 | distinct | 6 min/median/mean/max 0/0/0.07735426/5
+unmapped_filing_lots | numeric | nonmissing | 892 | distinct | 4 min/median/mean/max 0/0/0.02690583/3
+applied_transactions | character | nonmissing | 326 | distinct | 325
+partial_transactions | character | nonmissing | 137 | distinct | 133
+unusual_transactions | character | nonmissing | 11 | distinct | 10
+candidate_bbls | character | nonmissing | 892 | distinct | 876
+filing_bbls | character | nonmissing | 892 | distinct | 875
+hdb_bbls | character | nonmissing | 767 | distinct | 758
+dof_candidate_area_sqft | numeric | nonmissing | 826 | distinct | 697 min/median/mean/max 657/13092/25568.21/821806
+composition_eligible | logical | nonmissing | 892 | distinct | 1
+parent_total_units | numeric | nonmissing | 892 | distinct | 291 min/median/mean/max 50/99/163.6984/1452
+n_components | numeric | nonmissing | 892 | distinct | 7 min/median/mean/max 1/1/1.217489/8
+component_addresses | character | nonmissing | 892 | distinct | 885
+lot_area_sqft | numeric | nonmissing | 892 | distinct | 741 min/median/mean/max 279/11841.5/26059.6/1227637
+area_difference_sqft | numeric | nonmissing | 826 | distinct | 184 min/median/mean/max -91072/0/3403.697/367950
+reason | character | nonmissing | 892 | distinct | 7
+prior_unresolved | logical | nonmissing | 892 | distinct | 2
+application_ids | character | nonmissing | 492 | distinct | 482
+reference_map_ids | character | nonmissing | 892 | distinct | 813
+cohort_date | Date | nonmissing | 892 | distinct | 593
+parent_last_filing_date | Date | nonmissing | 892 | distinct | 601
+n_components_eq_99 | numeric | nonmissing | 892 | distinct | 6 min/median/mean/max 0/0/0.09304933/5
+component_job_numbers | character | nonmissing | 892 | distinct | 892
+reference_date | Date | nonmissing | 892 | distinct | 18
+mapped_later_complete | logical | nonmissing | 892 | distinct | 2
+earlier_map_complete | logical | nonmissing | 892 | distinct | 2
+whole_earlier_parcels | logical | nonmissing | 892 | distinct | 2
+old_area_sqft | numeric | nonmissing | 858 | distinct | 728 min/median/mean/max 1395/14130/31519.95/1227637
+old_lots | numeric | nonmissing | 870 | distinct | 17 min/median/mean/max 0/1/1.945977/18
+mapped_earlier_bbls | character | nonmissing | 853 | distinct | 837
+earlier_outside_share | numeric | nonmissing | 880 | distinct | 879 min/median/mean/max 1.728596e-10/1.648249e-06/0.05069235/0.9671852
+later_outside_share | numeric | nonmissing | 880 | distinct | 879 min/median/mean/max -4.449774e-13/1.333209e-06/0.0005049664/0.2700889
 recovered_reference_vintage | character | nonmissing | 5 | distinct | 1
 recovered_reference_date | Date | nonmissing | 5 | distinct | 1
 recovered_reference_area | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 9169/14958/40011/146900
@@ -53,54 +53,54 @@ recovered_reference_complete | logical | nonmissing | 5 | distinct | 1
 recovered_reference_whole | logical | nonmissing | 5 | distinct | 1
 recovered_old_outside_share | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 1.075766e-06/1.538416e-06/1.590091e-06/2.385186e-06
 recovered_new_outside_share | numeric | nonmissing | 5 | distinct | 5 min/median/mean/max 5.66658e-07/1.672823e-06/2.042963e-06/4.565619e-06
-envelope_lots | numeric | nonmissing | 905 | distinct | 19 min/median/mean/max 1/2/2.456354/53
-transactions | character | nonmissing | 432 | distinct | 422
-first_change | Date | nonmissing | 432 | distinct | 358
-last_change | Date | nonmissing | 432 | distinct | 351
-other_direct_filings | numeric | nonmissing | 905 | distinct | 7 min/median/mean/max 0/0/0.09944751/6
-other_envelope_filings | numeric | nonmissing | 905 | distinct | 3 min/median/mean/max 0/0/0.007734807/2
-other_estimation_parents | numeric | nonmissing | 905 | distinct | 3 min/median/mean/max 0/0/0.04198895/2
-other_nonresidential_filings | numeric | nonmissing | 905 | distinct | 2 min/median/mean/max 0/0/0.01104972/1
-other_school_descriptions | numeric | nonmissing | 905 | distinct | 2 min/median/mean/max 0/0/0.001104972/1
-documented_separate_filings | numeric | nonmissing | 905 | distinct | 4 min/median/mean/max 0/0/0.02209945/15
-documented_alternative_plans | numeric | nonmissing | 905 | distinct | 2 min/median/mean/max 0/0/0.006629834/1
-documented_prior_buildings | numeric | nonmissing | 905 | distinct | 2 min/median/mean/max 0/0/0.001104972/1
-other_job_numbers | character | nonmissing | 72 | distinct | 72
-shared_earlier_lots | numeric | nonmissing | 905 | distinct | 2 min/median/mean/max 0/0/0.006629834/1
-bis_filings | numeric | nonmissing | 905 | distinct | 4 min/median/mean/max 0/0/0.01878453/3
-shared_zoning_site | logical | nonmissing | 905 | distinct | 1
-original_bbls | character | nonmissing | 12 | distinct | 12
-original_recorded_sqft | numeric | nonmissing | 9 | distinct | 9 min/median/mean/max 7520/30008/77169.33/389978
-original_lots_match_spatial_lots | logical | nonmissing | 12 | distinct | 2
-document_applicability | character | nonmissing | 46 | distinct | 2
-document_id | character | nonmissing | 45 | distinct | 45
-document_decision | character | nonmissing | 45 | distinct | 2
-documented_area_basis | character | nonmissing | 45 | distinct | 28
-reviewed_filing_bbls | character | nonmissing | 16 | distinct | 16
-reviewed_hdb_bbls | character | nonmissing | 16 | distinct | 16
+envelope_lots | numeric | nonmissing | 892 | distinct | 20 min/median/mean/max 1/2/2.536996/53
+transactions | character | nonmissing | 431 | distinct | 425
+first_change | Date | nonmissing | 431 | distinct | 357
+last_change | Date | nonmissing | 431 | distinct | 351
+other_direct_filings | numeric | nonmissing | 892 | distinct | 8 min/median/mean/max 0/0/0.1053812/9
+other_envelope_filings | numeric | nonmissing | 892 | distinct | 3 min/median/mean/max 0/0/0.007847534/2
+other_estimation_parents | numeric | nonmissing | 892 | distinct | 2 min/median/mean/max 0/0/0.03587444/1
+other_nonresidential_filings | numeric | nonmissing | 892 | distinct | 2 min/median/mean/max 0/0/0.01121076/1
+other_school_descriptions | numeric | nonmissing | 892 | distinct | 2 min/median/mean/max 0/0/0.001121076/1
+documented_separate_filings | numeric | nonmissing | 892 | distinct | 4 min/median/mean/max 0/0/0.02242152/15
+documented_alternative_plans | numeric | nonmissing | 892 | distinct | 2 min/median/mean/max 0/0/0.006726457/1
+documented_prior_buildings | numeric | nonmissing | 892 | distinct | 1 min/median/mean/max 0/0/0/0
+other_job_numbers | character | nonmissing | 71 | distinct | 71
+shared_earlier_lots | numeric | nonmissing | 892 | distinct | 2 min/median/mean/max 0/0/0.004484305/1
+bis_filings | numeric | nonmissing | 892 | distinct | 4 min/median/mean/max 0/0/0.01793722/3
+shared_zoning_site | logical | nonmissing | 892 | distinct | 1
+original_bbls | character | nonmissing | 11 | distinct | 11
+original_recorded_sqft | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 7520/35207.5/83330.12/389978
+original_lots_match_spatial_lots | logical | nonmissing | 11 | distinct | 2
+document_applicability | character | nonmissing | 44 | distinct | 2
+document_id | character | nonmissing | 43 | distinct | 43
+document_decision | character | nonmissing | 43 | distinct | 2
+documented_area_basis | character | nonmissing | 43 | distinct | 28
+reviewed_filing_bbls | character | nonmissing | 15 | distinct | 15
+reviewed_hdb_bbls | character | nonmissing | 15 | distinct | 15
 reviewed_physical_transactions | character | nonmissing | 3 | distinct | 3
 reviewed_original_bbls | character | nonmissing | 2 | distinct | 2
-documented_development_bbls | character | nonmissing | 45 | distinct | 45
-documented_development_area_sqft | numeric | nonmissing | 45 | distinct | 44 min/median/mean/max 5000/39323/53638.79/203910
-documented_reference_bbls | character | nonmissing | 45 | distinct | 45
-documented_reference_vintage | character | nonmissing | 45 | distinct | 13
-documented_reference_area_sqft | numeric | nonmissing | 45 | distinct | 45 min/median/mean/max 5000/57000/114169.2/553463
-documented_original_crosswalk | logical | nonmissing | 905 | distinct | 2
-recorded_site_disagrees | logical | nonmissing | 905 | distinct | 2
-shared_land | logical | nonmissing | 905 | distinct | 2
-broader_transaction_site | logical | nonmissing | 905 | distinct | 2
-documented_source_crosswalk | logical | nonmissing | 905 | distinct | 2
-documented_physical_changes | logical | nonmissing | 905 | distinct | 2
-source_scope_question | logical | nonmissing | 905 | distinct | 2
-membership_review_pending | logical | nonmissing | 905 | distinct | 2
-dof_complete_successors | logical | nonmissing | 905 | distinct | 2
-documented_whole_site | logical | nonmissing | 905 | distinct | 2
-documented_allocation | logical | nonmissing | 905 | distinct | 2
-reference_coverage_supported | logical | nonmissing | 905 | distinct | 2
-boundary_reconstructed | logical | nonmissing | 905 | distinct | 2
-whole_site_supported | logical | nonmissing | 905 | distinct | 2
-boundary_basis | character | nonmissing | 905 | distinct | 4
-unresolved | logical | nonmissing | 905 | distinct | 2
-status | character | nonmissing | 905 | distinct | 9
-candidate_area_sqft | numeric | nonmissing | 760 | distinct | 651 min/median/mean/max 1395/12839/22677.56/742414
-candidate_area_change_pct | numeric | nonmissing | 760 | distinct | 145 min/median/mean/max -84.07643/0/61.87661/9771.685
+documented_development_bbls | character | nonmissing | 43 | distinct | 43
+documented_development_area_sqft | numeric | nonmissing | 43 | distinct | 43 min/median/mean/max 5000/39349.5/55499.04/203910
+documented_reference_bbls | character | nonmissing | 43 | distinct | 43
+documented_reference_vintage | character | nonmissing | 43 | distinct | 13
+documented_reference_area_sqft | numeric | nonmissing | 43 | distinct | 43 min/median/mean/max 5000/59680/118844.8/553463
+documented_original_crosswalk | logical | nonmissing | 892 | distinct | 2
+recorded_site_disagrees | logical | nonmissing | 892 | distinct | 2
+shared_land | logical | nonmissing | 892 | distinct | 2
+broader_transaction_site | logical | nonmissing | 892 | distinct | 2
+documented_source_crosswalk | logical | nonmissing | 892 | distinct | 2
+documented_physical_changes | logical | nonmissing | 892 | distinct | 2
+source_scope_question | logical | nonmissing | 892 | distinct | 2
+membership_review_pending | logical | nonmissing | 892 | distinct | 2
+dof_complete_successors | logical | nonmissing | 892 | distinct | 2
+documented_whole_site | logical | nonmissing | 892 | distinct | 2
+documented_allocation | logical | nonmissing | 892 | distinct | 2
+reference_coverage_supported | logical | nonmissing | 892 | distinct | 2
+boundary_reconstructed | logical | nonmissing | 892 | distinct | 2
+whole_site_supported | logical | nonmissing | 892 | distinct | 2
+boundary_basis | character | nonmissing | 892 | distinct | 4
+unresolved | logical | nonmissing | 892 | distinct | 2
+status | character | nonmissing | 892 | distinct | 9
+candidate_area_sqft | numeric | nonmissing | 741 | distinct | 637 min/median/mean/max 1395/13074/22993.13/742414
+candidate_area_change_pct | numeric | nonmissing | 741 | distinct | 144 min/median/mean/max -84.07643/0/60.97024/9771.685

@@ -1,0 +1,22 @@
+Rows: 9465
+Columns: 16
+Key fields: sample, job_number
+Saved-file MD5: b5cf238af6d9e3949882854dd4b188de
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 9465 | distinct | 2
+parent_id | character | nonmissing | 9465 | distinct | 8291
+job_number | character | nonmissing | 9465 | distinct | 9465
+root_job_id | character | nonmissing | 9465 | distinct | 8664
+date_filed | Date | nonmissing | 9465 | distinct | 3283
+units | integer | nonmissing | 9465 | distinct | 448 min/median/mean/max 5/18/51.45663/1313
+filing_bbl | character | nonmissing | 9465 | distinct | 7848
+block | character | nonmissing | 9465 | distinct | 4057
+latitude | numeric | nonmissing | 9461 | distinct | 8538 min/median/mean/max 40.50993/40.71435/40.73098/40.91142
+longitude | numeric | nonmissing | 9461 | distinct | 8536 min/median/mean/max -74.24722/-73.9307/-73.92434/-73.72048
+coordinate_source | character | nonmissing | 9465 | distinct | 3
+identity_source | character | nonmissing | 9465 | distinct | 3
+owner_key | character | nonmissing | 7821 | distinct | 5483
+owner_person_key | character | nonmissing | 9215 | distinct | 4294
+applicant_license | character | nonmissing | 9446 | distinct | 974
+public_owner | logical | nonmissing | 9465 | distinct | 2

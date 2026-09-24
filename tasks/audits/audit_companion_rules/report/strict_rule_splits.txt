@@ -1,0 +1,12 @@
+Rows: 30
+Columns: 6
+Key fields: sample, piece_id
+Saved-file MD5: 77177c12d9780b0e9090aa55c76ee1e0
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 30 | distinct | 2
+parent_id | character | nonmissing | 30 | distinct | 15
+piece_id | character | nonmissing | 30 | distinct | 30
+parent_total_units | numeric | nonmissing | 30 | distinct | 24 min/median/mean/max 17/53.5/83.83333/322
+n_components | numeric | nonmissing | 30 | distinct | 3 min/median/mean/max 1/1/1.133333/3
+addresses | character | nonmissing | 30 | distinct | 30

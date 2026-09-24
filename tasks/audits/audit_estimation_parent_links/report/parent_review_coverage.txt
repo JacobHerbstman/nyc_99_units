@@ -1,7 +1,7 @@
 Rows: 92
 Columns: 12
 Key fields: original_parent_id
-Saved-file MD5: a31d12c3fc4b835fc25bca379f096532
+Saved-file MD5: f9121d62560f2bb7f699f042120c2984
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 original_parent_id | character | nonmissing | 92 | distinct | 92
@@ -11,8 +11,8 @@ limitation | character | nonmissing | 92 | distinct | 84
 sources | character | nonmissing | 92 | distinct | 91
 sample | character | nonmissing | 92 | distinct | 2
 root_job_id | character | nonmissing | 92 | distinct | 92
-parent_id | character | nonmissing | 92 | distinct | 91
+parent_id | character | nonmissing | 92 | distinct | 90
 baseline_parent_id | character | nonmissing | 86 | distinct | 85
 baseline_jobs | character | nonmissing | 86 | distinct | 85
-current_jobs | character | nonmissing | 92 | distinct | 91
-review_scope | character | nonmissing | 92 | distinct | 3
+current_jobs | character | nonmissing | 92 | distinct | 90
+review_scope | character | nonmissing | 92 | distinct | 4

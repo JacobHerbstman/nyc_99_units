@@ -1,12 +1,12 @@
 Rows: 4
 Columns: 6
 Key fields: excluded_historical_year
-Saved-file MD5: e3318962165ff5771f0232a5e4c3cb04
+Saved-file MD5: 7cecdc9697eb0372ef7053f30606f809
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 excluded_historical_year | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 2019/2020.5/2020.5/2022
-historical_parents | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 422/446.5/446.25/470
-effective_sample_size | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 372.5161/396.5025/392.5494/404.6766
-excess_at_99 | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 0.1114301/0.1144894/0.1139314/0.1153167
-excess_at_198 | numeric | nonmissing | 4 | distinct | 1 min/median/mean/max 0.02903226/0.02903226/0.02903226/0.02903226
-cumulative_deficit_100_149 | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 0.06332332/0.07456077/0.07407304/0.08384731
+historical_parents | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 421/438.5/441/466
+effective_sample_size | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 398.1297/420.0433/419.7964/440.969
+excess_at_99 | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 0.110123/0.1133926/0.112737/0.1140395
+excess_at_198 | numeric | nonmissing | 4 | distinct | 1 min/median/mean/max 0.02960526/0.02960526/0.02960526/0.02960526
+cumulative_deficit_100_149 | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 0.06720925/0.07655334/0.07622676/0.0845911

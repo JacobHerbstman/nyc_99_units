@@ -107,7 +107,7 @@ calibration_summary <- tibble(
       !parents$composition_eligible
   ),
   calibration_method = "Positive exponential calibration (survey raking)",
-  calibration_moments = "log lot area, residential FAR, built FAR, and borough"
+  calibration_moments = "residential FAR and borough"
 )
 
 outcome_definitions <- tribble(

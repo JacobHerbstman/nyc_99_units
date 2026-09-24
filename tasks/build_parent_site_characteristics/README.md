@@ -1,8 +1,8 @@
 # Build parent site characteristics
 
 Aggregates each linked economic parent's pre-existing parcel characteristics:
-land area, residential and broad FAR, built FAR, zoning and prior use. The
-producer runs once per sample and writes
+land area, residential and broad FAR, built FAR, zoning, borough, community
+district and prior use. The producer runs once per sample and writes
 `output/historical_parent_site_characteristics.parquet` and
 `output/post_policy_parent_site_characteristics.parquet`, one row per parent.
 Proposed units are carried only as the parent outcome; they never enter the

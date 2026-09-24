@@ -1,6 +1,7 @@
 include ../../shared/code/shell_functions.make
 
-all: ../output/post_policy_filing_link_fields.parquet ../output/symmetric_parent_links.parquet \
+all: ../output/post_policy_filing_link_fields.parquet ../output/owner_proximity_links.parquet \
+	../output/symmetric_parent_links.parquet \
 	../output/symmetric_parent_membership.parquet ../output/pair_decision_coverage.csv
 
 include ../../shared/code/generic.make
@@ -14,8 +15,16 @@ include ../../shared/code/generic.make
 	../input/historical_parent_filing_link_fields.parquet ../input/historical_parent_candidate_pairs.parquet \
 	../input/historical_polygon_adjacency_pairs.parquet ../input/historical_polygon_geometry_coverage.parquet \
 	../output/post_policy_filing_link_fields.parquet ../input/dcp_housing_database_project_level_25q4.parquet \
+	../output/owner_proximity_links.parquet \
 	../input/mappluto_files.csv ../../shared/code/write_data_report.R | $(OOPR)
 	$(R) $< 2010 2011 2023 2023 2025 365 30 23v3.1
+
+../output/owner_proximity_links.parquet: construct_owner_proximity_links.R Makefile \
+	../input/historical_parent_filing_link_fields.parquet ../output/post_policy_filing_link_fields.parquet \
+	../input/dob_now_new_building_initial_filings.parquet ../input/dob_bis_nb_initial_filings.csv \
+	../input/dcp_housing_database_project_level_raw_23q4.parquet \
+	../input/dcp_housing_database_project_level_raw_25q4.parquet ../../shared/code/write_data_report.R | $(OOPR)
+	$(R) $<
 
 ../output/post_policy_filing_link_fields.parquet: construct_post_policy_parent_crosswalk.R Makefile \
 	../../shared/code/source_pipeline_utils.R ../input/dob_now_new_building_initial_filings.parquet \
@@ -27,6 +36,14 @@ include ../../shared/code/generic.make
 	ln -sf $< $@
 
 ../input/mappluto_files.csv: ../../fetch_mappluto_archive/output/mappluto_files.csv | ../input
+	ln -sf $< $@
+
+../input/dob_bis_nb_initial_filings.csv: \
+	../../fetch_dob_bis_job_filings/output/dob_bis_job_filings_20260923_nb_initial_filings.csv | ../input
+	ln -sf $< $@
+
+../input/dcp_housing_database_project_level_raw_%.parquet: \
+	../../stage_dcp_housing_database/output/dcp_housing_database_project_level_raw_%.parquet | ../input
 	ln -sf $< $@
 
 ../input/dob_now_new_building_initial_filings.parquet: \

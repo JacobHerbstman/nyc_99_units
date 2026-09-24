@@ -25,6 +25,10 @@ filings <- dob |> left_join(hdb, by = "job_number", relationship = "one-to-one")
   left_join(members, by = "job_number", relationship = "one-to-one")
 stopifnot(!anyNA(filings$parent_id), !anyNA(filings$vintage),
           nrow(filings) == nrow(dob), setequal(filings$job_number, dob$job_number))
+# Compare only filings whose parent is in the canonical panel; a captured filing
+# can join a parent anchored before the comparison window.
+cat(sum(!filings$parent_id %in% parents$parent_id), "captured filings belong to parents outside the panel\n")
+filings <- filings |> filter(parent_id %in% parents$parent_id)
 
 # Several reference releases can give the identical site comparison. Count
 # that comparison once; conflicting values must be resolved before this join.

@@ -1,22 +1,22 @@
-Rows: 17
+Rows: 16
 Columns: 16
 Key fields: job_number
-Saved-file MD5: 3a65949c98453815fafeccb46607f194
+Saved-file MD5: c1ecca8d45fedd7a20c69fde48f9419f
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-job_number | numeric | nonmissing | 17 | distinct | 17 min/median/mean/max 121207300/420666000/344013800/510115700
-premises | character | nonmissing | 17 | distinct | 17
-zoning_lots | character | nonmissing | 17 | distinct | 12
-zoning_area_sqft | numeric | nonmissing | 17 | distinct | 13 min/median/mean/max 10798/61399/85044.65/389978
-original_lots | character | nonmissing | 16 | distinct | 13
-tentative_lots | character | nonmissing | 17 | distinct | 14
-source_url | character | nonmissing | 17 | distinct | 17
-observed_date | Date | nonmissing | 17 | distinct | 1
-block_bbl | numeric | nonmissing | 17 | distinct | 13 min/median/mean/max 100346/400769/329069.2/500488
-vintage | character | nonmissing | 17 | distinct | 8
-parent_id | character | nonmissing | 17 | distinct | 13
-original_lot_count | numeric | nonmissing | 16 | distinct | 5 min/median/mean/max 1/3/2.875/5
-original_missing_lots | numeric | nonmissing | 16 | distinct | 3 min/median/mean/max 0/0/0.3125/3
-original_recorded_sqft | numeric | nonmissing | 14 | distinct | 11 min/median/mean/max 7520/46143/143582.1/590930
-zoning_key | character | nonmissing | 13 | distinct | 11
-parents_sharing_zoning_list | numeric | nonmissing | 13 | distinct | 1 min/median/mean/max 1/1/1/1
+job_number | numeric | nonmissing | 16 | distinct | 16 min/median/mean/max 121207300/420666100/345428000/510115700
+premises | character | nonmissing | 16 | distinct | 16
+zoning_lots | character | nonmissing | 16 | distinct | 11
+zoning_area_sqft | numeric | nonmissing | 16 | distinct | 12 min/median/mean/max 10798/64103.5/86709/389978
+original_lots | character | nonmissing | 15 | distinct | 12
+tentative_lots | character | nonmissing | 16 | distinct | 13
+source_url | character | nonmissing | 16 | distinct | 16
+observed_date | Date | nonmissing | 16 | distinct | 1
+block_bbl | numeric | nonmissing | 16 | distinct | 12 min/median/mean/max 100346/400769/330760.4/500488
+vintage | character | nonmissing | 16 | distinct | 8
+parent_id | character | nonmissing | 16 | distinct | 12
+original_lot_count | numeric | nonmissing | 15 | distinct | 5 min/median/mean/max 1/3/2.933333/5
+original_missing_lots | numeric | nonmissing | 15 | distinct | 3 min/median/mean/max 0/0/0.3333333/3
+original_recorded_sqft | numeric | nonmissing | 13 | distinct | 10 min/median/mean/max 7520/51879/152482.1/590930
+zoning_key | character | nonmissing | 12 | distinct | 10
+parents_sharing_zoning_list | numeric | nonmissing | 12 | distinct | 1 min/median/mean/max 1/1/1/1

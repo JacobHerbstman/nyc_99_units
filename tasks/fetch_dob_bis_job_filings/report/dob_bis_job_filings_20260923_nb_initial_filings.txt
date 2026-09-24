@@ -1,0 +1,34 @@
+Rows: 136595
+Columns: 30
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 3ea28e9df291ee5f4e6b3a20c82c8b2e
+job__ | numeric | nonmissing | 136595 | distinct | 83570 min/median/mean/max 102037300/401830400/375555600/540197800
+doc__ | character | nonmissing | 136595 | distinct | 1
+borough | character | nonmissing | 136595 | distinct | 5
+block | character | nonmissing | 136577 | distinct | 10179
+lot | character | nonmissing | 136577 | distinct | 1244
+bin__ | numeric | nonmissing | 136595 | distinct | 73349 min/median/mean/max 462522/4286409/3971518/5866470
+house__ | character | nonmissing | 136595 | distinct | 17035
+street_name | character | nonmissing | 136595 | distinct | 9363
+job_type | character | nonmissing | 136595 | distinct | 1
+job_status | character | nonmissing | 136595 | distinct | 13
+job_status_descrp | character | nonmissing | 136595 | distinct | 13
+pre__filing_date | character | nonmissing | 136595 | distinct | 5413
+latest_action_date | character | nonmissing | 136595 | distinct | 6744
+owner_type | character | nonmissing | 136475 | distinct | 14
+owner_s_business_name | character | nonmissing | 124077 | distinct | 23768
+owner_s_first_name | character | nonmissing | 136585 | distinct | 10304
+owner_s_last_name | character | nonmissing | 136593 | distinct | 16370
+applicant_s_first_name | character | nonmissing | 136577 | distinct | 2463
+applicant_s_last_name | character | nonmissing | 136595 | distinct | 4326
+applicant_license__ | character | nonmissing | 136581 | distinct | 3883
+applicant_professional_title | character | nonmissing | 136589 | distinct | 2
+gis_latitude | numeric | nonmissing | 135576 | distinct | 65306 min/median/mean/max 40.49889/40.67708/40.68153/40.91159
+gis_longitude | numeric | nonmissing | 135576 | distinct | 66558 min/median/mean/max -74.25497/-73.91558/-73.94363/-73.70074
+gis_nta_name | character | nonmissing | 135576 | distinct | 353
+community___board | character | nonmissing | 136228 | distinct | 70
+proposed_zoning_sqft | numeric | nonmissing | 136595 | distinct | 13096 min/median/mean/max 0/0/12601.52/6501958
+existing_zoning_sqft | numeric | nonmissing | 136595 | distinct | 1 min/median/mean/max 0/0/0/0
+total_construction_floor_area | numeric | nonmissing | 136595 | distinct | 18547 min/median/mean/max 0/3300/13776.97/7e+07
+withdrawal_flag | numeric | nonmissing | 136595 | distinct | 9 min/median/mean/max -2/0/0.03901314/7
+dobrundate | POSIXct/POSIXt | nonmissing | 136595 | distinct | 279

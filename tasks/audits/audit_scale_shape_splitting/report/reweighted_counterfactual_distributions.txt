@@ -1,12 +1,12 @@
 Rows: 3780
 Columns: 6
 Key fields: outcome, series, unit_bin_order
-Saved-file MD5: d70f1672c4c352d28a917fbbc4378b25
+Saved-file MD5: baf49f03b0dd0c5b6315a96fba87dcfb
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 outcome | character | nonmissing | 3780 | distinct | 5
 series | character | nonmissing | 3780 | distinct | 3
 unit_bin | character | nonmissing | 3780 | distinct | 252
 unit_bin_order | numeric | nonmissing | 3780 | distinct | 252 min/median/mean/max 50/175.5/175.5/301
-weighted_count | numeric | nonmissing | 3780 | distinct | 250 min/median/mean/max 0/0/0.9626289/90
-share | numeric | nonmissing | 3780 | distinct | 633 min/median/mean/max 0/0/0.003968254/0.4545455
+weighted_count | numeric | nonmissing | 3780 | distinct | 217 min/median/mean/max 0/0/0.931817/91
+share | numeric | nonmissing | 3780 | distinct | 493 min/median/mean/max 0/0/0.003968254/0.4166667

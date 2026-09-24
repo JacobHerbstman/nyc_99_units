@@ -1,14 +1,14 @@
-Rows: 292
+Rows: 289
 Columns: 8
 Key fields: period, unit_bin_order
-Saved-file MD5: 0802b80dc88446a95fa78185669091f0
+Saved-file MD5: 73226769248cf42552a4bd1b304a3cab
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-period | character | nonmissing | 292 | distinct | 2
-exposure_years | numeric | nonmissing | 292 | distinct | 2 min/median/mean/max 1.516769/4/2.996503/4
-unit_bin | character | nonmissing | 292 | distinct | 200
-unit_bin_order | numeric | nonmissing | 292 | distinct | 200 min/median/mean/max 50/135.5/147.726/301
-parent_count | numeric | nonmissing | 292 | distinct | 18 min/median/mean/max 1/2/3.195205/94
-opportunity_count | numeric | nonmissing | 292 | distinct | 2 min/median/mean/max 327/606/493.2534/606
-normalized_share | numeric | nonmissing | 292 | distinct | 27 min/median/mean/max 0.001650165/0.00330033/0.006849315/0.1551155
-annualized_count | numeric | nonmissing | 292 | distinct | 27 min/median/mean/max 0.25/0.659296/1.257157/25.05325
+period | character | nonmissing | 289 | distinct | 2
+exposure_years | numeric | nonmissing | 289 | distinct | 2 min/median/mean/max 1.516769/4/3.003271/4
+unit_bin | character | nonmissing | 289 | distinct | 198
+unit_bin_order | numeric | nonmissing | 289 | distinct | 198 min/median/mean/max 50/136/146.7889/301
+parent_count | numeric | nonmissing | 289 | distinct | 17 min/median/mean/max 1/2/3.176471/95
+opportunity_count | numeric | nonmissing | 289 | distinct | 2 min/median/mean/max 319/599/486.6125/599
+normalized_share | numeric | nonmissing | 289 | distinct | 27 min/median/mean/max 0.001669449/0.003338898/0.006920415/0.1585977
+annualized_count | numeric | nonmissing | 289 | distinct | 27 min/median/mean/max 0.25/0.659296/1.245901/24.39395

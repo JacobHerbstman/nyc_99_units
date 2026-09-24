@@ -1,10 +1,10 @@
-Rows: 11
+Rows: 12
 Columns: 4
 Key fields: series, n_components
-Saved-file MD5: e46d0f708f43b5ae999602f1357d18cb
+Saved-file MD5: 49e14540f34db55874df81d3ba3cbf3a
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-n_components | numeric | nonmissing | 11 | distinct | 7 min/median/mean/max 1/3/3.545455/8
-weighted_count | numeric | nonmissing | 11 | distinct | 11 min/median/mean/max 0.5155086/2.586069/56.36364/293.8315
-series | character | nonmissing | 11 | distinct | 2
-share | numeric | nonmissing | 11 | distinct | 11 min/median/mean/max 0.001662931/0.008342158/0.1818182/0.9478436
+n_components | numeric | nonmissing | 12 | distinct | 7 min/median/mean/max 1/3.5/3.75/8
+weighted_count | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 0.4914668/3.610852/50.66667/265.85
+series | character | nonmissing | 12 | distinct | 2
+share | numeric | nonmissing | 12 | distinct | 12 min/median/mean/max 0.001616667/0.0118778/0.1666667/0.8745066

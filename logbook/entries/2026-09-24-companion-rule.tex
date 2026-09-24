@@ -1,0 +1,191 @@
+\clearpage
+\section*{September 24, 2026: Same-owner companion filings join one parent}
+\textit{Agent-drafted research entry.}
+
+The production linker joined filings only through a shared lot, lot history,
+an explicit project reference or exact lot adjacency. A developer who files
+two buildings on separate lots across the street therefore appeared as two
+parents. Jacob asked for one symmetric rule instead of case-by-case research,
+tested it in \path{audit_companion_rules}, and asked that it enter parent
+construction for both periods.
+
+\paragraph{The rule.} Two filings are companions when the owner business name
+or the owner person named on their own applications matches, they are within
+150 metres or on the same tax block within 200 metres, and they were filed
+within 365 days. DOB NOW jobs take the owner from DOB NOW; older BIS jobs
+(historical filings through 2020) from a new dated capture of BIS New Building
+applications, \path{fetch_dob_bis_job_filings}. Placeholders such as
+\texttt{PR} or \texttt{NOT APPLICABLE}, public agencies, and people who sign as
+owner for an agency do not identify a developer. Coordinates are Housing
+Database coordinates with DOB fallback. The links are applied after the
+existing ones, under the same 365-day limit from a parent's first to last
+filing. Manually rejected pairs cannot be joined, directly or through a third
+filing.
+
+The 200-metre limit on same-block links came from one case. Beitel's 261--315
+Grand Concourse and 120 East 144th Street share a very large block and an
+owner, but public records describe them as separate projects.
+
+\paragraph{Validation.} The September 23 hand review covers 111 links. Of the
+40 random historical links under the rule, 34 are clear companions, five
+likely companions and one separate. Of the 31 recent links, 18 are clear, ten
+likely and three uncertain. Links at 150--250 metres are weaker (9 clear, 4
+likely, 6 uncertain, 1 separate), which is why the distance stops at 150.
+Every reviewed link within 60 metres is a companion. Links 60--150 metres apart
+filed months apart are the mixed group.
+
+\paragraph{What changed.} The rule adds 1,058 historical and 106 recent links
+that no existing rule found, and parent membership falls from 6,828 to 6,440
+historical and from 1,943 to 1,873 recent parents. Filings and units are
+unchanged. Among A/B rental parents with at least 50 units:
+
+\begin{center}
+\small
+\begin{tabular}{lrrrr}
+\hline
+& \multicolumn{2}{c}{Historical} & \multicolumn{2}{c}{Post-policy} \\
+& Before & After & Before & After \\
+\hline
+Parents & 606 & 599 & 327 & 319 \\
+Multi-building share & 8.4\% & 13.9\% & 19.3\% & 23.5\% \\
+Three or more buildings & 2.5\% & 3.5\% & 4.9\% & 6.3\% \\
+Exact-99 share & 0.5\% & 0.5\% & 11.6\% & 11.6\% \\
+Two 99-unit buildings (99+99) & 0 & 0 & 9 & 9 \\
+\hline
+\end{tabular}
+\end{center}
+
+Splitting is more common in both periods than the old links showed, by about
+five points historically and four after the policy. The reweighted
+comparison barely moves. The weighting sample is 588 historical and 304 recent
+parents (595 and 310 before), the effective sample size 519, the excess at 99
+11.3 points (11.4 before; bootstrap interval 7.6--15.2), the excess at 198 3.0
+points, and the 100--149 deficit 7.6 points (7.3 before; 3.1--11.6).
+
+Joining filings changes which filing anchors a parent. Five historical and
+four recent constituents joined an earlier filing's parent anchored before the
+comparison window (in 2018 and 2024) and so left the panels; one is 545
+Vanderbilt Avenue, 264 units. Two reviewed land decisions in
+\path{site_lot_decisions.csv} were keyed to parents that now include another
+filing, and were moved to the new parent with that filing's lot added: CAMBA's
+filings 210179965 and 210179974, and Grun's 1973 Crotona Avenue and 623 East
+178th Street.
+
+The remaining 13 historical and 2 recent rule matches are not applied because
+the joined parent would span more than 365 days. Re-forming the production
+parents under the rule in the audit changes none of them.
+
+\paragraph{Open question.} The rule cannot distinguish a developer's companion
+buildings from its separate nearby projects. The Grun link matters for the
+notch: 623 East 178th Street was a 99-unit parent and is now joined with 1973
+Crotona Avenue, 44 units and 126 metres away, filed 75 days earlier, so the
+recent 99-unit weighting-sample parents fall from 37 to 36. Public reporting
+describes 623 East 178th Street as a separate Grun project; the review now
+marks the link uncertain. Six historical links in the weighting sample rest on
+the owner person alone, with different LLCs. Two look like companions (1731
+and 1745 West Farms Road; 4829 and 4831 White Plains Road), one is uncertain
+(280 Meeker and 680 Lorimer Street), one appears separate (389 Weirfield and
+1504 Jefferson Street), and two were not researched. Whether the rule should
+narrow, for example by requiring the same architect for person-only links or a
+shorter window beyond 60 metres, is Jacob's decision.
+
+\textit{Reproduction note.} The links are built by
+\path{construct_owner_proximity_links.R} in \path{construct_parent_cohorts};
+root \texttt{make data}. Root \texttt{make companion-rules} scores the
+alternative rules and simulates their parents against the production panel.
+
+\subsection*{September 24 follow-up: the rule stays, with a stricter check}
+
+Jacob kept the rule as adopted and asked for a stricter version as a
+sensitivity check. The strict version drops the links supported only by a
+shared owner unless the filings are within 60 metres or filed within 30 days,
+where every reviewed link was a companion. It removes 285 historical and 24
+recent links and splits 9 historical and 6 recent weighting-sample parents,
+among them Grun's 1973 Crotona Avenue and 623 East 178th Street and the 280
+Meeker Avenue and 680 Lorimer Street pair. Each piece keeps its parent's site
+traits and classification, pieces below 50 units leave the sample, and the
+historical weights are recalibrated.
+
+\begin{center}
+\small
+\begin{tabular}{lrr}
+\hline
+& Adopted rule & Strict owner links \\
+\hline
+Historical / post parents & 588 / 304 & 593 / 303 \\
+Excess at 99 & 11.3 & 11.7 \\
+Excess at 198 & 3.0 & 3.0 \\
+Deficit 100--149 & 7.6 & 7.8 \\
+Post exact-99 parents & 36 & 37 \\
+Post 99+99 parents & 9 & 9 \\
+Historical multi-building share (weighted) & 10.7\% & 9.6\% \\
+Post multi-building share & 20.7\% & 18.8\% \\
+\hline
+\end{tabular}
+\end{center}
+
+The bunching comparison does not depend on the links in dispute: the excess at
+99 moves by 0.4 points, well inside its bootstrap interval, and the 99+99 count
+is unchanged. The multi-building shares fall by one to two points in both
+periods. The check does not recover the nine filings that production joined
+to parents anchored before the comparison window.
+
+\textit{Reproduction note.} \path{strict_rule_sensitivity.R} in
+\path{audit_companion_rules}; root \texttt{make companion-rules}. The adopted
+row reproduces the benchmark weights' effective sample size and moments.
+
+\subsection*{September 24: community district in the panel}
+
+The parent panel now carries \texttt{community\_district}, the MapPLUTO
+district of the parent's lots in the same release that supplies its land and
+zoning, so both periods are measured the same way. No weighting-sample parent
+lacks one; three in each period span two districts (\texttt{Mixed}). The
+sample covers 55 historical and 54 recent districts. Five districts have
+parents in only one period, the largest being Brooklyn 7 (Sunset Park), with
+seven historical parents and none after the policy, so a calibration on
+districts would need to pool small ones. Nothing else in the panels changed.
+
+\subsection*{September 24: weights match zoning and borough}
+
+Jacob decided that the historical weights should not match on lot area. A
+parent's land is part of the developer's choice, through assembly, so matching
+on it could remove part of the policy response. The benchmark now matches
+residential FAR and borough. Built FAR is also left out: it is existing floor
+divided by the parent's own lot area. Lot area returns as a robustness check,
+alone and in the earlier four-trait match. District was not added, because
+the post-policy mix of districts may itself respond to the policy.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrr}
+\hline
+Match & ESS & Excess at 99 & Deficit 100--149 & Hist.\ mean & Hist.\ multi \\
+\hline
+None & 588 & 11.3 & 8.1 & 176 & 12.2\% \\
+Zoning and borough (adopted) & 561 & 11.3 & 7.6 & 171 & 12.5\% \\
+Adding lot area & 520 & 11.3 & 7.6 & 146 & 10.7\% \\
+Previous (lot area, built FAR) & 519 & 11.3 & 7.6 & 146 & 10.7\% \\
+\hline
+\end{tabular}
+\end{center}
+
+The post-period mean is 140 units and its multi-building share 20.7 percent.
+Under the adopted weights the bootstrap intervals are 7.5--15.2 points for the
+excess at 99 and 3.4--11.5 for the 100--149 deficit; the stricter
+companion rule gives 11.7 and 7.8.
+
+The notch comparison is the same under every match. Lot area matters for
+size. Recent parents sit on smaller lots, so matching on lot area lowers the
+historical mean from 171 to 146 units. Without it, historical parents are about
+30 units larger than recent ones; with it, about 7. How much of that gap is a
+response to the policy (developers assembling less land) rather than a change
+in available sites is the question the land choice leaves open. It matters for
+any estimate of housing forgone, not for the bunching at 99. Under the adopted
+weights the land-measurement scenarios change nothing except through the
+parents they drop; they now bear only on the lot-area checks.
+
+\textit{Reproduction note.} The formulas are in
+\path{tasks/shared/code/scale_shape_helpers.R}; root \texttt{make reweighting}
+for the benchmark and \texttt{make land-sensitivity} for the robustness
+matches (column \texttt{match}). The exploratory pure-notch pilot has not been
+rerun.

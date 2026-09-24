@@ -1,16 +1,16 @@
-Rows: 1714
+Rows: 1791
 Columns: 10
 Key fields: parent_id, vintage, bbl
-Saved-file MD5: daf00277101b1f4b1556e0809233af21
+Saved-file MD5: 2882d519215611631f2ef944ee658d82
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-parent_id | character | nonmissing | 1714 | distinct | 886
-vintage | character | nonmissing | 1714 | distinct | 17
-bbl | character | nonmissing | 1714 | distinct | 1667
-old_geometry_sqft | numeric | nonmissing | 1714 | distinct | 1700 min/median/mean/max 23.21656/5447.346/16837.18/1235772
-old_recorded_sqft | numeric | nonmissing | 1714 | distinct | 1120 min/median/mean/max 21/5200/17440.32/1227637
-overlap_sqft | numeric | nonmissing | 1714 | distinct | 1703 min/median/mean/max 12.79339/5248.251/12544.62/641256.4
-later_geometry_sqft | numeric | nonmissing | 1714 | distinct | 868 min/median/mean/max 1602.326/15983.21/29530.77/641256.5
-old_share | numeric | nonmissing | 1714 | distinct | 1692 min/median/mean/max 0.0001058536/0.9999987/0.9524081/1
-site_share | numeric | nonmissing | 1714 | distinct | 1703 min/median/mean/max 0.0001092838/0.4321193/0.5214444/1
-material | logical | nonmissing | 1714 | distinct | 2
+parent_id | character | nonmissing | 1791 | distinct | 875
+vintage | character | nonmissing | 1791 | distinct | 17
+bbl | character | nonmissing | 1791 | distinct | 1710
+old_geometry_sqft | numeric | nonmissing | 1791 | distinct | 1760 min/median/mean/max 23.21656/5317.557/16562.34/1235772
+old_recorded_sqft | numeric | nonmissing | 1791 | distinct | 1135 min/median/mean/max 21/5082/17145.6/1227637
+overlap_sqft | numeric | nonmissing | 1791 | distinct | 1762 min/median/mean/max 12.79339/5102.215/12459.94/641256.4
+later_geometry_sqft | numeric | nonmissing | 1791 | distinct | 857 min/median/mean/max 1602.326/16401.12/30594.61/641256.5
+old_share | numeric | nonmissing | 1791 | distinct | 1751 min/median/mean/max 0.0001058536/0.9999987/0.9508151/1
+site_share | numeric | nonmissing | 1791 | distinct | 1762 min/median/mean/max 0.0001092838/0.389114/0.5005906/1
+material | logical | nonmissing | 1791 | distinct | 2

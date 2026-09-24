@@ -6,6 +6,7 @@ TASKS := analyze_borough_bunching build_estimation_panels build_hdb_mappluto_sit
 	build_parent_site_characteristics classify_parent_485x_exposure construct_historical_parent_links \
 	construct_parent_cohorts fetch_dcp_housing_database fetch_dob_now_new_building_filings \
 	fetch_hpd_485x_registrations fetch_mappluto_archive fetch_nyc_borough_boundaries fetch_dof_tax_map_history \
+	fetch_dob_bis_job_filings \
 	link_hpd_485x_registrations parent_opportunities_manual plot_bunching stage_dcp_housing_database \
 	stage_dob_now_new_building_filings stage_mappluto_lots
 
@@ -30,6 +31,9 @@ land-sensitivity: site-boundaries reweighting
 parent-links: data
 	$(MAKE) -C tasks/audits/parent_review_documents/code
 	$(MAKE) -C tasks/audits/audit_estimation_parent_links/code
+
+companion-rules: data fetch_dob_bis_job_filings fetch_dof_tax_map_history
+	$(MAKE) -C tasks/audits/audit_companion_rules/code
 
 pure-notch-pilot: reweighting
 	$(MAKE) -C tasks/audits/fit_pure_notch_pilot/code
@@ -58,7 +62,7 @@ construct_historical_parent_links: build_hdb_mappluto_site_panel fetch_mappluto_
 	$(MAKE) -C tasks/construct_historical_parent_links/code
 
 construct_parent_cohorts: build_hdb_mappluto_site_panel construct_historical_parent_links fetch_mappluto_archive \
-	parent_opportunities_manual stage_dob_now_new_building_filings stage_dcp_housing_database
+	parent_opportunities_manual stage_dob_now_new_building_filings stage_dcp_housing_database fetch_dob_bis_job_filings
 	$(MAKE) -C tasks/construct_parent_cohorts/code
 
 fetch_dcp_housing_database:
@@ -66,6 +70,9 @@ fetch_dcp_housing_database:
 
 fetch_dof_tax_map_history:
 	$(MAKE) -C tasks/fetch_dof_tax_map_history/code
+
+fetch_dob_bis_job_filings:
+	$(MAKE) -C tasks/fetch_dob_bis_job_filings/code
 
 fetch_dob_now_new_building_filings:
 	$(MAKE) -C tasks/fetch_dob_now_new_building_filings/code
@@ -119,4 +126,4 @@ task_graph.svg: tasks/shared/code/draw_task_graph.py Makefile \
 	python3 tasks/shared/code/draw_task_graph.py
 
 .PHONY: all data plots maps reweighting holdout-checks site-boundaries land-sensitivity parent-links \
-	pure-notch-pilot paper logbook framework-writeup setup-environment $(TASKS)
+	companion-rules pure-notch-pilot paper logbook framework-writeup setup-environment $(TASKS)

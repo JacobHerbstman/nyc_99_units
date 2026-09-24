@@ -25,8 +25,8 @@ stopifnot(!anyNA(historical$weight), nrow(parents) == nrow(analysis),
 current <- calibrate_historical_to_target(historical, post)
 current_weight <- current$historical$calibration_weight
 stopifnot(max(abs(current_weight / sum(current_weight) - historical$weight)) < 1e-10)
-calibration_formula <- ~ log_lot_area_z + residential_far_z + built_far_z + borough + multi_lot_indicator
-multilot <- calibrate_historical_to_target(historical, post)
+multilot <- calibrate_historical_to_target(historical, post,
+  update(calibration_formula, ~ . + multi_lot_indicator))
 multilot_weight <- multilot$historical$calibration_weight
 w <- multilot_weight / sum(multilot_weight)
 weight_comparison <- historical |>
