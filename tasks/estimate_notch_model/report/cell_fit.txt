@@ -1,13 +1,13 @@
-Rows: 384
+Rows: 423
 Columns: 7
 Key fields: specification, cell
-Saved-file MD5: 2827d01ec0584122727ce8ca5ebcc57b
+Saved-file MD5: 77c28037b92fbbe729c2d17e643119d6
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-specification | character | nonmissing | 384 | distinct | 9
-cell | numeric | nonmissing | 384 | distinct | 45 min/median/mean/max 1/23/22.61719/45
-buildings | character | nonmissing | 384 | distinct | 3
-size_bin | character | nonmissing | 384 | distinct | 15
-observed | numeric | nonmissing | 384 | distinct | 35 min/median/mean/max 0/0.003597122/0.0234375/0.497006
-benchmark | numeric | nonmissing | 384 | distinct | 105 min/median/mean/max 0/0.002185458/0.0234375/0.5138823
-fitted | numeric | nonmissing | 384 | distinct | 245 min/median/mean/max 0/0.004146495/0.0234375/0.5039312
+specification | character | nonmissing | 423 | distinct | 10
+cell | numeric | nonmissing | 423 | distinct | 45 min/median/mean/max 1/23/22.56028/45
+buildings | character | nonmissing | 423 | distinct | 3
+size_bin | character | nonmissing | 423 | distinct | 15
+observed | numeric | nonmissing | 423 | distinct | 46 min/median/mean/max 0/0.003597122/0.02364066/0.5150376
+benchmark | numeric | nonmissing | 423 | distinct | 128 min/median/mean/max 0/0.002185458/0.02364066/0.5138823
+fitted | numeric | nonmissing | 423 | distinct | 270 min/median/mean/max 0/0.00407718/0.02364066/0.5039312

@@ -22,19 +22,20 @@ sigma_grid <- exp(seq(log(0.001), log(10), length.out = 41))
 # jump and kink at 100 and lambda = 1. It compares parents of at most 300
 # units: the size distribution within that range on both sides, so the number
 # of very large projects in each period does not enter. Each other
-# specification changes one element; all_sizes_linear_cost is the September 24
-# first fit.
+# specification changes one element; below_250 moves the cutoff, and
+# all_sizes_linear_cost is the September 24 first fit.
 specifications <- tribble(
-  ~specification,           ~sizes,       ~variant,      ~weight,                 ~lambda, ~kink, ~gamma_free, ~assessment,
-  "main",                   "up_to_300",  "all_filings", "weight_zoning_borough", 1,       TRUE,  TRUE,        "separate",
-  "linear_splitting_cost",  "up_to_300",  "all_filings", "weight_zoning_borough", 1,       TRUE,  FALSE,       "separate",
-  "all_sizes",              "all",        "all_filings", "weight_zoning_borough", 1,       TRUE,  TRUE,        "separate",
-  "all_sizes_linear_cost",  "all",        "all_filings", "weight_zoning_borough", 1,       TRUE,  FALSE,       "separate",
-  "lot_area_weights",       "up_to_300",  "all_filings", "weight_with_lot_area",  1,       TRUE,  TRUE,        "separate",
-  "common_180_day_horizon", "up_to_300",  "horizon_180", "weight_zoning_borough", 1,       TRUE,  TRUE,        "separate",
-  "curvature_0.5",          "up_to_300",  "all_filings", "weight_zoning_borough", 0.5,     TRUE,  TRUE,        "separate",
-  "curvature_2",            "up_to_300",  "all_filings", "weight_zoning_borough", 2,       TRUE,  TRUE,        "separate",
-  "joint_assessment",       "up_to_300",  "all_filings", "weight_zoning_borough", 1,       TRUE,  FALSE,       "joint"
+  ~specification,           ~maximum_units, ~variant,      ~weight,                 ~lambda, ~kink, ~gamma_free, ~assessment,
+  "main",                   300,            "all_filings", "weight_zoning_borough", 1,       TRUE,  TRUE,        "separate",
+  "below_250",              249,            "all_filings", "weight_zoning_borough", 1,       TRUE,  TRUE,        "separate",
+  "linear_splitting_cost",  300,            "all_filings", "weight_zoning_borough", 1,       TRUE,  FALSE,       "separate",
+  "all_sizes",              Inf,            "all_filings", "weight_zoning_borough", 1,       TRUE,  TRUE,        "separate",
+  "all_sizes_linear_cost",  Inf,            "all_filings", "weight_zoning_borough", 1,       TRUE,  FALSE,       "separate",
+  "lot_area_weights",       300,            "all_filings", "weight_with_lot_area",  1,       TRUE,  TRUE,        "separate",
+  "common_180_day_horizon", 300,            "horizon_180", "weight_zoning_borough", 1,       TRUE,  TRUE,        "separate",
+  "curvature_0.5",          300,            "all_filings", "weight_zoning_borough", 0.5,     TRUE,  TRUE,        "separate",
+  "curvature_2",            300,            "all_filings", "weight_zoning_borough", 2,       TRUE,  TRUE,        "separate",
+  "joint_assessment",       300,            "all_filings", "weight_zoning_borough", 1,       TRUE,  FALSE,       "joint"
 )
 main_specification <- "main"
 
@@ -56,8 +57,8 @@ fit_specification <- function(spec) {
   data <- parents |> filter(variant == spec$variant)
   historical <- data |> filter(sample == "historical")
   post <- data |> filter(sample == "post_policy")
-  cells <- if (spec$sizes == "up_to_300") up_to_300_cells else 1:45
-  maximum_units <- if (spec$sizes == "up_to_300") 300 else Inf
+  maximum_units <- spec$maximum_units
+  cells <- cells_up_to(maximum_units)
   x <- historical$units
   J0 <- historical$buildings
   w <- historical[[spec$weight]]
@@ -65,6 +66,7 @@ fit_specification <- function(spec) {
   post_parents <- nrow(post)
   post_mass <- matrix(1 / post_parents, post_parents, 1)
   observed <- cell_shares(outcome_cell(post$units, post$buildings), post_mass)[cells, 1]
+  stopifnot(abs(sum(observed) - 1) < 1e-12)
 
   # Units lost are counted among historical parents whose own size is in the
   # compared range, scaled to the recent parents there.
@@ -136,7 +138,7 @@ estimates <- best |>
     direct_unit_gap = sapply(fits[specification], `[[`, "direct_unit_gap"),
     historical_parents = sapply(fits[specification], `[[`, "historical_parents"),
     post_parents = sapply(fits[specification], `[[`, "post_parents")) |>
-  select(specification, sizes, variant, weight, lambda, assessment, kappa, tau, compression,
+  select(specification, maximum_units, variant, weight, lambda, assessment, kappa, tau, compression,
     gamma, sigma, objective, near_optimal_points, kappa_range, tau_range, gamma_range, sigma_range,
     units_lost_model, units_lost_fixed_buildings, units_preserved_by_splitting,
     direct_unit_gap, historical_parents, post_parents) |>

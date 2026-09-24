@@ -133,7 +133,8 @@ size_bins <- c(-Inf, 49, 89, 94, 98, 99, 104, 119, 149, 179, 197, 198, 199, 249,
 size_bin_labels <- c("under 50", "50-89", "90-94", "95-98", "99", "100-104", "105-119",
   "120-149", "150-179", "180-197", "198", "199", "200-249", "250-300", "301+")
 
-up_to_300_cells <- which(rep(size_bin_labels, 3) != "301+")
+# Cells whose whole size bin lies at or below a maximum total.
+cells_up_to <- function(maximum_units) which(rep(size_bins[-1], 3) <= maximum_units)
 
 outcome_cell <- function(m, J) {
   cut(m, size_bins, labels = FALSE) + 15L * (pmin(J, 3L) - 1L)

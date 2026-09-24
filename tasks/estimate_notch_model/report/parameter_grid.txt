@@ -1,19 +1,19 @@
-Rows: 588555
+Rows: 680108
 Columns: 13
 Key fields: specification, kappa, tau, gamma, sigma
-Saved-file MD5: f8c4e80967292544078560e1269e6535
+Saved-file MD5: 4c7fc647acbb49ddcf012e348cae0ef9
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-specification | character | nonmissing | 588555 | distinct | 9
-kappa | numeric | nonmissing | 588555 | distinct | 29 min/median/mean/max 0/0.14/0.2175/1
-tau | numeric | nonmissing | 588555 | distinct | 11 min/median/mean/max 0/0.2/0.3290909/1
-gamma | numeric | nonmissing | 588555 | distinct | 7 min/median/mean/max 1/1.75/1.8/3
-sigma | numeric | nonmissing | 588555 | distinct | 41 min/median/mean/max 0.001/0.1/1.185788/10
-objective | numeric | nonmissing | 588555 | distinct | 455094 min/median/mean/max 0.001758722/0.01986951/0.02158415/0.1737385
-units_lost_model | numeric | nonmissing | 588555 | distinct | 418285 min/median/mean/max 0/613.5079/1517.852/15435.26
-units_lost_fixed_buildings | numeric | nonmissing | 588555 | distinct | 2034 min/median/mean/max 0/3587.92/4223.897/17199.48
-share_99 | numeric | nonmissing | 588555 | distinct | 397671 min/median/mean/max 0.005492662/0.08218905/0.1083556/0.4250709
-share_99_plus_99 | numeric | nonmissing | 588555 | distinct | 426412 min/median/mean/max 0/0.02094717/0.02853225/0.1483831
-share_two_buildings | numeric | nonmissing | 588555 | distinct | 452797 min/median/mean/max 0.0684493/0.2715898/0.2377201/0.3764399
-share_three_plus_buildings | numeric | nonmissing | 588555 | distinct | 455602 min/median/mean/max 0.01617436/0.09532029/0.09311245/0.2565131
-mean_units | numeric | nonmissing | 588555 | distinct | 458610 min/median/mean/max 86.98798/110.837/118.0717/170.932
+specification | character | nonmissing | 680108 | distinct | 10
+kappa | numeric | nonmissing | 680108 | distinct | 29 min/median/mean/max 0/0.14/0.2175/1
+tau | numeric | nonmissing | 680108 | distinct | 11 min/median/mean/max 0/0.2/0.3290909/1
+gamma | numeric | nonmissing | 680108 | distinct | 7 min/median/mean/max 1/1.75/1.807692/3
+sigma | numeric | nonmissing | 680108 | distinct | 41 min/median/mean/max 0.001/0.1/1.185788/10
+objective | numeric | nonmissing | 680108 | distinct | 528163 min/median/mean/max 0.001758722/0.01969917/0.02134748/0.1737385
+units_lost_model | numeric | nonmissing | 680108 | distinct | 482537 min/median/mean/max 0/608.9565/1468.54/15435.26
+units_lost_fixed_buildings | numeric | nonmissing | 680108 | distinct | 2324 min/median/mean/max 0/3540.114/4093.799/17199.48
+share_99 | numeric | nonmissing | 680108 | distinct | 467222 min/median/mean/max 0.005492662/0.0829467/0.1089114/0.4250709
+share_99_plus_99 | numeric | nonmissing | 680108 | distinct | 497023 min/median/mean/max 0/0.02145899/0.02906369/0.1483831
+share_two_buildings | numeric | nonmissing | 680108 | distinct | 526081 min/median/mean/max 0.0684493/0.2743144/0.2402473/0.3810934
+share_three_plus_buildings | numeric | nonmissing | 680108 | distinct | 528576 min/median/mean/max 0.01617436/0.08315232/0.08686346/0.2565131
+mean_units | numeric | nonmissing | 680108 | distinct | 531732 min/median/mean/max 86.98798/110.19/115.8062/170.932
