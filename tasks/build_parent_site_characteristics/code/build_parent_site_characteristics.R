@@ -60,6 +60,8 @@ add_site_categories <- function(rows) {
         str_detect(zonedist1_clean, "^M") ~ "M_non_slash",
         TRUE ~ "Other"
       ),
+      # MapPLUTO codes a lot outside any community district as 0.
+      community_district = na_if(as.character(as.integer(cd)), "0"),
       landuse_code = str_pad(as.character(landuse), 2L, pad = "0"),
       prior_site_use = case_when(
         !is.na(unitsres) & unitsres > 0 ~ "existing_residential_units",
@@ -86,7 +88,8 @@ hdb_panel <- hdb_panel |>
   mutate(
     feature_bbl = normalize_bbl_field(pluto_feature_bbl),
     hdb_bin = na_if(str_squish(as.character(bin)), ""),
-    borough = hdb_borough_name
+    borough = hdb_borough_name,
+    cd = pluto_cd
   ) |>
   add_site_categories()
 
@@ -102,7 +105,7 @@ if (sample_name == "historical") {
         select(
           job_number, feature_bbl, hdb_bin, lotarea,
           residfar, broad_zoning_far,
-          builtfar, borough, zone_detail, prior_site_use,
+          builtfar, borough, community_district, zone_detail, prior_site_use,
           reference_source_id = pluto_source_id_used,
           reference_version = pluto_version_used,
           reference_date = pluto_safe_available_date_used
@@ -130,7 +133,7 @@ if (sample_name == "historical") {
     add_site_categories() |>
     select(
       feature_bbl = bbl, lotarea, residfar, broad_zoning_far, builtfar,
-      borough, zone_detail, prior_site_use
+      borough, community_district, zone_detail, prior_site_use
     )
   stopifnot(!anyDuplicated(fixed_post_lots$feature_bbl))
 
@@ -283,7 +286,7 @@ merged_attributes <- bind_rows(lapply(unique(merged_lots$reference_version), fun
     `4` = "Queens", `5` = "Staten Island")) |>
   add_site_categories() |>
   select(reference_version, merged_bbl = bbl, lotarea, residfar, broad_zoning_far,
-    builtfar, borough, zone_detail, prior_site_use)
+    builtfar, borough, community_district, zone_detail, prior_site_use)
 
 # A merged lot missing from the reference release adds no land.
 merged_lots <- merged_lots |>
@@ -291,7 +294,8 @@ merged_lots <- merged_lots |>
     relationship = "many-to-one") |>
   filter(lotarea > 0) |>
   transmute(sample, parent_id, feature_bbl = merged_bbl, lotarea, residfar,
-    broad_zoning_far, builtfar, borough, zone_detail, prior_site_use, feature_lots = 1L)
+    broad_zoning_far, builtfar, borough, community_district, zone_detail, prior_site_use,
+    feature_lots = 1L)
 stopifnot(!anyDuplicated(merged_lots[c("parent_id", "feature_bbl")]))
 
 site_lots <- bind_rows(site_lots, merged_lots)
@@ -355,7 +359,7 @@ if (nrow(site_decisions) > 0L) {
       `4` = "Queens", `5` = "Staten Island")) |>
     add_site_categories() |>
     select(reference_vintage, reference_bbl = bbl, lotarea, bldgarea,
-      residfar, broad_zoning_far, borough, zone_detail, prior_site_use)
+      residfar, broad_zoning_far, borough, community_district, zone_detail, prior_site_use)
   reference_sets <- reference_sets |>
     left_join(reference_lots, by = c("reference_vintage", "reference_bbl"),
       relationship = "many-to-one")
@@ -369,6 +373,7 @@ if (nrow(site_decisions) > 0L) {
       residential_fars = n_distinct(residfar), broad_fars = n_distinct(broad_zoning_far),
       residfar = first(residfar), broad_zoning_far = first(broad_zoning_far),
       borough = collapse_category(borough, "Mixed"),
+      community_district = collapse_category(community_district, "Mixed"),
       zone_detail = collapse_category(zone_detail, "Mixed"),
       prior_site_use = collapse_category(prior_site_use, "mixed_prior_use"), .groups = "drop")
   stopifnot(all(reference_sets$residential_fars == 1L), all(reference_sets$broad_fars == 1L))
@@ -384,7 +389,8 @@ if (nrow(site_decisions) > 0L) {
     transmute(sample, parent_id, feature_bbl = reference_bbls, feature_lots,
       lotarea = development_area_sqft, residfar, broad_zoning_far,
       builtfar = (bldgarea - excluded_building_area_sqft) / development_area_sqft,
-      borough, zone_detail, prior_site_use = coalesce(prior_site_use_reviewed, prior_site_use))
+      borough, community_district, zone_detail,
+      prior_site_use = coalesce(prior_site_use_reviewed, prior_site_use))
   site_lots <- bind_rows(
     site_lots |> anti_join(reviewed_parents, by = "parent_id"), reviewed_lots)
   parent_outcomes <- parent_outcomes |>
@@ -405,6 +411,7 @@ parent_features <- site_lots |>
               sum(lotarea * .x, na.rm = TRUE) / observed_area, NA_real_)
     }),
     borough = collapse_category(borough, "Mixed"),
+    community_district = collapse_category(community_district, "Mixed"),
     zone_detail = collapse_category(zone_detail, "Mixed"),
     prior_site_use = collapse_category(
       prior_site_use,
@@ -455,7 +462,7 @@ panel <- parent_outcomes |>
     composition_eligible, lotarea, log_lotarea,
     residfar, broad_zoning_far, builtfar, built_floor_area_estimated,
     merged_lots_added, merger_window_complete, implausible_site,
-    borough, zone_detail, prior_site_use
+    borough, community_district, zone_detail, prior_site_use
   ) |>
   arrange(cohort_date, parent_id)
 

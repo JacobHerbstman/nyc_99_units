@@ -54,6 +54,10 @@ assessment needs its own evidence.
 - `merged_lots_added`, `merger_window_complete` and `implausible_site` come from
   the 180-day merger rule and site check in `build_parent_site_characteristics`.
   They are for sensitivity analysis and exclude no parent.
+- `community_district` is the MapPLUTO community district (for example `303`,
+  Brooklyn 3) of the parent's lots in the same release that supplies its land
+  and zoning; `Mixed` when the lots span districts and `missing` when no lot
+  has one. Marble Hill is in Manhattan but Bronx Community District 8 (`208`).
 - `built_floor_area_estimated` marks parents whose earlier building floor uses
   an approved estimate. It is for sensitivity analysis and does not exclude the
   parent.

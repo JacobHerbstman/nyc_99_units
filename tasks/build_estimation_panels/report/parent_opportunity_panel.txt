@@ -1,7 +1,7 @@
 Rows: 2929
-Columns: 80
+Columns: 81
 Key fields: sample, parent_id
-Saved-file MD5: 755ad9b3031ae9dd684bdf2801f3c151
+Saved-file MD5: 7b3411a3a76dafbb181233ac48a346d7
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 2929 | distinct | 2
@@ -82,5 +82,6 @@ redevelopment_slack_sqft | numeric | nonmissing | 2912 | distinct | 2384 min/med
 zero_residential_capacity | integer | nonmissing | 2912 | distinct | 2 min/median/mean/max 0/0/0.03743132/1
 zero_redevelopment_slack | integer | nonmissing | 2912 | distinct | 2 min/median/mean/max 0/0/0.05254121/1
 borough | character | nonmissing | 2913 | distinct | 5
+community_district | character | nonmissing | 2913 | distinct | 60
 zoning_category | character | nonmissing | 2913 | distinct | 9
 prior_site_use | character | nonmissing | 2913 | distinct | 9

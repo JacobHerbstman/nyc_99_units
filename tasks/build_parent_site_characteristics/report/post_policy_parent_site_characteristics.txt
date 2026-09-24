@@ -1,7 +1,7 @@
 Rows: 1873
-Columns: 38
+Columns: 39
 Key fields: parent_id
-Saved-file MD5: a8540b0991a428154e5c1049dace93db
+Saved-file MD5: 86ed385de6ee0df705c3ee563dcf0f8e
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 1873 | distinct | 1
@@ -40,5 +40,6 @@ merged_lots_added | integer | nonmissing | 1873 | distinct | 6 min/median/mean/m
 merger_window_complete | logical | nonmissing | 1873 | distinct | 2
 implausible_site | logical | nonmissing | 1870 | distinct | 2
 borough | character | nonmissing | 1850 | distinct | 5
+community_district | character | nonmissing | 1850 | distinct | 61
 zone_detail | character | nonmissing | 1850 | distinct | 9
 prior_site_use | character | nonmissing | 1850 | distinct | 9
