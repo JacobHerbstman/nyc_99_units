@@ -1,29 +1,29 @@
-Rows: 1397
+Rows: 1350
 Columns: 23
 Key fields: sample, parent_id, neighbor_job
-Saved-file MD5: bad2b2ac6c9046234b8ab57ca1cb2308
+Saved-file MD5: 2b3b65404e151337d8b0182f742767ae
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 1397 | distinct | 2
-source_vintage | character | nonmissing | 1397 | distinct | 2
-neighbor_parent | character | nonmissing | 1212 | distinct | 753
-parent_id | character | nonmissing | 1397 | distinct | 573
-anchor_job | character | nonmissing | 1397 | distinct | 596
-anchor_address | character | nonmissing | 1397 | distinct | 593
-anchor_date | Date | nonmissing | 1397 | distinct | 439
-anchor_owner | character | nonmissing | 1397 | distinct | 523
-neighbor_job | character | nonmissing | 1397 | distinct | 984
-neighbor_address | character | nonmissing | 1397 | distinct | 959
-neighbor_date | Date | nonmissing | 1397 | distinct | 669
-neighbor_units | numeric | nonmissing | 1397 | distinct | 242 min/median/mean/max 1/48/85.90623/1313
-neighbor_owner | character | nonmissing | 1275 | distinct | 723
-neighbor_applicant | character | nonmissing | 450 | distinct | 101
-neighbor_description | character | nonmissing | 1114 | distinct | 689
-neighbor_role | character | nonmissing | 1212 | distinct | 4
-distance_metres | numeric | nonmissing | 1397 | distinct | 820 min/median/mean/max 1.9/127.5/122.5828/200
-days_apart | numeric | nonmissing | 1397 | distinct | 336 min/median/mean/max 0/123/149.1117/365
-same_lot | logical | nonmissing | 1397 | distinct | 2
-same_owner | logical | nonmissing | 1397 | distinct | 2
-review_decision | character | nonmissing | 1397 | distinct | 5
-review_note | character | nonmissing | 120 | distinct | 11
-review_scope | character | nonmissing | 1397 | distinct | 2
+sample | character | nonmissing | 1350 | distinct | 2
+source_vintage | character | nonmissing | 1350 | distinct | 2
+neighbor_parent | character | nonmissing | 1152 | distinct | 723
+parent_id | character | nonmissing | 1350 | distinct | 552
+anchor_job | character | nonmissing | 1350 | distinct | 603
+anchor_address | character | nonmissing | 1350 | distinct | 601
+anchor_date | Date | nonmissing | 1350 | distinct | 439
+anchor_owner | character | nonmissing | 1350 | distinct | 531
+neighbor_job | character | nonmissing | 1350 | distinct | 997
+neighbor_address | character | nonmissing | 1350 | distinct | 970
+neighbor_date | Date | nonmissing | 1350 | distinct | 669
+neighbor_units | numeric | nonmissing | 1350 | distinct | 235 min/median/mean/max 1/44/81.68296/1313
+neighbor_owner | character | nonmissing | 1214 | distinct | 717
+neighbor_applicant | character | nonmissing | 417 | distinct | 99
+neighbor_description | character | nonmissing | 1064 | distinct | 685
+neighbor_role | character | nonmissing | 1152 | distinct | 4
+distance_metres | numeric | nonmissing | 1350 | distinct | 809 min/median/mean/max 0/127.55/122.503/200
+days_apart | numeric | nonmissing | 1350 | distinct | 335 min/median/mean/max 0/138/154.8963/365
+same_lot | logical | nonmissing | 1350 | distinct | 2
+same_owner | logical | nonmissing | 1350 | distinct | 2
+review_decision | character | nonmissing | 1350 | distinct | 3
+review_note | character | nonmissing | 115 | distinct | 8
+review_scope | character | nonmissing | 1350 | distinct | 2

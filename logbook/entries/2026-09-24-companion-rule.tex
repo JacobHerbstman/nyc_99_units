@@ -1,0 +1,95 @@
+\clearpage
+\section*{September 24, 2026: Same-owner companion filings join one parent}
+\textit{Agent-drafted research entry.}
+
+The production linker joined filings only through a shared lot, lot history,
+an explicit project reference or exact lot adjacency. A developer who files
+two buildings on separate lots across the street therefore appeared as two
+parents. Jacob asked for one symmetric rule instead of case-by-case research,
+tested it in \path{audit_companion_rules}, and asked that it enter parent
+construction for both periods.
+
+\paragraph{The rule.} Two filings are companions when the owner business name
+or the owner person named on their own applications matches, they are within
+150 metres or on the same tax block within 200 metres, and they were filed
+within 365 days. DOB NOW jobs take the owner from DOB NOW; older BIS jobs
+(historical filings through 2020) from a new dated capture of BIS New Building
+applications, \path{fetch_dob_bis_job_filings}. Placeholders such as
+\texttt{PR} or \texttt{NOT APPLICABLE}, public agencies, and people who sign as
+owner for an agency do not identify a developer. Coordinates are Housing
+Database coordinates with DOB fallback. The links are applied after the
+existing ones, under the same 365-day limit from a parent's first to last
+filing. Manually rejected pairs cannot be joined, directly or through a third
+filing.
+
+The 200-metre limit on same-block links came from one case. Beitel's 261--315
+Grand Concourse and 120 East 144th Street share a very large block and an
+owner, but public records describe them as separate projects.
+
+\paragraph{Validation.} The September 23 hand review covers 111 links. Of the
+40 random historical links under the rule, 34 are clear companions, five
+likely companions and one separate. Of the 31 recent links, 18 are clear, ten
+likely and three uncertain. Links at 150--250 metres are weaker (9 clear, 4
+likely, 6 uncertain, 1 separate), which is why the distance stops at 150.
+Every reviewed link within 60 metres is a companion. Links 60--150 metres apart
+filed months apart are the mixed group.
+
+\paragraph{What changed.} The rule adds 1,058 historical and 106 recent links
+that no existing rule found, and parent membership falls from 6,828 to 6,440
+historical and from 1,943 to 1,873 recent parents. Filings and units are
+unchanged. Among A/B rental parents with at least 50 units:
+
+\begin{center}
+\small
+\begin{tabular}{lrrrr}
+\hline
+& \multicolumn{2}{c}{Historical} & \multicolumn{2}{c}{Post-policy} \\
+& Before & After & Before & After \\
+\hline
+Parents & 606 & 599 & 327 & 319 \\
+Multi-building share & 8.4\% & 13.9\% & 19.3\% & 23.5\% \\
+Three or more buildings & 2.5\% & 3.5\% & 4.9\% & 6.3\% \\
+Exact-99 share & 0.5\% & 0.5\% & 11.6\% & 11.6\% \\
+Two 99-unit buildings (99+99) & 0 & 0 & 9 & 9 \\
+\hline
+\end{tabular}
+\end{center}
+
+Splitting is more common in both periods than the old links showed, by about
+five points historically and four after the policy. The reweighted
+comparison barely moves. The weighting sample is 588 historical and 304 recent
+parents (595 and 310 before), the effective sample size 519, the excess at 99
+11.3 points (11.4 before; bootstrap interval 7.6--15.2), the excess at 198 3.0
+points, and the 100--149 deficit 7.6 points (7.3 before; 3.1--11.6).
+
+Joining filings changes which filing anchors a parent. Five historical and
+four recent constituents joined an earlier filing's parent anchored before the
+comparison window (in 2018 and 2024) and so left the panels; one is 545
+Vanderbilt Avenue, 264 units. Two reviewed land decisions in
+\path{site_lot_decisions.csv} were keyed to parents that now include another
+filing, and were moved to the new parent with that filing's lot added: CAMBA's
+filings 210179965 and 210179974, and Grun's 1973 Crotona Avenue and 623 East
+178th Street.
+
+The remaining 13 historical and 2 recent rule matches are not applied because
+the joined parent would span more than 365 days. Re-forming the production
+parents under the rule in the audit changes none of them.
+
+\paragraph{Open question.} The rule cannot distinguish a developer's companion
+buildings from its separate nearby projects. The Grun link matters for the
+notch: 623 East 178th Street was a 99-unit parent and is now joined with 1973
+Crotona Avenue, 44 units and 126 metres away, filed 75 days earlier, so the
+recent 99-unit weighting-sample parents fall from 37 to 36. Public reporting
+describes 623 East 178th Street as a separate Grun project; the review now
+marks the link uncertain. Six historical links in the weighting sample rest on
+the owner person alone, with different LLCs. Two look like companions (1731
+and 1745 West Farms Road; 4829 and 4831 White Plains Road), one is uncertain
+(280 Meeker and 680 Lorimer Street), one appears separate (389 Weirfield and
+1504 Jefferson Street), and two were not researched. Whether the rule should
+narrow, for example by requiring the same architect for person-only links or a
+shorter window beyond 60 metres, is Jacob's decision.
+
+\textit{Reproduction note.} The links are built by
+\path{construct_owner_proximity_links.R} in \path{construct_parent_cohorts};
+root \texttt{make data}. Root \texttt{make companion-rules} scores the
+alternative rules and simulates their parents against the production panel.

@@ -1,9 +1,9 @@
-Rows: 2223
+Rows: 2263
 Columns: 3
 Key fields: parent_id, bbl
-Saved-file MD5: 3a8392027b0156620a3fc6ef0c239a41
+Saved-file MD5: b4b919013077549d4e8573c491cba307
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-parent_id | character | nonmissing | 2223 | distinct | 905
-bbl | character | nonmissing | 2223 | distinct | 2122
-direct_site_evidence | logical | nonmissing | 2223 | distinct | 2
+parent_id | character | nonmissing | 2263 | distinct | 892
+bbl | character | nonmissing | 2263 | distinct | 2189
+direct_site_evidence | logical | nonmissing | 2263 | distinct | 2

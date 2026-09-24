@@ -1,11 +1,11 @@
-Rows: 595
+Rows: 588
 Columns: 5
 Key fields: sample, parent_id
-Saved-file MD5: 6dc95a6c2efeacef485734a884aaf7ce
+Saved-file MD5: fc5c213b54cac9382a85368f85e35a28
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 595 | distinct | 1
-parent_id | character | nonmissing | 595 | distinct | 595
-cohort_year | numeric | nonmissing | 595 | distinct | 4 min/median/mean/max 2019/2021/2020.62/2022
-parent_total_units | numeric | nonmissing | 595 | distinct | 250 min/median/mean/max 50/107/173.3546/1452
-calibration_weight | numeric | nonmissing | 595 | distinct | 587 min/median/mean/max 0.1725246/0.4989179/0.5210084/1.241969
+sample | character | nonmissing | 588 | distinct | 1
+parent_id | character | nonmissing | 588 | distinct | 588
+cohort_year | numeric | nonmissing | 588 | distinct | 4 min/median/mean/max 2019/2021/2020.611/2022
+parent_total_units | numeric | nonmissing | 588 | distinct | 251 min/median/mean/max 50/106.5/176.2092/1452
+calibration_weight | numeric | nonmissing | 588 | distinct | 581 min/median/mean/max 0.1666382/0.4987646/0.5170068/1.141674

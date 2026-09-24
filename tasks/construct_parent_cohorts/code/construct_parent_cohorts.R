@@ -51,13 +51,19 @@ if (
   stop("Symmetric parent-cohort arguments are not internally consistent.")
 }
 
-assign_components <- function(rows, links, max_days) {
+assign_components <- function(rows, links, max_days, blocked = tibble(job_number_1 = character(),
+    job_number_2 = character())) {
   rows <- rows |>
     arrange(date_filed, job_number) |>
     mutate(row_id = row_number())
   component <- seq_len(nrow(rows))
   left_index <- match(links$job_number_1, rows$job_number)
   right_index <- match(links$job_number_2, rows$job_number)
+  blocked_left <- match(blocked$job_number_1, rows$job_number)
+  blocked_right <- match(blocked$job_number_2, rows$job_number)
+  keep_blocked <- !is.na(blocked_left) & !is.na(blocked_right)
+  blocked_left <- blocked_left[keep_blocked]
+  blocked_right <- blocked_right[keep_blocked]
 
   if (any(is.na(left_index)) || any(is.na(right_index))) {
     stop("A parent link refers to a filing outside its declared universe.")
@@ -66,9 +72,14 @@ assign_components <- function(rows, links, max_days) {
   for (link_row in seq_len(nrow(links))) {
     left_component <- component[left_index[link_row]]
     right_component <- component[right_index[link_row]]
+    if (left_component == right_component) next
     merging <- component %in% c(left_component, right_component)
     # Pairwise links can form a chain longer than the parent observation window.
     if (as.integer(max(rows$date_filed[merging]) - min(rows$date_filed[merging])) > max_days) next
+    # A rejected pair never ends up in one parent, even through a chain of links.
+    splits_rejection <- (component[blocked_left] == left_component & component[blocked_right] == right_component) |
+      (component[blocked_left] == right_component & component[blocked_right] == left_component)
+    if (any(splits_rejection)) next
     component[merging] <- min(left_component, right_component)
   }
 
@@ -579,6 +590,40 @@ post_links <- post_pairs |>
     enhanced_link
   )
 
+# Companion filings on nearby lots with the same owner (owner_proximity_links,
+# from construct_owner_proximity_links.R). They join after the automatic and
+# reviewed links, the 365-day parent window still applies, and a rejected pair
+# never links.
+rejected_pairs <- pair_decisions |>
+  filter(review_decision == "reject") |>
+  transmute(sample, pair_key = paste(pmin(job_number_1, job_number_2), pmax(job_number_1, job_number_2)))
+filing_fields <- bind_rows(
+  historical_rows |> transmute(sample = "historical", job_number, date_filed, filing_bbl,
+    site_linkage_bbl = filing_bbl),
+  post_rows |> transmute(sample = "post_policy", job_number, date_filed = filing_date, filing_bbl,
+    site_linkage_bbl)
+)
+owner_links <- read_parquet("../output/owner_proximity_links.parquet") |>
+  mutate(pair_key = paste(pmin(job_number_1, job_number_2), pmax(job_number_1, job_number_2))) |>
+  anti_join(rejected_pairs, by = c("sample", "pair_key")) |>
+  left_join(filing_fields |> rename_with(~ paste0(.x, "_a"), -sample),
+    by = c("sample", "job_number_1" = "job_number_a"), relationship = "many-to-one") |>
+  left_join(filing_fields |> rename_with(~ paste0(.x, "_b"), -sample),
+    by = c("sample", "job_number_2" = "job_number_b"), relationship = "many-to-one") |>
+  mutate(a_first = date_filed_a < date_filed_b |
+    (date_filed_a == date_filed_b & job_number_1 < job_number_2)) |>
+  transmute(sample, pair_key,
+    job_number_1 = if_else(a_first, job_number_1, job_number_2),
+    job_number_2 = if_else(a_first, job_number_2, job_number_1),
+    date_filed_1 = if_else(a_first, date_filed_a, date_filed_b),
+    date_filed_2 = if_else(a_first, date_filed_b, date_filed_a),
+    filing_bbl_1 = if_else(a_first, filing_bbl_a, filing_bbl_b),
+    filing_bbl_2 = if_else(a_first, filing_bbl_b, filing_bbl_a),
+    site_linkage_bbl_1 = if_else(a_first, site_linkage_bbl_a, site_linkage_bbl_b),
+    site_linkage_bbl_2 = if_else(a_first, site_linkage_bbl_b, site_linkage_bbl_a),
+    filing_days_apart = as.integer(date_filed_2 - date_filed_1))
+stopifnot(!anyNA(owner_links$date_filed_1), !anyNA(owner_links$date_filed_2))
+
 links <- bind_rows(
   historical_links |>
     mutate(
@@ -600,6 +645,19 @@ links <- bind_rows(
     ),
   post_links
 ) |>
+  mutate(pair_key = paste(pmin(job_number_1, job_number_2), pmax(job_number_1, job_number_2)))
+links <- bind_rows(
+  links,
+  owner_links |> anti_join(links, by = c("sample", "pair_key"))
+) |>
+  mutate(
+    same_owner_nearby = paste(sample, pair_key) %in% paste(owner_links$sample, owner_links$pair_key),
+    across(c(same_filing_bbl, same_site_linkage_bbl, strict_lot_history_link,
+      later_lot_history_candidate, explicit_job_reference, same_project_code,
+      same_owner_support, exact_polygon_touch, corroborated_exact_adjacency,
+      reviewed_accept, reviewed_reject, enhanced_link), ~ coalesce(.x, FALSE))
+  ) |>
+  select(-pair_key) |>
   mutate(
     link_reason = str_remove(
       paste0(
@@ -625,7 +683,8 @@ links <- bind_rows(
           "corroborated_exact_adjacency;",
           ""
         ),
-        if_else(reviewed_accept, "reviewed_accept;", "")
+        if_else(reviewed_accept, "reviewed_accept;", ""),
+        if_else(same_owner_nearby, "same_owner_nearby;", "")
       ),
       ";$"
     )
@@ -701,17 +760,29 @@ post_member_rows <- post_rows |>
 
 historical_membership <- assign_components(
   historical_member_rows,
-  historical_links |>
-    arrange(desc(reviewed_accept), date_filed_1, date_filed_2) |>
-    select(job_number_1, job_number_2),
-  max_filing_days
+  bind_rows(
+    historical_links |>
+      arrange(desc(reviewed_accept), date_filed_1, date_filed_2) |>
+      select(job_number_1, job_number_2),
+    owner_links |> filter(sample == "historical") |>
+      arrange(date_filed_1, date_filed_2) |> select(job_number_1, job_number_2)
+  ),
+  max_filing_days,
+  pair_decisions |> filter(sample == "historical", review_decision == "reject") |>
+    select(job_number_1, job_number_2)
 )
 post_membership <- assign_components(
   post_member_rows,
-  post_links |>
-    arrange(desc(reviewed_accept), date_filed_1, date_filed_2) |>
-    select(job_number_1, job_number_2),
-  max_filing_days
+  bind_rows(
+    post_links |>
+      arrange(desc(reviewed_accept), date_filed_1, date_filed_2) |>
+      select(job_number_1, job_number_2),
+    owner_links |> filter(sample == "post_policy") |>
+      arrange(date_filed_1, date_filed_2) |> select(job_number_1, job_number_2)
+  ),
+  max_filing_days,
+  pair_decisions |> filter(sample == "post_policy", review_decision == "reject") |>
+    select(job_number_1, job_number_2)
 )
 
 post_filing_role_qc <- post_membership |>

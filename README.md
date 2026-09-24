@@ -15,6 +15,9 @@ The comparison is 2019–2022 versus January 1, 2025–July 8, 2026.
 - **Post-policy counts** use **25Q4 Housing Database Class A units**, with DOB
   initial-filing units where HDB is missing. Recorded zeros stay zero.
 - **Documentary unit counts** are comparison evidence, never overrides.
+- **Parents** join filings through shared lots, lot histories, project
+  references, adjacency, and same-owner companion filings within 150 m (or the
+  same tax block within 200 m) filed within a year, in both periods.
 - **Reviewed links, filing roles and land allocations** are committed decisions
   in `tasks/parent_opportunities_manual`.
 
@@ -29,6 +32,7 @@ The comparison is 2019–2022 versus January 1, 2025–July 8, 2026.
 | `make site-boundaries` | Parcel-boundary screen for the weighting sample |
 | `make land-sensitivity` | Whether land-measurement choices move the reweighted comparison |
 | `make parent-links` | Evidence casebook for reviewed parent links |
+| `make companion-rules` | Alternative same-owner linking rules and their hand review |
 | `make pure-notch-pilot` | Exploratory structural fit (runs estimation) |
 | `make framework-writeup`, `make logbook`, `make paper` | The documents, after the inputs they read |
 

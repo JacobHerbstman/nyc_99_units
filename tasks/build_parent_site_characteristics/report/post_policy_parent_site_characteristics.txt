@@ -1,44 +1,44 @@
-Rows: 1943
+Rows: 1873
 Columns: 38
 Key fields: parent_id
-Saved-file MD5: 5bc320cb808d53f25fa44c0d78c28614
+Saved-file MD5: a8540b0991a428154e5c1049dace93db
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 1943 | distinct | 1
-observation_id | character | nonmissing | 1943 | distinct | 1943
-parent_id | character | nonmissing | 1943 | distinct | 1943
-analysis_status | character | nonmissing | 1943 | distinct | 5
-cohort_date | Date | nonmissing | 1943 | distinct | 867
-cohort_year | integer | nonmissing | 1943 | distinct | 5 min/median/mean/max 2022/2024/2023.965/2026
-date_last_filed | Date | nonmissing | 1943 | distinct | 871
-filing_year | integer | nonmissing | 1943 | distinct | 5 min/median/mean/max 2022/2024/2023.965/2026
-units | integer | nonmissing | 1943 | distinct | 286 min/median/mean/max 0/28/64.78384/1754
-units_hdb_priority | integer | nonmissing | 1943 | distinct | 286 min/median/mean/max 0/28/64.78384/1754
-units_dob_i1 | numeric | nonmissing | 1943 | distinct | 287 min/median/mean/max 0/28/65.66907/1754
-source_filings | integer | nonmissing | 1943 | distinct | 7 min/median/mean/max 1/1/1.099331/7
-component_filings | integer | nonmissing | 1943 | distinct | 8 min/median/mean/max 0/1/1.079259/7
-exact_99_component_filings | integer | nonmissing | 1943 | distinct | 7 min/median/mean/max 0/0/0.05918682/7
-exact_99_component_filings_dob_i1 | integer | nonmissing | 1943 | distinct | 7 min/median/mean/max 0/0/0.05815749/7
-source_jobs | character | nonmissing | 1943 | distinct | 1943
-component_jobs | character | nonmissing | 1943 | distinct | 1922
-nonmissing_bin_rows | integer | nonmissing | 1943 | distinct | 8 min/median/mean/max 0/1/1.079259/7
-distinct_bins | integer | nonmissing | 1943 | distinct | 8 min/median/mean/max 0/1/1.074112/7
-duplicate_bin_rows | integer | nonmissing | 1943 | distinct | 2 min/median/mean/max 0/0/0.00514668/1
-distinct_valid_dob_bins | integer | nonmissing | 1943 | distinct | 8 min/median/mean/max 0/1/1.074112/7
-reviewed_distinct_buildings | logical | nonmissing | 1943 | distinct | 1
-feature_complete | logical | nonmissing | 1943 | distinct | 2
-feature_methods | character | nonmissing | 1943 | distinct | 7
-feature_lots | integer | nonmissing | 1913 | distinct | 6 min/median/mean/max 1/1/1.136958/6
-composition_eligible | logical | nonmissing | 1943 | distinct | 2
-lotarea | numeric | nonmissing | 1913 | distinct | 1251 min/median/mean/max 0/5000/17632.51/2747985
-log_lotarea | numeric | nonmissing | 1913 | distinct | 1251 min/median/mean/max -Inf/8.517193/-Inf/14.82638
-residfar | numeric | nonmissing | 1911 | distinct | 41 min/median/mean/max 0/3/3.433124/10
-broad_zoning_far | numeric | nonmissing | 1911 | distinct | 34 min/median/mean/max 0/4.8/4.506952/15
-builtfar | numeric | nonmissing | 1911 | distinct | 484 min/median/mean/max 0/0.48/0.8607279/18.12
-built_floor_area_estimated | logical | nonmissing | 1943 | distinct | 2
-merged_lots_added | integer | nonmissing | 1943 | distinct | 6 min/median/mean/max 0/0/0.09212558/5
-merger_window_complete | logical | nonmissing | 1943 | distinct | 2
-implausible_site | logical | nonmissing | 1940 | distinct | 2
-borough | character | nonmissing | 1913 | distinct | 5
-zone_detail | character | nonmissing | 1913 | distinct | 9
-prior_site_use | character | nonmissing | 1913 | distinct | 9
+sample | character | nonmissing | 1873 | distinct | 1
+observation_id | character | nonmissing | 1873 | distinct | 1873
+parent_id | character | nonmissing | 1873 | distinct | 1873
+analysis_status | character | nonmissing | 1873 | distinct | 5
+cohort_date | Date | nonmissing | 1873 | distinct | 859
+cohort_year | integer | nonmissing | 1873 | distinct | 5 min/median/mean/max 2022/2024/2023.98/2026
+date_last_filed | Date | nonmissing | 1873 | distinct | 863
+filing_year | integer | nonmissing | 1873 | distinct | 5 min/median/mean/max 2022/2024/2023.98/2026
+units | integer | nonmissing | 1873 | distinct | 290 min/median/mean/max 0/28/67.20502/1754
+units_hdb_priority | integer | nonmissing | 1873 | distinct | 290 min/median/mean/max 0/28/67.20502/1754
+units_dob_i1 | numeric | nonmissing | 1873 | distinct | 296 min/median/mean/max 0/28/68.12333/1754
+source_filings | integer | nonmissing | 1873 | distinct | 7 min/median/mean/max 1/1/1.140416/7
+component_filings | integer | nonmissing | 1873 | distinct | 8 min/median/mean/max 0/1/1.119594/7
+exact_99_component_filings | integer | nonmissing | 1873 | distinct | 7 min/median/mean/max 0/0/0.06139883/7
+exact_99_component_filings_dob_i1 | integer | nonmissing | 1873 | distinct | 7 min/median/mean/max 0/0/0.06033102/7
+source_jobs | character | nonmissing | 1873 | distinct | 1873
+component_jobs | character | nonmissing | 1873 | distinct | 1852
+nonmissing_bin_rows | integer | nonmissing | 1873 | distinct | 8 min/median/mean/max 0/1/1.119594/7
+distinct_bins | integer | nonmissing | 1873 | distinct | 8 min/median/mean/max 0/1/1.114255/7
+duplicate_bin_rows | integer | nonmissing | 1873 | distinct | 2 min/median/mean/max 0/0/0.005339028/1
+distinct_valid_dob_bins | integer | nonmissing | 1873 | distinct | 8 min/median/mean/max 0/1/1.114255/7
+reviewed_distinct_buildings | logical | nonmissing | 1873 | distinct | 1
+feature_complete | logical | nonmissing | 1873 | distinct | 2
+feature_methods | character | nonmissing | 1873 | distinct | 8
+feature_lots | integer | nonmissing | 1850 | distinct | 6 min/median/mean/max 1/1/1.168649/6
+composition_eligible | logical | nonmissing | 1873 | distinct | 2
+lotarea | numeric | nonmissing | 1850 | distinct | 1236 min/median/mean/max 0/5000/17989.63/2747985
+log_lotarea | numeric | nonmissing | 1850 | distinct | 1236 min/median/mean/max -Inf/8.517193/-Inf/14.82638
+residfar | numeric | nonmissing | 1848 | distinct | 46 min/median/mean/max 0/3/3.418652/10
+broad_zoning_far | numeric | nonmissing | 1848 | distinct | 39 min/median/mean/max 0/4.8/4.488616/15
+builtfar | numeric | nonmissing | 1848 | distinct | 501 min/median/mean/max 0/0.49/0.8661537/18.12
+built_floor_area_estimated | logical | nonmissing | 1873 | distinct | 2
+merged_lots_added | integer | nonmissing | 1873 | distinct | 6 min/median/mean/max 0/0/0.09556861/5
+merger_window_complete | logical | nonmissing | 1873 | distinct | 2
+implausible_site | logical | nonmissing | 1870 | distinct | 2
+borough | character | nonmissing | 1850 | distinct | 5
+zone_detail | character | nonmissing | 1850 | distinct | 9
+prior_site_use | character | nonmissing | 1850 | distinct | 9

@@ -17,7 +17,7 @@ rule_links <- function(data, identity_rule, space_rule, max_days) {
   keep <- eval(identity_rules[[identity_rule]], data) & data$days_apart <= max_days
   near <- switch(space_rule,
     same_block = data$same_block,
-    m150_or_block = data$same_block | data$distance_metres <= 150,
+    m150_or_block = (data$same_block & data$distance_metres <= 200) | data$distance_metres <= 150,
     data$distance_metres <= space_rules[[space_rule]])
   keep & near
 }

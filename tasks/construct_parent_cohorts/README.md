@@ -6,6 +6,8 @@ the same rules to historical and post-policy filings. Outputs:
 - `symmetric_parent_membership.parquet`: one row per source filing, with its
   parent, role, units and dates.
 - `symmetric_parent_links.parquet`: one row per accepted filing link, with its reason.
+- `owner_proximity_links.parquet`: same-owner companion pairs on separate lots
+  (below).
 - `post_policy_filing_link_fields.parquet`: prepared DOB filing fields for the
   post-policy linkage, built first using the official APPBBL crosswalk from
   `build_hdb_mappluto_site_panel`.
@@ -17,14 +19,25 @@ the same rules to historical and post-policy filings. Outputs:
 A parent is anchored on its first observed filing and may include linked filings
 within 365 days. Links require the same explicit filing BBL, the same
 site-linkage BBL, leakage-safe lot history, an explicit project reference, a
-common project code, or exact filing-lot adjacency corroborated by filing timing
-or common ownership. Later lot changes alone do not link filings. The explicit
-filing BBL stays on each constituent.
+common project code, exact filing-lot adjacency corroborated by filing timing
+or common ownership, or a same-owner companion filing. Later lot changes alone
+do not link filings. The explicit filing BBL stays on each constituent.
+
+`construct_owner_proximity_links.R` finds companion filings on separate lots:
+the owner business or owner person on each filing's own application matches,
+the filings are within 150 m or on the same tax block within 200 m, and they
+were filed within 365 days. DOB NOW jobs use the DOB NOW owner; older BIS jobs
+use the BIS application from `fetch_dob_bis_job_filings`. Placeholders, public
+agencies and people who sign for an agency do not identify an owner.
+Coordinates are Housing Database coordinates with DOB fallback.
+`audits/audit_companion_rules` tests alternative rules and records a hand
+review of the links.
 
 Grouping applies accepted manual edges first, then candidate links in
 filing-date order. A component cannot span more than 365 days from first to last
-filing, so a chain of close filings cannot extend the window. Manual
-acceptances and rejections from `parent_opportunities_manual` are checked again
+filing, so a chain of close filings cannot extend the window. Companion links
+apply after the other links, and no link joins two components that a manual
+rejection separates. Manual acceptances and rejections from `parent_opportunities_manual` are checked again
 against the final components, so an indirect path cannot undo a rejection.
 Every post-policy parent formed by a shared site-linkage BBL with different
 filing BBLs has a manual review in `post_parent_reviews.csv`.

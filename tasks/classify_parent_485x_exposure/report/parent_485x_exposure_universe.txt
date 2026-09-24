@@ -1,21 +1,21 @@
-Rows: 8623
+Rows: 8622
 Columns: 15
 Key fields: sample, root_job_id
-Saved-file MD5: b7e3207397f1e1cab7eda090ad1ec791
+Saved-file MD5: 2dbf04b741eeaf1688618673863b57fb
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 8623 | distinct | 2
-parent_id | character | nonmissing | 8623 | distinct | 7858
-root_job_id | character | nonmissing | 8623 | distinct | 8622
-member_order | numeric | nonmissing | 8623 | distinct | 21 min/median/mean/max 1/1/1.147628/21
-cohort_date | Date | nonmissing | 8623 | distinct | 3131
-cohort_year | numeric | nonmissing | 8623 | distinct | 16 min/median/mean/max 2011/2018/2018.246/2026
-parent_total_units | numeric | nonmissing | 8623 | distinct | 456 min/median/mean/max 6/20/61.99037/1452
-component_units | numeric | nonmissing | 8623 | distinct | 441 min/median/mean/max 0/17/50.36994/1313
-filing_bbl | numeric | nonmissing | 8623 | distinct | 7650 min/median/mean/max 1000198000/3023670000/2824099000/5080470000
-address | character | nonmissing | 8623 | distinct | 8028
-borough_name | character | nonmissing | 8623 | distinct | 5
-ownership_type | character | nonmissing | 8623 | distinct | 26
-owner_name | character | nonmissing | 8578 | distinct | 6654
-job_description | character | nonmissing | 4620 | distinct | 3946
-ag_search_query | character | nonmissing | 8623 | distinct | 8028
+sample | character | nonmissing | 8622 | distinct | 2
+parent_id | character | nonmissing | 8622 | distinct | 7442
+root_job_id | character | nonmissing | 8622 | distinct | 8622
+member_order | numeric | nonmissing | 8622 | distinct | 31 min/median/mean/max 1/1/1.269775/31
+cohort_date | Date | nonmissing | 8622 | distinct | 3107
+cohort_year | numeric | nonmissing | 8622 | distinct | 16 min/median/mean/max 2011/2018/2018.237/2026
+parent_total_units | numeric | nonmissing | 8622 | distinct | 465 min/median/mean/max 6/22/67.6894/1871
+component_units | numeric | nonmissing | 8622 | distinct | 441 min/median/mean/max 0/17/50.34772/1313
+filing_bbl | numeric | nonmissing | 8622 | distinct | 7649 min/median/mean/max 1000198000/3023674000/2824185000/5080470000
+address | character | nonmissing | 8622 | distinct | 8028
+borough_name | character | nonmissing | 8622 | distinct | 5
+ownership_type | character | nonmissing | 8622 | distinct | 26
+owner_name | character | nonmissing | 8578 | distinct | 6656
+job_description | character | nonmissing | 4621 | distinct | 3946
+ag_search_query | character | nonmissing | 8622 | distinct | 8028

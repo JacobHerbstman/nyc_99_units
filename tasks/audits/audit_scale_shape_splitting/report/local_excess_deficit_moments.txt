@@ -1,11 +1,11 @@
 Rows: 40
 Columns: 5
 Key fields: outcome, moment
-Saved-file MD5: 0e1cffcab23e042c0d3d0600ee686688
+Saved-file MD5: 20df8fc2c096ba808196149240842039
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 outcome | character | nonmissing | 40 | distinct | 5
 moment | character | nonmissing | 40 | distinct | 8
 lower_bound | numeric | nonmissing | 40 | distinct | 3 min/median/mean/max 99/100/112.125/198
 upper_bound | numeric | nonmissing | 40 | distinct | 8 min/median/mean/max 99/126/133.5/198
-estimate | numeric | nonmissing | 40 | distinct | 33 min/median/mean/max 0/0.07555334/0.1127679/0.4545455
+estimate | numeric | nonmissing | 40 | distinct | 34 min/median/mean/max 0/0.0808244/0.1133412/0.4166667

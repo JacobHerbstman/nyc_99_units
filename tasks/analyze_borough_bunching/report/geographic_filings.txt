@@ -1,47 +1,47 @@
-Rows: 3108
+Rows: 3076
 Columns: 41
 Key fields: sample, root_job_id
-Saved-file MD5: 4da31fdbde6dde8d5a0299d7d8739a92
+Saved-file MD5: 6bd2005ddcb9d356f300a3a05c136964
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 3108 | distinct | 2
-parent_id | character | nonmissing | 3108 | distinct | 2846
-root_job_id | character | nonmissing | 3108 | distinct | 3108
-constituent_rank | integer | nonmissing | 3108 | distinct | 8 min/median/mean/max 1/1/1.126126/8
-constituent_units | integer | nonmissing | 3108 | distinct | 332 min/median/mean/max 6/26/60.73263/1313
-hdb_release | character | nonmissing | 2739 | distinct | 2
-historical_active | logical | nonmissing | 2141 | distinct | 2
-hdb_job_status | character | nonmissing | 2141 | distinct | 5
+sample | character | nonmissing | 3076 | distinct | 2
+parent_id | character | nonmissing | 3076 | distinct | 2695
+root_job_id | character | nonmissing | 3076 | distinct | 3076
+constituent_rank | integer | nonmissing | 3076 | distinct | 8 min/median/mean/max 1/1/1.18433/8
+constituent_units | integer | nonmissing | 3076 | distinct | 331 min/median/mean/max 6/26/61.00325/1313
+hdb_release | character | nonmissing | 2707 | distinct | 2
+historical_active | logical | nonmissing | 2114 | distinct | 2
+hdb_job_status | character | nonmissing | 2114 | distinct | 5
 refiling_basis | character | nonmissing | 39 | distinct | 2
-parent_constituent_weight | numeric | nonmissing | 3108 | distinct | 8 min/median/mean/max 0.125/1/0.9157014/1
-date_filed | Date | nonmissing | 3108 | distinct | 1180
-record_filing_date | Date | nonmissing | 3108 | distinct | 1177
-refiled | logical | nonmissing | 3108 | distinct | 2
+parent_constituent_weight | numeric | nonmissing | 3076 | distinct | 8 min/median/mean/max 0.125/1/0.8761378/1
+date_filed | Date | nonmissing | 3076 | distinct | 1175
+record_filing_date | Date | nonmissing | 3076 | distinct | 1172
+refiled | logical | nonmissing | 3076 | distinct | 2
 refiling_date | Date | nonmissing | 39 | distinct | 36
-filing_bbl | character | nonmissing | 3108 | distinct | 2897
-address | character | nonmissing | 3108 | distinct | 3007
-borough_name | character | nonmissing | 3108 | distinct | 5
-ownership_type | character | nonmissing | 3108 | distinct | 12
-owner_name | character | nonmissing | 3107 | distinct | 2407
-hpd_response_number | character | nonmissing | 82 | distinct | 82
-hpd_registration_building_key | character | nonmissing | 82 | distinct | 82
-hpd_reported_units | integer | nonmissing | 82 | distinct | 50 min/median/mean/max 6/31/57.29268/792
-hpd_reported_option | character | nonmissing | 82 | distinct | 2
-hpd_reported_bbl | character | nonmissing | 82 | distinct | 82
-hpd_intended_separate_sub100 | logical | nonmissing | 82 | distinct | 2
-period | character | nonmissing | 3108 | distinct | 2
-exposure_years | numeric | nonmissing | 3108 | distinct | 2 min/median/mean/max 1.516769/4/3.227386/4
-cohort_date | Date | nonmissing | 3108 | distinct | 1163
-cohort_year | integer | nonmissing | 3108 | distinct | 6 min/median/mean/max 2019/2021/2021.981/2026
-parent_total_units | integer | nonmissing | 3108 | distinct | 345 min/median/mean/max 6/27/81.01062/1452
-n_components | integer | nonmissing | 3108 | distinct | 8 min/median/mean/max 1/1/1.252252/8
-exact_99x2 | logical | nonmissing | 3108 | distinct | 2
-exact_99x3 | logical | nonmissing | 3108 | distinct | 2
-splitting_verification_status | character | nonmissing | 3108 | distinct | 4
-exposure_status | character | nonmissing | 3108 | distinct | 1
-included_ab | logical | nonmissing | 3108 | distinct | 1
-included_ab_plus_d | logical | nonmissing | 3108 | distinct | 1
-latitude | numeric | nonmissing | 3102 | distinct | 2989 min/median/mean/max 40.54157/40.72167/40.73997/40.91119
-longitude | numeric | nonmissing | 3102 | distinct | 2983 min/median/mean/max -74.14527/-73.92203/-73.91763/-73.73395
-coordinate_source | character | nonmissing | 3108 | distinct | 2
-coordinate_status | character | nonmissing | 3108 | distinct | 3
+filing_bbl | character | nonmissing | 3076 | distinct | 2866
+address | character | nonmissing | 3076 | distinct | 2975
+borough_name | character | nonmissing | 3076 | distinct | 5
+ownership_type | character | nonmissing | 3076 | distinct | 12
+owner_name | character | nonmissing | 3075 | distinct | 2392
+hpd_response_number | character | nonmissing | 80 | distinct | 80
+hpd_registration_building_key | character | nonmissing | 80 | distinct | 80
+hpd_reported_units | integer | nonmissing | 80 | distinct | 48 min/median/mean/max 6/29.5/57.2625/792
+hpd_reported_option | character | nonmissing | 80 | distinct | 2
+hpd_reported_bbl | character | nonmissing | 80 | distinct | 80
+hpd_intended_separate_sub100 | logical | nonmissing | 80 | distinct | 2
+period | character | nonmissing | 3076 | distinct | 2
+exposure_years | numeric | nonmissing | 3076 | distinct | 2 min/median/mean/max 1.516769/4/3.223385/4
+cohort_date | Date | nonmissing | 3076 | distinct | 1150
+cohort_year | integer | nonmissing | 3076 | distinct | 6 min/median/mean/max 2019/2021/2021.99/2026
+parent_total_units | integer | nonmissing | 3076 | distinct | 348 min/median/mean/max 6/30/85.89889/1452
+n_components | integer | nonmissing | 3076 | distinct | 8 min/median/mean/max 1/1/1.368661/8
+exact_99x2 | logical | nonmissing | 3076 | distinct | 2
+exact_99x3 | logical | nonmissing | 3076 | distinct | 2
+splitting_verification_status | character | nonmissing | 3076 | distinct | 4
+exposure_status | character | nonmissing | 3076 | distinct | 1
+included_ab | logical | nonmissing | 3076 | distinct | 1
+included_ab_plus_d | logical | nonmissing | 3076 | distinct | 1
+latitude | numeric | nonmissing | 3070 | distinct | 2958 min/median/mean/max 40.54157/40.72456/40.7404/40.91119
+longitude | numeric | nonmissing | 3070 | distinct | 2951 min/median/mean/max -74.14527/-73.92227/-73.91768/-73.73395
+coordinate_source | character | nonmissing | 3076 | distinct | 2
+coordinate_status | character | nonmissing | 3076 | distinct | 3

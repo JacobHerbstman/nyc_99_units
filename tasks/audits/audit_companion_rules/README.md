@@ -1,7 +1,9 @@
 # Companion linking rules
 
 Tests symmetric rules for linking filings that belong to one development but
-sit on different, non-adjacent lots, which the production linker misses.
+sit on different, non-adjacent lots. The adopted rule is in production in
+`construct_parent_cohorts`, so candidate pairs are measured against parents
+that already include it.
 
 `build_filing_identity.R` gives every filing in parent membership the owner
 named on its own application, in both periods: DOB NOW applications from
@@ -21,11 +23,11 @@ parents under each rule, keeping the 365-day parent span and manual
 rejections, and reports organization outcomes for A/B parents with 50+ units.
 
 `code/companion_link_validation.csv` records a hand review of 111 links on
-September 23, 2026: every recent link under the recommended rule, 40 random
+September 23, 2026: every recent link under the proposed rule, 40 random
 historical ones, 20 at 150–250 m, and 20 matched only by architect. Each row
 has a judgement (`companion`, `likely companion`, `uncertain`, `separate`) and
 a reason.
 
-The recommended rule links two filings when their owner business or owner
-person matches and they are within 150 m or on the same tax block, filed
+The adopted rule links two filings when their owner business or owner person
+matches and they are within 150 m or on the same tax block within 200 m, filed
 within 365 days. Run root `make companion-rules`.

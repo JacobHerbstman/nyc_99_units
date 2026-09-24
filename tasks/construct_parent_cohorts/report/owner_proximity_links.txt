@@ -1,0 +1,14 @@
+Rows: 2177
+Columns: 8
+Key fields: sample, job_number_1, job_number_2
+Saved-file MD5: 3ae1cf0e5a798a149a897811e724e88c
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 2177 | distinct | 2
+job_number_1 | character | nonmissing | 2177 | distinct | 1177
+job_number_2 | character | nonmissing | 2177 | distinct | 1175
+distance_metres | numeric | nonmissing | 2177 | distinct | 1682 min/median/mean/max 0/29.63428/43.78364/199.1327
+days_apart | integer | nonmissing | 2177 | distinct | 234 min/median/mean/max 0/1/60.11713/365
+same_block | logical | nonmissing | 2177 | distinct | 2
+same_owner_business | logical | nonmissing | 2177 | distinct | 2
+same_owner_person | logical | nonmissing | 2177 | distinct | 2

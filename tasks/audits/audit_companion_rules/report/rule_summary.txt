@@ -1,7 +1,7 @@
 Rows: 168
 Columns: 12
 Key fields: identity_rule, space_rule, max_days, sample
-Saved-file MD5: 2a4a34f1bb30c83bb0ed7b961d780f98
+Saved-file MD5: 389af631fdbdefe13b152781e172141a
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 identity_rule | character | nonmissing | 168 | distinct | 7
@@ -9,10 +9,10 @@ space_rule | character | nonmissing | 168 | distinct | 6
 max_days | numeric | nonmissing | 168 | distinct | 2 min/median/mean/max 90/227.5/227.5/365
 expected_chance_links | numeric | nonmissing | 168 | distinct | 99 min/median/mean/max 0.01416667/0.625/2.685119/83.72917
 sample | character | nonmissing | 168 | distinct | 2
-new_links | numeric | nonmissing | 168 | distinct | 130 min/median/mean/max 12/228/326.0476/1719
-new_parent_pairs | numeric | nonmissing | 168 | distinct | 129 min/median/mean/max 12/209.5/262.4226/1257
-new_links_dof_confirmed | numeric | nonmissing | 168 | distinct | 45 min/median/mean/max 7/98.5/114.1726/244
-new_links_same_applicant | numeric | nonmissing | 168 | distinct | 81 min/median/mean/max 12/228/315.5476/1719
-existing_cross_lot_links | numeric | nonmissing | 168 | distinct | 2 min/median/mean/max 217/360.5/360.5/504
-existing_cross_lot_found | numeric | nonmissing | 168 | distinct | 103 min/median/mean/max 104/213/283.5298/476
+new_links | numeric | nonmissing | 168 | distinct | 43 min/median/mean/max 0/2/37.49405/798
+new_parent_pairs | numeric | nonmissing | 168 | distinct | 35 min/median/mean/max 0/2/22.01786/471
+new_links_dof_confirmed | numeric | nonmissing | 168 | distinct | 10 min/median/mean/max 0/0/1.791667/20
+new_links_same_applicant | numeric | nonmissing | 168 | distinct | 33 min/median/mean/max 0/1/35.45238/798
+existing_cross_lot_links | numeric | nonmissing | 168 | distinct | 2 min/median/mean/max 310/907/907/1504
+existing_cross_lot_found | numeric | nonmissing | 168 | distinct | 142 min/median/mean/max 116/390/571.5774/1397
 ring_matches | numeric | nonmissing | 168 | distinct | 25 min/median/mean/max 17/112/371.7857/4019

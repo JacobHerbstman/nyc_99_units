@@ -1,14 +1,14 @@
 Rows: 12933
 Columns: 19
 Key fields: sample, job_a, job_b
-Saved-file MD5: 5bef37cd4d7ce1529f9ca1afaea3a7eb
+Saved-file MD5: 0fe1d25506414b47560f5a901e4a7bf0
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 12933 | distinct | 2
 job_a | character | nonmissing | 12933 | distinct | 5141
 job_b | character | nonmissing | 12933 | distinct | 5115
-parent_a | character | nonmissing | 12933 | distinct | 4678
-parent_b | character | nonmissing | 12933 | distinct | 4663
+parent_a | character | nonmissing | 12933 | distinct | 4370
+parent_b | character | nonmissing | 12933 | distinct | 4372
 units_a | integer | nonmissing | 12933 | distinct | 348 min/median/mean/max 5/10/40.5469/1175
 units_b | integer | nonmissing | 12933 | distinct | 343 min/median/mean/max 5/10/40.55447/1313
 bbl_a | character | nonmissing | 12933 | distinct | 4478

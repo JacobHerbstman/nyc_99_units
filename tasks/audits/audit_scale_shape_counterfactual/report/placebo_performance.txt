@@ -1,16 +1,16 @@
 Rows: 2
 Columns: 10
 Key fields: placebo
-Saved-file MD5: d02c890424ff832ed77dd83c951f725a
+Saved-file MD5: 5f7e1af65aabe38e5db77eb2d3bb1f43
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-total_variation_distance | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.4711457/0.4712415/0.4712415/0.4713374
-maximum_absolute_cdf_difference | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.0607835/0.08720928/0.08720928/0.1136351
+total_variation_distance | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.4668167/0.4725039/0.4725039/0.4781911
+maximum_absolute_cdf_difference | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.07117047/0.08527069/0.08527069/0.09937091
 placebo | character | nonmissing | 2 | distinct | 2
-historical_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 262/342/342/422
-target_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 160/166.5/166.5/173
-effective_sample_size | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 247.5974/329.5824/329.5824/411.5673
-predicted_share_99 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.009134851/0.0092878/0.0092878/0.00944075
-actual_share_99 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0/0.003125/0.003125/0.00625
+historical_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 259/340/340/421
+target_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 162/164.5/164.5/167
+effective_sample_size | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 245.5532/329.0977/329.0977/412.6422
+predicted_share_99 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.008828967/0.009221819/0.009221819/0.00961467
+actual_share_99 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0/0.00308642/0.00308642/0.00617284
 predicted_share_198 | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 0/0/0/0
 actual_share_198 | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 0/0/0/0

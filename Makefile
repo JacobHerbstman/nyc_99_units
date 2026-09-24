@@ -62,7 +62,7 @@ construct_historical_parent_links: build_hdb_mappluto_site_panel fetch_mappluto_
 	$(MAKE) -C tasks/construct_historical_parent_links/code
 
 construct_parent_cohorts: build_hdb_mappluto_site_panel construct_historical_parent_links fetch_mappluto_archive \
-	parent_opportunities_manual stage_dob_now_new_building_filings stage_dcp_housing_database
+	parent_opportunities_manual stage_dob_now_new_building_filings stage_dcp_housing_database fetch_dob_bis_job_filings
 	$(MAKE) -C tasks/construct_parent_cohorts/code
 
 fetch_dcp_housing_database:

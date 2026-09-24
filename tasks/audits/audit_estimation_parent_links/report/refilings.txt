@@ -1,11 +1,11 @@
 Rows: 109
 Columns: 20
 Key fields: sample, original_job
-Saved-file MD5: df27bce6d49634e148b6047d1bc7d126
+Saved-file MD5: fd0be2c2135f74e7347c18dfe9de56b4
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 109 | distinct | 2
-parent_id | character | nonmissing | 109 | distinct | 102
+parent_id | character | nonmissing | 109 | distinct | 101
 original_job | character | nonmissing | 109 | distinct | 109
 root_job_id | character | nonmissing | 109 | distinct | 109
 replacement_job_number | character | nonmissing | 109 | distinct | 104
@@ -14,7 +14,7 @@ refiling_date | Date | nonmissing | 109 | distinct | 97
 original_units | numeric | nonmissing | 109 | distinct | 43 min/median/mean/max 6/12/28.10092/290
 refiling_basis | character | nonmissing | 109 | distinct | 3
 archived_original_status | character | nonmissing | 97 | distinct | 1
-replacement_parent | character | nonmissing | 109 | distinct | 102
+replacement_parent | character | nonmissing | 109 | distinct | 101
 replacement_units | numeric | nonmissing | 109 | distinct | 43 min/median/mean/max 6/14/27.85321/218
 additive_component | logical | nonmissing | 109 | distinct | 1
 archived_replacement_status | character | nonmissing | 97 | distinct | 4

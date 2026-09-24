@@ -1,16 +1,16 @@
 Rows: 1
 Columns: 12
 Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: a66ef154d1e3987263ac8e40bfd4dc6a
-historical_parents | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 595/595/595/595
-post_parents | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 310/310/310/310
-sum_calibration_weights | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 310/310/310/310
-minimum_weight | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.1725246/0.1725246/0.1725246/0.1725246
-median_weight | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.4989179/0.4989179/0.4989179/0.4989179
-maximum_weight | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 1.241969/1.241969/1.241969/1.241969
-effective_sample_size | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 526.7071/526.7071/526.7071/526.7071
-maximum_absolute_moment_error | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 1.90775e-09/1.90775e-09/1.90775e-09/1.90775e-09
+Saved-file MD5: b7753293af9491dd63560be9bf5ebd67
+historical_parents | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 588/588/588/588
+post_parents | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 304/304/304/304
+sum_calibration_weights | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 304/304/304/304
+minimum_weight | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.1666382/0.1666382/0.1666382/0.1666382
+median_weight | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.4987646/0.4987646/0.4987646/0.4987646
+maximum_weight | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 1.141674/1.141674/1.141674/1.141674
+effective_sample_size | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 519.3389/519.3389/519.3389/519.3389
+maximum_absolute_moment_error | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 2.230031e-09/2.230031e-09/2.230031e-09/2.230031e-09
 excluded_historical_composition_ineligible | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 11/11/11/11
-excluded_post_composition_ineligible | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 17/17/17/17
+excluded_post_composition_ineligible | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 15/15/15/15
 calibration_method | character | nonmissing | 1 | distinct | 1
 calibration_moments | character | nonmissing | 1 | distinct | 1
