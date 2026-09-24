@@ -1,0 +1,13 @@
+Rows: 360
+Columns: 7
+Key fields: specification, cell
+Saved-file MD5: 0cd5f55ef8fa1d718bf92a09c2546790
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+specification | character | nonmissing | 360 | distinct | 8
+cell | numeric | nonmissing | 360 | distinct | 45 min/median/mean/max 1/23/23/45
+buildings | character | nonmissing | 360 | distinct | 3
+size_bin | character | nonmissing | 360 | distinct | 15
+observed | numeric | nonmissing | 360 | distinct | 23 min/median/mean/max 0/0.003289474/0.02222222/0.4506579
+benchmark | numeric | nonmissing | 360 | distinct | 86 min/median/mean/max 0/0.001984541/0.02222222/0.4588058
+fitted | numeric | nonmissing | 360 | distinct | 164 min/median/mean/max 0/0.003743858/0.02222222/0.4588058

@@ -1,0 +1,12 @@
+Rows: 588555
+Columns: 6
+Key fields: point, cell
+Saved-file MD5: a3d11a2e5d71034105d96806e99e00f6
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+kappa | numeric | nonmissing | 588555 | distinct | 29 min/median/mean/max 0/0.14/0.2175/1
+tau | numeric | nonmissing | 588555 | distinct | 11 min/median/mean/max 0/0.2/0.3290909/1
+sigma | numeric | nonmissing | 588555 | distinct | 41 min/median/mean/max 0.001/0.1/1.185788/10
+point | integer | nonmissing | 588555 | distinct | 13079 min/median/mean/max 1/6540/6540/13079
+cell | integer | nonmissing | 588555 | distinct | 45 min/median/mean/max 1/23/23/45
+share | numeric | nonmissing | 588555 | distinct | 171812 min/median/mean/max 0/0.001622516/0.02222222/0.3997842

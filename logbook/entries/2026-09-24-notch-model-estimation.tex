@@ -1,0 +1,132 @@
+\clearpage
+\section*{September 24, 2026: Estimating the size-and-splitting model from scratch}
+\textit{Agent-drafted research entry.}
+
+The September pilot reproduced the spike at 99 but not how parents split. It
+predicted 4.4 percent of recent parents with two filings against 13.2
+observed, 12.3 percent with three or more against 3.6, and almost no $99+99$
+parents. Every alternative filing count drew its own cost of the same size, so a
+parent that split spread across two to six filings. Jacob asked for a
+splitting cost that rises with the number of buildings, so that pairs and
+$99+99$ appear, and for a new estimation replacing
+\path{fit_pure_notch_pilot}. It lives in the production task
+\path{tasks/estimate_notch_model}.
+
+\paragraph{The model.} It follows \path{framework_writeup.tex}. Each weighted
+historical parent brings its preferred total $x$ and building count $J^0$.
+Under the policy it chooses total units $m$ and buildings $J$ to minimize,
+relative to its ordinary cost of 99 units, the size loss $((m-x)/99)^2$, a
+burden on each building with 100 or more units (a jump $\kappa$ plus a kink
+$\tau$ that raises the cost of each unit above 100), and a cost $c$ for each
+building added beyond $J^0$. Parents differ in $c$, which is exponential with
+mean $\sigma$. The historical organization is free, so the ordinary
+multi-building parents of 2019--2022 stay as they were unless the threshold
+gives them a reason to change. Layouts are free, sizes are exact integers, and
+choice probabilities are computed exactly. The parent's own land does not
+enter: consistent with the September 24 weights decision, zoning and borough
+are fixed traits of the opportunity, and the size loss includes any change in
+land. The weights match residential FAR and borough. The objective is the
+sum of squared differences over the pilot's 45 cells (one, two or three-plus
+buildings by 15 size bins), searched on a grid.
+
+Before fitting, the task checks that without the burden every parent keeps
+$x$ and $J^0$; that a single building shrinks to 99 exactly when
+$x\le99(1+\sqrt\kappa)$ and is compressed by $1+\tau$ above; that minimum
+burdens match exhaustive partitions for two and three buildings; that the
+building menu never binds; that no parent consolidates; and that the exact
+probabilities match simulated cost draws.
+
+\paragraph{Estimates.} The jump is $\kappa=0.16$: crossing 100 costs a
+single-building parent 16 percent of the ordinary cost of 99 units, so it
+shrinks to 99 when its preferred size is below about 138. The mean splitting
+cost is $\sigma=0.20$ per added building. The data choose no kink ($\tau=0$),
+so the pure notch gives the same fit. Points within 10 percent of the best
+objective span $\kappa$ from 0.12 to 0.30, $\tau$ from 0 to 0.02 and $\sigma$
+from 0.16 to 0.50.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrr}
+\hline
+Share of recent parents (\%) & Observed & Benchmark & Model & Pilot \\
+\hline
+Exactly 99 units & 11.8 & 0.6 & 11.0 & 12.6 \\
+Two buildings & 16.4 & 9.3 & 18.3 & 4.4 \\
+Organized as $99+99$ & 3.0 & 0.0 & 1.4 & 0.2 \\
+Three or more buildings & 4.3 & 3.3 & 8.6 & 12.3 \\
+Above 300 units & 8.6 & 14.6 & 14.2 & 9.8 \\
+Mean units & 139.5 & 170.9 & 169.0 & 149.9 \\
+\hline
+\end{tabular}
+\end{center}
+
+The benchmark is the reweighted 2019--2022 distribution. The pilot column is
+the archived September 22 fit on the earlier panel, whose observed shares
+differ (13.2 percent pairs, 2.9 percent $99+99$).
+
+\begin{center}
+\includegraphics[width=\textwidth]{../tasks/estimate_notch_model/output/pdf/model_fit.pdf}
+\end{center}
+
+The rising cost does what was intended. Pairs are now slightly
+overpredicted, and the model produces half the observed $99+99$ parents,
+against almost none before. Three-plus parents are still twice the observed
+share, mostly above 300 units: when splitting is nearly free, a large
+single-building parent keeps its size in as many buildings as it takes. The
+exponential puts much of its mass near zero cost, so a distribution with less
+mass there is the natural next specification.
+
+\paragraph{Units.} Scaled to the 304 recent parents, the model implies 596
+fewer proposed units. Holding each parent's building count fixed would lose
+779, so splitting preserves 183. The raw difference between the weighted
+historical total and the recent total is 9,555 units. Parents above 300 units
+account for 10,743, more than all of it, with smaller sizes offsetting; the
+model changes little there. The data reject compressing those
+projects with a kink; the recent period simply has fewer large parents. With
+lot-area weights the raw difference falls to 2,084 units and the model
+explains 659 of them. Whether the missing large projects are a response to the
+policy, such as assembling less land or not filing, or a change in available
+sites is not something this model can settle.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrr}
+\hline
+Specification & $\kappa$ & $\tau$ & $\sigma$ & Objective & Units lost \\
+\hline
+Main (jump and kink) & 0.16 & 0 & 0.20 & 0.0060 & 596 \\
+Splitting cost $c, 3c, 6c$ & 0.16 & 0.02 & 0.32 & 0.0057 & 1,205 \\
+Lot-area weights & 0.18 & 0 & 0.25 & 0.0024 & 659 \\
+Common 180-day horizon & 0.16 & 0 & 0.16 & 0.0050 & 342 \\
+Curvature 0.5 & 0.06 & 0 & 0.08 & 0.0059 & 689 \\
+Curvature 2 & 0.60 & 0 & 0.79 & 0.0062 & 581 \\
+Joint assessment & 0.03 & 0.20 & -- & 0.0099 & 6,950 \\
+\hline
+\end{tabular}
+\end{center}
+
+The jump and splitting cost are stable across weights and the common
+follow-up horizon (187 recent parents). Curvature changes their scale, as it
+should, not the fit. A splitting cost that rises faster per building fits
+slightly better and doubles the units lost, because more parents shrink to
+99 or $99+99$ (12.2 and 1.9 percent) instead of adding buildings; the unit
+estimate depends on this shape.
+Joint assessment of the whole parent fits much worse and produces no $99+99$
+parents; splitting cannot help, so $\sigma$ is not identified.
+
+\paragraph{Can the data tell the parameters apart?} Redrawing 200 recent
+samples from the model at the estimate and re-estimating each, the jump falls
+between 0.12 and 0.22 in 80 percent of draws, the kink is estimated at zero in
+89 percent, and $\sigma$ lies between 0.13 and 0.32. If the true kink were 0.2,
+its estimates would range from 0.05 to 0.6, with the jump anywhere from 0.02 to
+1: a kink is weakly identified. These draws hold the historical sample fixed,
+so they understate uncertainty.
+
+\paragraph{Not yet done.} A splitting-cost distribution with less mass near
+zero; inference that also resamples historical parents and weights; the
+150-unit regime in Zones A and B; and the legal-assessment question for
+observed splits.
+
+\textit{Reproduction note.} Root \texttt{make estimate} runs
+\path{tasks/estimate_notch_model}; results are in \path{estimates.csv},
+\path{fit_moments.csv} and \path{recovery_summary.csv}.

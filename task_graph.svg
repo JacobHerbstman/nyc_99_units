@@ -12,8 +12,8 @@
 <!-- analyze_borough_bunching -->
 <g id="node1" class="node">
 <title>analyze_borough_bunching</title>
-<path fill="#edf3f8" stroke="#8196a8" d="M163.25,-36C163.25,-36 58,-36 58,-36 52,-36 46,-30 46,-24 46,-24 46,-12 46,-12 46,-6 52,0 58,0 58,0 163.25,0 163.25,0 169.25,0 175.25,-6 175.25,-12 175.25,-12 175.25,-24 175.25,-24 175.25,-30 169.25,-36 163.25,-36"/>
-<text xml:space="preserve" text-anchor="middle" x="110.62" y="-14.12" font-family="Helvetica,sans-Serif" font-size="10.00">analyze borough bunching</text>
+<path fill="#edf3f8" stroke="#8196a8" d="M162.25,-36C162.25,-36 57,-36 57,-36 51,-36 45,-30 45,-24 45,-24 45,-12 45,-12 45,-6 51,0 57,0 57,0 162.25,0 162.25,0 168.25,0 174.25,-6 174.25,-12 174.25,-12 174.25,-24 174.25,-24 174.25,-30 168.25,-36 162.25,-36"/>
+<text xml:space="preserve" text-anchor="middle" x="109.62" y="-14.12" font-family="Helvetica,sans-Serif" font-size="10.00">analyze borough bunching</text>
 </g>
 <!-- build_estimation_panels -->
 <g id="node2" class="node">
@@ -24,247 +24,259 @@
 <!-- build_estimation_panels&#45;&gt;analyze_borough_bunching -->
 <g id="edge1" class="edge">
 <title>build_estimation_panels&#45;&gt;analyze_borough_bunching</title>
-<path fill="none" stroke="#8196a8" d="M191.04,-60.62C178.16,-53.95 163.36,-46.29 150,-39.38"/>
-<polygon fill="#8196a8" stroke="#8196a8" points="150.96,-37.9 145.71,-37.16 149.35,-41.01 150.96,-37.9"/>
+<path fill="none" stroke="#8196a8" d="M190.74,-60.62C177.76,-53.95 162.83,-46.29 149.34,-39.38"/>
+<polygon fill="#8196a8" stroke="#8196a8" points="150.26,-37.88 145.01,-37.15 148.66,-40.99 150.26,-37.88"/>
+</g>
+<!-- estimate_notch_model -->
+<g id="node3" class="node">
+<title>estimate_notch_model</title>
+<path fill="#edf3f8" stroke="#8196a8" d="M369.5,-36C369.5,-36 283.75,-36 283.75,-36 277.75,-36 271.75,-30 271.75,-24 271.75,-24 271.75,-12 271.75,-12 271.75,-6 277.75,0 283.75,0 283.75,0 369.5,0 369.5,0 375.5,0 381.5,-6 381.5,-12 381.5,-12 381.5,-24 381.5,-24 381.5,-30 375.5,-36 369.5,-36"/>
+<text xml:space="preserve" text-anchor="middle" x="326.62" y="-14.12" font-family="Helvetica,sans-Serif" font-size="10.00">estimate notch model</text>
+</g>
+<!-- build_estimation_panels&#45;&gt;estimate_notch_model -->
+<g id="edge2" class="edge">
+<title>build_estimation_panels&#45;&gt;estimate_notch_model</title>
+<path fill="none" stroke="#8196a8" d="M254.68,-60.62C266.09,-54.01 279.2,-46.43 291.08,-39.56"/>
+<polygon fill="#8196a8" stroke="#8196a8" points="291.67,-41.24 295.13,-37.22 289.92,-38.21 291.67,-41.24"/>
 </g>
 <!-- plot_bunching -->
-<g id="node3" class="node">
+<g id="node4" class="node">
 <title>plot_bunching</title>
-<path fill="#edf3f8" stroke="#8196a8" d="M249.5,-36C249.5,-36 199.75,-36 199.75,-36 193.75,-36 187.75,-30 187.75,-24 187.75,-24 187.75,-12 187.75,-12 187.75,-6 193.75,0 199.75,0 199.75,0 249.5,0 249.5,0 255.5,0 261.5,-6 261.5,-12 261.5,-12 261.5,-24 261.5,-24 261.5,-30 255.5,-36 249.5,-36"/>
-<text xml:space="preserve" text-anchor="middle" x="224.62" y="-14.12" font-family="Helvetica,sans-Serif" font-size="10.00">plot bunching</text>
+<path fill="#edf3f8" stroke="#8196a8" d="M248.5,-36C248.5,-36 198.75,-36 198.75,-36 192.75,-36 186.75,-30 186.75,-24 186.75,-24 186.75,-12 186.75,-12 186.75,-6 192.75,0 198.75,0 198.75,0 248.5,0 248.5,0 254.5,0 260.5,-6 260.5,-12 260.5,-12 260.5,-24 260.5,-24 260.5,-30 254.5,-36 248.5,-36"/>
+<text xml:space="preserve" text-anchor="middle" x="223.62" y="-14.12" font-family="Helvetica,sans-Serif" font-size="10.00">plot bunching</text>
 </g>
 <!-- build_estimation_panels&#45;&gt;plot_bunching -->
-<g id="edge2" class="edge">
+<g id="edge3" class="edge">
 <title>build_estimation_panels&#45;&gt;plot_bunching</title>
-<path fill="none" stroke="#8196a8" d="M224.62,-60.62C224.62,-55.03 224.62,-48.73 224.62,-42.76"/>
-<polygon fill="#8196a8" stroke="#8196a8" points="226.38,-42.98 224.63,-37.98 222.88,-42.98 226.38,-42.98"/>
+<path fill="none" stroke="#8196a8" d="M224.33,-60.62C224.24,-55.03 224.13,-48.73 224.03,-42.76"/>
+<polygon fill="#8196a8" stroke="#8196a8" points="225.78,-42.95 223.95,-37.98 222.28,-43 225.78,-42.95"/>
 </g>
 <!-- build_hdb_mappluto_site_panel -->
-<g id="node4" class="node">
+<g id="node5" class="node">
 <title>build_hdb_mappluto_site_panel</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M149.88,-341C149.88,-341 57.38,-341 57.38,-341 51.38,-341 45.38,-335 45.38,-329 45.38,-329 45.38,-317 45.38,-317 45.38,-311 51.38,-305 57.38,-305 57.38,-305 149.88,-305 149.88,-305 155.88,-305 161.88,-311 161.88,-317 161.88,-317 161.88,-329 161.88,-329 161.88,-335 155.88,-341 149.88,-341"/>
 <text xml:space="preserve" text-anchor="middle" x="103.62" y="-324.75" font-family="Helvetica,sans-Serif" font-size="10.00">build hdb mappluto site</text>
 <text xml:space="preserve" text-anchor="middle" x="103.62" y="-313.5" font-family="Helvetica,sans-Serif" font-size="10.00">panel</text>
 </g>
 <!-- construct_historical_parent_links -->
-<g id="node5" class="node">
+<g id="node6" class="node">
 <title>construct_historical_parent_links</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M260.88,-280C260.88,-280 186.38,-280 186.38,-280 180.38,-280 174.38,-274 174.38,-268 174.38,-268 174.38,-256 174.38,-256 174.38,-250 180.38,-244 186.38,-244 186.38,-244 260.88,-244 260.88,-244 266.88,-244 272.88,-250 272.88,-256 272.88,-256 272.88,-268 272.88,-268 272.88,-274 266.88,-280 260.88,-280"/>
 <text xml:space="preserve" text-anchor="middle" x="223.62" y="-263.75" font-family="Helvetica,sans-Serif" font-size="10.00">construct historical</text>
 <text xml:space="preserve" text-anchor="middle" x="223.62" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">parent links</text>
 </g>
 <!-- build_hdb_mappluto_site_panel&#45;&gt;construct_historical_parent_links -->
-<g id="edge3" class="edge">
+<g id="edge4" class="edge">
 <title>build_hdb_mappluto_site_panel&#45;&gt;construct_historical_parent_links</title>
 <path fill="none" stroke="#8196a8" d="M138.98,-304.62C152.65,-297.9 168.39,-290.16 182.56,-283.19"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="183.04,-284.91 186.75,-281.13 181.49,-281.77 183.04,-284.91"/>
 </g>
 <!-- construct_parent_cohorts -->
-<g id="node8" class="node">
+<g id="node9" class="node">
 <title>construct_parent_cohorts</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M273.5,-219C273.5,-219 175.75,-219 175.75,-219 169.75,-219 163.75,-213 163.75,-207 163.75,-207 163.75,-195 163.75,-195 163.75,-189 169.75,-183 175.75,-183 175.75,-183 273.5,-183 273.5,-183 279.5,-183 285.5,-189 285.5,-195 285.5,-195 285.5,-207 285.5,-207 285.5,-213 279.5,-219 273.5,-219"/>
 <text xml:space="preserve" text-anchor="middle" x="224.62" y="-197.12" font-family="Helvetica,sans-Serif" font-size="10.00">construct parent cohorts</text>
 </g>
 <!-- construct_historical_parent_links&#45;&gt;construct_parent_cohorts -->
-<g id="edge6" class="edge">
+<g id="edge7" class="edge">
 <title>construct_historical_parent_links&#45;&gt;construct_parent_cohorts</title>
 <path fill="none" stroke="#8196a8" d="M223.92,-243.62C224.01,-238.03 224.12,-231.73 224.22,-225.76"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="225.97,-226 224.3,-220.98 222.47,-225.95 225.97,-226"/>
 </g>
 <!-- build_parent_site_characteristics -->
-<g id="node6" class="node">
+<g id="node7" class="node">
 <title>build_parent_site_characteristics</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M202.12,-158C202.12,-158 141.12,-158 141.12,-158 135.12,-158 129.12,-152 129.12,-146 129.12,-146 129.12,-134 129.12,-134 129.12,-128 135.12,-122 141.12,-122 141.12,-122 202.12,-122 202.12,-122 208.12,-122 214.12,-128 214.12,-134 214.12,-134 214.12,-146 214.12,-146 214.12,-152 208.12,-158 202.12,-158"/>
 <text xml:space="preserve" text-anchor="middle" x="171.62" y="-141.75" font-family="Helvetica,sans-Serif" font-size="10.00">build parent site</text>
 <text xml:space="preserve" text-anchor="middle" x="171.62" y="-130.5" font-family="Helvetica,sans-Serif" font-size="10.00">characteristics</text>
 </g>
 <!-- build_parent_site_characteristics&#45;&gt;build_estimation_panels -->
-<g id="edge4" class="edge">
+<g id="edge5" class="edge">
 <title>build_parent_site_characteristics&#45;&gt;build_estimation_panels</title>
 <path fill="none" stroke="#8196a8" d="M187.24,-121.62C192.69,-115.55 198.88,-108.65 204.64,-102.25"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="205.89,-103.48 207.93,-98.59 203.28,-101.14 205.89,-103.48"/>
 </g>
 <!-- classify_parent_485x_exposure -->
-<g id="node7" class="node">
+<g id="node8" class="node">
 <title>classify_parent_485x_exposure</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M316.5,-158C316.5,-158 236.75,-158 236.75,-158 230.75,-158 224.75,-152 224.75,-146 224.75,-146 224.75,-134 224.75,-134 224.75,-128 230.75,-122 236.75,-122 236.75,-122 316.5,-122 316.5,-122 322.5,-122 328.5,-128 328.5,-134 328.5,-134 328.5,-146 328.5,-146 328.5,-152 322.5,-158 316.5,-158"/>
 <text xml:space="preserve" text-anchor="middle" x="276.62" y="-141.75" font-family="Helvetica,sans-Serif" font-size="10.00">classify parent 485x</text>
 <text xml:space="preserve" text-anchor="middle" x="276.62" y="-130.5" font-family="Helvetica,sans-Serif" font-size="10.00">exposure</text>
 </g>
 <!-- classify_parent_485x_exposure&#45;&gt;build_estimation_panels -->
-<g id="edge5" class="edge">
+<g id="edge6" class="edge">
 <title>classify_parent_485x_exposure&#45;&gt;build_estimation_panels</title>
 <path fill="none" stroke="#8196a8" d="M261.3,-121.62C255.96,-115.55 249.88,-108.65 244.23,-102.25"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="245.64,-101.19 241.02,-98.6 243.01,-103.51 245.64,-101.19"/>
 </g>
 <!-- construct_parent_cohorts&#45;&gt;build_parent_site_characteristics -->
-<g id="edge7" class="edge">
+<g id="edge8" class="edge">
 <title>construct_parent_cohorts&#45;&gt;build_parent_site_characteristics</title>
 <path fill="none" stroke="#8196a8" d="M209.01,-182.62C203.56,-176.55 197.37,-169.65 191.61,-163.25"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="192.97,-162.14 188.32,-159.59 190.36,-164.48 192.97,-162.14"/>
 </g>
 <!-- construct_parent_cohorts&#45;&gt;classify_parent_485x_exposure -->
-<g id="edge8" class="edge">
+<g id="edge9" class="edge">
 <title>construct_parent_cohorts&#45;&gt;classify_parent_485x_exposure</title>
 <path fill="none" stroke="#8196a8" d="M239.95,-182.62C245.29,-176.55 251.37,-169.65 257.02,-163.25"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="258.24,-164.51 260.23,-159.6 255.61,-162.19 258.24,-164.51"/>
 </g>
 <!-- fetch_dcp_housing_database -->
-<g id="node9" class="node">
+<g id="node10" class="node">
 <title>fetch_dcp_housing_database</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M81.25,-463C81.25,-463 12,-463 12,-463 6,-463 0,-457 0,-451 0,-451 0,-439 0,-439 0,-433 6,-427 12,-427 12,-427 81.25,-427 81.25,-427 87.25,-427 93.25,-433 93.25,-439 93.25,-439 93.25,-451 93.25,-451 93.25,-457 87.25,-463 81.25,-463"/>
 <text xml:space="preserve" text-anchor="middle" x="46.62" y="-446.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch dcp housing</text>
 <text xml:space="preserve" text-anchor="middle" x="46.62" y="-435.5" font-family="Helvetica,sans-Serif" font-size="10.00">database</text>
 </g>
 <!-- stage_dcp_housing_database -->
-<g id="node10" class="node">
+<g id="node11" class="node">
 <title>stage_dcp_housing_database</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M84.38,-402C84.38,-402 12.88,-402 12.88,-402 6.87,-402 0.88,-396 0.88,-390 0.88,-390 0.88,-378 0.88,-378 0.88,-372 6.88,-366 12.88,-366 12.88,-366 84.38,-366 84.38,-366 90.38,-366 96.38,-372 96.38,-378 96.38,-378 96.38,-390 96.38,-390 96.38,-396 90.38,-402 84.38,-402"/>
 <text xml:space="preserve" text-anchor="middle" x="48.62" y="-385.75" font-family="Helvetica,sans-Serif" font-size="10.00">stage dcp housing</text>
 <text xml:space="preserve" text-anchor="middle" x="48.62" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">database</text>
 </g>
 <!-- fetch_dcp_housing_database&#45;&gt;stage_dcp_housing_database -->
-<g id="edge9" class="edge">
+<g id="edge10" class="edge">
 <title>fetch_dcp_housing_database&#45;&gt;stage_dcp_housing_database</title>
 <path fill="none" stroke="#8196a8" d="M47.21,-426.62C47.4,-421.03 47.62,-414.73 47.82,-408.76"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="49.56,-409.03 47.98,-403.98 46.06,-408.91 49.56,-409.03"/>
 </g>
 <!-- stage_dcp_housing_database&#45;&gt;build_hdb_mappluto_site_panel -->
-<g id="edge18" class="edge">
+<g id="edge19" class="edge">
 <title>stage_dcp_housing_database&#45;&gt;build_hdb_mappluto_site_panel</title>
 <path fill="none" stroke="#8196a8" d="M64.83,-365.62C70.6,-359.43 77.17,-352.38 83.24,-345.87"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="84.19,-347.42 86.31,-342.57 81.62,-345.03 84.19,-347.42"/>
 </g>
 <!-- fetch_dob_bis_job_filings -->
-<g id="node11" class="node">
+<g id="node12" class="node">
 <title>fetch_dob_bis_job_filings</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M151.62,-280C151.62,-280 87.62,-280 87.62,-280 81.62,-280 75.62,-274 75.62,-268 75.62,-268 75.62,-256 75.62,-256 75.62,-250 81.62,-244 87.62,-244 87.62,-244 151.62,-244 151.62,-244 157.62,-244 163.62,-250 163.62,-256 163.62,-256 163.62,-268 163.62,-268 163.62,-274 157.62,-280 151.62,-280"/>
 <text xml:space="preserve" text-anchor="middle" x="119.62" y="-263.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch dob bis job</text>
 <text xml:space="preserve" text-anchor="middle" x="119.62" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">filings</text>
 </g>
 <!-- fetch_dob_bis_job_filings&#45;&gt;construct_parent_cohorts -->
-<g id="edge10" class="edge">
+<g id="edge11" class="edge">
 <title>fetch_dob_bis_job_filings&#45;&gt;construct_parent_cohorts</title>
 <path fill="none" stroke="#8196a8" d="M150.56,-243.62C162.31,-237.01 175.81,-229.43 188.03,-222.56"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="188.73,-224.18 192.23,-220.2 187.01,-221.13 188.73,-224.18"/>
 </g>
 <!-- fetch_dob_now_new_building_filings -->
-<g id="node12" class="node">
+<g id="node13" class="node">
 <title>fetch_dob_now_new_building_filings</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M371.88,-341C371.88,-341 297.38,-341 297.38,-341 291.38,-341 285.38,-335 285.38,-329 285.38,-329 285.38,-317 285.38,-317 285.38,-311 291.38,-305 297.38,-305 297.38,-305 371.88,-305 371.88,-305 377.88,-305 383.88,-311 383.88,-317 383.88,-317 383.88,-329 383.88,-329 383.88,-335 377.88,-341 371.88,-341"/>
 <text xml:space="preserve" text-anchor="middle" x="334.62" y="-324.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch dob now new</text>
 <text xml:space="preserve" text-anchor="middle" x="334.62" y="-313.5" font-family="Helvetica,sans-Serif" font-size="10.00">building filings</text>
 </g>
 <!-- stage_dob_now_new_building_filings -->
-<g id="node13" class="node">
+<g id="node14" class="node">
 <title>stage_dob_now_new_building_filings</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M373,-280C373,-280 296.25,-280 296.25,-280 290.25,-280 284.25,-274 284.25,-268 284.25,-268 284.25,-256 284.25,-256 284.25,-250 290.25,-244 296.25,-244 296.25,-244 373,-244 373,-244 379,-244 385,-250 385,-256 385,-256 385,-268 385,-268 385,-274 379,-280 373,-280"/>
 <text xml:space="preserve" text-anchor="middle" x="334.62" y="-263.75" font-family="Helvetica,sans-Serif" font-size="10.00">stage dob now new</text>
 <text xml:space="preserve" text-anchor="middle" x="334.62" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">building filings</text>
 </g>
 <!-- fetch_dob_now_new_building_filings&#45;&gt;stage_dob_now_new_building_filings -->
-<g id="edge11" class="edge">
+<g id="edge12" class="edge">
 <title>fetch_dob_now_new_building_filings&#45;&gt;stage_dob_now_new_building_filings</title>
 <path fill="none" stroke="#8196a8" d="M334.62,-304.62C334.62,-299.03 334.62,-292.73 334.62,-286.76"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="336.38,-286.98 334.63,-281.98 332.88,-286.98 336.38,-286.98"/>
 </g>
 <!-- stage_dob_now_new_building_filings&#45;&gt;construct_parent_cohorts -->
-<g id="edge19" class="edge">
+<g id="edge20" class="edge">
 <title>stage_dob_now_new_building_filings&#45;&gt;construct_parent_cohorts</title>
 <path fill="none" stroke="#8196a8" d="M302.22,-243.62C289.8,-236.95 275.51,-229.29 262.62,-222.38"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="263.75,-221 258.52,-220.18 262.09,-224.08 263.75,-221"/>
 </g>
 <!-- link_hpd_485x_registrations -->
-<g id="node16" class="node">
+<g id="node17" class="node">
 <title>link_hpd_485x_registrations</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M359.5,-219C359.5,-219 309.75,-219 309.75,-219 303.75,-219 297.75,-213 297.75,-207 297.75,-207 297.75,-195 297.75,-195 297.75,-189 303.75,-183 309.75,-183 309.75,-183 359.5,-183 359.5,-183 365.5,-183 371.5,-189 371.5,-195 371.5,-195 371.5,-207 371.5,-207 371.5,-213 365.5,-219 359.5,-219"/>
 <text xml:space="preserve" text-anchor="middle" x="334.62" y="-202.75" font-family="Helvetica,sans-Serif" font-size="10.00">link hpd 485x</text>
 <text xml:space="preserve" text-anchor="middle" x="334.62" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">registrations</text>
 </g>
 <!-- stage_dob_now_new_building_filings&#45;&gt;link_hpd_485x_registrations -->
-<g id="edge20" class="edge">
+<g id="edge21" class="edge">
 <title>stage_dob_now_new_building_filings&#45;&gt;link_hpd_485x_registrations</title>
 <path fill="none" stroke="#8196a8" d="M334.62,-243.62C334.62,-238.03 334.62,-231.73 334.62,-225.76"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="336.38,-225.98 334.63,-220.98 332.88,-225.98 336.38,-225.98"/>
 </g>
 <!-- fetch_dof_tax_map_history -->
-<g id="node14" class="node">
+<g id="node15" class="node">
 <title>fetch_dof_tax_map_history</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M140.88,-219C140.88,-219 72.38,-219 72.38,-219 66.38,-219 60.38,-213 60.38,-207 60.38,-207 60.38,-195 60.38,-195 60.38,-189 66.38,-183 72.38,-183 72.38,-183 140.88,-183 140.88,-183 146.88,-183 152.88,-189 152.88,-195 152.88,-195 152.88,-207 152.88,-207 152.88,-213 146.88,-219 140.88,-219"/>
 <text xml:space="preserve" text-anchor="middle" x="106.62" y="-202.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch dof tax map</text>
 <text xml:space="preserve" text-anchor="middle" x="106.62" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">history</text>
 </g>
 <!-- fetch_dof_tax_map_history&#45;&gt;build_parent_site_characteristics -->
-<g id="edge12" class="edge">
+<g id="edge13" class="edge">
 <title>fetch_dof_tax_map_history&#45;&gt;build_parent_site_characteristics</title>
 <path fill="none" stroke="#8196a8" d="M125.78,-182.62C132.72,-176.31 140.65,-169.11 147.94,-162.49"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="148.74,-164.14 151.27,-159.48 146.39,-161.54 148.74,-164.14"/>
 </g>
 <!-- fetch_hpd_485x_registrations -->
-<g id="node15" class="node">
+<g id="node16" class="node">
 <title>fetch_hpd_485x_registrations</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M464.88,-280C464.88,-280 408.38,-280 408.38,-280 402.38,-280 396.38,-274 396.38,-268 396.38,-268 396.38,-256 396.38,-256 396.38,-250 402.38,-244 408.38,-244 408.38,-244 464.88,-244 464.88,-244 470.88,-244 476.88,-250 476.88,-256 476.88,-256 476.88,-268 476.88,-268 476.88,-274 470.88,-280 464.88,-280"/>
 <text xml:space="preserve" text-anchor="middle" x="436.62" y="-263.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch hpd 485x</text>
 <text xml:space="preserve" text-anchor="middle" x="436.62" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">registrations</text>
 </g>
 <!-- fetch_hpd_485x_registrations&#45;&gt;link_hpd_485x_registrations -->
-<g id="edge13" class="edge">
+<g id="edge14" class="edge">
 <title>fetch_hpd_485x_registrations&#45;&gt;link_hpd_485x_registrations</title>
 <path fill="none" stroke="#8196a8" d="M406.57,-243.62C395.16,-237.01 382.05,-229.43 370.17,-222.56"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="371.33,-221.21 366.12,-220.22 369.58,-224.24 371.33,-221.21"/>
 </g>
 <!-- link_hpd_485x_registrations&#45;&gt;classify_parent_485x_exposure -->
-<g id="edge16" class="edge">
+<g id="edge17" class="edge">
 <title>link_hpd_485x_registrations&#45;&gt;classify_parent_485x_exposure</title>
 <path fill="none" stroke="#8196a8" d="M317.54,-182.62C311.46,-176.43 304.53,-169.38 298.12,-162.87"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="299.61,-161.88 294.85,-159.54 297.11,-164.33 299.61,-161.88"/>
 </g>
 <!-- fetch_mappluto_archive -->
-<g id="node17" class="node">
+<g id="node18" class="node">
 <title>fetch_mappluto_archive</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M207.12,-463C207.12,-463 116.12,-463 116.12,-463 110.12,-463 104.12,-457 104.12,-451 104.12,-451 104.12,-439 104.12,-439 104.12,-433 110.12,-427 116.12,-427 116.12,-427 207.12,-427 207.12,-427 213.12,-427 219.12,-433 219.12,-439 219.12,-439 219.12,-451 219.12,-451 219.12,-457 213.12,-463 207.12,-463"/>
 <text xml:space="preserve" text-anchor="middle" x="161.62" y="-441.12" font-family="Helvetica,sans-Serif" font-size="10.00">fetch mappluto archive</text>
 </g>
 <!-- stage_mappluto_lots -->
-<g id="node18" class="node">
+<g id="node19" class="node">
 <title>stage_mappluto_lots</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M198.38,-402C198.38,-402 120.88,-402 120.88,-402 114.88,-402 108.88,-396 108.88,-390 108.88,-390 108.88,-378 108.88,-378 108.88,-372 114.88,-366 120.88,-366 120.88,-366 198.38,-366 198.38,-366 204.38,-366 210.38,-372 210.38,-378 210.38,-378 210.38,-390 210.38,-390 210.38,-396 204.38,-402 198.38,-402"/>
 <text xml:space="preserve" text-anchor="middle" x="159.62" y="-380.12" font-family="Helvetica,sans-Serif" font-size="10.00">stage mappluto lots</text>
 </g>
 <!-- fetch_mappluto_archive&#45;&gt;stage_mappluto_lots -->
-<g id="edge14" class="edge">
+<g id="edge15" class="edge">
 <title>fetch_mappluto_archive&#45;&gt;stage_mappluto_lots</title>
 <path fill="none" stroke="#8196a8" d="M161.04,-426.62C160.85,-421.03 160.63,-414.73 160.43,-408.76"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="162.19,-408.91 160.27,-403.98 158.69,-409.03 162.19,-408.91"/>
 </g>
 <!-- stage_mappluto_lots&#45;&gt;build_hdb_mappluto_site_panel -->
-<g id="edge21" class="edge">
+<g id="edge22" class="edge">
 <title>stage_mappluto_lots&#45;&gt;build_hdb_mappluto_site_panel</title>
 <path fill="none" stroke="#8196a8" d="M143.13,-365.62C137.25,-359.43 130.57,-352.38 124.38,-345.87"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="125.95,-344.98 121.24,-342.56 123.41,-347.39 125.95,-344.98"/>
 </g>
 <!-- fetch_nyc_borough_boundaries -->
-<g id="node19" class="node">
+<g id="node20" class="node">
 <title>fetch_nyc_borough_boundaries</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M143.62,-97C143.62,-97 73.62,-97 73.62,-97 67.62,-97 61.62,-91 61.62,-85 61.62,-85 61.62,-73 61.62,-73 61.62,-67 67.62,-61 73.62,-61 73.62,-61 143.62,-61 143.62,-61 149.62,-61 155.62,-67 155.62,-73 155.62,-73 155.62,-85 155.62,-85 155.62,-91 149.62,-97 143.62,-97"/>
 <text xml:space="preserve" text-anchor="middle" x="108.62" y="-80.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch nyc borough</text>
 <text xml:space="preserve" text-anchor="middle" x="108.62" y="-69.5" font-family="Helvetica,sans-Serif" font-size="10.00">boundaries</text>
 </g>
 <!-- fetch_nyc_borough_boundaries&#45;&gt;analyze_borough_bunching -->
-<g id="edge15" class="edge">
+<g id="edge16" class="edge">
 <title>fetch_nyc_borough_boundaries&#45;&gt;analyze_borough_bunching</title>
-<path fill="none" stroke="#8196a8" d="M109.21,-60.62C109.4,-55.03 109.62,-48.73 109.82,-42.76"/>
-<polygon fill="#8196a8" stroke="#8196a8" points="111.56,-43.03 109.98,-37.98 108.06,-42.91 111.56,-43.03"/>
+<path fill="none" stroke="#8196a8" d="M108.92,-60.62C109.01,-55.03 109.12,-48.73 109.22,-42.76"/>
+<polygon fill="#8196a8" stroke="#8196a8" points="110.97,-43 109.3,-37.98 107.47,-42.95 110.97,-43"/>
 </g>
 <!-- parent_opportunities_manual -->
-<g id="node20" class="node">
+<g id="node21" class="node">
 <title>parent_opportunities_manual</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M262.38,-341C262.38,-341 184.88,-341 184.88,-341 178.88,-341 172.88,-335 172.88,-329 172.88,-329 172.88,-317 172.88,-317 172.88,-311 178.88,-305 184.88,-305 184.88,-305 262.38,-305 262.38,-305 268.38,-305 274.38,-311 274.38,-317 274.38,-317 274.38,-329 274.38,-329 274.38,-335 268.38,-341 262.38,-341"/>
 <text xml:space="preserve" text-anchor="middle" x="223.62" y="-324.75" font-family="Helvetica,sans-Serif" font-size="10.00">parent opportunities</text>
 <text xml:space="preserve" text-anchor="middle" x="223.62" y="-313.5" font-family="Helvetica,sans-Serif" font-size="10.00">manual</text>
 </g>
 <!-- parent_opportunities_manual&#45;&gt;construct_historical_parent_links -->
-<g id="edge17" class="edge">
+<g id="edge18" class="edge">
 <title>parent_opportunities_manual&#45;&gt;construct_historical_parent_links</title>
 <path fill="none" stroke="#8196a8" d="M223.62,-304.62C223.62,-299.03 223.62,-292.73 223.62,-286.76"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="225.38,-286.98 223.63,-281.98 221.88,-286.98 225.38,-286.98"/>

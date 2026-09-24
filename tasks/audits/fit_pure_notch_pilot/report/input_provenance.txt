@@ -1,9 +1,0 @@
-Rows: 4
-Columns: 3
-Key fields: file
-Saved-file MD5: 6762c0dbcddcc4149cf55f87a515334a
-Rows missing a key field: 0
-Repeated keys beyond the first row: 0
-file | character | nonmissing | 4 | distinct | 4
-md5 | character | nonmissing | 4 | distinct | 4
-rows | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 1/1636/1545.5/2909

@@ -4,9 +4,9 @@ This project studies bunching below the 100-unit threshold in New York City's
 485-x program and whether developers divide larger projects into several
 filings. A *constituent* is one building filing; a *parent* is the economic
 development opportunity containing one or more constituents. The main pipeline
-builds the parent and constituent panels and the descriptive exhibits. The
-joint size-and-organization model is described in `framework_writeup.tex`; an
-exploratory fit lives in the audits.
+builds the parent and constituent panels and the descriptive exhibits, and
+estimates the joint size-and-organization model described in
+`framework_writeup.tex`.
 
 The comparison is 2019–2022 versus January 1, 2025–July 8, 2026.
 
@@ -27,13 +27,13 @@ The comparison is 2019–2022 versus January 1, 2025–July 8, 2026.
 |---|---|
 | `make` | Main panels, citywide plots, borough plots and map, task graph |
 | `make data` / `plots` / `maps` | A narrower product and its dependencies |
+| `make estimate` | Size-and-splitting model estimates (`estimate_notch_model`) |
 | `make reweighting` | Reweighted historical benchmark and bootstrap (`audit_scale_shape_splitting`) |
 | `make holdout-checks` | Pre-policy placebo and leave-one-year-out checks of that benchmark |
 | `make site-boundaries` | Parcel-boundary screen for the weighting sample |
 | `make land-sensitivity` | Whether land-measurement choices move the reweighted comparison |
 | `make parent-links` | Evidence casebook for reviewed parent links |
 | `make companion-rules` | Alternative same-owner linking rules, their hand review, and a stricter-rule check |
-| `make pure-notch-pilot` | Exploratory structural fit (runs estimation) |
 | `make framework-writeup`, `make logbook`, `make paper` | The documents, after the inputs they read |
 
 The root Makefile orders the tasks; each task's Makefile decides what is stale.
@@ -63,11 +63,13 @@ Housing Database download from their official URLs if missing.
 | Committed decisions; HPD links; exposure | `parent_opportunities_manual`, `link_hpd_485x_registrations`, `classify_parent_485x_exposure` |
 | Parent characteristics and final panels | `build_parent_site_characteristics`, `build_estimation_panels` |
 | Exhibits | `plot_bunching`, `analyze_borough_bunching` |
+| Size-and-splitting model | `estimate_notch_model` |
 
 Outputs: `tasks/build_estimation_panels/output/parent_opportunity_panel.parquet`
 and `constituent_filing_panel.parquet`; citywide plots in
 `tasks/plot_bunching/output/pdf/main_project_plots.pdf`; borough plots and the
-exact-99 map in `tasks/analyze_borough_bunching/output/borough_bunching.pdf`.
+exact-99 map in `tasks/analyze_borough_bunching/output/borough_bunching.pdf`;
+model estimates in `tasks/estimate_notch_model/output/estimates.csv`.
 
 ## Audits and research record
 

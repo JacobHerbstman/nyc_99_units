@@ -1,0 +1,13 @@
+Rows: 1667
+Columns: 7
+Key fields: variant, sample, parent_id
+Saved-file MD5: bee93c7cad52e32ab5038b9eab968553
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+variant | character | nonmissing | 1667 | distinct | 2
+sample | character | nonmissing | 1667 | distinct | 2
+parent_id | character | nonmissing | 1667 | distinct | 892
+units | integer | nonmissing | 1667 | distinct | 293 min/median/mean/max 50/99/166.3995/1452
+buildings | integer | nonmissing | 1667 | distinct | 7 min/median/mean/max 1/1/1.217756/8
+weight_zoning_borough | numeric | nonmissing | 1667 | distinct | 127 min/median/mean/max 0.0009650109/0.001988757/0.00239952/0.005347594
+weight_with_lot_area | numeric | nonmissing | 1667 | distinct | 1149 min/median/mean/max 0.0005494199/0.002017419/0.00239952/0.005347594

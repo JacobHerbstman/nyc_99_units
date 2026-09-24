@@ -1,0 +1,19 @@
+Rows: 92742
+Columns: 13
+Key fields: specification, kappa, tau, sigma
+Saved-file MD5: c4b777830b9f7179e8e53ed794713e7a
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+specification | character | nonmissing | 92742 | distinct | 8
+kappa | numeric | nonmissing | 92742 | distinct | 29 min/median/mean/max 0/0.14/0.2175/1
+tau | numeric | nonmissing | 92742 | distinct | 11 min/median/mean/max 0/0.2/0.3248718/1
+sigma | numeric | nonmissing | 92742 | distinct | 41 min/median/mean/max 0.001/0.1/1.185788/10
+objective | numeric | nonmissing | 92742 | distinct | 60061 min/median/mean/max 0.002447804/0.02652432/0.02791267/0.1623306
+units_lost_model | numeric | nonmissing | 92742 | distinct | 60917 min/median/mean/max 0/874.678/2985.565/21921.58
+units_lost_fixed_buildings | numeric | nonmissing | 92742 | distinct | 1846 min/median/mean/max 0/5980.508/7273.56/23358.62
+share_99 | numeric | nonmissing | 92742 | distinct | 15058 min/median/mean/max 0.005273665/0.0875304/0.1116794/0.4174317
+share_99_plus_99 | numeric | nonmissing | 92742 | distinct | 53505 min/median/mean/max 0/0.01242142/0.01836375/0.08834651
+share_two_buildings | numeric | nonmissing | 92742 | distinct | 59275 min/median/mean/max 0.08085289/0.2134698/0.1980685/0.3034984
+share_three_plus_buildings | numeric | nonmissing | 92742 | distinct | 59525 min/median/mean/max 0.02629376/0.1755256/0.1521897/0.2607325
+share_above_300 | numeric | nonmissing | 92742 | distinct | 56101 min/median/mean/max 0.01797145/0.1293483/0.1186649/0.1469479
+mean_units | numeric | nonmissing | 92742 | distinct | 60919 min/median/mean/max 98.82159/165.3745/157.3888/171.6136

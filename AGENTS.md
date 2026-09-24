@@ -4,7 +4,7 @@ Apply the personal research skills: `readable-research-code` for coding style, `
 
 ## Research and data
 
-The project studies bunching below the 100-unit threshold under 485-x and the joint decision over parent size and organization into constituent filings. The main pipeline prepares data and descriptive exhibits; it does not yet estimate the joint model. See [README.md](README.md) and `framework_writeup.tex` for the research context.
+The project studies bunching below the 100-unit threshold under 485-x and the joint decision over parent size and organization into constituent filings. The main pipeline prepares data and descriptive exhibits, and `tasks/estimate_notch_model` estimates the joint model (root `make estimate`). See [README.md](README.md) and `framework_writeup.tex` for the research context.
 
 The canonical panels are produced by `tasks/build_estimation_panels`. Its [README](tasks/build_estimation_panels/README.md) and Makefile define the comparison periods, the six-unit minimum, and `included_ab`. The 50-unit, `composition_eligible` weighting sample is selected in `tasks/audits/audit_scale_shape_splitting`. Preserve those definitions during cleanup.
 
@@ -17,7 +17,7 @@ Do not use many-to-many joins in active code or suppress cardinality warnings. R
 - Root `make` builds the main plots and maps. `make data`, `make plots`, and `make maps` request narrower products and their dependencies.
 - Task-local `make` runs from `code/` against prepared inputs; it does not execute upstream tasks. Use the root entry point after upstream changes.
 - Root `make paper`, `make logbook`, and `make framework-writeup` prepare their inputs and compile the documents through their Makefiles. Document-local Makefiles use prepared inputs.
-- Each kept audit has one root target (`reweighting`, `holdout-checks`, `site-boundaries`, `land-sensitivity`, `parent-links`, `pure-notch-pilot`); see `tasks/audits/README.md`.
+- Each kept audit has one root target (`reweighting`, `holdout-checks`, `site-boundaries`, `land-sensitivity`, `parent-links`, `companion-rules`); see `tasks/audits/README.md`.
 - No main data/figure task depends on an audit. The logbook and framework read selected audit outputs through their root targets.
 - Fetch rules download or copy a source only when it is missing and verify it against the task's `checksums.sha256`. Do not make a download depend on the Makefile or scripts.
 

@@ -6,7 +6,7 @@ TASKS := analyze_borough_bunching build_estimation_panels build_hdb_mappluto_sit
 	build_parent_site_characteristics classify_parent_485x_exposure construct_historical_parent_links \
 	construct_parent_cohorts fetch_dcp_housing_database fetch_dob_now_new_building_filings \
 	fetch_hpd_485x_registrations fetch_mappluto_archive fetch_nyc_borough_boundaries fetch_dof_tax_map_history \
-	fetch_dob_bis_job_filings \
+	fetch_dob_bis_job_filings estimate_notch_model \
 	link_hpd_485x_registrations parent_opportunities_manual plot_bunching stage_dcp_housing_database \
 	stage_dob_now_new_building_filings stage_mappluto_lots
 
@@ -14,6 +14,7 @@ all: plot_bunching analyze_borough_bunching task_graph.svg
 data: build_estimation_panels
 plots: plot_bunching
 maps: analyze_borough_bunching
+estimate: estimate_notch_model
 
 # Audits run after the main data; no main task depends on them.
 reweighting: data plots
@@ -35,9 +36,6 @@ parent-links: data
 companion-rules: data fetch_dob_bis_job_filings fetch_dof_tax_map_history
 	$(MAKE) -C tasks/audits/audit_companion_rules/code
 
-pure-notch-pilot: reweighting
-	$(MAKE) -C tasks/audits/fit_pure_notch_pilot/code
-
 analyze_borough_bunching: build_estimation_panels fetch_nyc_borough_boundaries stage_dcp_housing_database \
 	stage_dob_now_new_building_filings
 	$(MAKE) -C tasks/analyze_borough_bunching/code
@@ -56,6 +54,9 @@ build_parent_site_characteristics: build_hdb_mappluto_site_panel construct_paren
 classify_parent_485x_exposure: construct_historical_parent_links construct_parent_cohorts link_hpd_485x_registrations \
 	stage_dcp_housing_database stage_dob_now_new_building_filings
 	$(MAKE) -C tasks/classify_parent_485x_exposure/code
+
+estimate_notch_model: build_estimation_panels
+	$(MAKE) -C tasks/estimate_notch_model/code
 
 construct_historical_parent_links: build_hdb_mappluto_site_panel fetch_mappluto_archive parent_opportunities_manual \
 	stage_dcp_housing_database
@@ -110,7 +111,7 @@ setup-environment:
 paper: all
 	$(MAKE) -C paper
 
-logbook: maps reweighting parent-links
+logbook: maps reweighting parent-links estimate
 	$(MAKE) -C logbook
 
 framework-writeup: reweighting
@@ -125,5 +126,5 @@ task_graph.svg: tasks/shared/code/draw_task_graph.py Makefile \
 	$(foreach task,$(TASKS),tasks/$(task)/code/Makefile)
 	python3 tasks/shared/code/draw_task_graph.py
 
-.PHONY: all data plots maps reweighting holdout-checks site-boundaries land-sensitivity parent-links \
-	companion-rules pure-notch-pilot paper logbook framework-writeup setup-environment $(TASKS)
+.PHONY: all data plots maps estimate reweighting holdout-checks site-boundaries land-sensitivity parent-links \
+	companion-rules paper logbook framework-writeup setup-environment $(TASKS)
