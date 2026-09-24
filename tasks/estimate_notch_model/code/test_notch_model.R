@@ -28,7 +28,7 @@ solve <- function(x, J0, kappa, tau, lambda = 1, assessment = "separate") {
 # 1. Without the burden every parent keeps its total and building count, at
 # every curvature.
 zero_ok <- all(sapply(c(0.5, 1, 2), function(lambda) {
-  segments <- organization_segments(solve(x, J0, 0, 0, lambda), J0, "linear")
+  segments <- organization_segments(solve(x, J0, 0, 0, lambda), J0, 1)
   nrow(segments) == length(x) && all(segments$m == x[segments$i]) &&
     all(segments$J == J0[segments$i]) && all(segments$lower == 0 & is.infinite(segments$upper))
 }))
@@ -94,34 +94,42 @@ record("consolidation never lowers the burden", all(below$R >= below$R_baseline)
   paste(nrow(below), "parent-count pairs below J0"))
 
 # 7. Choice probabilities sum to one and match simulated cost draws.
-segments <- organization_segments(sizes, J0, "linear")
+segments <- organization_segments(sizes, J0, 1)
 probabilities <- segment_probabilities(segments, c(0.02, 0.2, 2))
 sums <- rowsum(probabilities, segments$i)
 set.seed(20260924)
-affected <- unique(segments$i[segments$lower > 0])[1:20]
-simulated_ok <- all(sapply(affected, function(parent) {
-  s <- sizes[sizes$i == parent & sizes$J >= J0[parent], ]
-  draws <- rexp(2e5, rate = 1 / 0.2)
-  total <- outer(draws, splitting_growth(s$J - J0[parent], "linear")) + rep(s$R, each = length(draws))
-  simulated <- tabulate(max.col(-total, ties.method = "first"), nrow(s)) / length(draws)
-  analytic <- sapply(s$J, function(j) sum(probabilities[segments$i == parent & segments$J == j, 2]))
-  max(abs(simulated - analytic)) < 0.01
+simulated_ok <- all(sapply(c(1, 1.5, 2.5), function(gamma) {
+  segments <- organization_segments(sizes, J0, gamma)
+  probabilities <- segment_probabilities(segments, 0.2)
+  affected <- unique(segments$i[segments$lower > 0])[1:20]
+  all(sapply(affected, function(parent) {
+    s <- sizes[sizes$i == parent & sizes$J >= J0[parent], ]
+    draws <- rexp(2e5, rate = 1 / 0.2)
+    total <- outer(draws, (s$J - J0[parent])^gamma) + rep(s$R, each = length(draws))
+    simulated <- tabulate(max.col(-total, ties.method = "first"), nrow(s)) / length(draws)
+    analytic <- sapply(s$J, function(j) sum(probabilities[segments$i == parent & segments$J == j]))
+    max(abs(simulated - analytic)) < 0.01
+  }))
 }))
 mass_ok <- all(sapply(c(0.5, 2), function(lambda) {
-  s <- organization_segments(solve(x, J0, 0.1, 0.2, lambda), J0, "linear")
+  s <- organization_segments(solve(x, J0, 0.1, 0.2, lambda), J0, 1)
   all(abs(rowsum(segment_probabilities(s, c(0.02, 0.2, 2)), s$i) - 1) < 1e-12)
 }))
 record("choice probabilities sum to one", all(abs(sums - 1) < 1e-12) && mass_ok,
   "sigma = 0.02, 0.2, 2; lambda = 0.5, 1, 2")
-record("choice probabilities match simulated costs", simulated_ok, "20 affected parents, 200,000 draws")
+record("choice probabilities match simulated costs", simulated_ok,
+  "20 affected parents, 200,000 draws; gamma = 1, 1.5, 2.5")
 
-# 8. The motivating case: 210 units in one building. With kappa = 0.1 and
-# c = 0.05, splitting into 99 + 99 beats paying (0.1) and three buildings
-# at full size (2c = 0.1): c + (12 / 99)^2 = 0.065.
-s <- solve(210L, 1L, 0.1, 0)
-chosen <- s[which.min(s$R + 0.05 * (s$J - 1)), ]
-record("210 units splits into 99 + 99", chosen$J == 2 && chosen$m == 198,
-  sprintf("chosen J = %d, m = %d", chosen$J, chosen$m))
+# 8. The motivating case: 220 units in one building, kappa = 0.16, c = 0.04.
+# With a linear cost three buildings at full size (2c = 0.08) beat 99 + 99
+# (c + (22 / 99)^2 = 0.089); with gamma = 2 three buildings cost 4c = 0.16,
+# so 99 + 99 wins.
+s <- solve(220L, 1L, 0.16, 0)
+linear <- s[which.min(s$R + 0.04 * (s$J - 1)), ]
+steeper <- s[which.min(s$R + 0.04 * (s$J - 1)^2), ]
+record("220 units: three buildings if linear, 99 + 99 if gamma = 2",
+  linear$J == 3 && linear$m == 220 && steeper$J == 2 && steeper$m == 198,
+  sprintf("linear J = %d, m = %d; gamma = 2 J = %d, m = %d", linear$J, linear$m, steeper$J, steeper$m))
 
 model_checks <- do.call(rbind, checks)
 print(model_checks)

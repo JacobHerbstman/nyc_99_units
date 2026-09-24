@@ -6,9 +6,10 @@
 #   size loss       l(m; x): ordinary profit given up by building m instead of x
 #   policy burden   kappa + tau * [(n / 99)^(1 + lambda) - (100 / 99)^(1 + lambda)]
 #                   for each separately assessed building with n >= 100 units
-#   splitting cost  c * g(J - J0) for buildings beyond the historical count,
+#   splitting cost  c * k^gamma for k buildings beyond the historical count,
 #                   with c drawn for each parent from an exponential distribution
-#                   with mean sigma.
+#                   with mean sigma; gamma > 1 makes each added building cost
+#                   more than the last.
 # Layouts within a parent are free, and each building has at least one unit.
 
 # The loss is zero at m = x and positive elsewhere; set that zero exactly, since
@@ -81,12 +82,8 @@ choose_sizes <- function(candidates, burden) {
              m = candidates$m[first], R = cost[first])
 }
 
-splitting_growth <- function(extra_buildings, growth) {
-  if (growth == "linear") extra_buildings else extra_buildings * (extra_buildings + 1) / 2
-}
-
 # Which J a parent chooses, as a function of its splitting cost c. Each J is a
-# line R_J + c * g(J - J0) in c; the parent takes the lowest line, so each J
+# line R_J + c * (J - J0)^gamma in c; the parent takes the lowest line, so each J
 # owns an interval of c. Fewer buildings than J0 is never chosen: it raises
 # the burden and costs c, so those lines are dropped.
 cost_intervals <- function(R, slope) {
@@ -112,7 +109,7 @@ cost_intervals <- function(R, slope) {
 }
 
 # A parent the burden does not touch keeps its historical outcome for every c.
-organization_segments <- function(sizes, J0, growth) {
+organization_segments <- function(sizes, J0, gamma) {
   sizes <- sizes[sizes$J >= J0[sizes$i], ]
   baseline <- sizes[sizes$J == J0[sizes$i], ]
   unaffected <- baseline[baseline$R == 0, c("i", "J", "m")]
@@ -120,7 +117,7 @@ organization_segments <- function(sizes, J0, growth) {
   unaffected$upper <- rep(Inf, nrow(unaffected))
   affected <- sizes[sizes$i %in% baseline$i[baseline$R > 0], ]
   segments <- lapply(split(affected, affected$i), function(parent) {
-    intervals <- cost_intervals(parent$R, splitting_growth(parent$J - J0[parent$i[1]], growth))
+    intervals <- cost_intervals(parent$R, (parent$J - J0[parent$i[1]])^gamma)
     cbind(parent[intervals$line, c("i", "J", "m")], intervals[c("lower", "upper")])
   })
   rbind(unaffected, do.call(rbind, segments))
@@ -135,6 +132,8 @@ segment_probabilities <- function(segments, sigma) {
 size_bins <- c(-Inf, 49, 89, 94, 98, 99, 104, 119, 149, 179, 197, 198, 199, 249, 300, Inf)
 size_bin_labels <- c("under 50", "50-89", "90-94", "95-98", "99", "100-104", "105-119",
   "120-149", "150-179", "180-197", "198", "199", "200-249", "250-300", "301+")
+
+up_to_300_cells <- which(rep(size_bin_labels, 3) != "301+")
 
 outcome_cell <- function(m, J) {
   cut(m, size_bins, labels = FALSE) + 15L * (pmin(J, 3L) - 1L)

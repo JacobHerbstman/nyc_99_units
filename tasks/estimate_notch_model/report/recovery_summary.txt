@@ -1,14 +1,14 @@
-Rows: 6
+Rows: 12
 Columns: 8
 Key fields: truth, parameter
-Saved-file MD5: 62fc7f0581b452396c380abe517f4632
+Saved-file MD5: 7a966d9fd5bfda2839a42ee883f5194e
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-truth | character | nonmissing | 6 | distinct | 2
-parameter | character | nonmissing | 6 | distinct | 3
-true_value | numeric | nonmissing | 6 | distinct | 4 min/median/mean/max 0/0.1797631/0.1531754/0.2
-exact_moments_recover | logical | nonmissing | 6 | distinct | 1
-share_draws_at_truth | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.04/0.2075/0.2891667/0.89
-draw_p10 | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 0/0.085/0.07363085/0.1258925
-draw_median | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 0/0.1697631/0.1598421/0.3
-draw_p90 | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 0.02/0.3162278/0.4120759/1
+truth | character | nonmissing | 12 | distinct | 3
+parameter | character | nonmissing | 12 | distinct | 4
+true_value | numeric | nonmissing | 12 | distinct | 6 min/median/mean/max 0.05/0.2255943/0.4877972/1.75
+exact_moments_recover | logical | nonmissing | 12 | distinct | 1
+share_draws_at_truth | numeric | nonmissing | 12 | distinct | 11 min/median/mean/max 0.12/0.2675/0.3166667/0.685
+draw_p10 | numeric | nonmissing | 12 | distinct | 7 min/median/mean/max 0.02/0.1292447/0.3571223/1.25
+draw_median | numeric | nonmissing | 12 | distinct | 8 min/median/mean/max 0.05/0.2255943/0.5069638/2
+draw_p90 | numeric | nonmissing | 12 | distinct | 10 min/median/mean/max 0.1/0.3571675/0.7827035/3

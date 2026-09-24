@@ -64,10 +64,6 @@ The benchmark is the reweighted 2019--2022 distribution. The pilot column is
 the archived September 22 fit on the earlier panel, whose observed shares
 differ (13.2 percent pairs, 2.9 percent $99+99$).
 
-\begin{center}
-\includegraphics[width=\textwidth]{../tasks/estimate_notch_model/output/pdf/model_fit.pdf}
-\end{center}
-
 The rising cost does what was intended. Pairs are now slightly
 overpredicted, and the model produces half the observed $99+99$ parents,
 against almost none before. Three-plus parents are still twice the observed
@@ -146,3 +142,90 @@ legal-assessment question for observed splits. Jacob decided not to model the
 \textit{Reproduction note.} Root \texttt{make estimate} runs
 \path{tasks/estimate_notch_model}; results are in \path{estimates.csv},
 \path{fit_moments.csv} and \path{recovery_summary.csv}.
+
+\subsection*{September 24 follow-up: parents up to 300 units and a steeper splitting cost}
+
+Jacob decided to set aside parents above 300 units. They dominate the unit
+totals, and the before and after counts of very large projects cannot be
+distinguished from a change in which projects reach filing. The main fit now
+compares the size-and-building distribution of parents with at most 300 units,
+renormalized on both sides, so the number of very large projects in either
+period does not enter; a historical parent just above 300 that shrinks into the
+range still counts. Units lost are counted among historical parents of at most
+300 units, scaled to the 278 recent parents in that range. Second, the cost of
+adding $k$ buildings is now $c\,k^\gamma$ with $\gamma$ estimated: $\gamma=1$
+is the linear cost of the first fit, and $\gamma>1$ makes each added building
+cost more than the last. Under the linear cost, a 220-unit building whose
+splitting cost is small prefers three buildings at full size to $99+99$; the data
+show the opposite.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrr}
+\hline
+Share of parents up to 300 units (\%) & Observed & Benchmark & Main & Linear cost \\
+\hline
+Exactly 99 units & 12.9 & 0.6 & 12.6 & 12.9 \\
+Organized as $99+99$ & 3.2 & 0.0 & 3.1 & 2.3 \\
+Two buildings & 16.2 & 7.4 & 20.6 & 17.1 \\
+Three or more buildings & 3.2 & 1.9 & 4.8 & 6.0 \\
+Mean units & 107.3 & 110.4 & 109.7 & 109.9 \\
+\hline
+\end{tabular}
+\end{center}
+
+The main estimates are a jump $\kappa=0.10$, a kink $\tau=0.05$, growth
+$\gamma=1.75$ and a mean splitting cost $\sigma=0.25$. The model now matches the
+99 spike and the $99+99$ parents almost exactly, and three-plus parents fall to
+4.8 percent against 3.2 observed. The steeper cost is favored but loosely: the
+objective is 0.0029 at $\gamma=1$ and 0.0026 from 1.5 to 2, and every value from
+1 to 3 is within 10 percent of the best. In simulated samples from the estimate,
+$\gamma$ is re-estimated between 1.25 and 2.5 in 80 percent of draws; from a
+linear truth it is re-estimated at 1 in 69 percent.
+
+Two buildings are now overpredicted, 20.6 percent against 16.2. About a third of
+that is ordinary two-building parents of 50--89 units in the benchmark (3.1
+percent against 1.8 observed), which the policy does not move; the rest is
+pairs of 150--249 units. The model also cannot place the 3.2 percent of recent
+single buildings at 95--98 units, just short of 99.
+
+Without the largest projects the kink returns. The best objective is 0.0033
+with no kink, 0.0026 at $\tau=0.05$ and 0.0030 at 0.1; from a truth of 0.05,
+simulated estimates fall between 0.02 and 0.10. The September 24 finding of no
+kink therefore came from the all-size comparison. The kink drives the unit
+estimate: the model loses 636 units with no kink, 1,018 at 0.05 and 1,505 at
+0.1.
+
+\begin{center}
+\includegraphics[width=\textwidth]{../tasks/estimate_notch_model/output/pdf/model_fit.pdf}
+\end{center}
+
+\paragraph{Units.} Among parents of at most 300 units, the model loses 1,018
+units; holding building counts fixed it would lose 1,368, so splitting
+preserves 350. The raw difference in mean size within this range, scaled to
+the 278 recent parents, is 854 units, so the model accounts for all of it. The
+estimates are sensitive to the weights and follow-up: with lot-area weights
+the historical parents in this range are smaller than the recent ones (a raw
+gap of $-908$), yet the model loses 1,373; on the common 180-day horizon it
+loses 436 of a raw 393 on 167 recent parents.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrrr}
+\hline
+Specification & $\kappa$ & $\tau$ & $\gamma$ & $\sigma$ & Objective & Units lost \\
+\hline
+Main (up to 300) & 0.10 & 0.05 & 1.75 & 0.25 & 0.0026 & 1,018 \\
+Linear splitting cost & 0.10 & 0.05 & 1 & 0.32 & 0.0029 & 1,025 \\
+Lot-area weights & 0.10 & 0.10 & 1.5 & 0.40 & 0.0018 & 1,373 \\
+Common 180-day horizon & 0.12 & 0.02 & 2 & 0.16 & 0.0031 & 436 \\
+Curvature 0.5 & 0.04 & 0.02 & 2 & 0.10 & 0.0025 & 1,102 \\
+Curvature 2 & 0.40 & 0.05 & 1.5 & 0.79 & 0.0027 & 748 \\
+Joint assessment & 0.09 & 0.10 & -- & -- & 0.0101 & 2,232 \\
+All sizes & 0.16 & 0.02 & 1.75 & 0.32 & 0.0057 & 1,213 \\
+\hline
+\end{tabular}
+\end{center}
+
+Objectives are comparable within the up-to-300 rows, not with the all-size
+row. Joint assessment again fits worst and produces no $99+99$ parents.

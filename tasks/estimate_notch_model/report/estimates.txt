@@ -1,27 +1,29 @@
-Rows: 8
-Columns: 21
+Rows: 9
+Columns: 23
 Key fields: specification
-Saved-file MD5: 0a775382fcc0eb39330d995a92bbc461
+Saved-file MD5: 69ca7cd6e9dbbfa2f7c4b501c3f314bd
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-specification | character | nonmissing | 8 | distinct | 8
-variant | character | nonmissing | 8 | distinct | 2
-weight | character | nonmissing | 8 | distinct | 2
-lambda | numeric | nonmissing | 8 | distinct | 3 min/median/mean/max 0.5/1/1.0625/2
-growth | character | nonmissing | 8 | distinct | 2
-assessment | character | nonmissing | 8 | distinct | 2
-kappa | numeric | nonmissing | 8 | distinct | 5 min/median/mean/max 0.03/0.16/0.18875/0.6
-tau | numeric | nonmissing | 8 | distinct | 3 min/median/mean/max 0/0/0.0275/0.2
-compression | numeric | nonmissing | 8 | distinct | 3 min/median/mean/max 1/1/1.0275/1.2
-sigma | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0.001/0.1995262/0.2499649/0.7943282
-objective | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0.002447804/0.005932148/0.005890788/0.009878018
-near_optimal_points | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 14/27/165.875/1148
-kappa_range | character | nonmissing | 8 | distinct | 6
-tau_range | character | nonmissing | 8 | distinct | 3
-sigma_range | character | nonmissing | 8 | distinct | 7
-units_lost_model | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 341.5107/627.2365/1452.005/6949.901
-units_lost_fixed_buildings | numeric | nonmissing | 8 | distinct | 6 min/median/mean/max 475.0773/806.6667/1612.771/6949.901
-units_preserved_by_splitting | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 3.45608e-11/179.4302/160.7661/253.2365
-direct_unit_gap | numeric | nonmissing | 8 | distinct | 3 min/median/mean/max 2083.614/9555.34/7914.298/9555.34
-historical_parents | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 588/588/588/588
-post_parents | numeric | nonmissing | 8 | distinct | 2 min/median/mean/max 187/304/289.375/304
+specification | character | nonmissing | 9 | distinct | 9
+sizes | character | nonmissing | 9 | distinct | 2
+variant | character | nonmissing | 9 | distinct | 2
+weight | character | nonmissing | 9 | distinct | 2
+lambda | numeric | nonmissing | 9 | distinct | 3 min/median/mean/max 0.5/1/1.055556/2
+assessment | character | nonmissing | 9 | distinct | 2
+kappa | numeric | nonmissing | 9 | distinct | 6 min/median/mean/max 0.04/0.1/0.1411111/0.4
+tau | numeric | nonmissing | 9 | distinct | 4 min/median/mean/max 0/0.05/0.04555556/0.1
+compression | numeric | nonmissing | 9 | distinct | 6 min/median/mean/max 1/1.0404/1.045011/1.1
+gamma | numeric | nonmissing | 9 | distinct | 4 min/median/mean/max 1/1.5/1.5/2
+sigma | numeric | nonmissing | 9 | distinct | 8 min/median/mean/max 0.001/0.2511886/0.2816772/0.7943282
+objective | numeric | nonmissing | 9 | distinct | 9 min/median/mean/max 0.001758722/0.002878654/0.004155337/0.01010548
+near_optimal_points | numeric | nonmissing | 9 | distinct | 9 min/median/mean/max 15/37/159.4444/984
+kappa_range | character | nonmissing | 9 | distinct | 7
+tau_range | character | nonmissing | 9 | distinct | 7
+gamma_range | character | nonmissing | 9 | distinct | 3
+sigma_range | character | nonmissing | 9 | distinct | 8
+units_lost_model | numeric | nonmissing | 9 | distinct | 9 min/median/mean/max 436.3902/1024.764/1082.577/2232.306
+units_lost_fixed_buildings | numeric | nonmissing | 9 | distinct | 8 min/median/mean/max 591.0295/1368.057/1337.486/2232.306
+units_preserved_by_splitting | numeric | nonmissing | 9 | distinct | 9 min/median/mean/max -3.637979e-12/249.5925/254.9081/485.2854
+direct_unit_gap | numeric | nonmissing | 9 | distinct | 4 min/median/mean/max -907.8002/854.2892/2540.859/9555.34
+historical_parents | numeric | nonmissing | 9 | distinct | 1 min/median/mean/max 588/588/588/588
+post_parents | numeric | nonmissing | 9 | distinct | 3 min/median/mean/max 167/278/271.4444/304

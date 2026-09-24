@@ -1,7 +1,7 @@
 Rows: 9
 Columns: 3
 Key fields: check
-Saved-file MD5: 8c519034115204545dde420c68f2f747
+Saved-file MD5: 893f2770694bae02849b92c3dec53e79
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 check | character | nonmissing | 9 | distinct | 9

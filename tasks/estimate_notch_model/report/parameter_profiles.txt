@@ -1,10 +1,10 @@
-Rows: 638
+Rows: 774
 Columns: 4
 Key fields: specification, parameter, value
-Saved-file MD5: bc29c6651f59286e8e180fdd01de8e7d
+Saved-file MD5: b9fe4b5f2e5068f9ec3ffdcac1c866df
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-specification | character | nonmissing | 638 | distinct | 8
-parameter | character | nonmissing | 638 | distinct | 3
-value | numeric | nonmissing | 638 | distinct | 70 min/median/mean/max 0/0.14/0.7284301/10
-objective | numeric | nonmissing | 638 | distinct | 504 min/median/mean/max 0.002447804/0.009248563/0.0101814/0.02988311
+specification | character | nonmissing | 774 | distinct | 9
+parameter | character | nonmissing | 774 | distinct | 4
+value | numeric | nonmissing | 774 | distinct | 76 min/median/mean/max 0/0.1592447/0.7854046/10
+objective | numeric | nonmissing | 774 | distinct | 634 min/median/mean/max 0.001758722/0.007235648/0.008338421/0.03563123

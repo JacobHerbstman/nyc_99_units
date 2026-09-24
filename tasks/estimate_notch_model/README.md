@@ -23,8 +23,9 @@ minimize, relative to its ordinary cost of 99 units:
 - the size loss, `((m - x) / 99)^2` at curvature `lambda = 1`;
 - a burden on each building with 100 or more units: a jump `kappa` plus a kink
   `tau * [(n / 99)^2 - (100 / 99)^2]`;
-- a splitting cost `c` for each building beyond `J0`, with `c` drawn for each
-  parent from an exponential distribution with mean `sigma`.
+- a splitting cost `c * k^gamma` for `k` buildings beyond `J0`, with `c` drawn
+  for each parent from an exponential distribution with mean `sigma`; `gamma`
+  above 1 makes each added building cost more than the last.
 
 Layouts are free, so above `99J` units the other buildings hold 99 each and the
 crossing buildings share the rest evenly. The best total for each `J` is found
@@ -35,20 +36,26 @@ costs `c`. Without the burden every parent keeps `x` and `J0`.
 
 ## Estimation
 
-`fit_notch_model.R` predicts the distribution of recent parents over 45
-disjoint cells (1, 2 or 3+ buildings by 15 size bins) and minimizes the sum of
-squared differences from the observed shares over a grid of `kappa`, `tau` and
-`sigma`. The main specification is `notch_and_kink`. Each other specification
-changes one element: no kink (`pure_notch`), splitting costs `c, 3c, 6c`
-(`rising_marginal_cost`), lot-area weights, the 180-day horizon, curvature 0.5
-and 2, and joint assessment of the whole parent. Unit quantities follow the
-framework: model units lost `P * sum(w * (x - E[m]))`, the same with building
-counts held at `J0`, and the direct gap `P * (sum(w * x) - mean(m))`.
+`fit_notch_model.R` predicts the distribution of recent parents over disjoint
+cells (1, 2 or 3+ buildings by size bin) and minimizes the sum of squared
+differences from the observed shares over a grid of `kappa`, `tau`, `gamma`
+and `sigma`. The main specification compares parents of at most 300 units:
+the distribution within that range on both sides, renormalized, so the number
+of very large projects in each period does not enter. A historical parent
+above 300 that shrinks into the range still counts. Each other specification
+changes one element: a linear splitting cost (`gamma = 1`), all sizes
+(with and without `gamma`), lot-area weights, the 180-day horizon, curvature
+0.5 and 2, and joint assessment of the whole parent. Unit quantities follow
+the framework among historical parents whose own size is in the compared
+range, scaled to the recent parents there: model units lost
+`P * sum(w * (x - E[m]))`, the same with building counts held at `J0`, and the
+direct gap `P * (sum(w * x) - mean(m))`.
 
 `test_notch_model.R` runs the framework's numerical checks before fitting.
 `recover_parameters.R` redraws the recent sample from the model at the
-estimate, and at the same point with a kink of 0.2, and re-estimates each draw
-on the grid; the historical sample is held fixed. `plot_model_fit.R` draws the
+estimate, at the same point with a linear splitting cost, and with a kink of
+0.2, and re-estimates each draw on the grid; the historical sample is held
+fixed. `plot_model_fit.R` draws the
 fit and the parameter profiles.
 
 The 150-unit regime in geographic Zones A and B is not modeled, by decision

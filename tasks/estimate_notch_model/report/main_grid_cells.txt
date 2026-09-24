@@ -1,12 +1,13 @@
-Rows: 588555
-Columns: 6
+Rows: 3845226
+Columns: 7
 Key fields: point, cell
-Saved-file MD5: a3d11a2e5d71034105d96806e99e00f6
+Saved-file MD5: 5071575f3fd01be23721097e087fdc88
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-kappa | numeric | nonmissing | 588555 | distinct | 29 min/median/mean/max 0/0.14/0.2175/1
-tau | numeric | nonmissing | 588555 | distinct | 11 min/median/mean/max 0/0.2/0.3290909/1
-sigma | numeric | nonmissing | 588555 | distinct | 41 min/median/mean/max 0.001/0.1/1.185788/10
-point | integer | nonmissing | 588555 | distinct | 13079 min/median/mean/max 1/6540/6540/13079
-cell | integer | nonmissing | 588555 | distinct | 45 min/median/mean/max 1/23/23/45
-share | numeric | nonmissing | 588555 | distinct | 171812 min/median/mean/max 0/0.001622516/0.02222222/0.3997842
+kappa | numeric | nonmissing | 3845226 | distinct | 29 min/median/mean/max 0/0.14/0.2175/1
+tau | numeric | nonmissing | 3845226 | distinct | 11 min/median/mean/max 0/0.2/0.3290909/1
+gamma | numeric | nonmissing | 3845226 | distinct | 7 min/median/mean/max 1/1.75/1.857143/3
+sigma | numeric | nonmissing | 3845226 | distinct | 41 min/median/mean/max 0.001/0.1/1.185788/10
+point | integer | nonmissing | 3845226 | distinct | 91553 min/median/mean/max 1/45777/45777/91553
+cell | integer | nonmissing | 3845226 | distinct | 42 min/median/mean/max 1/22.5/22.5/44
+share | numeric | nonmissing | 3845226 | distinct | 2124115 min/median/mean/max 0/0.00186494/0.02380952/0.4683514

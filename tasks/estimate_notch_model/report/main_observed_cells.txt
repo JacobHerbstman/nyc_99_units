@@ -1,8 +1,8 @@
-Rows: 45
+Rows: 42
 Columns: 2
 Key fields: cell
-Saved-file MD5: ccf8381cb314b8af26ef4f7875d24d92
+Saved-file MD5: 558e6abd5be822f5deb76bb8507f6ab8
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-cell | numeric | nonmissing | 45 | distinct | 45 min/median/mean/max 1/23/23/45
-observed | numeric | nonmissing | 45 | distinct | 14 min/median/mean/max 0/0.003289474/0.02222222/0.4506579
+cell | numeric | nonmissing | 42 | distinct | 42 min/median/mean/max 1/22.5/22.5/44
+observed | numeric | nonmissing | 42 | distinct | 13 min/median/mean/max 0/0.003597122/0.02380952/0.4928058

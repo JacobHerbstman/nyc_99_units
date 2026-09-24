@@ -1,14 +1,16 @@
-Rows: 402
-Columns: 8
+Rows: 603
+Columns: 10
 Key fields: truth, draw
-Saved-file MD5: 855db22e60a971708043a1bd4c4fafae
+Saved-file MD5: b6780335f7478ff078b9a234779cc491
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-truth | character | nonmissing | 402 | distinct | 2
-draw | numeric | nonmissing | 402 | distinct | 201 min/median/mean/max 0/100/100/200
-true_kappa | numeric | nonmissing | 402 | distinct | 1 min/median/mean/max 0.16/0.16/0.16/0.16
-true_tau | numeric | nonmissing | 402 | distinct | 2 min/median/mean/max 0/0.1/0.1/0.2
-true_sigma | numeric | nonmissing | 402 | distinct | 1 min/median/mean/max 0.1995262/0.1995262/0.1995262/0.1995262
-kappa | numeric | nonmissing | 402 | distinct | 26 min/median/mean/max 0.01/0.14/0.2188308/1
-tau | numeric | nonmissing | 402 | distinct | 11 min/median/mean/max 0/0.02/0.1444279/1
-sigma | numeric | nonmissing | 402 | distinct | 9 min/median/mean/max 0.07943282/0.1995262/0.2154846/0.5011872
+truth | character | nonmissing | 603 | distinct | 3
+draw | numeric | nonmissing | 603 | distinct | 201 min/median/mean/max 0/100/100/200
+true_kappa | numeric | nonmissing | 603 | distinct | 1 min/median/mean/max 0.1/0.1/0.1/0.1
+true_tau | numeric | nonmissing | 603 | distinct | 2 min/median/mean/max 0.05/0.05/0.1/0.2
+true_gamma | numeric | nonmissing | 603 | distinct | 2 min/median/mean/max 1/1.75/1.5/1.75
+true_sigma | numeric | nonmissing | 603 | distinct | 1 min/median/mean/max 0.2511886/0.2511886/0.2511886/0.2511886
+kappa | numeric | nonmissing | 603 | distinct | 24 min/median/mean/max 0.01/0.1/0.105141/1
+tau | numeric | nonmissing | 603 | distinct | 11 min/median/mean/max 0/0.05/0.1323881/1
+gamma | numeric | nonmissing | 603 | distinct | 7 min/median/mean/max 1/1.5/1.676202/3
+sigma | numeric | nonmissing | 603 | distinct | 13 min/median/mean/max 0.07943282/0.2511886/0.2749591/1.258925
