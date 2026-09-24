@@ -57,3 +57,17 @@ with at least six Housing Database units are excluded.
 \item A manually marked superseded design moves its replacement's original
 filing date historically but not in the recent sample.
 \end{itemize}
+
+\subsection*{September 24 follow-up: historical adjacency across parcel releases}
+
+Jacob asked to fix the first issue. Touching is now tested for every
+historical pair in the MapPLUTO shapefile of the earlier filing's release, with
+both lots read from it; before, a pair was tested only when the later filing's
+lot happened to be read for another filing that used the same release. Touching
+pairs rise from 531 to 696, but only 12 more become links, because most newly
+found touches were filed more than 30 days apart with no other evidence. Four
+historical parents merge: two of 14 and 19 units in 2012, one of 442 units in
+2015 and one of 16 units in 2019. None is in the 2019--2022 comparison with 50
+or more units, so the weighting sample, the excess at 99 and its interval, and
+the model estimates are unchanged. The 74 filings on PLUTO 18v1, which has no
+shapefile, still have no geometry.

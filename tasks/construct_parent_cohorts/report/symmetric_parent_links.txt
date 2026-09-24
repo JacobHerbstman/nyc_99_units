@@ -1,12 +1,12 @@
-Rows: 2334
+Rows: 2338
 Columns: 8
 Key fields: aggregate table or source rows without a designated key
-Saved-file MD5: 8a16362fea18faa3f28195d16e1009a9
-sample | character | nonmissing | 2334 | distinct | 2
-job_number_1 | character | nonmissing | 2334 | distinct | 1282
-job_number_2 | character | nonmissing | 2334 | distinct | 1282
-filing_days_apart | integer | nonmissing | 2334 | distinct | 242 min/median/mean/max 0/1/59.38903/365
-link_reason | character | nonmissing | 2334 | distinct | 33
-same_owner_nearby | logical | nonmissing | 2334 | distinct | 2
+Saved-file MD5: 465ef61cc2531784e4f0492596cf5f64
+sample | character | nonmissing | 2338 | distinct | 2
+job_number_1 | character | nonmissing | 2338 | distinct | 1286
+job_number_2 | character | nonmissing | 2338 | distinct | 1286
+filing_days_apart | integer | nonmissing | 2338 | distinct | 242 min/median/mean/max 0/1/59.31822/365
+link_reason | character | nonmissing | 2338 | distinct | 34
+same_owner_nearby | logical | nonmissing | 2338 | distinct | 2
 review_basis | character | nonmissing | 19 | distinct | 16
-enhanced_link | logical | nonmissing | 2334 | distinct | 2
+enhanced_link | logical | nonmissing | 2338 | distinct | 2

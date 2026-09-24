@@ -55,8 +55,10 @@ pairs <- tibble(job_number_1 = a$job_number, job_number_2 = b$job_number,
       same_project_code,
     owner_supported_candidate = same_owner_support & !high_confidence_prefiling_signal)
 
-# Exact polygon touching in MapPLUTO releases (2018 onward). For each release,
-# the lots of the filings that used it are read and tested against each other.
+# Exact polygon touching, tested in the MapPLUTO shapefile of the earlier
+# filing's release, which predates both filings. Both lots of every pair are
+# read from that release; PLUTO-era filings use the MapPLUTO archive release of
+# the same name.
 shapefiles <- read_csv("../input/mappluto_files.csv", col_types = cols(.default = col_character())) |>
   filter(source_id == "dcp_mappluto_archive", file_role == "mappluto_shapefile_zip") |>
   select(vintage, raw_path)
@@ -85,9 +87,11 @@ read_release_lots <- function(zip_path, bbls) {
   }))
 }
 
-touching <- bind_rows(lapply(intersect(unique(filings$pluto_version_used), shapefiles$vintage), function(v) {
+distinct_lots <- pairs$bbl_low != pairs$bbl_high
+touching <- bind_rows(lapply(intersect(unique(pairs$vintage), shapefiles$vintage), function(v) {
+  in_release <- distinct_lots & pairs$vintage == v
   lots <- read_release_lots(file.path("../input", basename(shapefiles$raw_path[shapefiles$vintage == v])),
-    sort(unique(filings$prefiling_feature_bbl[filings$pluto_version_used == v])))
+    sort(unique(c(pairs$bbl_low[in_release], pairs$bbl_high[in_release]))))
   stopifnot(!is.null(lots), !anyDuplicated(lots$bbl), all(st_is_valid(lots)))
   touches <- st_touches(lots)
   tibble(i = rep(seq_along(touches), lengths(touches)), j = unlist(touches)) |>

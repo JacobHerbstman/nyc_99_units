@@ -1,11 +1,11 @@
 Rows: 3349
 Columns: 26
 Key fields: sample, root_job_id
-Saved-file MD5: b5909cfa1c67466d6607b2320d1e6e03
+Saved-file MD5: 63d314cc2fefa7bacd7830af362719f6
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 3349 | distinct | 2
-parent_id | character | nonmissing | 3349 | distinct | 2929
+parent_id | character | nonmissing | 3349 | distinct | 2928
 root_job_id | character | nonmissing | 3349 | distinct | 3349
 date_filed | Date | nonmissing | 3349 | distinct | 1219
 original_filing_date | Date | nonmissing | 3349 | distinct | 1221

@@ -1,10 +1,10 @@
 Rows: 6
 Columns: 4
 Key fields: period, pattern
-Saved-file MD5: 836ba24ae9300cda0290c846a70f03e7
+Saved-file MD5: 8f6b4696237d69071f46c3fa2c40fd6e
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 period | character | nonmissing | 6 | distinct | 2
 pattern | character | nonmissing | 6 | distinct | 4
-parent_count | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 2/23/449.1667/1851
-share_of_all_ab_parents | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.001079331/0.02731591/0.3333333/0.9989207
+parent_count | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 2/23/449/1850
+share_of_all_ab_parents | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.001079914/0.02731591/0.3333333/0.9989201

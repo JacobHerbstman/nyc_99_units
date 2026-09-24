@@ -1,21 +1,21 @@
-Rows: 6440
+Rows: 6436
 Columns: 15
 Key fields: parent_id
-Saved-file MD5: 475a914573db9076b5e4c6cd86736d86
+Saved-file MD5: a1584d81bad379b9362b154da15caa53
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-sample | character | nonmissing | 6440 | distinct | 1
-parent_id | character | nonmissing | 6440 | distinct | 6440
-units | integer | nonmissing | 6440 | distinct | 437 min/median/mean/max 6/19/56.08106/1871
-composition_eligible | logical | nonmissing | 6440 | distinct | 2
-feature_methods | character | nonmissing | 6440 | distinct | 2
-feature_lots | integer | nonmissing | 6440 | distinct | 10 min/median/mean/max 1/1/1.118789/11
-lotarea | numeric | nonmissing | 6439 | distinct | 2958 min/median/mean/max 250/4184/17973.19/8347883
-residfar | numeric | nonmissing | 5428 | distinct | 68 min/median/mean/max 0/3/3.31581/12
-builtfar | numeric | nonmissing | 6440 | distinct | 846 min/median/mean/max 0/0.51/0.7583271/39.42
-built_floor_area_estimated | logical | nonmissing | 6440 | distinct | 2
-merged_lots_added | integer | nonmissing | 6440 | distinct | 10 min/median/mean/max 0/0/0.05465839/10
-merger_window_complete | logical | nonmissing | 6440 | distinct | 1
-implausible_site | logical | nonmissing | 5428 | distinct | 2
-borough | character | nonmissing | 6440 | distinct | 5
-community_district | character | nonmissing | 6440 | distinct | 60
+sample | character | nonmissing | 6436 | distinct | 1
+parent_id | character | nonmissing | 6436 | distinct | 6436
+units | integer | nonmissing | 6436 | distinct | 437 min/median/mean/max 6/19/56.11591/1871
+composition_eligible | logical | nonmissing | 6436 | distinct | 2
+feature_methods | character | nonmissing | 6436 | distinct | 2
+feature_lots | integer | nonmissing | 6436 | distinct | 10 min/median/mean/max 1/1/1.119484/11
+lotarea | numeric | nonmissing | 6435 | distinct | 2958 min/median/mean/max 250/4198/17984.36/8347883
+residfar | numeric | nonmissing | 5426 | distinct | 68 min/median/mean/max 0/3/3.316584/12
+builtfar | numeric | nonmissing | 6436 | distinct | 847 min/median/mean/max 0/0.51/0.7585894/39.42
+built_floor_area_estimated | logical | nonmissing | 6436 | distinct | 2
+merged_lots_added | integer | nonmissing | 6436 | distinct | 10 min/median/mean/max 0/0/0.05469236/10
+merger_window_complete | logical | nonmissing | 6436 | distinct | 1
+implausible_site | logical | nonmissing | 5426 | distinct | 2
+borough | character | nonmissing | 6436 | distinct | 5
+community_district | character | nonmissing | 6436 | distinct | 60

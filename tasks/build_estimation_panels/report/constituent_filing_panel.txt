@@ -1,14 +1,14 @@
 Rows: 3349
 Columns: 24
 Key fields: sample, root_job_id
-Saved-file MD5: 0d276f56155144e8a877a6bd329311ce
+Saved-file MD5: a6d061f94642c2a4c4a37a83af9c6717
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 3349 | distinct | 2
-parent_id | character | nonmissing | 3349 | distinct | 2929
+parent_id | character | nonmissing | 3349 | distinct | 2928
 root_job_id | character | nonmissing | 3349 | distinct | 3349
 constituent_units | integer | nonmissing | 3349 | distinct | 343 min/median/mean/max 6/25/60.48164/1313
-parent_constituent_weight | numeric | nonmissing | 3349 | distinct | 9 min/median/mean/max 0.07142857/1/0.8745894/1
+parent_constituent_weight | numeric | nonmissing | 3349 | distinct | 9 min/median/mean/max 0.07142857/1/0.8742908/1
 record_filing_date | Date | nonmissing | 3349 | distinct | 1219
 date_filed | Date | nonmissing | 3349 | distinct | 1221
 refiled | logical | nonmissing | 3349 | distinct | 2
@@ -22,8 +22,8 @@ period | character | nonmissing | 3349 | distinct | 2
 exposure_years | numeric | nonmissing | 3349 | distinct | 2 min/median/mean/max 1.516769/4/3.257774/4
 cohort_date | Date | nonmissing | 3349 | distinct | 1191
 cohort_year | integer | nonmissing | 3349 | distinct | 6 min/median/mean/max 2019/2021/2021.904/2026
-parent_total_units | integer | nonmissing | 3349 | distinct | 364 min/median/mean/max 6/29/84.94984/1452
-n_components | integer | nonmissing | 3349 | distinct | 9 min/median/mean/max 1/1/1.412063/14
+parent_total_units | integer | nonmissing | 3349 | distinct | 364 min/median/mean/max 6/29/84.95461/1452
+n_components | integer | nonmissing | 3349 | distinct | 9 min/median/mean/max 1/1/1.41266/14
 exact_99x2 | logical | nonmissing | 3349 | distinct | 2
 exact_99x3 | logical | nonmissing | 3349 | distinct | 2
 splitting_verification_status | character | nonmissing | 3349 | distinct | 4

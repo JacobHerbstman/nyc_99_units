@@ -1,11 +1,11 @@
 Rows: 9465
 Columns: 16
 Key fields: sample, job_number
-Saved-file MD5: b5cf238af6d9e3949882854dd4b188de
+Saved-file MD5: e856147ebcdae58aec977664c242c678
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 9465 | distinct | 2
-parent_id | character | nonmissing | 9465 | distinct | 8291
+parent_id | character | nonmissing | 9465 | distinct | 8287
 job_number | character | nonmissing | 9465 | distinct | 9465
 root_job_id | character | nonmissing | 9465 | distinct | 8664
 date_filed | Date | nonmissing | 9465 | distinct | 3283
