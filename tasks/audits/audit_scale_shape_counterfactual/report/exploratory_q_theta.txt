@@ -1,17 +1,17 @@
 Rows: 1
 Columns: 11
 Key fields: outcome
-Saved-file MD5: 470bdc2c1ad93a7d20b4ccdcb92e421c
+Saved-file MD5: 13ce2a6698579993d1cedd2511b26c66
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 outcome | character | nonmissing | 1 | distinct | 1
 q_crossing | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 133/133/133/133
-target_excess_at_99 | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.1131402/0.1131402/0.1131402/0.1131402
-counterfactual_mass_100_to_q_minus_1 | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.1135632/0.1135632/0.1135632/0.1135632
+target_excess_at_99 | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.112854/0.112854/0.112854/0.112854
+counterfactual_mass_100_to_q_minus_1 | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.1141721/0.1141721/0.1141721/0.1141721
 q_found_below_150 | logical | nonmissing | 1 | distinct | 1
 theta_grid_upper | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 149/149/149/149
 theta | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 1.120301/1.120301/1.120301/1.120301
 compression_target_post_mass | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.05592105/0.05592105/0.05592105/0.05592105
-compression_counterfactual_mass | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.05170952/0.05170952/0.05170952/0.05170952
-compression_absolute_gap | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.004211538/0.004211538/0.004211538/0.004211538
+compression_counterfactual_mass | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.05110525/0.05110525/0.05110525/0.05110525
+compression_absolute_gap | numeric | nonmissing | 1 | distinct | 1 min/median/mean/max 0.004815801/0.004815801/0.004815801/0.004815801
 interpretation | character | nonmissing | 1 | distinct | 1

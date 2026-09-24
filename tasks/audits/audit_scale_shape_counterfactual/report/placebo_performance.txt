@@ -1,16 +1,16 @@
 Rows: 2
 Columns: 10
 Key fields: placebo
-Saved-file MD5: 5f7e1af65aabe38e5db77eb2d3bb1f43
+Saved-file MD5: 271cf23370895419e0b595ea9fece3e4
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-total_variation_distance | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.4668167/0.4725039/0.4725039/0.4781911
-maximum_absolute_cdf_difference | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.07117047/0.08527069/0.08527069/0.09937091
+total_variation_distance | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.4735921/0.4747265/0.4747265/0.475861
+maximum_absolute_cdf_difference | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.06528318/0.09353059/0.09353059/0.121778
 placebo | character | nonmissing | 2 | distinct | 2
 historical_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 259/340/340/421
 target_parents | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 162/164.5/164.5/167
-effective_sample_size | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 245.5532/329.0977/329.0977/412.6422
-predicted_share_99 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.008828967/0.009221819/0.009221819/0.00961467
+effective_sample_size | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 250.9638/332.3739/332.3739/413.7839
+predicted_share_99 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0.008819868/0.009216768/0.009216768/0.009613669
 actual_share_99 | numeric | nonmissing | 2 | distinct | 2 min/median/mean/max 0/0.00308642/0.00308642/0.00617284
 predicted_share_198 | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 0/0/0/0
 actual_share_198 | numeric | nonmissing | 2 | distinct | 1 min/median/mean/max 0/0/0/0

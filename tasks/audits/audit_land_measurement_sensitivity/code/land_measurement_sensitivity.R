@@ -74,12 +74,12 @@ scenarios <- list(
   drop_implausible_sites = parents |> filter(!implausible_site)
 )
 
-summarise_scenario <- function(data, scenario, weighted = TRUE) {
+summarise_scenario <- function(data, scenario, match) {
   historical <- data |> filter(sample == "historical")
   post <- data |> filter(sample == "post_policy")
 
-  if (weighted) {
-    historical <- calibrate_historical_to_target(historical, post)$historical
+  if (match != "unweighted") {
+    historical <- calibrate_historical_to_target(historical, post, matches[[match]])$historical
   } else {
     historical <- historical |> mutate(calibration_weight = 1)
   }
@@ -97,6 +97,7 @@ summarise_scenario <- function(data, scenario, weighted = TRUE) {
 
   tibble(
     scenario = scenario,
+    match = match,
     historical_parents = nrow(historical),
     post_parents = nrow(post),
     effective_sample_size = 1 / sum(weight^2),
@@ -114,9 +115,19 @@ summarise_scenario <- function(data, scenario, weighted = TRUE) {
   )
 }
 
+# Production weights match zoning and borough, so land enters only the
+# robustness matches: adding lot area, and the earlier match that also used
+# existing building density.
+matches <- list(
+  zoning_borough = calibration_formula,
+  with_lot_area = lot_area_formula,
+  previous_match = previous_formula
+)
 sensitivity <- bind_rows(
-  summarise_scenario(parents, "unweighted_historical", weighted = FALSE),
-  bind_rows(Map(summarise_scenario, scenarios, names(scenarios)))
+  summarise_scenario(parents, "unweighted_historical", "unweighted"),
+  bind_rows(lapply(names(matches), function(match) {
+    bind_rows(Map(summarise_scenario, scenarios, names(scenarios), match))
+  }))
 )
 
 # The production scenario must reproduce the saved benchmark weights.
@@ -136,4 +147,4 @@ stopifnot(
   max(abs(recomputed_weights$calibration_weight - recomputed_weights$calibration_weight_saved)) < 1e-8
 )
 
-SaveData(sensitivity, "scenario", "../output/land_measurement_sensitivity.csv")
+SaveData(sensitivity, c("scenario", "match"), "../output/land_measurement_sensitivity.csv")

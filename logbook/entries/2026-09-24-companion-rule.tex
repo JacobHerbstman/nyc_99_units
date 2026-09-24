@@ -144,3 +144,48 @@ sample covers 55 historical and 54 recent districts. Five districts have
 parents in only one period, the largest being Brooklyn 7 (Sunset Park), with
 seven historical parents and none after the policy, so a calibration on
 districts would need to pool small ones. Nothing else in the panels changed.
+
+\subsection*{September 24: weights match zoning and borough}
+
+Jacob decided that the historical weights should not match on lot area. A
+parent's land is part of the developer's choice, through assembly, so matching
+on it could remove part of the policy response. The benchmark now matches
+residential FAR and borough. Built FAR is also left out: it is existing floor
+divided by the parent's own lot area. Lot area returns as a robustness check,
+alone and in the earlier four-trait match. District was not added, because
+the post-policy mix of districts may itself respond to the policy.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrr}
+\hline
+Match & ESS & Excess at 99 & Deficit 100--149 & Hist.\ mean & Hist.\ multi \\
+\hline
+None & 588 & 11.3 & 8.1 & 176 & 12.2\% \\
+Zoning and borough (adopted) & 561 & 11.3 & 7.6 & 171 & 12.5\% \\
+Adding lot area & 520 & 11.3 & 7.6 & 146 & 10.7\% \\
+Previous (lot area, built FAR) & 519 & 11.3 & 7.6 & 146 & 10.7\% \\
+\hline
+\end{tabular}
+\end{center}
+
+The post-period mean is 140 units and its multi-building share 20.7 percent.
+Under the adopted weights the bootstrap intervals are 7.5--15.2 points for the
+excess at 99 and 3.4--11.5 for the 100--149 deficit; the stricter
+companion rule gives 11.7 and 7.8.
+
+The notch comparison is the same under every match. Lot area matters for
+size. Recent parents sit on smaller lots, so matching on lot area lowers the
+historical mean from 171 to 146 units. Without it, historical parents are about
+30 units larger than recent ones; with it, about 7. How much of that gap is a
+response to the policy (developers assembling less land) rather than a change
+in available sites is the question the land choice leaves open. It matters for
+any estimate of housing forgone, not for the bunching at 99. Under the adopted
+weights the land-measurement scenarios change nothing except through the
+parents they drop; they now bear only on the lot-area checks.
+
+\textit{Reproduction note.} The formulas are in
+\path{tasks/shared/code/scale_shape_helpers.R}; root \texttt{make reweighting}
+for the benchmark and \texttt{make land-sensitivity} for the robustness
+matches (column \texttt{match}). The exploratory pure-notch pilot has not been
+rerun.

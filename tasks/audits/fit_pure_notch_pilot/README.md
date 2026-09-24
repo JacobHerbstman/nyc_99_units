@@ -38,8 +38,8 @@ The model script reconstructs all parent totals and constituent counts from
 the filing panel before fitting.
 
 `audit_scale_shape_splitting/output/calibration_weights.csv` supplies positive
-historical weights balancing log lot area, residential FAR, built FAR, and
-borough. Historical weights are normalized to sum to one; post parents each
+historical weights balancing residential FAR and borough (log lot area and
+built FAR before September 24, 2026). Historical weights are normalized to sum to one; post parents each
 receive weight `1/310`. Effective historical sample size is 492.7. Multi-lot
 status is absent from the adopted weighting formula. The separate multi-lot
 sensitivity recalibrates that additional moment on the same sample.

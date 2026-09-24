@@ -4,8 +4,12 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-# Match parcel characteristics and borough; lot assembly is a potential response.
-calibration_formula <- ~ log_lot_area_z + residential_far_z + built_far_z + borough
+# Match zoning (residential FAR) and borough. Lot area and existing building
+# density describe the parent's own site, which developers shape through land
+# assembly, so they enter only the robustness matches.
+calibration_formula <- ~ residential_far_z + borough
+lot_area_formula <- ~ residential_far_z + borough + log_lot_area_z
+previous_formula <- ~ log_lot_area_z + residential_far_z + built_far_z + borough
 
 prepare_calibration_data <- function(historical, target) {
   continuous_variables <- c(
@@ -44,13 +48,13 @@ prepare_calibration_data <- function(historical, target) {
   list(historical = historical, target = target)
 }
 
-calibrate_historical_to_target <- function(historical, target) {
+calibrate_historical_to_target <- function(historical, target, formula = calibration_formula) {
   prepared <- prepare_calibration_data(historical, target)
   historical <- prepared$historical
   target <- prepared$target
 
-  historical_matrix <- model.matrix(calibration_formula, historical)
-  target_matrix <- model.matrix(calibration_formula, target)
+  historical_matrix <- model.matrix(formula, historical)
+  target_matrix <- model.matrix(formula, target)
 
   if (!identical(colnames(historical_matrix), colnames(target_matrix))) {
     stop("Historical and target calibration matrices do not align.")
@@ -60,7 +64,7 @@ calibrate_historical_to_target <- function(historical, target) {
   design <- svydesign(ids = ~1, weights = ~1, data = historical)
   calibrated_design <- calibrate(
     design,
-    calibration_formula,
+    formula,
     population = target_totals,
     calfun = "raking",
     maxit = 2000,

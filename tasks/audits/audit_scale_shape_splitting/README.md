@@ -52,7 +52,10 @@ sizes and the composition-ineligible exclusions.
 
 The benchmark uses the eligible 2019-2022 parents and positive
 exponential calibration (`survey::calibrate(..., calfun = "raking")`) to match
-the post sample on log lot area, residential FAR, built FAR, and borough.
+the post sample on residential FAR (zoning) and borough. Lot area and built FAR
+describe the parent's own site, which developers shape by assembling land, so
+they are left out; `audit_land_measurement_sensitivity` reports the comparison
+with them added.
 
 The model takes each parent's total land footprint as given. The developer
 chooses units and organization within it; the reweighted historical joint
