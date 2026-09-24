@@ -1,7 +1,7 @@
 Rows: 905
 Columns: 100
 Key fields: parent_id
-Saved-file MD5: 8cf2538c8b2a1efb860477ff44efb804
+Saved-file MD5: 75d413f2f2557c25a5ba7a812a22e3e1
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 parent_id | character | nonmissing | 905 | distinct | 905
@@ -26,8 +26,8 @@ composition_eligible | logical | nonmissing | 905 | distinct | 1
 parent_total_units | numeric | nonmissing | 905 | distinct | 288 min/median/mean/max 50/99/160.7591/1452
 n_components | numeric | nonmissing | 905 | distinct | 7 min/median/mean/max 1/1/1.145856/8
 component_addresses | character | nonmissing | 905 | distinct | 897
-lot_area_sqft | numeric | nonmissing | 905 | distinct | 738 min/median/mean/max 279/10320/24435.52/1227637
-area_difference_sqft | numeric | nonmissing | 852 | distinct | 260 min/median/mean/max -91072/0/4269.725/367950
+lot_area_sqft | numeric | nonmissing | 905 | distinct | 747 min/median/mean/max 279/11533/25561.42/1227637
+area_difference_sqft | numeric | nonmissing | 852 | distinct | 183 min/median/mean/max -91072/0/3094.821/367950
 reason | character | nonmissing | 905 | distinct | 7
 prior_unresolved | logical | nonmissing | 905 | distinct | 2
 application_ids | character | nonmissing | 495 | distinct | 482
@@ -103,4 +103,4 @@ boundary_basis | character | nonmissing | 905 | distinct | 4
 unresolved | logical | nonmissing | 905 | distinct | 2
 status | character | nonmissing | 905 | distinct | 9
 candidate_area_sqft | numeric | nonmissing | 760 | distinct | 651 min/median/mean/max 1395/12839/22677.56/742414
-candidate_area_change_pct | numeric | nonmissing | 760 | distinct | 201 min/median/mean/max 0/0/90.88919/9771.685
+candidate_area_change_pct | numeric | nonmissing | 760 | distinct | 145 min/median/mean/max -84.07643/0/61.87661/9771.685

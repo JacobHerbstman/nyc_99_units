@@ -1,10 +1,10 @@
 Rows: 391344
 Columns: 4
 Key fields: replication, statistic
-Saved-file MD5: 4835fd1f4ca2e0f59b70ccb647250339
+Saved-file MD5: 1f6f08d0d1e421c654f776f6dc519dc7
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 statistic | character | nonmissing | 391344 | distinct | 789
-estimate | numeric | nonmissing | 391326 | distinct | 150566 min/median/mean/max -0.07881939/0/0.207377/150
+estimate | numeric | nonmissing | 391326 | distinct | 150558 min/median/mean/max -0.07866952/0/0.2079447/150
 replication | numeric | nonmissing | 391344 | distinct | 496 min/median/mean/max 0/248.5/248.4879/499
 status | character | nonmissing | 391344 | distinct | 2

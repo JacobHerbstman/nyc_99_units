@@ -65,7 +65,13 @@ scenarios <- list(
       log_lot_area = log(lot_area_sqft)
     ),
   flagged_land_halved = rescale_flagged_land(parents, 0.5),
-  flagged_land_doubled = rescale_flagged_land(parents, 2)
+  flagged_land_doubled = rescale_flagged_land(parents, 2),
+  # Production land counts DOF mergers recorded within 180 days of filing.
+  # Post-period parents filed less than 180 days before the DOF snapshot may
+  # still gain lots; this keeps only parents with the full window.
+  complete_merger_window = parents |> filter(merger_window_complete),
+  # Sites with under 150 sq ft of permitted residential floor per unit.
+  drop_implausible_sites = parents |> filter(!implausible_site)
 )
 
 summarise_scenario <- function(data, scenario, weighted = TRUE) {

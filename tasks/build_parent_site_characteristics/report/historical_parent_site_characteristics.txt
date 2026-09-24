@@ -1,7 +1,7 @@
 Rows: 6828
-Columns: 35
+Columns: 38
 Key fields: parent_id
-Saved-file MD5: 3c20c5d9055629c305adba6ed52a7324
+Saved-file MD5: 62e7c36de1340620ccf4d456e111cba0
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 6828 | distinct | 1
@@ -28,14 +28,17 @@ distinct_valid_dob_bins | integer | nonmissing | 6828 | distinct | 7 min/median/
 reviewed_distinct_buildings | logical | nonmissing | 6828 | distinct | 2
 feature_complete | logical | nonmissing | 6828 | distinct | 2
 feature_methods | character | nonmissing | 6828 | distinct | 2
-feature_lots | integer | nonmissing | 6828 | distinct | 7 min/median/mean/max 1/1/1.034271/7
+feature_lots | integer | nonmissing | 6828 | distinct | 10 min/median/mean/max 1/1/1.08597/11
 composition_eligible | logical | nonmissing | 6828 | distinct | 2
-lotarea | numeric | nonmissing | 6827 | distinct | 2924 min/median/mean/max 250/4000/20823.46/8347883
-log_lotarea | numeric | nonmissing | 6827 | distinct | 2924 min/median/mean/max 5.521461/8.29405/8.551662/15.93752
-residfar | numeric | nonmissing | 5755 | distinct | 47 min/median/mean/max 0/2.43/3.28678/12
-broad_zoning_far | numeric | nonmissing | 6828 | distinct | 50 min/median/mean/max 0/4.8/4.26556/15
-builtfar | numeric | nonmissing | 6828 | distinct | 670 min/median/mean/max 0/0.5/0.7449847/39.42
+lotarea | numeric | nonmissing | 6827 | distinct | 2965 min/median/mean/max 250/4106/21034.89/8347883
+log_lotarea | numeric | nonmissing | 6827 | distinct | 2965 min/median/mean/max 5.521461/8.320205/8.576747/15.93752
+residfar | numeric | nonmissing | 5755 | distinct | 56 min/median/mean/max 0/2.43/3.285635/12
+broad_zoning_far | numeric | nonmissing | 6828 | distinct | 57 min/median/mean/max 0/4.8/4.265106/15
+builtfar | numeric | nonmissing | 6828 | distinct | 773 min/median/mean/max 0/0.5/0.7434236/39.42
 built_floor_area_estimated | logical | nonmissing | 6828 | distinct | 2
+merged_lots_added | integer | nonmissing | 6828 | distinct | 10 min/median/mean/max 0/0/0.05169889/10
+merger_window_complete | logical | nonmissing | 6828 | distinct | 1
+implausible_site | logical | nonmissing | 5755 | distinct | 2
 borough | character | nonmissing | 6828 | distinct | 5
 zone_detail | character | nonmissing | 6828 | distinct | 9
 prior_site_use | character | nonmissing | 6828 | distinct | 9

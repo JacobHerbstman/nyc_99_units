@@ -13,12 +13,18 @@ excesses, the 100–149 cumulative deficit, multiple-constituent shares, and mea
 parent units:
 
 - `unweighted_historical`: no land adjustment.
-- `production`: current characteristics; reproduces the saved benchmark weights.
+- `production`: current characteristics, including lots DOF merged within 180
+  days of filing; reproduces the saved benchmark weights.
 - `drop_flagged_parents`: removes all flagged parents from both periods.
 - `audit_candidate_area`: replaces lot area with the audit's earlier-parcel area
   for parents passing the boundary checks; FARs unchanged.
 - `flagged_land_halved`, `flagged_land_doubled`: rescales flagged parents' lot
   area, holding earlier building floor fixed so built FAR moves inversely.
+
+- `complete_merger_window`: keeps only parents observed for the full 180-day
+  merger window that production land uses (drops 81 recent post-period parents).
+- `drop_implausible_sites`: removes parents flagged `implausible_site` in the
+  panel (under 150 sq ft of permitted residential floor per proposed unit).
 
 Housing units, filings, and membership are unchanged in every scenario. Run
 `make` in `code/` after building the main panels and both source audits.

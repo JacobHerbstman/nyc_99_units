@@ -17,6 +17,27 @@ site characteristics.
 - Lot area sums the parent's unique lots. FAR measures are weighted by each
   lot's own area. Built FAR is earlier building floor area over included ground.
 
+## Lots merged within 180 days of filing
+
+Developers often file under the one lot that will survive a merger DOF records
+later, so the reference map shows only that lot. For filings whose reference is
+a citywide MapPLUTO release (2018 onward), the producer adds the lots DOF
+merged into a filing lot after its reference map and no more than 180 days
+after the parent's first filing, using their area, FARs and existing floor from
+the same reference release. DOF lot actions come from
+`fetch_dof_tax_map_history`. Only lot mergers with a single surviving lot
+count; splits and later mergers do not. The window is the same in both periods.
+
+- `merged_lots_added` counts the lots added.
+- `merger_window_complete` is FALSE for parents filed less than 180 days before
+  the September 15, 2026 DOF snapshot, whose mergers may not all be recorded.
+  They stay in the panel.
+- `implausible_site` flags parents whose permitted residential floor (lot area
+  times the larger of residential and broad FAR) is under 150 square feet per
+  proposed unit, a sign that the recorded land is a fragment of the site.
+
+Reviewed allocations below replace the whole parcel set, including merged lots.
+
 ## Reviewed parcel allocations
 
 `site_lot_decisions.csv`, owned by `parent_opportunities_manual`, replaces the

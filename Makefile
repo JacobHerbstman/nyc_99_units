@@ -46,7 +46,7 @@ build_hdb_mappluto_site_panel: fetch_mappluto_archive stage_dcp_housing_database
 	$(MAKE) -C tasks/build_hdb_mappluto_site_panel/code
 
 build_parent_site_characteristics: build_hdb_mappluto_site_panel construct_parent_cohorts stage_mappluto_lots \
-	stage_dob_now_new_building_filings parent_opportunities_manual
+	stage_dob_now_new_building_filings parent_opportunities_manual fetch_dof_tax_map_history
 	$(MAKE) -C tasks/build_parent_site_characteristics/code
 
 classify_parent_485x_exposure: construct_historical_parent_links construct_parent_cohorts link_hpd_485x_registrations \

@@ -1,7 +1,7 @@
 Rows: 914
 Columns: 40
 Key fields: parent_id, vintage
-Saved-file MD5: 2691c2ea6e6f3404a555d2ccfe06e955
+Saved-file MD5: 920ecf5cb654418efbe163f3f238114b
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 parent_id | character | nonmissing | 914 | distinct | 905
@@ -17,7 +17,7 @@ sample | character | nonmissing | 914 | distinct | 2
 component_addresses | character | nonmissing | 914 | distinct | 897
 parent_total_units | numeric | nonmissing | 914 | distinct | 288 min/median/mean/max 50/99/161.0197/1452
 n_components | numeric | nonmissing | 914 | distinct | 7 min/median/mean/max 1/1/1.159737/8
-production_area_sqft | numeric | nonmissing | 914 | distinct | 738 min/median/mean/max 279/10340/25145.72/1227637
+production_area_sqft | numeric | nonmissing | 914 | distinct | 747 min/median/mean/max 279/11597/26260.54/1227637
 reason | character | nonmissing | 914 | distinct | 7
 mixed_vintages | logical | nonmissing | 914 | distinct | 2
 condo_scope_review | logical | nonmissing | 914 | distinct | 2
@@ -41,6 +41,6 @@ geometry_pattern | character | nonmissing | 914 | distinct | 4
 source_scope_review | logical | nonmissing | 914 | distinct | 2
 old_recorded_difference_pct | numeric | nonmissing | 895 | distinct | 889 min/median/mean/max -65.08494/-2.422189/-1.595738/209.1136
 later_recorded_difference_pct | numeric | nonmissing | 889 | distinct | 862 min/median/mean/max -88.18944/-2.392658/-2.508776/100.6877
-later_vs_production_pct | numeric | nonmissing | 890 | distinct | 866 min/median/mean/max -96.69678/4.339155/92.00068/10077.79
+later_vs_production_pct | numeric | nonmissing | 890 | distinct | 866 min/median/mean/max -96.69678/3.376479/65.20058/10077.79
 whole_lot_candidate_sqft | numeric | nonmissing | 775 | distinct | 770 min/median/mean/max 1602.322/12723.3/21134.99/323036.1
-candidate_vs_production_pct | numeric | nonmissing | 775 | distinct | 770 min/median/mean/max -67.64943/4.74066/96.76382/10077.79
+candidate_vs_production_pct | numeric | nonmissing | 775 | distinct | 770 min/median/mean/max -83.71263/3.692221/67.60605/10077.79

@@ -1,7 +1,7 @@
 Rows: 1943
-Columns: 35
+Columns: 38
 Key fields: parent_id
-Saved-file MD5: 6e066bf4381729b60d3f6f76702777ee
+Saved-file MD5: 5bc320cb808d53f25fa44c0d78c28614
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 1943 | distinct | 1
@@ -28,14 +28,17 @@ distinct_valid_dob_bins | integer | nonmissing | 1943 | distinct | 8 min/median/
 reviewed_distinct_buildings | logical | nonmissing | 1943 | distinct | 1
 feature_complete | logical | nonmissing | 1943 | distinct | 2
 feature_methods | character | nonmissing | 1943 | distinct | 7
-feature_lots | integer | nonmissing | 1913 | distinct | 5 min/median/mean/max 1/1/1.043387/6
+feature_lots | integer | nonmissing | 1913 | distinct | 6 min/median/mean/max 1/1/1.136958/6
 composition_eligible | logical | nonmissing | 1943 | distinct | 2
-lotarea | numeric | nonmissing | 1913 | distinct | 1235 min/median/mean/max 0/4750/17348.87/2747985
-log_lotarea | numeric | nonmissing | 1913 | distinct | 1235 min/median/mean/max -Inf/8.4659/-Inf/14.82638
-residfar | numeric | nonmissing | 1911 | distinct | 34 min/median/mean/max 0/3/3.433129/10
-broad_zoning_far | numeric | nonmissing | 1911 | distinct | 29 min/median/mean/max 0/4.8/4.507409/15
-builtfar | numeric | nonmissing | 1911 | distinct | 429 min/median/mean/max 0/0.49/0.8671312/18.12
+lotarea | numeric | nonmissing | 1913 | distinct | 1251 min/median/mean/max 0/5000/17632.51/2747985
+log_lotarea | numeric | nonmissing | 1913 | distinct | 1251 min/median/mean/max -Inf/8.517193/-Inf/14.82638
+residfar | numeric | nonmissing | 1911 | distinct | 41 min/median/mean/max 0/3/3.433124/10
+broad_zoning_far | numeric | nonmissing | 1911 | distinct | 34 min/median/mean/max 0/4.8/4.506952/15
+builtfar | numeric | nonmissing | 1911 | distinct | 484 min/median/mean/max 0/0.48/0.8607279/18.12
 built_floor_area_estimated | logical | nonmissing | 1943 | distinct | 2
+merged_lots_added | integer | nonmissing | 1943 | distinct | 6 min/median/mean/max 0/0/0.09212558/5
+merger_window_complete | logical | nonmissing | 1943 | distinct | 2
+implausible_site | logical | nonmissing | 1940 | distinct | 2
 borough | character | nonmissing | 1913 | distinct | 5
 zone_detail | character | nonmissing | 1913 | distinct | 9
 prior_site_use | character | nonmissing | 1913 | distinct | 9

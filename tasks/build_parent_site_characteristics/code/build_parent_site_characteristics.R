@@ -102,7 +102,10 @@ if (sample_name == "historical") {
         select(
           job_number, feature_bbl, hdb_bin, lotarea,
           residfar, broad_zoning_far,
-          builtfar, borough, zone_detail, prior_site_use
+          builtfar, borough, zone_detail, prior_site_use,
+          reference_source_id = pluto_source_id_used,
+          reference_version = pluto_version_used,
+          reference_date = pluto_safe_available_date_used
         ),
       by = "job_number",
       relationship = "one-to-one"
@@ -161,6 +164,11 @@ if (sample_name == "historical") {
       fixed_post_lots,
       by = "feature_bbl",
       relationship = "many-to-one"
+    ) |>
+    mutate(
+      reference_source_id = "dcp_mappluto_archive",
+      reference_version = "23v3.1",
+      reference_date = as.Date("2023-12-28")
     )
 }
 
@@ -222,6 +230,76 @@ site_lots <- member_rows |>
   slice_head(n = 1L) |>
   ungroup() |>
   mutate(feature_lots = 1L)
+
+# Lots merged soon after filing. Developers often file under the one lot that
+# will survive a merger DOF records months later, so the reference map shows
+# only that lot. Add the lots DOF merged into a filing lot after its reference
+# map and no more than 180 days after the parent's first filing. The window is
+# the same in both periods; later mergers are ignored so that recent parents,
+# with less follow-up, are measured the same way. Splits are not used, because
+# a split gives the development only part of the old parcel. The rule applies
+# to citywide MapPLUTO reference releases (2018 onward).
+merger_window_days <- 180L
+dof_snapshot_date <- as.Date("2026-09-15")
+
+dof_changes <- read_parquet("../input/dof_transaction_headers.parquet") |>
+  transmute(transaction_id = TRANS_NUM, change_date = as.Date(Change_Date), change_type = Change_Type) |>
+  distinct()
+stopifnot(!anyDuplicated(dof_changes$transaction_id))
+dof_mergers <- read_parquet("../input/dof_lot_actions.parquet") |>
+  transmute(transaction_id = TRANS_NUM, bbl = BBL, action = Lot_Action) |>
+  distinct() |>
+  inner_join(dof_changes |> filter(change_type == "Lot Merger"),
+    by = "transaction_id", relationship = "many-to-one") |>
+  group_by(transaction_id, change_date) |>
+  filter(sum(action %in% c("Affected", "New")) == 1L, any(action == "Dropped")) |>
+  summarise(surviving_bbl = bbl[action %in% c("Affected", "New")],
+    merged_bbl = list(bbl[action == "Dropped"]), .groups = "drop") |>
+  # One row per surviving lot, holding all of its mergers.
+  group_by(surviving_bbl) |>
+  summarise(mergers = list(tibble(change_date, merged_bbl)), .groups = "drop")
+
+# Each lot keeps the reference release of the parent's first filing on it.
+merged_lots <- site_lots |>
+  select(sample, parent_id, feature_bbl, reference_source_id, reference_version, reference_date) |>
+  left_join(parent_outcomes |> select(parent_id, cohort_date),
+    by = "parent_id", relationship = "many-to-one") |>
+  filter(reference_source_id == "dcp_mappluto_archive") |>
+  inner_join(dof_mergers, by = c("feature_bbl" = "surviving_bbl"), relationship = "many-to-one") |>
+  unnest(mergers) |>
+  filter(change_date > as.Date(reference_date),
+    change_date <= as.Date(cohort_date) + merger_window_days) |>
+  unnest_longer(merged_bbl) |>
+  distinct(sample, parent_id, reference_version, merged_bbl) |>
+  anti_join(site_lots |> select(parent_id, merged_bbl = feature_bbl), by = c("parent_id", "merged_bbl"))
+
+merged_attributes <- bind_rows(lapply(unique(merged_lots$reference_version), function(version) {
+  read_parquet(sprintf("../input/%s.parquet", sanitize_file_stub(paste("dcp_mappluto_archive", version)))) |>
+    filter(bbl %in% merged_lots$merged_bbl[merged_lots$reference_version == version]) |>
+    mutate(reference_version = version)
+})) |>
+  mutate(borough = recode(as.character(borough),
+    `1` = "Manhattan", `2` = "Bronx", `3` = "Brooklyn",
+    `4` = "Queens", `5` = "Staten Island")) |>
+  add_site_categories() |>
+  select(reference_version, merged_bbl = bbl, lotarea, residfar, broad_zoning_far,
+    builtfar, borough, zone_detail, prior_site_use)
+
+# A merged lot missing from the reference release adds no land.
+merged_lots <- merged_lots |>
+  inner_join(merged_attributes, by = c("reference_version", "merged_bbl"),
+    relationship = "many-to-one") |>
+  filter(lotarea > 0) |>
+  transmute(sample, parent_id, feature_bbl = merged_bbl, lotarea, residfar,
+    broad_zoning_far, builtfar, borough, zone_detail, prior_site_use, feature_lots = 1L)
+stopifnot(!anyDuplicated(merged_lots[c("parent_id", "feature_bbl")]))
+
+site_lots <- bind_rows(site_lots, merged_lots)
+parent_outcomes <- parent_outcomes |>
+  left_join(merged_lots |> count(parent_id, name = "merged_lots_added"),
+    by = "parent_id", relationship = "one-to-one") |>
+  mutate(merged_lots_added = coalesce(merged_lots_added, 0L),
+    merger_window_complete = as.Date(cohort_date) + merger_window_days <= dof_snapshot_date)
 
 # Reviewed allocations replace the complete parcel set for the named parent.
 # Deduct retained floor or an explicitly documented archive correction before
@@ -357,7 +435,12 @@ panel <- parent_outcomes |>
       lotarea > 0 &
       (duplicate_bin_rows == 0L | reviewed_distinct_buildings),
     built_floor_area_estimated = parent_id %in%
-      site_decisions$parent_id[site_decisions$built_floor_area_estimated]
+      site_decisions$parent_id[site_decisions$built_floor_area_estimated],
+    merged_lots_added = if_else(parent_id %in% reviewed_parents$parent_id, 0L, merged_lots_added),
+    # Under 150 square feet of permitted residential floor per proposed unit
+    # cannot hold the proposal even with a doubled FAR: the land is a fragment.
+    implausible_site = !is.na(lotarea) &
+      lotarea * pmax(residfar, broad_zoning_far) / units < 150
   ) |>
   select(
     sample, observation_id, parent_id, analysis_status,
@@ -371,6 +454,7 @@ panel <- parent_outcomes |>
     feature_complete, feature_methods, feature_lots,
     composition_eligible, lotarea, log_lotarea,
     residfar, broad_zoning_far, builtfar, built_floor_area_estimated,
+    merged_lots_added, merger_window_complete, implausible_site,
     borough, zone_detail, prior_site_use
   ) |>
   arrange(cohort_date, parent_id)

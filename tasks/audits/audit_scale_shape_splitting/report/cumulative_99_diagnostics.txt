@@ -1,13 +1,13 @@
 Rows: 50
 Columns: 7
 Key fields: unit_bin_order
-Saved-file MD5: 893a54aa1566e9d2c3227b44064d9869
+Saved-file MD5: 3b08ff354d6a2106100f44fb496003ac
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 unit_bin_order | numeric | nonmissing | 50 | distinct | 50 min/median/mean/max 100/124.5/124.5/149
-counterfactual_share | numeric | nonmissing | 50 | distinct | 46 min/median/mean/max 0/0.002591894/0.003306883/0.01172153
+counterfactual_share | numeric | nonmissing | 50 | distinct | 46 min/median/mean/max 0/0.002078201/0.003264422/0.01176016
 observed_share | numeric | nonmissing | 50 | distinct | 3 min/median/mean/max 0/0/0.001806452/0.006451613
-bin_deficit | numeric | nonmissing | 50 | distinct | 48 min/median/mean/max -0.006451613/0.001841912/0.001500432/0.009202773
-cumulative_deficit | numeric | nonmissing | 50 | distinct | 48 min/median/mean/max 0.004689908/0.05563903/0.05165574/0.07728869
-excess_at_99 | numeric | nonmissing | 50 | distinct | 1 min/median/mean/max 0.1141094/0.1141094/0.1141094/0.1141094
-excess_minus_cumulative_deficit | numeric | nonmissing | 50 | distinct | 48 min/median/mean/max 0.03682067/0.05847033/0.06245361/0.1094195
+bin_deficit | numeric | nonmissing | 50 | distinct | 48 min/median/mean/max -0.006451613/0.001613378/0.001457971/0.009535355
+cumulative_deficit | numeric | nonmissing | 50 | distinct | 48 min/median/mean/max 0.004708752/0.05431063/0.05057668/0.07470106
+excess_at_99 | numeric | nonmissing | 50 | distinct | 1 min/median/mean/max 0.114113/0.114113/0.114113/0.114113
+excess_minus_cumulative_deficit | numeric | nonmissing | 50 | distinct | 48 min/median/mean/max 0.03941197/0.0598024/0.06353635/0.1094043
