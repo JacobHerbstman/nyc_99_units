@@ -76,6 +76,22 @@ single-building parent keeps its size in as many buildings as it takes. The
 exponential puts much of its mass near zero cost, so a distribution with less
 mass there is the natural next specification.
 
+\paragraph{Why no kink.} The best fit worsens steadily as the kink grows: the
+objective is 0.0060 with no kink, 0.0064 at $\tau=0.02$, 0.0079 at 0.1 and
+0.0092 at 0.2, each with $\kappa$ and $\sigma$ re-optimized. A kink raises the
+cost of every unit above 100 in a building, so it gives every crossing parent
+a reason to split. To keep splitting from exceeding what is observed, the fit
+must then raise the splitting cost (from 0.20 to 1.6 at $\tau=0.1$). That
+removes the pairs of 120--197 units (0.8 percent of parents at 120--149 in two
+buildings, against 3.6 observed) and sends those parents to 99 instead (14.6
+percent against 11.8). The kink does help elsewhere: it shrinks large single
+buildings toward the observed tail (4.3 percent above 300 against 5.6
+observed, 8.0 without a kink) and leaves more single buildings at 100--149.
+The pairs and the spike at 99 outweigh those gains. The preference matters for
+units: at $\tau=0.1$ the model loses 3,024 units rather than 596, so the kink
+is the channel through which the model could explain the tail, and the data
+reject it only because it conflicts with cheap splitting.
+
 \paragraph{Units.} Scaled to the 304 recent parents, the model implies 596
 fewer proposed units. Holding each parent's building count fixed would lose
 779, so splitting preserves 183. The raw difference between the weighted
@@ -123,9 +139,9 @@ its estimates would range from 0.05 to 0.6, with the jump anywhere from 0.02 to
 so they understate uncertainty.
 
 \paragraph{Not yet done.} A splitting-cost distribution with less mass near
-zero; inference that also resamples historical parents and weights; the
-150-unit regime in Zones A and B; and the legal-assessment question for
-observed splits.
+zero; inference that also resamples historical parents and weights; and the
+legal-assessment question for observed splits. Jacob decided not to model the
+150-unit regime in Zones A and B for now.
 
 \textit{Reproduction note.} Root \texttt{make estimate} runs
 \path{tasks/estimate_notch_model}; results are in \path{estimates.csv},

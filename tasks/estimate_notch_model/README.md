@@ -51,7 +51,8 @@ estimate, and at the same point with a kink of 0.2, and re-estimates each draw
 on the grid; the historical sample is held fixed. `plot_model_fit.R` draws the
 fit and the parameter profiles.
 
-The 150-unit regime in geographic Zones A and B is not modeled.
+The 150-unit regime in geographic Zones A and B is not modeled, by decision
+for now.
 
 ## Outputs
 
