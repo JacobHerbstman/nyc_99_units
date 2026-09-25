@@ -1,7 +1,8 @@
 include ../../shared/code/shell_functions.make
 
 all: ../output/estimation_parents.parquet ../output/model_checks.csv ../output/estimates.csv \
-	../output/recovery.csv ../output/bootstrap_estimates.csv ../output/pdf/model_fit.pdf
+	../output/recovery.csv ../output/bootstrap_estimates.csv ../output/heterogeneity_estimates.csv \
+	../output/pdf/model_fit.pdf
 
 include ../../shared/code/generic.make
 
@@ -28,6 +29,13 @@ BOOTSTRAP_OUTPUTS := ../output/bootstrap_estimates.csv ../output/bootstrap_draws
 
 $(BOOTSTRAP_OUTPUTS): bootstrap_notch_model.R notch_model.R ../output/estimation_parents.parquet \
 	../output/estimates.csv Makefile | $(OOPR)
+	$(R) $<
+
+HETEROGENEITY_OUTPUTS := ../output/heterogeneity_estimates.csv ../output/heterogeneity_profiles.csv \
+	../output/heterogeneity_cell_fit.csv
+
+$(HETEROGENEITY_OUTPUTS): fit_heterogeneity.R notch_model.R ../output/estimation_parents.parquet \
+	../output/bootstrap_draws.csv Makefile | $(OOPR)
 	$(R) $<
 
 ../output/pdf/model_fit.pdf: plot_model_fit.R ../output/cell_fit.csv ../output/estimates.csv Makefile | \

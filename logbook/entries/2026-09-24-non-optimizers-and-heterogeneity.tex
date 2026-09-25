@@ -1,0 +1,82 @@
+\clearpage
+\section*{September 24, 2026: Non-optimizers and a heterogeneous jump}
+\textit{Agent-drafted research entry.}
+
+Jacob asked to try both standard ways of letting some parents stay above 100:
+a share of non-optimizers, which he doubted for projects this large, and
+parents that differ in how much the threshold costs them. Both are estimated
+by the likelihood of the previous entry, with its unexplained share
+$\varepsilon$, in \path{fit_heterogeneity.R}.
+
+\begin{itemize}
+\item \textbf{Non-optimizers.} A share $\pi$ of parents keeps its 2019--2022
+outcome, as if the threshold did not reach it (Kleven and Waseem 2013). They
+lose no units.
+\item \textbf{Heterogeneous jump.} Each parent's jump is lognormal with median
+$\kappa$ and log standard deviation $s$, so some parents barely feel the wage
+rule and others always avoid 100. The distribution is placed on the $\kappa$
+grid, extended to 5, where every parent of at most 300 units avoids 100; its
+prediction is then a weighted average of predictions at single jumps.
+\end{itemize}
+
+Both nest the main model ($\pi=0$, $s=0$), and a third model combines them.
+The single jump reproduces the likelihood estimate exactly.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrr}
+\hline
+ & Single jump & Non-optimizers & Heterogeneous jump & Both \\
+\hline
+Jump $\kappa$ (median) & 0.12 & 0.14 & 0.18 & 0.18 \\
+Spread $s$ & -- & -- & 2 & 2 \\
+Non-optimizer share $\pi$ & -- & 0.15 & -- & 0 \\
+Kink $\tau$ & 0.05 & 0.05 & 0 & 0 \\
+Cost growth $\gamma$ & 1.5 & 1.5 & 2 & 2 \\
+Mean splitting cost $\sigma$ & 0.32 & 0.25 & 0.20 & 0.20 \\
+Unexplained share $\varepsilon$ & 0.03 & 0.01 & 0.015 & 0.015 \\
+Log-likelihood & $-592.3$ & $-586.3$ & $-584.5$ & $-584.5$ \\
+AIC & 1,194.5 & 1,184.6 & 1,181.1 & 1,183.1 \\
+Units lost & 1,130 & 930 & 761 & 761 \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{What the data prefer.} Both departures improve on the single jump:
+the likelihood-ratio statistics are 11.9 for non-optimizers and 15.4 for the
+heterogeneous jump, each one parameter on the boundary ($p=0.0003$ and
+$p=0.00004$). The heterogeneous jump fits better with the same number of
+parameters, and once it is allowed, the combined model sets $\pi$ to zero.
+Against non-optimizers alone, adding the spread is significant ($p=0.03$).
+
+The reason is the region just above 100. Non-optimizers keep their historical
+size, so a 15 percent share puts 0.4 percent of recent parents at 100--104
+units in one building, where none are observed. A parent with a small jump
+still moves from 102 to 99, because that costs it almost nothing, so the
+heterogeneous jump leaves that region empty while keeping parents of 105--149
+units: 3.9 percent against 4.7 observed, from 2.7 under the single jump. It
+also fits pairs of 199--300 units (0.5 against 0.7 observed, from 1.7) and
+$99+99$ (3.4 against 3.2, from 2.8). It fits the spike at 99 worse (10.9
+against 12.9, from 13.0). Jacob's doubt about non-optimizers is borne out in
+this sense: the data favor parents who respond to different costs over
+parents who do not respond.
+
+\paragraph{The estimated spread.} With median 0.18 and $s=2$, the jump is
+below 0.01 for about 6 percent of parents on the grid, below 0.05 for about a
+quarter, and above 1 for about 17 percent, so the distribution is close to a
+mix of nearly unaffected parents and parents who will not cross 100 at any
+size up to 300. The likelihood falls on both sides of $s=2$ ($-584.7$ at 2.5,
+$-586.0$ at 4). With heterogeneity the kink goes to zero: the kink had been
+standing in for parents who stay above 100.
+
+\paragraph{Units.} Units lost fall from 1,130 under the single jump to 761
+with a heterogeneous jump, within the bootstrap interval of the single-jump
+model (337--2,981). Parents who stay above 100 are now parents with small
+jumps, who lose little, rather than parents trimmed by a common kink. These
+are point estimates; the models with $\pi$ and $s$ have not been
+bootstrapped.
+
+\paragraph{Next.} The heterogeneous jump is the natural place for Jacob's
+reserved wage test: if the jump reflects the gap between required and
+prevailing construction wages, parents in areas that already paid more should
+draw smaller jumps.
