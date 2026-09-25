@@ -70,13 +70,17 @@ the weights and re-estimates on the full grid; draw 0 is the data and
 reproduces the main least-squares estimate. Likelihood-ratio intervals come
 from the likelihood profiles.
 
-`fit_heterogeneity.R` adds two departures from a single jump to that
+`fit_heterogeneity.R` adds three departures from a single burden to that
 likelihood: non-optimizers, a share `pi` of parents that keeps its 2019–2022
-outcome and loses no units; and a heterogeneous jump, lognormal across parents
-with median `kappa` and log standard deviation `s`. Both nest the main model
-and are also combined. The jump distribution is placed on the `kappa` grid,
-extended to 5, where every parent of at most 300 units avoids 100, so its
-prediction is a weighted average of single-jump predictions. The single jump
+outcome and loses no units; a heterogeneous jump, lognormal across parents
+with median `kappa` and log standard deviation `s`, with a common kink; and a
+scaled burden, where each parent's jump and kink are both multiplied by a
+lognormal scale with median 1, as a wage gap would scale them. Each nests the
+main model; non-optimizers and the heterogeneous jump are also combined.
+Distributions are placed on the `kappa` grid, extended to 5, where every
+parent of at most 300 units avoids 100, so a prediction is a weighted average
+of single-burden predictions; the scaled burden averages along the burden
+levels of one kink-to-jump ratio. The single jump
 reproduces the likelihood estimate of `bootstrap_notch_model.R`.
 
 The 150-unit regime in geographic Zones A and B is not modeled, by decision
@@ -97,8 +101,7 @@ for now.
   of each parameter and the cell fit at the likelihood estimate.
 - `heterogeneity_estimates.csv`, `heterogeneity_profiles.csv`,
   `heterogeneity_cell_fit.csv`: estimates, likelihood comparisons, profiles of
-  `pi` and `s`, and cell fit for the single jump, non-optimizers, the
-  heterogeneous jump and both.
+  the added parameters and the kink, and cell fit for each model.
 - `pdf/model_fit.pdf`: the main fit.
 
 Run root `make estimate`; task-local `make` uses the prepared panels.

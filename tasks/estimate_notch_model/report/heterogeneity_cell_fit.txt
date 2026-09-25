@@ -1,13 +1,13 @@
-Rows: 168
+Rows: 210
 Columns: 7
 Key fields: model, cell
-Saved-file MD5: 04851fd7685d76e3ceebace7a149e550
+Saved-file MD5: ba03d587946a5afdaa70fc051e5b3663
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-model | character | nonmissing | 168 | distinct | 4
-cell | numeric | nonmissing | 168 | distinct | 42 min/median/mean/max 1/22.5/22.5/44
-buildings | character | nonmissing | 168 | distinct | 3
-size_bin | character | nonmissing | 168 | distinct | 14
-observed_parents | numeric | nonmissing | 168 | distinct | 13 min/median/mean/max 0/1/6.619048/137
-observed | numeric | nonmissing | 168 | distinct | 13 min/median/mean/max 0/0.003597122/0.02380952/0.4928058
-fitted | numeric | nonmissing | 168 | distinct | 101 min/median/mean/max 0/0.004861965/0.02380952/0.457155
+model | character | nonmissing | 210 | distinct | 5
+cell | numeric | nonmissing | 210 | distinct | 42 min/median/mean/max 1/22.5/22.5/44
+buildings | character | nonmissing | 210 | distinct | 3
+size_bin | character | nonmissing | 210 | distinct | 14
+observed_parents | numeric | nonmissing | 210 | distinct | 13 min/median/mean/max 0/1/6.619048/137
+observed | numeric | nonmissing | 210 | distinct | 13 min/median/mean/max 0/0.003597122/0.02380952/0.4928058
+fitted | numeric | nonmissing | 210 | distinct | 101 min/median/mean/max 0/0.004861965/0.02380952/0.457155
