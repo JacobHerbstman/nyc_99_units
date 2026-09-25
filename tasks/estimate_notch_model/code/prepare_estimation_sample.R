@@ -56,7 +56,8 @@ estimation_parents <- bind_rows(lapply(names(variants), function(variant) {
       weight_with_lot_area = with_lot_area / sum(with_lot_area)),
     post |> mutate(weight_zoning_borough = 1 / n(), weight_with_lot_area = 1 / n())
   ) |>
-    transmute(variant, sample, parent_id, units, buildings, weight_zoning_borough, weight_with_lot_area)
+    transmute(variant, sample, parent_id, units, buildings, weight_zoning_borough, weight_with_lot_area,
+      residential_far, built_far, log_lot_area, borough)
 }))
 
 SaveData(estimation_parents, c("variant", "sample", "parent_id"), "../output/estimation_parents.parquet")

@@ -1,0 +1,16 @@
+Rows: 1002
+Columns: 10
+Key fields: estimator, draw
+Saved-file MD5: ae5d35812286c3975caf12c8a12a14dd
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+estimator | character | nonmissing | 1002 | distinct | 2
+draw | numeric | nonmissing | 1002 | distinct | 501 min/median/mean/max 0/250/250/500
+score | numeric | nonmissing | 1002 | distinct | 1002 min/median/mean/max 0.0008913494/251.0876/294.8167/682.8496
+post_parents | numeric | nonmissing | 1002 | distinct | 27 min/median/mean/max 264/278/278.2535/291
+kappa | numeric | nonmissing | 1002 | distinct | 20 min/median/mean/max 0.02/0.1/0.103493/0.4
+tau | numeric | nonmissing | 1002 | distinct | 8 min/median/mean/max 0/0.05/0.06883234/0.6
+gamma | numeric | nonmissing | 1002 | distinct | 7 min/median/mean/max 1/1.5/1.698104/3
+sigma | numeric | nonmissing | 1002 | distinct | 20 min/median/mean/max 0.02511886/0.2511886/0.3542769/3.981072
+epsilon | numeric | nonmissing | 501 | distinct | 9 min/median/mean/max 0.001/0.02/0.02617166/0.1
+units_lost | numeric | nonmissing | 1002 | distinct | 983 min/median/mean/max 87.01386/1043.336/1166.181/4914.725

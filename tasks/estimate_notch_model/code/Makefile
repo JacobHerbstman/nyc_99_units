@@ -1,7 +1,7 @@
 include ../../shared/code/shell_functions.make
 
 all: ../output/estimation_parents.parquet ../output/model_checks.csv ../output/estimates.csv \
-	../output/recovery.csv ../output/pdf/model_fit.pdf
+	../output/recovery.csv ../output/bootstrap_estimates.csv ../output/pdf/model_fit.pdf
 
 include ../../shared/code/generic.make
 
@@ -20,6 +20,13 @@ $(FIT_OUTPUTS): fit_notch_model.R notch_model.R ../output/estimation_parents.par
 	$(R) $<
 
 ../output/recovery.csv ../output/recovery_summary.csv: recover_parameters.R ../output/main_grid_cells.parquet \
+	../output/estimates.csv Makefile | $(OOPR)
+	$(R) $<
+
+BOOTSTRAP_OUTPUTS := ../output/bootstrap_estimates.csv ../output/bootstrap_draws.csv \
+	../output/likelihood_profiles.csv ../output/likelihood_cell_fit.csv
+
+$(BOOTSTRAP_OUTPUTS): bootstrap_notch_model.R notch_model.R ../output/estimation_parents.parquet \
 	../output/estimates.csv Makefile | $(OOPR)
 	$(R) $<
 

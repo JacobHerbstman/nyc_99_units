@@ -11,12 +11,8 @@ source("../../shared/code/write_data_report.R")
 # Each weighted historical parent is moved through the policy choice, and the
 # predicted distribution of (total units, buildings) is matched to the recent
 # parents by least squares over disjoint cells. Parameters: the jump kappa, the
-# kink tau, the mean splitting cost sigma and its growth gamma, on a grid.
-kappa_grid <- c(0, 0.0025, 0.005, seq(0.01, 0.1, by = 0.01), seq(0.12, 0.3, by = 0.02),
-  0.35, 0.4, 0.5, 0.6, 0.8, 1)
-tau_grid <- c(0, 0.02, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.6, 0.8, 1)
-gamma_grid <- c(1, 1.25, 1.5, 1.75, 2, 2.5, 3)
-sigma_grid <- exp(seq(log(0.001), log(10), length.out = 41))
+# kink tau, the mean splitting cost sigma and its growth gamma, on the grid in
+# notch_model.R.
 
 # The main specification follows the framework, with a separately assessed
 # jump and kink at 100 and lambda = 1. It compares parents of at most 300

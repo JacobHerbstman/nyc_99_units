@@ -58,6 +58,18 @@ estimate, at the same point with a linear splitting cost, and with a kink of
 fixed. `plot_model_fit.R` draws the
 fit.
 
+`bootstrap_notch_model.R` estimates the main specification by least squares
+and by maximum likelihood, with bootstrap intervals for both. The likelihood
+treats each recent parent as a draw from the predicted cell probabilities.
+Every grid point gives probability zero to some observed parent, so a share
+`epsilon` of recorded recent outcomes is unexplained by the model, spread
+uniformly over sizes 50–300 and 1, 2 or 3+ buildings; `epsilon` is estimated
+on a grid, and units lost use the model's choices only. Each bootstrap draw
+resamples parents with replacement within period and borough, recalibrates
+the weights and re-estimates on the full grid; draw 0 is the data and
+reproduces the main least-squares estimate. Likelihood-ratio intervals come
+from the likelihood profiles.
+
 The 150-unit regime in geographic Zones A and B is not modeled, by decision
 for now.
 
@@ -70,6 +82,10 @@ for now.
 - `parameter_profiles.csv`: the best objective at each value of each parameter.
 - `main_grid_cells.parquet`: main-grid predictions for recovery.
 - `recovery.csv`, `recovery_summary.csv`: simulated-data recovery.
+- `bootstrap_estimates.csv`, `bootstrap_draws.csv`: least-squares and likelihood
+  estimates, bootstrap intervals and every draw's estimate.
+- `likelihood_profiles.csv`, `likelihood_cell_fit.csv`: the likelihood profile
+  of each parameter and the cell fit at the likelihood estimate.
 - `pdf/model_fit.pdf`: the main fit.
 
 Run root `make estimate`; task-local `make` uses the prepared panels.

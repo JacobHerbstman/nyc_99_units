@@ -1,0 +1,16 @@
+Rows: 11
+Columns: 10
+Key fields: estimator, parameter
+Saved-file MD5: ce0ca194ab4f3fa85bd5ff49ec93683a
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+estimator | character | nonmissing | 11 | distinct | 2
+parameter | character | nonmissing | 11 | distinct | 6
+estimate | numeric | nonmissing | 11 | distinct | 10 min/median/mean/max 0.03/0.2511886/195.6976/1130.198
+bootstrap_lower | numeric | nonmissing | 11 | distinct | 9 min/median/mean/max 0/0.07943282/66.87613/395.8892
+bootstrap_median | numeric | nonmissing | 11 | distinct | 9 min/median/mean/max 0.02/0.2511886/193.7177/1118.166
+bootstrap_upper | numeric | nonmissing | 11 | distinct | 9 min/median/mean/max 0.075/1/471.5335/2980.68
+share_draws_at_estimate | numeric | nonmissing | 11 | distinct | 10 min/median/mean/max 0/0.144/0.1445455/0.268
+draws | numeric | nonmissing | 11 | distinct | 1 min/median/mean/max 500/500/500/500
+likelihood_ratio_lower | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 0.02/0.09924466/0.3046223/1
+likelihood_ratio_upper | numeric | nonmissing | 4 | distinct | 4 min/median/mean/max 0.18/0.4154787/1.002739/3

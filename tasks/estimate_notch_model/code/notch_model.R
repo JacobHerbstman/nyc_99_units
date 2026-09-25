@@ -128,6 +128,13 @@ segment_probabilities <- function(segments, sigma) {
   exp(-outer(segments$lower, 1 / sigma)) - exp(-outer(segments$upper, 1 / sigma))
 }
 
+# The parameter grid of the fit and the bootstrap.
+kappa_grid <- c(0, 0.0025, 0.005, seq(0.01, 0.1, by = 0.01), seq(0.12, 0.3, by = 0.02),
+  0.35, 0.4, 0.5, 0.6, 0.8, 1)
+tau_grid <- c(0, 0.02, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.6, 0.8, 1)
+gamma_grid <- c(1, 1.25, 1.5, 1.75, 2, 2.5, 3)
+sigma_grid <- exp(seq(log(0.001), log(10), length.out = 41))
+
 # Parent-size bins and building groups (1, 2, 3+) define 45 disjoint cells.
 size_bins <- c(-Inf, 49, 89, 94, 98, 99, 104, 119, 149, 179, 197, 198, 199, 249, 300, Inf)
 size_bin_labels <- c("under 50", "50-89", "90-94", "95-98", "99", "100-104", "105-119",
