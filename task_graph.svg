@@ -142,7 +142,7 @@
 <polygon fill="#8196a8" stroke="#8196a8" points="49.56,-409.03 47.98,-403.98 46.06,-408.91 49.56,-409.03"/>
 </g>
 <!-- stage_dcp_housing_database&#45;&gt;build_hdb_mappluto_site_panel -->
-<g id="edge20" class="edge">
+<g id="edge21" class="edge">
 <title>stage_dcp_housing_database&#45;&gt;build_hdb_mappluto_site_panel</title>
 <path fill="none" stroke="#8196a8" d="M64.83,-365.62C70.6,-359.43 77.17,-352.38 83.24,-345.87"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="84.19,-347.42 86.31,-342.57 81.62,-345.03 84.19,-347.42"/>
@@ -181,26 +181,32 @@
 <polygon fill="#8196a8" stroke="#8196a8" points="336.38,-286.98 334.63,-281.98 332.88,-286.98 336.38,-286.98"/>
 </g>
 <!-- stage_dob_now_new_building_filings&#45;&gt;construct_parent_cohorts -->
-<g id="edge21" class="edge">
+<g id="edge22" class="edge">
 <title>stage_dob_now_new_building_filings&#45;&gt;construct_parent_cohorts</title>
 <path fill="none" stroke="#8196a8" d="M302.51,-243.62C290.31,-237.01 276.3,-229.43 263.61,-222.56"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="264.45,-221.02 259.22,-220.18 262.78,-224.1 264.45,-221.02"/>
 </g>
 <!-- link_hpd_485x_registrations -->
-<g id="node17" class="node">
+<g id="node18" class="node">
 <title>link_hpd_485x_registrations</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M359.5,-219C359.5,-219 309.75,-219 309.75,-219 303.75,-219 297.75,-213 297.75,-207 297.75,-207 297.75,-195 297.75,-195 297.75,-189 303.75,-183 309.75,-183 309.75,-183 359.5,-183 359.5,-183 365.5,-183 371.5,-189 371.5,-195 371.5,-195 371.5,-207 371.5,-207 371.5,-213 365.5,-219 359.5,-219"/>
 <text xml:space="preserve" text-anchor="middle" x="334.62" y="-202.75" font-family="Helvetica,sans-Serif" font-size="10.00">link hpd 485x</text>
 <text xml:space="preserve" text-anchor="middle" x="334.62" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">registrations</text>
 </g>
 <!-- stage_dob_now_new_building_filings&#45;&gt;link_hpd_485x_registrations -->
-<g id="edge22" class="edge">
+<g id="edge23" class="edge">
 <title>stage_dob_now_new_building_filings&#45;&gt;link_hpd_485x_registrations</title>
 <path fill="none" stroke="#8196a8" d="M334.62,-243.62C334.62,-238.03 334.62,-231.73 334.62,-225.76"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="336.38,-225.98 334.63,-220.98 332.88,-225.98 336.38,-225.98"/>
 </g>
-<!-- fetch_dof_tax_map_history -->
+<!-- fetch_dob_permits -->
 <g id="node15" class="node">
+<title>fetch_dob_permits</title>
+<path fill="#edf3f8" stroke="#8196a8" d="M309.5,-463C309.5,-463 241.75,-463 241.75,-463 235.75,-463 229.75,-457 229.75,-451 229.75,-451 229.75,-439 229.75,-439 229.75,-433 235.75,-427 241.75,-427 241.75,-427 309.5,-427 309.5,-427 315.5,-427 321.5,-433 321.5,-439 321.5,-439 321.5,-451 321.5,-451 321.5,-457 315.5,-463 309.5,-463"/>
+<text xml:space="preserve" text-anchor="middle" x="275.62" y="-441.12" font-family="Helvetica,sans-Serif" font-size="10.00">fetch dob permits</text>
+</g>
+<!-- fetch_dof_tax_map_history -->
+<g id="node16" class="node">
 <title>fetch_dof_tax_map_history</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M141.88,-219C141.88,-219 73.38,-219 73.38,-219 67.38,-219 61.38,-213 61.38,-207 61.38,-207 61.38,-195 61.38,-195 61.38,-189 67.38,-183 73.38,-183 73.38,-183 141.88,-183 141.88,-183 147.88,-183 153.88,-189 153.88,-195 153.88,-195 153.88,-207 153.88,-207 153.88,-213 147.88,-219 141.88,-219"/>
 <text xml:space="preserve" text-anchor="middle" x="107.62" y="-202.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch dof tax map</text>
@@ -213,7 +219,7 @@
 <polygon fill="#8196a8" stroke="#8196a8" points="185.66,-162.94 189.35,-159.14 184.09,-159.81 185.66,-162.94"/>
 </g>
 <!-- fetch_hpd_485x_registrations -->
-<g id="node16" class="node">
+<g id="node17" class="node">
 <title>fetch_hpd_485x_registrations</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M464.88,-280C464.88,-280 408.38,-280 408.38,-280 402.38,-280 396.38,-274 396.38,-268 396.38,-268 396.38,-256 396.38,-256 396.38,-250 402.38,-244 408.38,-244 408.38,-244 464.88,-244 464.88,-244 470.88,-244 476.88,-250 476.88,-256 476.88,-256 476.88,-268 476.88,-268 476.88,-274 470.88,-280 464.88,-280"/>
 <text xml:space="preserve" text-anchor="middle" x="436.62" y="-263.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch hpd 485x</text>
@@ -226,19 +232,19 @@
 <polygon fill="#8196a8" stroke="#8196a8" points="371.33,-221.21 366.12,-220.22 369.58,-224.24 371.33,-221.21"/>
 </g>
 <!-- link_hpd_485x_registrations&#45;&gt;classify_parent_485x_exposure -->
-<g id="edge18" class="edge">
+<g id="edge19" class="edge">
 <title>link_hpd_485x_registrations&#45;&gt;classify_parent_485x_exposure</title>
 <path fill="none" stroke="#8196a8" d="M334.04,-182.62C333.85,-177.03 333.63,-170.73 333.43,-164.76"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="335.19,-164.91 333.27,-159.98 331.69,-165.03 335.19,-164.91"/>
 </g>
 <!-- fetch_mappluto_archive -->
-<g id="node18" class="node">
+<g id="node19" class="node">
 <title>fetch_mappluto_archive</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M207.12,-463C207.12,-463 116.12,-463 116.12,-463 110.12,-463 104.12,-457 104.12,-451 104.12,-451 104.12,-439 104.12,-439 104.12,-433 110.12,-427 116.12,-427 116.12,-427 207.12,-427 207.12,-427 213.12,-427 219.12,-433 219.12,-439 219.12,-439 219.12,-451 219.12,-451 219.12,-457 213.12,-463 207.12,-463"/>
 <text xml:space="preserve" text-anchor="middle" x="161.62" y="-441.12" font-family="Helvetica,sans-Serif" font-size="10.00">fetch mappluto archive</text>
 </g>
 <!-- stage_mappluto_lots -->
-<g id="node19" class="node">
+<g id="node20" class="node">
 <title>stage_mappluto_lots</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M198.38,-402C198.38,-402 120.88,-402 120.88,-402 114.88,-402 108.88,-396 108.88,-390 108.88,-390 108.88,-378 108.88,-378 108.88,-372 114.88,-366 120.88,-366 120.88,-366 198.38,-366 198.38,-366 204.38,-366 210.38,-372 210.38,-378 210.38,-378 210.38,-390 210.38,-390 210.38,-396 204.38,-402 198.38,-402"/>
 <text xml:space="preserve" text-anchor="middle" x="159.62" y="-380.12" font-family="Helvetica,sans-Serif" font-size="10.00">stage mappluto lots</text>
@@ -250,13 +256,13 @@
 <polygon fill="#8196a8" stroke="#8196a8" points="162.19,-408.91 160.27,-403.98 158.69,-409.03 162.19,-408.91"/>
 </g>
 <!-- stage_mappluto_lots&#45;&gt;build_hdb_mappluto_site_panel -->
-<g id="edge23" class="edge">
+<g id="edge24" class="edge">
 <title>stage_mappluto_lots&#45;&gt;build_hdb_mappluto_site_panel</title>
 <path fill="none" stroke="#8196a8" d="M143.13,-365.62C137.25,-359.43 130.57,-352.38 124.38,-345.87"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="125.95,-344.98 121.24,-342.56 123.41,-347.39 125.95,-344.98"/>
 </g>
 <!-- fetch_nyc_borough_boundaries -->
-<g id="node20" class="node">
+<g id="node21" class="node">
 <title>fetch_nyc_borough_boundaries</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M198.62,-97C198.62,-97 128.62,-97 128.62,-97 122.62,-97 116.62,-91 116.62,-85 116.62,-85 116.62,-73 116.62,-73 116.62,-67 122.62,-61 128.62,-61 128.62,-61 198.62,-61 198.62,-61 204.62,-61 210.62,-67 210.62,-73 210.62,-73 210.62,-85 210.62,-85 210.62,-91 204.62,-97 198.62,-97"/>
 <text xml:space="preserve" text-anchor="middle" x="163.62" y="-80.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch nyc borough</text>
@@ -268,28 +274,48 @@
 <path fill="none" stroke="#8196a8" d="M163.92,-60.62C164.01,-55.03 164.12,-48.73 164.22,-42.76"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="165.97,-43 164.3,-37.98 162.47,-42.95 165.97,-43"/>
 </g>
+<!-- fetch_nyc_prevailing_wage_schedules -->
+<g id="node22" class="node">
+<title>fetch_nyc_prevailing_wage_schedules</title>
+<path fill="#edf3f8" stroke="#8196a8" d="M421,-463C421,-463 344.25,-463 344.25,-463 338.25,-463 332.25,-457 332.25,-451 332.25,-451 332.25,-439 332.25,-439 332.25,-433 338.25,-427 344.25,-427 344.25,-427 421,-427 421,-427 427,-427 433,-433 433,-439 433,-439 433,-451 433,-451 433,-457 427,-463 421,-463"/>
+<text xml:space="preserve" text-anchor="middle" x="382.62" y="-446.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch nyc prevailing</text>
+<text xml:space="preserve" text-anchor="middle" x="382.62" y="-435.5" font-family="Helvetica,sans-Serif" font-size="10.00">wage schedules</text>
+</g>
+<!-- stage_nyc_prevailing_wage_schedules -->
+<g id="node23" class="node">
+<title>stage_nyc_prevailing_wage_schedules</title>
+<path fill="#edf3f8" stroke="#8196a8" d="M422.12,-402C422.12,-402 343.12,-402 343.12,-402 337.12,-402 331.12,-396 331.12,-390 331.12,-390 331.12,-378 331.12,-378 331.12,-372 337.12,-366 343.12,-366 343.12,-366 422.12,-366 422.12,-366 428.12,-366 434.12,-372 434.12,-378 434.12,-378 434.12,-390 434.12,-390 434.12,-396 428.12,-402 422.12,-402"/>
+<text xml:space="preserve" text-anchor="middle" x="382.62" y="-385.75" font-family="Helvetica,sans-Serif" font-size="10.00">stage nyc prevailing</text>
+<text xml:space="preserve" text-anchor="middle" x="382.62" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">wage schedules</text>
+</g>
+<!-- fetch_nyc_prevailing_wage_schedules&#45;&gt;stage_nyc_prevailing_wage_schedules -->
+<g id="edge17" class="edge">
+<title>fetch_nyc_prevailing_wage_schedules&#45;&gt;stage_nyc_prevailing_wage_schedules</title>
+<path fill="none" stroke="#8196a8" d="M382.62,-426.62C382.62,-421.03 382.62,-414.73 382.62,-408.76"/>
+<polygon fill="#8196a8" stroke="#8196a8" points="384.38,-408.98 382.63,-403.98 380.88,-408.98 384.38,-408.98"/>
+</g>
 <!-- fetch_nys_ag_offering_plans -->
-<g id="node21" class="node">
+<g id="node24" class="node">
 <title>fetch_nys_ag_offering_plans</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M476.25,-219C476.25,-219 395,-219 395,-219 389,-219 383,-213 383,-207 383,-207 383,-195 383,-195 383,-189 389,-183 395,-183 395,-183 476.25,-183 476.25,-183 482.25,-183 488.25,-189 488.25,-195 488.25,-195 488.25,-207 488.25,-207 488.25,-213 482.25,-219 476.25,-219"/>
 <text xml:space="preserve" text-anchor="middle" x="435.62" y="-202.75" font-family="Helvetica,sans-Serif" font-size="10.00">fetch nys ag offering</text>
 <text xml:space="preserve" text-anchor="middle" x="435.62" y="-191.5" font-family="Helvetica,sans-Serif" font-size="10.00">plans</text>
 </g>
 <!-- fetch_nys_ag_offering_plans&#45;&gt;classify_parent_485x_exposure -->
-<g id="edge17" class="edge">
+<g id="edge18" class="edge">
 <title>fetch_nys_ag_offering_plans&#45;&gt;classify_parent_485x_exposure</title>
 <path fill="none" stroke="#8196a8" d="M405.28,-182.62C393.75,-176.01 380.51,-168.43 368.52,-161.56"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="369.63,-160.18 364.42,-159.21 367.89,-163.22 369.63,-160.18"/>
 </g>
 <!-- parent_opportunities_manual -->
-<g id="node22" class="node">
+<g id="node25" class="node">
 <title>parent_opportunities_manual</title>
 <path fill="#edf3f8" stroke="#8196a8" d="M262.38,-341C262.38,-341 184.88,-341 184.88,-341 178.88,-341 172.88,-335 172.88,-329 172.88,-329 172.88,-317 172.88,-317 172.88,-311 178.88,-305 184.88,-305 184.88,-305 262.38,-305 262.38,-305 268.38,-305 274.38,-311 274.38,-317 274.38,-317 274.38,-329 274.38,-329 274.38,-335 268.38,-341 262.38,-341"/>
 <text xml:space="preserve" text-anchor="middle" x="223.62" y="-324.75" font-family="Helvetica,sans-Serif" font-size="10.00">parent opportunities</text>
 <text xml:space="preserve" text-anchor="middle" x="223.62" y="-313.5" font-family="Helvetica,sans-Serif" font-size="10.00">manual</text>
 </g>
 <!-- parent_opportunities_manual&#45;&gt;construct_historical_parent_links -->
-<g id="edge19" class="edge">
+<g id="edge20" class="edge">
 <title>parent_opportunities_manual&#45;&gt;construct_historical_parent_links</title>
 <path fill="none" stroke="#8196a8" d="M223.62,-304.62C223.62,-299.03 223.62,-292.73 223.62,-286.76"/>
 <polygon fill="#8196a8" stroke="#8196a8" points="225.38,-286.98 223.63,-281.98 221.88,-286.98 225.38,-286.98"/>

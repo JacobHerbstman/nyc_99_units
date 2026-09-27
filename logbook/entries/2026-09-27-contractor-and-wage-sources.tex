@@ -1,0 +1,36 @@
+\clearpage
+\section*{September 27, 2026: Contractor permits and prevailing wage schedules}
+\textit{Agent-drafted research entry.}
+
+The scaled burden lets each developer feel the wage rule to a different
+degree. A developer whose contractor already pays union wages should barely
+feel it. Jacob asked for the two public sources needed to measure that, as
+acquisition tasks; neither is used by the model yet.
+
+\paragraph{Who built each project.} The DOB job filings we use name the owner
+and the filing architect or engineer (every applicant is licensed RA or PE),
+not the builder. DOB's permit datasets name the permit holder, almost always a
+licensed general contractor. \path{fetch_dob_permits} captures, as of
+September 27, the New Building permits of the BIS Permit Issuance dataset
+(267,115 rows for 95,524 jobs) and every General Construction permit in DOB
+NOW: Build -- Approved Permits (210,929 rows). A scratch match to the comparison
+sample found a contractor for 488 of the 588 historical parents (83 percent)
+but only 77 of the 304 recent parents (25 percent): permits are issued months
+after filing, so 2026 filings are almost all still unpermitted, and the
+recent parents with permits are the faster-moving ones. The match should use
+license numbers; BIS cuts business names at 25 characters.
+
+\paragraph{Union rates.} \path{fetch_nyc_prevailing_wage_schedules} captures
+the Comptroller's construction prevailing wage schedules for July 2018 through
+June 2026, and \path{stage_nyc_prevailing_wage_schedules} reads them into
+2,157 rates. The rates are union rates, citywide. In 2020--21 a commercial
+building carpenter earned \$54.00 an hour plus \$46.88 in benefits and a mason
+tender \$38.40 plus \$31.04, well above the 485-x floor of \$40, so a union
+contractor's burden should be close to zero. The schedules do not vary by site,
+so variation across developers has to come from whether their contractor pays
+union rates, not from the schedules. The current year's schedule is amended
+during the year and was not captured.
+
+\paragraph{Still needed.} A list of union contractors to match to the 261
+contractors found so far, and more recent permits before any comparison of
+recent parents by contractor.

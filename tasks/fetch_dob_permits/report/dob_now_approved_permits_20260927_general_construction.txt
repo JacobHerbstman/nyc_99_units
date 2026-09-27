@@ -1,0 +1,27 @@
+Rows: 210929
+Columns: 23
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: f8864aae30baff2f2b28d85a19c39d74
+job_filing_number | character | nonmissing | 210929 | distinct | 142672
+work_permit | character | nonmissing | 210929 | distinct | 150328
+sequence_number | numeric | nonmissing | 210926 | distinct | 17 min/median/mean/max 1/1/1.469771/17
+tracking_number | numeric | nonmissing | 210929 | distinct | 210672 min/median/mean/max 100005000/550626300/549829700/999994700
+filing_reason | character | nonmissing | 210929 | distinct | 4
+work_type | character | nonmissing | 210929 | distinct | 1
+permit_status | character | nonmissing | 210929 | distinct | 2
+approved_date | POSIXct/POSIXt | nonmissing | 210929 | distinct | 1975
+issued_date | POSIXct/POSIXt | nonmissing | 210929 | distinct | 1735
+expired_date | POSIXct/POSIXt | nonmissing | 210867 | distinct | 4707
+permittee_s_license_type | character | nonmissing | 210929 | distinct | 6
+applicant_license | character | nonmissing | 210929 | distinct | 11664
+applicant_first_name | character | nonmissing | 210926 | distinct | 4869
+applicant_last_name | character | nonmissing | 210928 | distinct | 8148
+applicant_business_name | character | nonmissing | 210863 | distinct | 11590
+filing_representative_business_name | character | nonmissing | 125623 | distinct | 2913
+estimated_job_costs | numeric | nonmissing | 210929 | distinct | 42161 min/median/mean/max 0/1e+05/653061.5/6.54e+08
+owner_business_name | character | nonmissing | 195199 | distinct | 20795
+borough | character | nonmissing | 210929 | distinct | 10
+block | numeric | nonmissing | 210928 | distinct | 11226 min/median/mean/max 1/1546/2956.121/99999
+lot | numeric | nonmissing | 210919 | distinct | 827 min/median/mean/max 1/33/887.6174/9999
+bin | numeric | nonmissing | 210929 | distinct | 76031 min/median/mean/max 1e+06/2113522/2456045/5869718
+bbl | numeric | nonmissing | 206548 | distinct | 69761 min/median/mean/max 0/2045930000/2341545000/5080490000
