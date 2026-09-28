@@ -8,55 +8,38 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 source("notch_model.R")
-source("../../shared/code/scale_shape_helpers.R")
 source("../../shared/code/write_data_report.R")
 
-draws <- 500L
 maximum_units <- 300
 
-# The main specification estimated two ways, each with bootstrap intervals.
-# Least squares matches cell shares, as in fit_notch_model.R. The likelihood
-# treats each recent parent as a draw from the predicted cell probabilities.
-# Every grid point gives probability zero to some observed parent (three
-# single buildings of 105-119 units, a three-building parent of 180-197), so a
-# share epsilon of recorded recent outcomes is left unexplained by the model,
-# as linkage or unit-count errors would be, spread uniformly over sizes 50-300
-# and 1, 2 or 3+ buildings. Units lost use the model's choices only.
-epsilon_grid <- c(0.001, 0.0025, 0.005, 0.0075, 0.01, 0.015, 0.02, 0.03, 0.05, 0.075, 0.1, 0.15, 0.2)
-
+# The least-squares and likelihood estimates of the single burden, each with
+# bootstrap intervals over the samples of draw_bootstrap_samples.R. Least
+# squares matches cell shares, as in fit_notch_model.R. The likelihood treats
+# each recent parent as a draw from the predicted cell probabilities. Every
+# grid point gives probability zero to some observed parent (three single
+# buildings of 105-119 units, a three-building parent of 180-197), so a share
+# epsilon of recorded recent outcomes is left unexplained by the model, as
+# linkage or unit-count errors would be (epsilon_grid in notch_model.R). Units
+# lost use the model's choices only.
 parents <- read_parquet("../output/estimation_parents.parquet") |> filter(variant == "all_filings")
 historical <- parents |> filter(sample == "historical")
 post <- parents |> filter(sample == "post_policy")
 x <- historical$units
 J0 <- historical$buildings
 
-# Each draw resamples parents with replacement within period and borough and
-# recalibrates the weights to the resampled recent parents. Stratifying keeps
-# Staten Island (5 historical, 2 recent parents) in every calibration. Draw 0
-# is the data.
+# Historical weights (parents by draws) and recent cell counts (cells by draws).
 cells <- cells_up_to(maximum_units)
-resample <- function(data) data |> group_by(borough) |> slice_sample(prop = 1, replace = TRUE) |> ungroup()
-set.seed(20260925)
-samples <- lapply(0:draws, function(draw) {
-  h <- if (draw == 0L) historical else resample(historical)
-  p <- if (draw == 0L) post else resample(post)
-  calibrated <- rowsum(calibrate_historical_to_target(h, p)$historical$calibration_weight,
-    match(h$parent_id, historical$parent_id))
-  weight <- numeric(length(x))
-  weight[as.integer(rownames(calibrated))] <- calibrated
-  p <- p |> filter(units <= maximum_units)
-  list(weight = weight / sum(weight), counts = tabulate(outcome_cell(p$units, p$buildings), 45L)[cells])
-})
-W <- sapply(samples, `[[`, "weight")
-n <- sapply(samples, `[[`, "counts")
+samples <- read_parquet("../output/bootstrap_samples.parquet")
+draws <- max(samples$draw)
+W <- bootstrap_weights(samples, historical)
+n <- bootstrap_counts(samples, post |> filter(units <= maximum_units), cells)
 stopifnot(max(abs(W[, 1] - historical$weight_zoning_borough)) < 1e-10,
-  sum(n[, 1]) == sum(post$units <= maximum_units))
+  sum(n[, 1]) == sum(post$units <= maximum_units), all(abs(colSums(W) - 1) < 1e-10))
 
 post_parents <- colSums(n)
 observed_share <- n / rep(post_parents, each = length(cells))
 observed_cells <- which(n[, 1] > 0)
-width <- pmax(0, size_bins[-1] - pmax(head(size_bins, -1), 49))
-uniform <- rep(width, 3)[cells] / sum(rep(width, 3)[cells])
+uniform <- unexplained_shares(cells)
 unit_weight <- W * (x <= maximum_units)
 unit_weight <- unit_weight / rep(colSums(unit_weight), each = length(x))
 benchmark_units <- post_parents * colSums(unit_weight * x)
@@ -127,12 +110,12 @@ bootstrap_draws <- bind_rows(lapply(names(best_point), function(name) {
     mutate(estimator = name, draw = 0:draws, score = best_score[[name]], post_parents = post_parents, .before = 1)
 }))
 
-# Draw 0 by least squares reproduces the main estimate.
-main <- read_csv("../output/estimates.csv", show_col_types = FALSE) |> filter(specification == "main")
+# Draw 0 by least squares reproduces the estimate of fit_notch_model.R.
+fit <- read_csv("../output/estimates.csv", show_col_types = FALSE) |> filter(specification == "least_squares")
 least_squares <- bootstrap_draws |> filter(estimator == "least_squares", draw == 0L)
-stopifnot(abs(least_squares$kappa - main$kappa) < 1e-9, abs(least_squares$tau - main$tau) < 1e-9,
-  abs(least_squares$gamma - main$gamma) < 1e-9, abs(least_squares$sigma / main$sigma - 1) < 1e-9,
-  abs(least_squares$units_lost - main$units_lost_model) < 1e-6)
+stopifnot(abs(least_squares$kappa - fit$kappa) < 1e-9, abs(least_squares$tau - fit$tau) < 1e-9,
+  abs(least_squares$gamma - fit$gamma) < 1e-9, abs(least_squares$sigma / fit$sigma - 1) < 1e-9,
+  abs(least_squares$units_lost - fit$units_lost_model) < 1e-6)
 
 # Likelihood profiles on the data, and likelihood-ratio intervals: the grid
 # values whose profile lies within half the 95 percent chi-square(1) value of

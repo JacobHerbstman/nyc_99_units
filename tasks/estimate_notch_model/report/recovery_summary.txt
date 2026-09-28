@@ -1,7 +1,7 @@
 Rows: 12
 Columns: 8
 Key fields: truth, parameter
-Saved-file MD5: 7a966d9fd5bfda2839a42ee883f5194e
+Saved-file MD5: c620dbbd8b9540b816716ef6521ae69b
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 truth | character | nonmissing | 12 | distinct | 3

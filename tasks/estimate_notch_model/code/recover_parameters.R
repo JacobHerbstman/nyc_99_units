@@ -14,29 +14,29 @@ draws <- 200L
 # an estimate as the truth, draw recent samples of the observed size from it,
 # and re-estimate each on the same grid. Only the recent sample is redrawn;
 # the historical benchmark is held fixed, so this understates uncertainty.
-cells <- read_parquet("../output/main_grid_cells.parquet") |> arrange(point, cell)
+cells <- read_parquet("../output/least_squares_grid_cells.parquet") |> arrange(point, cell)
 points <- cells |> distinct(point, kappa, tau, gamma, sigma) |> arrange(point)
 predicted <- matrix(cells$share, ncol = nrow(points))
 estimates <- read_csv("../output/estimates.csv", show_col_types = FALSE)
-post_parents <- estimates$post_parents[estimates$specification == "main"]
+post_parents <- estimates$post_parents[estimates$specification == "least_squares"]
 
 estimate_on_grid <- function(target) points[which.min(colSums((predicted - target)^2)), ]
 
-# Three truths on the main grid: the main estimate; the same point with a
+# Three truths on the least-squares grid: its estimate; the same point with a
 # linear splitting cost, to ask whether the growth of the cost is detected;
 # and the same point with a kink of 0.2.
-main <- estimates |> filter(specification == "main")
+fit <- estimates |> filter(specification == "least_squares")
 nearest_point <- function(kappa, tau, gamma, sigma) {
   points$point[which.min(abs(points$kappa - kappa) + abs(points$tau - tau) + abs(points$gamma - gamma) +
     abs(log(points$sigma / sigma)))]
 }
-truths <- tibble(truth = c("main_estimate", "linear_splitting_cost", "with_kink_0.2"),
-  point = c(nearest_point(main$kappa, main$tau, main$gamma, main$sigma),
-    nearest_point(main$kappa, main$tau, 1, main$sigma),
-    nearest_point(main$kappa, 0.2, main$gamma, main$sigma))) |>
+truths <- tibble(truth = c("least_squares_estimate", "linear_splitting_cost", "with_kink_0.2"),
+  point = c(nearest_point(fit$kappa, fit$tau, fit$gamma, fit$sigma),
+    nearest_point(fit$kappa, fit$tau, 1, fit$sigma),
+    nearest_point(fit$kappa, 0.2, fit$gamma, fit$sigma))) |>
   inner_join(points, by = "point", relationship = "one-to-one")
-stopifnot(abs(truths$kappa[1] - main$kappa) < 1e-9, abs(truths$sigma[1] / main$sigma - 1) < 1e-9,
-  abs(truths$gamma[1] - main$gamma) < 1e-9)
+stopifnot(abs(truths$kappa[1] - fit$kappa) < 1e-9, abs(truths$sigma[1] / fit$sigma - 1) < 1e-9,
+  abs(truths$gamma[1] - fit$gamma) < 1e-9)
 
 set.seed(20260924)
 recovery <- bind_rows(lapply(seq_len(nrow(truths)), function(k) {

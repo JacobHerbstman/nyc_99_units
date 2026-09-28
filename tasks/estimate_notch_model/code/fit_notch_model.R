@@ -14,15 +14,15 @@ source("../../shared/code/write_data_report.R")
 # kink tau, the mean splitting cost sigma and its growth gamma, on the grid in
 # notch_model.R.
 
-# The main specification follows the framework, with a separately assessed
-# jump and kink at 100 and lambda = 1. It compares parents of at most 300
-# units: the size distribution within that range on both sides, so the number
-# of very large projects in each period does not enter. Each other
+# The least-squares specification follows the framework, with a separately
+# assessed jump and kink at 100 and lambda = 1. It compares parents of at most
+# 300 units: the size distribution within that range on both sides, so the
+# number of very large projects in each period does not enter. Each other
 # specification changes one element; below_250 moves the cutoff, and
 # all_sizes_linear_cost is the September 24 first fit.
 specifications <- tribble(
   ~specification,           ~maximum_units, ~variant,      ~weight,                 ~lambda, ~gamma_free, ~assessment,
-  "main",                   300,            "all_filings", "weight_zoning_borough", 1,       TRUE,        "separate",
+  "least_squares",          300,            "all_filings", "weight_zoning_borough", 1,       TRUE,        "separate",
   "below_250",              249,            "all_filings", "weight_zoning_borough", 1,       TRUE,        "separate",
   "linear_splitting_cost",  300,            "all_filings", "weight_zoning_borough", 1,       FALSE,       "separate",
   "all_sizes",              Inf,            "all_filings", "weight_zoning_borough", 1,       TRUE,        "separate",
@@ -33,7 +33,6 @@ specifications <- tribble(
   "curvature_2",            300,            "all_filings", "weight_zoning_borough", 2,       TRUE,        "separate",
   "joint_assessment",       300,            "all_filings", "weight_zoning_borough", 1,       FALSE,       "joint"
 )
-main_specification <- "main"
 
 parents <- read_parquet("../output/estimation_parents.parquet")
 
@@ -174,17 +173,18 @@ profiles <- bind_rows(lapply(c("kappa", "tau", "gamma", "sigma"), function(param
     mutate(parameter = parameter, .after = specification)
 }))
 
-# Every grid prediction of the main specification, for the recovery exercise.
-main <- fits[[main_specification]]
-main_grid_cells <- main$grid |>
+# Every grid prediction of the least-squares specification, for the recovery
+# exercise.
+base <- fits[["least_squares"]]
+least_squares_grid_cells <- base$grid |>
   select(kappa, tau, gamma, sigma) |>
   mutate(point = row_number()) |>
-  slice(rep(seq_len(n()), each = length(main$cells))) |>
-  mutate(cell = rep(main$cells, nrow(main$grid)), share = as.vector(main$shares))
+  slice(rep(seq_len(n()), each = length(base$cells))) |>
+  mutate(cell = rep(base$cells, nrow(base$grid)), share = as.vector(base$shares))
 
 print(estimates, width = Inf)
 SaveData(estimates, "specification", "../output/estimates.csv")
 SaveData(fit_moments, c("specification", "moment"), "../output/fit_moments.csv")
 SaveData(cell_fit, c("specification", "cell"), "../output/cell_fit.csv")
 SaveData(profiles, c("specification", "parameter", "value"), "../output/parameter_profiles.csv")
-SaveData(main_grid_cells, c("point", "cell"), "../output/main_grid_cells.parquet")
+SaveData(least_squares_grid_cells, c("point", "cell"), "../output/least_squares_grid_cells.parquet")

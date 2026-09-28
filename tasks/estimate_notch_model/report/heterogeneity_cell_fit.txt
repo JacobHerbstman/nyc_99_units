@@ -1,7 +1,7 @@
 Rows: 210
-Columns: 7
+Columns: 8
 Key fields: model, cell
-Saved-file MD5: ba03d587946a5afdaa70fc051e5b3663
+Saved-file MD5: 9c1a40993cc30cebcf634e41af0b1550
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 model | character | nonmissing | 210 | distinct | 5
@@ -10,4 +10,5 @@ buildings | character | nonmissing | 210 | distinct | 3
 size_bin | character | nonmissing | 210 | distinct | 14
 observed_parents | numeric | nonmissing | 210 | distinct | 13 min/median/mean/max 0/1/6.619048/137
 observed | numeric | nonmissing | 210 | distinct | 13 min/median/mean/max 0/0.003597122/0.02380952/0.4928058
+benchmark | numeric | nonmissing | 210 | distinct | 26 min/median/mean/max 0/0.002255184/0.02380952/0.4683514
 fitted | numeric | nonmissing | 210 | distinct | 101 min/median/mean/max 0/0.004861965/0.02380952/0.457155

@@ -1,0 +1,90 @@
+\clearpage
+\section*{September 27, 2026: The scaled burden as the main model}
+\textit{Agent-drafted research entry.}
+
+Jacob made the scaled burden the main model for now: each parent's jump and
+kink are multiplied by one lognormal scale with median 1, estimated by
+likelihood with the unexplained share $\varepsilon$. It nests the single burden,
+fits better than it or non-optimizers, and is where the reserved wage test
+would enter. The least-squares single burden is kept as the robustness
+specification \texttt{least\_squares} (formerly \texttt{main}); renaming
+changed no result.
+
+\paragraph{Bootstrap.} The 500 bootstrap samples are now drawn once, in
+\path{draw_bootstrap_samples.R}, and shared by both bootstraps; the
+single-burden bootstrap reproduces its earlier results exactly on them.
+\path{bootstrap_scaled_burden.R} re-estimates the main model on its full grid
+in every sample, and draw 0 reproduces the point estimate.
+
+\begin{center}
+\small
+\begin{tabular}{lrr}
+\hline
+ & Estimate & Bootstrap 95\% interval \\
+\hline
+Median jump $\kappa$ & 0.18 & 0.06--0.50 \\
+Median kink $\tau$ & 0 & 0--0.105 \\
+Kink-to-jump ratio & 0 & 0--1.5 \\
+Spread $s$ & 2 & 0--3 \\
+Cost growth $\gamma$ & 2 & 1--3 \\
+Mean splitting cost $\sigma$ & 0.20 & 0.10--0.50 \\
+Unexplained share $\varepsilon$ & 0.015 & 0.001--0.05 \\
+Units lost & 761 & 452--1,612 \\
+\hline
+\end{tabular}
+\end{center}
+
+The interval for units lost is narrower than the single burden's (396--2,197
+by least squares, 337--2,981 by likelihood), and skewed up: the bootstrap
+median is 872. Half the draws (53 percent) choose no kink. The growth of the
+splitting cost is still not identified.
+
+\paragraph{What the main model still misses.} Shares of the 278 recent parents
+of at most 300 units; one percentage point is about three parents.
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\hline
+ & Observed & Benchmark & Model \\
+\hline
+One building, 50--89 units & 49.3 & 46.8 & 45.6 \\
+One building, 90--98 & 5.8 & 4.6 & 4.5 \\
+One building, 99 & 12.9 & 0.4 & 10.9 \\
+One building, 100--149 & 4.7 & 18.2 & 4.0 \\
+One building, 150--300 & 7.9 & 20.7 & 10.1 \\
+Two buildings, under 100 & 2.2 & 4.2 & 4.1 \\
+Two buildings, 100--197 & 10.1 & 2.4 & 11.5 \\
+$99+99$ & 3.2 & 0.0 & 3.4 \\
+Two buildings, 199--300 & 0.7 & 0.8 & 0.5 \\
+Three or more buildings & 3.2 & 1.9 & 5.4 \\
+\hline
+\end{tabular}
+\end{center}
+
+The largest misses are not responses to the threshold. Small parents with
+several buildings, which the policy gives no reason to reorganize, are half as
+common after the policy as before (2.2 against 4.2 percent in two buildings),
+and the model, which leaves such parents as they were, overpredicts them and
+the three-building parents. The difference persists with the common 180-day
+horizon (2.4 against 5.1 percent of weighted parents under 100 units with
+several buildings), so it is not late companion filings. Its mirror image is
+the shortfall of small single buildings (55.1 against 50.1 percent under 99).
+The splitting the policy causes, two buildings of 100--197 units, is close
+(11.5 against 10.1). The model also puts too few parents at 99 and at 95--98
+(3.2 percent observed against 1.0), since it sends every shrinking parent to
+exactly 99, and keeps too many large single buildings (10.1 against 7.9).
+
+\paragraph{Open questions.} In order of what they could change:
+\begin{enumerate}
+\item Whether the linkage is equally able to find small multi-building
+parents in both periods. Historical parents also draw on evidence the recent
+ones lack (Housing Database and parcel adjacency, reviewed links). If the
+difference is linkage, the benchmark's building counts are not comparable.
+\item Whether some affected parents are not built, or all project sizes
+shifted between periods. Either would explain fewer large single buildings and
+more small ones than the model predicts; exit would raise units lost, a common
+shift would lower the policy's share of the change.
+\item Whether parents that shrink land a few units below 99, which the model
+could allow with a small landing error; this changes units lost little.
+\end{enumerate}

@@ -69,7 +69,8 @@ Outputs: `tasks/build_estimation_panels/output/parent_opportunity_panel.parquet`
 and `constituent_filing_panel.parquet`; citywide plots in
 `tasks/plot_bunching/output/pdf/main_project_plots.pdf`; borough plots and the
 exact-99 map in `tasks/analyze_borough_bunching/output/borough_bunching.pdf`;
-model estimates in `tasks/estimate_notch_model/output/estimates.csv`.
+main model estimates in `tasks/estimate_notch_model/output/heterogeneity_estimates.csv`
+(`scaled_burden`) with bootstrap intervals in `scaled_burden_bootstrap_estimates.csv`.
 
 ## Audits and research record
 
