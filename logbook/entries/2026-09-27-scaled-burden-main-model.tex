@@ -198,3 +198,41 @@ The main model is kept. The variant matters for units lost, which rise to
 1,697 at $\beta=-2$ because parents that cannot split cheaply shrink instead:
 how the splitting cost varies with project size is the least settled part of
 the model and the one units lost depend on most.
+
+\subsection*{September 28 follow-up: a splitting cost that depends on project size}
+
+Jacob asked to let the splitting cost depend on project size instead. A
+parent's mean splitting cost becomes $\sigma\,(x/150)^{-\beta}$, with $x$ its
+preferred size, so $\beta>0$ makes splitting cheaper for larger projects and
+$\sigma$ is the mean for a 150-unit project (\texttt{scaled\_burden\_size\_splitting}).
+
+\begin{center}
+\small
+\begin{tabular}{rrr}
+\hline
+$\beta$ & Log-likelihood & Units lost \\
+\hline
+$-3$ & $-583.5$ & 1,211 \\
+$-2$ & $-583.6$ & 1,040 \\
+$-1$ & $-584.0$ & 914 \\
+0 & $-584.5$ & 761 \\
+1 & $-585.1$ & 754 \\
+2 & $-586.0$ & 740 \\
+\hline
+\end{tabular}
+\end{center}
+
+The likelihood rises steadily as splitting becomes costlier for larger
+projects and flattens by $\beta=-2$; the best point, $\beta=-3$ at the edge of
+the grid, is 1.0 log point better than the main model ($p=0.15$). Cheaper
+splitting for larger projects fits worse, and $\beta=2$ is outside the 95
+percent likelihood-ratio interval. With the size elasticity free the growth
+of the splitting cost per building becomes linear ($\gamma=1$): costlier
+splitting for larger projects does the work the rising cost per building did.
+The median jump is 0.40 and the spread 3.
+
+Both site variants point the same way, toward splitting that is harder for
+the largest projects, and neither is a significant improvement. Units lost
+move from 761 in the main model to about 900--1,200 over the negative
+elasticities the data lean toward. The main model is kept; the headline
+should carry this range alongside its bootstrap interval (452--1,612).

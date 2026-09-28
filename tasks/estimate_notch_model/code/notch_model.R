@@ -135,11 +135,14 @@ segment_probabilities <- function(segments, sigma, scale = 1) {
   exp(-outer(segments$lower / scale, 1 / sigma)) - exp(-outer(segments$upper / scale, 1 / sigma))
 }
 
-# The splitting cost can depend on the site: a parent's mean is
-# sigma * (lot area / median historical lot area)^(-beta), so beta > 0 makes
-# splitting cheaper on larger lots and sigma is the mean at the median lot.
-lot_elasticity_grid <- c(-3, -2, -1.5, -1, -0.5, 0, 0.5, 1, 2)
-splitting_scale <- function(log_lot_area, beta) exp(-beta * (log_lot_area - median(log_lot_area)))
+# The splitting cost can depend on a parent's lot area or its preferred size:
+# its mean is sigma * (value / reference)^(-beta), so beta > 0 makes splitting
+# cheaper for larger lots or projects and sigma is the mean at the reference,
+# the median historical lot or 150 units.
+splitting_elasticity_grid <- c(-3, -2, -1.5, -1, -0.5, 0, 0.5, 1, 2)
+splitting_scale <- function(log_value, beta, log_reference = median(log_value)) {
+  exp(-beta * (log_value - log_reference))
+}
 
 # The parameter grid of the fit and the bootstrap.
 kappa_grid <- c(0, 0.0025, 0.005, seq(0.01, 0.1, by = 0.01), seq(0.12, 0.3, by = 0.02),

@@ -58,8 +58,9 @@ the compared range, scaled to the recent parents there:
   compared with, all by likelihood: a single burden; non-optimizers, a share
   `pi` of parents that keeps its 2019–2022 outcome and loses no units; a
   heterogeneous jump with a common kink; both of the last two; and the main
-  model with a splitting cost that depends on lot area, mean
-  `sigma * (lot / median historical lot)^(-beta)`.
+  model with a splitting cost that depends on lot area or on the preferred
+  size, mean `sigma * (lot / median historical lot)^(-beta)` or
+  `sigma * (x / 150)^(-beta)`.
 - `draw_bootstrap_samples.R` draws 500 bootstrap samples shared by every
   bootstrap: parents resampled with replacement within period and borough,
   with the weights recalibrated to each resampled recent sample. Draw 0 is
