@@ -129,10 +129,17 @@ organization_segments <- function(sizes, J0, gamma) {
   rbind(unaffected, do.call(rbind, segments))
 }
 
-# Probability of each segment for every splitting-cost mean in sigma.
-segment_probabilities <- function(segments, sigma) {
-  exp(-outer(segments$lower, 1 / sigma)) - exp(-outer(segments$upper, 1 / sigma))
+# Probability of each segment for every splitting-cost mean in sigma. A
+# parent's mean may be scaled: its cost is exponential with mean sigma * scale.
+segment_probabilities <- function(segments, sigma, scale = 1) {
+  exp(-outer(segments$lower / scale, 1 / sigma)) - exp(-outer(segments$upper / scale, 1 / sigma))
 }
+
+# The splitting cost can depend on the site: a parent's mean is
+# sigma * (lot area / median historical lot area)^(-beta), so beta > 0 makes
+# splitting cheaper on larger lots and sigma is the mean at the median lot.
+lot_elasticity_grid <- c(-3, -2, -1.5, -1, -0.5, 0, 0.5, 1, 2)
+splitting_scale <- function(log_lot_area, beta) exp(-beta * (log_lot_area - median(log_lot_area)))
 
 # The parameter grid of the fit and the bootstrap.
 kappa_grid <- c(0, 0.0025, 0.005, seq(0.01, 0.1, by = 0.01), seq(0.12, 0.3, by = 0.02),

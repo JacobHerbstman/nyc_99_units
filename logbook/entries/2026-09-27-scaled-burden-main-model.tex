@@ -156,3 +156,45 @@ once size and lot area are held fixed, and no rule change explains it.
 Pooling 2025 and 2026 remains defensible, with the 2025-only and 180-day
 estimates as the checks. The lot-area result suggests that the splitting
 cost depends on the site, which the model does not yet allow.
+
+\subsection*{September 28 follow-up: a splitting cost that depends on lot area}
+
+Jacob asked to let the splitting cost depend on the site, since larger lots
+predicted splitting among recent parents. A parent's mean splitting cost
+becomes $\sigma\,(A/\tilde A)^{-\beta}$, with $A$ its lot area and $\tilde A$
+the median historical lot (13,209 square feet), so $\beta>0$ makes splitting
+cheaper on larger lots and $\beta=0$ is the main model. It is estimated with
+the scaled burden by likelihood in \path{fit_heterogeneity.R}
+(\texttt{scaled\_burden\_lot\_splitting}).
+
+\begin{center}
+\small
+\begin{tabular}{rrr}
+\hline
+$\beta$ & Log-likelihood & Units lost \\
+\hline
+$-3$ & $-583.7$ & 1,833 \\
+$-2$ & $-582.9$ & 1,697 \\
+$-1$ & $-583.4$ & 1,160 \\
+0 & $-584.5$ & 761 \\
+1 & $-584.8$ & 854 \\
+2 & $-584.6$ & 954 \\
+\hline
+\end{tabular}
+\end{center}
+
+Cheaper splitting on larger lots does not help: the likelihood is flat for
+$\beta$ from 0 to 2. The best fit instead makes splitting costlier on larger
+lots ($\beta=-2$, spread $s=4$ at the top of its grid), an improvement of 1.6
+log points over the main model ($p=0.07$). The raw pattern among recent
+parents does not contradict this, since the model already makes larger
+projects gain more from splitting; conditional on that, the fit wants the
+largest historical projects, which sit on the largest lots, to split less,
+because the main model predicts too many two-building parents of 150--197
+units and three-building parents of 200--300. Lot area here stands in for
+project size rather than for the site.
+
+The main model is kept. The variant matters for units lost, which rise to
+1,697 at $\beta=-2$ because parents that cannot split cheaply shrink instead:
+how the splitting cost varies with project size is the least settled part of
+the model and the one units lost depend on most.

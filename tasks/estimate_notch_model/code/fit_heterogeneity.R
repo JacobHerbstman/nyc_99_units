@@ -22,7 +22,11 @@ maximum_units <- 300
 #   scaled burden       each parent's whole burden, jump and kink, is scaled by
 #                       b, lognormal with median 1 and log standard deviation s,
 #                       as a gap between required and usual wages would scale
-#                       it; kappa and tau describe the median parent.
+#                       it; kappa and tau describe the median parent;
+#   lot splitting       the scaled burden with each parent's mean splitting
+#                       cost scaled by its lot area (splitting_scale in
+#                       notch_model.R); beta = 0 is the scaled burden. It is
+#                       compared, not adopted.
 # The scaled burden is the main model. Each nests the single burden (pi = 0,
 # s = 0); non-optimizers and the heterogeneous jump are also combined. The
 # distributions are burden_distributions in notch_model.R. Scaling keeps the
@@ -46,28 +50,31 @@ unit_weight <- w * (x <= maximum_units) / sum(w[x <= maximum_units])
 benchmark_units <- nrow(post) * sum(unit_weight * x)
 
 # Predictions at single burdens (kappa[p], tau[p]): cell shares by sigma and
-# units lost, for every gamma. Points run over kappa_values within each ray:
-# a common kink tau, or a kink-to-jump ratio.
+# units lost, for every gamma, with each parent's splitting cost scaled by
+# scale. Points run over kappa_values within each ray: a common kink tau, or a
+# kink-to-jump ratio.
 candidates <- size_candidates(x, J0, 1, "separate")
-predict_burdens <- function(kappa, tau) {
-  shares <- array(NA_real_, c(length(cells), length(sigma_grid), length(kappa), length(gamma_grid)))
-  lost <- array(NA_real_, c(length(sigma_grid), length(kappa), length(gamma_grid)))
-  for (p in seq_along(kappa)) {
-    burden <- burden_table(max(x), max(candidates$J), kappa[p], tau[p], 1, "separate")
-    sizes <- choose_sizes(candidates, burden)
-    for (g in seq_along(gamma_grid)) {
-      segments <- organization_segments(sizes, J0, gamma_grid[g])
-      probabilities <- segment_probabilities(segments, sigma_grid)
-      shares[, , p, g] <- cell_shares(outcome_cell(segments$m, segments$J), w[segments$i] * probabilities)[cells, ]
-      lost[, p, g] <- benchmark_units - nrow(post) * colSums(unit_weight[segments$i] * probabilities * segments$m)
-    }
+burden_sizes <- function(kappa, tau) {
+  lapply(seq_along(kappa), function(p) {
+    choose_sizes(candidates, burden_table(max(x), max(candidates$J), kappa[p], tau[p], 1, "separate"))
+  })
+}
+predict_burdens <- function(sizes, scale = 1) {
+  shares <- array(NA_real_, c(length(cells), length(sigma_grid), length(sizes), length(gamma_grid)))
+  lost <- array(NA_real_, c(length(sigma_grid), length(sizes), length(gamma_grid)))
+  for (p in seq_along(sizes)) for (g in seq_along(gamma_grid)) {
+    segments <- organization_segments(sizes[[p]], J0, gamma_grid[g])
+    probabilities <- segment_probabilities(segments, sigma_grid, if (length(scale) > 1) scale[segments$i] else scale)
+    shares[, , p, g] <- cell_shares(outcome_cell(segments$m, segments$J), w[segments$i] * probabilities)[cells, ]
+    lost[, p, g] <- benchmark_units - nrow(post) * colSums(unit_weight[segments$i] * probabilities * segments$m)
   }
   list(shares = shares, lost = lost)
 }
 levels <- rep(kappa_values, length(tau_grid))
-common_kink <- predict_burdens(levels, rep(tau_grid, each = length(kappa_values)))
+common_kink <- predict_burdens(burden_sizes(levels, rep(tau_grid, each = length(kappa_values))))
 levels <- rep(kappa_values, length(ratio_grid))
-scaled <- predict_burdens(levels, rep(ratio_grid, each = length(kappa_values)) * levels)
+scaled_sizes <- burden_sizes(levels, rep(ratio_grid, each = length(kappa_values)) * levels)
+predict_scaled <- function(beta) predict_burdens(scaled_sizes, splitting_scale(historical$log_lot_area, beta))
 
 # Log-likelihood of every (ray, gamma, distribution, pi) at its best sigma and
 # epsilon. Columns of mixed run over sigma blocks of distributions.
@@ -98,8 +105,11 @@ fit_rays <- function(prediction, rays, pis) {
   }))))
 }
 grid <- bind_rows(
-  common_kink = fit_rays(common_kink, tau_grid, pi_grid) |> mutate(tau = tau_grid[ray], kink_to_jump = NA_real_),
-  scaled = fit_rays(scaled, ratio_grid, 0) |> mutate(kink_to_jump = ratio_grid[ray]),
+  common_kink = fit_rays(common_kink, tau_grid, pi_grid) |>
+    mutate(tau = tau_grid[ray], kink_to_jump = NA_real_, lot_elasticity = 0),
+  scaled = bind_rows(lapply(lot_elasticity_grid, function(beta) {
+    fit_rays(predict_scaled(beta), ratio_grid, 0) |> mutate(kink_to_jump = ratio_grid[ray], lot_elasticity = beta)
+  })),
   .id = "burden") |>
   mutate(kappa = burden_distributions$median[jump], dispersion = burden_distributions$dispersion[jump],
     tau = if_else(burden == "scaled", kink_to_jump * kappa, tau),
@@ -107,16 +117,18 @@ grid <- bind_rows(
     share_jump_above_1 = rowSums(burden_mass[, kappa_values > 1, drop = FALSE])[jump])
 
 models <- tribble(
-  ~model,                ~burden,        ~free_parameters, ~uses_pi, ~uses_dispersion,
-  "single_jump",         "common_kink",  5,                FALSE,    FALSE,
-  "non_optimizers",      "common_kink",  6,                TRUE,     FALSE,
-  "heterogeneous_jump",  "common_kink",  6,                FALSE,    TRUE,
-  "both",                "common_kink",  7,                TRUE,     TRUE,
-  "scaled_burden",       "scaled",       6,                FALSE,    TRUE
+  ~model,                         ~burden,        ~free_parameters, ~uses_pi, ~uses_dispersion, ~uses_lot,
+  "single_jump",                  "common_kink",  5,                FALSE,    FALSE,            FALSE,
+  "non_optimizers",               "common_kink",  6,                TRUE,     FALSE,            FALSE,
+  "heterogeneous_jump",           "common_kink",  6,                FALSE,    TRUE,             FALSE,
+  "both",                         "common_kink",  7,                TRUE,     TRUE,             FALSE,
+  "scaled_burden",                "scaled",       6,                FALSE,    TRUE,             FALSE,
+  "scaled_burden_lot_splitting",  "scaled",       7,                FALSE,    TRUE,             TRUE
 )
 restrict <- function(model) {
   spec <- models[models$model == model, ]
-  grid |> filter(burden == spec$burden, spec$uses_pi | pi == 0, spec$uses_dispersion | dispersion == 0)
+  grid |> filter(burden == spec$burden, spec$uses_pi | pi == 0, spec$uses_dispersion | dispersion == 0,
+    spec$uses_lot | lot_elasticity == 0)
 }
 estimates <- bind_rows(lapply(models$model, function(model) {
   restrict(model) |> slice_max(log_likelihood, n = 1, with_ties = FALSE) |> mutate(model = model, .before = 1)
@@ -125,8 +137,9 @@ estimates <- bind_rows(lapply(models$model, function(model) {
   left_join(models, by = "model", relationship = "one-to-one") |>
   mutate(aic = 2 * free_parameters - 2 * log_likelihood,
     likelihood_ratio = 2 * (log_likelihood - log_likelihood[model == "single_jump"])) |>
-  select(model, burden, kappa, tau, kink_to_jump, dispersion, gamma, sigma, pi, epsilon, share_jump_below_0.01,
-    share_jump_above_1, log_likelihood, free_parameters, aic, likelihood_ratio, units_lost, ray, jump)
+  select(model, burden, kappa, tau, kink_to_jump, dispersion, gamma, sigma, lot_elasticity, pi, epsilon,
+    share_jump_below_0.01, share_jump_above_1, log_likelihood, free_parameters, aic, likelihood_ratio, units_lost,
+    ray, jump)
 
 # The single jump reproduces the likelihood estimate of bootstrap_notch_model.R.
 bootstrap <- read_csv("../output/bootstrap_draws.csv", show_col_types = FALSE) |>
@@ -137,15 +150,18 @@ stopifnot(abs(single$log_likelihood + bootstrap$score) < 1e-8, abs(single$units_
 # Profiles of the parameters each model adds, and of its kink, with units lost
 # at each profile point.
 profile_pairs <- tribble(
-  ~model,                ~parameter,
-  "single_jump",         "tau",
-  "non_optimizers",      "pi",
-  "heterogeneous_jump",  "dispersion",
-  "heterogeneous_jump",  "tau",
-  "both",                "pi",
-  "both",                "dispersion",
-  "scaled_burden",       "dispersion",
-  "scaled_burden",       "kink_to_jump"
+  ~model,                         ~parameter,
+  "single_jump",                  "tau",
+  "non_optimizers",               "pi",
+  "heterogeneous_jump",           "dispersion",
+  "heterogeneous_jump",           "tau",
+  "both",                         "pi",
+  "both",                         "dispersion",
+  "scaled_burden",                "dispersion",
+  "scaled_burden",                "kink_to_jump",
+  "scaled_burden_lot_splitting",  "lot_elasticity",
+  "scaled_burden_lot_splitting",  "kink_to_jump",
+  "scaled_burden_lot_splitting",  "dispersion"
 )
 profiles <- bind_rows(lapply(seq_len(nrow(profile_pairs)), function(r) {
   restrict(profile_pairs$model[r]) |>
@@ -159,7 +175,7 @@ profiles <- bind_rows(lapply(seq_len(nrow(profile_pairs)), function(r) {
 # Cell fit at each model's estimate.
 cell_fit <- bind_rows(lapply(seq_len(nrow(estimates)), function(r) {
   e <- estimates[r, ]
-  prediction <- if (e$burden == "scaled") scaled else common_kink
+  prediction <- if (e$burden == "scaled") predict_scaled(e$lot_elasticity) else common_kink
   points <- (e$ray - 1L) * length(kappa_values) + seq_along(kappa_values)
   s <- match(e$sigma, sigma_grid)
   g <- match(e$gamma, gamma_grid)
