@@ -1,0 +1,55 @@
+Rows: 5281
+Columns: 49
+Key fields: sample, parent_id
+Saved-file MD5: e6c0647de359e81d1841ab13469e41e4
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 5281 | distinct | 2
+period | character | nonmissing | 5281 | distinct | 2
+exposure_years | numeric | nonmissing | 5281 | distinct | 2 min/median/mean/max 1.516769/8/6.913528/8
+parent_id | character | nonmissing | 5281 | distinct | 5281
+cohort_date | Date | nonmissing | 5281 | distinct | 2077
+cohort_year | integer | nonmissing | 5281 | distinct | 10 min/median/mean/max 2015/2019/2019.491/2026
+refiled | logical | nonmissing | 5281 | distinct | 2
+refiling_date | Date | nonmissing | 79 | distinct | 76
+parent_last_filing_date | Date | nonmissing | 5281 | distinct | 2078
+observed_followup_days | integer | nonmissing | 5281 | distinct | 2036 min/median/mean/max 0/1652/1622.08/3279
+left_window_observed | logical | nonmissing | 5281 | distinct | 1
+right_window_observed | logical | nonmissing | 5281 | distinct | 2
+full_window_observed | logical | nonmissing | 5281 | distinct | 2
+parent_total_units | integer | nonmissing | 5281 | distinct | 417 min/median/mean/max 6/21/58.81651/1758
+n_components | integer | nonmissing | 5281 | distinct | 10 min/median/mean/max 1/1/1.140882/30
+max_component_units | integer | nonmissing | 5281 | distinct | 382 min/median/mean/max 6/20/52.9519/1458
+second_component_units | integer | nonmissing | 536 | distinct | 132 min/median/mean/max 6/10/45.0541/575
+third_component_units | integer | nonmissing | 106 | distinct | 44 min/median/mean/max 6/9/45.5283/484
+n_components_eq_99 | integer | nonmissing | 5281 | distinct | 7 min/median/mean/max 0/0/0.01836773/7
+single_component | logical | nonmissing | 5281 | distinct | 2
+multi_component | logical | nonmissing | 5281 | distinct | 2
+exact_99x2 | logical | nonmissing | 5281 | distinct | 2
+exact_99x3 | logical | nonmissing | 5281 | distinct | 2
+sorted_component_vector | character | nonmissing | 5281 | distinct | 651
+component_job_numbers | character | nonmissing | 5281 | distinct | 5281
+component_addresses | character | nonmissing | 5281 | distinct | 5076
+splitting_verification_status | character | nonmissing | 5281 | distinct | 4
+response_category | character | nonmissing | 5281 | distinct | 7
+exposure_status | character | nonmissing | 5281 | distinct | 4
+included_ab | logical | nonmissing | 5281 | distinct | 2
+included_ab_plus_d | logical | nonmissing | 5281 | distinct | 2
+confidence | character | nonmissing | 5281 | distinct | 3
+classification_reason | character | nonmissing | 5281 | distinct | 12
+source_url | character | nonmissing | 473 | distinct | 400
+composition_eligible | logical | nonmissing | 5281 | distinct | 2
+site_feature_method | character | nonmissing | 5281 | distinct | 8
+number_unique_lots | integer | nonmissing | 5265 | distinct | 10 min/median/mean/max 1/1/1.155366/11
+lot_area_sqft | numeric | nonmissing | 5264 | distinct | 2551 min/median/mean/max 250/4357/19330.23/8347883
+log_lot_area | numeric | nonmissing | 5264 | distinct | 2551 min/median/mean/max 5.521461/8.379539/8.589056/15.93752
+residential_far | numeric | nonmissing | 5265 | distinct | 74 min/median/mean/max 0/3/3.272044/12
+built_far | numeric | nonmissing | 5265 | distinct | 805 min/median/mean/max 0/0.52/0.7228677/21.38
+residential_capacity_sqft | numeric | nonmissing | 5264 | distinct | 3113 min/median/mean/max 0/11516.26/38170.02/6979470
+redevelopment_slack_sqft | numeric | nonmissing | 5264 | distinct | 3981 min/median/mean/max 0/9015.4/30135.85/6979470
+built_floor_area_estimated | logical | nonmissing | 5281 | distinct | 2
+merged_lots_added | integer | nonmissing | 5281 | distinct | 10 min/median/mean/max 0/0/0.08691536/10
+merger_window_complete | logical | nonmissing | 5281 | distinct | 2
+implausible_site | logical | nonmissing | 5281 | distinct | 2
+borough | character | nonmissing | 5265 | distinct | 5
+community_district | character | nonmissing | 5265 | distinct | 60

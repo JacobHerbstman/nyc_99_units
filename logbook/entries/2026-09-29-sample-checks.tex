@@ -1,0 +1,55 @@
+\clearpage
+\section*{September 29, 2026: Checks of the main model's sample}
+\textit{Agent-drafted research entry.}
+
+Jacob asked for three checks of the main model's sample. Each re-estimates the
+scaled burden by likelihood on its full grid, recalibrates the weights and
+bootstraps it 500 times, exactly as for the main sample.
+\path{prepare_estimation_sample.R} writes every variant to
+\path{estimation_parents.parquet}, and the two bootstrap scripts take the
+variant as their argument.
+\begin{itemize}
+\item \textbf{A common horizon} (\texttt{horizon\_180}). Most recent parents
+  have been observed for less than a year, so later buildings may still be
+  unfiled. This check counts only buildings filed within 180 days of a parent's
+  first filing, in both periods, and keeps only recent parents observed for at
+  least 180 days.
+\item \textbf{2025 parents only} (\texttt{cohort\_2025}). These are the recent
+  parents first filed in 2025, which have the longest follow-up.
+\item \textbf{A pre-policy placebo} (\texttt{placebo}). Historical parents
+  first filed in 2015--2018 stand in for the historical sample, and those
+  first filed in 2019--2022, before 485-x, stand in for the recent one. The
+  model should find no burden. \path{build_estimation_panels} now also writes
+  panels for 2015--2022, which provide these parents; the canonical panels are
+  unchanged.
+\end{itemize}
+
+Units lost are scaled to each variant's recent parents of at most 300 units,
+so the table also reports them per 100 of those parents.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrrr}
+\hline
+ & Recent parents & Jump $\kappa$ & Kink $\tau$ & Spread $s$ & Units lost & Per 100 parents \\
+\hline
+Main & 278 & 0.18 (0.06--0.50) & 0 & 2 & 761 (452--1,612) & 274 (163--580) \\
+180-day horizon & 167 & 0.16 (0.06--0.40) & 0 & 1.5 & 371 (181--838) & 222 (109--502) \\
+2025 parents & 161 & 0.12 (0.06--0.40) & 0.01 & 1.5 & 391 (191--846) & 243 (119--526) \\
+Placebo & 497 & 0 (0--0.003) & 0 & 0 & 0 (0--444) & 0 (0--89) \\
+\hline
+\end{tabular}
+\end{center}
+
+The per-parent loss is a little smaller on the common horizon and among 2025
+parents, but it stays well within the main interval. So the main estimate is
+not produced by the short follow-up of recent parents. The placebo finds no
+burden: 87 percent of its draws choose a zero jump, and its upper bound of 89
+units per 100 parents is below the main lower bound of 163. The shift from
+2015--2018 to 2019--2022 therefore does not look like a notch at 100. It does
+leave more unexplained, though ($\varepsilon = 0.075$ against 0.015). The
+placebo's splitting cost and cost growth are not identified, because without a
+burden nothing favors splitting.
+
+On the main sample the three bootstrap reports match their earlier versions
+apart from their names.

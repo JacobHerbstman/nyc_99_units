@@ -1,15 +1,17 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/estimate_notch_model/code")
 
 suppressPackageStartupMessages({
+  library(arrow)
   library(dplyr)
   library(readr)
 })
 
 # The estimates quoted in framework_writeup.tex, as LaTeX macros: the main
 # model with its bootstrap intervals, the models it is compared with, the
-# least-squares single burden, and the main model's fit at 99 and 99+99.
+# least-squares single burden, the main model's fit at 99 and 99+99, and the
+# main model on the checks of the sample.
 models <- read_csv("../output/heterogeneity_estimates.csv", show_col_types = FALSE)
-bootstrap <- read_csv("../output/scaled_burden_bootstrap_estimates.csv", show_col_types = FALSE)
+bootstrap <- read_csv("../output/scaled_burden_bootstrap_estimates_all_filings.csv", show_col_types = FALSE)
 least_squares <- read_csv("../output/estimates.csv", show_col_types = FALSE) |> filter(specification == "least_squares")
 cells <- read_csv("../output/heterogeneity_cell_fit.csv", show_col_types = FALSE,
   col_types = cols(buildings = col_character())) |>
@@ -17,7 +19,7 @@ cells <- read_csv("../output/heterogeneity_cell_fit.csv", show_col_types = FALSE
 main <- models |> filter(model == "scaled_burden")
 stopifnot(nrow(main) == 1L, nrow(least_squares) == 1L, nrow(bootstrap) == 10L)
 
-number <- function(x, digits = 2) formatC(x, format = "f", digits = digits)
+number <- function(x, digits = 2) formatC(round(x, digits) + 0, format = "f", digits = digits)
 units <- function(x) format(round(x), big.mark = ",")
 interval <- function(name, digits = 2) {
   b <- bootstrap |> filter(parameter == name)
@@ -72,4 +74,26 @@ values <- c(
   ObservedShareTwoBuildings = share(cells$observed[cells$buildings == "2"]),
   ModelShareTwoBuildings = share(cells$fitted[cells$buildings == "2"])
 )
+# The checks: the common 180-day horizon, 2025 parents only and the pre-policy
+# placebo, with units lost per 100 recent parents for comparison across
+# samples of different size.
+recent <- read_parquet("../output/estimation_parents.parquet") |>
+  filter(sample == "post_policy", units <= 300) |>
+  count(variant, name = "parents")
+checks <- c(all_filings = "Main", horizon_180 = "Horizon", cohort_2025 = "Early", placebo = "Placebo")
+for (variant in names(checks)) {
+  b <- read_csv(paste0("../output/scaled_burden_bootstrap_estimates_", variant, ".csv"), show_col_types = FALSE)
+  parents <- recent$parents[recent$variant == variant]
+  estimate <- function(name) b$estimate[b$parameter == name]
+  bound <- function(name, side) b[[side]][b$parameter == name]
+  prefix <- checks[[variant]]
+  values[paste0(prefix, c("CheckParents", "CheckKappa", "CheckKappaLower", "CheckKappaUpper", "CheckTau",
+    "CheckSpread", "CheckUnitsLost", "CheckUnitsLostLower", "CheckUnitsLostUpper", "CheckUnitsPerHundred",
+    "CheckUnitsPerHundredLower", "CheckUnitsPerHundredUpper"))] <- c(parents, number(estimate("kappa")),
+    number(bound("kappa", "bootstrap_lower")), number(bound("kappa", "bootstrap_upper")), number(estimate("tau")),
+    number(estimate("dispersion"), 1), units(estimate("units_lost")), units(bound("units_lost", "bootstrap_lower")),
+    units(bound("units_lost", "bootstrap_upper")), number(100 * estimate("units_lost") / parents, 0),
+    number(100 * bound("units_lost", "bootstrap_lower") / parents, 0),
+    number(100 * bound("units_lost", "bootstrap_upper") / parents, 0))
+}
 writeLines(sprintf("\\newcommand{\\%s}{%s}", names(values), values), "../output/model_values.tex")

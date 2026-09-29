@@ -12,7 +12,11 @@ Historical weights are recalibrated here with the shared helper, matching
 residential FAR and borough (`weight_zoning_borough`), or also log lot area
 (`weight_with_lot_area`). Variant `horizon_180` counts only buildings filed
 within 180 days of the parent's first filing, in both periods, and keeps
-recent parents observed for at least 180 days.
+recent parents observed for at least 180 days. Variant `cohort_2025` keeps
+recent parents first filed in 2025. Variant `placebo` is a pre-policy placebo
+from the placebo panels: parents first filed in 2015–2018 stand in for the
+historical sample and those first filed in 2019–2022, before 485-x, for the
+recent one.
 
 ## Model
 
@@ -61,11 +65,14 @@ the compared range, scaled to the recent parents there:
   model with a splitting cost that depends on lot area or on the preferred
   size, mean `sigma * (lot / median historical lot)^(-beta)` or
   `sigma * (x / 150)^(-beta)`.
-- `draw_bootstrap_samples.R` draws 500 bootstrap samples: parents resampled
-  with replacement within period and borough, with the weights recalibrated
-  to each resampled recent sample. Draw 0 is the data.
+- `draw_bootstrap_samples.R` draws 500 bootstrap samples of one variant:
+  parents resampled with replacement within period and borough, with the
+  weights recalibrated to each resampled recent sample. Draw 0 is the data.
 - `bootstrap_scaled_burden.R` re-estimates the main model on the full grid in
-  every sample; draw 0 reproduces the estimate of `fit_heterogeneity.R`.
+  every sample of one variant; for `all_filings` draw 0 reproduces the estimate
+  of `fit_heterogeneity.R`. The other variants are the checks: a common
+  180-day horizon, 2025 parents only, and the pre-policy placebo, where a
+  method free of benchmark drift should find no burden and no units lost.
 - `plot_model_fit.R` draws the main model's fit.
 
 ## Least squares and robustness
@@ -96,9 +103,10 @@ for now.
   `heterogeneity_cell_fit.csv`: estimates, likelihood comparisons, profiles of
   the added parameters and the kink, and cell fit for the main model and its
   alternatives.
-- `bootstrap_samples.parquet`: the bootstrap samples.
-- `scaled_burden_bootstrap_estimates.csv`, `scaled_burden_bootstrap_draws.csv`:
-  the main model's bootstrap intervals and every draw's estimate.
+- `bootstrap_samples_<variant>.parquet`: the bootstrap samples of each variant.
+- `scaled_burden_bootstrap_estimates_<variant>.csv`,
+  `scaled_burden_bootstrap_draws_<variant>.csv`: the main model's estimates,
+  bootstrap intervals and every draw's estimate on each variant.
 - `pdf/model_fit.pdf`: the main model's fit.
 - `model_values.tex`: the estimates, intervals and fit shares quoted in
   `framework_writeup.tex`, written by `write_model_values.R`.

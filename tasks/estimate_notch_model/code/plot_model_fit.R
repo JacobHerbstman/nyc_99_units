@@ -13,7 +13,7 @@ cell_fit <- read_csv("../output/heterogeneity_cell_fit.csv", show_col_types = FA
   filter(model == "scaled_burden", size_bin != "under 50")
 estimate <- read_csv("../output/heterogeneity_estimates.csv", show_col_types = FALSE) |>
   filter(model == "scaled_burden")
-units_lost <- read_csv("../output/scaled_burden_bootstrap_estimates.csv", show_col_types = FALSE) |>
+units_lost <- read_csv("../output/scaled_burden_bootstrap_estimates_all_filings.csv", show_col_types = FALSE) |>
   filter(parameter == "units_lost")
 historical_parents <- read_csv("../output/estimates.csv", show_col_types = FALSE) |>
   filter(specification == "least_squares") |>

@@ -1,4 +1,5 @@
 # setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/estimate_notch_model/code")
+# variant <- "all_filings"
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -11,6 +12,11 @@ suppressPackageStartupMessages({
 source("notch_model.R")
 source("../../shared/code/write_data_report.R")
 
+if (!interactive()) {
+  args <- commandArgs(trailingOnly = TRUE)
+  stopifnot(length(args) == 1L)
+  variant <- args[1]
+}
 maximum_units <- 300
 
 # Bootstrap intervals for the main model, the scaled burden of
@@ -19,15 +25,18 @@ maximum_units <- 300
 # Every sample of draw_bootstrap_samples.R is re-estimated by likelihood on the
 # full grid of kink-to-jump ratios, median jumps, spreads, gamma, sigma and the
 # unexplained share epsilon. The model's choices do not depend on the weights,
-# so one pass scores every draw; the ratios run in parallel.
-parents <- read_parquet("../output/estimation_parents.parquet") |> filter(variant == "all_filings")
+# so one pass scores every draw; the ratios run in parallel. The variant of the
+# sample is all_filings for the main estimate, or a check (horizon_180,
+# cohort_2025, placebo).
+parents <- read_parquet("../output/estimation_parents.parquet") |> filter(variant == !!variant)
+stopifnot(nrow(parents) > 0L)
 historical <- parents |> filter(sample == "historical")
 post <- parents |> filter(sample == "post_policy")
 x <- historical$units
 J0 <- historical$buildings
 
 cells <- cells_up_to(maximum_units)
-samples <- read_parquet("../output/bootstrap_samples.parquet")
+samples <- read_parquet(paste0("../output/bootstrap_samples_", variant, ".parquet"))
 draws <- max(samples$draw)
 W <- bootstrap_weights(samples, historical)
 n <- bootstrap_counts(samples, post |> filter(units <= maximum_units), cells)
@@ -109,12 +118,15 @@ bootstrap_draws <- bind_rows(by_ratio) |>
   select(draw, kappa, tau, kink_to_jump, dispersion, gamma, sigma, epsilon, share_jump_below_0.01,
     share_jump_above_1, units_lost, log_likelihood, post_parents)
 
-# Draw 0 reproduces the scaled-burden estimate of fit_heterogeneity.R.
-estimate <- read_csv("../output/heterogeneity_estimates.csv", show_col_types = FALSE) |>
-  filter(model == "scaled_burden")
-data_draw <- bootstrap_draws |> filter(draw == 0L)
-stopifnot(abs(data_draw$log_likelihood - estimate$log_likelihood) < 1e-8,
-  abs(data_draw$units_lost - estimate$units_lost) < 1e-6)
+# For the main sample, draw 0 reproduces the scaled-burden estimate of
+# fit_heterogeneity.R.
+if (variant == "all_filings") {
+  estimate <- read_csv("../output/heterogeneity_estimates.csv", show_col_types = FALSE) |>
+    filter(model == "scaled_burden")
+  data_draw <- bootstrap_draws |> filter(draw == 0L)
+  stopifnot(abs(data_draw$log_likelihood - estimate$log_likelihood) < 1e-8,
+    abs(data_draw$units_lost - estimate$units_lost) < 1e-6)
+}
 
 parameters <- c("kappa", "tau", "kink_to_jump", "dispersion", "gamma", "sigma", "epsilon",
   "share_jump_below_0.01", "share_jump_above_1", "units_lost")
@@ -129,5 +141,5 @@ bootstrap_estimates <- bootstrap_draws |>
   arrange(match(parameter, parameters))
 
 print(bootstrap_estimates, width = Inf)
-SaveData(bootstrap_draws, "draw", "../output/scaled_burden_bootstrap_draws.csv")
-SaveData(bootstrap_estimates, "parameter", "../output/scaled_burden_bootstrap_estimates.csv")
+SaveData(bootstrap_draws, "draw", paste0("../output/scaled_burden_bootstrap_draws_", variant, ".csv"))
+SaveData(bootstrap_estimates, "parameter", paste0("../output/scaled_burden_bootstrap_estimates_", variant, ".csv"))

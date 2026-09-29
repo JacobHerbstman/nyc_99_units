@@ -4,6 +4,7 @@
 # post_start_date <- as.Date("2025-01-01")
 # post_end_date <- as.Date("2026-07-08")
 # minimum_units <- 6L
+# panel <- "comparison"
 
 suppressPackageStartupMessages({
   library(arrow)
@@ -14,14 +15,16 @@ source("../../shared/code/write_data_report.R")
 
 if (!interactive()) {
   args <- commandArgs(trailingOnly = TRUE)
-  stopifnot(length(args) == 5L)
+  stopifnot(length(args) == 6L)
   pre_start_date <- as.Date(args[1])
   pre_end_date <- as.Date(args[2])
   post_start_date <- as.Date(args[3])
   post_end_date <- as.Date(args[4])
   minimum_units <- as.integer(args[5])
+  panel <- args[6]
 }
-stopifnot(pre_start_date <= pre_end_date, pre_end_date < post_start_date, post_start_date <= post_end_date)
+stopifnot(pre_start_date <= pre_end_date, pre_end_date < post_start_date, post_start_date <= post_end_date,
+  panel %in% c("comparison", "placebo"))
 
 # The comparison: parents first filed in the historical period and fully
 # observed, and parents first filed in the post-policy period with the year
@@ -149,5 +152,8 @@ constituent_panel <- constituents |>
 stopifnot(!anyDuplicated(constituent_panel[c("sample", "root_job_id")]),
   all(constituent_panel$refiled == !is.na(constituent_panel$refiling_date)))
 
-SaveData(parent_panel, c("sample", "parent_id"), "../output/parent_opportunity_panel.parquet")
-SaveData(constituent_panel, c("sample", "root_job_id"), "../output/constituent_filing_panel.parquet")
+# The placebo panel widens the historical period for the pre-policy placebo of
+# estimate_notch_model; the comparison panel is canonical.
+prefix <- if (panel == "placebo") "placebo_" else ""
+SaveData(parent_panel, c("sample", "parent_id"), paste0("../output/", prefix, "parent_opportunity_panel.parquet"))
+SaveData(constituent_panel, c("sample", "root_job_id"), paste0("../output/", prefix, "constituent_filing_panel.parquet"))

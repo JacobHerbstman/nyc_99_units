@@ -1,0 +1,10 @@
+Rows: 246417
+Columns: 4
+Key fields: draw, sample, parent_id
+Saved-file MD5: 6cdca3dc8096c5e9baa5750baa8eedb7
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+draw | integer | nonmissing | 246417 | distinct | 501 min/median/mean/max 0/250/249.8053/500
+sample | character | nonmissing | 246417 | distinct | 2
+parent_id | character | nonmissing | 246417 | distinct | 775
+weight | numeric | nonmissing | 246417 | distinct | 55699 min/median/mean/max 0.0005040312/0.00294019/0.3822301/8

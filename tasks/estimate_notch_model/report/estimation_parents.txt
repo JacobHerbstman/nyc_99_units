@@ -1,17 +1,17 @@
-Rows: 1667
+Rows: 3351
 Columns: 11
 Key fields: variant, sample, parent_id
-Saved-file MD5: bc40a52a4fb67b2a60bda1243b6cc37c
+Saved-file MD5: ad6b29df51af66245766b80dfbd8f9bd
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-variant | character | nonmissing | 1667 | distinct | 2
-sample | character | nonmissing | 1667 | distinct | 2
-parent_id | character | nonmissing | 1667 | distinct | 892
-units | integer | nonmissing | 1667 | distinct | 293 min/median/mean/max 50/99/166.3995/1452
-buildings | integer | nonmissing | 1667 | distinct | 7 min/median/mean/max 1/1/1.217756/8
-weight_zoning_borough | numeric | nonmissing | 1667 | distinct | 127 min/median/mean/max 0.0009650109/0.001988757/0.00239952/0.005347594
-weight_with_lot_area | numeric | nonmissing | 1667 | distinct | 1149 min/median/mean/max 0.0005454821/0.002016584/0.00239952/0.005347594
-residential_far | numeric | nonmissing | 1667 | distinct | 47 min/median/mean/max 0/3.44/4.23027/10
-built_far | numeric | nonmissing | 1667 | distinct | 397 min/median/mean/max 0/0.57/0.9244908/21.38
-log_lot_area | numeric | nonmissing | 1667 | distinct | 741 min/median/mean/max 5.631212/9.398892/9.463298/14.0206
-borough | character | nonmissing | 1667 | distinct | 5
+variant | character | nonmissing | 3351 | distinct | 4
+sample | character | nonmissing | 3351 | distinct | 2
+parent_id | character | nonmissing | 3351 | distinct | 1219
+units | integer | nonmissing | 3351 | distinct | 331 min/median/mean/max 50/99/168.2489/1452
+buildings | integer | nonmissing | 3351 | distinct | 7 min/median/mean/max 1/1/1.20382/8
+weight_zoning_borough | numeric | nonmissing | 3351 | distinct | 242 min/median/mean/max 0.0009650109/0.001984541/0.002387347/0.005524862
+weight_with_lot_area | numeric | nonmissing | 3351 | distinct | 2042 min/median/mean/max 0.0005454821/0.001876717/0.002387347/0.005524862
+residential_far | numeric | nonmissing | 3351 | distinct | 53 min/median/mean/max 0/3.44/4.271346/12
+built_far | numeric | nonmissing | 3351 | distinct | 464 min/median/mean/max 0/0.56/0.9292497/21.38
+log_lot_area | numeric | nonmissing | 3351 | distinct | 979 min/median/mean/max 5.631212/9.416541/9.465671/14.0206
+borough | character | nonmissing | 3351 | distinct | 5
