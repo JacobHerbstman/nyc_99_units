@@ -3,7 +3,7 @@ include ../../shared/code/shell_functions.make
 all: ../output/estimation_parents.parquet ../output/model_checks.csv ../output/estimates.csv \
 	../output/recovery.csv ../output/bootstrap_samples.parquet ../output/bootstrap_estimates.csv \
 	../output/heterogeneity_estimates.csv ../output/scaled_burden_bootstrap_estimates.csv \
-	../output/pdf/model_fit.pdf
+	../output/strategy_logit_estimates.csv ../output/pdf/model_fit.pdf
 
 include ../../shared/code/generic.make
 
@@ -46,6 +46,13 @@ SCALED_BURDEN_OUTPUTS := ../output/scaled_burden_bootstrap_draws.csv ../output/s
 
 $(SCALED_BURDEN_OUTPUTS): bootstrap_scaled_burden.R notch_model.R ../output/estimation_parents.parquet \
 	../output/bootstrap_samples.parquet ../output/heterogeneity_estimates.csv Makefile | $(OOPR)
+	$(R) $<
+
+STRATEGY_LOGIT_OUTPUTS := ../output/strategy_logit_estimates.csv ../output/strategy_logit_profiles.csv \
+	../output/strategy_logit_cell_fit.csv
+
+$(STRATEGY_LOGIT_OUTPUTS): fit_strategy_logit.R notch_model.R ../output/estimation_parents.parquet \
+	../output/heterogeneity_estimates.csv Makefile | $(OOPR)
 	$(R) $<
 
 ../output/pdf/model_fit.pdf: plot_model_fit.R ../output/heterogeneity_cell_fit.csv ../output/heterogeneity_estimates.csv \

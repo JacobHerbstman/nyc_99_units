@@ -144,6 +144,46 @@ splitting_scale <- function(log_value, beta, log_reference = median(log_value)) 
   exp(-beta * (log_value - log_reference))
 }
 
+# The strategy logit, an alternative to the random splitting cost. For each
+# parent and building count J there are two strategies, every building under
+# 100 (m <= 99J) or not, each at its best total; R is its size loss and burden.
+choose_strategies <- function(candidates, burden) {
+  cost <- candidates$loss + burden[cbind(candidates$J, candidates$m)]
+  under <- candidates$m <= 99 * candidates$J
+  key <- 2L * candidates$choice - under
+  first <- order(key, cost, -candidates$m)
+  first <- first[!duplicated(key[first])]
+  data.frame(i = candidates$i[first], J = candidates$J[first], m = candidates$m[first], R = cost[first])
+}
+
+# A strategy with k buildings beyond J0 costs R + sigma * k^gamma plus an
+# independent extreme-value shock with scale mu, so its probability is
+# proportional to exp(-cost / mu), for every sigma. As in the main model,
+# fewer buildings than J0 is not a strategy, and a parent the burden does not
+# touch keeps its historical outcome.
+strategy_probabilities <- function(strategies, J0, gamma, sigma, mu) {
+  strategies <- strategies[strategies$J >= J0[strategies$i], ]
+  untouched <- strategies$i[strategies$J == J0[strategies$i] & strategies$R == 0]
+  kept <- strategies[strategies$i %in% untouched & strategies$J == J0[strategies$i] & strategies$R == 0, ]
+  choices <- strategies[!strategies$i %in% untouched, ]
+  if (nrow(choices) == 0L) {
+    return(list(outcomes = kept[c("i", "J", "m")], probabilities = matrix(1, nrow(kept), length(sigma))))
+  }
+  cost <- choices$R + outer((choices$J - J0[choices$i])^gamma, sigma)
+  # Subtract each parent's cheapest strategy before exponentiating.
+  slot <- ave(choices$i, choices$i, FUN = seq_along)
+  cheapest <- matrix(Inf, max(choices$i), length(sigma))
+  for (s in unique(slot)) {
+    rows <- which(slot == s)
+    cheapest[choices$i[rows], ] <- pmin(cheapest[choices$i[rows], , drop = FALSE], cost[rows, , drop = FALSE])
+  }
+  weight <- exp(-(cost - cheapest[choices$i, , drop = FALSE]) / mu)
+  total <- rowsum(weight, choices$i)
+  probabilities <- weight / total[match(choices$i, as.integer(rownames(total))), , drop = FALSE]
+  list(outcomes = rbind(kept[c("i", "J", "m")], choices[c("i", "J", "m")]),
+    probabilities = rbind(matrix(1, nrow(kept), length(sigma)), probabilities))
+}
+
 # The parameter grid of the fit and the bootstrap.
 kappa_grid <- c(0, 0.0025, 0.005, seq(0.01, 0.1, by = 0.01), seq(0.12, 0.3, by = 0.02),
   0.35, 0.4, 0.5, 0.6, 0.8, 1)

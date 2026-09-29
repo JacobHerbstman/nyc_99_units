@@ -236,3 +236,49 @@ the largest projects, and neither is a significant improvement. Units lost
 move from 761 in the main model to about 900--1,200 over the negative
 elasticities the data lean toward. The main model is kept; the headline
 should carry this range alongside its bootstrap interval (452--1,612).
+
+\subsection*{September 28 follow-up: a strategy logit}
+
+Following Evan Soltas's point that IO backs out unobserved costs from
+observed choices, Jacob asked whether a logit, standard in that literature,
+would do better than the random splitting cost. The main model is already a
+random-coefficients choice model (random coefficients on the burden and on
+the number of added buildings) without an idiosyncratic error. In
+\path{fit_strategy_logit.R} each parent instead chooses among strategies, a
+building count with every building under 100 or not, each at its best total;
+a strategy costs its size loss and burden plus a fixed cost $\sigma$ per added
+building raised to $\gamma$, and each strategy draws an independent
+extreme-value shock with scale $\mu$. The scaled burden stays as the random
+coefficient, so the model is a mixed logit. Parents the burden does not touch
+keep their historical outcome, so the no-policy benchmark is reproduced; a
+logit over every unit count was rejected because it would spread every
+project around its preferred size even without the rule. The likelihood and
+its unexplained share are unchanged, so the fits compare directly.
+
+\begin{center}
+\small
+\begin{tabular}{lrr}
+\hline
+ & Main model & Strategy logit \\
+\hline
+Median jump $\kappa$ & 0.18 & 0.16 \\
+Kink $\tau$ & 0 & 0 \\
+Spread $s$ & 2 & 1 \\
+Splitting cost $\sigma$, growth $\gamma$ & 0.20 (mean), 2 & 0.13 (fixed), 1.25 \\
+Logit scale $\mu$ & -- & 0.05 \\
+Log-likelihood & $-584.5$ & $-586.7$ \\
+Free parameters & 6 & 7 \\
+AIC & 1,181.1 & 1,187.4 \\
+Units lost & 761 & 657 \\
+\hline
+\end{tabular}
+\end{center}
+
+The logit fits worse with one more parameter. Its shocks give every affected
+parent some chance of staying just above 100 in one building (0.3 percent at
+100--104, where none are observed), the pattern that also counted against
+non-optimizers; the random splitting cost instead lets parents differ in a
+way that leaves that region empty. The logit scale is weakly identified
+(log-likelihood $-586.7$ to $-588.5$ over $\mu$ from 0.005 to 0.5), and units
+lost move with it from 514 to 1,682. The main model is kept; the logit can be
+reported as the IO-standard alternative, fitting the data somewhat worse.

@@ -1,0 +1,10 @@
+Rows: 81
+Columns: 4
+Key fields: parameter, value
+Saved-file MD5: ba43b89aa992884015d4604eca58827b
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parameter | character | nonmissing | 81 | distinct | 5
+value | numeric | nonmissing | 81 | distinct | 64 min/median/mean/max 0/0.3/1.245769/10
+log_likelihood | numeric | nonmissing | 81 | distinct | 71 min/median/mean/max -643.9094/-588.6626/-599.452/-586.6839
+units_lost | numeric | nonmissing | 81 | distinct | 71 min/median/mean/max 44.76883/776.4865/1489.76/7198.503

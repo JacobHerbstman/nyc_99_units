@@ -61,6 +61,13 @@ the compared range, scaled to the recent parents there:
   model with a splitting cost that depends on lot area or on the preferred
   size, mean `sigma * (lot / median historical lot)^(-beta)` or
   `sigma * (x / 150)^(-beta)`.
+- `fit_strategy_logit.R` estimates the main model with a logit choice among
+  strategies instead of a random splitting cost: each parent chooses a
+  building count, with every building under 100 or not, at the best total for
+  that strategy; a strategy costs `R + sigma * k^gamma` plus an extreme-value
+  shock with scale `mu`, and the scaled burden stays as the random
+  coefficient. Parents the burden does not touch keep their historical
+  outcome.
 - `draw_bootstrap_samples.R` draws 500 bootstrap samples shared by every
   bootstrap: parents resampled with replacement within period and borough,
   with the weights recalibrated to each resampled recent sample. Draw 0 is
@@ -104,6 +111,9 @@ for now.
   `heterogeneity_cell_fit.csv`: estimates, likelihood comparisons, profiles of
   the added parameters and the kink, and cell fit for the main model and its
   alternatives.
+- `strategy_logit_estimates.csv`, `strategy_logit_profiles.csv`,
+  `strategy_logit_cell_fit.csv`: the strategy logit beside the main model, its
+  profiles and cell fit.
 - `bootstrap_samples.parquet`: the shared bootstrap samples.
 - `scaled_burden_bootstrap_estimates.csv`, `scaled_burden_bootstrap_draws.csv`:
   the main model's bootstrap intervals and every draw's estimate.
