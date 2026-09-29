@@ -61,10 +61,9 @@ the compared range, scaled to the recent parents there:
   model with a splitting cost that depends on lot area or on the preferred
   size, mean `sigma * (lot / median historical lot)^(-beta)` or
   `sigma * (x / 150)^(-beta)`.
-- `draw_bootstrap_samples.R` draws 500 bootstrap samples shared by every
-  bootstrap: parents resampled with replacement within period and borough,
-  with the weights recalibrated to each resampled recent sample. Draw 0 is
-  the data.
+- `draw_bootstrap_samples.R` draws 500 bootstrap samples: parents resampled
+  with replacement within period and borough, with the weights recalibrated
+  to each resampled recent sample. Draw 0 is the data.
 - `bootstrap_scaled_burden.R` re-estimates the main model on the full grid in
   every sample; draw 0 reproduces the estimate of `fit_heterogeneity.R`.
 - `plot_model_fit.R` draws the main model's fit.
@@ -85,13 +84,6 @@ lost with building counts held at `J0` and the direct gap
 `P * (sum(w * x) - mean(m))`.
 
 `test_notch_model.R` runs the framework's numerical checks before fitting.
-`recover_parameters.R` redraws the recent sample from the least-squares model
-at its estimate, at the same point with a linear splitting cost, and with a
-kink of 0.2, and re-estimates each draw on the grid; the historical sample is
-held fixed. `bootstrap_notch_model.R` estimates the single burden by least
-squares and by likelihood in every bootstrap sample; draw 0 reproduces the
-least-squares estimate, and likelihood-ratio intervals come from the
-likelihood profiles.
 
 The 150-unit regime in geographic Zones A and B is not modeled, by decision
 for now.
@@ -104,7 +96,7 @@ for now.
   `heterogeneity_cell_fit.csv`: estimates, likelihood comparisons, profiles of
   the added parameters and the kink, and cell fit for the main model and its
   alternatives.
-- `bootstrap_samples.parquet`: the shared bootstrap samples.
+- `bootstrap_samples.parquet`: the bootstrap samples.
 - `scaled_burden_bootstrap_estimates.csv`, `scaled_burden_bootstrap_draws.csv`:
   the main model's bootstrap intervals and every draw's estimate.
 - `pdf/model_fit.pdf`: the main model's fit.
@@ -114,12 +106,5 @@ for now.
   cells by least-squares specification.
 - `parameter_profiles.csv`: the best least-squares objective at each value of
   each parameter.
-- `least_squares_grid_cells.parquet`: least-squares grid predictions for
-  recovery.
-- `recovery.csv`, `recovery_summary.csv`: simulated-data recovery.
-- `bootstrap_estimates.csv`, `bootstrap_draws.csv`: single-burden least-squares
-  and likelihood estimates, bootstrap intervals and every draw's estimate.
-- `likelihood_profiles.csv`, `likelihood_cell_fit.csv`: the single-burden
-  likelihood profile of each parameter and its cell fit.
 
 Run root `make estimate`; task-local `make` uses the prepared panels.

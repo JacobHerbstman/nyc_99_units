@@ -4,31 +4,19 @@ all: ../output/pdf/main_project_plots.pdf
 
 include ../../shared/code/generic.make
 
-../output/pdf/constituent_filing_distribution_50_150.pdf: plot_constituent_filing_distribution.R Makefile ../input/constituent_filing_panel.parquet | $(OOPR) ../output/pdf
-	$(R) $< 50 150 normalized line
+../output/pdf/constituent_filing_distribution_50_150.pdf \
+	../output/pdf/annualized_constituent_filing_distribution_50_300.pdf \
+	../output/pdf/normalized_constituent_filing_distribution_50_300.pdf \
+	../output/pdf/normalized_constituent_filing_distribution_50_300_histogram.pdf: \
+	plot_constituent_filing_distribution.R ../input/constituent_filing_panel.parquet Makefile | $(OOPR) ../output/pdf
+	$(R) $<
 
-../output/pdf/annualized_constituent_filing_distribution_50_300.pdf: plot_constituent_filing_distribution.R \
-	Makefile ../input/constituent_filing_panel.parquet | $(OOPR) \
-	../output/pdf
-	$(R) $< 50 300 annualized line
+../output/pdf/constituent_filing_cdf.pdf ../output/pdf/constituent_filing_cdf_6_plus.pdf: plot_constituent_filing_cdf.R \
+	../input/constituent_filing_panel.parquet Makefile | $(OOPR) ../output/pdf
+	$(R) $<
 
-../output/pdf/normalized_constituent_filing_distribution_50_300.pdf: plot_constituent_filing_distribution.R \
-	Makefile ../input/constituent_filing_panel.parquet | $(OOPR) \
-	../output/pdf
-	$(R) $< 50 300 normalized line
-
-../output/pdf/normalized_constituent_filing_distribution_50_300_histogram.pdf: \
-	plot_constituent_filing_distribution.R Makefile \
-	../input/constituent_filing_panel.parquet | $(OOPR) ../output/pdf
-	$(R) $< 50 300 normalized histogram
-
-../output/pdf/constituent_filing_cdf.pdf: plot_constituent_filing_cdf.R Makefile ../input/constituent_filing_panel.parquet | $(OOPR) ../output/pdf
-	$(R) $< 50 300
-
-../output/pdf/constituent_filing_cdf_6_plus.pdf: plot_constituent_filing_cdf.R Makefile ../input/constituent_filing_panel.parquet | $(OOPR) ../output/pdf
-	$(R) $< 6 300
-
-../output/pdf/parents_with_99_unit_constituents.pdf: plot_99_containing_parent_vectors.R Makefile ../input/parent_opportunity_panel.parquet | $(OOPR) ../output/pdf
+../output/pdf/parents_with_99_unit_constituents.pdf: plot_99_containing_parent_vectors.R \
+	../input/parent_opportunity_panel.parquet Makefile | $(OOPR) ../output/pdf
 	$(R) $<
 
 ../output/pdf/annualized_parent_total_50_300.pdf ../output/pdf/normalized_parent_total_50_300_reproduction.pdf \

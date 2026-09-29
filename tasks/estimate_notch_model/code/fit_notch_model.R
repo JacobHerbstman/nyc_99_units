@@ -173,18 +173,8 @@ profiles <- bind_rows(lapply(c("kappa", "tau", "gamma", "sigma"), function(param
     mutate(parameter = parameter, .after = specification)
 }))
 
-# Every grid prediction of the least-squares specification, for the recovery
-# exercise.
-base <- fits[["least_squares"]]
-least_squares_grid_cells <- base$grid |>
-  select(kappa, tau, gamma, sigma) |>
-  mutate(point = row_number()) |>
-  slice(rep(seq_len(n()), each = length(base$cells))) |>
-  mutate(cell = rep(base$cells, nrow(base$grid)), share = as.vector(base$shares))
-
 print(estimates, width = Inf)
 SaveData(estimates, "specification", "../output/estimates.csv")
 SaveData(fit_moments, c("specification", "moment"), "../output/fit_moments.csv")
 SaveData(cell_fit, c("specification", "cell"), "../output/cell_fit.csv")
 SaveData(profiles, c("specification", "parameter", "value"), "../output/parameter_profiles.csv")
-SaveData(least_squares_grid_cells, c("point", "cell"), "../output/least_squares_grid_cells.parquet")

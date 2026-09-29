@@ -9,7 +9,7 @@ source("../../shared/code/write_data_report.R")
 
 draws <- 500L
 
-# Bootstrap samples shared by every bootstrap. Each draw resamples parents with
+# Bootstrap samples for the main model. Each draw resamples parents with
 # replacement within period and borough and recalibrates the historical
 # weights to the resampled recent parents; stratifying keeps Staten Island (5
 # historical, 2 recent parents) in every calibration. A historical parent's

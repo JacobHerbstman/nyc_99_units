@@ -85,3 +85,16 @@ two July 2025 designs and is dated from July 8 rather than August 20, like the
 historical case. The weighting sample, the excess at 99 and the main model
 estimates are unchanged; units lost under lot-area weights move from 1,373.4 to
 1,372.7, from a small change in one parent's land.
+
+\subsection*{September 28 follow-up: trimming after the model work}
+
+Jacob asked for a second pass over the main tasks. The three wage-source
+tasks, which nothing in the pipeline reads, moved to the branch
+\texttt{wage-sources}. In the estimation task the single-burden bootstrap and
+the least-squares recovery exercise were removed, since the main model is now
+the scaled burden with its own bootstrap; their results remain in the
+earlier entries and in the history. The least-squares specifications and the
+model comparisons that justify the main model stay. The three older plotting
+scripts were rewritten without command-line arguments, one script per figure
+family, and every figure renders pixel-identical. Every kept estimation report
+is byte-identical after a full rebuild.

@@ -3,7 +3,6 @@
 suppressPackageStartupMessages({
   library(arrow)
   library(dplyr)
-  library(readr)
   library(tibble)
   library(tidyr)
 })
@@ -13,7 +12,7 @@ source("../../shared/code/write_data_report.R")
 maximum_units <- 300
 
 # Departures from a single burden, estimated by likelihood with the
-# unexplained share epsilon of bootstrap_notch_model.R:
+# unexplained share epsilon of notch_model.R:
 #   non-optimizers      a share pi of parents keeps its 2019-2022 outcome, as
 #                       if the threshold did not reach it (Kleven and Waseem
 #                       2013); they lose no units;
@@ -150,12 +149,6 @@ estimates <- bind_rows(lapply(models$model, function(model) {
   select(model, burden, kappa, tau, kink_to_jump, dispersion, gamma, sigma, lot_elasticity, size_elasticity, pi,
     epsilon, share_jump_below_0.01, share_jump_above_1, log_likelihood, free_parameters, aic, likelihood_ratio,
     units_lost, ray, jump)
-
-# The single jump reproduces the likelihood estimate of bootstrap_notch_model.R.
-bootstrap <- read_csv("../output/bootstrap_draws.csv", show_col_types = FALSE) |>
-  filter(estimator == "likelihood", draw == 0L)
-single <- estimates |> filter(model == "single_jump")
-stopifnot(abs(single$log_likelihood + bootstrap$score) < 1e-8, abs(single$units_lost - bootstrap$units_lost) < 1e-6)
 
 # Profiles of the parameters each model adds, and of its kink, with units lost
 # at each profile point.
