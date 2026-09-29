@@ -4,10 +4,9 @@ TASKS := analyze_borough_bunching build_estimation_panels build_hdb_mappluto_sit
 	build_parent_site_characteristics classify_parent_485x_exposure construct_historical_parent_links \
 	construct_parent_cohorts fetch_dcp_housing_database fetch_dob_now_new_building_filings \
 	fetch_hpd_485x_registrations fetch_mappluto_archive fetch_nyc_borough_boundaries fetch_dof_tax_map_history \
-	fetch_dob_bis_job_filings fetch_dob_permits fetch_nys_ag_offering_plans fetch_nyc_prevailing_wage_schedules \
-	estimate_notch_model \
+	fetch_dob_bis_job_filings fetch_nys_ag_offering_plans estimate_notch_model \
 	link_hpd_485x_registrations parent_opportunities_manual plot_bunching stage_dcp_housing_database \
-	stage_dob_now_new_building_filings stage_mappluto_lots stage_nyc_prevailing_wage_schedules
+	stage_dob_now_new_building_filings stage_mappluto_lots
 
 all: plot_bunching analyze_borough_bunching task_graph.svg
 data: build_estimation_panels
@@ -77,9 +76,6 @@ fetch_dob_bis_job_filings:
 fetch_dob_now_new_building_filings:
 	$(MAKE) -C tasks/fetch_dob_now_new_building_filings/code
 
-fetch_dob_permits:
-	$(MAKE) -C tasks/fetch_dob_permits/code
-
 fetch_hpd_485x_registrations:
 	$(MAKE) -C tasks/fetch_hpd_485x_registrations/code
 
@@ -91,9 +87,6 @@ fetch_mappluto_archive:
 
 fetch_nyc_borough_boundaries:
 	$(MAKE) -C tasks/fetch_nyc_borough_boundaries/code
-
-fetch_nyc_prevailing_wage_schedules:
-	$(MAKE) -C tasks/fetch_nyc_prevailing_wage_schedules/code
 
 link_hpd_485x_registrations: fetch_hpd_485x_registrations stage_dob_now_new_building_filings
 	$(MAKE) -C tasks/link_hpd_485x_registrations/code
@@ -112,9 +105,6 @@ stage_dob_now_new_building_filings: fetch_dob_now_new_building_filings
 
 stage_mappluto_lots: fetch_mappluto_archive
 	$(MAKE) -C tasks/stage_mappluto_lots/code
-
-stage_nyc_prevailing_wage_schedules: fetch_nyc_prevailing_wage_schedules
-	$(MAKE) -C tasks/stage_nyc_prevailing_wage_schedules/code
 
 setup-environment:
 	$(MAKE) -C tasks/setup_environment/code

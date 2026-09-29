@@ -4,7 +4,7 @@ options(repos = c(CRAN = "https://cloud.r-project.org"))
 
 cran_pkgs <- c(
   "arrow", "data.table", "dplyr", "foreign", "ggplot2", "httr", "httr2",
-  "igraph", "jsonlite", "lubridate", "pdftools", "readr", "rvest", "scales", "sf",
+  "igraph", "jsonlite", "lubridate", "readr", "rvest", "scales", "sf",
   "stringr", "survey", "tibble", "tidyr", "units"
 )
 
