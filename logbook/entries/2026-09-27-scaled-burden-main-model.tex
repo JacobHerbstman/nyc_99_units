@@ -280,5 +280,6 @@ parent some chance of staying just above 100 in one building (0.3 percent at
 non-optimizers; the random splitting cost instead lets parents differ in a
 way that leaves that region empty. The logit scale is weakly identified
 (log-likelihood $-586.7$ to $-588.5$ over $\mu$ from 0.005 to 0.5), and units
-lost move with it from 514 to 1,682. The main model is kept; the logit can be
-reported as the IO-standard alternative, fitting the data somewhat worse.
+lost move with it from 514 to 1,682. The main model is kept, and Jacob chose
+not to pursue the logit: the code was removed after commit \texttt{808b2f7},
+which preserves it.
