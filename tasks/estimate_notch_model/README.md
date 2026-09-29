@@ -100,6 +100,8 @@ for now.
 - `scaled_burden_bootstrap_estimates.csv`, `scaled_burden_bootstrap_draws.csv`:
   the main model's bootstrap intervals and every draw's estimate.
 - `pdf/model_fit.pdf`: the main model's fit.
+- `model_values.tex`: the estimates, intervals and fit shares quoted in
+  `framework_writeup.tex`, written by `write_model_values.R`.
 - `estimates.csv`: least-squares best point, near-optimal ranges and unit
   quantities by specification.
 - `fit_moments.csv`, `cell_fit.csv`: observed, benchmark and fitted moments and

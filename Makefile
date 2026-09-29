@@ -112,11 +112,12 @@ setup-environment:
 logbook: maps reweighting parent-links estimate
 	$(MAKE) -C logbook
 
-framework-writeup: reweighting
+framework-writeup: reweighting estimate
 	$(MAKE) framework_writeup.pdf
 
 framework_writeup.pdf: framework_writeup.tex Makefile \
-	tasks/audits/audit_scale_shape_splitting/output/figure_guide_values.tex
+	tasks/audits/audit_scale_shape_splitting/output/figure_guide_values.tex \
+	tasks/estimate_notch_model/output/model_values.tex
 	pdflatex -interaction=nonstopmode -halt-on-error $<
 	pdflatex -interaction=nonstopmode -halt-on-error $<
 

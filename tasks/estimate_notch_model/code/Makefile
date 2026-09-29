@@ -2,7 +2,7 @@ include ../../shared/code/shell_functions.make
 
 all: ../output/estimation_parents.parquet ../output/model_checks.csv ../output/estimates.csv \
 	../output/heterogeneity_estimates.csv ../output/bootstrap_samples.parquet \
-	../output/scaled_burden_bootstrap_estimates.csv ../output/pdf/model_fit.pdf
+	../output/scaled_burden_bootstrap_estimates.csv ../output/pdf/model_fit.pdf ../output/model_values.tex
 
 include ../../shared/code/generic.make
 
@@ -37,6 +37,11 @@ $(SCALED_BURDEN_OUTPUTS): bootstrap_scaled_burden.R notch_model.R ../output/esti
 
 ../output/pdf/model_fit.pdf: plot_model_fit.R ../output/heterogeneity_cell_fit.csv ../output/heterogeneity_estimates.csv \
 	../output/scaled_burden_bootstrap_estimates.csv ../output/estimates.csv Makefile | $(OOPR) ../output/pdf
+	$(R) $<
+
+../output/model_values.tex: write_model_values.R ../output/heterogeneity_estimates.csv \
+	../output/heterogeneity_cell_fit.csv ../output/scaled_burden_bootstrap_estimates.csv ../output/estimates.csv \
+	Makefile | $(OOPR)
 	$(R) $<
 
 ../input/parent_opportunity_panel.parquet: ../../build_estimation_panels/output/parent_opportunity_panel.parquet | ../input
