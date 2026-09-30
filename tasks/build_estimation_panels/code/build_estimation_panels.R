@@ -107,7 +107,7 @@ features <- bind_rows(read_parquet("../input/historical_parent_site_characterist
   read_parquet("../input/post_policy_parent_site_characteristics.parquet")) |>
   transmute(sample, parent_id, feature_units = units, composition_eligible, site_feature_method = feature_methods,
     number_unique_lots = feature_lots, lot_area_sqft = lotarea, residential_far = residfar, built_far = builtfar,
-    built_floor_area_estimated, merged_lots_added, merger_window_complete, implausible_site, borough,
+    built_floor_area_estimated, merged_lots_added, merger_window_complete, starting_lots, implausible_site, borough,
     community_district)
 stopifnot(!anyDuplicated(exposure[c("sample", "parent_id")]), !anyDuplicated(features[c("sample", "parent_id")]))
 
@@ -138,7 +138,7 @@ parent_panel <- parent_panel |>
     response_category, exposure_status, included_ab, included_ab_plus_d, confidence, classification_reason,
     source_url, composition_eligible, site_feature_method, number_unique_lots, lot_area_sqft, log_lot_area,
     residential_far, built_far, residential_capacity_sqft, redevelopment_slack_sqft, built_floor_area_estimated,
-    merged_lots_added, merger_window_complete, implausible_site, borough, community_district)
+    merged_lots_added, merger_window_complete, starting_lots, implausible_site, borough, community_district)
 
 # date_filed is the original filing date of a refiled building; record_filing_date
 # is the filing's own date.

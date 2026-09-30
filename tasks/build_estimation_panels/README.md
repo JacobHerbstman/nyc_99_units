@@ -61,6 +61,9 @@ assessment needs its own evidence.
 - `merged_lots_added`, `merger_window_complete` and `implausible_site` come from
   the 180-day merger rule and site check in `build_parent_site_characteristics`.
   They are for sensitivity analysis and exclude no parent.
+- `starting_lots` counts the tax lots the site occupied before its own mergers
+  and subdivisions (`build_parent_site_characteristics`), for the splitting cost
+  of `estimate_notch_model`.
 - `community_district` is the MapPLUTO community district (for example `303`,
   Brooklyn 3) of the parent's lots in the same release that supplies its land
   and zoning; `Mixed` when the lots span districts and `missing` when no lot

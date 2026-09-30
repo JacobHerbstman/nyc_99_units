@@ -37,6 +37,19 @@ count; splits and later mergers do not. The window is the same in both periods.
 
 Reviewed allocations below replace the whole parcel set, including merged lots.
 
+## Starting lots
+
+`starting_lots` counts the tax lots the site occupied before its own mergers
+and subdivisions, for the model's splitting cost. It starts from the lots of the
+parent's buildings at filing (the lagged match historically; after the policy
+the DOB filing lot, which a recent subdivision may have created) and undoes,
+once and newest first, each DOF lot merger or subdivision from two years before
+the first filing to 180 days after it: a merger into a site lot adds the lots it
+absorbed, and a subdivision replaces the lots it created with the lot they came
+from. The window is the same in both periods. A reviewed parent starts on the
+earlier parcels its decision names. Lots never merged or filed on, such as the
+rest of a zoning lot, are not counted in either period.
+
 ## Reviewed parcel allocations
 
 `site_lot_decisions.csv`, owned by `parent_opportunities_manual`, replaces the

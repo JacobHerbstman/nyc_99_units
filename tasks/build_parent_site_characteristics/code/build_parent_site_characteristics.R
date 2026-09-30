@@ -152,6 +152,55 @@ parents <- parents |>
   mutate(merged_lots_added = coalesce(merged_lots_added, 0L),
     merger_window_complete = as.Date(cohort_date) + merger_window_days <= dof_snapshot_date)
 
+# Starting lots: the tax lots the site occupied before its own mergers and
+# subdivisions. From the lots of the parent's buildings at filing (the lagged
+# match historically; after the policy the DOB filing lot, which a recent
+# subdivision may have created), each DOF merger or subdivision from two years
+# before the first filing to 180 days after it is undone once, newest first: a
+# merger into a site lot adds the lots it absorbed, and a subdivision replaces
+# the lots it created with the lot they came from. The window is the same in
+# both periods, relative to the first filing.
+starting_window_days <- 730L
+lot_transactions <- read_parquet("../input/dof_lot_actions.parquet") |>
+  transmute(transaction_id = TRANS_NUM, bbl = BBL, action = Lot_Action) |>
+  distinct() |>
+  inner_join(dof_changes |> filter(change_type %in% c("Lot Merger", "Lot Apportionment")), by = "transaction_id",
+    relationship = "many-to-one") |>
+  group_by(transaction_id, change_date, change_type) |>
+  summarise(blocks = list(unique(str_sub(bbl, 1, 6))), original = list(bbl[action %in% c("Affected", "Dropped")]),
+    created = list(bbl[action == "New"]), surviving = list(bbl[action %in% c("Affected", "New")]),
+    absorbed = list(bbl[action == "Dropped"]), .groups = "drop")
+transactions_by_block <- lot_transactions |> unnest_longer(blocks) |> split(~blocks)
+starting_lot_count <- function(lots, first_filing) {
+  blocks <- intersect(unique(str_sub(lots, 1, 6)), names(transactions_by_block))
+  if (length(blocks) == 0L) return(length(lots))
+  window <- bind_rows(transactions_by_block[blocks]) |>
+    distinct(transaction_id, .keep_all = TRUE) |>
+    filter(change_date >= first_filing - starting_window_days, change_date <= first_filing + merger_window_days) |>
+    arrange(desc(change_date), desc(transaction_id))
+  for (i in seq_len(nrow(window))) {
+    if (window$change_type[i] == "Lot Merger" && any(window$surviving[[i]] %in% lots)) {
+      lots <- union(lots, window$absorbed[[i]])
+    }
+    if (window$change_type[i] == "Lot Apportionment" && any(window$created[[i]] %in% lots) &&
+        length(window$original[[i]]) > 0L) {
+      lots <- union(setdiff(lots, window$created[[i]]), window$original[[i]])
+    }
+  }
+  length(lots)
+}
+starting_lots <- members |>
+  filter(additive_component) |>
+  mutate(lot = if (sample_name == "historical") coalesce(feature_bbl, filing_bbl) else coalesce(filing_bbl, feature_bbl)) |>
+  filter(!is.na(lot)) |>
+  group_by(parent_id) |>
+  summarise(first_filing = as.Date(first(cohort_date)), lots = list(unique(lot)), .groups = "drop") |>
+  rowwise() |>
+  mutate(starting_lots = starting_lot_count(lots, first_filing)) |>
+  ungroup() |>
+  select(parent_id, starting_lots)
+parents <- parents |> left_join(starting_lots, by = "parent_id", relationship = "one-to-one")
+
 # Reviewed land decisions (site_lot_decisions.csv) replace a parent's whole lot
 # set with documented lots from a named release. Retained floor or a documented
 # archive correction is deducted before computing existing density.
@@ -191,7 +240,11 @@ parents <- parents |>
   mutate(reviewed = parent_id %in% reviewed_parents$parent_id,
     feature_complete = feature_complete | reviewed,
     feature_methods = if_else(reviewed, "reviewed_parcel_allocation", feature_methods),
-    merged_lots_added = if_else(reviewed, 0L, merged_lots_added))
+    merged_lots_added = if_else(reviewed, 0L, merged_lots_added)) |>
+  # A reviewed parent starts on the earlier parcels its decision names.
+  left_join(reviewed_lots |> group_by(parent_id) |> summarise(reviewed_lots = sum(feature_lots)), by = "parent_id",
+    relationship = "one-to-one") |>
+  mutate(starting_lots = if_else(reviewed, reviewed_lots, starting_lots))
 
 # FARs are land-weighted over the lots that report them.
 area_weighted <- function(far, lotarea) {
@@ -220,7 +273,7 @@ panel <- parents |>
     implausible_site = !is.na(lotarea) & lotarea * pmax(residfar, broad_zoning_far) / units < 150) |>
   arrange(cohort_date, parent_id) |>
   select(sample, parent_id, units, composition_eligible, feature_methods, feature_lots, lotarea, residfar,
-    builtfar, built_floor_area_estimated, merged_lots_added, merger_window_complete, implausible_site, borough,
-    community_district)
+    builtfar, built_floor_area_estimated, merged_lots_added, merger_window_complete, starting_lots, implausible_site,
+    borough, community_district)
 
 SaveData(panel, "parent_id", sprintf("../output/%s_parent_site_characteristics.parquet", sample_name))

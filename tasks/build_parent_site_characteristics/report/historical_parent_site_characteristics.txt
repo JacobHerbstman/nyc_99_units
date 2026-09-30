@@ -1,7 +1,7 @@
 Rows: 6436
-Columns: 15
+Columns: 16
 Key fields: parent_id
-Saved-file MD5: a1584d81bad379b9362b154da15caa53
+Saved-file MD5: ad6e9f6f4666de62f01e85aeb479e34e
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 6436 | distinct | 1
@@ -16,6 +16,7 @@ builtfar | numeric | nonmissing | 6436 | distinct | 847 min/median/mean/max 0/0.
 built_floor_area_estimated | logical | nonmissing | 6436 | distinct | 2
 merged_lots_added | integer | nonmissing | 6436 | distinct | 10 min/median/mean/max 0/0/0.05469236/10
 merger_window_complete | logical | nonmissing | 6436 | distinct | 1
+starting_lots | integer | nonmissing | 6436 | distinct | 17 min/median/mean/max 1/1/1.331883/29
 implausible_site | logical | nonmissing | 5426 | distinct | 2
 borough | character | nonmissing | 6436 | distinct | 5
 community_district | character | nonmissing | 6436 | distinct | 60

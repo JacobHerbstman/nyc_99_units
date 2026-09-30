@@ -1,7 +1,7 @@
 Rows: 2933
-Columns: 49
+Columns: 50
 Key fields: sample, parent_id
-Saved-file MD5: ed6128517af485701f49f6365a9c1e6e
+Saved-file MD5: ce8ae605a12cc3ff88f81e06cc4f553e
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 2933 | distinct | 2
@@ -50,6 +50,7 @@ redevelopment_slack_sqft | numeric | nonmissing | 2916 | distinct | 2387 min/med
 built_floor_area_estimated | logical | nonmissing | 2933 | distinct | 2
 merged_lots_added | integer | nonmissing | 2933 | distinct | 10 min/median/mean/max 0/0/0.1564951/10
 merger_window_complete | logical | nonmissing | 2933 | distinct | 2
+starting_lots | integer | nonmissing | 2933 | distinct | 11 min/median/mean/max 1/1/1.300034/29
 implausible_site | logical | nonmissing | 2933 | distinct | 2
 borough | character | nonmissing | 2917 | distinct | 5
 community_district | character | nonmissing | 2917 | distinct | 60
