@@ -20,12 +20,15 @@ stopifnot(!anyDuplicated(universe[c("sample", "root_job_id")]), !anyDuplicated(m
   all(manual_reviews$parent_id %in% universe$parent_id), all(manual_reviews$exposure_status %in% statuses),
   all(manual_reviews$confidence %in% c("high", "medium", "low")))
 
-# Attorney General searches: the August 26 capture and the September 22
-# historical supplement. A search belongs to a filing and the exact address
+# Attorney General searches: the August 26 capture and the September 22 and 29
+# historical supplements. A search belongs to a filing and the exact address
 # queried, so it applies only where that address is still the filing's.
-read_capture <- function(path) read_csv(path, show_col_types = FALSE, guess_max = Inf)
+read_capture <- function(path) {
+  read_csv(path, show_col_types = FALSE, guess_max = Inf, col_types = cols(root_job_id = col_character()))
+}
 supplement <- bind_rows(read_capture("../input/historical_ag_query_supplement_2019_2022_20260922.csv"),
-  read_capture("../input/historical_ag_query_supplement_2023_companions_20260922.csv"))
+  read_capture("../input/historical_ag_query_supplement_2023_companions_20260922.csv"),
+  read_capture("../input/historical_ag_query_supplement_2011_2018_20260929.csv"))
 supplement_counts <- supplement |>
   group_by(sample, root_job_id, search_query) |>
   summarise(counts = n_distinct(returned_plan_count), statuses = n_distinct(search_http_status),

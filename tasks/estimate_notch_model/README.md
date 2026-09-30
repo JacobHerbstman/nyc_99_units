@@ -14,9 +14,10 @@ residential FAR and borough (`weight_zoning_borough`), or also log lot area
 within 180 days of the parent's first filing, in both periods, and keeps
 recent parents observed for at least 180 days. Variant `cohort_2025` keeps
 recent parents first filed in 2025. Variant `placebo` is a pre-policy placebo
-from the placebo panels: parents first filed in 2015–2018 stand in for the
+from the extended panels: parents first filed in 2015–2018 stand in for the
 historical sample and those first filed in 2019–2022, before 485-x, for the
-recent one.
+recent one. Variant `history_2014` uses the historical parents first filed in
+2014–2022 against the same recent parents.
 
 ## Model
 
@@ -71,8 +72,9 @@ the compared range, scaled to the recent parents there:
 - `bootstrap_scaled_burden.R` re-estimates the main model on the full grid in
   every sample of one variant; for `all_filings` draw 0 reproduces the estimate
   of `fit_heterogeneity.R`. The other variants are the checks: a common
-  180-day horizon, 2025 parents only, and the pre-policy placebo, where a
-  method free of benchmark drift should find no burden and no units lost.
+  180-day horizon, 2025 parents only, the pre-policy placebo, where a
+  method free of benchmark drift should find no burden and no units lost, and
+  the longer historical period.
 - `plot_model_fit.R` draws the main model's fit.
 
 ## Least squares and robustness

@@ -1,7 +1,7 @@
 Rows: 7444
 Columns: 15
 Key fields: sample, parent_id
-Saved-file MD5: 5c09335ca3aa47d473989f8ad495b1c0
+Saved-file MD5: 30598b0690f3ecc38433393463c6e331
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 7444 | distinct | 2
@@ -12,10 +12,10 @@ included_ab_plus_d | logical | nonmissing | 7444 | distinct | 2
 confidence | character | nonmissing | 7444 | distinct | 3
 classification_reason | character | nonmissing | 7444 | distinct | 14
 evidence_source | character | nonmissing | 7444 | distinct | 13
-source_url | character | nonmissing | 830 | distinct | 659
+source_url | character | nonmissing | 867 | distinct | 682
 government_owner | logical | nonmissing | 7444 | distinct | 2
 nycha_owner | logical | nonmissing | 7444 | distinct | 2
 hotel_project | logical | nonmissing | 7444 | distinct | 2
 ag_screen_complete | logical | nonmissing | 7444 | distinct | 2
-ag_market_plan_ids | character | nonmissing | 661 | distinct | 660
+ag_market_plan_ids | character | nonmissing | 698 | distinct | 683
 hpd_options | character | nonmissing | 171 | distinct | 5

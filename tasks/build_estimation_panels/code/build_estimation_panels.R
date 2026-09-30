@@ -24,7 +24,7 @@ if (!interactive()) {
   panel <- args[6]
 }
 stopifnot(pre_start_date <= pre_end_date, pre_end_date < post_start_date, post_start_date <= post_end_date,
-  panel %in% c("comparison", "placebo"))
+  panel %in% c("comparison", "extended"))
 
 # The comparison: parents first filed in the historical period and fully
 # observed, and parents first filed in the post-policy period with the year
@@ -152,8 +152,8 @@ constituent_panel <- constituents |>
 stopifnot(!anyDuplicated(constituent_panel[c("sample", "root_job_id")]),
   all(constituent_panel$refiled == !is.na(constituent_panel$refiling_date)))
 
-# The placebo panel widens the historical period for the pre-policy placebo of
+# The extended panel widens the historical period for the checks of
 # estimate_notch_model; the comparison panel is canonical.
-prefix <- if (panel == "placebo") "placebo_" else ""
+prefix <- if (panel == "extended") "extended_" else ""
 SaveData(parent_panel, c("sample", "parent_id"), paste0("../output/", prefix, "parent_opportunity_panel.parquet"))
 SaveData(constituent_panel, c("sample", "root_job_id"), paste0("../output/", prefix, "constituent_filing_panel.parquet"))

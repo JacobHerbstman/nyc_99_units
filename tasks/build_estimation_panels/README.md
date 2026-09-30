@@ -7,10 +7,11 @@ classifications, HPD registration links and predetermined site characteristics:
 - `constituent_filing_panel.parquet`: one row per retained additive filing.
 
 The citywide plots, borough analysis and audits all read these two files.
-`placebo_parent_opportunity_panel.parquet` and
-`placebo_constituent_filing_panel.parquet` apply the same rules with historical
-parents first filed in 2015–2022, for the pre-policy placebo of
-`estimate_notch_model`.
+`extended_parent_opportunity_panel.parquet` and
+`extended_constituent_filing_panel.parquet` apply the same rules with historical
+parents first filed in 2014–2022, for the checks of `estimate_notch_model`.
+Residential FAR, a calibration variable, first appears in the 13v1 PLUTO
+release, so the extended panel starts in 2014.
 
 ## Sample and sources
 

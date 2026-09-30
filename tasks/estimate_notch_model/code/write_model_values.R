@@ -77,13 +77,14 @@ values <- c(
   ObservedShareTwoBuildings = share(cells$observed[cells$buildings == "2"]),
   ModelShareTwoBuildings = share(cells$fitted[cells$buildings == "2"])
 )
-# The checks: the common 180-day horizon, 2025 parents only and the pre-policy
-# placebo, with units lost per 100 recent parents for comparison across
-# samples of different size.
+# The checks: the common 180-day horizon, 2025 parents only, the pre-policy
+# placebo and the longer historical period, with units lost per 100 recent
+# parents for comparison across samples of different size.
 recent <- read_parquet("../output/estimation_parents.parquet") |>
   filter(sample == "post_policy", units <= 300) |>
   count(variant, name = "parents")
-checks <- c(all_filings = "Main", horizon_180 = "Horizon", cohort_2025 = "Early", placebo = "Placebo")
+checks <- c(all_filings = "Main", horizon_180 = "Horizon", cohort_2025 = "Early", placebo = "Placebo",
+  history_2014 = "Longer")
 for (variant in names(checks)) {
   b <- read_csv(paste0("../output/scaled_burden_bootstrap_estimates_", variant, ".csv"), show_col_types = FALSE)
   parents <- recent$parents[recent$variant == variant]

@@ -1,8 +1,8 @@
 include ../../shared/code/shell_functions.make
 
 # The main sample and its checks: a common 180-day horizon, 2025 parents only,
-# and the pre-policy placebo.
-VARIANTS := all_filings horizon_180 cohort_2025 placebo
+# a pre-policy placebo and a longer historical period.
+VARIANTS := all_filings horizon_180 cohort_2025 placebo history_2014
 SAMPLES := $(VARIANTS:%=../output/bootstrap_samples_%.parquet)
 BOOTSTRAPS := $(VARIANTS:%=../output/scaled_burden_bootstrap_estimates_%.csv) \
 	$(VARIANTS:%=../output/scaled_burden_bootstrap_draws_%.csv)
@@ -14,8 +14,8 @@ all: ../output/estimation_parents.parquet ../output/model_checks.csv ../output/e
 include ../../shared/code/generic.make
 
 ../output/estimation_parents.parquet: prepare_estimation_sample.R ../input/parent_opportunity_panel.parquet \
-	../input/constituent_filing_panel.parquet ../input/placebo_parent_opportunity_panel.parquet \
-	../input/placebo_constituent_filing_panel.parquet Makefile | $(OOPR)
+	../input/constituent_filing_panel.parquet ../input/extended_parent_opportunity_panel.parquet \
+	../input/extended_constituent_filing_panel.parquet Makefile | $(OOPR)
 	$(R) $<
 
 ../output/model_checks.csv: test_notch_model.R notch_model.R ../output/estimation_parents.parquet Makefile | $(OOPR)
@@ -57,9 +57,9 @@ $(HETEROGENEITY_OUTPUTS): fit_heterogeneity.R notch_model.R ../output/estimation
 	ln -sf $< $@
 ../input/constituent_filing_panel.parquet: ../../build_estimation_panels/output/constituent_filing_panel.parquet | ../input
 	ln -sf $< $@
-../input/placebo_parent_opportunity_panel.parquet: \
-	../../build_estimation_panels/output/placebo_parent_opportunity_panel.parquet | ../input
+../input/extended_parent_opportunity_panel.parquet: \
+	../../build_estimation_panels/output/extended_parent_opportunity_panel.parquet | ../input
 	ln -sf $< $@
-../input/placebo_constituent_filing_panel.parquet: \
-	../../build_estimation_panels/output/placebo_constituent_filing_panel.parquet | ../input
+../input/extended_constituent_filing_panel.parquet: \
+	../../build_estimation_panels/output/extended_constituent_filing_panel.parquet | ../input
 	ln -sf $< $@

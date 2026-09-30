@@ -1,0 +1,30 @@
+Rows: 6912
+Columns: 24
+Key fields: sample, root_job_id
+Saved-file MD5: f3032e762a36e33d849253386e4c6285
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 6912 | distinct | 2
+parent_id | character | nonmissing | 6912 | distinct | 6033
+root_job_id | character | nonmissing | 6912 | distinct | 6912
+constituent_units | integer | nonmissing | 6912 | distinct | 418 min/median/mean/max 6/18/51.62211/1458
+parent_constituent_weight | numeric | nonmissing | 6912 | distinct | 11 min/median/mean/max 0.03333333/1/0.8728299/1
+record_filing_date | Date | nonmissing | 6912 | distinct | 2345
+date_filed | Date | nonmissing | 6912 | distinct | 2344
+refiled | logical | nonmissing | 6912 | distinct | 2
+refiling_date | Date | nonmissing | 96 | distinct | 89
+refiling_basis | character | nonmissing | 96 | distinct | 4
+filing_bbl | character | nonmissing | 6912 | distinct | 6242
+address | character | nonmissing | 6912 | distinct | 6547
+borough_name | character | nonmissing | 6912 | distinct | 5
+owner_name | character | nonmissing | 6882 | distinct | 5529
+period | character | nonmissing | 6912 | distinct | 2
+exposure_years | numeric | nonmissing | 6912 | distinct | 2 min/median/mean/max 1.516769/8.999316/7.909193/8.999316
+cohort_date | Date | nonmissing | 6912 | distinct | 2301
+cohort_year | integer | nonmissing | 6912 | distinct | 11 min/median/mean/max 2014/2018/2018.79/2026
+parent_total_units | integer | nonmissing | 6912 | distinct | 439 min/median/mean/max 6/23/70.90828/1871
+n_components | integer | nonmissing | 6912 | distinct | 11 min/median/mean/max 1/1/1.54456/30
+exact_99x2 | logical | nonmissing | 6912 | distinct | 2
+exact_99x3 | logical | nonmissing | 6912 | distinct | 2
+splitting_verification_status | character | nonmissing | 6912 | distinct | 4
+included_ab | logical | nonmissing | 6912 | distinct | 2

@@ -11,6 +11,7 @@ used to screen parents for condominium and cooperative tenure in
 | `nys_ag_offering_plan_matches_20260826.csv` | `2026-08-26/`: one row per returned offering plan, with submitted and accepted dates |
 | `historical_ag_query_supplement_2019_2022_20260922.csv` | `2026-09-22/`: queries and plans for 2019–22 23Q4 proposals not searched in August |
 | `historical_ag_query_supplement_2023_companions_20260922.csv` | `2026-09-22/`: the same for 2023 companions of 2019–22 parents |
+| `historical_ag_query_supplement_2011_2018_20260929.csv` | `2026-09-29/`: queries and plans for filings of 2011–18 parents not searched before |
 
 The service is live and changes, so the captures are the source of record: a
 missing capture fails the build, and `code/checksums.sha256` records the bytes
@@ -30,6 +31,10 @@ opens a session at `welcome.jsp`, searches `search.action` by address and reads
   `companions` wrote the query manifests (saved beside the supplements), and
   `fetch_historical_ag_query_supplement.R broad` and `companions` ran them. A
   zero-result search had to show the site's explicit no-results message.
+- September 29, 2026: `prepare_historical_ag_query_supplement.R early` listed
+  every filing of a parent first filed in 2011–18 whose exposure-universe
+  address no earlier capture had searched, and
+  `fetch_historical_ag_query_supplement.R early` ran them.
 
 The scripts read the exposure universe, 23Q4 Housing Database and parent
 membership that existed at the time. To refresh, run them into a new dated

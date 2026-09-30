@@ -2,7 +2,8 @@ include ../../shared/code/shell_functions.make
 
 AG_CAPTURES := ../input/nys_ag_offering_plan_search_audit_20260826.csv ../input/nys_ag_offering_plan_matches_20260826.csv \
 	../input/historical_ag_query_supplement_2019_2022_20260922.csv \
-	../input/historical_ag_query_supplement_2023_companions_20260922.csv
+	../input/historical_ag_query_supplement_2023_companions_20260922.csv \
+	../input/historical_ag_query_supplement_2011_2018_20260929.csv
 
 all: ../output/parent_485x_exposure_universe.csv ../output/parent_485x_exposure.csv
 

@@ -41,8 +41,9 @@ The manual review file `code/parent_exposure_manual_reviews.csv` is
 authoritative and records sources, reasons, and dates. Unresolved and
 low-confidence observations remain identified in the classification.
 
-The Attorney General searches are the August 26, 2026 capture and the September
+The Attorney General searches are the August 26, 2026 capture, the September
 22, 2026 historical supplements for 2019–22 filings and linked 2023 companions,
+and the September 29, 2026 supplement for filings of 2011–18 parents,
 published with checksums by `fetch_nys_ag_offering_plans`, which also records
 how they were made. The build does not call the live service.
 

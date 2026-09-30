@@ -1,4 +1,4 @@
-# setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/audits/fetch_nys_ag_offering_plan_matches/code")
+# setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/fetch_nys_ag_offering_plans/code")
 # query_scope <- "broad"
 
 suppressPackageStartupMessages({
@@ -10,35 +10,20 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
-source("../../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 if (!interactive()) {
   args <- commandArgs(trailingOnly = TRUE)
   stopifnot(length(args) == 1L)
   query_scope <- args[1]
 }
-stopifnot(query_scope %in% c("broad", "companions"))
+stopifnot(query_scope %in% c("broad", "companions", "early"))
 
-source_pull_date <- as.Date("2026-09-22")
-if (query_scope == "broad") {
-  manifest_path <- paste0(
-    "../../../../data_raw/nys_ag_offering_plan_matches/2026-09-22/",
-    "historical_ag_query_manifest_2019_2022.csv"
-  )
-  output_path <- paste0(
-    "../../../../data_raw/nys_ag_offering_plan_matches/2026-09-22/",
-    "historical_ag_query_supplement_2019_2022.csv"
-  )
-} else {
-  manifest_path <- paste0(
-    "../../../../data_raw/nys_ag_offering_plan_matches/2026-09-22/",
-    "historical_ag_query_manifest_2023_companions.csv"
-  )
-  output_path <- paste0(
-    "../../../../data_raw/nys_ag_offering_plan_matches/2026-09-22/",
-    "historical_ag_query_supplement_2023_companions.csv"
-  )
-}
+source_pull_date <- as.Date(if (query_scope == "early") "2026-09-29" else "2026-09-22")
+capture <- file.path("../../../data_raw/nys_ag_offering_plan_matches", source_pull_date)
+files <- c(broad = "2019_2022", companions = "2023_companions", early = "2011_2018")[[query_scope]]
+manifest_path <- file.path(capture, paste0("historical_ag_query_manifest_", files, ".csv"))
+output_path <- file.path(capture, paste0("historical_ag_query_supplement_", files, ".csv"))
 
 if (file.exists(output_path)) {
   stop("The saved historical AG supplement already exists; use a new source date for a refresh.")

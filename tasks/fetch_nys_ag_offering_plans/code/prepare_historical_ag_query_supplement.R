@@ -1,4 +1,4 @@
-# setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/audits/fetch_nys_ag_offering_plan_matches/code")
+# setwd("/Users/jacobherbstman/Desktop/nyc_99_units/tasks/fetch_nys_ag_offering_plans/code")
 # query_scope <- "broad"
 
 suppressPackageStartupMessages({
@@ -8,18 +8,20 @@ suppressPackageStartupMessages({
   library(stringr)
 })
 
-source("../../../shared/code/source_pipeline_utils.R")
+source("../../shared/code/source_pipeline_utils.R")
 
 if (!interactive()) {
   args <- commandArgs(trailingOnly = TRUE)
   stopifnot(length(args) == 1L)
   query_scope <- args[1]
 }
-stopifnot(query_scope %in% c("broad", "companions"))
+stopifnot(query_scope %in% c("broad", "companions", "early"))
 
-hdb <- read_parquet("../input/dcp_housing_database_project_level_23q4.parquet")
+# The build does not run this script, so it reads the upstream outputs that
+# exist when a supplement is prepared.
+hdb <- read_parquet("../../stage_dcp_housing_database/output/dcp_housing_database_project_level_23q4.parquet")
 saved_searches <- read_csv(
-  "../../../../data_raw/nys_ag_offering_plan_matches/2026-08-26/nys_ag_offering_plan_search_audit.csv",
+  "../../../data_raw/nys_ag_offering_plan_matches/2026-08-26/nys_ag_offering_plan_search_audit.csv",
   show_col_types = FALSE,
   col_types = cols(.default = col_character())
 )
@@ -46,11 +48,11 @@ if (query_scope == "broad") {
       query_scope = "2019-22_23q4_new_building_six_plus"
     )
   manifest_path <- paste0(
-    "../../../../data_raw/nys_ag_offering_plan_matches/2026-09-22/",
+    "../../../data_raw/nys_ag_offering_plan_matches/2026-09-22/",
     "historical_ag_query_manifest_2019_2022.csv"
   )
-} else {
-  membership <- read_parquet("../input/symmetric_parent_membership.parquet")
+} else if (query_scope == "companions") {
+  membership <- read_parquet("../../construct_parent_cohorts/output/symmetric_parent_membership.parquet")
   stopifnot(!anyDuplicated(membership[c("sample", "job_number")]))
 
   # A 2023 filing can belong to a parent whose first filing was in 2019-22.
@@ -79,8 +81,29 @@ if (query_scope == "broad") {
       query_scope = "2023_companion_of_2019-22_parent"
     )
   manifest_path <- paste0(
-    "../../../../data_raw/nys_ag_offering_plan_matches/2026-09-22/",
+    "../../../data_raw/nys_ag_offering_plan_matches/2026-09-22/",
     "historical_ag_query_manifest_2023_companions.csv"
+  )
+} else {
+  # Every filing of a parent first filed in 2011-18, at the 23Q4 address the
+  # exposure classification checks, that no earlier capture searched.
+  universe <- read_csv("../../classify_parent_485x_exposure/output/parent_485x_exposure_universe.csv",
+    show_col_types = FALSE, col_types = cols(.default = col_character()))
+  queries <- universe |>
+    filter(sample == "historical", cohort_date >= "2011-01-01", cohort_date <= "2018-12-31") |>
+    transmute(sample, root_job_id, search_query = str_squish(address),
+      query_scope = "2011-18_parent_filing")
+  supplements <- bind_rows(lapply(c("historical_ag_query_supplement_2019_2022.csv",
+      "historical_ag_query_supplement_2023_companions.csv"), function(file) {
+    read_csv(file.path("../../../data_raw/nys_ag_offering_plan_matches/2026-09-22", file),
+      show_col_types = FALSE, col_types = cols(.default = col_character()))
+  }))
+  # The supplements record the sample itself; the August capture records it in
+  # the parent ID.
+  saved_searches <- bind_rows(saved_searches, supplements |> mutate(parent_id = sample))
+  manifest_path <- paste0(
+    "../../../data_raw/nys_ag_offering_plan_matches/2026-09-29/",
+    "historical_ag_query_manifest_2011_2018.csv"
   )
 }
 

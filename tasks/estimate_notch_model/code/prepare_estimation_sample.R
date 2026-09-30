@@ -28,8 +28,8 @@ read_sample <- function(parent_file, constituent_file) {
   list(parents = parents, constituents = constituents)
 }
 comparison <- read_sample("../input/parent_opportunity_panel.parquet", "../input/constituent_filing_panel.parquet")
-placebo <- read_sample("../input/placebo_parent_opportunity_panel.parquet",
-  "../input/placebo_constituent_filing_panel.parquet")
+extended <- read_sample("../input/extended_parent_opportunity_panel.parquet",
+  "../input/extended_constituent_filing_panel.parquet")
 
 site_traits <- function(parents) {
   parents |>
@@ -47,7 +47,9 @@ site_traits <- function(parents) {
 #                follow-up;
 #   placebo      a pre-policy placebo: historical parents first filed in
 #                2015-2018 stand in for the historical sample and those first
-#                filed in 2019-2022, before 485-x, for the recent one.
+#                filed in 2019-2022, before 485-x, for the recent one;
+#   history_2014 a longer historical sample, parents first filed in
+#                2014-2022, against the same recent parents.
 variants <- list(
   all_filings = site_traits(comparison$parents) |>
     inner_join(count_buildings(comparison$constituents), by = "parent_id", relationship = "one-to-one"),
@@ -58,13 +60,15 @@ variants <- list(
   cohort_2025 = site_traits(comparison$parents) |>
     inner_join(count_buildings(comparison$constituents), by = "parent_id", relationship = "one-to-one") |>
     filter(sample == "historical" | cohort_date < as.Date("2026-01-01")),
-  placebo = site_traits(placebo$parents) |>
-    filter(sample == "historical") |>
-    inner_join(count_buildings(placebo$constituents), by = "parent_id", relationship = "one-to-one") |>
-    mutate(sample = if_else(cohort_date < as.Date("2019-01-01"), "historical", "post_policy"))
+  placebo = site_traits(extended$parents) |>
+    filter(sample == "historical", cohort_date >= as.Date("2015-01-01")) |>
+    inner_join(count_buildings(extended$constituents), by = "parent_id", relationship = "one-to-one") |>
+    mutate(sample = if_else(cohort_date < as.Date("2019-01-01"), "historical", "post_policy")),
+  history_2014 = site_traits(extended$parents) |>
+    inner_join(count_buildings(extended$constituents), by = "parent_id", relationship = "one-to-one")
 )
 stopifnot(with(variants$all_filings, all(units == parent_total_units), all(buildings == n_components)),
-  with(variants$placebo, all(units == parent_total_units), all(buildings == n_components)))
+  with(variants$history_2014, all(units == parent_total_units), all(buildings == n_components)))
 
 estimation_parents <- bind_rows(lapply(names(variants), function(variant) {
   data <- variants[[variant]] |> filter(units >= minimum_units)

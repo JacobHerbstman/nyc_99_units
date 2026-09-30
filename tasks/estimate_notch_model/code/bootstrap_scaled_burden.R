@@ -27,7 +27,7 @@ maximum_units <- 300
 # unexplained share epsilon. The model's choices do not depend on the weights,
 # so one pass scores every draw; the ratios run in parallel. The variant of the
 # sample is all_filings for the main estimate, or a check (horizon_180,
-# cohort_2025, placebo).
+# cohort_2025, placebo, history_2014).
 parents <- read_parquet("../output/estimation_parents.parquet") |> filter(variant == !!variant)
 stopifnot(nrow(parents) > 0L)
 historical <- parents |> filter(sample == "historical")

@@ -4,7 +4,8 @@ RAW := ../../../data_raw/nys_ag_offering_plan_matches
 
 all: ../output/nys_ag_offering_plan_search_audit_20260826.csv ../output/nys_ag_offering_plan_matches_20260826.csv \
 	../output/historical_ag_query_supplement_2019_2022_20260922.csv \
-	../output/historical_ag_query_supplement_2023_companions_20260922.csv
+	../output/historical_ag_query_supplement_2023_companions_20260922.csv \
+	../output/historical_ag_query_supplement_2011_2018_20260929.csv
 
 include ../../shared/code/generic.make
 
@@ -28,5 +29,10 @@ include ../../shared/code/generic.make
 
 ../output/historical_ag_query_supplement_2023_companions_20260922.csv: \
 	$(RAW)/2026-09-22/historical_ag_query_supplement_2023_companions.csv ../../shared/code/copy_data.R | $(OOPR)
+	awk '$$2 == "$@" { print $$1 "  $<" }' checksums.sha256 | shasum -a 256 -c -
+	$(R) ../../shared/code/copy_data.R $< $@
+
+../output/historical_ag_query_supplement_2011_2018_20260929.csv: \
+	$(RAW)/2026-09-29/historical_ag_query_supplement_2011_2018.csv ../../shared/code/copy_data.R | $(OOPR)
 	awk '$$2 == "$@" { print $$1 "  $<" }' checksums.sha256 | shasum -a 256 -c -
 	$(R) ../../shared/code/copy_data.R $< $@

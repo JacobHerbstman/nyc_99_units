@@ -53,3 +53,59 @@ burden nothing favors splitting.
 
 On the main sample the three bootstrap reports match their earlier versions
 apart from their names.
+
+\paragraph{Follow-up: the condominium screen before 2019 and a longer history.}
+Jacob asked whether 2011--2022 as the historical period changes the results.
+Two problems came up. Residential floor-area ratio, a calibration variable,
+first appears in the 13v1 PLUTO release, so parents first filed before 2014
+cannot be weighted like the others. And the Attorney General searches that
+screen for condominiums had been run for 2019--2022 filings but not for 1,035
+filings of 2011--2018 parents. A parent with any unsearched filing was
+unresolved and dropped, and parents with several filings were dropped more
+often. Among 2014--2018 parents of at least 50 units kept in the sample, 8.4
+percent had more than one building, against 13.4 percent of all such parents.
+
+Jacob approved running the missing searches. \path{fetch_nys_ag_offering_plans}
+publishes them as the September 29, 2026 capture, made with the new
+\texttt{early} scope of its query scripts. In the classification, 844 of the
+parents they concern become plausible A/B rentals, 26 homeownership (Option D)
+and 11 not exposed. The 99 that stay unresolved are government-owned. No other
+parent's classification changed, and neither did the 2019--2022 comparison.
+The kept 2014--2018 share with several buildings rises to 9.9 percent. The rest
+of the gap comes from more condominium and government projects, which are
+correctly outside the rental sample.
+
+The extended panels of \path{build_estimation_panels} (renamed from the placebo
+panels) now start in 2014, and \texttt{history\_2014} adds 1,142 historical
+parents first filed in 2014--2022 as a fifth check. With the corrected screen,
+the placebo baseline has 393 parents instead of 327.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrr}
+\hline
+ & Jump $\kappa$ & Spread $s$ & $\varepsilon$ & Units lost & Per 100 parents \\
+\hline
+Main & 0.18 (0.06--0.50) & 2 & 0.015 & 761 (452--1,612) & 274 (163--580) \\
+Since 2014 & 0.12 (0.06--0.40) & 1.5 & 0.015 & 838 (426--1,611) & 302 (153--580) \\
+Placebo & 0 (0--0.003) & 0 & 0.075 & 0 (0--167) & 0 (0--34) \\
+\hline
+\end{tabular}
+\end{center}
+
+The longer history leaves units lost almost unchanged. Before the new searches
+it gave 782 (438--1,535). The placebo still finds no burden, now with a tighter
+upper bound. Its unexplained share is unchanged, so the undercount of
+multi-building parents did not cause it. The main, 180-day and 2025 results
+reproduce exactly.
+
+\paragraph{Splitting by year.} \path{plot_splitting_by_year.R} in
+\path{plot_bunching} plots the share of A/B parents of at least 50 units with
+more than one building, by year of first filing. It is 10--16 percent in every
+year from 2014 to 2022, about 28 percent in 2025 (27 percent counting only
+buildings filed within 180 days), and 17 percent in 2026, whose later
+buildings may still be unfiled. In the estimation sample the increase over
+2019--2022 is 8.5 points (95 percent interval 3.0--14.0, $p = 0.001$), or 8.2
+points against the reweighted historical share (bootstrap interval 3.1--13.6).
+It is 14.8 points for 2025 parents and 12.9 points on the 180-day horizon.
+Jacob will use it with the bunching to motivate the model.
