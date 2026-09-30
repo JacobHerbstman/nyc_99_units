@@ -12,7 +12,8 @@ suppressPackageStartupMessages({
 # main model on the checks of the sample.
 models <- read_csv("../output/heterogeneity_estimates.csv", show_col_types = FALSE)
 bootstrap <- read_csv("../output/scaled_burden_bootstrap_estimates_all_filings.csv", show_col_types = FALSE)
-least_squares <- read_csv("../output/estimates.csv", show_col_types = FALSE) |> filter(specification == "least_squares")
+specifications <- read_csv("../output/estimates.csv", show_col_types = FALSE)
+least_squares <- specifications |> filter(specification == "least_squares")
 cells <- read_csv("../output/heterogeneity_cell_fit.csv", show_col_types = FALSE,
   col_types = cols(buildings = col_character())) |>
   filter(model == "scaled_burden")
@@ -67,6 +68,8 @@ values <- c(
   LeastSquaresKappa = number(least_squares$kappa), LeastSquaresTau = number(least_squares$tau),
   LeastSquaresGamma = number(least_squares$gamma), LeastSquaresSigma = number(least_squares$sigma),
   LeastSquaresUnitsLost = units(least_squares$units_lost_model),
+  CurvatureHalfUnitsLost = units(specifications$units_lost_model[specifications$specification == "curvature_0.5"]),
+  CurvatureTwoUnitsLost = units(specifications$units_lost_model[specifications$specification == "curvature_2"]),
   ObservedShareOneAtNinetyNine = share(cells$observed[cells$buildings == "1" & cells$size_bin == "99"]),
   ModelShareOneAtNinetyNine = share(cells$fitted[cells$buildings == "1" & cells$size_bin == "99"]),
   ObservedSharePair = share(cells$observed[cells$buildings == "2" & cells$size_bin == "198"]),
@@ -88,10 +91,11 @@ for (variant in names(checks)) {
   bound <- function(name, side) b[[side]][b$parameter == name]
   prefix <- checks[[variant]]
   values[paste0(prefix, c("CheckParents", "CheckKappa", "CheckKappaLower", "CheckKappaUpper", "CheckTau",
-    "CheckSpread", "CheckUnitsLost", "CheckUnitsLostLower", "CheckUnitsLostUpper", "CheckUnitsPerHundred",
-    "CheckUnitsPerHundredLower", "CheckUnitsPerHundredUpper"))] <- c(parents, number(estimate("kappa")),
-    number(bound("kappa", "bootstrap_lower")), number(bound("kappa", "bootstrap_upper")), number(estimate("tau")),
-    number(estimate("dispersion"), 1), units(estimate("units_lost")), units(bound("units_lost", "bootstrap_lower")),
+    "CheckSpread", "CheckEpsilon", "CheckUnitsLost", "CheckUnitsLostLower", "CheckUnitsLostUpper",
+    "CheckUnitsPerHundred", "CheckUnitsPerHundredLower", "CheckUnitsPerHundredUpper"))] <- c(parents,
+    number(estimate("kappa")), number(bound("kappa", "bootstrap_lower")), number(bound("kappa", "bootstrap_upper")),
+    number(estimate("tau")), number(estimate("dispersion"), 1), number(estimate("epsilon"), 3),
+    units(estimate("units_lost")), units(bound("units_lost", "bootstrap_lower")),
     units(bound("units_lost", "bootstrap_upper")), number(100 * estimate("units_lost") / parents, 0),
     number(100 * bound("units_lost", "bootstrap_lower") / parents, 0),
     number(100 * bound("units_lost", "bootstrap_upper") / parents, 0))

@@ -117,7 +117,8 @@ framework-writeup: reweighting estimate
 
 framework_writeup.pdf: framework_writeup.tex Makefile \
 	tasks/audits/audit_scale_shape_splitting/output/figure_guide_values.tex \
-	tasks/estimate_notch_model/output/model_values.tex
+	tasks/estimate_notch_model/output/model_values.tex \
+	tasks/estimate_notch_model/output/pdf/model_fit.pdf
 	pdflatex -interaction=nonstopmode -halt-on-error $<
 	pdflatex -interaction=nonstopmode -halt-on-error $<
 
