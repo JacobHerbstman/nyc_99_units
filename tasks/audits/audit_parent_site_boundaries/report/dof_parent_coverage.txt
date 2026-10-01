@@ -1,7 +1,7 @@
 Rows: 918
 Columns: 28
 Key fields: parent_id
-Saved-file MD5: fd33ec4104fb6c9869bb9b8b1c00840c
+Saved-file MD5: f05b591a3f580772b9a87e04f429d73b
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 parent_id | character | nonmissing | 918 | distinct | 918
@@ -17,18 +17,18 @@ unmatched_lots | numeric | nonmissing | 918 | distinct | 7 min/median/mean/max 0
 unmapped_filing_lots | numeric | nonmissing | 918 | distinct | 5 min/median/mean/max 0/0/0.04139434/6
 applied_transactions | character | nonmissing | 335 | distinct | 334
 partial_transactions | character | nonmissing | 145 | distinct | 141
-unusual_transactions | character | nonmissing | 12 | distinct | 11
+unusual_transactions | character | nonmissing | 11 | distinct | 10
 candidate_bbls | character | nonmissing | 918 | distinct | 902
 filing_bbls | character | nonmissing | 918 | distinct | 901
 hdb_bbls | character | nonmissing | 783 | distinct | 774
-candidate_area_sqft | numeric | nonmissing | 836 | distinct | 707 min/median/mean/max 657/13235/25741.31/821806
+candidate_area_sqft | numeric | nonmissing | 836 | distinct | 707 min/median/mean/max 657/13235/25737.54/821806
 composition_eligible | logical | nonmissing | 918 | distinct | 2
 parent_total_units | numeric | nonmissing | 918 | distinct | 304 min/median/mean/max 50/99/167.3867/1452
 n_components | numeric | nonmissing | 918 | distinct | 8 min/median/mean/max 1/1/1.251634/8
 component_addresses | character | nonmissing | 918 | distinct | 911
-lot_area_sqft | numeric | nonmissing | 912 | distinct | 757 min/median/mean/max 279/12006.5/26280.32/1227637
+lot_area_sqft | numeric | nonmissing | 912 | distinct | 757 min/median/mean/max 279/12006.5/26276.87/1227637
 area_difference_sqft | numeric | nonmissing | 835 | distinct | 186 min/median/mean/max -91072/0/3392.302/367950
 reason | character | nonmissing | 918 | distinct | 7
 unresolved | logical | nonmissing | 918 | distinct | 2
-application_ids | character | nonmissing | 507 | distinct | 497
+application_ids | character | nonmissing | 506 | distinct | 496
 reference_map_ids | character | nonmissing | 918 | distinct | 834

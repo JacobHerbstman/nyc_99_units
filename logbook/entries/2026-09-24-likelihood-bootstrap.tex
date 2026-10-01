@@ -1,0 +1,74 @@
+\clearpage
+\section*{September 24, 2026: Likelihood estimation and bootstrap intervals}
+\textit{Agent-drafted research entry.}
+
+Jacob asked for a version of the main estimation that a structural referee
+would expect: a likelihood rather than equally weighted squared share gaps,
+and standard errors. It is \path{bootstrap_notch_model.R} in
+\path{tasks/estimate_notch_model}; the least-squares main specification is
+unchanged and remains the reported fit.
+
+\paragraph{The likelihood needs an unexplained share.} Treating each of the
+278 recent parents of at most 300 units as a draw from the predicted cell
+probabilities fails at every point of the grid: some observed parent always
+has probability zero. At the least-squares estimate these are three single
+buildings of 105--119 units, which the jump makes strictly worse than 99, and a
+three-building parent of 180--197 units, which two buildings could hold.
+Adding a share of parents who keep their 2019--2022 outcome does not help,
+since the historical sample has no parents in four observed cells, $99+99$
+among them. The likelihood therefore lets a share $\varepsilon$ of recorded
+recent outcomes be unexplained by the model, as linkage or unit-count errors
+would be, spread uniformly over sizes 50--300 and one, two or three-plus
+buildings. This describes the records, not developer behavior, so units lost
+still use the model's choices only. It is not the non-optimizer mixture, which
+Jacob wants to compare with heterogeneity in the jump later.
+
+\paragraph{The bootstrap.} Each of 500 draws resamples parents with
+replacement within period and borough, recalibrates the weights to the
+resampled recent parents, and re-estimates both estimators on the full grid.
+Stratifying by borough keeps Staten Island (five historical and two recent
+parents) in every calibration. The model's choices do not depend on the
+weights, so one pass over the grid scores every draw. Intervals are the 2.5th
+and 97.5th percentiles of the draws; likelihood-ratio intervals are the grid
+values within 1.92 log points of the maximum profile likelihood.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrr}
+\hline
+ & \multicolumn{2}{c}{Least squares} & \multicolumn{3}{c}{Likelihood} \\
+ & Estimate & Bootstrap & Estimate & Bootstrap & Likelihood ratio \\
+\hline
+Jump $\kappa$ & 0.10 & 0.04--0.24 & 0.12 & 0.03--0.22 & 0.04--0.18 \\
+Kink $\tau$ & 0.05 & 0--0.15 & 0.05 & 0--0.30 & 0.02--0.20 \\
+Cost growth $\gamma$ & 1.75 & 1--3 & 1.5 & 1--3 & 1--3 \\
+Mean splitting cost $\sigma$ & 0.25 & 0.10--1.0 & 0.32 & 0.08--1.0 & 0.16--0.63 \\
+Unexplained share $\varepsilon$ & -- & -- & 0.03 & 0.001--0.075 & -- \\
+Units lost & 1,018 & 396--2,197 & 1,130 & 337--2,981 & -- \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{What it shows.} The likelihood and least squares agree closely at
+the point estimates, so the equal weighting of cells was not driving the fit.
+Uncertainty is large. Units lost range over a factor of five to nine: the
+estimate of about 1,000 is best read as somewhere between 400 and 2,200 under
+least squares. The growth of the splitting cost is not identified: its
+bootstrap draws and its likelihood-ratio interval cover the whole grid from 1
+to 3. The jump is bimodal in the likelihood draws, with about 40 percent near
+0.03--0.04 and most of the rest at 0.10--0.14; the least-squares draws center
+on 0.10--0.12. The kink's likelihood-ratio interval excludes zero, but 9 to 12
+percent of bootstrap draws choose no kink. The unexplained share is 3 percent
+of recent parents, about eight; in 22 percent of draws it falls to the grid
+minimum, presumably draws that happen to omit the parents in impossible cells.
+
+\paragraph{Limits.} Percentile intervals on a grid inherit the grid's bounds,
+most visibly for $\gamma$ and the upper end of $\sigma$. Stratifying by
+borough holds borough counts fixed, which slightly understates uncertainty.
+The uniform spread of unexplained outcomes is a convenience, not an estimate of
+how records go wrong.
+
+\paragraph{Next.} Compare the non-optimizer share with heterogeneity in the
+jump. Jacob reserves the test that parents in areas with higher pre-policy
+construction wages react less, because 485-x raises their costs less, for the
+final version of the model.

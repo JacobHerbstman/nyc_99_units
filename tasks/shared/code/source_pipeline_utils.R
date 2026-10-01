@@ -153,9 +153,5 @@ write_csv_atomic <- function(df, out_path) {
   publish_file(temp_path, out_path)
 }
 
-sanitize_file_stub <- function(x) {
-  x <- tolower(x)
-  x <- str_replace_all(x, "[^a-z0-9]+", "_")
-  x <- str_replace_all(x, "^_|_$", "")
-  x
-}
+# File stubs follow the same rule as column names.
+sanitize_file_stub <- normalize_names

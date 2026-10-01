@@ -19,4 +19,4 @@ the logbook summarizes the research.
 
 Other audits read `output/filing_sites_2026-09-16/bis_site_fields.json`
 (`audit_parent_site_boundaries`) and `output/stack_parcels_2026-09-14/`
-(`fit_pure_notch_pilot`).
+(the September pilot fit, since replaced by `estimate_notch_model`).

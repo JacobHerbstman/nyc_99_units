@@ -1,0 +1,55 @@
+Rows: 6033
+Columns: 49
+Key fields: sample, parent_id
+Saved-file MD5: d0de6e2b9ab6be0bdad5ea49d079235f
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+sample | character | nonmissing | 6033 | distinct | 2
+period | character | nonmissing | 6033 | distinct | 2
+exposure_years | numeric | nonmissing | 6033 | distinct | 2 min/median/mean/max 1.516769/8.999316/7.901677/8.999316
+parent_id | character | nonmissing | 6033 | distinct | 6033
+cohort_date | Date | nonmissing | 6033 | distinct | 2301
+cohort_year | integer | nonmissing | 6033 | distinct | 11 min/median/mean/max 2014/2018/2018.807/2026
+refiled | logical | nonmissing | 6033 | distinct | 2
+refiling_date | Date | nonmissing | 93 | distinct | 89
+parent_last_filing_date | Date | nonmissing | 6033 | distinct | 2303
+observed_followup_days | integer | nonmissing | 6033 | distinct | 2260 min/median/mean/max 0/1869/1847.53/3648
+left_window_observed | logical | nonmissing | 6033 | distinct | 1
+right_window_observed | logical | nonmissing | 6033 | distinct | 2
+full_window_observed | logical | nonmissing | 6033 | distinct | 2
+parent_total_units | integer | nonmissing | 6033 | distinct | 439 min/median/mean/max 6/21/59.14338/1871
+n_components | integer | nonmissing | 6033 | distinct | 11 min/median/mean/max 1/1/1.145699/30
+max_component_units | integer | nonmissing | 6033 | distinct | 406 min/median/mean/max 6/20/53.10658/1458
+second_component_units | integer | nonmissing | 622 | distinct | 141 min/median/mean/max 6/10/45.42605/650
+third_component_units | integer | nonmissing | 123 | distinct | 49 min/median/mean/max 6/8/47.61789/550
+n_components_eq_99 | integer | nonmissing | 6033 | distinct | 7 min/median/mean/max 0/0/0.01607824/7
+single_component | logical | nonmissing | 6033 | distinct | 2
+multi_component | logical | nonmissing | 6033 | distinct | 2
+exact_99x2 | logical | nonmissing | 6033 | distinct | 2
+exact_99x3 | logical | nonmissing | 6033 | distinct | 2
+sorted_component_vector | character | nonmissing | 6033 | distinct | 711
+component_job_numbers | character | nonmissing | 6033 | distinct | 6033
+component_addresses | character | nonmissing | 6033 | distinct | 5780
+splitting_verification_status | character | nonmissing | 6033 | distinct | 4
+response_category | character | nonmissing | 6033 | distinct | 7
+exposure_status | character | nonmissing | 6033 | distinct | 4
+included_ab | logical | nonmissing | 6033 | distinct | 2
+included_ab_plus_d | logical | nonmissing | 6033 | distinct | 2
+confidence | character | nonmissing | 6033 | distinct | 3
+classification_reason | character | nonmissing | 6033 | distinct | 12
+source_url | character | nonmissing | 597 | distinct | 513
+composition_eligible | logical | nonmissing | 6033 | distinct | 2
+site_feature_method | character | nonmissing | 6033 | distinct | 8
+number_unique_lots | integer | nonmissing | 6017 | distinct | 10 min/median/mean/max 1/1/1.144424/11
+lot_area_sqft | numeric | nonmissing | 6016 | distinct | 2828 min/median/mean/max 250/4320/18461.91/8347883
+log_lot_area | numeric | nonmissing | 6016 | distinct | 2828 min/median/mean/max 5.521461/8.371011/8.585241/15.93752
+residential_far | numeric | nonmissing | 6017 | distinct | 80 min/median/mean/max 0/3/3.310194/12
+built_far | numeric | nonmissing | 6017 | distinct | 876 min/median/mean/max 0/0.52/0.7441202/21.38
+residential_capacity_sqft | numeric | nonmissing | 6016 | distinct | 3481 min/median/mean/max 0/11546.25/39575.55/6979470
+redevelopment_slack_sqft | numeric | nonmissing | 6016 | distinct | 4481 min/median/mean/max 0/9006.4/30902.63/6979470
+built_floor_area_estimated | logical | nonmissing | 6033 | distinct | 2
+merged_lots_added | integer | nonmissing | 6033 | distinct | 10 min/median/mean/max 0/0/0.07608155/10
+merger_window_complete | logical | nonmissing | 6033 | distinct | 2
+implausible_site | logical | nonmissing | 6033 | distinct | 2
+borough | character | nonmissing | 6017 | distinct | 5
+community_district | character | nonmissing | 6017 | distinct | 60

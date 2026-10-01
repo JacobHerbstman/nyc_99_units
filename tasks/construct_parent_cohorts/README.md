@@ -11,8 +11,10 @@ the same rules to historical and post-policy filings. Outputs:
 - `post_policy_filing_link_fields.parquet`: prepared DOB filing fields for the
   post-policy linkage, built first using the official APPBBL crosswalk from
   `build_hdb_mappluto_site_panel`.
-- `pair_decision_coverage.csv`: which committed pair decisions have both
-  endpoints in the selected source universe.
+
+Historical link evidence comes from `construct_historical_parent_links`;
+post-policy links are built here from the DOB fields and the 23v3.1 MapPLUTO
+shapefile.
 
 ## Parents
 
@@ -44,7 +46,9 @@ filing BBLs has a manual review in `post_parent_reviews.csv`.
 
 The historical linkage universe begins in 2010 and historical cohorts are
 observed through 2023. The DOB universe begins in 2022 as padding, and recent
-filings are observed through July 8, 2026. Membership records whether each
+filings are observed through July 8, 2026. Both universes select filings with
+at least six units on the count the parents use: Housing Database Class A
+units, with DOB units only where HDB has none. Membership records whether each
 cohort's full 365-day window is observable. No unobserved companion or unit
 count is imputed.
 
@@ -61,11 +65,12 @@ override selected units.
 
 A filing that belongs to a parent but describes a superseded design, or a
 nonresidential filing, stays in membership as a source proposal without
-entering additive units. The output therefore reports additive
-`parent_observed_*` measures and `parent_source_*` measures over every source
-filing. Roles come from:
+entering additive units; `parent_observed_units` sums the additive filings.
+Roles come from:
 
 - **Manual decisions:** `post_parent_filing_roles.csv` and `historical_filing_roles.csv`.
+  A reviewed superseded design is a refiling in both periods, with basis
+  `reviewed_archived_alternative` or `reviewed_dob_alternative`.
 - **Post-policy refilings (DOB):** a withdrawn filing with a valid seven-digit
   BIN and recorded owner or applicant, and a unique non-withdrawn replacement
   sharing the BIN and normalized owner or applicant, filed after both the
@@ -75,7 +80,7 @@ filing. Roles come from:
   archived BIN, lot and exact address with one later non-withdrawn application
   within 365 days. No historical withdrawal date is inferred.
 
-Automatically detected predecessors get the role `superseded_refiling`.
+Superseded designs get the role `superseded_refiling`.
 Refiled records carry `refiled = TRUE`, `original_filing_date`, `refiling_date`
 and `refiling_basis`. The parent anchor and cohort date are unchanged; only the
 replacement contributes units.

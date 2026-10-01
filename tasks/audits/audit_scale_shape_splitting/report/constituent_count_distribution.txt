@@ -1,10 +1,10 @@
 Rows: 13
 Columns: 4
 Key fields: period, n_components
-Saved-file MD5: 797612469a30dda82a193947bb4e5187
+Saved-file MD5: 7f2475437f3b224e63649e38809773dc
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 period | character | nonmissing | 13 | distinct | 2
 n_components | numeric | nonmissing | 13 | distinct | 8 min/median/mean/max 1/4/4/8
-parent_count | numeric | nonmissing | 13 | distinct | 11 min/median/mean/max 1/10/207.3077/1665
-normalized_share | numeric | nonmissing | 13 | distinct | 11 min/median/mean/max 0.001079331/0.005396654/0.1538462/0.8985429
+parent_count | numeric | nonmissing | 13 | distinct | 11 min/median/mean/max 1/10/207.2308/1663
+normalized_share | numeric | nonmissing | 13 | distinct | 11 min/median/mean/max 0.001079914/0.005399568/0.1538462/0.8979482

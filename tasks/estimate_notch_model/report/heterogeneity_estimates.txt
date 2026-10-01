@@ -1,0 +1,25 @@
+Rows: 7
+Columns: 19
+Key fields: model
+Saved-file MD5: 2f2d5b29be89568fa6ee6d073f928cd0
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+model | character | nonmissing | 7 | distinct | 7
+burden | character | nonmissing | 7 | distinct | 2
+kappa | numeric | nonmissing | 7 | distinct | 5 min/median/mean/max 0.12/0.18/0.2428571/0.5
+tau | numeric | nonmissing | 7 | distinct | 2 min/median/mean/max 0/0/0.01428571/0.05
+kink_to_jump | numeric | nonmissing | 3 | distinct | 1 min/median/mean/max 0/0/0/0
+dispersion | numeric | nonmissing | 7 | distinct | 4 min/median/mean/max 0/2/1.857143/4
+gamma | numeric | nonmissing | 7 | distinct | 4 min/median/mean/max 1/2/1.785714/2.5
+sigma | numeric | nonmissing | 7 | distinct | 3 min/median/mean/max 0.1995262/0.2511886/0.2383389/0.3162278
+lot_elasticity | numeric | nonmissing | 7 | distinct | 2 min/median/mean/max -2/0/-0.2857143/0
+size_elasticity | numeric | nonmissing | 7 | distinct | 2 min/median/mean/max -3/0/-0.4285714/0
+pi | numeric | nonmissing | 7 | distinct | 2 min/median/mean/max 0/0/0.02142857/0.15
+epsilon | numeric | nonmissing | 7 | distinct | 3 min/median/mean/max 0.01/0.015/0.01642857/0.03
+share_jump_below_0.01 | numeric | nonmissing | 7 | distinct | 4 min/median/mean/max 0/0.05602716/0.05820811/0.146876
+share_jump_above_1 | numeric | nonmissing | 7 | distinct | 4 min/median/mean/max 0/0.1662798/0.1800412/0.4094062
+log_likelihood | numeric | nonmissing | 7 | distinct | 5 min/median/mean/max -592.2551/-584.5424/-585.5133/-582.9238
+free_parameters | numeric | nonmissing | 7 | distinct | 3 min/median/mean/max 5/6/6.285714/7
+aic | numeric | nonmissing | 7 | distinct | 6 min/median/mean/max 1179.848/1181.085/1183.598/1194.51
+likelihood_ratio | numeric | nonmissing | 7 | distinct | 5 min/median/mean/max 0/15.42545/13.48362/18.66261
+units_lost | numeric | nonmissing | 7 | distinct | 5 min/median/mean/max 760.5381/930.1367/1035.697/1697.014

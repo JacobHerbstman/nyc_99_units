@@ -1,0 +1,100 @@
+\clearpage
+\section*{September 24, 2026: Simplifying the path from raw data to the panels}
+\textit{Agent-drafted research entry.}
+
+Jacob asked how much code the path from raw sources to the estimation panels
+really needs. Every main task sits on that path, so none was removed, but most
+contained code for cases that never occur, per-row loops where a join does,
+outputs and columns nothing reads, and acquisition steps inside production
+tasks. The main pipeline fell from about 9,000 to about 4,750 lines of R,
+Python and Make, and 1.3 GB of intermediate MapPLUTO copies are gone.
+
+\paragraph{What changed.}
+\begin{itemize}
+\item MapPLUTO staging is one script per release; the raw copy of every
+release and two file indexes were read by nothing but the next script.
+\item The parcel panel assigns releases with one interval lookup instead of a
+per-filing loop, and drops dead branches: every filing already used a strictly
+pre-filing release, and the APPBBL crosswalk has one former lot per current
+lot. It writes the 32 columns that are read instead of 137.
+\item Historical link evidence is one pair table instead of separate candidate
+and adjacency tables that parent construction had to merge.
+\item Parent construction reads that table, builds recent links once, and
+writes membership and links without seventeen unread columns and an unread
+decision-coverage file. Its fixed settings are written in the script.
+\item The Attorney General captures moved to an acquisition task,
+\path{fetch_nys_ag_offering_plans}, with checksums and the query scripts as the
+documented recipe. The exposure task had verified and copied them itself, and
+the old query audit read the exposure task's own output.
+\item HPD staging and linking are one script; the panels keep the columns
+that are read plus refiling dates, coverage flags, land flags, community
+district and a few inspection fields (Jacob's choice).
+\item \path{paper/} and the archived August framework were removed; the
+pre-cleanup tag and history keep them.
+\end{itemize}
+
+\paragraph{Checks.} No research rule changed. Every MapPLUTO release is
+byte-identical, and every retained column of the parcel panels, historical
+and recent link fields, parent membership, links and owner links matches the
+earlier build exactly. The exposure universe and classification, site
+characteristics, HPD links and both panels match the committed data reports
+column by column (type, missing values, distinct values, range and mean).
+Checking caught two errors in the rewrite, both fixed before this entry:
+a summary that overwrote the refiling flag before using it, and a renamed
+column that took the wrong date. The model estimates are reproduced exactly;
+the joint-assessment row now reports no splitting cost, which that case cannot
+identify. Every audit reproduces its committed results.
+
+\paragraph{Open issues found, not changed.} Three rules would change results
+and are Jacob's decision, after the cleanup:
+\begin{itemize}
+\item Historical polygon adjacency is tested only among lots of filings that
+used the same parcel release as the earlier filing, so about 1,500 nearby pairs
+across releases were never tested. The error can only miss links.
+\item Recent filings enter the linkage universe on DOB unit counts (6 to
+1,000) and historical ones on Housing Database counts; seven recent filings
+with at least six Housing Database units are excluded.
+\item A manually marked superseded design moves its replacement's original
+filing date historically but not in the recent sample.
+\end{itemize}
+
+\subsection*{September 24 follow-up: historical adjacency across parcel releases}
+
+Jacob asked to fix the first issue. Touching is now tested for every
+historical pair in the MapPLUTO shapefile of the earlier filing's release, with
+both lots read from it; before, a pair was tested only when the later filing's
+lot happened to be read for another filing that used the same release. Touching
+pairs rise from 531 to 696, but only 12 more become links, because most newly
+found touches were filed more than 30 days apart with no other evidence. Four
+historical parents merge: two of 14 and 19 units in 2012, one of 442 units in
+2015 and one of 16 units in 2019. None is in the 2019--2022 comparison with 50
+or more units, so the weighting sample, the excess at 99 and its interval, and
+the model estimates are unchanged. The 74 filings on PLUTO 18v1, which has no
+shapefile, still have no geometry.
+
+\subsection*{September 24 follow-up: the two smaller consistency fixes}
+
+Recent filings now enter the linkage universe on the unit count the parents
+use, the 25Q4 Housing Database Class A count with DOB only where HDB has none,
+and without the old 1,000-unit cap, as on the historical side. This removes 26
+filings, 24 of them with a recorded Housing Database count of zero, and adds
+nine, including 175 3rd Street (1,071 units, filed in 2022) and a 1,758-unit
+2026 parent in Manhattan outside the A/B sample. A reviewed superseded design
+is now a refiling in both periods: Grun's 99-unit 623 East 178th Street replaces
+two July 2025 designs and is dated from July 8 rather than August 20, like the
+historical case. The weighting sample, the excess at 99 and the main model
+estimates are unchanged; units lost under lot-area weights move from 1,373.4 to
+1,372.7, from a small change in one parent's land.
+
+\subsection*{September 28 follow-up: trimming after the model work}
+
+Jacob asked for a second pass over the main tasks. The three wage-source
+tasks, which nothing in the pipeline reads, moved to the branch
+\texttt{wage-sources}. In the estimation task the single-burden bootstrap and
+the least-squares recovery exercise were removed, since the main model is now
+the scaled burden with its own bootstrap; their results remain in the
+earlier entries and in the history. The least-squares specifications and the
+model comparisons that justify the main model stay. The three older plotting
+scripts were rewritten without command-line arguments, one script per figure
+family, and every figure renders pixel-identical. Every kept estimation report
+is byte-identical after a full rebuild.

@@ -21,7 +21,7 @@ include ../../../shared/code/generic.make
 
 ../output/companion_link_trace.csv: trace_companions.R Makefile ../../../shared/code/write_data_report.R \
 	../input/symmetric_parent_membership.parquet ../input/post_policy_filing_link_fields.parquet \
-	../input/historical_parent_filing_link_fields.parquet ../input/historical_parent_candidate_pairs.parquet \
+	../input/historical_parent_filing_link_fields.parquet ../input/historical_parent_pairs.parquet \
 	../input/historical_hdb_mappluto_site_panel.parquet ../input/symmetric_parent_links.parquet \
 	../input/nyc_mappluto_23v3_1_arc_shp.zip | $(OOPR)
 	$(R) $<
@@ -69,7 +69,7 @@ include ../../../shared/code/generic.make
 ../input/post_policy_filing_link_fields.parquet: ../../../construct_parent_cohorts/output/post_policy_filing_link_fields.parquet | ../input
 	ln -sf $< $@
 
-../input/historical_parent_candidate_pairs.parquet: ../../../construct_historical_parent_links/output/historical_parent_candidate_pairs.parquet | ../input
+../input/historical_parent_pairs.parquet: ../../../construct_historical_parent_links/output/historical_parent_pairs.parquet | ../input
 	ln -sf $< $@
 
 ../input/nyc_mappluto_23v3_1_arc_shp.zip: ../../../fetch_mappluto_archive/output/nyc_mappluto_23v3_1_arc_shp.zip | ../input

@@ -1,13 +1,13 @@
-Rows: 104087
+Rows: 104086
 Columns: 7
 Key fields: vintage, bbl
-Saved-file MD5: a21bd8042f2565efef3c01402b58c9b0
+Saved-file MD5: 8a49b8bdbd0f104b3f0b116a1085a402
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-vintage | character | nonmissing | 104087 | distinct | 18
-bbl | character | nonmissing | 104087 | distinct | 6647
-recorded_area_sqft | numeric | nonmissing | 104087 | distinct | 3654 min/median/mean/max 0/3125/12402.82/2015836
-source_valid | logical | nonmissing | 104087 | distinct | 1
-source_geometry_sqft | numeric | nonmissing | 104087 | distinct | 32081 min/median/mean/max 0.5301129/3232.205/12312.04/1925268
-geometry_area_sqft | numeric | nonmissing | 104087 | distinct | 32081 min/median/mean/max 0.5301129/3232.205/12312.04/1925268
-wkt | character | nonmissing | 104087 | distinct | 32162
+vintage | character | nonmissing | 104086 | distinct | 18
+bbl | character | nonmissing | 104086 | distinct | 6647
+recorded_area_sqft | numeric | nonmissing | 104086 | distinct | 3654 min/median/mean/max 0/3125/12402.91/2015836
+source_valid | logical | nonmissing | 104086 | distinct | 1
+source_geometry_sqft | numeric | nonmissing | 104086 | distinct | 32080 min/median/mean/max 0.5301129/3232.205/12312.12/1925268
+geometry_area_sqft | numeric | nonmissing | 104086 | distinct | 32080 min/median/mean/max 0.5301129/3232.205/12312.12/1925268
+wkt | character | nonmissing | 104086 | distinct | 32161

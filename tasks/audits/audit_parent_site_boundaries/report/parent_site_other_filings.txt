@@ -1,44 +1,44 @@
-Rows: 1362
+Rows: 1361
 Columns: 38
 Key fields: parent_id, job_number
-Saved-file MD5: 391632410cf87bf5cd282bc514ebe702
+Saved-file MD5: 7d6e7833f1758bb0bf913bdf889962a4
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-parent_id | character | nonmissing | 1362 | distinct | 892
-job_number | character | nonmissing | 1362 | distinct | 1294
-matched_bbls | character | nonmissing | 1362 | distinct | 1112
-direct_lot_match | logical | nonmissing | 1362 | distinct | 2
-point_in_earlier_land | logical | nonmissing | 1362 | distinct | 2
-filing_parent_id | character | nonmissing | 1185 | distinct | 918
-filing_date | Date | nonmissing | 1362 | distinct | 774
-units | numeric | nonmissing | 1362 | distinct | 331 min/median/mean/max 0/84/126.8113/1313
-status | character | nonmissing | 1362 | distinct | 12
-address | character | nonmissing | 1362 | distinct | 1209
-archived_member | logical | nonmissing | 1362 | distinct | 2
-hdb_release | character | nonmissing | 1185 | distinct | 2
+parent_id | character | nonmissing | 1361 | distinct | 892
+job_number | character | nonmissing | 1361 | distinct | 1293
+matched_bbls | character | nonmissing | 1361 | distinct | 1111
+direct_lot_match | logical | nonmissing | 1361 | distinct | 2
+point_in_earlier_land | logical | nonmissing | 1361 | distinct | 2
+filing_parent_id | character | nonmissing | 1184 | distinct | 918
+filing_date | Date | nonmissing | 1361 | distinct | 774
+units | numeric | nonmissing | 1361 | distinct | 331 min/median/mean/max 0/84/126.9045/1313
+status | character | nonmissing | 1361 | distinct | 12
+address | character | nonmissing | 1361 | distinct | 1208
+archived_member | logical | nonmissing | 1361 | distinct | 2
+hdb_release | character | nonmissing | 1184 | distinct | 2
 completed_date | Date | nonmissing | 191 | distinct | 153
 permit_date | Date | nonmissing | 721 | distinct | 436
-inactive | logical | nonmissing | 1362 | distinct | 2
-observed_nonresidential | logical | nonmissing | 1362 | distinct | 2
-school_description | logical | nonmissing | 1362 | distinct | 2
-description | character | nonmissing | 1006 | distinct | 863
-reference_date | Date | nonmissing | 1362 | distinct | 18
-cohort_date | Date | nonmissing | 1362 | distinct | 593
-other_parent_overlap_sqft | numeric | nonmissing | 1106 | distinct | 880 min/median/mean/max 1602.317/15263.7/30738.67/641256.4
-own_parent | logical | nonmissing | 1362 | distinct | 2
-after_reference | logical | nonmissing | 1362 | distinct | 2
-earlier_construction | logical | nonmissing | 1362 | distinct | 2
-mapped_other_parent_separate | logical | nonmissing | 1362 | distinct | 2
-other_live_filing | logical | nonmissing | 1362 | distinct | 2
-evidence | character | nonmissing | 1362 | distinct | 3
+inactive | logical | nonmissing | 1361 | distinct | 2
+observed_nonresidential | logical | nonmissing | 1361 | distinct | 2
+school_description | logical | nonmissing | 1361 | distinct | 2
+description | character | nonmissing | 1005 | distinct | 862
+reference_date | Date | nonmissing | 1361 | distinct | 18
+cohort_date | Date | nonmissing | 1361 | distinct | 593
+other_parent_overlap_sqft | numeric | nonmissing | 1105 | distinct | 880 min/median/mean/max 1602.317/15285.63/30756.04/641256.4
+own_parent | logical | nonmissing | 1361 | distinct | 2
+after_reference | logical | nonmissing | 1361 | distinct | 2
+earlier_construction | logical | nonmissing | 1361 | distinct | 2
+mapped_other_parent_separate | logical | nonmissing | 1361 | distinct | 2
+other_live_filing | logical | nonmissing | 1361 | distinct | 2
+evidence | character | nonmissing | 1361 | distinct | 3
 filing_review_applicable | logical | nonmissing | 6 | distinct | 1
 filing_review_decision | character | nonmissing | 6 | distinct | 1
 filing_review_source | character | nonmissing | 6 | distinct | 6
 filing_review_basis | character | nonmissing | 6 | distinct | 6
-documented_alternative_plan | logical | nonmissing | 1362 | distinct | 2
-documented_prior_building | logical | nonmissing | 1362 | distinct | 1
+documented_alternative_plan | logical | nonmissing | 1361 | distinct | 2
+documented_prior_building | logical | nonmissing | 1361 | distinct | 1
 reviewed_retained_bbls | character | nonmissing | 72 | distinct | 25
 reviewed_ancillary_jobs | character | nonmissing | 2 | distinct | 1
-documented_separate_site | logical | nonmissing | 1362 | distinct | 2
-documented_ancillary_filing | logical | nonmissing | 1362 | distinct | 2
-site_scope_conflict | logical | nonmissing | 1362 | distinct | 2
+documented_separate_site | logical | nonmissing | 1361 | distinct | 2
+documented_ancillary_filing | logical | nonmissing | 1361 | distinct | 2
+site_scope_conflict | logical | nonmissing | 1361 | distinct | 2

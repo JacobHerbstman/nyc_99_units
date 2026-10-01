@@ -1,21 +1,21 @@
 Rows: 22
 Columns: 15
 Key fields: scenario, match
-Saved-file MD5: a72b333f3033b35982cd134afde8a28d
+Saved-file MD5: 600afa0c5a5a31ed692cef212b099086
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 scenario | character | nonmissing | 22 | distinct | 8
 match | character | nonmissing | 22 | distinct | 4
 historical_parents | numeric | nonmissing | 22 | distinct | 3 min/median/mean/max 466/588/565.5/588
-post_parents | numeric | nonmissing | 22 | distinct | 4 min/median/mean/max 225/304/286.4091/304
-effective_sample_size | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 383.443/519.5275/501.2992/588
-maximum_weight_share | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 0.00170068/0.003644964/0.004245615/0.01157597
-historical_share_exact_99 | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 0.004582661/0.005567021/0.005646256/0.007278881
-post_share_exact_99 | numeric | nonmissing | 22 | distinct | 4 min/median/mean/max 0.1024735/0.1184211/0.1165668/0.1236364
-excess_at_99 | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 0.09634289/0.1129853/0.1109206/0.116838
-excess_at_198 | numeric | nonmissing | 22 | distinct | 4 min/median/mean/max 0.02666667/0.02960526/0.02992985/0.03272727
-cumulative_deficit_100_149 | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 0.06064611/0.07646161/0.07578655/0.08556264
-historical_share_multi_component | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 0.07020349/0.1089296/0.1080362/0.1279364
-post_share_multi_component | numeric | nonmissing | 22 | distinct | 4 min/median/mean/max 0.1963636/0.2072368/0.2100188/0.2266667
-historical_mean_units | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 120.5223/150.0091/152.4397/176.2092
-post_mean_units | numeric | nonmissing | 22 | distinct | 4 min/median/mean/max 135.0836/139.5/139.6651/145.0089
+post_parents | numeric | nonmissing | 22 | distinct | 4 min/median/mean/max 225/304/286.5455/304
+effective_sample_size | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 382.431/519.0732/500.892/588
+maximum_weight_share | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 0.00170068/0.00366273/0.004257107/0.0116476
+historical_share_exact_99 | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 0.00457684/0.005567021/0.005640121/0.007247407
+post_share_exact_99 | numeric | nonmissing | 22 | distinct | 4 min/median/mean/max 0.1024735/0.1184211/0.1165057/0.1231884
+excess_at_99 | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 0.09634289/0.1129898/0.1108656/0.1164225
+excess_at_198 | numeric | nonmissing | 22 | distinct | 4 min/median/mean/max 0.02666667/0.02960526/0.02991368/0.0326087
+cumulative_deficit_100_149 | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 0.06059299/0.07646161/0.07581259/0.08589037
+historical_share_multi_component | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 0.07012904/0.1088123/0.1079668/0.1279364
+post_share_multi_component | numeric | nonmissing | 22 | distinct | 4 min/median/mean/max 0.1956522/0.2072368/0.2099218/0.2266667
+historical_mean_units | numeric | nonmissing | 22 | distinct | 19 min/median/mean/max 120.409/149.8347/152.3408/176.2092
+post_mean_units | numeric | nonmissing | 22 | distinct | 4 min/median/mean/max 134.8442/139.5/139.6325/145.0089

@@ -1,15 +1,15 @@
 Rows: 6
 Columns: 9
 Key fields: cohort_year
-Saved-file MD5: 8e4e82a6884fece66ba0e6ee5f302fe5
+Saved-file MD5: 944921a1db300db0a376d813189fa4a9
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 6 | distinct | 2
 cohort_year | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 2019/2021.5/2022.167/2026
 parents | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 122/149.5/148.6667/181
 multiple_constituent_parents | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 13/17.5/22.5/49
-multi_lot_parents | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 18/34.5/34.5/49
+multi_lot_parents | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 18/34.5/34.33333/48
 full_followup_parents | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0/129.5/110.5/167
 multiple_constituent_share | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.1021898/0.1217254/0.1444381/0.2707182
-multi_lot_share | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.147541/0.2484944/0.2299267/0.2846715
+multi_lot_share | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 0.147541/0.2484944/0.2290059/0.2846715
 full_followup_share | numeric | nonmissing | 6 | distinct | 3 min/median/mean/max 0/1/0.7357274/1

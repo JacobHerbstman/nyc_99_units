@@ -14,7 +14,7 @@ stage_release <- function(raw_df, release, source_raw_path) {
   tibble(
     source_id = "dcp_housing_database_project_level",
     release = release,
-    job_number = suppressWarnings(as.character(raw_df$job_number)),
+    job_number = as.character(raw_df$job_number),
     job_type = as.character(raw_df$job_type),
     job_status = as.character(raw_df$job_status),
     permit_year = suppressWarnings(as.integer(raw_df$permityear)),

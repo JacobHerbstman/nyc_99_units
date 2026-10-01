@@ -1,22 +1,10 @@
 Rows: 73749
-Columns: 16
+Columns: 4
 Key fields: current_bbl
-Saved-file MD5: 64f861a622a38bf87089ea9be6c9787d
+Saved-file MD5: 675890549da7da946eb0e22cf6ca117e
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-source_id | character | nonmissing | 73749 | distinct | 1
-vintage | character | nonmissing | 73749 | distinct | 1
 current_bbl | numeric | nonmissing | 73749 | distinct | 73749 min/median/mean/max 1000010000/4045050000/3731315000/5080490000
 appbbl | numeric | nonmissing | 73749 | distinct | 35669 min/median/mean/max 1000010000/4045020000/3731314000/5080490000
-evidence_rows | numeric | nonmissing | 73749 | distinct | 1 min/median/mean/max 1/1/1/1
-condono_values | numeric | nonmissing | 10754 | distinct | 5779 min/median/mean/max 1/1736/2149.679/9613
-plutomapid_values | numeric | nonmissing | 73749 | distinct | 3 min/median/mean/max 1/1/1.003322/4
-appdate_min | Date | nonmissing | 71289 | distinct | 5724
-appdate_max | Date | nonmissing | 71289 | distinct | 5724
-current_borough | numeric | nonmissing | 73749 | distinct | 5 min/median/mean/max 1/4/3.683752/5
-current_block | numeric | nonmissing | 73749 | distinct | 8775 min/median/mean/max 1/3848/4756.205/16330
-current_lot | numeric | nonmissing | 73749 | distinct | 1142 min/median/mean/max 1/81/1183.2/9150
-appbbl_borough | numeric | nonmissing | 73749 | distinct | 5 min/median/mean/max 1/4/3.683752/5
-appbbl_block | numeric | nonmissing | 73749 | distinct | 8782 min/median/mean/max 1/3848/4756.269/16330
-appbbl_lot | numeric | nonmissing | 73749 | distinct | 776 min/median/mean/max 1/33/79.02583/9133
+appdate | Date | nonmissing | 71289 | distinct | 5724
 same_boro_block | logical | nonmissing | 73749 | distinct | 2

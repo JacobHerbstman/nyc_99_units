@@ -1,8 +1,7 @@
 # Build parent site characteristics
 
 Aggregates each linked economic parent's pre-existing parcel characteristics:
-land area, residential and broad FAR, built FAR, zoning, borough, community
-district and prior use. The producer runs once per sample and writes
+land area, residential FAR, built FAR, borough and community district. The producer runs once per sample and writes
 `output/historical_parent_site_characteristics.parquet` and
 `output/post_policy_parent_site_characteristics.parquet`, one row per parent.
 Proposed units are carried only as the parent outcome; they never enter the
@@ -70,11 +69,9 @@ canonical parent panel).
   additive filings have no repeated nonmissing BIN.
 - A historical parent whose archived BINs collide may still pass when its
   complete additive filing set matches a reviewed land allocation and every
-  building has a distinct valid DOB BIN. `reviewed_distinct_buildings` marks
-  this; `duplicate_bin_rows` keeps the archived collision visible.
-- `units` and exact-99 counts use the constructor's selected units: Housing
-  Database priority with DOB fallback. `units_hdb_priority` and `units_dob_i1`
-  retain the unaltered source totals.
+  building has a distinct valid DOB BIN.
+- `units` uses the constructor's selected units: Housing Database priority with
+  DOB fallback.
 
 Run `make` in `code/` against prepared inputs; use root `make data` after upstream
 changes.

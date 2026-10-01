@@ -3,7 +3,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,mathtools}
 \usepackage{newtxtext,newtxmath}
-\usepackage{microtype,booktabs,tabularx,array}
+\usepackage{microtype,booktabs,tabularx,array,graphicx}
 \usepackage{fancyhdr}
 \usepackage[round]{natbib}
 \usepackage[hidelinks]{hyperref}
@@ -24,6 +24,7 @@
 \renewcommand{\headrulewidth}{0.3pt}
 \setlength{\headheight}{14pt}
 \input{tasks/audits/audit_scale_shape_splitting/output/figure_guide_values.tex}
+\input{tasks/estimate_notch_model/output/model_values.tex}
 \title{\vspace{-1.25cm}\textbf{Project Size and Splitting\\under New York City's 485-x Program}}
 \author{Jacob Herbstman}
 \date{September 2026}
@@ -31,7 +32,7 @@
 \maketitle
 \vspace{-1em}
 \begin{abstract}
-New York City's 485-x program gives developers a reason to keep separately assessed rental developments below 100 units. Developers can respond by building fewer apartments or by dividing a larger project into smaller parts. We study these choices together to measure how the threshold changes proposed housing supply. The empirical comparison uses earlier projects on similar sites, retaining both their total units and their division across filings. A model of project size and splitting explains why the same incentive can produce 99-unit projects, preserve units through subdivision, or generate pairs of 99-unit constituents. The main quantity of interest is the difference in proposed units among filing opportunities. Interpreting that difference as a policy effect requires a credible historical comparison; estimating regulatory and splitting costs requires additional restrictions on developers' choices.
+New York City's 485-x program gives developers a reason to keep separately assessed rental developments below 100 units. Developers can respond by building fewer apartments or by dividing a larger project into smaller parts. We study these choices together to measure how the threshold changes proposed housing supply. The empirical comparison uses earlier projects on similar sites, retaining both their total units and their division across filings. A model of project size and splitting explains why the same incentive can produce 99-unit projects, preserve units through subdivision, or generate pairs of 99-unit constituents. The main quantity of interest is the difference in proposed units among filing opportunities. We estimate the model by maximum likelihood on parents of at most 300 units, backing the costs of the threshold and of splitting out of developers' observed choices. In the main model the threshold's burden differs across developers; it implies about \MainUnitsLost{} fewer proposed units among recent parents (bootstrap interval \MainUnitsLostLower--\MainUnitsLostUpper). The same estimation applied to two pre-policy periods finds no burden. Interpreting the difference as a policy effect still requires a credible historical comparison, and the estimate depends on how the cost of splitting varies across projects: specifications that fit about as well imply up to \LotSplittingUnitsLost{} units.
 \end{abstract}
 
 \section{The question: fewer units or a different project design?}
@@ -78,17 +79,17 @@ Let historical parent $j$ have total units $x_j$, constituent count $J_j^0$, and
 \end{equation}
 A positive value means that the historical benchmark implies more units for the same number of filing opportunities. This calculation needs complete unit totals, including the largest projects. A chart that combines projects above 300 into one bin retains their probability mass but cannot, on its own, measure their contribution to housing supply.
 
-The economic assumption is that, after adjusting for site composition, earlier projects describe what these opportunities would have proposed without the size-dependent escalation. Earlier tax regimes, financing conditions, rents, and construction costs can differ. Balanced site characteristics address differences in observed sites; they do not remove all changes in project economics. Recent pre-policy comparisons help assess whether the benchmark predicts size and organization before the threshold changes.
+The economic assumption is that, after adjusting for site composition, earlier projects describe what these opportunities would have proposed without the size-dependent escalation. Earlier tax regimes, financing conditions, rents, and construction costs can differ. Balanced site characteristics address differences in observed sites; they do not remove all changes in project economics. The benchmark therefore does most of the causal work: the model attributes departures from it to the threshold. A placebo comparison of two pre-policy periods (Section~\ref{sec:checks}) tests whether the method finds a burden where none existed.
 
 The estimate is conditional on filing. It measures units proposed within a set of opportunities, while annualized filing counts describe changes in activity separately. It does not recover projects that were cancelled or never filed. The current size comparison also conditions on parents with at least 50 observed units. If the policy moves projects across that sample boundary, the comparison changes membership as well as size. We therefore examine the broader six-plus-unit population when assessing the quantity result. Appendix~\ref{app:data} gives the sample and linkage details.
 
-Equation~\eqref{eq:direct} provides the quantity benchmark. The model below adds an explanation for the change: how much reflects smaller projects, how much reflects different organization, and what the joint response implies about the costs developers face. Structural quantity and cost estimates remain to be produced.
+Equation~\eqref{eq:direct} provides the quantity benchmark. The model below adds an explanation for the change: how much reflects smaller projects, how much reflects different organization, and what the joint response implies about the costs developers face. \path{tasks/estimate_notch_model} produces the structural estimates.
 
 \section{The developer's choice}
 
 \subsection{Total units and the ordinary cost of organization}
 
-A developer chooses total units $m$ and a feasible division $\mathbf n=(n_1,\ldots,n_J)$, with $m=\sum_{k=1}^J n_k$. We take the parent site's total land footprint as given in both the policy and counterfactual choices. The developer chooses size and organization within that footprint. The reweighted historical joint distribution supplies ordinary size and organization, including parents that ordinarily have multiple constituents. Before the modeled escalation, surplus from total units is
+A developer chooses total units $m$ and a feasible division $\mathbf n=(n_1,\ldots,n_J)$, with $m=\sum_{k=1}^J n_k$. The parent's land is part of the developer's choice: developers assemble and divide sites, so the ordinary cost of departing from the preferred total includes any change in land. The reweighted historical joint distribution supplies ordinary size and organization, including parents that ordinarily have multiple constituents. Before the modeled escalation, surplus from total units is
 \begin{equation}
 \pi_{0i}(m)=v_i m-C_{0i}(m),
 \qquad C_{0i}(m)=\frac{\alpha_i}{1+\lambda}m^{1+\lambda},
@@ -97,15 +98,14 @@ A developer chooses total units $m$ and a feasible division $\mathbf n=(n_1,\ldo
 \end{equation}
 The profitability shifter $v_i$ captures what another unit contributes before the curved cost term. The preferred continuous total is $x_i=(v_i/\alpha_i)^{1/\lambda}$. Curvature $\lambda$ determines how costly it is to depart from that total. The cost function summarizes project economics after other design choices have been made; it need not equal the construction budget. The approach builds on housing-supply models in which regulation raises marginal development cost \citep{brueckner2024}.
 
-Organization also has an ordinary cost. Some sites naturally favor several buildings; others are costly to divide. To explain this margin, first consider one or two constituents. Let $F_i$ be the cost of two relative to one at the same total. Positive $F_i$ favors one constituent; negative $F_i$ favors two. Writing the disadvantages as
+Organization also has an ordinary cost. Some sites naturally favor several buildings; others are costly to divide. The historical parent's own organization, $J_i^0$ constituents, reveals what it ordinarily prefers, so we treat that organization as free and charge only for departures from it. Each constituent added beyond $J_i^0$ is costly, and more so for each additional one:
 \begin{equation}
-\psi_i(1)=(-F_i)_+,\qquad \psi_i(2)=(F_i)_+,
-\qquad a_+=\max\{a,0\},
+\psi_i(J)=c_i\,(J-J_i^0)^{\gamma}\quad\text{for }J\ge J_i^0,
+\qquad c_i\sim\text{Exponential with mean }\sigma,
+\qquad \gamma\ge1.
 \label{eq:organization}
 \end{equation}
-makes the preferred organization cost zero. Both alternatives face the same normalization, so it does not change the design choice.
-
-The simplifying assumption is that $F_i$ is fixed as this parent considers different totals. When both organizations can accommodate $x_i$, ordinary total units remain $x_i$, and the sign of $F_i$ determines the preferred organization. Historical organization therefore restricts which alternative a developer prefers, but does not reveal how much that preference is worth. We retain observed historical organization directly in the comparison.
+The cost $c_i$ differs across developers: some have sites, lawyers and designs that make a second building easy, others do not. With $\gamma>1$ a third building costs more than a second, so a parent that splits usually adds one building, which is what produces $99+99$ pairs. Consolidating into fewer constituents than $J_i^0$ is never chosen: it cannot lower the policy burden and gives up the preferred organization. Without the escalation, every parent keeps its historical total and organization, so the reweighted historical distribution is the model's no-policy benchmark exactly.
 
 \subsection{The burden at 100 units}
 
@@ -122,12 +122,14 @@ K_i+\dfrac{\beta_i}{1+\lambda}
 \end{equation}
 The level jump $K_i$ makes entry into the high regime costly even for a project that would otherwise choose just over 99. The steeper cost schedule, governed by $\beta_i$, can also reduce the size of projects that remain above the threshold. Both terms represent net effects of policy requirements and benefits. Setting the incremental burden to zero removes the modeled escalation while retaining ordinary project economics, rather than removing the entire tax incentive.
 
+The burden need not be the same for every developer. It combines wage requirements, affordability rules, tax benefits and the chance of being exposed at all. One motivating reason for differences is the construction wage floor, which raises the cost of every construction hour: a developer whose contractor already pays close to the required wage would feel both the jump and the steeper schedule little, and one far below it a great deal. We therefore scale the whole burden by a developer-specific factor $b_i$, lognormal with median one and log standard deviation $s$: developer $i$ faces $b_iK$ and $b_i\beta$, and $K$ and $\beta$ describe the median developer. The factor is independent of the parent's size, site and splitting cost. The estimated spread measures how much burdens differ; it does not show that wages are the reason. Making the factor depend on local construction wages would test that mechanism and is reserved for a later version.
+
 For a given total $m$ and constituent count $J$, the developer selects the feasible division with the lowest policy burden:
 \begin{equation}
 d_{iJ}(m)=\min_{\mathbf n\in\mathcal P_{iJ}(m)}\sum_{k=1}^{J}d_i(n_k).
 \label{eq:partition}
 \end{equation}
-Here $\mathcal P_{iJ}(m)$ contains the divisions permitted by the site's physical and legal constraints. If separate constituents share a policy obligation, their cost must reflect that joint treatment instead of the additive schedule in \eqref{eq:partition}.
+Here $\mathcal P_{iJ}(m)$ contains the divisions permitted by the site's physical and legal constraints. If separate constituents share a policy obligation, their cost must reflect that joint treatment instead of the additive schedule in \eqref{eq:partition}. The estimation imposes neither: any parent may divide its units freely among its constituents, and every constituent is assessed separately. That is an assumption about every site, not a verified fact, since a separate filing does not establish a separate eligible site. Joint assessment of the whole parent is the one alternative estimated.
 
 The developer then chooses size and organization together:
 \begin{equation}
@@ -142,60 +144,185 @@ For one constituent, 99 is the largest total below the escalation. For two indep
 
 Above 198, the developer can put 99 units in one constituent and the remainder in another, or allow both constituents to cross 100. Thus a 220-unit total can be organized as 99+121 or 110+110. Which is cheaper depends on the level jump, the marginal burden, and the site's feasible divisions. The model does not force every large parent into one building or an exact multiple of 99.
 
-Splitting consequently changes what the spikes can identify. A project at 99 may have reduced size because splitting was expensive or unavailable. A project at 198 may have preserved its total or reduced a larger proposal. The distribution of parent totals alone cannot assign a unique origin to each spike. The joint distribution of totals and constituent configurations supplies the additional evidence.
+Splitting consequently changes what the spikes can identify. A project at 99 may have reduced size because splitting was expensive or unavailable. A project at 198 may have preserved its total or reduced a larger proposal. The distribution of parent totals alone cannot assign a unique origin to each spike. The joint distribution of totals and numbers of constituents supplies the additional evidence. The estimation uses the number, not the full configuration: 99+121 and 110+110 fall in the same cell, so the configurations do not help identify the steeper schedule. They remain available as a check outside the fit. The pair at 198 is the exception: a policy response there is always 99+99 in the model, and every observed one is.
 
-The two-constituent example explains the mechanism. Estimation must allow the larger constituent counts present in the data, with corresponding organization costs. Likewise, the 150-unit regime must enter the choice problem wherever a feasible alternative faces it. Restricting the observed outcome below 150 does not remove larger alternatives the developer could have chosen.
+The two-constituent example explains the mechanism. The estimation allows every constituent count up to $\lceil x_i/99\rceil$, the fewest buildings that keep all of them below 100; more buildings cannot lower the burden further. The 150-unit regime in geographic Zones A and B is not modeled for now. It affects only Zone A and B alternatives above 150 units, and restricting observed outcomes below 150 would not remove those alternatives from the developer's choice.
 
-\section{What the joint response can tell us about costs}
+\section{Estimation}
 
-The model compares the value of retaining units with the cost of a different design. Conditional on a historical parent's size, organization, and site, it predicts a distribution of policy-era totals and constituent counts. We fit those joint outcomes using the concentration at 99 and 198, the distribution across broader size ranges, and the prevalence of single, multiple, and mixed configurations. Physical outcomes such as floor area per unit can then test whether the assumed relationship between size and organization is a useful approximation.
+\subsection{Backing costs out of choices}
 
-Costs can be expressed relative to each parent's curved cost of 99 units, $A_i=C_{0i}(99)$. Define
+We never observe the burden of the threshold or the cost of splitting. We infer them from what developers chose, assuming they chose optimally. This is the logic of revealed-preference cost estimation in industrial organization, where firms' prices reveal marginal costs \citep{blp1995}, entry decisions reveal fixed costs \citep{bresnahanreiss1991}, and replacement decisions reveal replacement costs \citep{rust1987}. The closest applications use regulatory thresholds: the response around a notch reveals its cost \citep{klevenwaseem2013,garicano2016}. In those terms the model is a discrete choice with random coefficients on the policy burden ($b_i$) and on the number of added buildings ($c_i$), and no idiosyncratic error.
+
+Costs are expressed relative to each parent's curved cost of 99 units, $A_i=C_{0i}(99)$:
 \begin{equation}
-\kappa=K_i/A_i,\qquad
-\tau=\beta_i/\alpha_i,\qquad
-\omega_i=F_i/A_i.
+\kappa=K/A_i,\qquad
+\tau=\beta/\alpha_i,\qquad
+\bar c_i=c_i/A_i .
 \label{eq:ratios}
 \end{equation}
-Common regulatory ratios allow dollar costs to differ across sites. We examine the estimates over values of $\lambda$, since unit-count curvature is not directly observed. These ratios do not establish dollar costs or shares of an all-in construction budget.
+A jump of $\kappa=0.18$ means that crossing 100 costs the median developer 18 percent of the ordinary cost of a 99-unit building. Because profits are not observed, these ratios, not dollars, are what the choices identify, and their level rests on the size-loss curvature $\lambda$, as the level of utility rests on the error variance in a logit. The main estimates set $\lambda=1$. In the least-squares single-burden specification, curvature 0.5 and 2 fit about as well but change units lost from \LeastSquaresUnitsLost{} to \CurvatureHalfUnitsLost{} and \CurvatureTwoUnitsLost{}; the main model has not been estimated at other curvatures. An outside anchor, such as a pro forma or the industry estimate of the hard-cost increase from prevailing wages, is needed for dollars.
 
-Observed historical organization constrains the sign of $\omega_i$ in the two-constituent case. Predicting how many developers switch also requires a distribution of its magnitude conditional on historical size, organization, and site. Its specification is a remaining structural modeling choice; Appendix~\ref{app:costs} states where it enters. Cost estimates must be reported conditional on those restrictions and on which designs can receive separate policy treatment.
+\subsection{From a historical parent to predicted outcomes}
+
+Each weighted historical parent supplies its preferred total $x_j$ and organization $J_j^0$. For given parameters the model gives the probability of each policy-era outcome $(m,J)$:
+\begin{enumerate}
+\item For each constituent count $J$, find the best total and its cost $R_J$, the size loss plus the lowest burden of any division (Appendix~\ref{app:solution}).
+\item The developer with splitting cost $c$ chooses the $J$ that minimizes $R_J+c\,(J-J_j^0)^\gamma$. Each $J$ is a line in $c$, so each is chosen on an interval of $c$, and the exponential distribution gives its probability exactly.
+\item Repeat at each value of the burden factor $b$ and average with the lognormal probabilities.
+\end{enumerate}
+A parent that the burden does not touch keeps its historical outcome with probability one. Weighting each parent's outcome probabilities by its calibration weight and adding them gives the predicted distribution of recent parents over 42 cells: one, two, or three or more constituents, by 14 size bins from 50 to 300 units, with separate bins at 99, 198 and 199. The comparison is among parents of at most 300 units in both periods, renormalized within that range, so the number of very large projects in each period does not enter; a historical parent above 300 that shrinks into the range still counts.
+
+\subsection{Likelihood, grid and bootstrap}
+
+Each recent parent of at most 300 units is treated as a draw from the predicted cell probabilities $p_c(\theta)$. For some parameters the model assigns probability zero to outcomes that are observed. With one burden for every developer, for example, a jump of 0.10 moves every single building that would have 100--130 units to 99 or divides it, so a recent single building of 105--119 units has probability zero, and one such parent would rule those parameters out. The likelihood therefore leaves a share $\varepsilon$ of recent parents unexplained, spread uniformly over sizes and building groups with shares $u_c$:
+\begin{equation}
+\log L(\theta,\varepsilon)=\sum_c n_c\log\bigl[(1-\varepsilon)\,p_c(\theta)+\varepsilon\,u_c\bigr],
+\label{eq:likelihood}
+\end{equation}
+where $n_c$ counts recent parents in cell $c$. The unexplained share is not assigned a cause: it can absorb linkage or unit-count errors, behavior the model omits, or a flawed historical comparison. Units lost use only the model's choices, so any change hidden in the unexplained share is excluded. The parameters $\theta=(\kappa,\tau/\kappa,s,\gamma,\sigma)$ and $\varepsilon$ are chosen on a grid; the kink enters as a ratio to the jump because scaling by $b_i$ preserves that ratio.
+
+Uncertainty comes from 500 bootstrap samples that resample parents with replacement within period and borough, recalibrate the weights to each resampled recent sample, and re-estimate on the full grid. Stratifying by borough keeps Staten Island, with five historical and two recent parents, in every calibration.
+
+\subsection{Units lost}
 
 The model's proposed-unit difference is
 \begin{equation}
 \Delta U_{\mathrm{model}}
 =P\sum_j\widetilde w_j
-\left[x_j-\E\{m_j^*\mid x_j,J_j^0,X_j\}\right].
+\left[x_j-\E\{m_j^*\mid x_j,J_j^0\}\right],
 \label{eq:modelunits}
 \end{equation}
-We compare this with the direct difference in \eqref{eq:direct}. A model that matches the spikes but misses mean units has not explained the housing-supply change. We also compare predicted totals when developers retain their ordinary organization with totals when they can reorganize. The difference measures the model's quantity contribution from reorganization; its sign is an outcome of the comparison.
+among historical parents whose own size is at most 300, reweighted to sum to one, and scaled to the $P=\ModelPostParents{}$ recent parents in that range. The expectation averages over the burden factor and the splitting cost.
 
-The central empirical challenge is separating policy responses from changes in the opportunities that reach the filing stage. Within that comparison, the model must also distinguish a high regulatory burden from an inexpensive way to avoid it. Joint size and organization outcomes can help separate these forces, but a well-fitting point estimate alone does not establish that the data distinguish them. We assess that distinction through parameter profiles, recovery from simulated data, and sensitivity to feasible designs and cost heterogeneity.
+\section{Results}
+
+\subsection{Main estimates}
+
+\begin{table}[htbp]
+\centering
+\caption{Main model: estimates and bootstrap intervals}
+\label{tab:main}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+ & Estimate & 95\% bootstrap interval \\
+\midrule
+Median jump $\kappa$ & \MainKappa & \MainKappaLower--\MainKappaUpper \\
+Median kink $\tau$ & \MainTau & \MainTauLower--\MainTauUpper \\
+Burden spread $s$ & \MainSpread & \MainSpreadLower--\MainSpreadUpper \\
+Splitting-cost growth $\gamma$ & \MainGamma & \MainGammaLower--\MainGammaUpper \\
+Mean splitting cost $\sigma$ & \MainSigma & \MainSigmaLower--\MainSigmaUpper \\
+Unexplained share $\varepsilon$ & \MainEpsilon & \MainEpsilonLower--\MainEpsilonUpper \\
+Units lost & \MainUnitsLost & \MainUnitsLostLower--\MainUnitsLostUpper \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{\textwidth}
+\footnotesize \ModelHistoricalParents{} historical parents (2019--2022), reweighted on residential floor-area ratio and borough, and \ModelPostParents{} recent parents of at most 300 units. Costs are relative to the ordinary cost of 99 units; $\kappa$ and $\tau$ describe the median developer. Intervals are percentiles over 500 borough-stratified bootstrap draws with recalibrated weights; the bootstrap median of units lost is \MainUnitsLostMedian{}.
+\end{minipage}
+\end{table}
+
+The median developer's jump is \MainKappa{}, and the burden varies widely. About \MainShareSmallBurden{} percent of developers face a jump below 0.01, which moves a single building to 99 only from sizes below about 109. About \MainShareLargeBurden{} percent face one above 1, which moves any single building wanting up to 198 units to 99 when splitting is expensive. The kink is zero at the estimate, but with the burden scaled by developer a kink up to about half the jump fits almost as well. The model therefore does not establish that parents that cross 100 build smaller. The mean cost of adding one building is about a fifth of the ordinary cost of 99 units. Its growth per building is not identified: its interval spans the grid.
+
+The model comes close to the concentrations at 99 and at $99+99$: \ModelShareOneAtNinetyNine{} percent of recent parents are predicted at 99 in one building against \ObservedShareOneAtNinetyNine{} observed, and \ModelSharePair{} percent as $99+99$ against \ObservedSharePair{}. It predicts too many two-building parents overall (\ModelShareTwoBuildings{} against \ObservedShareTwoBuildings{} percent). Figure~\ref{fig:fit} shows every cell.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{tasks/estimate_notch_model/output/pdf/model_fit.pdf}
+\caption{Observed recent parents, the reweighted historical benchmark, and the main model's prediction.}
+\label{fig:fit}
+\end{figure}
+
+\subsection{Why this model}
+
+\begin{table}[htbp]
+\centering
+\caption{The main model and its alternatives, all by likelihood}
+\label{tab:models}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+ & Log-likelihood & AIC & Units lost \\
+\midrule
+One burden for every developer & \SingleLogLikelihood & \SingleAIC & \SingleUnitsLost \\
+Non-optimizers (\NonOptimizerShare\% keep their historical outcome) & \NonOptimizerLogLikelihood & \NonOptimizerAIC & \NonOptimizerUnitsLost \\
+Jump varies by developer, common kink & \VaryingJumpLogLikelihood & \VaryingJumpAIC & \VaryingJumpUnitsLost \\
+Main model: whole burden scaled by developer & \MainLogLikelihood & \MainAIC & \MainUnitsLost \\
+Main model, splitting cost scaled by lot area ($\beta=\LotSplittingElasticity$) & \LotSplittingLogLikelihood & \LotSplittingAIC & \LotSplittingUnitsLost \\
+Main model, splitting cost scaled by project size ($\beta=\SizeSplittingElasticity$) & \SizeSplittingLogLikelihood & \SizeSplittingAIC & \SizeSplittingUnitsLost \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{\textwidth}
+\footnotesize The size and lot variants set a parent's mean splitting cost to $\sigma(v/v_0)^{-\beta}$ for its lot area or preferred size $v$, with reference $v_0$ the median historical lot or 150 units; $\beta<0$ makes splitting costlier for larger lots or projects.
+\end{minipage}
+\end{table}
+
+Letting the burden differ across developers improves the likelihood substantially over a single burden. It also beats non-optimizers, the standard alternative \citep{klevenwaseem2013}, and when both are allowed the non-optimizer share goes to zero. The evidence is the region just above 100. A non-optimizer keeps any size, including 101 or 103, where no recent parent sits; a developer with a small burden still drops from 102 to 99, which costs almost nothing, yet stays at 130. Scaling the whole burden, rather than the jump alone, fits the same at its best point and allows a kink.
+
+Making the splitting cost depend on lot area or on project size does not significantly improve the fit ($p=0.07$ and $p=0.15$), but both lean the same way: splitting is harder for the largest projects. Both raise units lost, to \SizeSplittingUnitsLost{} and \LotSplittingUnitsLost{}, because parents that cannot split cheaply shrink instead. How the splitting cost varies with project size is the least settled part of the model and the one units lost depend on most. The bootstrap interval measures sampling uncertainty within the main specification, not uncertainty over these alternatives, so the headline should carry the range \MainUnitsLost--\LotSplittingUnitsLost{} alongside it.
+
+A logit over strategies---a building count, with every building below 100 or not---in place of the random splitting cost fits worse and has a defect specific to this setting. Each strategy draws its own shock, so once any burden exists a parent just above 100 gains near-equivalent alternatives: at a jump of 0.001, about half of parents wanting 100--110 units would move to 99. Bunching would then reflect the appearance of options rather than their cost. The least-squares single burden (jump \LeastSquaresKappa{}, kink \LeastSquaresTau{}, growth \LeastSquaresGamma{}, mean splitting cost \LeastSquaresSigma{}; \LeastSquaresUnitsLost{} units lost) remains as a robustness specification, estimated also with lot-area weights, a common 180-day follow-up horizon, curvature 0.5 and 2, a 249-unit cutoff, all sizes, and joint assessment of the whole parent.
+
+\subsection{Checks of the sample}
+\label{sec:checks}
+
+Table~\ref{tab:checks} re-estimates the main model, with its bootstrap, on four versions of the sample. Most recent parents have been observed for less than a year, so later buildings may still be unfiled. The first check counts only buildings filed within 180 days of a parent's first filing, in both periods, and keeps recent parents observed for at least 180 days. The second keeps only recent parents first filed in 2025, which have the longest follow-up. The third is a placebo: historical parents first filed in 2015--2018 take the place of the historical sample, and those first filed in 2019--2022, before 485-x, take the place of the recent one. It should find no burden. The fourth lengthens the historical sample to parents first filed in 2014--2022, against the same recent parents. It starts in 2014 because residential floor-area ratio, a calibration variable, first appears in the 2013 PLUTO releases.
+
+\begin{table}[htbp]
+\centering
+\caption{The main model on checks of the sample}
+\label{tab:checks}
+\small
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ & Recent & Jump $\kappa$ & Spread $s$ & Unexplained & Units lost & Units lost per \\
+ & parents & & & share $\varepsilon$ & & 100 recent parents \\
+\midrule
+Main & \MainCheckParents & \MainCheckKappa{} (\MainCheckKappaLower--\MainCheckKappaUpper) & \MainCheckSpread & \MainCheckEpsilon & \MainCheckUnitsLost{} (\MainCheckUnitsLostLower--\MainCheckUnitsLostUpper) & \MainCheckUnitsPerHundred{} (\MainCheckUnitsPerHundredLower--\MainCheckUnitsPerHundredUpper) \\
+180-day horizon & \HorizonCheckParents & \HorizonCheckKappa{} (\HorizonCheckKappaLower--\HorizonCheckKappaUpper) & \HorizonCheckSpread & \HorizonCheckEpsilon & \HorizonCheckUnitsLost{} (\HorizonCheckUnitsLostLower--\HorizonCheckUnitsLostUpper) & \HorizonCheckUnitsPerHundred{} (\HorizonCheckUnitsPerHundredLower--\HorizonCheckUnitsPerHundredUpper) \\
+2025 parents & \EarlyCheckParents & \EarlyCheckKappa{} (\EarlyCheckKappaLower--\EarlyCheckKappaUpper) & \EarlyCheckSpread & \EarlyCheckEpsilon & \EarlyCheckUnitsLost{} (\EarlyCheckUnitsLostLower--\EarlyCheckUnitsLostUpper) & \EarlyCheckUnitsPerHundred{} (\EarlyCheckUnitsPerHundredLower--\EarlyCheckUnitsPerHundredUpper) \\
+Placebo & \PlaceboCheckParents & \PlaceboCheckKappa{} (\PlaceboCheckKappaLower--\PlaceboCheckKappaUpper) & \PlaceboCheckSpread & \PlaceboCheckEpsilon & \PlaceboCheckUnitsLost{} (\PlaceboCheckUnitsLostLower--\PlaceboCheckUnitsLostUpper) & \PlaceboCheckUnitsPerHundred{} (\PlaceboCheckUnitsPerHundredLower--\PlaceboCheckUnitsPerHundredUpper) \\
+Since 2014 & \LongerCheckParents & \LongerCheckKappa{} (\LongerCheckKappaLower--\LongerCheckKappaUpper) & \LongerCheckSpread & \LongerCheckEpsilon & \LongerCheckUnitsLost{} (\LongerCheckUnitsLostLower--\LongerCheckUnitsLostUpper) & \LongerCheckUnitsPerHundred{} (\LongerCheckUnitsPerHundredLower--\LongerCheckUnitsPerHundredUpper) \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{\textwidth}
+\footnotesize Recent parents are those of at most 300 units; in the placebo they are the 2019--2022 parents. Each version recalibrates the weights and is bootstrapped 500 times as in Table~\ref{tab:main}; intervals are 95 percent bootstrap percentiles. Units lost are scaled to each version's recent parents, so the last column compares versions of different size.
+\end{minipage}
+\end{table}
+
+The loss per recent parent is a little smaller on the common horizon and among 2025 parents, but well within the main interval, so the short follow-up of recent parents does not produce the main estimate. The longer historical sample gives nearly the same loss, so the main estimate does not rest on the choice of 2019--2022. The placebo finds no burden, and its upper bound on units lost per 100 parents is far below the main lower bound. The change from 2015--2018 to 2019--2022 therefore does not look like a response to a threshold at 100. It does leave more unexplained, since those periods also differ in ways the model does not describe. The placebo also shows that the 2019--2022 benchmark was not already concentrated below 100 relative to earlier years. It cannot rule out a change in project economics between 2022 and 2025.
+
+\subsection{What the model still misses}
+
+The largest misses are not responses to the threshold. Small parents with several buildings, which the policy gives no reason to reorganize, are about half as common after the policy as before, and the model, which leaves them as they were, overpredicts them and three-building parents. The linkage finds such parents equally well in both periods: all of their links carry same-owner evidence, the share is flat across the two DOB systems in 2019--2022, and a common 180-day horizon does not remove the difference. Filings of 6--19 units also became rarer. The model sends every shrinking parent to exactly 99, while some recent parents land at 95--98. It also keeps too many large single buildings.
+
+Two open questions matter most for units lost. Some affected projects may not be built at all, which would raise units lost; or all project sizes may have shifted between periods, which would lower the policy's share of the change. Both would explain fewer large single buildings and more small ones than predicted. Parents first filed in 2026 also split about half as often as 2025 parents on a common short window; the difference is not significant once site size is held fixed, and no rule change explains it, so the periods are pooled.
 
 \appendix
 \section{Data, comparison sample, and evidence}
 \label{app:data}
 
 \subsection{Linking proposals into parent projects}
-Historical proposals come from the inactive-inclusive 23Q4 release of the DCP Housing Database, which records designs as of January 2024 and keeps withdrawn and stalled proposals with their status. Recent proposals come from DOB NOW new-building filings, with units from the 25Q4 Housing Database and DOB counts only where the Housing Database is missing. The parent construction links filings within 365 days of the first filing using parcel and site identifiers, historical lot links, explicit project references, and corroborated adjacency. It applies the same window rule across periods. Reviewed links and filing roles are recorded separately. A superseded alternative design remains a source proposal but does not add its units to the parent total.
+Historical proposals come from the inactive-inclusive 23Q4 release of the DCP Housing Database, which records designs as of January 2024 and keeps withdrawn and stalled proposals with their status. Recent proposals come from DOB NOW new-building filings, with units from the 25Q4 Housing Database and DOB counts only where the Housing Database is missing. The parent construction links filings within 365 days of the first filing using parcel and site identifiers, historical lot links, explicit project references, corroborated adjacency, and a companion rule: filings by the same owner business or person within 150 meters, or on the same tax block within 200 meters. It applies the same rules across periods. Reviewed links and filing roles are recorded separately. A superseded alternative design remains a source proposal but does not add its units to the parent total.
 
-The main comparison uses 2019--2022 and January 1, 2025--July 8, 2026. Historical parents have complete linkage windows; recent parents enter with complete left-side coverage but can lack a full year of follow-up. Later companion filings can therefore change recent totals and organization. Comparisons with a common follow-up horizon are necessary to assess this difference in observation time.
+The main comparison uses 2019--2022 and January 1, 2025--July 8, 2026. Historical parents have complete linkage windows; recent parents enter with complete left-side coverage but can lack a full year of follow-up. Later companion filings can therefore change recent totals and organization. A common 180-day horizon, counting only buildings filed within 180 days of the first filing in both periods, and the 2025 parents alone check this (Section~\ref{sec:checks}). The placebo and the longer historical sample use parents first filed from 2014, linked and classified by the same rules; their condominium screens use Attorney General searches made for these earlier filings.
 
 The exposure screen identifies plausible taxable rental opportunities under affordability Options A and B. This is a classification of potential exposure, not confirmed program enrollment; those option names are distinct from geographic Zones A and B. Registrations provide positive evidence, while tenure and ownership records help identify developments outside the relevant rental choice. Unresolved legal separation remains a scenario for the structural analysis rather than a confirmed exemption.
 
 \subsection{Reweighting and sample support}
-The descriptive parent population begins at six units. The preferred shape comparison begins at 50 parent units and retains all larger parents in its denominator. The reweighted comparison requires complete parcel characteristics and distinct building identifiers among a parent's filings. Historical parcel attributes use lagged MapPLUTO releases; recent attributes use release 23v3.1. Lots that DOF merged into a filing lot within 180 days of the parent's first filing are added in both periods. Documented parcel allocations replace the matched lots for reviewed parents, and six parents carry an approved estimate of earlier building floor. Positive calibration weights match residential floor-area ratio and borough; lot area and existing building density describe the parent's own site, which developers shape by assembling land, and enter only as robustness checks. Constituent organization within the given parent site is a modeled policy response.
+The descriptive parent population begins at six units. The preferred shape comparison begins at 50 parent units and retains all larger parents in its denominator. The reweighted comparison requires complete parcel characteristics and distinct building identifiers among a parent's filings. Historical parcel attributes use lagged MapPLUTO releases; recent attributes use release 23v3.1. Lots that DOF merged into a filing lot within 180 days of the parent's first filing are added in both periods. Documented parcel allocations replace the matched lots for reviewed parents, and six parents carry an approved estimate of earlier building floor. Positive calibration weights match residential floor-area ratio and borough; lot area and existing building density describe the parent's own site, which developers shape by assembling land, and enter only as robustness checks. Constituent organization is a modeled policy response.
 
 The comparison sample contains \CalibrationHistoricalParents{} historical and \CalibrationPostParents{} recent parents. Its weighted historical effective sample size is \CalibrationESS{}. Bootstrap inference re-estimates the weights in each draw and records failed calibrations. Table~\ref{tab:evidence} reports local differences in normalized shares, not counts of projects known to have moved from one size to another.
 
-Exact totals are retained in the underlying parent panel even when figures pool the upper tail. Both quantity formulas use the same target sample and weights. Broadening the sample below 50 requires recomputing that comparison; the existing shape weights should not be applied as though they represented every filing opportunity.
+Exact totals are retained in the underlying parent panel even when figures pool the upper tail. The two quantity formulas use different populations. The direct difference \eqref{eq:direct} keeps every parent of at least 50 units, including those above 300; the model's units lost \eqref{eq:modelunits} use historical parents of at most 300 units and scale to the \ModelPostParents{} recent parents in that range. Their magnitudes are therefore not directly comparable. Broadening the sample below 50 requires recomputing that comparison; the existing shape weights should not be applied as though they represented every filing opportunity.
 
-We treat the observed parent boundary as the land available under both policy regimes. Historical land area and area-weighted FARs describe that given footprint; the number and sizes of constituents can change within it. Holding the footprint fixed is a maintained assumption about the developer's opportunity. Recent pre-policy holdouts assess whether the weighted comparison reproduces size and organization before the policy change. Floor area, stories, and other physical outcomes provide further evidence where measurement is comparable.
+The model does not use a parent's own land. Zoning and borough are treated as fixed traits of the opportunity; lot area is not, because recent parents can assemble less land in response to the threshold. The pre-policy placebo in Section~\ref{sec:checks} assesses whether the method finds a burden where there was none. Floor area, stories, and other physical outcomes provide further evidence where measurement is comparable.
 
 \subsection{Reproducing the reported facts}
-The empirical values in this note are generated by
+The descriptive values in Section 1 are generated by
 \path{build_figure_guide_values.R} in the
-\path{tasks/audits/audit_scale_shape_splitting} task. They use the saved calibration summary, local differences, bootstrap intervals, and decomposition of 198-unit parents. The framework Make target checks that task's prerequisites before compiling. No structural estimates or direct aggregate unit-loss estimate are reported here.
+\path{tasks/audits/audit_scale_shape_splitting} task. They use the saved calibration summary, local differences, bootstrap intervals, and decomposition of 198-unit parents. The model values in Sections 4 and 5 and Figure~\ref{fig:fit} are generated by \path{tasks/estimate_notch_model}: \path{write_model_values.R} writes the estimates, intervals, fit shares and checks from its outputs. The framework Make target builds both before compiling.
 
 \section{Solving the size and partition problem}
 \label{app:solution}
@@ -245,6 +372,9 @@ Two above 99, equal sizes & $m=x/(1+\tau/2^\lambda)^{1/\lambda}$ \\
 \end{center}
 These formulas describe candidates, not the global choice. The integer calculation compares feasible totals, divisions, and regime boundaries. The 150-unit schedule replaces \eqref{eq:burden} where applicable, including for alternatives not observed in the data.
 
+\subsection{Exact choice probabilities}
+For each parent and constituent count $J\ge J^0$ the size search gives the cost $R_J$ of the best total. Totals above $x$ raise both the size loss and the burden, and totals below $99J$ only add loss, so the search covers the integers from $\min(x,99J)$ to $x$. A developer with splitting cost $c$ then pays $R_J+c\,(J-J^0)^\gamma$, a line in $c$ with slope $(J-J^0)^\gamma$. The chosen $J$ follows the lower envelope of these lines: at $c=0$ the lowest $R_J$, and at each crossing the next flatter line, ending at $J^0$. Each $J$ therefore owns an interval $[\underline c_J,\overline c_J)$, and with $c$ exponential with mean $\sigma$ its probability is $e^{-\underline c_J/\sigma}-e^{-\overline c_J/\sigma}$. The burden factor $b$ enters by repeating the calculation at burden levels on a grid extended to 5, where every parent of at most 300 units avoids 100, each level taking the lognormal probability between the midpoints to its neighbors.
+
 \subsection{Larger constituent counts and integer choices}
 For unrestricted partitions with minimum constituent size $n_{\min}$, the burden can be computed recursively:
 \begin{equation}
@@ -262,46 +392,48 @@ Setting $v=C_0'(k)$ is a convenient anchoring convention consistent with these i
 \section{Organization costs and identification}
 \label{app:costs}
 
-In the two-constituent model, solve the size problem for each organization before adding the fixed organizational disadvantage:
-\begin{equation}
-R_{iJ}(x)=\min_m\{\ell_\lambda(m;x)+\bar d_{iJ}(m)\},
-\qquad S_i(x)=R_{i1}(x)-R_{i2}(x).
-\end{equation}
-Because $\bar\psi_i(2)-\bar\psi_i(1)=\omega_i$, two constituents are preferred when $\omega_i<S_i$. A tie can retain historical organization. The conditional sizes $m_{i1}^*$ and $m_{i2}^*$ do not depend on the fixed cost draw.
+The historical organization $J^0$ is taken as the parent's ordinary preference and is free; the policy can only make additional constituents worthwhile. This restriction reproduces historical totals and organization exactly when the escalation is removed, which is the model's benchmark. It rules out consolidation, which cannot lower the separately assessed burden, and it attributes every added constituent to the policy.
 
-Let $G_{J^0}(s\mid x,X)$ denote the conditional distribution function of $\omega$ for a parent with historical organization $J^0$. If both organizations can accommodate $x$, the historical choice restricts $G_1$ to nonnegative costs and $G_2$ to nonpositive costs. With no atom at zero or the policy indifference point, the probability of two constituents is
-\begin{equation}
-p_{i2}=G_{J_i^0}(S_i\mid x_i,X_i),
-\qquad
-\E[m_i^*\mid x_i,J_i^0,X_i]
-=(1-p_{i2})m_{i1}^*+p_{i2}m_{i2}^*.
-\label{eq:mixture}
-\end{equation}
-These are conditional cost distributions, not predictions replacing observed historical organization. The data's historical choices alone do not determine them. A structural implementation must specify their form or an admissible class and report how the resulting cost and quantity estimates depend on that restriction. The direct mean comparison in \eqref{eq:direct} does not require this choice.
+What the historical choices do not reveal is how costly it is to add a constituent. The exponential distribution of $c_i$ and the growth $\gamma$ are therefore restrictions, and the quantity estimates depend on them. Three results bound that dependence. First, the growth $\gamma$ is not identified: the bootstrap interval covers the whole grid from 1 to 3. Second, letting the mean splitting cost vary with lot area or project size changes units lost by up to a factor of two without a significant change in fit (Table~\ref{tab:models}). Third, a logit over strategies in place of the exponential cost fits worse and makes bunching respond to the availability of alternatives rather than their cost.
 
-With the escalation removed and $x$ feasible in both organizations, $R_1=R_2=0$. The sign restrictions then reproduce the historical organization and total. If an organization cannot implement $x$, historical choice instead constrains its optimized value; the sign restriction alone is insufficient. If organization costs vary with trial size, the model must solve size separately for each draw. For more than two organizations, the same logic applies to a vector of relative costs conditional on the observed historical choice.
+The model's other restrictions are the independence of the burden factor, the splitting cost and the parent's size; free division of units among constituents; the separately assessed schedule, with joint assessment of the whole parent as a robustness case; the size-loss curvature $\lambda=1$; and the unexplained share, spread uniformly over outcomes. Numerical checks confirm that historical totals and organization are recovered when the escalation is zero, that a single building shrinks to 99 exactly when its preferred total is below $99(1+\sqrt\kappa)$ and is compressed by $1+\tau$ above, that minimum burdens match exhaustive partitions, that the menu of constituent counts never binds, and that the exact probabilities match simulated cost draws.
 
-For a specified cost-distribution family indexed by $\eta$, estimation compares observed joint moments $\widehat{\mathbf M}$ with model moments $\mathbf M(\kappa,\tau,\eta;\lambda)$:
-\begin{equation}
-\min_{\kappa,\tau,\eta}
-[\widehat{\mathbf M}-\mathbf M(\kappa,\tau,\eta;\lambda)]'
-W[\widehat{\mathbf M}-\mathbf M(\kappa,\tau,\eta;\lambda)].
-\end{equation}
-The weights $W$ must account for the fact that parent totals and constituent summaries describe the same projects. Curvature and legal treatment define separate sensitivity cases. Weakly distinguished parameter combinations should be reported as such rather than reduced to an optimizer's preferred point.
+\begin{thebibliography}{99}
+\bibitem[Berry, Levinsohn, and Pakes(1995)]{blp1995}
+Berry, Steven, James Levinsohn, and Ariel Pakes. 1995.
+``Automobile Prices in Market Equilibrium.''
+\emph{Econometrica} 63(4): 841--890.
 
-Numerical checks recover historical totals and organization when the escalation is zero, recover the scalar choice when only one constituent is feasible, and compare the two-constituent formula with exhaustive partitions. The size grid must be large enough that its upper bound does not determine quantities. Simulated-data recovery and held-out joint moments assess whether the proposed estimation can distinguish the costs it seeks to measure.
+\bibitem[Bresnahan and Reiss(1991)]{bresnahanreiss1991}
+Bresnahan, Timothy F., and Peter C. Reiss. 1991.
+``Entry and Competition in Concentrated Markets.''
+\emph{Journal of Political Economy} 99(5): 977--1009.
 
-\begin{thebibliography}{9}
 \bibitem[Brueckner, Leather, and Zerecero(2024)]{brueckner2024}
 Brueckner, Jan K., David Leather, and Miguel Zerecero. 2024.
 ``Bunching in Real-Estate Markets: Regulated Building Heights in New York City.''
 \emph{Journal of Urban Economics} 143: 103683.
 \url{https://doi.org/10.1016/j.jue.2024.103683}.
 
+\bibitem[Garicano, Lelarge, and Van Reenen(2016)]{garicano2016}
+Garicano, Luis, Claire Lelarge, and John Van Reenen. 2016.
+``Firm Size Distortions and the Productivity Distribution: Evidence from France.''
+\emph{American Economic Review} 106(11): 3439--3479.
+
+\bibitem[Kleven and Waseem(2013)]{klevenwaseem2013}
+Kleven, Henrik J., and Mazhar Waseem. 2013.
+``Using Notches to Uncover Optimization Frictions and Structural Elasticities: Theory and Evidence from Pakistan.''
+\emph{Quarterly Journal of Economics} 128(2): 669--723.
+
 \bibitem[New York State Senate(2026)]{nys485x}
 New York State Senate. 2026.
 Real Property Tax Law, section 485-x, ``Affordable Neighborhoods for New Yorkers Tax Incentive.''
 \url{https://www.nysenate.gov/legislation/laws/RPT/485-X}.
 Accessed September 2026.
+
+\bibitem[Rust(1987)]{rust1987}
+Rust, John. 1987.
+``Optimal Replacement of GMC Bus Engines: An Empirical Model of Harold Zurcher.''
+\emph{Econometrica} 55(5): 999--1033.
 \end{thebibliography}
 \end{document}

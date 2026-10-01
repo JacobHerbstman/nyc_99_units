@@ -33,8 +33,10 @@ stopifnot(!anyDuplicated(refilings[c("sample", "original_job")]),
     c("archived_same_building_alternatives", "reviewed_archived_alternative")),
   all(refilings$archived_original_status[refilings$sample == "historical"] == "9. Withdrawn"),
   all(refilings$archived_replacement_status[refilings$sample == "historical"] != "9. Withdrawn"),
-  all(refilings$filing_status[refilings$sample == "post_policy"] == "Filing Withdrawn"),
-  all(refilings$refiling_date[refilings$sample == "post_policy"] >
-    refilings$withdrawal_date[refilings$sample == "post_policy"]),
+  all(refilings$refiling_basis[refilings$sample == "post_policy"] %in%
+    c("dated_dob_withdrawal_and_refiling", "reviewed_dob_alternative")),
+  all(refilings$filing_status[refilings$refiling_basis == "dated_dob_withdrawal_and_refiling"] == "Filing Withdrawn"),
+  all(refilings$refiling_date[refilings$refiling_basis == "dated_dob_withdrawal_and_refiling"] >
+    refilings$withdrawal_date[refilings$refiling_basis == "dated_dob_withdrawal_and_refiling"]),
   all(refilings$refiling_date > refilings$original_filing_date))
 SaveData(refilings, c("sample", "original_job"), "../output/refilings.csv")

@@ -18,20 +18,6 @@ raw_filings <- bind_rows(
            col_types = cols(.default = col_character()))
 )
 
-required_columns <- c(
-  "job_filing_number", "filing_status", "house_no", "street_name",
-  "borough", "block", "lot", "bin", "initial_cost",
-  "total_construction_floor_area", "existing_dwelling_units",
-  "proposed_no_of_stories", "proposed_height", "proposed_dwelling_units",
-  "filing_date", "job_type", "bbl"
-)
-
-missing_columns <- setdiff(required_columns, names(raw_filings))
-
-if (length(missing_columns) > 0L) {
-  stop("Raw DOB NOW extract is missing columns: ", paste(missing_columns, collapse = ", "))
-}
-
 staged_filings <- raw_filings |>
   transmute(
     source_row_number = row_number(),
@@ -98,27 +84,8 @@ staged_filings <- raw_filings |>
   ) |>
   arrange(filing_date, job_filing_number)
 
-initial_filings <- staged_filings |>
-  filter(filing_type == "I1")
+initial_filings <- staged_filings |> filter(filing_type == "I1")
+stopifnot(!anyDuplicated(initial_filings$job_number))
 
-duplicate_initial_job_numbers <- initial_filings |>
-  count(job_number, name = "rows") |>
-  filter(rows > 1L)
-
-if (nrow(duplicate_initial_job_numbers) > 0L) {
-  stop("DOB NOW initial job_number is not unique.")
-}
-
-SaveData(
-  staged_filings,
-  c("source_pull_date", "source_row_number"),
-  "../output/dob_now_new_building_filings.parquet"
-)
-
-SaveData(
-  initial_filings,
-  c("job_filing_number"),
-  "../output/dob_now_new_building_initial_filings.parquet"
-)
-
-cat("Wrote staged DOB NOW New Building filing history and initial filings to ../output\n")
+SaveData(staged_filings, c("source_pull_date", "source_row_number"), "../output/dob_now_new_building_filings.parquet")
+SaveData(initial_filings, "job_filing_number", "../output/dob_now_new_building_initial_filings.parquet")

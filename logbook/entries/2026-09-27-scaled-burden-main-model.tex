@@ -1,0 +1,285 @@
+\clearpage
+\section*{September 27, 2026: The scaled burden as the main model}
+\textit{Agent-drafted research entry.}
+
+Jacob made the scaled burden the main model for now: each parent's jump and
+kink are multiplied by one lognormal scale with median 1, estimated by
+likelihood with the unexplained share $\varepsilon$. It nests the single burden,
+fits better than it or non-optimizers, and is where the reserved wage test
+would enter. The least-squares single burden is kept as the robustness
+specification \texttt{least\_squares} (formerly \texttt{main}); renaming
+changed no result.
+
+\paragraph{Bootstrap.} The 500 bootstrap samples are now drawn once, in
+\path{draw_bootstrap_samples.R}, and shared by both bootstraps; the
+single-burden bootstrap reproduces its earlier results exactly on them.
+\path{bootstrap_scaled_burden.R} re-estimates the main model on its full grid
+in every sample, and draw 0 reproduces the point estimate.
+
+\begin{center}
+\small
+\begin{tabular}{lrr}
+\hline
+ & Estimate & Bootstrap 95\% interval \\
+\hline
+Median jump $\kappa$ & 0.18 & 0.06--0.50 \\
+Median kink $\tau$ & 0 & 0--0.105 \\
+Kink-to-jump ratio & 0 & 0--1.5 \\
+Spread $s$ & 2 & 0--3 \\
+Cost growth $\gamma$ & 2 & 1--3 \\
+Mean splitting cost $\sigma$ & 0.20 & 0.10--0.50 \\
+Unexplained share $\varepsilon$ & 0.015 & 0.001--0.05 \\
+Units lost & 761 & 452--1,612 \\
+\hline
+\end{tabular}
+\end{center}
+
+The interval for units lost is narrower than the single burden's (396--2,197
+by least squares, 337--2,981 by likelihood), and skewed up: the bootstrap
+median is 872. Half the draws (53 percent) choose no kink. The growth of the
+splitting cost is still not identified.
+
+\paragraph{What the main model still misses.} Shares of the 278 recent parents
+of at most 300 units; one percentage point is about three parents.
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\hline
+ & Observed & Benchmark & Model \\
+\hline
+One building, 50--89 units & 49.3 & 46.8 & 45.6 \\
+One building, 90--98 & 5.8 & 4.6 & 4.5 \\
+One building, 99 & 12.9 & 0.4 & 10.9 \\
+One building, 100--149 & 4.7 & 18.2 & 4.0 \\
+One building, 150--300 & 7.9 & 20.7 & 10.1 \\
+Two buildings, under 100 & 2.2 & 4.2 & 4.1 \\
+Two buildings, 100--197 & 10.1 & 2.4 & 11.5 \\
+$99+99$ & 3.2 & 0.0 & 3.4 \\
+Two buildings, 199--300 & 0.7 & 0.8 & 0.5 \\
+Three or more buildings & 3.2 & 1.9 & 5.4 \\
+\hline
+\end{tabular}
+\end{center}
+
+The largest misses are not responses to the threshold. Small parents with
+several buildings, which the policy gives no reason to reorganize, are half as
+common after the policy as before (2.2 against 4.2 percent in two buildings),
+and the model, which leaves such parents as they were, overpredicts them and
+the three-building parents. The difference persists with the common 180-day
+horizon (2.4 against 5.1 percent of weighted parents under 100 units with
+several buildings), so it is not late companion filings. Its mirror image is
+the shortfall of small single buildings (55.1 against 50.1 percent under 99).
+The splitting the policy causes, two buildings of 100--197 units, is close
+(11.5 against 10.1). The model also puts too few parents at 99 and at 95--98
+(3.2 percent observed against 1.0), since it sends every shrinking parent to
+exactly 99, and keeps too many large single buildings (10.1 against 7.9).
+
+\paragraph{Open questions.} In order of what they could change:
+\begin{enumerate}
+\item Whether the linkage is equally able to find small multi-building
+parents in both periods. Historical parents also draw on evidence the recent
+ones lack (Housing Database and parcel adjacency, reviewed links). If the
+difference is linkage, the benchmark's building counts are not comparable.
+\item Whether some affected parents are not built, or all project sizes
+shifted between periods. Either would explain fewer large single buildings and
+more small ones than the model predicts; exit would raise units lost, a common
+shift would lower the policy's share of the change.
+\item Whether parents that shrink land a few units below 99, which the model
+could allow with a small landing error; this changes units lost little.
+\end{enumerate}
+
+\subsection*{September 27 follow-up: the linkage is not the reason}
+
+Jacob asked to check the first open question before changing the model. The
+checks were run interactively on the production outputs and are not saved as
+an audit.
+
+\paragraph{The evidence is the same in both periods.} The small multi-building
+parents are held together by the owner companion rule: 24 historical and 7
+recent parents under 100 units, and every one of their 119 internal links (110 and
+9) carries same-owner evidence. Keeping only owner, same-lot, explicit-reference and
+reviewed links, and dropping parcel adjacency and lot history (which for recent
+filings rely on the older 23v3.1 parcel map), splits one parent in each period
+and no small one. The DOB system does not matter either: 2019--20 filings come
+from BIS and 2021--22 filings from DOB NOW, as the recent ones do, and the
+small multi-building share is flat across the four historical years (5.0, 4.8,
+5.5 and 4.1 percent of parents of at most 300 units).
+
+\paragraph{The recent shortfall is concentrated in 2026 parents.} Among
+parents first filed in 2025 the share is 3.7 percent (6 of 161), within
+sampling noise of the historical level; among 2026 parents it is 0.9 percent (1
+of 117). The 2026 parents are also less often multi-building of any size (12.0
+against 24.8 percent). Late companions explain part of this: with 2025's
+companion timing, about 79 percent of multi-building parents would already
+show their last building at the follow-up of a 2026 parent, which predicts
+about 20 percent, not 12. Separately, the smallest filings became rarer:
+filings of 6--19 units fell from 286 a year in 2019--2022 to 209 a year in the
+recent period, while 20--49-unit filings rose from 128 to 176.
+
+\paragraph{Consequences.} The benchmark's building counts are comparable; the
+misfit on small multi-building parents is a mix of short follow-up for 2026
+parents, fewer tiny filings and noise, and concerns parents the policy does
+not affect. The larger concern is splitting itself: if 2026 parents are
+incompletely observed or behave differently, pooling them understates the
+splitting response. The next checks are the main model on the common 180-day
+horizon and on 2025 parents alone. Whether anything changed for 2026 filings,
+such as the Comptroller's proposed 485-x rules of early 2026, is unverified.
+
+\subsection*{September 28 follow-up: did splitting change in 2026?}
+
+Jacob asked whether the lower splitting of 2026 parents reflects a change in
+the rules. None is documented. The statute defines an eligible site as a tax
+lot with one eligible building, or a zoning lot with two or more buildings
+``that are part of a single application'' (RPTL \S 485-x(1)(s)), so separately
+filed buildings on separate lots count separately. HPD's application rules
+were adopted on December 16, 2024. The Comptroller's wage rules (notice
+December 23, 2025; hearing January 28, 2026; comments extended to May 15, 2026)
+define a covered site as an eligible site with 100 or more units and say
+nothing on counting units across buildings or owners; if anything they
+formalize enforcement above 100. Press coverage of 99-unit and split filings
+grew in 2026, with calls to tighten aggregation, but the state did not act.
+
+Counting only buildings filed within 30 days of a parent's first filing, so
+that follow-up cannot matter, 16.0 percent of 2025 parents of 50--300 units
+are multi-building against 8.7 percent of 2026 parents (156 and 103 parents;
+Fisher $p=0.09$). Among parents of 100 or more units the shares are 53 and 39
+percent (43 and 23 parents; $p=0.31$), and parents at exactly 99 rise from 11
+to 15 percent across the half-years. 2026 sites are somewhat smaller (median
+lot 8,000 against 9,500 square feet; 22 against 28 percent with 100 or more
+units). In a logit for splitting among parents of 100 or more units with log
+lot area and log units, the 2026 coefficient is $-0.43$ (standard error 0.54),
+while larger lots raise splitting ($0.70$, standard error 0.36).
+
+So the 2026 decline is real in the raw shares but weak: it is within noise
+once size and lot area are held fixed, and no rule change explains it.
+Pooling 2025 and 2026 remains defensible, with the 2025-only and 180-day
+estimates as the checks. The lot-area result suggests that the splitting
+cost depends on the site, which the model does not yet allow.
+
+\subsection*{September 28 follow-up: a splitting cost that depends on lot area}
+
+Jacob asked to let the splitting cost depend on the site, since larger lots
+predicted splitting among recent parents. A parent's mean splitting cost
+becomes $\sigma\,(A/\tilde A)^{-\beta}$, with $A$ its lot area and $\tilde A$
+the median historical lot (13,209 square feet), so $\beta>0$ makes splitting
+cheaper on larger lots and $\beta=0$ is the main model. It is estimated with
+the scaled burden by likelihood in \path{fit_heterogeneity.R}
+(\texttt{scaled\_burden\_lot\_splitting}).
+
+\begin{center}
+\small
+\begin{tabular}{rrr}
+\hline
+$\beta$ & Log-likelihood & Units lost \\
+\hline
+$-3$ & $-583.7$ & 1,833 \\
+$-2$ & $-582.9$ & 1,697 \\
+$-1$ & $-583.4$ & 1,160 \\
+0 & $-584.5$ & 761 \\
+1 & $-584.8$ & 854 \\
+2 & $-584.6$ & 954 \\
+\hline
+\end{tabular}
+\end{center}
+
+Cheaper splitting on larger lots does not help: the likelihood is flat for
+$\beta$ from 0 to 2. The best fit instead makes splitting costlier on larger
+lots ($\beta=-2$, spread $s=4$ at the top of its grid), an improvement of 1.6
+log points over the main model ($p=0.07$). The raw pattern among recent
+parents does not contradict this, since the model already makes larger
+projects gain more from splitting; conditional on that, the fit wants the
+largest historical projects, which sit on the largest lots, to split less,
+because the main model predicts too many two-building parents of 150--197
+units and three-building parents of 200--300. Lot area here stands in for
+project size rather than for the site.
+
+The main model is kept. The variant matters for units lost, which rise to
+1,697 at $\beta=-2$ because parents that cannot split cheaply shrink instead:
+how the splitting cost varies with project size is the least settled part of
+the model and the one units lost depend on most.
+
+\subsection*{September 28 follow-up: a splitting cost that depends on project size}
+
+Jacob asked to let the splitting cost depend on project size instead. A
+parent's mean splitting cost becomes $\sigma\,(x/150)^{-\beta}$, with $x$ its
+preferred size, so $\beta>0$ makes splitting cheaper for larger projects and
+$\sigma$ is the mean for a 150-unit project (\texttt{scaled\_burden\_size\_splitting}).
+
+\begin{center}
+\small
+\begin{tabular}{rrr}
+\hline
+$\beta$ & Log-likelihood & Units lost \\
+\hline
+$-3$ & $-583.5$ & 1,211 \\
+$-2$ & $-583.6$ & 1,040 \\
+$-1$ & $-584.0$ & 914 \\
+0 & $-584.5$ & 761 \\
+1 & $-585.1$ & 754 \\
+2 & $-586.0$ & 740 \\
+\hline
+\end{tabular}
+\end{center}
+
+The likelihood rises steadily as splitting becomes costlier for larger
+projects and flattens by $\beta=-2$; the best point, $\beta=-3$ at the edge of
+the grid, is 1.0 log point better than the main model ($p=0.15$). Cheaper
+splitting for larger projects fits worse, and $\beta=2$ is outside the 95
+percent likelihood-ratio interval. With the size elasticity free the growth
+of the splitting cost per building becomes linear ($\gamma=1$): costlier
+splitting for larger projects does the work the rising cost per building did.
+The median jump is 0.40 and the spread 3.
+
+Both site variants point the same way, toward splitting that is harder for
+the largest projects, and neither is a significant improvement. Units lost
+move from 761 in the main model to about 900--1,200 over the negative
+elasticities the data lean toward. The main model is kept; the headline
+should carry this range alongside its bootstrap interval (452--1,612).
+
+\subsection*{September 28 follow-up: a strategy logit}
+
+Following Evan Soltas's point that IO backs out unobserved costs from
+observed choices, Jacob asked whether a logit, standard in that literature,
+would do better than the random splitting cost. The main model is already a
+random-coefficients choice model (random coefficients on the burden and on
+the number of added buildings) without an idiosyncratic error. In
+\path{fit_strategy_logit.R} each parent instead chooses among strategies, a
+building count with every building under 100 or not, each at its best total;
+a strategy costs its size loss and burden plus a fixed cost $\sigma$ per added
+building raised to $\gamma$, and each strategy draws an independent
+extreme-value shock with scale $\mu$. The scaled burden stays as the random
+coefficient, so the model is a mixed logit. Parents the burden does not touch
+keep their historical outcome, so the no-policy benchmark is reproduced; a
+logit over every unit count was rejected because it would spread every
+project around its preferred size even without the rule. The likelihood and
+its unexplained share are unchanged, so the fits compare directly.
+
+\begin{center}
+\small
+\begin{tabular}{lrr}
+\hline
+ & Main model & Strategy logit \\
+\hline
+Median jump $\kappa$ & 0.18 & 0.16 \\
+Kink $\tau$ & 0 & 0 \\
+Spread $s$ & 2 & 1 \\
+Splitting cost $\sigma$, growth $\gamma$ & 0.20 (mean), 2 & 0.13 (fixed), 1.25 \\
+Logit scale $\mu$ & -- & 0.05 \\
+Log-likelihood & $-584.5$ & $-586.7$ \\
+Free parameters & 6 & 7 \\
+AIC & 1,181.1 & 1,187.4 \\
+Units lost & 761 & 657 \\
+\hline
+\end{tabular}
+\end{center}
+
+The logit fits worse with one more parameter. Its shocks give every affected
+parent some chance of staying just above 100 in one building (0.3 percent at
+100--104, where none are observed), the pattern that also counted against
+non-optimizers; the random splitting cost instead lets parents differ in a
+way that leaves that region empty. The logit scale is weakly identified
+(log-likelihood $-586.7$ to $-588.5$ over $\mu$ from 0.005 to 0.5), and units
+lost move with it from 514 to 1,682. The main model is kept, and Jacob chose
+not to pursue the logit: the code was removed after commit \texttt{808b2f7},
+which preserves it.
