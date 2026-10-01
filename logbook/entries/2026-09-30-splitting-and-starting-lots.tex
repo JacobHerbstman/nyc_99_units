@@ -71,3 +71,50 @@ that program (2014--2015), the 2016--2017 lapse, and Affordable New York
 (2017--2022); the main 2019--2022 benchmark lies within the last. He also reads
 421-a receipt from DOF exemption codes, which could check separate assessment
 of historical splitters.
+
+\paragraph{Follow-up: the splitting cost by starting lots.}
+\path{fit_heterogeneity.R} now fits the main model with recent parents on one
+starting lot and on several compared separately, each against the historical
+parents of the same group, and with mean splitting cost
+$\sigma e^{-\beta}$ on sites of two or more starting lots
+(\path{scaled_burden_lot_count_splitting}). Fit by group, the main model
+($\beta = 0$, \texttt{scaled\_burden\_by\_lots}) has log-likelihood $-570$; the
+variant has $-553$ ($\beta = 4$), a likelihood ratio of 34 for one parameter.
+Its mean splitting cost on one lot is 2.0, ten times the main model's, and
+splitting on several lots is about 55 times cheaper. It predicts splitting by 6.9
+percent of recent parents on one lot and 55.7 percent on several, against 5.5
+and 55.1 observed; the main model predicts 17.7 and 46.5.
+
+\paragraph{Why the estimate rises.} The pooled likelihood cannot tell shrinking
+from splitting. The main estimate (761 units lost), the main model fit by group
+(1,069) and the variant (1,717) lie within 3 log points of each other on the
+pooled cells. The main estimate reaches 761 by predicting that single-lot sites
+split three times as often as they do. Fit by group with one splitting cost,
+the model compromises on a costlier cost everywhere ($\sigma$ 0.20 to 0.32,
+$\gamma$ 2 to 3), only 2 log points better than the main estimate; the variant
+improves on it by 17.
+
+\paragraph{Bootstrap.} \path{bootstrap_scaled_burden.R} takes the model as a
+second argument; the main model is its case of one group and $\beta = 0$. Over
+500 draws of the main sample the variant gives:
+
+\begin{center}
+\small
+\begin{tabular}{lrr}
+\hline
+ & Estimate & Bootstrap 95\% interval \\
+\hline
+$\beta$ & 4 & 2--5 \\
+Mean splitting cost on one lot $\sigma$ & 2.0 & 0.63--7.9 \\
+Median jump $\kappa$ & 0.30 & 0.05--1.0 \\
+Units lost & 1,717 & 903--3,507 \\
+\hline
+\end{tabular}
+\end{center}
+
+No draw sets $\beta$ below 1.5, and 1 percent of draws give fewer units lost
+than the main estimate; the bootstrap median is 1,843. Starting lots settle
+that single-lot sites rarely split, but not how costly splitting them is or how
+large the burden is, which together decide how many of them shrink. Units lost
+is lowest near $\beta = 3$ (median 1,557 among those draws) and higher at 2 and
+5. The variant is not yet the main model.

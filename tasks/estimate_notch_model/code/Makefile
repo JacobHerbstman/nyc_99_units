@@ -5,7 +5,9 @@ include ../../shared/code/shell_functions.make
 VARIANTS := all_filings horizon_180 cohort_2025 placebo history_2014
 SAMPLES := $(VARIANTS:%=../output/bootstrap_samples_%.parquet)
 BOOTSTRAPS := $(VARIANTS:%=../output/scaled_burden_bootstrap_estimates_%.csv) \
-	$(VARIANTS:%=../output/scaled_burden_bootstrap_draws_%.csv)
+	$(VARIANTS:%=../output/scaled_burden_bootstrap_draws_%.csv) \
+	../output/lot_count_splitting_bootstrap_estimates_all_filings.csv \
+	../output/lot_count_splitting_bootstrap_draws_all_filings.csv
 
 all: ../output/estimation_parents.parquet ../output/model_checks.csv ../output/estimates.csv \
 	../output/heterogeneity_estimates.csv $(SAMPLES) $(BOOTSTRAPS) ../output/pdf/model_fit.pdf \
@@ -41,7 +43,14 @@ $(HETEROGENEITY_OUTPUTS): fit_heterogeneity.R notch_model.R ../output/estimation
 ../output/scaled_burden_bootstrap_estimates_%.csv ../output/scaled_burden_bootstrap_draws_%.csv: \
 	bootstrap_scaled_burden.R notch_model.R ../output/estimation_parents.parquet ../output/bootstrap_samples_%.parquet \
 	../output/heterogeneity_estimates.csv Makefile | $(OOPR)
-	$(R) $< $*
+	$(R) $< $* scaled_burden
+
+# The main model with a splitting cost that depends on starting lots, on the
+# main sample.
+../output/lot_count_splitting_bootstrap_estimates_%.csv ../output/lot_count_splitting_bootstrap_draws_%.csv: \
+	bootstrap_scaled_burden.R notch_model.R ../output/estimation_parents.parquet ../output/bootstrap_samples_%.parquet \
+	../output/heterogeneity_estimates.csv Makefile | $(OOPR)
+	$(R) $< $* lot_count_splitting
 
 ../output/pdf/model_fit.pdf: plot_model_fit.R ../output/heterogeneity_cell_fit.csv ../output/heterogeneity_estimates.csv \
 	../output/scaled_burden_bootstrap_estimates_all_filings.csv ../output/estimates.csv Makefile | $(OOPR) \
