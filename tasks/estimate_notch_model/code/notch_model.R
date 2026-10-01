@@ -140,6 +140,9 @@ segment_probabilities <- function(segments, sigma, scale = 1) {
 # cheaper for larger lots or projects and sigma is the mean at the reference,
 # the median historical lot or 150 units.
 splitting_elasticity_grid <- c(-3, -2, -1.5, -1, -0.5, 0, 0.5, 1, 2)
+# A site on two or more starting lots may split more cheaply: its mean is
+# sigma * exp(-beta), splitting_scale of the indicator with reference 0.
+lot_count_grid <- c(-1, 0, 0.5, 1, 1.5, 2, 2.5, 3, 4, 5)
 splitting_scale <- function(log_value, beta, log_reference = median(log_value)) {
   exp(-beta * (log_value - log_reference))
 }

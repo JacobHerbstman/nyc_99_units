@@ -1,14 +1,15 @@
-Rows: 294
-Columns: 8
-Key fields: model, cell
-Saved-file MD5: 45970a724003e946881134bdd49a19a6
+Rows: 462
+Columns: 9
+Key fields: model, starting_lots, cell
+Saved-file MD5: e50a3dfa9561a459f07fd9862af2dd71
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-model | character | nonmissing | 294 | distinct | 7
-cell | numeric | nonmissing | 294 | distinct | 42 min/median/mean/max 1/22.5/22.5/44
-buildings | character | nonmissing | 294 | distinct | 3
-size_bin | character | nonmissing | 294 | distinct | 14
-observed_parents | numeric | nonmissing | 294 | distinct | 13 min/median/mean/max 0/1/6.619048/137
-observed | numeric | nonmissing | 294 | distinct | 13 min/median/mean/max 0/0.003597122/0.02380952/0.4928058
-benchmark | numeric | nonmissing | 294 | distinct | 26 min/median/mean/max 0/0.002255184/0.02380952/0.4683514
-fitted | numeric | nonmissing | 294 | distinct | 159 min/median/mean/max 0/0.004845007/0.02380952/0.457155
+model | character | nonmissing | 462 | distinct | 9
+starting_lots | character | nonmissing | 462 | distinct | 3
+cell | numeric | nonmissing | 462 | distinct | 42 min/median/mean/max 1/22.5/22.5/44
+buildings | character | nonmissing | 462 | distinct | 3
+size_bin | character | nonmissing | 462 | distinct | 14
+observed_parents | numeric | nonmissing | 462 | distinct | 17 min/median/mean/max 0/0/5.415584/137
+observed | numeric | nonmissing | 462 | distinct | 30 min/median/mean/max 0/0/0.02380952/0.56
+benchmark | numeric | nonmissing | 462 | distinct | 64 min/median/mean/max 0/0.002185458/0.02380952/0.5106555
+fitted | numeric | nonmissing | 462 | distinct | 268 min/median/mean/max 0/0.004611986/0.02380952/0.4980094

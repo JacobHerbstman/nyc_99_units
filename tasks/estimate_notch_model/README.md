@@ -65,7 +65,12 @@ the compared range, scaled to the recent parents there:
   heterogeneous jump with a common kink; both of the last two; and the main
   model with a splitting cost that depends on lot area or on the preferred
   size, mean `sigma * (lot / median historical lot)^(-beta)` or
-  `sigma * (x / 150)^(-beta)`.
+  `sigma * (x / 150)^(-beta)`. The models by starting lots fit recent parents
+  on one starting lot and on several separately, each against the historical
+  parents of the same group: the main model (`scaled_burden_by_lots`), and the
+  main model with mean splitting cost `sigma * exp(-beta)` on several lots
+  (`scaled_burden_lot_count_splitting`). Their likelihood is compared only with
+  each other; the cell fit carries the group in `starting_lots`.
 - `draw_bootstrap_samples.R` draws 500 bootstrap samples of one variant:
   parents resampled with replacement within period and borough, with the
   weights recalibrated to each resampled recent sample. Draw 0 is the data.
