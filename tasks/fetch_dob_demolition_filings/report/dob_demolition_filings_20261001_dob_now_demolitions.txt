@@ -1,0 +1,14 @@
+Rows: 7827
+Columns: 10
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 1ab4f1a38d47cf7c2e7410d656cf2537
+job_filing_number | character | nonmissing | 7827 | distinct | 7827
+borough | character | nonmissing | 7827 | distinct | 5
+block | numeric | nonmissing | 7827 | distinct | 2617 min/median/mean/max 1/3123/4010.916/16350
+lot | numeric | nonmissing | 7827 | distinct | 271 min/median/mean/max 1/32/73.69669/7511
+bbl | character | nonmissing | 7465 | distinct | 3700
+bin | numeric | nonmissing | 7827 | distinct | 5071 min/median/mean/max 1001270/3335934/3263360/5871445
+job_type | character | nonmissing | 7827 | distinct | 1
+filing_status | character | nonmissing | 7827 | distinct | 13
+filing_date | POSIXct/POSIXt | nonmissing | 7743 | distinct | 2440
+current_status_date | POSIXct/POSIXt | nonmissing | 7827 | distinct | 7762

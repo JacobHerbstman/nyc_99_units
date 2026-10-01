@@ -26,12 +26,14 @@ maximum_units <- 300
 #   splitting           cost scaled by its lot area or by its preferred size
 #                       (splitting_scale in notch_model.R); beta = 0 is the
 #                       scaled burden. They are compared, not adopted;
-#   by starting lots    recent parents on one starting lot and on several are
-#                       fit separately, each against the historical parents of
-#                       the same group, and the mean splitting cost of a site
-#                       on several lots is sigma * exp(-beta). Its likelihood
-#                       is not comparable with the pooled ones: beta = 0 is its
-#                       reference, the scaled burden fit by group.
+#   by lot group        recent parents on one lot and on several are fit
+#                       separately, each against the historical parents of the
+#                       same group, and the mean splitting cost of a site on
+#                       several lots is sigma * exp(-beta); lots are counted as
+#                       starting lots or as the site lots of the recorded
+#                       zoning lot. Their likelihood is not comparable with the
+#                       pooled ones: beta = 0 is the reference, the scaled
+#                       burden fit by the same groups.
 # The scaled burden is the main model. Each nests the single burden (pi = 0,
 # s = 0); non-optimizers and the heterogeneous jump are also combined. The
 # distributions are burden_distributions in notch_model.R. Scaling keeps the
@@ -52,19 +54,22 @@ uniform <- unexplained_shares(cells)
 benchmark <- cell_shares(outcome_cell(x, J0), matrix(w, ncol = 1))[cells, 1]
 unit_weight <- w * (x <= maximum_units) / sum(w[x <= maximum_units])
 benchmark_units <- nrow(post) * sum(unit_weight * x)
-# The fitted cells: all recent parents together, or by starting lots. Each
-# group's predicted shares are normalized within the group.
+# The fitted cells: all recent parents together, or by lot group, one lot or
+# several, counted by starting lots or by the site lots of the recorded zoning
+# lot. Each group's predicted shares are normalized within the group.
 pooled <- list(n = n, uniform = uniform, benchmark = benchmark, group = rep(1L, length(cells)))
-several_lots <- historical$starting_lots >= 2
-post_several_lots <- post$starting_lots >= 2
-by_lots <- list(
-  n = c(tabulate(outcome_cell(post$units[!post_several_lots], post$buildings[!post_several_lots]), 45L)[cells],
-    tabulate(outcome_cell(post$units[post_several_lots], post$buildings[post_several_lots]), 45L)[cells]),
-  uniform = c(uniform, uniform),
-  benchmark = c(cell_shares(outcome_cell(x, J0), matrix(w * !several_lots, ncol = 1))[cells, 1],
-    cell_shares(outcome_cell(x, J0), matrix(w * several_lots, ncol = 1))[cells, 1]),
-  group = rep(1:2, each = length(cells)))
-stopifnot(sum(by_lots$n) == sum(n), !anyNA(historical$starting_lots), !anyNA(post$starting_lots))
+lot_grouping <- function(historical_several, post_several) {
+  recent_cells <- function(keep) tabulate(outcome_cell(post$units[keep], post$buildings[keep]), 45L)[cells]
+  historical_cells <- function(weight) cell_shares(outcome_cell(x, J0), matrix(weight, ncol = 1))[cells, 1]
+  list(several = historical_several, n = c(recent_cells(!post_several), recent_cells(post_several)),
+    uniform = c(uniform, uniform),
+    benchmark = c(historical_cells(w * !historical_several), historical_cells(w * historical_several)),
+    group = rep(1:2, each = length(cells)))
+}
+groupings <- list(by_lots = lot_grouping(historical$starting_lots >= 2, post$starting_lots >= 2),
+  by_site_lots = lot_grouping(historical$site_lots >= 2, post$site_lots >= 2))
+stopifnot(!anyNA(c(historical$starting_lots, post$starting_lots, historical$site_lots, post$site_lots)),
+  all(vapply(groupings, function(grouping) sum(grouping$n) == sum(n), logical(1))))
 
 # Predictions at single burdens (kappa[p], tau[p]): cell shares by sigma and
 # units lost, for every gamma, with each parent's splitting cost scaled by
@@ -99,9 +104,15 @@ predict_scaled <- function(lot_beta, size_beta) {
   predict_burdens(scaled_sizes, splitting_scale(historical$log_lot_area, lot_beta) *
     splitting_scale(log(historical$units), size_beta, log(150)))
 }
-predict_by_lots <- function(beta) {
-  predict_burdens(scaled_sizes, splitting_scale(as.numeric(several_lots), beta, 0),
-    list(w * !several_lots, w * several_lots))
+predict_by_lots <- function(beta, grouping) {
+  several <- groupings[[grouping]]$several
+  predict_burdens(scaled_sizes, splitting_scale(as.numeric(several), beta, 0), list(w * !several, w * several))
+}
+fit_by_lots <- function(grouping) {
+  bind_rows(lapply(lot_count_grid, function(beta) {
+    fit_rays(predict_by_lots(beta, grouping), ratio_grid, 0, groupings[[grouping]]) |>
+      mutate(kink_to_jump = ratio_grid[ray], lot_elasticity = 0, size_elasticity = 0, lot_count_elasticity = beta)
+  }))
 }
 
 # Log-likelihood of every (ray, gamma, distribution, pi) at its best sigma and
@@ -145,14 +156,12 @@ grid <- bind_rows(
       fit_rays(predict_scaled(0, beta), ratio_grid, 0) |>
         mutate(kink_to_jump = ratio_grid[ray], lot_elasticity = 0, size_elasticity = beta)
     })),
-  by_lots = bind_rows(lapply(lot_count_grid, function(beta) {
-    fit_rays(predict_by_lots(beta), ratio_grid, 0, by_lots) |>
-      mutate(kink_to_jump = ratio_grid[ray], lot_elasticity = 0, size_elasticity = 0, lot_count_elasticity = beta)
-  })),
+  by_lots = fit_by_lots("by_lots"),
+  by_site_lots = fit_by_lots("by_site_lots"),
   .id = "burden") |>
   mutate(lot_count_elasticity = coalesce(lot_count_elasticity, 0)) |>
   mutate(kappa = burden_distributions$median[jump], dispersion = burden_distributions$dispersion[jump],
-    tau = if_else(burden %in% c("scaled", "by_lots"), kink_to_jump * kappa, tau),
+    tau = if_else(burden == "common_kink", tau, kink_to_jump * kappa),
     share_jump_below_0.01 = rowSums(burden_mass[, kappa_values < 0.01, drop = FALSE])[jump],
     share_jump_above_1 = rowSums(burden_mass[, kappa_values > 1, drop = FALSE])[jump])
 
@@ -167,7 +176,9 @@ models <- tribble(
   "scaled_burden_lot_splitting",       "scaled",      7, FALSE, TRUE,  TRUE,  FALSE, FALSE,
   "scaled_burden_size_splitting",      "scaled",      7, FALSE, TRUE,  FALSE, TRUE,  FALSE,
   "scaled_burden_by_lots",             "by_lots",     6, FALSE, TRUE,  FALSE, FALSE, FALSE,
-  "scaled_burden_lot_count_splitting", "by_lots",     7, FALSE, TRUE,  FALSE, FALSE, TRUE
+  "scaled_burden_lot_count_splitting", "by_lots",     7, FALSE, TRUE,  FALSE, FALSE, TRUE,
+  "scaled_burden_by_site_lots",        "by_site_lots", 6, FALSE, TRUE, FALSE, FALSE, FALSE,
+  "scaled_burden_site_lot_splitting",  "by_site_lots", 7, FALSE, TRUE, FALSE, FALSE, TRUE
 )
 restrict <- function(model) {
   spec <- models[models$model == model, ]
@@ -180,12 +191,12 @@ estimates <- bind_rows(lapply(models$model, function(model) {
 })) |>
   select(-burden) |>
   left_join(models, by = "model", relationship = "one-to-one") |>
-  # Likelihood ratios against the single burden, or for the models by starting
-  # lots against the scaled burden fit by group.
-  group_by(pooled = burden != "by_lots") |>
+  # Likelihood ratios against the single burden, or for the models by lot group
+  # against the scaled burden fit by the same groups.
+  group_by(fitted_cells = if_else(burden %in% names(groupings), burden, "pooled")) |>
   mutate(aic = 2 * free_parameters - 2 * log_likelihood,
     likelihood_ratio = 2 * (log_likelihood -
-      log_likelihood[model %in% c("single_jump", "scaled_burden_by_lots")])) |>
+      log_likelihood[model %in% c("single_jump", "scaled_burden_by_lots", "scaled_burden_by_site_lots")])) |>
   ungroup() |>
   select(model, burden, kappa, tau, kink_to_jump, dispersion, gamma, sigma, lot_elasticity, size_elasticity,
     lot_count_elasticity, pi, epsilon, share_jump_below_0.01, share_jump_above_1, log_likelihood, free_parameters, aic,
@@ -211,7 +222,10 @@ profile_pairs <- tribble(
   "scaled_burden_size_splitting",      "dispersion",
   "scaled_burden_lot_count_splitting", "lot_count_elasticity",
   "scaled_burden_lot_count_splitting", "kink_to_jump",
-  "scaled_burden_lot_count_splitting", "dispersion"
+  "scaled_burden_lot_count_splitting", "dispersion",
+  "scaled_burden_site_lot_splitting",  "lot_count_elasticity",
+  "scaled_burden_site_lot_splitting",  "kink_to_jump",
+  "scaled_burden_site_lot_splitting",  "dispersion"
 )
 profiles <- bind_rows(lapply(seq_len(nrow(profile_pairs)), function(r) {
   restrict(profile_pairs$model[r]) |>
@@ -222,13 +236,13 @@ profiles <- bind_rows(lapply(seq_len(nrow(profile_pairs)), function(r) {
       units_lost)
 }))
 
-# Cell fit at each model's estimate, by starting lots for the models fit by
-# group.
+# Cell fit at each model's estimate, by lot group for the models fit by group.
 cell_fit <- bind_rows(lapply(seq_len(nrow(estimates)), function(r) {
   e <- estimates[r, ]
   prediction <- switch(e$burden, common_kink = common_kink,
-    scaled = predict_scaled(e$lot_elasticity, e$size_elasticity), by_lots = predict_by_lots(e$lot_count_elasticity))
-  data <- if (e$burden == "by_lots") by_lots else pooled
+    scaled = predict_scaled(e$lot_elasticity, e$size_elasticity),
+    predict_by_lots(e$lot_count_elasticity, e$burden))
+  data <- if (e$burden %in% names(groupings)) groupings[[e$burden]] else pooled
   points <- (e$ray - 1L) * length(kappa_values) + seq_along(kappa_values)
   s <- match(e$sigma, sigma_grid)
   g <- match(e$gamma, gamma_grid)
@@ -236,7 +250,7 @@ cell_fit <- bind_rows(lapply(seq_len(nrow(estimates)), function(r) {
     e$pi * data$benchmark
   within <- function(v) v / rowsum(v, data$group)[data$group]
   tibble(model = e$model,
-    starting_lots = if (e$burden == "by_lots") rep(c("one", "several"), each = length(cells)) else "all",
+    lot_group = if (e$burden %in% names(groupings)) rep(c("one", "several"), each = length(cells)) else "all",
     cell = rep(cells, max(data$group)), buildings = rep(c("1", "2", "3+"), each = 15)[cell],
     size_bin = rep(size_bin_labels, 3)[cell], observed_parents = data$n, observed = within(data$n),
     benchmark = within(data$benchmark), fitted = (1 - e$epsilon) * within(predicted) + e$epsilon * data$uniform)
@@ -246,4 +260,4 @@ estimates <- estimates |> select(-ray, -jump)
 print(estimates, width = Inf)
 SaveData(estimates, "model", "../output/heterogeneity_estimates.csv")
 SaveData(profiles, c("model", "parameter", "value"), "../output/heterogeneity_profiles.csv")
-SaveData(cell_fit, c("model", "starting_lots", "cell"), "../output/heterogeneity_cell_fit.csv")
+SaveData(cell_fit, c("model", "lot_group", "cell"), "../output/heterogeneity_cell_fit.csv")

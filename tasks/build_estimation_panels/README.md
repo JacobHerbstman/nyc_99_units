@@ -64,6 +64,11 @@ assessment needs its own evidence.
 - `starting_lots` counts the tax lots the site occupied before its own mergers
   and subdivisions (`build_parent_site_characteristics`), for the splitting cost
   of `estimate_notch_model`.
+- `site_lots`, `site_lot_area_sqft`, `site_residential_far`, `site_frontage_ft`,
+  `air_rights_donor_lots`, `site_lots_unmapped`, `zoning_lot_record` and
+  `zoning_lot_window_complete` describe the whole site from its recorded zoning
+  lot (`build_parent_site_characteristics`). They are alongside the established
+  land measures, which the weights still use.
 - `community_district` is the MapPLUTO community district (for example `303`,
   Brooklyn 3) of the parent's lots in the same release that supplies its land
   and zoning; `Mixed` when the lots span districts and `missing` when no lot

@@ -4,7 +4,8 @@ TASKS := analyze_borough_bunching build_estimation_panels build_hdb_mappluto_sit
 	build_parent_site_characteristics classify_parent_485x_exposure construct_historical_parent_links \
 	construct_parent_cohorts fetch_dcp_housing_database fetch_dob_now_new_building_filings \
 	fetch_hpd_485x_registrations fetch_mappluto_archive fetch_nyc_borough_boundaries fetch_dof_tax_map_history \
-	fetch_dob_bis_job_filings fetch_nys_ag_offering_plans estimate_notch_model \
+	fetch_dob_bis_job_filings fetch_nys_ag_offering_plans fetch_acris_zoning_lots fetch_dob_demolition_filings \
+	estimate_notch_model \
 	link_hpd_485x_registrations parent_opportunities_manual plot_bunching stage_dcp_housing_database \
 	stage_dob_now_new_building_filings stage_mappluto_lots
 
@@ -46,7 +47,8 @@ build_hdb_mappluto_site_panel: fetch_mappluto_archive stage_dcp_housing_database
 	$(MAKE) -C tasks/build_hdb_mappluto_site_panel/code
 
 build_parent_site_characteristics: build_hdb_mappluto_site_panel construct_parent_cohorts stage_mappluto_lots \
-	stage_dob_now_new_building_filings parent_opportunities_manual fetch_dof_tax_map_history
+	stage_dob_now_new_building_filings parent_opportunities_manual fetch_dof_tax_map_history fetch_acris_zoning_lots \
+	fetch_dob_demolition_filings
 	$(MAKE) -C tasks/build_parent_site_characteristics/code
 
 classify_parent_485x_exposure: construct_historical_parent_links construct_parent_cohorts link_hpd_485x_registrations \
@@ -69,6 +71,12 @@ fetch_dcp_housing_database:
 
 fetch_dof_tax_map_history:
 	$(MAKE) -C tasks/fetch_dof_tax_map_history/code
+
+fetch_acris_zoning_lots:
+	$(MAKE) -C tasks/fetch_acris_zoning_lots/code
+
+fetch_dob_demolition_filings:
+	$(MAKE) -C tasks/fetch_dob_demolition_filings/code
 
 fetch_dob_bis_job_filings:
 	$(MAKE) -C tasks/fetch_dob_bis_job_filings/code

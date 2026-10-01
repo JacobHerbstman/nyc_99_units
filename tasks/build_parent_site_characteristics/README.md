@@ -50,6 +50,38 @@ from. The window is the same in both periods. A reviewed parent starts on the
 earlier parcels its decision names. Lots never merged or filed on, such as the
 rest of a zoning lot, are not counted in either period.
 
+## The site from its recorded zoning lot
+
+The filing lot can be one piece of an assembled site, and a small building lot
+can borrow floor area from neighbours that keep their buildings. A zoning lot
+description recorded in ACRIS (`fetch_acris_zoning_lots`, document type ZONE)
+lists every tax lot of a development's zoning lot. One applies when it lists a
+lot of the parent's buildings (DOB filing lot or mapped lot, in both periods)
+and is dated from two years before the first filing to 180 days after it; most
+are recorded within months of filing. Its lots, after the same undoing of
+mergers and subdivisions as `starting_lots`, are classified in the parent's
+reference release: a lot is built on when it has no building floor or vacant
+land use, or a DOB full demolition (`fetch_dob_demolition_filings`) was filed
+on it from three years before the first filing to 180 days after it; otherwise
+it lends floor area while its building remains. Condominium unit lots belong to
+a remaining building.
+
+- `site_lots` counts the starting lots and the built-on lots of the zoning lot;
+  without a record it equals `starting_lots`.
+- `site_lot_area_sqft`, `site_residential_far` and `site_frontage_ft` are the
+  land, land-weighted residential FAR and summed street frontage of those lots
+  in the reference release. Frontage sums each lot's own frontage, so it
+  counts a corner lot's main frontage once.
+- `air_rights_donor_lots` counts the zoning lot's lots whose buildings remain;
+  `site_lots_unmapped` counts site lots absent from the reference release,
+  whose land is missing from the sums.
+- `zoning_lot_record` marks a record in the window; `zoning_lot_window_complete`
+  is FALSE for parents first filed less than 180 days before the October 1,
+  2026 ACRIS capture.
+
+A reviewed parent's site measures are its documented parcels. These columns are
+alongside the established land measures and do not replace them.
+
 ## Reviewed parcel allocations
 
 `site_lot_decisions.csv`, owned by `parent_opportunities_manual`, replaces the

@@ -1,0 +1,15 @@
+Rows: 80346
+Columns: 11
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 785f0432564c881811c907b94aa03f58
+job__ | numeric | nonmissing | 80346 | distinct | 48720 min/median/mean/max 102037200/401235100/353991300/520469400
+doc__ | character | nonmissing | 80346 | distinct | 6
+borough | character | nonmissing | 80346 | distinct | 5
+block | character | nonmissing | 80346 | distinct | 8963
+lot | character | nonmissing | 80346 | distinct | 714
+bin__ | numeric | nonmissing | 80346 | distinct | 38308 min/median/mean/max 1000041/4010655/3630443/5869568
+job_type | character | nonmissing | 80346 | distinct | 1
+job_status | character | nonmissing | 80346 | distinct | 8
+pre__filing_date | character | nonmissing | 80346 | distinct | 5705
+latest_action_date | character | nonmissing | 80346 | distinct | 5420
+dobrundate | POSIXct/POSIXt | nonmissing | 80346 | distinct | 245

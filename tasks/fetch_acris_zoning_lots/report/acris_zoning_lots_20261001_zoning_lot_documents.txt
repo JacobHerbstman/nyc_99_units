@@ -1,0 +1,13 @@
+Rows: 32733
+Columns: 9
+Key fields: aggregate table or source rows without a designated key
+Saved-file MD5: 0e50f2aea3bb59a6b1bfa2800dc62bf9
+document_id | numeric | nonmissing | 32733 | distinct | 32677 min/median/mean/max 2.011093e+15/2.018072e+15/2.018617e+15/2.026083e+15
+record_type | character | nonmissing | 32733 | distinct | 1
+crfn | numeric | nonmissing | 32733 | distinct | 32677 min/median/mean/max 2.012e+12/2.018e+12/2.018569e+12/2.026e+12
+recorded_borough | numeric | nonmissing | 32733 | distinct | 4 min/median/mean/max 1/1/1.197538/4
+doc_type | character | nonmissing | 32733 | distinct | 2
+document_date | POSIXct/POSIXt | nonmissing | 32733 | distinct | 4451
+recorded_datetime | POSIXct/POSIXt | nonmissing | 32733 | distinct | 3671
+modified_date | POSIXct/POSIXt | nonmissing | 32733 | distinct | 3671
+good_through_date | POSIXct/POSIXt | nonmissing | 32733 | distinct | 134

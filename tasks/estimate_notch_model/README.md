@@ -17,7 +17,9 @@ recent parents first filed in 2025. Variant `placebo` is a pre-policy placebo
 from the extended panels: parents first filed in 2015–2018 stand in for the
 historical sample and those first filed in 2019–2022, before 485-x, for the
 recent one. Variant `history_2014` uses the historical parents first filed in
-2014–2022 against the same recent parents.
+2014–2022 against the same recent parents. Variant `zoning_lot_recorded`
+keeps the parents of the comparison with a recorded zoning lot, whose site lots
+are measured the same way in both periods.
 
 ## Model
 
@@ -69,8 +71,11 @@ the compared range, scaled to the recent parents there:
   on one starting lot and on several separately, each against the historical
   parents of the same group: the main model (`scaled_burden_by_lots`), and the
   main model with mean splitting cost `sigma * exp(-beta)` on several lots
-  (`scaled_burden_lot_count_splitting`). Their likelihood is compared only with
-  each other; the cell fit carries the group in `starting_lots`.
+  (`scaled_burden_lot_count_splitting`), and the same with lots counted as the
+  site lots of the recorded zoning lot (`scaled_burden_by_site_lots`,
+  `scaled_burden_site_lot_splitting`). Their likelihood is compared only with
+  the reference fit by the same groups; the cell fit carries the group in
+  `lot_group`.
 - `draw_bootstrap_samples.R` draws 500 bootstrap samples of one variant:
   parents resampled with replacement within period and borough, with the
   weights recalibrated to each resampled recent sample. Draw 0 is the data.
@@ -78,8 +83,11 @@ the compared range, scaled to the recent parents there:
   every sample of one variant; for `all_filings` draw 0 reproduces the estimate
   of `fit_heterogeneity.R`. The other variants are the checks: a common
   180-day horizon, 2025 parents only, the pre-policy placebo, where a
-  method free of benchmark drift should find no burden and no units lost, and
-  the longer historical period.
+  method free of benchmark drift should find no burden and no units lost, the
+  longer historical period, and the parents with a recorded zoning lot. Its
+  second argument is the model: `scaled_burden`, or `lot_count_splitting` and
+  `site_lot_splitting`, the main model fit by lot group with the splitting cost
+  depending on starting lots or on site lots.
 - `plot_model_fit.R` draws the main model's fit.
 
 ## Least squares and robustness

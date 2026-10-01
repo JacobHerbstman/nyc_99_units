@@ -19,7 +19,7 @@ if (!interactive()) {
   variant <- args[1]
   model <- args[2]
 }
-stopifnot(model %in% c("scaled_burden", "lot_count_splitting"))
+stopifnot(model %in% c("scaled_burden", "lot_count_splitting", "site_lot_splitting"))
 maximum_units <- 300
 
 # Bootstrap intervals for the main model, the scaled burden of
@@ -30,11 +30,12 @@ maximum_units <- 300
 # unexplained share epsilon. The model's choices do not depend on the weights,
 # so one pass scores every draw; the ratios run in parallel. The variant of the
 # sample is all_filings for the main estimate, or a check (horizon_180,
-# cohort_2025, placebo, history_2014). The model lot_count_splitting is the
-# variant of fit_heterogeneity.R that fits recent parents on one starting lot
-# and on several separately, each against the historical parents of the same
-# group, with mean splitting cost sigma * exp(-beta) on several lots; the
-# scaled burden is its case of one group and beta = 0.
+# cohort_2025, placebo, history_2014, zoning_lot_recorded). The models
+# lot_count_splitting and site_lot_splitting are the variants of
+# fit_heterogeneity.R that fit recent parents on one lot and on several
+# separately, each against the historical parents of the same group, with mean
+# splitting cost sigma * exp(-beta) on several lots, counted as starting lots or
+# as site lots; the scaled burden is their case of one group and beta = 0.
 parents <- read_parquet("../output/estimation_parents.parquet") |> filter(variant == !!variant)
 stopifnot(nrow(parents) > 0L)
 historical <- parents |> filter(sample == "historical")
@@ -46,9 +47,10 @@ cells <- cells_up_to(maximum_units)
 samples <- read_parquet(paste0("../output/bootstrap_samples_", variant, ".parquet"))
 draws <- max(samples$draw)
 W <- bootstrap_weights(samples, historical)
-by_lots <- model == "lot_count_splitting"
-group <- if (by_lots) 1L + (historical$starting_lots >= 2) else rep(1L, length(x))
-post_group <- if (by_lots) 1L + (post$starting_lots >= 2) else rep(1L, nrow(post))
+lots <- c(scaled_burden = NA, lot_count_splitting = "starting_lots", site_lot_splitting = "site_lots")[[model]]
+by_lots <- !is.na(lots)
+group <- if (by_lots) 1L + (historical[[lots]] >= 2) else rep(1L, length(x))
+post_group <- if (by_lots) 1L + (post[[lots]] >= 2) else rep(1L, nrow(post))
 groups <- max(group)
 betas <- if (by_lots) lot_count_grid else 0
 compared <- post |> mutate(group = post_group) |> filter(units <= maximum_units)
@@ -114,7 +116,7 @@ fit_ratio <- function(r, beta) {
       }
       distribution <- apply(score, 2, which.max)
       chosen <- cbind(distribution, seq_len(ncol(W)))
-      lost <- burden_mass %*% t(sapply(levels, function(level) level$lost[, s]))
+      lost <- burden_mass %*% t(do.call(cbind, lapply(levels, function(level) level$lost[, s])))
       improved <- score[chosen] > best$log_likelihood
       best[improved, -1] <- tibble(log_likelihood = score[chosen], gamma = gamma, sigma = sigma_grid[s],
         distribution = distribution, epsilon = epsilon_grid[at_epsilon[chosen]], units_lost = lost[chosen])[improved, ]
@@ -142,7 +144,8 @@ bootstrap_draws <- bind_rows(by_ratio) |>
 # For the main sample, draw 0 reproduces the estimate of fit_heterogeneity.R.
 if (variant == "all_filings") {
   estimate <- read_csv("../output/heterogeneity_estimates.csv", show_col_types = FALSE) |>
-    filter(model == if (by_lots) "scaled_burden_lot_count_splitting" else "scaled_burden")
+    filter(model == c(scaled_burden = "scaled_burden", lot_count_splitting = "scaled_burden_lot_count_splitting",
+      site_lot_splitting = "scaled_burden_site_lot_splitting")[[!!model]])
   data_draw <- bootstrap_draws |> filter(draw == 0L)
   stopifnot(abs(data_draw$log_likelihood - estimate$log_likelihood) < 1e-8,
     abs(data_draw$units_lost - estimate$units_lost) < 1e-6)

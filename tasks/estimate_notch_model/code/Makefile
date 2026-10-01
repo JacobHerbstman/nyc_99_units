@@ -1,13 +1,16 @@
 include ../../shared/code/shell_functions.make
 
 # The main sample and its checks: a common 180-day horizon, 2025 parents only,
-# a pre-policy placebo and a longer historical period.
-VARIANTS := all_filings horizon_180 cohort_2025 placebo history_2014
+# a pre-policy placebo, a longer historical period, and parents with a recorded
+# zoning lot.
+VARIANTS := all_filings horizon_180 cohort_2025 placebo history_2014 zoning_lot_recorded
 SAMPLES := $(VARIANTS:%=../output/bootstrap_samples_%.parquet)
 BOOTSTRAPS := $(VARIANTS:%=../output/scaled_burden_bootstrap_estimates_%.csv) \
 	$(VARIANTS:%=../output/scaled_burden_bootstrap_draws_%.csv) \
 	../output/lot_count_splitting_bootstrap_estimates_all_filings.csv \
-	../output/lot_count_splitting_bootstrap_draws_all_filings.csv
+	../output/lot_count_splitting_bootstrap_draws_all_filings.csv \
+	$(foreach v,all_filings zoning_lot_recorded,../output/site_lot_splitting_bootstrap_estimates_$(v).csv \
+	../output/site_lot_splitting_bootstrap_draws_$(v).csv)
 
 all: ../output/estimation_parents.parquet ../output/model_checks.csv ../output/estimates.csv \
 	../output/heterogeneity_estimates.csv $(SAMPLES) $(BOOTSTRAPS) ../output/pdf/model_fit.pdf \
@@ -51,6 +54,12 @@ $(HETEROGENEITY_OUTPUTS): fit_heterogeneity.R notch_model.R ../output/estimation
 	bootstrap_scaled_burden.R notch_model.R ../output/estimation_parents.parquet ../output/bootstrap_samples_%.parquet \
 	../output/heterogeneity_estimates.csv Makefile | $(OOPR)
 	$(R) $< $* lot_count_splitting
+
+# The same with lots counted as the site lots of the recorded zoning lot.
+../output/site_lot_splitting_bootstrap_estimates_%.csv ../output/site_lot_splitting_bootstrap_draws_%.csv: \
+	bootstrap_scaled_burden.R notch_model.R ../output/estimation_parents.parquet ../output/bootstrap_samples_%.parquet \
+	../output/heterogeneity_estimates.csv Makefile | $(OOPR)
+	$(R) $< $* site_lot_splitting
 
 ../output/pdf/model_fit.pdf: plot_model_fit.R ../output/heterogeneity_cell_fit.csv ../output/heterogeneity_estimates.csv \
 	../output/scaled_burden_bootstrap_estimates_all_filings.csv ../output/estimates.csv Makefile | $(OOPR) \

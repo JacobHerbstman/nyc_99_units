@@ -1,7 +1,7 @@
 Rows: 6033
-Columns: 50
+Columns: 58
 Key fields: sample, parent_id
-Saved-file MD5: 1c75a60065cd9b9c8c932c90467cc772
+Saved-file MD5: 25fdf4861e53a8602c4ab8ec1cfc8a17
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 6033 | distinct | 2
@@ -51,6 +51,14 @@ built_floor_area_estimated | logical | nonmissing | 6033 | distinct | 2
 merged_lots_added | integer | nonmissing | 6033 | distinct | 10 min/median/mean/max 0/0/0.07608155/10
 merger_window_complete | logical | nonmissing | 6033 | distinct | 2
 starting_lots | integer | nonmissing | 6033 | distinct | 16 min/median/mean/max 1/1/1.313111/29
+site_lots | integer | nonmissing | 6033 | distinct | 19 min/median/mean/max 1/1/1.476711/29
+site_lot_area_sqft | numeric | nonmissing | 6033 | distinct | 3039 min/median/mean/max 0/5000/20331.54/8347883
+site_residential_far | numeric | nonmissing | 6018 | distinct | 142 min/median/mean/max 0/3/3.311168/12
+site_frontage_ft | numeric | nonmissing | 6033 | distinct | 1719 min/median/mean/max 0/50/95.76037/4356
+air_rights_donor_lots | integer | nonmissing | 6033 | distinct | 11 min/median/mean/max 0/0/0.09149677/38
+site_lots_unmapped | integer | nonmissing | 6033 | distinct | 8 min/median/mean/max 0/0/0.02403448/25
+zoning_lot_record | logical | nonmissing | 6033 | distinct | 2
+zoning_lot_window_complete | logical | nonmissing | 6033 | distinct | 2
 implausible_site | logical | nonmissing | 6033 | distinct | 2
 borough | character | nonmissing | 6017 | distinct | 5
 community_district | character | nonmissing | 6017 | distinct | 60

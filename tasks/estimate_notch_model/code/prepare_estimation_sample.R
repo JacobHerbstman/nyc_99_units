@@ -33,8 +33,8 @@ extended <- read_sample("../input/extended_parent_opportunity_panel.parquet",
 
 site_traits <- function(parents) {
   parents |>
-    select(sample, parent_id, cohort_date, residential_far, built_far, log_lot_area, starting_lots, borough,
-      observed_followup_days, parent_total_units, n_components)
+    select(sample, parent_id, cohort_date, residential_far, built_far, log_lot_area, starting_lots, site_lots,
+      zoning_lot_record, borough, observed_followup_days, parent_total_units, n_components)
 }
 
 # Variants of the sample:
@@ -49,7 +49,10 @@ site_traits <- function(parents) {
 #                2015-2018 stand in for the historical sample and those first
 #                filed in 2019-2022, before 485-x, for the recent one;
 #   history_2014 a longer historical sample, parents first filed in
-#                2014-2022, against the same recent parents.
+#                2014-2022, against the same recent parents;
+#   zoning_lot_recorded  the comparison restricted to parents with a recorded
+#                zoning lot, whose site lots are measured the same way in both
+#                periods.
 variants <- list(
   all_filings = site_traits(comparison$parents) |>
     inner_join(count_buildings(comparison$constituents), by = "parent_id", relationship = "one-to-one"),
@@ -65,7 +68,10 @@ variants <- list(
     inner_join(count_buildings(extended$constituents), by = "parent_id", relationship = "one-to-one") |>
     mutate(sample = if_else(cohort_date < as.Date("2019-01-01"), "historical", "post_policy")),
   history_2014 = site_traits(extended$parents) |>
-    inner_join(count_buildings(extended$constituents), by = "parent_id", relationship = "one-to-one")
+    inner_join(count_buildings(extended$constituents), by = "parent_id", relationship = "one-to-one"),
+  zoning_lot_recorded = site_traits(comparison$parents) |>
+    filter(zoning_lot_record) |>
+    inner_join(count_buildings(comparison$constituents), by = "parent_id", relationship = "one-to-one")
 )
 stopifnot(with(variants$all_filings, all(units == parent_total_units), all(buildings == n_components)),
   with(variants$history_2014, all(units == parent_total_units), all(buildings == n_components)))
@@ -82,7 +88,7 @@ estimation_parents <- bind_rows(lapply(names(variants), function(variant) {
     post |> mutate(weight_zoning_borough = 1 / n(), weight_with_lot_area = 1 / n())
   ) |>
     transmute(variant, sample, parent_id, units, buildings, weight_zoning_borough, weight_with_lot_area,
-      residential_far, built_far, log_lot_area, starting_lots, borough)
+      residential_far, built_far, log_lot_area, starting_lots, site_lots, borough)
 }))
 
 SaveData(estimation_parents, c("variant", "sample", "parent_id"), "../output/estimation_parents.parquet")

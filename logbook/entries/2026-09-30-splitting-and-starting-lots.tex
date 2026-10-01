@@ -118,3 +118,42 @@ that single-lot sites rarely split, but not how costly splitting them is or how
 large the burden is, which together decide how many of them shrink. Units lost
 is lowest near $\beta = 3$ (median 1,557 among those draws) and higher at 2 and
 5. The variant is not yet the main model.
+
+\paragraph{Follow-up, October 1: fragments and the recorded zoning lot.}
+Many recent single-lot parents at 99 units sit on lots too small for their
+units (99 units on 1,700--3,200 square feet). The filing lot is one piece of the
+site: a zoning lot description recorded in ACRIS lists every tax lot of a
+development's zoning lot, and for these parents it often lists several. Some
+are lots built on, assembled but not yet merged; others are neighbours whose
+buildings remain and lend floor area. Two new acquisition tasks publish the
+records and the evidence for telling them apart:
+\path{fetch_acris_zoning_lots} (31,943 zoning lot descriptions and 790
+development-rights transfers since 2012, with the lots they list) and
+\path{fetch_dob_demolition_filings} (BIS and DOB NOW full demolitions).
+\path{build_parent_site_characteristics} adds, alongside the established land
+measures, the site lots, land, residential FAR and frontage of the recorded
+zoning lot: a listed lot is built on when vacant before filing or demolished
+around it, and otherwise lends floor area. A record counts when it lists a lot
+of the parent's buildings and is dated from two years before the first filing
+to 180 days after it.
+
+Counted this way, several lots no longer guarantee splitting: among recent
+parents of 90 or more units on several site lots, 14 percent stay at 99 in one
+building (6 percent by starting lots). Single-lot sites still rarely split.
+Among parents with a recorded zoning lot, fit by site lots, $\beta = 2.5$
+improves the fit over $\beta = 0$ by a likelihood ratio of 8.3 and raises units
+lost from 368 to 569, less than starting lots raised them on the full sample.
+
+\paragraph{A flaw in the 180-day rule.} Records exist for 61 percent of
+2019--2022 parents in the window but 47 percent of recent ones, and recording
+delays do not explain it: documents reach ACRIS within weeks, and recent
+coverage does not rise with longer follow-up. Coverage moves from year to year
+(45--80 percent by half-year) and peaks for parents first filed from July 2021
+to June 2022, the rush before 421-a expired. Rush parents eventually have a
+record about as often as others (89 against 81 percent) but recorded it twice
+as fast (median 2.3 against 4.8 months), so 71 against 46 percent fall within
+180 days. The rule therefore measures how fast the paperwork was done. Over 12
+months, coverage is nearly equal for parents observed that long (69 against 65
+percent). The window is to be redone before these measures enter the model;
+the fits with the site lots on the full sample and without the rush were
+stopped.
