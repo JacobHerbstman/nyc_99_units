@@ -26,14 +26,13 @@ count `J0`. Under the policy it chooses total units `m` and buildings `J` to
 minimize, relative to its ordinary cost of 99 units:
 
 - the size loss, `((m - x) / 99)^2` at curvature `lambda = 1`;
-- a burden on each building with 100 or more units: a jump `kappa` plus a kink
-  `tau * [(n / 99)^2 - (100 / 99)^2]`;
+- a jump `kappa` on each building with 100 or more units;
 - a splitting cost `c * k^gamma` for `k` buildings beyond `J0`, with `c` drawn
   for each parent from an exponential distribution with mean `sigma`; `gamma`
   above 1 makes each added building cost more than the last.
 
-Layouts are free, so above `99J` units the other buildings hold 99 each and the
-crossing buildings share the rest evenly. The best total for each `J` is found
+Layouts are free, so `J` buildings hold `99J` units free of the burden; above
+that, one building takes the rest and pays the jump once. The best total for each `J` is found
 by exhaustive integer search. Because the splitting cost is linear in `c`, each
 `J` is chosen on an interval of `c`, and choice probabilities are exact. A
 parent never chooses fewer buildings than `J0`: that raises the burden and
@@ -42,9 +41,9 @@ costs `c`. Without the burden every parent keeps `x` and `J0`.
 ## Main model
 
 The main model is the scaled burden, estimated by likelihood: each parent's
-jump and kink are multiplied by one lognormal scale with median 1 and log
-standard deviation `s`, as a gap between required and usual wages would scale
-them, so `kappa` and `tau` describe the median parent. The likelihood treats
+jump is multiplied by one lognormal scale with median 1 and log standard
+deviation `s`, as a gap between required and usual wages would scale it, so
+`kappa` is the median jump. The likelihood treats
 each recent parent of at most 300 units as a draw from the predicted cell
 probabilities (1, 2 or 3+ buildings by size bin, renormalized within the
 range). Every grid point gives probability zero to some observed parent, so a
@@ -52,19 +51,19 @@ share `epsilon` of recorded recent outcomes is unexplained by the model, spread
 uniformly over sizes 50–300 and 1, 2 or 3+ buildings; units lost use the
 model's choices only. Burden distributions are placed on the `kappa` grid,
 extended to 5, where every parent of at most 300 units avoids 100, so a
-prediction is a weighted average of single-burden predictions along one
-kink-to-jump ratio. The grids are in `notch_model.R`.
+prediction is a weighted average of single-jump predictions. The grids are in
+`notch_model.R`. The burden has no kink: estimated with one, it was zero in
+the main model.
 
 Units lost follow the framework among historical parents whose own size is in
 the compared range, scaled to the recent parents there:
 `P * sum(w * (x - E[m]))`.
 
 - `fit_heterogeneity.R` estimates the main model and the alternatives it is
-  compared with, all by likelihood: a single burden; non-optimizers, a share
-  `pi` of parents that keeps its 2019–2022 outcome and loses no units; a
-  heterogeneous jump with a common kink; both of the last two; and the main
-  model with a splitting cost that depends on lot area or on the preferred
-  size, mean `sigma * (lot / median historical lot)^(-beta)` or
+  compared with, all by likelihood: a single jump; non-optimizers, a share
+  `pi` of parents that keeps its 2019–2022 outcome and loses no units; the
+  main model with non-optimizers; and the main model with a splitting cost
+  that depends on lot area or on the preferred size, mean `sigma * (lot / median historical lot)^(-beta)` or
   `sigma * (x / 150)^(-beta)`.
 - `draw_bootstrap_samples.R` draws 500 bootstrap samples of one variant:
   parents resampled with replacement within period and borough, with the
@@ -81,7 +80,7 @@ the compared range, scaled to the recent parents there:
 
 `fit_notch_model.R` estimates the single burden by least squares: it minimizes
 the sum of squared differences between predicted and observed cell shares
-over a grid of `kappa`, `tau`, `gamma` and `sigma`. Specification
+over a grid of `kappa`, `gamma` and `sigma`. Specification
 `least_squares` compares parents of at most 300 units, the distribution
 within that range on both sides, renormalized, so the number of very large
 projects in each period does not enter; a historical parent above 300 that
@@ -103,8 +102,7 @@ for now.
 - `model_checks.csv`: numerical checks.
 - `heterogeneity_estimates.csv`, `heterogeneity_profiles.csv`,
   `heterogeneity_cell_fit.csv`: estimates, likelihood comparisons, profiles of
-  the added parameters and the kink, and cell fit for the main model and its
-  alternatives.
+  the added parameters, and cell fit for the main model and its alternatives.
 - `bootstrap_samples_<variant>.parquet`: the bootstrap samples of each variant.
 - `scaled_burden_bootstrap_estimates_<variant>.csv`,
   `scaled_burden_bootstrap_draws_<variant>.csv`: the main model's estimates,

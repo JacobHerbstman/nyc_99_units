@@ -4,8 +4,8 @@
 # buildings J. Every cost is divided by the parent's ordinary cost of 99 units,
 # so the parameters are ratios common to all parents:
 #   size loss       l(m; x): ordinary profit given up by building m instead of x
-#   policy burden   kappa + tau * [(n / 99)^(1 + lambda) - (100 / 99)^(1 + lambda)]
-#                   for each separately assessed building with n >= 100 units
+#   policy burden   a jump kappa for each separately assessed building with
+#                   n >= 100 units
 #   splitting cost  c * k^gamma for k buildings beyond the historical count,
 #                   with c drawn for each parent from an exponential distribution
 #                   with mean sigma; gamma > 1 makes each added building cost
@@ -27,36 +27,13 @@ size_loss <- function(m, x, lambda) {
   ifelse(m == x, 0, pmax(loss, 0))
 }
 
-scaled_power <- function(n, lambda) (n / 99)^(1 + lambda)
-
-building_burden <- function(n, kappa, tau, lambda) {
-  ifelse(n >= 100, kappa + tau * (scaled_power(n, lambda) - scaled_power(100, lambda)), 0)
-}
-
-# Lowest burden of m units in J buildings, for every J and m. Above 99J units,
-# k buildings cross 100: the others hold 99 each, and because the burden is
-# convex the crossing buildings split the rest as evenly as possible. Under
-# joint assessment the parent's total is assessed once, whatever J is.
-burden_table <- function(max_units, max_buildings, kappa, tau, lambda, assessment) {
-  m <- seq_len(max_units)
-  if (assessment == "joint") {
-    table <- matrix(building_burden(m, kappa, tau, lambda), max_buildings, max_units, byrow = TRUE)
-  } else {
-    table <- matrix(Inf, max_buildings, max_units)
-    for (J in seq_len(max_buildings)) {
-      best <- ifelse(m <= 99 * J, 0, Inf)
-      for (k in seq_len(J)) {
-        crossing_units <- m - 99 * (J - k)
-        feasible <- m > 99 * J & crossing_units >= 100 * k
-        base <- crossing_units %/% k
-        larger <- crossing_units %% k
-        burden <- k * kappa + tau * (larger * scaled_power(base + 1, lambda) +
-          (k - larger) * scaled_power(base, lambda) - k * scaled_power(100, lambda))
-        best[feasible] <- pmin(best[feasible], burden[feasible])
-      }
-      table[J, ] <- best
-    }
-  }
+# Lowest burden of m units in J buildings, for every J and m. J buildings hold
+# 99J units free of the burden; above that, one building takes the rest and
+# pays the jump once. Under joint assessment the parent's total is assessed
+# once, whatever J is.
+burden_table <- function(max_units, max_buildings, kappa, assessment) {
+  free_units <- if (assessment == "joint") rep(99, max_buildings) else 99 * seq_len(max_buildings)
+  table <- outer(free_units, seq_len(max_units), function(free, m) ifelse(m > free, kappa, 0))
   table[col(table) < row(table)] <- Inf
   table
 }
@@ -147,7 +124,6 @@ splitting_scale <- function(log_value, beta, log_reference = median(log_value)) 
 # The parameter grid of the fit and the bootstrap.
 kappa_grid <- c(0, 0.0025, 0.005, seq(0.01, 0.1, by = 0.01), seq(0.12, 0.3, by = 0.02),
   0.35, 0.4, 0.5, 0.6, 0.8, 1)
-tau_grid <- c(0, 0.02, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.6, 0.8, 1)
 gamma_grid <- c(1, 1.25, 1.5, 1.75, 2, 2.5, 3)
 sigma_grid <- exp(seq(log(0.001), log(10), length.out = 41))
 
@@ -160,14 +136,13 @@ unexplained_shares <- function(cells) {
   width / sum(width)
 }
 
-# Burdens that differ across parents: the jump, or the whole burden at a fixed
-# kink-to-jump ratio, is lognormal with a median on kappa_grid and log standard
-# deviation on dispersion_grid (0 is a single burden). The distribution sits on
+# Burdens that differ across parents: the jump is lognormal with a median on
+# kappa_grid and log standard deviation on dispersion_grid (0 is a single
+# burden). The distribution sits on
 # kappa_grid extended to 5, where every parent of at most 300 units avoids 100:
 # each value takes the probability between the midpoints to its neighbors, so a
 # prediction is a weighted average of predictions at single burdens.
 kappa_values <- c(kappa_grid, 1.5, 2, 3, 5)
-ratio_grid <- c(0, 0.1, 0.2, 0.3, 0.5, 0.75, 1, 1.5, 2, 3, 5, 8)
 dispersion_grid <- c(0, 0.25, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 4)
 burden_distributions <- bind_rows(tibble(median = kappa_values, dispersion = 0),
   expand_grid(median = kappa_grid[kappa_grid > 0], dispersion = dispersion_grid[-1]))

@@ -35,9 +35,9 @@ figure <- ggplot(plot_data, aes(size_bin)) +
   scale_y_continuous(labels = scales::label_percent(accuracy = 0.5)) +
   labs(
     title = "Parent size and building count: observed, historical benchmark and model",
-    subtitle = sprintf(paste("Median jump %.3g, kink %.3g, burden spread %.3g; k added buildings cost c * k^%.3g,",
+    subtitle = sprintf(paste("Median jump %.3g, burden spread %.3g; k added buildings cost c * k^%.3g,",
       "mean c = %.3g (costs relative to building 99 units)"),
-      estimate$kappa, estimate$tau, estimate$dispersion, estimate$gamma, estimate$sigma),
+      estimate$kappa, estimate$dispersion, estimate$gamma, estimate$sigma),
     x = "Parent units", y = "Share of parents", fill = NULL, shape = NULL,
     caption = paste(
       sprintf(paste("%d historical parents (2019-2022), reweighted on zoning and borough; %d recent parents",
