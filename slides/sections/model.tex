@@ -1,0 +1,97 @@
+\begin{frame}
+    \frametitle{Without the Policy}
+    \begin{itemize}[itemsep=0.5em]
+        \item Developer $i$ prefers to build $x_i$ units in $J_i^0$ buildings
+        \item Building $m$ units instead costs
+        \[
+          \Big(\frac{m-x_i}{99}\Big)^2,
+        \]
+        relative to the cost of building 99 units
+        \item Without the policy, every developer builds $x_i$ in $J_i^0$ buildings
+        \item 2019--2022 projects tell us $x_i$ and $J_i^0$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adding the Notch at 100 Units}
+    \begin{itemize}[itemsep=0.5em]
+        \item A building of 100 units or more costs an extra $b_i\kappa$
+        \item With one building, the developer solves
+        \[
+          \min_m\; \Big(\frac{m-x_i}{99}\Big)^2 + b_i\kappa\,\mathbf{1}\{m\ge100\}
+        \]
+        \item Shrink to 99 if $x_i < 99\big(1+\sqrt{b_i\kappa}\big)$; otherwise build $x_i$ and pay
+        \item $b_i$ varies across developers: lognormal with median 1 and spread $s$
+        \item Why it varies: the burden depends on what a developer already pays, such as how far its usual wages are below the required wage (wage data to come)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Adding the Choice to Split}
+    The developer chooses total units $m$ and buildings $J$, with $m=n_1+\dots+n_J$:
+    \[
+      \min_{m,J}\; \Big(\frac{m-x_i}{99}\Big)^2
+      \;+\; b_i\kappa\,\#\{k: n_k\ge100\}
+      \;+\; c_i\,(J-J_i^0)^{\gamma}
+    \]
+    \begin{itemize}[itemsep=0.4em]
+        \item Adding buildings costs $c_i$, random across developers with mean $\sigma$
+        \item Three responses: build above 100 and pay, shrink to 99, or split
+        \item Splitting keeps units; shrinking loses them
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Estimation}
+    \begin{itemize}[itemsep=0.5em]
+        \item Historical parents supply preferred sizes and organizations
+        \item For given costs, the model predicts each one's choice under 485-x
+        \item Costs are chosen to match recent parents' sizes and building counts, by likelihood
+        \item Intervals from 500 bootstrap samples, reweighting in each
+    \end{itemize}
+    \[
+      \log L(\theta)=\sum_{c} n_c \log\big[(1-\varepsilon)\,p_c(\theta)+\varepsilon\,u_c\big]
+      \qquad
+      \text{Units lost}=P\sum_j w_j\big(x_j-\mathbb{E}[m_j^*]\big)
+    \]
+\end{frame}
+
+\begin{frame}[label=main-estimates]
+    \frametitle{Estimates}
+    \centering
+    \begin{tabular}{@{}lrr@{}}
+        \toprule
+         & Estimate & 95\% bootstrap interval \\
+        \midrule
+        Median jump $\kappa$ & \MainKappa & \MainKappaLower--\MainKappaUpper \\
+        Burden spread $s$ & \MainSpread & \MainSpreadLower--\MainSpreadUpper \\
+        Mean splitting cost $\sigma$ & \MainSigma & \MainSigmaLower--\MainSigmaUpper \\
+        Units lost & \MainUnitsLost & \MainUnitsLostLower--\MainUnitsLostUpper \\
+        \bottomrule
+    \end{tabular}
+    \par\vspace{0.8em}
+    {\footnotesize Costs relative to the cost of building 99 units.}
+    \vfill\hfill\hyperlink{kink-appendix}{\beamergotobutton{Allowing a kink}}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Model Fit}
+    \centering
+    \includegraphics[width=\textwidth,height=0.82\textheight,keepaspectratio]{../tasks/estimate_notch_model/output/pdf/model_fit.pdf}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Checks}
+    \centering
+    \begin{tabular}{@{}lrr@{}}
+        \toprule
+         & Jump $\kappa$ & Units lost per 100 recent parents \\
+        \midrule
+        Main & \MainCheckKappa & \MainCheckUnitsPerHundred{} (\MainCheckUnitsPerHundredLower--\MainCheckUnitsPerHundredUpper) \\
+        Common 180-day horizon & \HorizonCheckKappa & \HorizonCheckUnitsPerHundred{} (\HorizonCheckUnitsPerHundredLower--\HorizonCheckUnitsPerHundredUpper) \\
+        2025 parents only & \EarlyCheckKappa & \EarlyCheckUnitsPerHundred{} (\EarlyCheckUnitsPerHundredLower--\EarlyCheckUnitsPerHundredUpper) \\
+        Historical 2014--2022 & \LongerCheckKappa & \LongerCheckUnitsPerHundred{} (\LongerCheckUnitsPerHundredLower--\LongerCheckUnitsPerHundredUpper) \\
+        Placebo: 2015--18 vs.\ 2019--22 & \PlaceboCheckKappa & \PlaceboCheckUnitsPerHundred{} (\PlaceboCheckUnitsPerHundredLower--\PlaceboCheckUnitsPerHundredUpper) \\
+        \bottomrule
+    \end{tabular}
+\end{frame}
