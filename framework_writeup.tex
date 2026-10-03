@@ -159,7 +159,7 @@ Costs are expressed relative to each parent's curved cost of 99 units, $A_i=C_{0
 \bar c_i=c_i/A_i .
 \label{eq:ratios}
 \end{equation}
-A jump of $\kappa=0.18$ means that crossing 100 costs the median developer 18 percent of the ordinary cost of a 99-unit building. Because profits are not observed, these ratios, not dollars, are what the choices identify, and their level rests on the size-loss curvature $\lambda$, as the level of utility rests on the error variance in a logit. The main estimates set $\lambda=1$. In the least-squares single-burden specification, curvature 0.5 and 2 fit about as well but change units lost from \LeastSquaresUnitsLost{} to \CurvatureHalfUnitsLost{} and \CurvatureTwoUnitsLost{}; the main model has not been estimated at other curvatures. An outside anchor, such as a pro forma or the industry estimate of the hard-cost increase from prevailing wages, is needed for dollars.
+A jump of $\kappa=0.2$, for example, means that crossing 100 costs the median developer 20 percent of the ordinary cost of a 99-unit building. Because profits are not observed, these ratios, not dollars, are what the choices identify, and their level rests on the size-loss curvature $\lambda$, as the level of utility rests on the error variance in a logit. The main estimates set $\lambda=1$. In the least-squares single-burden specification, curvature 0.5 and 2 fit about as well but change units lost from \LeastSquaresUnitsLost{} to \CurvatureHalfUnitsLost{} and \CurvatureTwoUnitsLost{}; the main model has not been estimated at other curvatures. An outside anchor, such as a pro forma or the industry estimate of the hard-cost increase from prevailing wages, is needed for dollars.
 
 \subsection{From a historical parent to predicted outcomes}
 
@@ -178,9 +178,9 @@ Each recent parent of at most 300 units is treated as a draw from the predicted 
 \log L(\theta,\varepsilon)=\sum_c n_c\log\bigl[(1-\varepsilon)\,p_c(\theta)+\varepsilon\,u_c\bigr],
 \label{eq:likelihood}
 \end{equation}
-where $n_c$ counts recent parents in cell $c$. The unexplained share is not assigned a cause: it can absorb linkage or unit-count errors, behavior the model omits, or a flawed historical comparison. Units lost use only the model's choices, so any change hidden in the unexplained share is excluded. The parameters $\theta=(\kappa,s,\gamma,\sigma)$ and $\varepsilon$ are chosen on a grid.
+where $n_c$ counts recent parents in cell $c$. The unexplained share is not assigned a cause: it can absorb linkage or unit-count errors, behavior the model omits, or a flawed historical comparison. Units lost use only the model's choices, so any change hidden in the unexplained share is excluded. The parameters $\theta=(\kappa,s,\gamma,\sigma)$ and $\varepsilon$ are chosen in two steps: a grid search, then, with $\gamma$ held at each grid value, a search over continuous $\kappa$, $s$, $\sigma$ and $\varepsilon$ within the range of the grid, from the best grid point, keeping the best $\gamma$. The refinement matters for units lost, which move noticeably along the flat top of the likelihood.
 
-Uncertainty comes from 500 bootstrap samples that resample parents with replacement within period and borough, recalibrate the weights to each resampled recent sample, and re-estimate on the full grid. Stratifying by borough keeps Staten Island, with five historical and two recent parents, in every calibration.
+Uncertainty comes from 500 bootstrap samples that resample parents with replacement within period and borough, recalibrate the weights to each resampled recent sample, and re-estimate in the same two steps. Stratifying by borough keeps Staten Island, with five historical and two recent parents, in every calibration.
 
 \subsection{Units lost}
 
@@ -219,7 +219,7 @@ Units lost & \MainUnitsLost & \MainUnitsLostLower--\MainUnitsLostUpper \\
 \end{minipage}
 \end{table}
 
-The median developer's jump is \MainKappa{}, and the burden varies widely. About \MainShareSmallBurden{} percent of developers face a jump below 0.01, which moves a single building to 99 only from sizes below about 109. About \MainShareLargeBurden{} percent face one above 1, which moves any single building wanting up to 198 units to 99 when splitting is expensive. A parent that crosses 100 pays the jump and builds its preferred size: estimated with a kink, the main model set it to zero. The mean cost of adding one building is about a fifth of the ordinary cost of 99 units. Its growth per building is not identified: its interval spans the grid.
+The median developer's jump is \MainKappa{}, and the burden varies widely. About \MainShareSmallBurden{} percent of developers face a jump below 0.01, which moves a single building to 99 only from sizes below about 109. About \MainShareLargeBurden{} percent face one above 1, which moves any single building wanting up to 198 units to 99 when splitting is expensive. A parent that crosses 100 pays the jump and builds its preferred size: estimated with a kink, the main model set it to zero. The mean cost of adding one building is about a fifth of the ordinary cost of 99 units. Its growth per building is not identified: its interval spans the grid, but units lost hardly depend on it, between \GammaUnitsLostLow{} and \GammaUnitsLostHigh{} as $\gamma$ runs from 1 to 3.
 
 The model comes close to the concentrations at 99 and at $99+99$: \ModelShareOneAtNinetyNine{} percent of recent parents are predicted at 99 in one building against \ObservedShareOneAtNinetyNine{} observed, and \ModelSharePair{} percent as $99+99$ against \ObservedSharePair{}. It predicts too many two-building parents overall (\ModelShareTwoBuildings{} against \ObservedShareTwoBuildings{} percent). Figure~\ref{fig:fit} shows every cell.
 
@@ -249,7 +249,7 @@ Main model, splitting cost scaled by project size ($\beta=\SizeSplittingElastici
 \end{tabular}
 \par\smallskip
 \begin{minipage}{\textwidth}
-\footnotesize The size and lot variants set a parent's mean splitting cost to $\sigma(v/v_0)^{-\beta}$ for its lot area or preferred size $v$, with reference $v_0$ the median historical lot or 150 units; $\beta<0$ makes splitting costlier for larger lots or projects.
+\footnotesize The size and lot variants set a parent's mean splitting cost to $\sigma(v/v_0)^{-\beta}$ for its lot area or preferred size $v$, with reference $v_0$ the median historical lot or 150 units; $\beta<0$ makes splitting costlier for larger lots or projects. The main model is refined off the grid; the alternatives stay at their grid estimates and are compared with the main model's grid estimate, which loses \MainGridUnitsLost{} units.
 \end{minipage}
 \end{table}
 
@@ -372,7 +372,7 @@ Setting $v=C_0'(k)$ is a convenient anchoring convention consistent with these i
 
 The historical organization $J^0$ is taken as the parent's ordinary preference and is free; the policy can only make additional constituents worthwhile. This restriction reproduces historical totals and organization exactly when the escalation is removed, which is the model's benchmark. It rules out consolidation, which cannot lower the separately assessed burden, and it attributes every added constituent to the policy.
 
-What the historical choices do not reveal is how costly it is to add a constituent. The exponential distribution of $c_i$ and the growth $\gamma$ are therefore restrictions, and the quantity estimates depend on them. Three results bound that dependence. First, the growth $\gamma$ is not identified: the bootstrap interval covers the whole grid from 1 to 3. Second, letting the mean splitting cost vary with lot area or project size changes units lost by up to a factor of two without a significant change in fit (Table~\ref{tab:models}). Third, a logit over strategies in place of the exponential cost fits worse and makes bunching respond to the availability of alternatives rather than their cost.
+What the historical choices do not reveal is how costly it is to add a constituent. The exponential distribution of $c_i$ and the growth $\gamma$ are therefore restrictions, and the quantity estimates depend on them. Three results bound that dependence. First, the growth $\gamma$ is not identified: the bootstrap interval covers the whole grid from 1 to 3, though units lost stay between \GammaUnitsLostLow{} and \GammaUnitsLostHigh{} across it. Second, letting the mean splitting cost vary with lot area or project size changes units lost by up to a factor of two without a significant change in fit (Table~\ref{tab:models}). Third, a logit over strategies in place of the exponential cost fits worse and makes bunching respond to the availability of alternatives rather than their cost.
 
 The model's other restrictions are the independence of the burden factor, the splitting cost and the parent's size; free division of units among constituents; the separately assessed schedule, with joint assessment of the whole parent as a robustness case; the size-loss curvature $\lambda=1$; and the unexplained share, spread uniformly over outcomes. Numerical checks confirm that historical totals and organization are recovered when the escalation is zero, that a single building shrinks to 99 exactly when its preferred total is below $99(1+\sqrt\kappa)$ and otherwise keeps it, that minimum burdens match exhaustive partitions, that the menu of constituent counts never binds, and that the exact probabilities match simulated cost draws.
 

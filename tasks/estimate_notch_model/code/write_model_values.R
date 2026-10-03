@@ -6,10 +6,11 @@ suppressPackageStartupMessages({
   library(readr)
 })
 
-# The estimates quoted in framework_writeup.tex, as LaTeX macros: the main
-# model with its bootstrap intervals, the models it is compared with, the
-# least-squares single burden, the main model's fit at 99 and 99+99, and the
-# main model on the checks of the sample.
+# The estimates quoted in framework_writeup.tex and the slides, as LaTeX
+# macros: the main model with its bootstrap intervals and its units lost at
+# each gamma, the models it is compared with, the least-squares single jump,
+# the main model's fit at 99 and 99+99, and the main model on the checks of
+# the sample.
 models <- read_csv("../output/heterogeneity_estimates.csv", show_col_types = FALSE)
 bootstrap <- read_csv("../output/scaled_burden_bootstrap_estimates_all_filings.csv", show_col_types = FALSE)
 specifications <- read_csv("../output/estimates.csv", show_col_types = FALSE)
@@ -18,6 +19,8 @@ cells <- read_csv("../output/heterogeneity_cell_fit.csv", show_col_types = FALSE
   col_types = cols(buildings = col_character())) |>
   filter(model == "scaled_burden")
 main <- models |> filter(model == "scaled_burden")
+by_gamma <- read_csv("../output/heterogeneity_profiles.csv", show_col_types = FALSE) |>
+  filter(model == "scaled_burden", parameter == "gamma")
 stopifnot(nrow(main) == 1L, nrow(least_squares) == 1L, nrow(bootstrap) == 8L)
 
 number <- function(x, digits = 2) formatC(round(x, digits) + 0, format = "f", digits = digits)
@@ -46,6 +49,8 @@ values <- c(
   MainUnitsLostUpper = units(bootstrap$bootstrap_upper[bootstrap$parameter == "units_lost"]),
   MainUnitsLostMedian = units(bootstrap$bootstrap_median[bootstrap$parameter == "units_lost"]),
   MainLogLikelihood = number(main$log_likelihood, 1), MainAIC = number(main$aic, 1),
+  MainGridUnitsLost = units(row_of("scaled_burden_grid")$units_lost),
+  GammaUnitsLostLow = units(min(by_gamma$units_lost)), GammaUnitsLostHigh = units(max(by_gamma$units_lost)),
   SingleLogLikelihood = number(row_of("single_jump")$log_likelihood, 1),
   SingleAIC = number(row_of("single_jump")$aic, 1), SingleUnitsLost = units(row_of("single_jump")$units_lost),
   SingleKappa = number(row_of("single_jump")$kappa),

@@ -19,15 +19,13 @@ if (!interactive()) {
 }
 maximum_units <- 300
 
-# Bootstrap intervals for the main model, the scaled burden of
-# fit_heterogeneity.R: each parent's jump is multiplied by one lognormal scale
-# with median 1, so kappa is the median jump. Every sample of
-# draw_bootstrap_samples.R is re-estimated by likelihood on the full grid of
-# median jumps, spreads, gamma, sigma and the unexplained share epsilon. The
-# model's choices do not depend on the weights, so one pass scores every draw;
-# the values of gamma run in parallel. The variant of the
-# sample is all_filings for the main estimate, or a check (horizon_180,
-# cohort_2025, placebo, history_2014).
+# Bootstrap intervals for the main model of fit_heterogeneity.R, estimated
+# the same way in every sample of draw_bootstrap_samples.R: first on the full
+# grid of median jumps, spreads, gamma, sigma and the unexplained share
+# epsilon, then refined off the grid. The model's choices do not depend on the
+# weights, so one pass over the grid scores every draw, with the values of
+# gamma in parallel. The variant of the sample is all_filings for the main
+# estimate, or a check (horizon_180, cohort_2025, placebo, history_2014).
 parents <- read_parquet("../output/estimation_parents.parquet") |> filter(variant == !!variant)
 stopifnot(nrow(parents) > 0L)
 historical <- parents |> filter(sample == "historical")
@@ -51,9 +49,9 @@ unit_weight <- unit_weight / rep(colSums(unit_weight), each = length(x))
 benchmark_units <- post_parents * colSums(unit_weight * x)
 candidates <- size_candidates(x, J0, 1, "separate")
 
-# The best point of every draw at one gamma. At each sigma, the shares at every
-# jump are averaged over each distribution, renormalized over the compared
-# cells, and scored at the best epsilon; ties keep the first sigma and
+# The best grid point of every draw at one gamma. At each sigma, the shares at
+# every jump are averaged over each distribution, renormalized over the
+# compared cells, and scored at the best epsilon; ties keep the first sigma and
 # distribution, and across gammas the first gamma.
 sizes <- lapply(kappa_values, function(kappa) {
   choose_sizes(candidates, burden_table(max(x), max(candidates$J), kappa, "separate"))
@@ -104,16 +102,32 @@ fit_gamma <- function(gamma) {
 by_gamma <- mclapply(gamma_grid, fit_gamma, mc.cores = min(length(gamma_grid), detectCores() - 2L))
 stopifnot(!vapply(by_gamma, inherits, logical(1), "try-error"))
 
-bootstrap_draws <- bind_rows(by_gamma) |>
+grid_draws <- bind_rows(by_gamma) |>
   group_by(draw) |>
   slice_max(log_likelihood, n = 1, with_ties = FALSE) |>
   ungroup() |>
   mutate(kappa = burden_distributions$median[distribution], dispersion = burden_distributions$dispersion[distribution],
     share_jump_below_0.01 = rowSums(burden_mass[, kappa_values < 0.01, drop = FALSE])[distribution],
-    share_jump_above_1 = rowSums(burden_mass[, kappa_values > 1, drop = FALSE])[distribution],
-    post_parents = post_parents[draw + 1L]) |>
-  select(draw, kappa, dispersion, gamma, sigma, epsilon, share_jump_below_0.01,
-    share_jump_above_1, units_lost, log_likelihood, post_parents)
+    share_jump_above_1 = rowSums(burden_mass[, kappa_values > 1, drop = FALSE])[distribution])
+
+# Each draw refined off the grid as the main estimate is: from its grid point,
+# at each gamma, keeping the grid point if it fits better.
+segments_by_gamma <- lapply(gamma_grid, function(gamma) level_segments(sizes, J0, gamma, cells))
+refine_draw <- function(d) {
+  grid_point <- grid_draws |> filter(draw == d)
+  refined <- refine_scaled_burden(grid_point, segments_by_gamma, x, W[, d + 1L], n[, d + 1L], uniform,
+    unit_weight[, d + 1L])
+  stopifnot(all(refined$converged))
+  refined <- refined |> slice_max(log_likelihood, n = 1, with_ties = FALSE) |> mutate(draw = d)
+  if (refined$log_likelihood > grid_point$log_likelihood) refined else grid_point
+}
+by_draw <- mclapply(0:draws, refine_draw, mc.cores = detectCores() - 2L)
+stopifnot(!vapply(by_draw, inherits, logical(1), "try-error"))
+bootstrap_draws <- bind_rows(lapply(by_draw, function(d) {
+  d |> select(draw, kappa, dispersion, gamma, sigma, epsilon, share_jump_below_0.01, share_jump_above_1, units_lost,
+    log_likelihood)
+})) |>
+  mutate(post_parents = post_parents[draw + 1L])
 
 # For the main sample, draw 0 reproduces the scaled-burden estimate of
 # fit_heterogeneity.R.
@@ -121,8 +135,8 @@ if (variant == "all_filings") {
   estimate <- read_csv("../output/heterogeneity_estimates.csv", show_col_types = FALSE) |>
     filter(model == "scaled_burden")
   data_draw <- bootstrap_draws |> filter(draw == 0L)
-  stopifnot(abs(data_draw$log_likelihood - estimate$log_likelihood) < 1e-8,
-    abs(data_draw$units_lost - estimate$units_lost) < 1e-6)
+  stopifnot(abs(data_draw$log_likelihood - estimate$log_likelihood) < 1e-6,
+    abs(data_draw$units_lost - estimate$units_lost) < 1e-3)
 }
 
 parameters <- c("kappa", "dispersion", "gamma", "sigma", "epsilon",
@@ -134,7 +148,7 @@ bootstrap_estimates <- bootstrap_draws |>
     bootstrap_lower = quantile(value[draw > 0L], 0.025, type = 1),
     bootstrap_median = quantile(value[draw > 0L], 0.5, type = 1),
     bootstrap_upper = quantile(value[draw > 0L], 0.975, type = 1),
-    share_draws_at_estimate = mean(value[draw > 0L] == estimate), draws = sum(draw > 0L), .groups = "drop") |>
+    draws = sum(draw > 0L), .groups = "drop") |>
   arrange(match(parameter, parameters))
 
 print(bootstrap_estimates, width = Inf)

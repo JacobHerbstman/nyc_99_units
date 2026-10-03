@@ -1,0 +1,59 @@
+\clearpage
+\section*{October 3, 2026: The main model refined off the grid}
+\textit{Agent-drafted research entry.}
+
+On the grid the main model's units lost moved between 760 and 852 as $\gamma$
+changed, although the fit hardly did: units lost are sensitive along the flat
+top of the likelihood, and the grid steps in $\kappa$ (0.02) and $s$ (0.5)
+landed the estimate on a low point. With $\gamma$ fixed the likelihood is
+smooth in $\kappa$, $s$, $\sigma$ and $\varepsilon$, so the main model is now
+estimated in two steps: the grid search, then at each $\gamma$ on its grid a
+continuous search from the best grid point, and the best $\gamma$ kept
+(\path{refine_scaled_burden} in \path{notch_model.R}). The search uses L-BFGS-B
+within the range of the grid. In seven placebo draws with no burden an
+unbounded search drifted ($\sigma$ to 10,000) without converging, and a
+search clamped to the box stalled on its flat edges. The grid point remains
+the estimate when it fits better, as in the placebo, whose best fit is no
+burden. Every bootstrap draw is estimated the same way. The alternatives stay
+at their grid estimates and are compared with the main model's grid estimate,
+kept as \texttt{scaled\_burden\_grid}.
+
+\begin{center}
+\small
+\begin{tabular}{lrr}
+\hline
+ & Grid & Refined \\
+\hline
+Median jump $\kappa$ & 0.18 (0.09--0.80) & 0.19 (0.09--0.70) \\
+Spread $s$ & 2.0 (1.0--4.0) & 2.0 (1.0--3.8) \\
+Mean splitting cost $\sigma$ & 0.20 (0.10--0.50) & 0.22 (0.10--0.53) \\
+Unexplained share $\varepsilon$ & 0.015 & 0.014 \\
+Log-likelihood & $-584.54$ & $-584.49$ \\
+Units lost & 761 (438--1,461) & 806 (435--1,427) \\
+Units lost across $\gamma$ & 760--852 & 803--835 \\
+\hline
+\end{tabular}
+\end{center}
+
+The parameters barely move and the fit improves by 0.05 log points. Units
+lost rise by 6 percent, to near the bootstrap median (about 830 in both), and no
+longer depend on $\gamma$. Draw by draw the refined and grid estimates of units
+lost correlate at 0.99 and the spread across draws is unchanged, so the width
+of the interval is sampling noise, not the grid. Units lost per 100 recent
+parents on the checks are 290 (main), 226 (180-day horizon), 240 (2025
+parents), 0 (placebo) and 282 (2014--2022 history), against 274, 222, 233, 0
+and 271 on the grid.
+
+\paragraph{Comparison with Garicano, Lelarge and Van Reenen (2016).} Their
+replication code (\path{plfit_baseline}, openICPSR 112909) fits a closed-form
+likelihood by Newton's method from typed-in starting values, on transformed
+parameters like ours, with the returns to scale $\theta$ calibrated because
+the likelihood is flat in it. $\gamma$ plays that role here: it is not
+identified, and units lost are reported across it. Their standard errors are
+clustered sandwich errors; the bootstrap is kept here because the weights carry
+sampling noise from the historical parents that the curvature of the
+likelihood would ignore.
+
+\paragraph{Cleanup.} The least-squares fit no longer writes moments, cell fit,
+profiles or near-optimal ranges, which nothing read; it keeps its estimates,
+units lost with building counts held fixed, and the direct gap in units.
