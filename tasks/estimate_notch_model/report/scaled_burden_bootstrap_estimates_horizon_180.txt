@@ -1,13 +1,13 @@
-Rows: 10
+Rows: 8
 Columns: 7
 Key fields: parameter
-Saved-file MD5: 6984ac95fa08a0e8a1048ff36828c304
+Saved-file MD5: 93362e93f71a7d6a6fe5c7aef70d7c7e
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-parameter | character | nonmissing | 10 | distinct | 10
-estimate | numeric | nonmissing | 10 | distinct | 9 min/median/mean/max 0/0.1055803/37.50906/370.6978
-bootstrap_lower | numeric | nonmissing | 10 | distinct | 6 min/median/mean/max 0/5e-04/18.23805/181.2564
-bootstrap_median | numeric | nonmissing | 10 | distinct | 10 min/median/mean/max 0.001/0.1129463/41.77062/413.278
-bootstrap_upper | numeric | nonmissing | 10 | distinct | 9 min/median/mean/max 0.02/0.3990536/84.65731/838.4442
-share_draws_at_estimate | numeric | nonmissing | 10 | distinct | 8 min/median/mean/max 0/0.182/0.2666/0.944
-draws | numeric | nonmissing | 10 | distinct | 1 min/median/mean/max 500/500/500/500
+parameter | character | nonmissing | 8 | distinct | 8
+estimate | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0.001/0.1429463/46.88632/370.6978
+bootstrap_lower | numeric | nonmissing | 8 | distinct | 6 min/median/mean/max 0/0.0305/22.30745/177.3355
+bootstrap_median | numeric | nonmissing | 8 | distinct | 8 min/median/mean/max 0.001/0.1529463/46.92994/371.0178
+bootstrap_upper | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0.05/0.4400096/92.40312/731.834
+share_draws_at_estimate | numeric | nonmissing | 8 | distinct | 7 min/median/mean/max 0/0.126/0.19975/0.73
+draws | numeric | nonmissing | 8 | distinct | 1 min/median/mean/max 500/500/500/500

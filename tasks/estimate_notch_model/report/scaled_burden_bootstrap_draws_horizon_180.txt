@@ -1,19 +1,17 @@
 Rows: 501
-Columns: 13
+Columns: 11
 Key fields: draw
-Saved-file MD5: eca7144d771caeb2eb36ed62ef79602c
+Saved-file MD5: ce32fe3ca441a156e91f04bc1f50dcfe
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 draw | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max 0/250/250/500
-kappa | numeric | nonmissing | 501 | distinct | 22 min/median/mean/max 0.04/0.14/0.165988/1
-tau | numeric | nonmissing | 501 | distinct | 47 min/median/mean/max 0/0.008/0.01519561/0.21
-kink_to_jump | numeric | nonmissing | 501 | distinct | 9 min/median/mean/max 0/0.1/0.1218563/2
-dispersion | numeric | nonmissing | 501 | distinct | 10 min/median/mean/max 0/1.5/1.266467/4
-gamma | numeric | nonmissing | 501 | distinct | 7 min/median/mean/max 1/2.5/2.363772/3
-sigma | numeric | nonmissing | 501 | distinct | 15 min/median/mean/max 0.03162278/0.1258925/0.1616573/0.7943282
-epsilon | numeric | nonmissing | 501 | distinct | 11 min/median/mean/max 0.001/0.001/0.002446108/0.1
-share_jump_below_0.01 | numeric | nonmissing | 501 | distinct | 100 min/median/mean/max 0/0.01214588/0.0291958/0.2882863
-share_jump_above_1 | numeric | nonmissing | 501 | distinct | 94 min/median/mean/max 0/0.04610832/0.0816144/0.4777562
-units_lost | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max 76.07838/413.278/436.0184/1180.098
-log_likelihood | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max -400.4788/-345.3874/-344.6797/-288.5583
+kappa | numeric | nonmissing | 501 | distinct | 23 min/median/mean/max 0.04/0.18/0.2038922/1
+dispersion | numeric | nonmissing | 501 | distinct | 10 min/median/mean/max 0/1.5/1.5998/4
+gamma | numeric | nonmissing | 501 | distinct | 7 min/median/mean/max 1/2.5/2.394711/3
+sigma | numeric | nonmissing | 501 | distinct | 13 min/median/mean/max 0.03162278/0.1258925/0.1496965/0.7943282
+epsilon | numeric | nonmissing | 501 | distinct | 11 min/median/mean/max 0.001/0.001/0.006264471/0.1
+share_jump_below_0.01 | numeric | nonmissing | 501 | distinct | 114 min/median/mean/max 0/0.02066617/0.03672452/0.2769987
+share_jump_above_1 | numeric | nonmissing | 501 | distinct | 113 min/median/mean/max 0/0.09416347/0.1212542/0.4777562
+units_lost | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max 76.07838/371.0178/396.998/1107.861
+log_likelihood | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max -400.8021/-345.9699/-345.3831/-288.5583
 post_parents | numeric | nonmissing | 501 | distinct | 23 min/median/mean/max 154/167/167.1717/177

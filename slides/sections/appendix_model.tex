@@ -1,0 +1,39 @@
+\begin{frame}
+    \frametitle{Alternative Models}
+    \centering
+    \begin{tabular}{@{}lrrr@{}}
+        \toprule
+         & Log-likelihood & AIC & Units lost \\
+        \midrule
+        One jump for every developer & \SingleLogLikelihood & \SingleAIC & \SingleUnitsLost \\
+        Non-optimizers & \NonOptimizerLogLikelihood & \NonOptimizerAIC & \NonOptimizerUnitsLost \\
+        Main model: jump varies by developer & \MainLogLikelihood & \MainAIC & \MainUnitsLost \\
+        Splitting cost by lot area & \LotSplittingLogLikelihood & \LotSplittingAIC & \LotSplittingUnitsLost \\
+        Splitting cost by project size & \SizeSplittingLogLikelihood & \SizeSplittingAIC & \SizeSplittingUnitsLost \\
+        \bottomrule
+    \end{tabular}
+\end{frame}
+
+% Estimates with a kink are from the version merged into main as 6e52ba6,
+% whose model allowed a cost rising above 100 units; the current code models
+% the jump only.
+\begin{frame}[label=kink-appendix]
+    \frametitle{Allowing a Cost That Rises Above 100 Units}
+    The burden becomes $b_i\big[\kappa+\tau\big((n/99)^2-(100/99)^2\big)\big]$ for a building of $n\ge100$ units.
+    \par\vspace{0.8em}
+    \centering
+    \begin{tabular}{@{}lrrr@{}}
+        \toprule
+         & Kink $\tau$ & \multicolumn{2}{c}{Units lost} \\
+         & with a kink & with a kink & jump only \\
+        \midrule
+        Main model: jump varies by developer & 0 (0--0.10) & 761 & \MainUnitsLost \\
+        One jump for every developer & 0.05 & 1,130 & \SingleUnitsLost \\
+        Least squares, one jump & 0.05 & 1,018 & \LeastSquaresUnitsLost \\
+        \bottomrule
+    \end{tabular}
+    \par\vspace{0.8em}
+    \raggedright
+    {\footnotesize The kink is zero in the main model and matters only when every developer faces the same jump.}
+    \vfill\hfill\hyperlink{main-estimates}{\beamergotobutton{Back}}
+\end{frame}

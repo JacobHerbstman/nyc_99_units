@@ -1,0 +1,37 @@
+\clearpage
+\section*{October 1, 2026: The burden is a jump only}
+\textit{Agent-drafted research entry.}
+
+Jacob dropped the kink from the model, so the burden is a jump $\kappa$ on each
+building of 100 units or more, scaled by developer. The main model had
+estimated the kink at zero (bootstrap interval 0--0.10), and the jump alone
+keeps the notation and the code simple. With $J$ buildings the burden is zero
+up to $99J$ units and $\kappa$ above, since one building takes the rest. Without
+a kink, letting the jump vary by developer is the main model, so that
+alternative is gone.
+
+The main model and its splitting-cost variants are unchanged: jump 0.18,
+spread 2, growth 2, mean splitting cost 0.20, 761 units lost, with one fewer
+parameter. Only the models with one burden for everyone used the kink, as their
+one way to make the buildings that stay above 100 smaller. The single jump now
+loses 496 units against 1,130, and fits 3 log points worse; least squares loses
+636 against 1,018. Against the single jump, a jump that varies by developer
+improves the log-likelihood by 10 points, against 7 before.
+
+\begin{center}
+\small
+\begin{tabular}{lrr}
+\hline
+Main model & Without the kink & With it \\
+\hline
+Median jump $\kappa$ & 0.18 (0.09--0.80) & 0.18 (0.06--0.50) \\
+Spread $s$ & 2 (1--4) & 2 (0--3) \\
+Units lost & 761 (438--1,461) & 761 (452--1,612) \\
+\hline
+\end{tabular}
+\end{center}
+
+Units lost per 100 recent parents: 274 (158--525) in the main sample, 222
+(106--438) on the 180-day horizon, 233 (112--473) among 2025 parents, 271
+(151--549) with 2014--2022 as the historical period, and 0 (0--23) in the
+placebo. The bootstrap now runs in minutes.

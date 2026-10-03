@@ -5,8 +5,8 @@ TASKS := analyze_borough_bunching build_estimation_panels build_hdb_mappluto_sit
 	construct_parent_cohorts fetch_dcp_housing_database fetch_dob_now_new_building_filings \
 	fetch_hpd_485x_registrations fetch_mappluto_archive fetch_nyc_borough_boundaries fetch_dof_tax_map_history \
 	fetch_dob_bis_job_filings fetch_nys_ag_offering_plans estimate_notch_model \
-	link_hpd_485x_registrations parent_opportunities_manual plot_bunching stage_dcp_housing_database \
-	stage_dob_now_new_building_filings stage_mappluto_lots
+	link_hpd_485x_registrations parent_opportunities_manual plot_bunching presentation_figures \
+	stage_dcp_housing_database stage_dob_now_new_building_filings stage_mappluto_lots
 
 all: plot_bunching analyze_borough_bunching task_graph.svg
 data: build_estimation_panels
@@ -115,6 +115,12 @@ logbook: maps reweighting parent-links estimate
 framework-writeup: reweighting estimate
 	$(MAKE) framework_writeup.pdf
 
+slides: plots maps reweighting estimate presentation_figures
+	$(MAKE) -C slides
+
+presentation_figures: build_estimation_panels
+	$(MAKE) -C tasks/presentation_figures/code
+
 framework_writeup.pdf: framework_writeup.tex Makefile \
 	tasks/audits/audit_scale_shape_splitting/output/figure_guide_values.tex \
 	tasks/estimate_notch_model/output/model_values.tex \
@@ -127,4 +133,4 @@ task_graph.svg: tasks/shared/code/draw_task_graph.py Makefile \
 	python3 tasks/shared/code/draw_task_graph.py
 
 .PHONY: all data plots maps estimate reweighting holdout-checks site-boundaries land-sensitivity parent-links \
-	companion-rules logbook framework-writeup setup-environment $(TASKS)
+	companion-rules logbook framework-writeup slides setup-environment $(TASKS)
