@@ -11,11 +11,10 @@ source("../../shared/code/write_data_report.R")
 # Each weighted historical parent is moved through the policy choice, and the
 # predicted distribution of (total units, buildings) is matched to the recent
 # parents by least squares over disjoint cells. Parameters: the jump kappa, the
-# kink tau, the mean splitting cost sigma and its growth gamma, on the grid in
-# notch_model.R.
+# mean splitting cost sigma and its growth gamma, on the grid in notch_model.R.
 
 # The least-squares specification follows the framework, with a separately
-# assessed jump and kink at 100 and lambda = 1. It compares parents of at most
+# assessed jump at 100 and lambda = 1. It compares parents of at most
 # 300 units: the size distribution within that range on both sides, so the
 # number of very large projects in each period does not enter. Each other
 # specification changes one element; below_250 moves the cutoff, and
@@ -72,8 +71,8 @@ fit_specification <- function(spec) {
   gammas <- if (spec$gamma_free) gamma_grid else 1
 
   results <- list()
-  for (tau in tau_grid) for (kappa in kappa_grid) {
-    burden <- burden_table(max(x), max(candidates$J), kappa, tau, spec$lambda, spec$assessment)
+  for (kappa in kappa_grid) {
+    burden <- burden_table(max(x), max(candidates$J), kappa, spec$assessment)
     sizes <- choose_sizes(candidates, burden)
     fixed_buildings <- sizes$m[sizes$J == J0[sizes$i]]
     for (gamma in gammas) {
@@ -86,7 +85,7 @@ fit_specification <- function(spec) {
       compared <- compared / rep(colSums(compared), each = length(cells))
       kept <- segments$m <= maximum_units
       results[[length(results) + 1L]] <- list(
-        grid = tibble(kappa = kappa, tau = tau, gamma = gamma, sigma = sigma_grid,
+        grid = tibble(kappa = kappa, gamma = gamma, sigma = sigma_grid,
           objective = colSums((compared - observed)^2),
           units_lost_model = benchmark_units -
             post_parents * colSums(unit_weight[segments$i] * probabilities * segments$m),
@@ -119,7 +118,7 @@ near_optimal <- grid |>
   group_by(specification) |>
   filter(objective <= 1.1 * min(objective)) |>
   summarise(near_optimal_points = n(),
-    kappa_range = paste(range(kappa), collapse = "-"), tau_range = paste(range(tau), collapse = "-"),
+    kappa_range = paste(range(kappa), collapse = "-"),
     gamma_range = paste(range(gamma), collapse = "-"),
     sigma_range = paste(signif(range(sigma), 3), collapse = "-"), .groups = "drop")
 
@@ -127,7 +126,6 @@ estimates <- best |>
   left_join(specifications, by = "specification", relationship = "one-to-one") |>
   left_join(near_optimal, by = "specification", relationship = "one-to-one") |>
   mutate(
-    compression = (1 + tau)^(1 / lambda),
     units_preserved_by_splitting = units_lost_fixed_buildings - units_lost_model,
     direct_unit_gap = sapply(fits[specification], `[[`, "direct_unit_gap"),
     historical_parents = sapply(fits[specification], `[[`, "historical_parents"),
@@ -136,8 +134,8 @@ estimates <- best |>
     # splitting cost is not identified.
     across(c(gamma, sigma), ~ if_else(assessment == "joint", NA_real_, .x)),
     across(c(gamma_range, sigma_range), ~ if_else(assessment == "joint", NA_character_, .x))) |>
-  select(specification, maximum_units, variant, weight, lambda, assessment, kappa, tau, compression,
-    gamma, sigma, objective, near_optimal_points, kappa_range, tau_range, gamma_range, sigma_range,
+  select(specification, maximum_units, variant, weight, lambda, assessment, kappa,
+    gamma, sigma, objective, near_optimal_points, kappa_range, gamma_range, sigma_range,
     units_lost_model, units_lost_fixed_buildings, units_preserved_by_splitting,
     direct_unit_gap, historical_parents, post_parents) |>
   arrange(match(specification, specifications$specification))
@@ -146,7 +144,7 @@ estimates <- best |>
 best_column <- function(name) {
   g <- fits[[name]]$grid
   b <- best[best$specification == name, ]
-  which(g$kappa == b$kappa & g$tau == b$tau & g$gamma == b$gamma & g$sigma == b$sigma)
+  which(g$kappa == b$kappa & g$gamma == b$gamma & g$sigma == b$sigma)
 }
 moment_names <- c("share_99", "share_99_plus_99", "share_two_buildings",
   "share_three_plus_buildings", "mean_units")
@@ -166,7 +164,7 @@ cell_fit <- bind_rows(lapply(specifications$specification, function(name) {
 }))
 
 # Profiles: the best objective at each value of one parameter.
-profiles <- bind_rows(lapply(c("kappa", "tau", "gamma", "sigma"), function(parameter) {
+profiles <- bind_rows(lapply(c("kappa", "gamma", "sigma"), function(parameter) {
   grid |>
     group_by(specification, value = .data[[parameter]]) |>
     summarise(objective = min(objective), .groups = "drop") |>

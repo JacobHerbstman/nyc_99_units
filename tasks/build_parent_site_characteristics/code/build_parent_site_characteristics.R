@@ -161,7 +161,7 @@ parents <- parents |>
 # subdivisions. From the lots of the parent's buildings at filing (the lagged
 # match historically; after the policy the DOB filing lot, which a recent
 # subdivision may have created), each DOF merger or subdivision from two years
-# before the first filing to 180 days after it is undone once, newest first: a
+# before the first filing to a window after it is undone once, newest first: a
 # merger into a site lot adds the lots it absorbed, and a subdivision replaces
 # the lots it created with the lot they came from. The window is the same in
 # both periods, relative to the first filing.
@@ -176,12 +176,12 @@ lot_transactions <- read_parquet("../input/dof_lot_actions.parquet") |>
     created = list(bbl[action == "New"]), surviving = list(bbl[action %in% c("Affected", "New")]),
     absorbed = list(bbl[action == "Dropped"]), .groups = "drop")
 transactions_by_block <- lot_transactions |> unnest_longer(blocks) |> split(~blocks)
-starting_lot_set <- function(lots, first_filing) {
+starting_lot_set <- function(lots, first_filing, after_days) {
   blocks <- intersect(unique(str_sub(lots, 1, 6)), names(transactions_by_block))
   if (length(blocks) == 0L) return(lots)
   window <- bind_rows(transactions_by_block[blocks]) |>
     distinct(transaction_id, .keep_all = TRUE) |>
-    filter(change_date >= first_filing - starting_window_days, change_date <= first_filing + merger_window_days) |>
+    filter(change_date >= first_filing - starting_window_days, change_date <= first_filing + after_days) |>
     arrange(desc(change_date), desc(transaction_id))
   for (i in seq_len(nrow(window))) {
     if (window$change_type[i] == "Lot Merger" && any(window$surviving[[i]] %in% lots)) {
@@ -204,21 +204,16 @@ parent_lots <- members |>
   summarise(first_filing = as.Date(first(cohort_date)), lots = list(unique(lot)),
     record_lots = list(unique(na.omit(c(feature_bbl, filing_bbl)))),
     reference = if_else(is.na(first(reference_version)), NA_character_,
-      sanitize_file_stub(paste(first(reference_source_id), first(reference_version)))), .groups = "drop") |>
-  rowwise() |>
-  mutate(starting_set = list(starting_lot_set(lots, first_filing))) |>
-  ungroup()
-starting_lots <- parent_lots |> transmute(parent_id, starting_lots = lengths(starting_set))
+      sanitize_file_stub(paste(first(reference_source_id), first(reference_version)))), .groups = "drop")
 
 # The whole site from its recorded zoning lot. A zoning lot description (ACRIS
 # ZONE) lists every tax lot a development's zoning lot combines. One listing a
 # lot of the parent's buildings (its DOB filing lot or mapped lot, in both
-# periods), dated from two years before the first filing to 180 days after it,
-# applies; most are recorded within months of the filing, and the window is the
-# same in both periods. Its other lots, after undoing mergers and
-# subdivisions as above, are built on when vacant in the parent's reference
-# release (no building floor or vacant land use) or demolished from three years
-# before the first filing to 180 days after it, and otherwise lend floor area
+# periods), dated from two years before the first filing to a window after it,
+# applies. Its other lots, after undoing mergers and subdivisions as above over
+# the same window, are built on when vacant in the parent's reference release
+# (no building floor or vacant land use) or demolished from three years before
+# the first filing to the end of the window, and otherwise lend floor area
 # while their buildings remain. Condominium unit lots belong to a remaining
 # building. The site lots are the starting lots and the built-on lots; their
 # land, residential FAR and street frontage come from the reference release.
@@ -235,9 +230,9 @@ zoning_parcels <- read_csv("../input/acris_zoning_lots_20261001_zoning_lot_parce
 documents_by_lot <- split(zoning_parcels$document_id, zoning_parcels$bbl)
 lots_by_document <- split(zoning_parcels$bbl, zoning_parcels$document_id)
 document_dates <- setNames(zoning_documents$document_date, zoning_documents$document_id)
-zoning_lot_documents <- function(lots, first_filing) {
+zoning_lot_documents <- function(lots, first_filing, after_days) {
   documents <- unique(unlist(documents_by_lot[intersect(lots, names(documents_by_lot))], use.names = FALSE))
-  documents[document_dates[documents] >= first_filing - 730L & document_dates[documents] <= first_filing + 180L]
+  documents[document_dates[documents] >= first_filing - 730L & document_dates[documents] <= first_filing + after_days]
 }
 demolitions <- bind_rows(
   read_csv("../input/dob_demolition_filings_20261001_bis_demolitions.csv",
@@ -251,45 +246,57 @@ demolitions <- bind_rows(
     !is.na(suppressWarnings(as.integer(lot)))) |>
   distinct(bbl = sprintf("%s%05d%04d", borough, as.integer(block), as.integer(lot)), filing_date)
 demolition_dates <- split(demolitions$filing_date, demolitions$bbl)
-sites <- parent_lots |>
-  rowwise() |>
-  mutate(documents = list(zoning_lot_documents(record_lots, first_filing)),
-    zoning_set = list(starting_lot_set(unique(c(lots, unlist(lots_by_document[documents], use.names = FALSE))),
-      first_filing)),
-    other_lots = list(setdiff(zoning_set, starting_set)),
-    demolished = list(other_lots[vapply(other_lots, function(lot) {
-      dates <- demolition_dates[[lot]]
-      !is.null(dates) && any(between(as.numeric(dates - first_filing), -3 * 365.25, 180))
-    }, logical(1))])) |>
-  ungroup()
-release_lots <- bind_rows(lapply(unique(na.omit(sites$reference)), function(release) {
-  in_release <- which(sites$reference == release)
-  wanted <- unique(unlist(c(sites$starting_set[in_release], sites$other_lots[in_release])))
-  read_parquet(paste0("../input/", release, ".parquet"),
-    col_select = c(bbl, lotarea, lotfront, bldgarea, residfar, landuse)) |>
-    filter(bbl %in% wanted) |>
-    mutate(reference = release)
-}))
-stopifnot(!anyDuplicated(release_lots[c("reference", "bbl")]))
-site_lots_table <- sites |>
-  select(parent_id, reference, starting_set, other_lots, demolished) |>
-  pivot_longer(c(starting_set, other_lots), names_to = "role", values_to = "bbl") |>
-  unnest_longer(bbl) |>
-  left_join(release_lots, by = c("reference", "bbl"), relationship = "many-to-one") |>
-  mutate(built_on = role == "starting_set" | coalesce(bldgarea == 0 | landuse == "11", FALSE) |
-    mapply(function(lot, removed) lot %in% removed, bbl, demolished))
-site_measures <- site_lots_table |>
-  group_by(parent_id) |>
-  summarise(site_lots = sum(built_on), air_rights_donor_lots = sum(!built_on),
-    site_lots_unmapped = sum(built_on & is.na(lotarea)), site_lot_area_sqft = sum(lotarea[built_on], na.rm = TRUE),
-    site_residential_far = area_weighted(residfar[built_on], lotarea[built_on]),
-    site_frontage_ft = sum(lotfront[built_on], na.rm = TRUE), .groups = "drop") |>
-  left_join(sites |> transmute(parent_id, zoning_lot_record = lengths(documents) > 0L,
-    zoning_lot_window_complete = first_filing + 180L <= acris_snapshot_date), by = "parent_id",
-    relationship = "one-to-one")
+site_measures_within <- function(after_days) {
+  sites <- parent_lots |>
+    rowwise() |>
+    mutate(starting_set = list(starting_lot_set(lots, first_filing, after_days)),
+      documents = list(zoning_lot_documents(record_lots, first_filing, after_days)),
+      zoning_set = list(starting_lot_set(unique(c(lots, unlist(lots_by_document[documents], use.names = FALSE))),
+        first_filing, after_days)),
+      other_lots = list(setdiff(zoning_set, starting_set)),
+      demolished = list(other_lots[vapply(other_lots, function(lot) {
+        dates <- demolition_dates[[lot]]
+        !is.null(dates) && any(between(as.numeric(dates - first_filing), -3 * 365.25, after_days))
+      }, logical(1))])) |>
+    ungroup()
+  release_lots <- bind_rows(lapply(unique(na.omit(sites$reference)), function(release) {
+    in_release <- which(sites$reference == release)
+    wanted <- unique(unlist(c(sites$starting_set[in_release], sites$other_lots[in_release])))
+    read_parquet(paste0("../input/", release, ".parquet"),
+      col_select = c(bbl, lotarea, lotfront, bldgarea, residfar, landuse)) |>
+      filter(bbl %in% wanted) |>
+      mutate(reference = release)
+  }))
+  stopifnot(!anyDuplicated(release_lots[c("reference", "bbl")]))
+  sites |>
+    select(parent_id, reference, starting_set, other_lots, demolished) |>
+    pivot_longer(c(starting_set, other_lots), names_to = "role", values_to = "bbl") |>
+    unnest_longer(bbl) |>
+    left_join(release_lots, by = c("reference", "bbl"), relationship = "many-to-one") |>
+    mutate(built_on = role == "starting_set" | coalesce(bldgarea == 0 | landuse == "11", FALSE) |
+      mapply(function(lot, removed) lot %in% removed, bbl, demolished)) |>
+    group_by(parent_id) |>
+    summarise(site_lots = sum(built_on), air_rights_donor_lots = sum(!built_on),
+      site_lots_unmapped = sum(built_on & is.na(lotarea)), site_lot_area_sqft = sum(lotarea[built_on], na.rm = TRUE),
+      site_residential_far = area_weighted(residfar[built_on], lotarea[built_on]),
+      site_frontage_ft = sum(lotfront[built_on], na.rm = TRUE), .groups = "drop") |>
+    left_join(sites |> transmute(parent_id, starting_lots = lengths(starting_set),
+      zoning_lot_record = lengths(documents) > 0L, zoning_lot_window_complete = first_filing + after_days <=
+        acris_snapshot_date), by = "parent_id", relationship = "one-to-one")
+}
+# Two windows after the first filing. 180 days, the same in both periods, for
+# comparisons with recent parents; two years for historical parents, whose
+# zoning lots are then nearly all recorded (about 5 percent of first ZONE
+# documents of 2019-2022 parents come later), for the splitting cost of the
+# model. Recent parents' two-year measures are incomplete.
+site_measures <- site_measures_within(180L)
+site_measures_two_year <- site_measures_within(730L) |>
+  transmute(parent_id, site_lots_two_year = site_lots, site_lot_area_two_year_sqft = site_lot_area_sqft,
+    site_lots_unmapped_two_year = site_lots_unmapped, zoning_lot_record_two_year = zoning_lot_record,
+    zoning_lot_two_year_window_complete = zoning_lot_window_complete)
 parents <- parents |>
-  left_join(starting_lots, by = "parent_id", relationship = "one-to-one") |>
-  left_join(site_measures, by = "parent_id", relationship = "one-to-one")
+  left_join(site_measures, by = "parent_id", relationship = "one-to-one") |>
+  left_join(site_measures_two_year, by = "parent_id", relationship = "one-to-one")
 
 # Reviewed land decisions (site_lot_decisions.csv) replace a parent's whole lot
 # set with documented lots from a named release. Retained floor or a documented
@@ -346,6 +353,9 @@ parents <- parents |>
     air_rights_donor_lots = if_else(reviewed, 0L, air_rights_donor_lots),
     site_lots_unmapped = if_else(reviewed, 0L, site_lots_unmapped),
     site_lot_area_sqft = if_else(reviewed, reviewed_area, site_lot_area_sqft),
+    site_lots_two_year = if_else(reviewed, reviewed_lots, site_lots_two_year),
+    site_lots_unmapped_two_year = if_else(reviewed, 0L, site_lots_unmapped_two_year),
+    site_lot_area_two_year_sqft = if_else(reviewed, reviewed_area, site_lot_area_two_year_sqft),
     site_residential_far = if_else(reviewed, reviewed_far, site_residential_far),
     site_frontage_ft = if_else(reviewed, reviewed_frontage, site_frontage_ft))
 
@@ -373,6 +383,8 @@ panel <- parents |>
   select(sample, parent_id, units, composition_eligible, feature_methods, feature_lots, lotarea, residfar,
     builtfar, built_floor_area_estimated, merged_lots_added, merger_window_complete, starting_lots, site_lots,
     site_lot_area_sqft, site_residential_far, site_frontage_ft, air_rights_donor_lots, site_lots_unmapped,
-    zoning_lot_record, zoning_lot_window_complete, implausible_site, borough, community_district)
+    zoning_lot_record, zoning_lot_window_complete, site_lots_two_year, site_lot_area_two_year_sqft,
+    site_lots_unmapped_two_year, zoning_lot_record_two_year, zoning_lot_two_year_window_complete, implausible_site,
+    borough, community_district)
 
 SaveData(panel, "parent_id", sprintf("../output/%s_parent_site_characteristics.parquet", sample_name))

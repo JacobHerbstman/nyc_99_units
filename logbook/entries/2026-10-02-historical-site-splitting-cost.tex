@@ -1,0 +1,74 @@
+\clearpage
+\section*{October 2, 2026: A splitting cost from each historical parent's site}
+\textit{Agent-drafted research entry.}
+
+The model simulates only historical parents, so a splitting cost that depends on
+the site needs only historical sites. Those parents were first filed in
+2019--2022 and their zoning lots have had years to be recorded, so the 180-day
+window, and the rush before 421-a expired, need not limit them. The tax-lot
+area variant had made splitting costlier on larger lots, which looked like
+project size rather than the site. This entry repeats it with the recorded
+zoning lot.
+
+\paragraph{Branch.} \path{tax_lot_splitting} now carries the jump-only burden
+of October 1. The lot-group models and the lot-group bootstrap were ported to
+it unchanged in substance.
+
+\paragraph{A two-year window.} Of historical parents with a ZONE document from
+two years before to three years after the first filing, about 30 percent are
+first recorded more than 180 days after it, 13 percent more than a year after,
+and 5 percent more than two years after. \path{build_parent_site_characteristics}
+now computes the site measures over two windows after the first filing: 180
+days, the same in both periods (the established columns, reproduced exactly),
+and two years (\texttt{site\_lots\_two\_year},
+\texttt{site\_lot\_area\_two\_year\_sqft} and companions), complete for every
+2019--2022 parent and incomplete for most recent ones. Mergers and subdivisions
+are undone, and demolitions counted, over the same window. Among the 588
+historical parents of the comparison, 52 percent sit on a site of several lots
+over two years, against 41 percent at 180 days and 26 percent by starting lots.
+Site area remains tied to size: its correlation with log units is 0.65,
+against 0.57 for tax-lot area.
+
+\paragraph{Variants.} Two pooled variants of the main model scale each
+historical parent's mean splitting cost by its site: by land,
+$\sigma(A/\tilde A)^{-\beta}$ with $\tilde A$ the median historical site, or by
+several lots, $\sigma e^{-\beta}$ on a site of two or more. The fitted cells and
+the likelihood are those of the main model.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrr}
+\hline
+Model & $\beta$ & Log-likelihood & $p$ & Units lost \\
+\hline
+Main model & & $-584.5$ & & 761 \\
+Tax-lot area & $-2$ & $-582.9$ & 0.07 & 1,697 \\
+Site area, two years & $-3$ & $-583.1$ & 0.09 & 1,662 \\
+Several site lots, two years & 4 & $-583.5$ & 0.15 & 1,406 \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{Findings.}
+\begin{enumerate}
+\item Site area behaves like tax-lot area: splitting is costlier on larger
+sites, with $\beta$ and the spread $s = 4$ at the edges of their grids. The
+correct site measure does not change the reading that land stands in for
+project size.
+\item Several site lots point the intuitive way: splitting is far cheaper on a
+multi-lot site ($e^{-4}$, mean cost 0.046 against 2.5 on one lot). The fit
+improves by one log point, not significantly, and the profile is flat: $\beta$
+from $-1$ to 5 lies within 1.03 log points of the best.
+\item Along those flat profiles units lost run from 761 to 1,756. Making
+splitting depend on the site, in either form, raises units lost, because
+parents that cannot split cheaply shrink instead.
+\item Pooled cells carry little information about this: the site varies only
+on the historical side, and the recent outcomes are counted by size and
+building count alone. The lot-group fits, which also count where recent
+splitters are, improve on their reference by likelihood ratios of 32--34, but
+use the 180-day measure. The informative version therefore awaits recent
+parents' complete windows.
+\end{enumerate}
+
+The main model is kept. The site variants join the alternatives behind the
+range of units lost.

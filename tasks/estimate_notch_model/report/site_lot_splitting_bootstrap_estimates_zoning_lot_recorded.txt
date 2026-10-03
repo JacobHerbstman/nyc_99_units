@@ -1,0 +1,13 @@
+Rows: 9
+Columns: 7
+Key fields: parameter
+Saved-file MD5: 7e79eccbb4533551467f1b3b98a85c89
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+parameter | character | nonmissing | 9 | distinct | 9
+estimate | numeric | nonmissing | 9 | distinct | 9 min/median/mean/max 0.015/1/64.37732/569.0038
+bootstrap_lower | numeric | nonmissing | 9 | distinct | 9 min/median/mean/max 0.0005533379/0.3162278/28.15791/249.8678
+bootstrap_median | numeric | nonmissing | 9 | distinct | 9 min/median/mean/max 0.02/1/60.93397/537.788
+bootstrap_upper | numeric | nonmissing | 9 | distinct | 9 min/median/mean/max 0.15/3/114.1361/1010.191
+share_draws_at_estimate | numeric | nonmissing | 9 | distinct | 9 min/median/mean/max 0/0.108/0.1933333/0.798
+draws | numeric | nonmissing | 9 | distinct | 1 min/median/mean/max 500/500/500/500

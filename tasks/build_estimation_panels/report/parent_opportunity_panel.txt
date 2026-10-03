@@ -1,7 +1,7 @@
 Rows: 2933
-Columns: 58
+Columns: 63
 Key fields: sample, parent_id
-Saved-file MD5: 857c0fb73f30b0a32ab50aa2890663aa
+Saved-file MD5: 76cd6da9293452433bc62f3d52c5cabe
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 sample | character | nonmissing | 2933 | distinct | 2
@@ -59,6 +59,11 @@ air_rights_donor_lots | integer | nonmissing | 2933 | distinct | 9 min/median/me
 site_lots_unmapped | integer | nonmissing | 2933 | distinct | 8 min/median/mean/max 0/0/0.04739175/25
 zoning_lot_record | logical | nonmissing | 2933 | distinct | 2
 zoning_lot_window_complete | logical | nonmissing | 2933 | distinct | 2
+site_lots_two_year | integer | nonmissing | 2933 | distinct | 20 min/median/mean/max 1/1/1.653597/29
+site_lot_area_two_year_sqft | numeric | nonmissing | 2933 | distinct | 1788 min/median/mean/max 0/5548/26397.84/1601432
+site_lots_unmapped_two_year | integer | nonmissing | 2933 | distinct | 8 min/median/mean/max 0/0/0.04636891/25
+zoning_lot_record_two_year | logical | nonmissing | 2933 | distinct | 2
+zoning_lot_two_year_window_complete | logical | nonmissing | 2933 | distinct | 2
 implausible_site | logical | nonmissing | 2933 | distinct | 2
 borough | character | nonmissing | 2917 | distinct | 5
 community_district | character | nonmissing | 2917 | distinct | 60

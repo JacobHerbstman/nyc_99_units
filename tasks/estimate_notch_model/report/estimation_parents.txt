@@ -1,7 +1,7 @@
 Rows: 5362
-Columns: 13
+Columns: 15
 Key fields: variant, sample, parent_id
-Saved-file MD5: c7ee1ab89e4c7811523901c6738709d1
+Saved-file MD5: 1edbe7c9397cf4323e506e902e53d12b
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 variant | character | nonmissing | 5362 | distinct | 6
@@ -16,4 +16,6 @@ built_far | numeric | nonmissing | 5362 | distinct | 520 min/median/mean/max 0/0
 log_lot_area | numeric | nonmissing | 5362 | distinct | 1134 min/median/mean/max 5.631212/9.392662/9.448582/15.93752
 starting_lots | integer | nonmissing | 5362 | distinct | 13 min/median/mean/max 1/1/1.607236/29
 site_lots | integer | nonmissing | 5362 | distinct | 18 min/median/mean/max 1/1/2.027229/29
+site_lots_two_year | integer | nonmissing | 5362 | distinct | 22 min/median/mean/max 1/2/2.395188/30
+site_lot_area_two_year_sqft | numeric | nonmissing | 5362 | distinct | 1223 min/median/mean/max 1130/15578/37066.26/8347883
 borough | character | nonmissing | 5362 | distinct | 5

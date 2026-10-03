@@ -34,7 +34,8 @@ extended <- read_sample("../input/extended_parent_opportunity_panel.parquet",
 site_traits <- function(parents) {
   parents |>
     select(sample, parent_id, cohort_date, residential_far, built_far, log_lot_area, starting_lots, site_lots,
-      zoning_lot_record, borough, observed_followup_days, parent_total_units, n_components)
+      site_lots_two_year, site_lot_area_two_year_sqft, zoning_lot_record, borough, observed_followup_days,
+      parent_total_units, n_components)
 }
 
 # Variants of the sample:
@@ -88,7 +89,8 @@ estimation_parents <- bind_rows(lapply(names(variants), function(variant) {
     post |> mutate(weight_zoning_borough = 1 / n(), weight_with_lot_area = 1 / n())
   ) |>
     transmute(variant, sample, parent_id, units, buildings, weight_zoning_borough, weight_with_lot_area,
-      residential_far, built_far, log_lot_area, starting_lots, site_lots, borough)
+      residential_far, built_far, log_lot_area, starting_lots, site_lots, site_lots_two_year,
+      site_lot_area_two_year_sqft, borough)
 }))
 
 SaveData(estimation_parents, c("variant", "sample", "parent_id"), "../output/estimation_parents.parquet")

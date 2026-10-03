@@ -79,6 +79,19 @@ a remaining building.
   is FALSE for parents first filed less than 180 days before the October 1,
   2026 ACRIS capture.
 
+The same measures over a two-year window after the first filing carry the
+suffix `_two_year` (`site_lots_two_year`, `site_lot_area_two_year_sqft`,
+`site_lots_unmapped_two_year`, `zoning_lot_record_two_year`,
+`zoning_lot_two_year_window_complete`): ZONE documents, mergers and
+subdivisions to two years after the first filing, and demolitions from three
+years before it. Zoning lot descriptions are often recorded late: of the historical
+parents with a ZONE document from two years before to three years after the
+first filing, about 30 percent are first recorded more than 180 days after it
+and 5 percent more than two years after. The 180-day measures are the same in
+both periods and serve comparisons with recent parents; the two-year measures
+are complete for historical parents and incomplete for most recent ones, and
+describe historical sites in the model's splitting cost.
+
 A reviewed parent's site measures are its documented parcels. These columns are
 alongside the established land measures and do not replace them.
 

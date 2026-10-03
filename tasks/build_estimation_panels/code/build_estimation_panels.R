@@ -109,7 +109,8 @@ features <- bind_rows(read_parquet("../input/historical_parent_site_characterist
     number_unique_lots = feature_lots, lot_area_sqft = lotarea, residential_far = residfar, built_far = builtfar,
     built_floor_area_estimated, merged_lots_added, merger_window_complete, starting_lots, site_lots, site_lot_area_sqft,
     site_residential_far, site_frontage_ft, air_rights_donor_lots, site_lots_unmapped, zoning_lot_record,
-    zoning_lot_window_complete, implausible_site, borough, community_district)
+    zoning_lot_window_complete, site_lots_two_year, site_lot_area_two_year_sqft, site_lots_unmapped_two_year,
+    zoning_lot_record_two_year, zoning_lot_two_year_window_complete, implausible_site, borough, community_district)
 stopifnot(!anyDuplicated(exposure[c("sample", "parent_id")]), !anyDuplicated(features[c("sample", "parent_id")]))
 
 parent_panel <- parents |>
@@ -141,7 +142,8 @@ parent_panel <- parent_panel |>
     residential_far, built_far, residential_capacity_sqft, redevelopment_slack_sqft, built_floor_area_estimated,
     merged_lots_added, merger_window_complete, starting_lots, site_lots, site_lot_area_sqft, site_residential_far,
     site_frontage_ft, air_rights_donor_lots, site_lots_unmapped, zoning_lot_record, zoning_lot_window_complete,
-    implausible_site, borough, community_district)
+    site_lots_two_year, site_lot_area_two_year_sqft, site_lots_unmapped_two_year, zoning_lot_record_two_year,
+    zoning_lot_two_year_window_complete, implausible_site, borough, community_district)
 
 # date_filed is the original filing date of a refiled building; record_filing_date
 # is the filing's own date.

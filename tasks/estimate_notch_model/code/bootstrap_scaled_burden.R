@@ -23,19 +23,19 @@ stopifnot(model %in% c("scaled_burden", "lot_count_splitting", "site_lot_splitti
 maximum_units <- 300
 
 # Bootstrap intervals for the main model, the scaled burden of
-# fit_heterogeneity.R: each parent's jump and kink are multiplied by one
-# lognormal scale with median 1, so kappa and tau describe the median parent.
-# Every sample of draw_bootstrap_samples.R is re-estimated by likelihood on the
-# full grid of kink-to-jump ratios, median jumps, spreads, gamma, sigma and the
-# unexplained share epsilon. The model's choices do not depend on the weights,
-# so one pass scores every draw; the ratios run in parallel. The variant of the
-# sample is all_filings for the main estimate, or a check (horizon_180,
-# cohort_2025, placebo, history_2014, zoning_lot_recorded). The models
-# lot_count_splitting and site_lot_splitting are the variants of
-# fit_heterogeneity.R that fit recent parents on one lot and on several
-# separately, each against the historical parents of the same group, with mean
-# splitting cost sigma * exp(-beta) on several lots, counted as starting lots or
-# as site lots; the scaled burden is their case of one group and beta = 0.
+# fit_heterogeneity.R: each parent's jump is multiplied by one lognormal scale
+# with median 1, so kappa is the median jump. Every sample of
+# draw_bootstrap_samples.R is re-estimated by likelihood on the full grid of
+# median jumps, spreads, gamma, sigma and the unexplained share epsilon. The
+# model's choices do not depend on the weights, so one pass scores every draw;
+# the values of gamma run in parallel. The variant of the sample is
+# all_filings for the main estimate, or a check (horizon_180, cohort_2025,
+# placebo, history_2014, zoning_lot_recorded). The models lot_count_splitting
+# and site_lot_splitting are the variants of fit_heterogeneity.R that fit recent
+# parents on one lot and on several separately, each against the historical
+# parents of the same group, with mean splitting cost sigma * exp(-beta) on
+# several lots, counted as starting lots or as site lots within 180 days; the
+# scaled burden is their case of one group and beta = 0.
 parents <- read_parquet("../output/estimation_parents.parquet") |> filter(variant == !!variant)
 stopifnot(nrow(parents) > 0L)
 historical <- parents |> filter(sample == "historical")
@@ -69,77 +69,74 @@ unit_weight <- unit_weight / rep(colSums(unit_weight), each = length(x))
 benchmark_units <- post_parents * colSums(unit_weight * x)
 candidates <- size_candidates(x, J0, 1, "separate")
 
-# The best point of every draw along one kink-to-jump ratio and one beta. At
-# each gamma and sigma, the shares at every burden level are averaged over each
-# distribution, renormalized over the compared cells of each group, and scored
-# at the best epsilon; ties keep the first gamma, sigma and distribution.
-fit_ratio <- function(r, beta) {
-  sizes <- lapply(kappa_values, function(kappa) {
-    choose_sizes(candidates, burden_table(max(x), max(candidates$J), kappa, ratio_grid[r] * kappa, 1, "separate"))
-  })
+# The best point of every draw at one gamma and one beta. At each sigma, the
+# shares at every jump are averaged over each distribution, renormalized over
+# the compared cells of each group, and scored at the best epsilon; ties keep
+# the first sigma and distribution, and across jobs the first gamma and beta.
+sizes <- lapply(kappa_values, function(kappa) {
+  choose_sizes(candidates, burden_table(max(x), max(candidates$J), kappa, "separate"))
+})
+fit_gamma <- function(gamma, beta) {
   scale <- splitting_scale(as.numeric(group == 2L), beta, 0)
-  best <- tibble(draw = 0:draws, log_likelihood = -Inf, gamma = NA_real_, sigma = NA_real_,
+  best <- tibble(draw = 0:draws, log_likelihood = -Inf, gamma = gamma, sigma = NA_real_,
     distribution = NA_integer_, epsilon = NA_real_, units_lost = NA_real_)
-  for (gamma in gamma_grid) {
-    levels <- lapply(sizes, function(level_sizes) {
-      segments <- organization_segments(level_sizes, J0, gamma)
-      probabilities <- segment_probabilities(segments, sigma_grid, scale[segments$i])
-      by_parent_cell <- rowsum(probabilities, (outcome_cell(segments$m, segments$J) - 1L) * length(x) + segments$i)
-      key <- as.integer(rownames(by_parent_cell)) - 1L
-      parent <- key %% length(x) + 1L
-      list(by_parent_cell = by_parent_cell, parent = parent,
-        cell = match(key %/% length(x) + 1L, cells) + length(cells) * (group[parent] - 1L),
-        lost = benchmark_units - post_parents * crossprod(unit_weight, rowsum(probabilities * segments$m, segments$i)))
-    })
-    for (s in seq_along(sigma_grid)) {
-      by_level <- t(sapply(levels, function(level) {
-        kept <- !is.na(level$cell)
-        shares <- matrix(0, length(cell_group), ncol(W))
-        summed <- rowsum(level$by_parent_cell[kept, s] * W[level$parent[kept], , drop = FALSE], level$cell[kept])
-        shares[as.integer(rownames(summed)), ] <- summed
-        as.vector(shares)
-      }))
-      mixed <- array(burden_mass %*% by_level, c(nrow(burden_mass), length(cell_group), ncol(W)))
-      totals <- sapply(seq_len(groups), function(g) apply(mixed[, cell_group == g, , drop = FALSE], c(1, 3), sum),
-        simplify = "array")
-      score <- matrix(-Inf, nrow(burden_mass), ncol(W))
-      at_epsilon <- matrix(NA_integer_, nrow(burden_mass), ncol(W))
-      for (e in seq_along(epsilon_grid)) {
-        log_likelihood <- 0
-        for (c in observed_cells) {
-          log_likelihood <- log_likelihood + rep(n[c, ], each = nrow(burden_mass)) *
-            log((1 - epsilon_grid[e]) * mixed[, c, ] / totals[, , cell_group[c]] + epsilon_grid[e] * uniform[c])
-        }
-        better <- log_likelihood > score
-        score[better] <- log_likelihood[better]
-        at_epsilon[better] <- e
+  levels <- lapply(sizes, function(level_sizes) {
+    segments <- organization_segments(level_sizes, J0, gamma)
+    probabilities <- segment_probabilities(segments, sigma_grid, scale[segments$i])
+    by_parent_cell <- rowsum(probabilities, (outcome_cell(segments$m, segments$J) - 1L) * length(x) + segments$i)
+    key <- as.integer(rownames(by_parent_cell)) - 1L
+    parent <- key %% length(x) + 1L
+    list(by_parent_cell = by_parent_cell, parent = parent,
+      cell = match(key %/% length(x) + 1L, cells) + length(cells) * (group[parent] - 1L),
+      lost = benchmark_units - post_parents * crossprod(unit_weight, rowsum(probabilities * segments$m, segments$i)))
+  })
+  for (s in seq_along(sigma_grid)) {
+    by_level <- t(sapply(levels, function(level) {
+      kept <- !is.na(level$cell)
+      shares <- matrix(0, length(cell_group), ncol(W))
+      summed <- rowsum(level$by_parent_cell[kept, s] * W[level$parent[kept], , drop = FALSE], level$cell[kept])
+      shares[as.integer(rownames(summed)), ] <- summed
+      as.vector(shares)
+    }))
+    mixed <- array(burden_mass %*% by_level, c(nrow(burden_mass), length(cell_group), ncol(W)))
+    totals <- sapply(seq_len(groups), function(g) apply(mixed[, cell_group == g, , drop = FALSE], c(1, 3), sum),
+      simplify = "array")
+    score <- matrix(-Inf, nrow(burden_mass), ncol(W))
+    at_epsilon <- matrix(NA_integer_, nrow(burden_mass), ncol(W))
+    for (e in seq_along(epsilon_grid)) {
+      log_likelihood <- 0
+      for (c in observed_cells) {
+        log_likelihood <- log_likelihood + rep(n[c, ], each = nrow(burden_mass)) *
+          log((1 - epsilon_grid[e]) * mixed[, c, ] / totals[, , cell_group[c]] + epsilon_grid[e] * uniform[c])
       }
-      distribution <- apply(score, 2, which.max)
-      chosen <- cbind(distribution, seq_len(ncol(W)))
-      lost <- burden_mass %*% t(do.call(cbind, lapply(levels, function(level) level$lost[, s])))
-      improved <- score[chosen] > best$log_likelihood
-      best[improved, -1] <- tibble(log_likelihood = score[chosen], gamma = gamma, sigma = sigma_grid[s],
-        distribution = distribution, epsilon = epsilon_grid[at_epsilon[chosen]], units_lost = lost[chosen])[improved, ]
+      better <- log_likelihood > score
+      score[better] <- log_likelihood[better]
+      at_epsilon[better] <- e
     }
+    distribution <- apply(score, 2, which.max)
+    chosen <- cbind(distribution, seq_len(ncol(W)))
+    lost <- burden_mass %*% t(do.call(cbind, lapply(levels, function(level) level$lost[, s])))
+    improved <- score[chosen] > best$log_likelihood
+    best[improved, -1] <- tibble(log_likelihood = score[chosen], gamma = gamma, sigma = sigma_grid[s],
+      distribution = distribution, epsilon = epsilon_grid[at_epsilon[chosen]], units_lost = lost[chosen])[improved, ]
   }
-  best |> mutate(ray = r, lot_count_elasticity = beta)
+  best |> mutate(lot_count_elasticity = beta)
 }
-jobs <- expand_grid(ray = seq_along(ratio_grid), beta = betas)
-by_ratio <- mclapply(seq_len(nrow(jobs)), function(j) fit_ratio(jobs$ray[j], jobs$beta[j]),
+jobs <- expand_grid(beta = betas, gamma = gamma_grid)
+by_job <- mclapply(seq_len(nrow(jobs)), function(j) fit_gamma(jobs$gamma[j], jobs$beta[j]),
   mc.cores = min(nrow(jobs), detectCores() - 2L))
-stopifnot(!vapply(by_ratio, inherits, logical(1), "try-error"))
+stopifnot(!vapply(by_job, inherits, logical(1), "try-error"))
 
-bootstrap_draws <- bind_rows(by_ratio) |>
+bootstrap_draws <- bind_rows(by_job) |>
   group_by(draw) |>
   slice_max(log_likelihood, n = 1, with_ties = FALSE) |>
   ungroup() |>
-  mutate(kink_to_jump = ratio_grid[ray], kappa = burden_distributions$median[distribution],
-    tau = kink_to_jump * kappa, dispersion = burden_distributions$dispersion[distribution],
+  mutate(kappa = burden_distributions$median[distribution], dispersion = burden_distributions$dispersion[distribution],
     share_jump_below_0.01 = rowSums(burden_mass[, kappa_values < 0.01, drop = FALSE])[distribution],
     share_jump_above_1 = rowSums(burden_mass[, kappa_values > 1, drop = FALSE])[distribution],
     post_parents = post_parents[draw + 1L]) |>
-  select(draw, kappa, tau, kink_to_jump, dispersion, gamma, sigma, any_of(if (by_lots) "lot_count_elasticity"),
-    epsilon, share_jump_below_0.01, share_jump_above_1, units_lost, log_likelihood, post_parents)
+  select(draw, kappa, dispersion, gamma, sigma, any_of(if (by_lots) "lot_count_elasticity"), epsilon,
+    share_jump_below_0.01, share_jump_above_1, units_lost, log_likelihood, post_parents)
 
 # For the main sample, draw 0 reproduces the estimate of fit_heterogeneity.R.
 if (variant == "all_filings") {
@@ -151,8 +148,8 @@ if (variant == "all_filings") {
     abs(data_draw$units_lost - estimate$units_lost) < 1e-6)
 }
 
-parameters <- c("kappa", "tau", "kink_to_jump", "dispersion", "gamma", "sigma",
-  if (by_lots) "lot_count_elasticity", "epsilon", "share_jump_below_0.01", "share_jump_above_1", "units_lost")
+parameters <- c("kappa", "dispersion", "gamma", "sigma", if (by_lots) "lot_count_elasticity", "epsilon",
+  "share_jump_below_0.01", "share_jump_above_1", "units_lost")
 bootstrap_estimates <- bootstrap_draws |>
   pivot_longer(all_of(parameters), names_to = "parameter") |>
   group_by(parameter) |>

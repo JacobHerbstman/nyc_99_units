@@ -1,0 +1,18 @@
+Rows: 501
+Columns: 12
+Key fields: draw
+Saved-file MD5: fa1015218fafada433db2bc6ef673ad5
+Rows missing a key field: 0
+Repeated keys beyond the first row: 0
+draw | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max 0/250/250/500
+kappa | numeric | nonmissing | 501 | distinct | 19 min/median/mean/max 0.08/0.3/0.402016/1
+dispersion | numeric | nonmissing | 501 | distinct | 7 min/median/mean/max 0/2.5/2.734531/4
+gamma | numeric | nonmissing | 501 | distinct | 7 min/median/mean/max 1/3/2.777944/3
+sigma | numeric | nonmissing | 501 | distinct | 16 min/median/mean/max 0.3162278/1.584893/2.245947/10
+lot_count_elasticity | numeric | nonmissing | 501 | distinct | 6 min/median/mean/max 1.5/3/3.52495/5
+epsilon | numeric | nonmissing | 501 | distinct | 12 min/median/mean/max 0.001/0.02/0.02319261/0.15
+share_jump_below_0.01 | numeric | nonmissing | 501 | distinct | 74 min/median/mean/max 0/0.07205225/0.08086834/0.215044
+share_jump_above_1 | numeric | nonmissing | 501 | distinct | 74 min/median/mean/max 0/0.300346/0.2988174/0.4777562
+units_lost | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max 441.1637/1466.826/1504.406/3026.348
+log_likelihood | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max -656.9179/-561.0739/-558.927/-476.5591
+post_parents | numeric | nonmissing | 501 | distinct | 27 min/median/mean/max 264/278/278.2535/291

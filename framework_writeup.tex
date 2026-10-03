@@ -114,15 +114,14 @@ For a constituent assessed separately under the policy, let the incremental net 
 d_i(n)=
 \begin{cases}
 0,& n\le99,\\[2pt]
-K_i+\dfrac{\beta_i}{1+\lambda}
-\left(n^{1+\lambda}-100^{1+\lambda}\right),& n\ge100,
+K_i,& n\ge100,
 \end{cases}
-\qquad K_i,\beta_i\ge0.
+\qquad K_i\ge0.
 \label{eq:burden}
 \end{equation}
-The level jump $K_i$ makes entry into the high regime costly even for a project that would otherwise choose just over 99. The steeper cost schedule, governed by $\beta_i$, can also reduce the size of projects that remain above the threshold. Both terms represent net effects of policy requirements and benefits. Setting the incremental burden to zero removes the modeled escalation while retaining ordinary project economics, rather than removing the entire tax incentive.
+The jump $K_i$ makes entry into the high regime costly even for a project that would otherwise choose just over 99. It represents the net effect of policy requirements and benefits. A building that crosses 100 pays the jump and keeps its preferred size: a cost that also rose with units above 100 (a kink) was estimated at zero in the main model and is left out. Setting the incremental burden to zero removes the modeled escalation while retaining ordinary project economics, rather than removing the entire tax incentive.
 
-The burden need not be the same for every developer. It combines wage requirements, affordability rules, tax benefits and the chance of being exposed at all. One motivating reason for differences is the construction wage floor, which raises the cost of every construction hour: a developer whose contractor already pays close to the required wage would feel both the jump and the steeper schedule little, and one far below it a great deal. We therefore scale the whole burden by a developer-specific factor $b_i$, lognormal with median one and log standard deviation $s$: developer $i$ faces $b_iK$ and $b_i\beta$, and $K$ and $\beta$ describe the median developer. The factor is independent of the parent's size, site and splitting cost. The estimated spread measures how much burdens differ; it does not show that wages are the reason. Making the factor depend on local construction wages would test that mechanism and is reserved for a later version.
+The burden need not be the same for every developer. It combines wage requirements, affordability rules, tax benefits and the chance of being exposed at all. One motivating reason for differences is the construction wage floor, which raises the cost of every construction hour: a developer whose contractor already pays close to the required wage would feel the jump little, and one far below it a great deal. We therefore scale the jump by a developer-specific factor $b_i$, lognormal with median one and log standard deviation $s$: developer $i$ faces $b_iK$, and $K$ describes the median developer. The factor is independent of the parent's size, site and splitting cost. The estimated spread measures how much burdens differ; it does not show that wages are the reason. Making the factor depend on local construction wages would test that mechanism and is reserved for a later version.
 
 For a given total $m$ and constituent count $J$, the developer selects the feasible division with the lowest policy burden:
 \begin{equation}
@@ -142,9 +141,9 @@ This comparison allows the developer to reduce total units, change organization,
 
 For one constituent, 99 is the largest total below the escalation. For two independently assessed constituents, that total is 198, uniquely divided as 99+99. A project that would prefer more than 198 units may stop there if the cost of reducing size is smaller than the burden of crossing the threshold. A project that would prefer 180 units can avoid the escalation through two subthreshold constituents without reducing its total.
 
-Above 198, the developer can put 99 units in one constituent and the remainder in another, or allow both constituents to cross 100. Thus a 220-unit total can be organized as 99+121 or 110+110. Which is cheaper depends on the level jump, the marginal burden, and the site's feasible divisions. The model does not force every large parent into one building or an exact multiple of 99.
+Above 198, the developer can put 99 units in one constituent and the remainder in another, or allow both constituents to cross 100. Thus a 220-unit total can be organized as 99+121 or 110+110. With a jump alone, 99+121 pays it once and 110+110 twice, so the first is cheaper where the site allows it. The model does not force every large parent into one building or an exact multiple of 99.
 
-Splitting consequently changes what the spikes can identify. A project at 99 may have reduced size because splitting was expensive or unavailable. A project at 198 may have preserved its total or reduced a larger proposal. The distribution of parent totals alone cannot assign a unique origin to each spike. The joint distribution of totals and numbers of constituents supplies the additional evidence. The estimation uses the number, not the full configuration: 99+121 and 110+110 fall in the same cell, so the configurations do not help identify the steeper schedule. They remain available as a check outside the fit. The pair at 198 is the exception: a policy response there is always 99+99 in the model, and every observed one is.
+Splitting consequently changes what the spikes can identify. A project at 99 may have reduced size because splitting was expensive or unavailable. A project at 198 may have preserved its total or reduced a larger proposal. The distribution of parent totals alone cannot assign a unique origin to each spike. The joint distribution of totals and numbers of constituents supplies the additional evidence. The estimation uses the number, not the full configuration: 99+121 and 110+110 fall in the same cell. The configurations remain available as a check outside the fit. The pair at 198 is the exception: a policy response there is always 99+99 in the model, and every observed one is.
 
 The two-constituent example explains the mechanism. The estimation allows every constituent count up to $\lceil x_i/99\rceil$, the fewest buildings that keep all of them below 100; more buildings cannot lower the burden further. The 150-unit regime in geographic Zones A and B is not modeled for now. It affects only Zone A and B alternatives above 150 units, and restricting observed outcomes below 150 would not remove those alternatives from the developer's choice.
 
@@ -157,7 +156,6 @@ We never observe the burden of the threshold or the cost of splitting. We infer 
 Costs are expressed relative to each parent's curved cost of 99 units, $A_i=C_{0i}(99)$:
 \begin{equation}
 \kappa=K/A_i,\qquad
-\tau=\beta/\alpha_i,\qquad
 \bar c_i=c_i/A_i .
 \label{eq:ratios}
 \end{equation}
@@ -180,7 +178,7 @@ Each recent parent of at most 300 units is treated as a draw from the predicted 
 \log L(\theta,\varepsilon)=\sum_c n_c\log\bigl[(1-\varepsilon)\,p_c(\theta)+\varepsilon\,u_c\bigr],
 \label{eq:likelihood}
 \end{equation}
-where $n_c$ counts recent parents in cell $c$. The unexplained share is not assigned a cause: it can absorb linkage or unit-count errors, behavior the model omits, or a flawed historical comparison. Units lost use only the model's choices, so any change hidden in the unexplained share is excluded. The parameters $\theta=(\kappa,\tau/\kappa,s,\gamma,\sigma)$ and $\varepsilon$ are chosen on a grid; the kink enters as a ratio to the jump because scaling by $b_i$ preserves that ratio.
+where $n_c$ counts recent parents in cell $c$. The unexplained share is not assigned a cause: it can absorb linkage or unit-count errors, behavior the model omits, or a flawed historical comparison. Units lost use only the model's choices, so any change hidden in the unexplained share is excluded. The parameters $\theta=(\kappa,s,\gamma,\sigma)$ and $\varepsilon$ are chosen on a grid.
 
 Uncertainty comes from 500 bootstrap samples that resample parents with replacement within period and borough, recalibrate the weights to each resampled recent sample, and re-estimate on the full grid. Stratifying by borough keeps Staten Island, with five historical and two recent parents, in every calibration.
 
@@ -208,7 +206,6 @@ among historical parents whose own size is at most 300, reweighted to sum to one
  & Estimate & 95\% bootstrap interval \\
 \midrule
 Median jump $\kappa$ & \MainKappa & \MainKappaLower--\MainKappaUpper \\
-Median kink $\tau$ & \MainTau & \MainTauLower--\MainTauUpper \\
 Burden spread $s$ & \MainSpread & \MainSpreadLower--\MainSpreadUpper \\
 Splitting-cost growth $\gamma$ & \MainGamma & \MainGammaLower--\MainGammaUpper \\
 Mean splitting cost $\sigma$ & \MainSigma & \MainSigmaLower--\MainSigmaUpper \\
@@ -218,11 +215,11 @@ Units lost & \MainUnitsLost & \MainUnitsLostLower--\MainUnitsLostUpper \\
 \end{tabular}
 \par\smallskip
 \begin{minipage}{\textwidth}
-\footnotesize \ModelHistoricalParents{} historical parents (2019--2022), reweighted on residential floor-area ratio and borough, and \ModelPostParents{} recent parents of at most 300 units. Costs are relative to the ordinary cost of 99 units; $\kappa$ and $\tau$ describe the median developer. Intervals are percentiles over 500 borough-stratified bootstrap draws with recalibrated weights; the bootstrap median of units lost is \MainUnitsLostMedian{}.
+\footnotesize \ModelHistoricalParents{} historical parents (2019--2022), reweighted on residential floor-area ratio and borough, and \ModelPostParents{} recent parents of at most 300 units. Costs are relative to the ordinary cost of 99 units; $\kappa$ describes the median developer. Intervals are percentiles over 500 borough-stratified bootstrap draws with recalibrated weights; the bootstrap median of units lost is \MainUnitsLostMedian{}.
 \end{minipage}
 \end{table}
 
-The median developer's jump is \MainKappa{}, and the burden varies widely. About \MainShareSmallBurden{} percent of developers face a jump below 0.01, which moves a single building to 99 only from sizes below about 109. About \MainShareLargeBurden{} percent face one above 1, which moves any single building wanting up to 198 units to 99 when splitting is expensive. The kink is zero at the estimate, but with the burden scaled by developer a kink up to about half the jump fits almost as well. The model therefore does not establish that parents that cross 100 build smaller. The mean cost of adding one building is about a fifth of the ordinary cost of 99 units. Its growth per building is not identified: its interval spans the grid.
+The median developer's jump is \MainKappa{}, and the burden varies widely. About \MainShareSmallBurden{} percent of developers face a jump below 0.01, which moves a single building to 99 only from sizes below about 109. About \MainShareLargeBurden{} percent face one above 1, which moves any single building wanting up to 198 units to 99 when splitting is expensive. A parent that crosses 100 pays the jump and builds its preferred size: estimated with a kink, the main model set it to zero. The mean cost of adding one building is about a fifth of the ordinary cost of 99 units. Its growth per building is not identified: its interval spans the grid.
 
 The model comes close to the concentrations at 99 and at $99+99$: \ModelShareOneAtNinetyNine{} percent of recent parents are predicted at 99 in one building against \ObservedShareOneAtNinetyNine{} observed, and \ModelSharePair{} percent as $99+99$ against \ObservedSharePair{}. It predicts too many two-building parents overall (\ModelShareTwoBuildings{} against \ObservedShareTwoBuildings{} percent). Figure~\ref{fig:fit} shows every cell.
 
@@ -243,10 +240,9 @@ The model comes close to the concentrations at 99 and at $99+99$: \ModelShareOne
 \toprule
  & Log-likelihood & AIC & Units lost \\
 \midrule
-One burden for every developer & \SingleLogLikelihood & \SingleAIC & \SingleUnitsLost \\
+One jump for every developer & \SingleLogLikelihood & \SingleAIC & \SingleUnitsLost \\
 Non-optimizers (\NonOptimizerShare\% keep their historical outcome) & \NonOptimizerLogLikelihood & \NonOptimizerAIC & \NonOptimizerUnitsLost \\
-Jump varies by developer, common kink & \VaryingJumpLogLikelihood & \VaryingJumpAIC & \VaryingJumpUnitsLost \\
-Main model: whole burden scaled by developer & \MainLogLikelihood & \MainAIC & \MainUnitsLost \\
+Main model: jump varies by developer & \MainLogLikelihood & \MainAIC & \MainUnitsLost \\
 Main model, splitting cost scaled by lot area ($\beta=\LotSplittingElasticity$) & \LotSplittingLogLikelihood & \LotSplittingAIC & \LotSplittingUnitsLost \\
 Main model, splitting cost scaled by project size ($\beta=\SizeSplittingElasticity$) & \SizeSplittingLogLikelihood & \SizeSplittingAIC & \SizeSplittingUnitsLost \\
 \bottomrule
@@ -257,11 +253,11 @@ Main model, splitting cost scaled by project size ($\beta=\SizeSplittingElastici
 \end{minipage}
 \end{table}
 
-Letting the burden differ across developers improves the likelihood substantially over a single burden. It also beats non-optimizers, the standard alternative \citep{klevenwaseem2013}, and when both are allowed the non-optimizer share goes to zero. The evidence is the region just above 100. A non-optimizer keeps any size, including 101 or 103, where no recent parent sits; a developer with a small burden still drops from 102 to 99, which costs almost nothing, yet stays at 130. Scaling the whole burden, rather than the jump alone, fits the same at its best point and allows a kink.
+Letting the jump differ across developers improves the likelihood substantially over a single jump. It also beats non-optimizers, the standard alternative \citep{klevenwaseem2013}, and when both are allowed the non-optimizer share goes to zero. The evidence is the region just above 100. A non-optimizer keeps any size, including 101 or 103, where no recent parent sits; a developer with a small burden still drops from 102 to 99, which costs almost nothing, yet stays at 130.
 
 Making the splitting cost depend on lot area or on project size does not significantly improve the fit ($p=0.07$ and $p=0.15$), but both lean the same way: splitting is harder for the largest projects. Both raise units lost, to \SizeSplittingUnitsLost{} and \LotSplittingUnitsLost{}, because parents that cannot split cheaply shrink instead. How the splitting cost varies with project size is the least settled part of the model and the one units lost depend on most. The bootstrap interval measures sampling uncertainty within the main specification, not uncertainty over these alternatives, so the headline should carry the range \MainUnitsLost--\LotSplittingUnitsLost{} alongside it.
 
-A logit over strategies---a building count, with every building below 100 or not---in place of the random splitting cost fits worse and has a defect specific to this setting. Each strategy draws its own shock, so once any burden exists a parent just above 100 gains near-equivalent alternatives: at a jump of 0.001, about half of parents wanting 100--110 units would move to 99. Bunching would then reflect the appearance of options rather than their cost. The least-squares single burden (jump \LeastSquaresKappa{}, kink \LeastSquaresTau{}, growth \LeastSquaresGamma{}, mean splitting cost \LeastSquaresSigma{}; \LeastSquaresUnitsLost{} units lost) remains as a robustness specification, estimated also with lot-area weights, a common 180-day follow-up horizon, curvature 0.5 and 2, a 249-unit cutoff, all sizes, and joint assessment of the whole parent.
+A logit over strategies---a building count, with every building below 100 or not---in place of the random splitting cost fits worse and has a defect specific to this setting. Each strategy draws its own shock, so once any burden exists a parent just above 100 gains near-equivalent alternatives: at a jump of 0.001, about half of parents wanting 100--110 units would move to 99. Bunching would then reflect the appearance of options rather than their cost. The least-squares single jump (jump \LeastSquaresKappa{}, growth \LeastSquaresGamma{}, mean splitting cost \LeastSquaresSigma{}; \LeastSquaresUnitsLost{} units lost) remains as a robustness specification, estimated also with lot-area weights, a common 180-day follow-up horizon, curvature 0.5 and 2, a 249-unit cutoff, all sizes, and joint assessment of the whole parent.
 
 \subsection{Checks of the sample}
 \label{sec:checks}
@@ -338,39 +334,21 @@ Using $v_i=\alpha_i x_i^\lambda$, divide the ordinary surplus loss by $A_i=C_{0i
 \end{equation}
 This follows from $\pi_0(x)-\pi_0(m)=v(x-m)-C_0(x)+C_0(m)$. For $\lambda=1$, the normalized loss is simply $((m-x)/99)^2$. The normalized constituent burden is
 \begin{equation}
-\bar d(n)=\ind\{n\ge100\}
-\left\{\kappa+\tau\left[\left(\frac{n}{99}\right)^{1+\lambda}
--\left(\frac{100}{99}\right)^{1+\lambda}\right]\right\}.
+\bar d(n)=\kappa\,\ind\{n\ge100\}.
 \end{equation}
 The developer minimizes $\ell_\lambda(m;x)+\bar\psi_i(J)+\bar d_{iJ}(m)$ over feasible integer totals and divisions. A bar denotes division by $A_i$. The unknown dollar scale cancels.
 
 \subsection{Two separately assessed constituents}
-Suppress the parent index and write $D(n)$ for the high-regime branch of \eqref{eq:burden}. If the relevant divisions are feasible, the minimum burden for two constituents is
+Suppress the parent index. If the relevant divisions are feasible, the minimum burden for two constituents is
 \begin{equation}
 d_2(m)=
 \begin{cases}
 0,&m\le198,\\
-K,&m=199,\\
-\min\{D(m-99),\ D(\lfloor m/2\rfloor)+D(\lceil m/2\rceil)\},&m\ge200.
+K,&m\ge199.
 \end{cases}
 \label{eq:two}
 \end{equation}
-The first case requires a feasible division satisfying both constituents' minimum sizes. At 199, a cost-minimizing division is 99+100. For larger totals, one candidate keeps a constituent at 99; the other divides units as evenly as possible between two high-regime constituents. Convexity delivers the latter result. When burdens are flat, additional cost-minimizing divisions can tie.
-
-For smooth interior branches, put $\theta=(1+\tau)^{1/\lambda}$. The conditional first-order conditions are
-\begin{center}
-\begin{tabularx}{\textwidth}{@{}p{0.40\textwidth}X@{}}
-\toprule
-Organization & Conditional parent total \\
-\midrule
-One constituent above 99 & $m=x/\theta$ \\[4pt]
-Two constituents below 100 & $m=x$, if feasible and $m\le198$ \\[4pt]
-One at 99, one above 99 & $x^\lambda=m^\lambda+\tau(m-99)^\lambda$ \\[4pt]
-Two above 99, equal sizes & $m=x/(1+\tau/2^\lambda)^{1/\lambda}$ \\
-\bottomrule
-\end{tabularx}
-\end{center}
-These formulas describe candidates, not the global choice. The integer calculation compares feasible totals, divisions, and regime boundaries. The 150-unit schedule replaces \eqref{eq:burden} where applicable, including for alternatives not observed in the data.
+The first case requires a feasible division satisfying both constituents' minimum sizes. Above 198, one constituent holds 99 and the other takes the rest, paying the jump once; letting both cross pays it twice and is never cheaper. With $J$ constituents the burden is likewise zero up to $99J$ units and $K$ above. Because the jump does not depend on size, a constituent that crosses 100 keeps its preferred size, so for each $J$ the best total is either the preferred total, paying the jump once, or the largest burden-free total $99J$. The integer calculation compares feasible totals and divisions directly. The 150-unit schedule replaces \eqref{eq:burden} where applicable, including for alternatives not observed in the data.
 
 \subsection{Exact choice probabilities}
 For each parent and constituent count $J\ge J^0$ the size search gives the cost $R_J$ of the best total. Totals above $x$ raise both the size loss and the burden, and totals below $99J$ only add loss, so the search covers the integers from $\min(x,99J)$ to $x$. A developer with splitting cost $c$ then pays $R_J+c\,(J-J^0)^\gamma$, a line in $c$ with slope $(J-J^0)^\gamma$. The chosen $J$ follows the lower envelope of these lines: at $c=0$ the lowest $R_J$, and at each crossing the next flatter line, ending at $J^0$. Each $J$ therefore owns an interval $[\underline c_J,\overline c_J)$, and with $c$ exponential with mean $\sigma$ its probability is $e^{-\underline c_J/\sigma}-e^{-\overline c_J/\sigma}$. The burden factor $b$ enters by repeating the calculation at burden levels on a grid extended to 5, where every parent of at most 300 units avoids 100, each level taking the lognormal probability between the midpoints to its neighbors.
@@ -396,7 +374,7 @@ The historical organization $J^0$ is taken as the parent's ordinary preference a
 
 What the historical choices do not reveal is how costly it is to add a constituent. The exponential distribution of $c_i$ and the growth $\gamma$ are therefore restrictions, and the quantity estimates depend on them. Three results bound that dependence. First, the growth $\gamma$ is not identified: the bootstrap interval covers the whole grid from 1 to 3. Second, letting the mean splitting cost vary with lot area or project size changes units lost by up to a factor of two without a significant change in fit (Table~\ref{tab:models}). Third, a logit over strategies in place of the exponential cost fits worse and makes bunching respond to the availability of alternatives rather than their cost.
 
-The model's other restrictions are the independence of the burden factor, the splitting cost and the parent's size; free division of units among constituents; the separately assessed schedule, with joint assessment of the whole parent as a robustness case; the size-loss curvature $\lambda=1$; and the unexplained share, spread uniformly over outcomes. Numerical checks confirm that historical totals and organization are recovered when the escalation is zero, that a single building shrinks to 99 exactly when its preferred total is below $99(1+\sqrt\kappa)$ and is compressed by $1+\tau$ above, that minimum burdens match exhaustive partitions, that the menu of constituent counts never binds, and that the exact probabilities match simulated cost draws.
+The model's other restrictions are the independence of the burden factor, the splitting cost and the parent's size; free division of units among constituents; the separately assessed schedule, with joint assessment of the whole parent as a robustness case; the size-loss curvature $\lambda=1$; and the unexplained share, spread uniformly over outcomes. Numerical checks confirm that historical totals and organization are recovered when the escalation is zero, that a single building shrinks to 99 exactly when its preferred total is below $99(1+\sqrt\kappa)$ and otherwise keeps it, that minimum burdens match exhaustive partitions, that the menu of constituent counts never binds, and that the exact probabilities match simulated cost draws.
 
 \begin{thebibliography}{99}
 \bibitem[Berry, Levinsohn, and Pakes(1995)]{blp1995}
