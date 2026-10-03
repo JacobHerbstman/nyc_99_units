@@ -1,17 +1,17 @@
 Rows: 501
 Columns: 11
 Key fields: draw
-Saved-file MD5: 60d3da846887a258941088d73688c623
+Saved-file MD5: 155c887c7b2d9a9325966b8ce309338b
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
 draw | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max 0/250/250/500
-kappa | numeric | nonmissing | 501 | distinct | 23 min/median/mean/max 0.04/0.18/0.2135329/1
-dispersion | numeric | nonmissing | 501 | distinct | 10 min/median/mean/max 0/1.5/1.651198/4
-gamma | numeric | nonmissing | 501 | distinct | 7 min/median/mean/max 1/3/2.552395/3
-sigma | numeric | nonmissing | 501 | distinct | 15 min/median/mean/max 0.03162278/0.1258925/0.1592524/0.7943282
-epsilon | numeric | nonmissing | 501 | distinct | 12 min/median/mean/max 0.001/0.03/0.04181836/0.15
-share_jump_below_0.01 | numeric | nonmissing | 501 | distinct | 119 min/median/mean/max 0/0.02551903/0.03924168/0.2441086
-share_jump_above_1 | numeric | nonmissing | 501 | distinct | 117 min/median/mean/max 0/0.09818527/0.1288564/0.4777562
-units_lost | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max 105.4455/390.7154/405.097/1084.378
-log_likelihood | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max -411.0549/-351.4026/-351.5802/-293.609
+kappa | numeric | nonmissing | 501 | distinct | 495 min/median/mean/max 0.04/0.1723355/0.2115424/1
+dispersion | numeric | nonmissing | 501 | distinct | 488 min/median/mean/max 0/1.586455/1.64576/4
+gamma | numeric | nonmissing | 501 | distinct | 7 min/median/mean/max 1/3/2.545409/3
+sigma | numeric | nonmissing | 501 | distinct | 499 min/median/mean/max 0.0321618/0.1401334/0.1594879/0.7943282
+epsilon | numeric | nonmissing | 501 | distinct | 417 min/median/mean/max 0.001/0.03934698/0.04187985/0.1640101
+share_jump_below_0.01 | numeric | nonmissing | 501 | distinct | 494 min/median/mean/max 0/0.02548959/0.03860302/0.2393579
+share_jump_above_1 | numeric | nonmissing | 501 | distinct | 488 min/median/mean/max 0/0.09818887/0.1272717/0.4762577
+units_lost | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max 105.4455/384.7635/404.7953/1084.378
+log_likelihood | numeric | nonmissing | 501 | distinct | 501 min/median/mean/max -410.8975/-351.3559/-351.5267/-293.4998
 post_parents | numeric | nonmissing | 501 | distinct | 25 min/median/mean/max 149/161/161.2116/173

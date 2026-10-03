@@ -121,7 +121,7 @@ splitting_scale <- function(log_value, beta, log_reference = median(log_value)) 
   exp(-beta * (log_value - log_reference))
 }
 
-# The parameter grid of the fit and the bootstrap.
+# The parameter grids of the fit and the bootstrap.
 kappa_grid <- c(0, 0.0025, 0.005, seq(0.01, 0.1, by = 0.01), seq(0.12, 0.3, by = 0.02),
   0.35, 0.4, 0.5, 0.6, 0.8, 1)
 gamma_grid <- c(1, 1.25, 1.5, 1.75, 2, 2.5, 3)
@@ -136,22 +136,21 @@ unexplained_shares <- function(cells) {
   width / sum(width)
 }
 
-# Burdens that differ across parents: the jump is lognormal with a median on
-# kappa_grid and log standard deviation on dispersion_grid (0 is a single
-# burden). The distribution sits on
-# kappa_grid extended to 5, where every parent of at most 300 units avoids 100:
-# each value takes the probability between the midpoints to its neighbors, so a
-# prediction is a weighted average of predictions at single burdens.
+# Jumps that differ across parents: lognormal with a median on kappa_grid and
+# log standard deviation on dispersion_grid (0 is one jump for every parent).
+# Each distribution is placed on a ladder of jump levels, kappa_values: the
+# grid extended to 5, where every parent of at most 300 units avoids 100. Each
+# level takes the probability between the midpoints to its neighbors
+# (kappa_edges), so a prediction is a weighted average of predictions at single
+# jumps, with weights in the rows of burden_mass.
 kappa_values <- c(kappa_grid, 1.5, 2, 3, 5)
 dispersion_grid <- c(0, 0.25, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 4)
 burden_distributions <- bind_rows(tibble(median = kappa_values, dispersion = 0),
   expand_grid(median = kappa_grid[kappa_grid > 0], dispersion = dispersion_grid[-1]))
-burden_mass <- local({
-  edges <- c(-Inf, head(kappa_values, -1) + diff(kappa_values) / 2, Inf)
-  t(mapply(function(median, dispersion) {
-    if (dispersion == 0) as.numeric(kappa_values == median) else diff(plnorm(edges, log(median), dispersion))
-  }, burden_distributions$median, burden_distributions$dispersion))
-})
+kappa_edges <- c(-Inf, head(kappa_values, -1) + diff(kappa_values) / 2, Inf)
+burden_mass <- t(mapply(function(median, dispersion) {
+  if (dispersion == 0) as.numeric(kappa_values == median) else diff(plnorm(kappa_edges, log(median), dispersion))
+}, burden_distributions$median, burden_distributions$dispersion))
 stopifnot(all(abs(rowSums(burden_mass) - 1) < 1e-12))
 
 # Parent-size bins and building groups (1, 2, 3+) define 45 disjoint cells.
@@ -162,10 +161,12 @@ size_bin_labels <- c("under 50", "50-89", "90-94", "95-98", "99", "100-104", "10
 # Cells whose whole size bin lies at or below a maximum total.
 cells_up_to <- function(maximum_units) which(rep(size_bins[-1], 3) <= maximum_units)
 
+# The cell of a parent with m units in J buildings.
 outcome_cell <- function(m, J) {
   cut(m, size_bins, labels = FALSE) + 15L * (pmin(J, 3L) - 1L)
 }
 
+# Total mass in each of the 45 cells, for every column of mass.
 cell_shares <- function(cell, mass) {
   shares <- matrix(0, 45, ncol(mass))
   totals <- rowsum(mass, cell)
@@ -195,4 +196,64 @@ bootstrap_counts <- function(samples, post, cells) {
     arrange(cell, draw) |>
     pull(n) |>
     matrix(nrow = length(cells), byrow = TRUE)
+}
+
+# The main model refined off the grid. At a fixed gamma, the segments of
+# every parent at each jump level give its choice probabilities for any sigma,
+# and a lognormal median kappa and spread s place mass on the levels, so the
+# likelihood is smooth in (kappa, s, sigma, epsilon). level_segments stores the
+# segments of one gamma; scaled_burden_at evaluates the main model at
+# theta = (log kappa, log s, log sigma, logit epsilon), for historical
+# weights w, recent cell counts n and the unit weights of units lost.
+level_segments <- function(sizes, J0, gamma, cells) {
+  lapply(sizes, function(level_sizes) {
+    segments <- organization_segments(level_sizes, J0, gamma)
+    segments$cell <- match(outcome_cell(segments$m, segments$J), cells)
+    segments[, c("i", "m", "cell", "lower", "upper")]
+  })
+}
+scaled_burden_at <- function(theta, segments, x, w, n, uniform, unit_weight) {
+  kappa <- exp(theta[1])
+  dispersion <- exp(theta[2])
+  sigma <- exp(theta[3])
+  epsilon <- plogis(theta[4])
+  mass <- diff(plnorm(kappa_edges, log(kappa), dispersion))
+  shares <- matrix(0, length(n), length(kappa_values))
+  lost <- numeric(length(kappa_values))
+  for (k in seq_along(kappa_values)) {
+    level <- segments[[k]]
+    probability <- exp(-level$lower / sigma) - exp(-level$upper / sigma)
+    kept <- !is.na(level$cell)
+    totals <- rowsum(w[level$i[kept]] * probability[kept], level$cell[kept])
+    shares[as.integer(rownames(totals)), k] <- totals
+    lost[k] <- sum(n) * sum(unit_weight[level$i] * probability * (x[level$i] - level$m))
+  }
+  predicted <- as.vector(shares %*% mass)
+  predicted <- predicted / sum(predicted)
+  observed <- n > 0
+  list(kappa = kappa, dispersion = dispersion, sigma = sigma, epsilon = epsilon, mass = mass,
+    predicted = predicted, units_lost = sum(mass * lost),
+    log_likelihood = sum(n[observed] * log((1 - epsilon) * predicted[observed] + epsilon * uniform[observed])))
+}
+
+# From a grid estimate, the likelihood is maximized at each gamma by L-BFGS-B
+# within the range of the grid; one row per gamma. The bounds matter where the
+# likelihood is flat, as in a placebo sample with no burden, where the
+# parameters would otherwise drift without converging. A zero jump or spread
+# starts at the smallest positive grid value, since the lognormal can only
+# approach it.
+refine_scaled_burden <- function(grid_point, segments_by_gamma, x, w, n, uniform, unit_weight) {
+  lower <- c(log(kappa_grid[2]), log(dispersion_grid[2]), log(min(sigma_grid)), qlogis(min(epsilon_grid)))
+  upper <- c(log(max(kappa_grid)), log(max(dispersion_grid)), log(max(sigma_grid)), qlogis(max(epsilon_grid)))
+  start <- with(grid_point, c(log(kappa), log(dispersion), log(sigma), qlogis(epsilon)))
+  start <- pmin(pmax(start, lower), upper)
+  bind_rows(lapply(seq_along(gamma_grid), function(g) {
+    evaluate <- function(theta) scaled_burden_at(theta, segments_by_gamma[[g]], x, w, n, uniform, unit_weight)
+    fit <- optim(start, function(theta) -evaluate(theta)$log_likelihood, method = "L-BFGS-B", lower = lower,
+      upper = upper)
+    e <- evaluate(fit$par)
+    tibble(gamma = gamma_grid[g], kappa = e$kappa, dispersion = e$dispersion, sigma = e$sigma, epsilon = e$epsilon,
+      share_jump_below_0.01 = sum(e$mass[kappa_values < 0.01]), share_jump_above_1 = sum(e$mass[kappa_values > 1]),
+      log_likelihood = e$log_likelihood, units_lost = e$units_lost, converged = fit$convergence == 0)
+  }))
 }

@@ -1,11 +1,11 @@
-Rows: 111
+Rows: 118
 Columns: 5
 Key fields: model, parameter, value
-Saved-file MD5: e0693596264e219151d5f2c28d941882
+Saved-file MD5: 7cc9d07351515605a60774cb02d4df58
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-model | character | nonmissing | 111 | distinct | 6
-parameter | character | nonmissing | 111 | distinct | 5
-value | numeric | nonmissing | 111 | distinct | 44 min/median/mean/max -3/0.25/0.6547523/5
-log_likelihood | numeric | nonmissing | 111 | distinct | 96 min/median/mean/max -766.7613/-587.3057/-594.0808/-582.9238
-units_lost | numeric | nonmissing | 111 | distinct | 96 min/median/mean/max 0/760.5381/864.7583/3348.975
+model | character | nonmissing | 118 | distinct | 6
+parameter | character | nonmissing | 118 | distinct | 6
+value | numeric | nonmissing | 118 | distinct | 46 min/median/mean/max -3/0.27/0.7260805/5
+log_likelihood | numeric | nonmissing | 118 | distinct | 103 min/median/mean/max -766.7613/-586.8587/-593.5242/-582.9238
+units_lost | numeric | nonmissing | 118 | distinct | 103 min/median/mean/max 0/802.8662/861.6911/3348.975

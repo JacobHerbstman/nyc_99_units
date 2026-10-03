@@ -1,22 +1,22 @@
-Rows: 6
+Rows: 7
 Columns: 16
 Key fields: model
-Saved-file MD5: cc5c27e134a7ada1f86a90ddbb931eb6
+Saved-file MD5: 26dcc690fbc532f9da3a587210751ef3
 Rows missing a key field: 0
 Repeated keys beyond the first row: 0
-model | character | nonmissing | 6 | distinct | 6
-kappa | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 0.12/0.265/0.2883333/0.5
-dispersion | numeric | nonmissing | 6 | distinct | 4 min/median/mean/max 0/2/1.833333/4
-gamma | numeric | nonmissing | 6 | distinct | 4 min/median/mean/max 1/2/1.875/2.5
-sigma | numeric | nonmissing | 6 | distinct | 3 min/median/mean/max 0.1584893/0.2253574/0.218518/0.2511886
-lot_elasticity | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max -2/0/-0.3333333/0
-size_elasticity | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max -3/0/-0.5/0
-pi | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max 0/0/0.03333333/0.2
-epsilon | numeric | nonmissing | 6 | distinct | 2 min/median/mean/max 0.015/0.015/0.02083333/0.05
-share_jump_below_0.01 | numeric | nonmissing | 6 | distinct | 4 min/median/mean/max 0/0.05602716/0.0585716/0.146876
-share_jump_above_1 | numeric | nonmissing | 6 | distinct | 4 min/median/mean/max 0/0.1662798/0.1823348/0.4094062
-log_likelihood | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max -594.6131/-584.5424/-586.1662/-582.9238
-free_parameters | numeric | nonmissing | 6 | distinct | 3 min/median/mean/max 4/5.5/5.333333/6
-aic | numeric | nonmissing | 6 | distinct | 6 min/median/mean/max 1177.848/1180.085/1182.999/1197.226
-likelihood_ratio | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 0/20.14141/16.89382/23.37857
-units_lost | numeric | nonmissing | 6 | distinct | 5 min/median/mean/max 495.8941/816.3052/966.1616/1697.014
+model | character | nonmissing | 7 | distinct | 7
+kappa | numeric | nonmissing | 7 | distinct | 6 min/median/mean/max 0.12/0.1870047/0.2738578/0.5
+dispersion | numeric | nonmissing | 7 | distinct | 5 min/median/mean/max 0/2/1.861413/4
+gamma | numeric | nonmissing | 7 | distinct | 4 min/median/mean/max 1/2/1.892857/2.5
+sigma | numeric | nonmissing | 7 | distinct | 4 min/median/mean/max 0.1584893/0.2198435/0.2187073/0.2511886
+lot_elasticity | numeric | nonmissing | 7 | distinct | 2 min/median/mean/max -2/0/-0.2857143/0
+size_elasticity | numeric | nonmissing | 7 | distinct | 2 min/median/mean/max -3/0/-0.4285714/0
+pi | numeric | nonmissing | 7 | distinct | 2 min/median/mean/max 0/0/0.02857143/0.2
+epsilon | numeric | nonmissing | 7 | distinct | 3 min/median/mean/max 0.01424606/0.015/0.01989229/0.05
+share_jump_below_0.01 | numeric | nonmissing | 7 | distinct | 5 min/median/mean/max 0/0.05602716/0.0582824/0.146876
+share_jump_above_1 | numeric | nonmissing | 7 | distinct | 5 min/median/mean/max 0/0.1662798/0.1812388/0.4094062
+log_likelihood | numeric | nonmissing | 7 | distinct | 6 min/median/mean/max -594.6131/-584.5424/-585.9273/-582.9238
+free_parameters | numeric | nonmissing | 7 | distinct | 3 min/median/mean/max 4/5/5.285714/6
+aic | numeric | nonmissing | 7 | distinct | 7 min/median/mean/max 1177.848/1179.085/1182.426/1197.226
+likelihood_ratio | numeric | nonmissing | 7 | distinct | 6 min/median/mean/max 0/20.14141/17.37162/23.37857
+units_lost | numeric | nonmissing | 7 | distinct | 6 min/median/mean/max 495.8941/805.8171/943.2552/1697.014

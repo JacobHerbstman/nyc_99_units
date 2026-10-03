@@ -8,17 +8,16 @@ suppressPackageStartupMessages({
 source("notch_model.R")
 source("../../shared/code/write_data_report.R")
 
-# Each weighted historical parent is moved through the policy choice, and the
-# predicted distribution of (total units, buildings) is matched to the recent
-# parents by least squares over disjoint cells. Parameters: the jump kappa, the
-# mean splitting cost sigma and its growth gamma, on the grid in notch_model.R.
+# The single jump by least squares, a robustness check on the likelihood of
+# fit_heterogeneity.R. Each weighted historical parent is moved through the
+# policy choice, and the predicted shares of (total units, buildings) cells are
+# matched to the recent parents' shares by least squares. The parameters, the
+# jump kappa, the mean splitting cost sigma and its growth gamma, run over the
+# grid in notch_model.R.
 
-# The least-squares specification follows the framework, with a separately
-# assessed jump at 100 and lambda = 1. It compares parents of at most
-# 300 units: the size distribution within that range on both sides, so the
-# number of very large projects in each period does not enter. Each other
-# specification changes one element; below_250 moves the cutoff, and
-# all_sizes_linear_cost is the September 24 first fit.
+# least_squares compares parents of at most 300 units, the distribution within
+# that range on both sides, so the number of very large projects in each period
+# does not enter. Each other specification changes one element.
 specifications <- tribble(
   ~specification,           ~maximum_units, ~variant,      ~weight,                 ~lambda, ~gamma_free, ~assessment,
   "least_squares",          300,            "all_filings", "weight_zoning_borough", 1,       TRUE,        "separate",
@@ -35,144 +34,60 @@ specifications <- tribble(
 
 parents <- read_parquet("../output/estimation_parents.parquet")
 
-# Moments among parents in the compared size range.
-outcome_moments <- function(m, J, mass) {
-  mass <- mass / rep(colSums(mass), each = nrow(mass))
-  rbind(
-    share_99 = colSums(mass * (m == 99)),
-    share_99_plus_99 = colSums(mass * (m == 198 & J == 2)),
-    share_two_buildings = colSums(mass * (J == 2)),
-    share_three_plus_buildings = colSums(mass * (J >= 3)),
-    mean_units = colSums(mass * m)
-  )
-}
-
+# Every grid point of one specification, with its objective and units lost.
 fit_specification <- function(spec) {
   data <- parents |> filter(variant == spec$variant)
   historical <- data |> filter(sample == "historical")
-  post <- data |> filter(sample == "post_policy")
-  maximum_units <- spec$maximum_units
-  cells <- cells_up_to(maximum_units)
+  post <- data |> filter(sample == "post_policy", units <= spec$maximum_units)
   x <- historical$units
   J0 <- historical$buildings
   w <- historical[[spec$weight]]
-  post <- post |> filter(units <= maximum_units)
-  post_parents <- nrow(post)
-  post_mass <- matrix(1 / post_parents, post_parents, 1)
-  observed <- cell_shares(outcome_cell(post$units, post$buildings), post_mass)[cells, 1]
+  cells <- cells_up_to(spec$maximum_units)
+  observed <- tabulate(outcome_cell(post$units, post$buildings), 45L)[cells] / nrow(post)
   stopifnot(abs(sum(observed) - 1) < 1e-12)
 
   # Units lost are counted among historical parents whose own size is in the
   # compared range, scaled to the recent parents there.
-  in_range <- x <= maximum_units
-  unit_weight <- w * in_range / sum(w[in_range])
-  benchmark_units <- post_parents * sum(unit_weight * x)
+  unit_weight <- w * (x <= spec$maximum_units) / sum(w[x <= spec$maximum_units])
+  benchmark_units <- nrow(post) * sum(unit_weight * x)
   candidates <- size_candidates(x, J0, spec$lambda, spec$assessment)
   gammas <- if (spec$gamma_free) gamma_grid else 1
 
-  results <- list()
+  grid <- list()
   for (kappa in kappa_grid) {
-    burden <- burden_table(max(x), max(candidates$J), kappa, spec$assessment)
-    sizes <- choose_sizes(candidates, burden)
+    sizes <- choose_sizes(candidates, burden_table(max(x), max(candidates$J), kappa, spec$assessment))
+    # Units lost if every parent kept its historical building count.
     fixed_buildings <- sizes$m[sizes$J == J0[sizes$i]]
     for (gamma in gammas) {
       segments <- organization_segments(sizes, J0, gamma)
       probabilities <- segment_probabilities(segments, sigma_grid)
-      mass <- w[segments$i] * probabilities
-      shares <- cell_shares(outcome_cell(segments$m, segments$J), mass)
-      stopifnot(all(abs(colSums(shares) - 1) < 1e-10))
-      compared <- shares[cells, , drop = FALSE]
-      compared <- compared / rep(colSums(compared), each = length(cells))
-      kept <- segments$m <= maximum_units
-      results[[length(results) + 1L]] <- list(
-        grid = tibble(kappa = kappa, gamma = gamma, sigma = sigma_grid,
-          objective = colSums((compared - observed)^2),
-          units_lost_model = benchmark_units -
-            post_parents * colSums(unit_weight[segments$i] * probabilities * segments$m),
-          units_lost_fixed_buildings = benchmark_units - post_parents * sum(unit_weight * fixed_buildings),
-          as_tibble(t(outcome_moments(segments$m[kept], segments$J[kept], mass[kept, , drop = FALSE])))),
-        shares = compared)
+      shares <- cell_shares(outcome_cell(segments$m, segments$J), w[segments$i] * probabilities)[cells, , drop = FALSE]
+      shares <- shares / rep(colSums(shares), each = length(cells))
+      grid[[length(grid) + 1L]] <- tibble(kappa = kappa, gamma = gamma, sigma = sigma_grid,
+        objective = colSums((shares - observed)^2),
+        units_lost_model = benchmark_units -
+          nrow(post) * colSums(unit_weight[segments$i] * probabilities * segments$m),
+        units_lost_fixed_buildings = benchmark_units - nrow(post) * sum(unit_weight * fixed_buildings))
     }
   }
-  grid <- bind_rows(lapply(results, `[[`, "grid")) |>
-    mutate(specification = spec$specification, .before = 1)
-  shares <- do.call(cbind, lapply(results, `[[`, "shares"))
-  kept <- x <= maximum_units
-  benchmark <- cell_shares(outcome_cell(x, J0), matrix(w, ncol = 1))[cells, 1]
-  list(grid = grid, shares = shares, observed = observed, cells = cells,
-    benchmark = benchmark / sum(benchmark),
-    observed_moments = outcome_moments(post$units, post$buildings, post_mass)[, 1],
-    benchmark_moments = outcome_moments(x[kept], J0[kept], matrix(w[kept], ncol = 1))[, 1],
-    direct_unit_gap = benchmark_units - sum(post$units),
-    historical_parents = length(x), post_parents = post_parents)
+  # The best point, with the gap in mean units between the reweighted
+  # historical parents and the recent ones, which uses no model.
+  bind_rows(grid) |>
+    slice_min(objective, n = 1, with_ties = FALSE) |>
+    mutate(direct_unit_gap = benchmark_units - sum(post$units), historical_parents = length(x),
+      post_parents = nrow(post))
 }
 
-fits <- lapply(split(specifications, specifications$specification), fit_specification)
-
-grid <- bind_rows(lapply(fits, `[[`, "grid"))
-best <- grid |> group_by(specification) |> slice_min(objective, n = 1, with_ties = FALSE) |> ungroup()
-
-# Grid points within 10 percent of the best objective show how sharply the
-# data pick out the parameters.
-near_optimal <- grid |>
-  group_by(specification) |>
-  filter(objective <= 1.1 * min(objective)) |>
-  summarise(near_optimal_points = n(),
-    kappa_range = paste(range(kappa), collapse = "-"),
-    gamma_range = paste(range(gamma), collapse = "-"),
-    sigma_range = paste(signif(range(sigma), 3), collapse = "-"), .groups = "drop")
-
-estimates <- best |>
-  left_join(specifications, by = "specification", relationship = "one-to-one") |>
-  left_join(near_optimal, by = "specification", relationship = "one-to-one") |>
-  mutate(
-    units_preserved_by_splitting = units_lost_fixed_buildings - units_lost_model,
-    direct_unit_gap = sapply(fits[specification], `[[`, "direct_unit_gap"),
-    historical_parents = sapply(fits[specification], `[[`, "historical_parents"),
-    post_parents = sapply(fits[specification], `[[`, "post_parents"),
+estimates <- bind_rows(lapply(seq_len(nrow(specifications)), function(r) {
+  specifications[r, ] |> bind_cols(fit_specification(specifications[r, ]))
+})) |>
+  mutate(units_preserved_by_splitting = units_lost_fixed_buildings - units_lost_model,
     # Under joint assessment splitting cannot lower the burden, so the
     # splitting cost is not identified.
-    across(c(gamma, sigma), ~ if_else(assessment == "joint", NA_real_, .x)),
-    across(c(gamma_range, sigma_range), ~ if_else(assessment == "joint", NA_character_, .x))) |>
-  select(specification, maximum_units, variant, weight, lambda, assessment, kappa,
-    gamma, sigma, objective, near_optimal_points, kappa_range, gamma_range, sigma_range,
-    units_lost_model, units_lost_fixed_buildings, units_preserved_by_splitting,
-    direct_unit_gap, historical_parents, post_parents) |>
-  arrange(match(specification, specifications$specification))
-
-# Observed, benchmark and fitted moments and cells at each best point.
-best_column <- function(name) {
-  g <- fits[[name]]$grid
-  b <- best[best$specification == name, ]
-  which(g$kappa == b$kappa & g$gamma == b$gamma & g$sigma == b$sigma)
-}
-moment_names <- c("share_99", "share_99_plus_99", "share_two_buildings",
-  "share_three_plus_buildings", "mean_units")
-fit_moments <- bind_rows(lapply(specifications$specification, function(name) {
-  f <- fits[[name]]
-  column <- best_column(name)
-  tibble(specification = name, moment = moment_names,
-    observed = f$observed_moments[moment_names], benchmark = f$benchmark_moments[moment_names],
-    fitted = unlist(f$grid[column, moment_names]))
-}))
-cell_fit <- bind_rows(lapply(specifications$specification, function(name) {
-  f <- fits[[name]]
-  column <- best_column(name)
-  tibble(specification = name, cell = f$cells,
-    buildings = rep(c("1", "2", "3+"), each = 15)[f$cells], size_bin = rep(size_bin_labels, 3)[f$cells],
-    observed = f$observed, benchmark = f$benchmark, fitted = f$shares[, column])
-}))
-
-# Profiles: the best objective at each value of one parameter.
-profiles <- bind_rows(lapply(c("kappa", "gamma", "sigma"), function(parameter) {
-  grid |>
-    group_by(specification, value = .data[[parameter]]) |>
-    summarise(objective = min(objective), .groups = "drop") |>
-    mutate(parameter = parameter, .after = specification)
-}))
+    across(c(gamma, sigma), ~ if_else(assessment == "joint", NA_real_, .x))) |>
+  select(specification, maximum_units, variant, weight, lambda, assessment, kappa, gamma, sigma, objective,
+    units_lost_model, units_lost_fixed_buildings, units_preserved_by_splitting, direct_unit_gap,
+    historical_parents, post_parents)
 
 print(estimates, width = Inf)
 SaveData(estimates, "specification", "../output/estimates.csv")
-SaveData(fit_moments, c("specification", "moment"), "../output/fit_moments.csv")
-SaveData(cell_fit, c("specification", "cell"), "../output/cell_fit.csv")
-SaveData(profiles, c("specification", "parameter", "value"), "../output/parameter_profiles.csv")

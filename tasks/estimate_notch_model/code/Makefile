@@ -21,10 +21,7 @@ include ../../shared/code/generic.make
 ../output/model_checks.csv: test_notch_model.R notch_model.R ../output/estimation_parents.parquet Makefile | $(OOPR)
 	$(R) $<
 
-FIT_OUTPUTS := ../output/estimates.csv ../output/fit_moments.csv ../output/cell_fit.csv \
-	../output/parameter_profiles.csv
-
-$(FIT_OUTPUTS): fit_notch_model.R notch_model.R ../output/estimation_parents.parquet \
+../output/estimates.csv: fit_notch_model.R notch_model.R ../output/estimation_parents.parquet \
 	../output/model_checks.csv Makefile | $(OOPR)
 	$(R) $<
 
@@ -43,14 +40,12 @@ $(HETEROGENEITY_OUTPUTS): fit_heterogeneity.R notch_model.R ../output/estimation
 	../output/heterogeneity_estimates.csv Makefile | $(OOPR)
 	$(R) $< $*
 
-../output/pdf/model_fit.pdf: plot_model_fit.R ../output/heterogeneity_cell_fit.csv ../output/heterogeneity_estimates.csv \
-	../output/scaled_burden_bootstrap_estimates_all_filings.csv ../output/estimates.csv Makefile | $(OOPR) \
-	../output/pdf
+../output/pdf/model_fit.pdf: plot_model_fit.R $(HETEROGENEITY_OUTPUTS) \
+	../output/scaled_burden_bootstrap_estimates_all_filings.csv ../output/estimates.csv Makefile | $(OOPR) ../output/pdf
 	$(R) $<
 
-../output/model_values.tex: write_model_values.R ../output/estimation_parents.parquet \
-	../output/heterogeneity_estimates.csv ../output/heterogeneity_cell_fit.csv $(VARIANTS:%=../output/scaled_burden_bootstrap_estimates_%.csv) \
-	../output/estimates.csv Makefile | $(OOPR)
+../output/model_values.tex: write_model_values.R ../output/estimation_parents.parquet $(HETEROGENEITY_OUTPUTS) \
+	$(VARIANTS:%=../output/scaled_burden_bootstrap_estimates_%.csv) ../output/estimates.csv Makefile | $(OOPR)
 	$(R) $<
 
 ../input/parent_opportunity_panel.parquet: ../../build_estimation_panels/output/parent_opportunity_panel.parquet | ../input
